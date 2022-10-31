@@ -90,6 +90,7 @@ const SearchBar = () => {
 
     function handleSelectCity(location) {
         dispatch(setSelectedLocation(location));
+        navigate("/schools");
     }
 
     return (

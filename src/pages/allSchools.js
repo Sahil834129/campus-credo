@@ -9,9 +9,11 @@ import Breadcrumbs from '../common/Breadcrumbs';
 import { useLocation } from 'react-router-dom';
 import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { showLoader, hideLoader } from '../common/Loader';
 
 const AllSchools = () => {
+    const dispatch = useDispatch();
     const location = useLocation();
     const [schoolList, setSchoolList] = useState([]);
     const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
@@ -19,9 +21,13 @@ const AllSchools = () => {
 
     const applyFilters = async(filters) => {
         try {
+            showLoader(dispatch);
             const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, filters);
             setSchoolList(response.data);
-        } catch (error){}
+            hideLoader(dispatch);
+        } catch (error){
+            hideLoader(dispatch);
+        }
     }
 
     const getSchoolList = async() => {
@@ -32,8 +38,10 @@ const AllSchools = () => {
         if (schoolName !== null && schoolName !== '')
             filters.push({field: 'name', operator: "LIKE", value: schoolName});
         try {
+            showLoader(dispatch);
             const response =await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});
             setSchoolList(response.data);
+            hideLoader(dispatch);
         } catch (error){}
     }
     

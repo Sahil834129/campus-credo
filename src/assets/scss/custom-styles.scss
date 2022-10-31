@@ -2869,6 +2869,10 @@ align-items: center;
   }
 }
 
-
+._loading_overlay_content {
+  top: 45%;
+  left: 50%;
+  position: fixed;
+}
 
 @import "../scss/media.scss";

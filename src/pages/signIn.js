@@ -8,6 +8,7 @@ import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import {ToastContainer, toast} from "react-toastify";
 import OtpTimer from "otp-timer";
+import OtpInput from "react-otp-input";
 
 const SignIn = () => {
     const navigate = useNavigate();
@@ -82,6 +83,11 @@ const SignIn = () => {
             setSubmitting(false);
         });
     }
+
+    const handleOtpChange = (otps) => {
+        setOtp(otps);
+    }
+
     return (
         <Container className="main-container singup-main" fluid>
             <div className="signup-wrapper">
@@ -96,12 +102,34 @@ const SignIn = () => {
                                 <Form.Group className="mb-3">
                                     <Form.Control type="phone" onChange={e=> setPhone(e.target.value)} placeholder="Mobile Number" />
                                 </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e=> setOtpOrPassword(e.target.value)}/>
-                                </Form.Group>
+                                <div>Sign in using <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)}/>
+                                    password <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} />
+                                    Mobile OTP</div>
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                    <Form.Check type="checkbox" name="loginWithOTP" onChange={e=> setLoginWithOTP(e.target.checked)} label=" Login with OTP" />
-                                    { loginWithOTP ? getSendOTPLinkMessage() : '' }
+                                <div className="otp-fields-wrapper mt-3 mb-3">
+                                        {loginWithOTP === true ? (
+                                            <OtpInput
+                                                onChange={handleOtpChange}
+                                                numInputs={4}
+                                                isInputNum={true}
+                                                shouldAutoFocus
+                                                value={otp}
+                                                placeholder="------"
+                                                inputStyle={{
+                                                    color: "blue",
+                                                    width: "2.5rem",
+                                                    height: "3rem",
+                                                    margin: "0 0.5rem",
+                                                    fontSize: "2rem",
+                                                    borderRadius: 4,
+                                                    caretColor: "blue",
+                                                    border: "1px solid rgba(0,0,0,0.3)",
+                                                }}
+
+                                            />
+                                        ) : <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e=> setOtpOrPassword(e.target.value)}/>}
+                                        {loginWithOTP ? getSendOTPLinkMessage() : ''}
+                                    </div>
                                 </Form.Group>
                                 {/* <div className="form-group mb-3 forgot-pwd-container">
                                     <Link onClick={handleShowPasswordDialog}>Forgot Password?</Link>

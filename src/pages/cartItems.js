@@ -27,6 +27,10 @@ const ApplicationCart = () => {
     if (isLoggedIn())
       dispatch(getChildsList());
   }, [dispatch]);
+
+  useEffect(()=> {
+    childs.length && handleChildSelection(childs[0].childId);
+  }, [childs]);
   
   useEffect(() => { 
     if (isLoggedIn())
