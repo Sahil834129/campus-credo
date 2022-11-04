@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import logoHeader from "../assets/img/brand-logo-header.png";
+import logoHeader from "../assets/img/brand-logo-header.svg";
 import Container from "react-bootstrap/Container";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
@@ -55,8 +56,9 @@ const SearchBar = () => {
                 onClick(e);
             }}
         >
-            {children}
-            &#x25bc;
+           <label className="location-lbl">{children}</label>
+            {/* &#x25bc; */}
+            <i className="icons arrowdown-icon">&nbsp;</i>
         </a>
     ));
     
@@ -97,7 +99,7 @@ const SearchBar = () => {
         <>
         <Col className="navbar-header">
             <Container className="header-container">
-                <div className="header-item brand-logo"><img src={logoHeader} alt="brand logo" /></div>
+                <div className="header-item brand-logo"><Link to='/'><img src={logoHeader} alt="brand logo" /></Link></div>
                 <div className="header-item search-region-pane">
                     <div className="region-dropdown-wrap">
                         <i className="loc-icon">

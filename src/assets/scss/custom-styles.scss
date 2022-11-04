@@ -1,5 +1,6 @@
 @import "../scss/base";
 @import "../../pages/admissionForm/admission-form-style.scss";
+
 .App {
   position: relative;
   display: grid;
@@ -10,7 +11,7 @@
 
 .main-container {
   position: relative;
-  padding: 0;
+  padding: 0 !important;
   &.singup-main{
     background: url('../img/singup-backdrop.jpg');
     background-repeat: no-repeat;
@@ -73,8 +74,10 @@
         .form-group{
           position: relative;
           .error-exception{
-            font-size: 13px;
+            font-size: 12px;
             color: $darkred;
+            position: absolute;
+            bottom: -15px;
           }
         }
         
@@ -110,165 +113,6 @@
   }
 }
 
-/*Header*/
-.top-navigation{
-  background: $primarycolor;
-  .siteNav{
-    a{
-      color: $white;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 18px;
-      text-align: right;
-      text-transform: capitalize;
-      color: rgba(255, 255, 255, 0.4);
-      &:hover{
-        color: $white;
-      }
-      &.active-page{
-        color: $white;
-      }
-    }
-    .dot-wrap{
-      text-align: center; 
-      padding: 6px 0;
-      i.icons{margin: 0 4px;}
-    }
-  }
-  .contact-info{
-    .navbar-text{
-      a{
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 17px;
-        display: flex;
-        align-items: center;
-        text-align: right;
-        letter-spacing: 0.01em;
-        color: rgba(255, 255, 255, 0.8);
-        i.icons{
-          margin-right: 8px;
-        }
-      }
-    }
-    .dot-wrap{
-      text-align: center; 
-      i.icons{margin: 0 8px;}
-    }
-    .social-links{
-      display: flex;
-      flex-direction: row;
-      align-content: center;
-      align-items: center;
-      justify-content: space-evenly;
-      margin-right: 0;
-      a{
-        padding: 0 8px;
-        &:last-child{padding-right: 0;}
-      }
-    }
-  }
-
-}
-.navbar-header{
-  background: $white;
-  min-height: 68px;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  padding: 0;
-  width: 100%;
-  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
-  .header-container{
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    grid-column-gap: .5rem;
-    align-items: center;
-    align-content: center;
-    .header-item{
-      display: flex;
-      flex-direction: row;
-      &.brand-logo{
-        justify-content:flex-start;
-        img{width: auto; height: 24px;}
-      }
-      &.search-region-pane{
-        justify-content:center;
-        .region-dropdown-wrap{
-          display: flex;
-          flex-direction: row;
-          align-content: center;
-          align-items: center;
-        }
-        .search-wrapper{
-          margin-left: 24px;
-          .srch-form-wrap{
-            position: relative;
-            input.search-field{
-              width: 480px; 
-              border-radius: 30px;
-              padding: 6px 16px 6px 42px;
-            }
-            button.search-btn{
-              background: none; 
-              border: none; 
-              padding: 0; 
-              position: absolute; 
-              top: 4px;
-              left: 16px;}
-          }
-        }
-      }
-      &.cart-profile-wrap{
-        justify-content: flex-end;
-        .cart-num-comp{
-          position: relative;
-          .btn{
-            background: none;
-            border: none;
-            padding: 0;
-            &.btn-success{
-            }
-            .cart-img{padding: 24px;}
-            .num-badge{
-              position: absolute;
-              top: -10px;
-              right: 12px;
-              background: #FF5C6C;
-              color: #ffffff;
-              border-radius: 24px;
-              width: 24px;
-              height: 24px;
-              align-content: center;
-              align-items: center;
-              justify-content: center;
-              display: flex;
-            }
-          }
-          
-        }
-        .profile-login{
-          a{font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 18px;
-            text-align: right;
-            color: rgba(0, 0, 0, 0.8);}
-        }
-        .user-profile{
-
-        }
-      }
-
-    }
-  }
-
-}
 ul.list-group{
   li.list-group-item{
     padding: 0;
@@ -554,6 +398,23 @@ ul.list-group{
       padding: 0;
       &.school-details-wrap{
         grid-template-columns: auto 362px;
+        .inner-page-content{
+          &.left{
+            padding-right: 24px;
+          }
+          &.right{
+            .sb-card-holder{
+              .salient-features{
+                .partner-item{
+                  &.lbl{
+                    display: none;
+                  }
+                }
+              }
+            }
+          }
+          
+        }
         .content-section{
           .sidepanel-title{
             display: flex;
@@ -628,13 +489,13 @@ ul.list-group{
       .inner-page-content{
         
         .content-section{
-          padding: 16px 24px;
+          padding: 16px 0px 16px 24px;
           margin: 0;
           
           .page-container{
             padding: 0;
             .title-area{
-              padding: 16px 0;
+              padding: 10px 0px 13px;
               h2{
                 font-style: normal;
                 font-weight: 500;
@@ -642,6 +503,7 @@ ul.list-group{
                 line-height: 18px;
                 letter-spacing: 0.01em;
                 color: #000000;
+                margin-bottom: 0px;
               }
             }
             .titlebar{
@@ -1072,11 +934,11 @@ ul.list-group{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            align-items: center;
+            // align-items: center;
             align-content: center;
        
             border-bottom: 1px solid #C4C4C4;
-            padding: 16px 0;
+            padding: 20px 0px 11px;
             h2{
               font-style: normal;
               font-weight: 500;
@@ -1084,6 +946,7 @@ ul.list-group{
               line-height: 17px;
               text-transform: uppercase;
               color: rgba(0, 0, 0, 0.8);
+              margin-bottom: 0px;
             }
             a{
               font-style: normal;
@@ -1151,6 +1014,20 @@ ul.list-group{
                   margin-bottom: 16px;
                   text-align: center;
                 }
+              }
+            }
+            .btn{
+              &.applyFilter{
+                background: $primarycolor;
+                border: 1px solid $primarycolor;
+                color: $white;
+                padding: 14px 24px;
+                border-radius: 4px;
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                height: 48px;
               }
             }
           }
@@ -1527,7 +1404,9 @@ ul.list-group{
       }
       .school-info-main{
         display: grid;
-        grid-template-columns: 134px auto;
+        // grid-template-columns: 134px auto;
+        //grid-template-columns: repeat(auto-fill, minmax(134px, auto));
+        grid-template-columns: repeat(auto-fit, minmax(134px, auto));
         .info-item{
           padding: 0;
           margin: 0;
@@ -1558,7 +1437,9 @@ ul.list-group{
             }
             .school-type{
               display: flex;
+              flex-wrap: wrap;
               flex-direction: row;
+              white-space: nowrap;
               margin-bottom: 8px;
               .list-group-item{
                 border: none;
@@ -1569,7 +1450,7 @@ ul.list-group{
                 line-height: 18px;
                 letter-spacing: 0.01em;
                 color: rgba(0, 0, 0, 0.8);
-                
+                border-radius: 0;                
                 border-right: 1px solid rgba(0, 0, 0, 0.8);
                 padding: 0 8px;
                 margin-bottom: 8px;
@@ -1619,7 +1500,13 @@ ul.list-group{
           line-height: 18px;
           letter-spacing: 0.01em;
           color: #595D69;
+          border-radius: 0;
           .left{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 0.01em;        
+            color: #595D69            
           }
           .right{
             font-style: normal;
@@ -1628,6 +1515,14 @@ ul.list-group{
             line-height: 18px;
             letter-spacing: 0.01em;
             color: rgba(0, 0, 0, 0.8);
+            &.fee-wrap{
+              color: rgba(0, 0, 0, 0.4);
+              font-weight: 400;
+              .fee-to, .fee-from{
+                color: rgba(0, 0, 0, 0.8);
+                font-weight: 500;
+              }
+            }
           }
           .session-wrap{
             display: flex;
@@ -1722,7 +1617,8 @@ ul.list-group{
           flex-direction: row;
           justify-content: flex-start;
           align-items: center;
-          margin: 0;
+          margin: 0 16px 0 0;
+          flex-wrap: nowrap;
           .partner-item{
             width: auto;
             padding: 0 0 0 16px;
@@ -1731,6 +1627,9 @@ ul.list-group{
             }
             &.lbl{
               padding-left: 8px;
+              display: flex;
+              align-items: center;
+              padding-top: 8px;
               label{
                 font-style: normal;
                 font-weight: 400;
@@ -1744,13 +1643,48 @@ ul.list-group{
           
         }
         .feature-list-group{
+          display: flex;
+          justify-content: flex-end;
           flex-direction: row;
-          align-content: center;
           align-items: center;
-          justify-content: center;
+          align-content: center;
           .list-group-item{
             border: none;
-            padding: 10px;
+            padding: 10px 8px;
+            .session-dd{
+              .session-dropdown{
+                top: 0;
+                .dropdown-toggle{
+                  background: none;
+                  border: none;
+                  padding: 0;
+                  font-style: normal;
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 18px;
+                  letter-spacing: 0.01em;
+                  color: rgba(0, 0, 0, 0.6);
+                }
+                .session-dd{
+                  font-style: normal;
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 24px;
+                  letter-spacing: 0.018em;
+                  padding: 0;
+                  .header-dd{
+                    background: #F2F2F2;
+                    border-radius: 6px 6px 0px 0px;
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 16px;
+                    letter-spacing: 0.01em;
+                    padding: 8px 16px;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1758,10 +1692,11 @@ ul.list-group{
   }
   label{
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 14px;
     line-height: 18px;
     color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 8px;
     .req{
       font-style: normal;
       font-weight: 400;
@@ -2441,7 +2376,7 @@ ul.list-group{
           font-size: 14px;
           line-height: 22px;
           color: #000000;
-          margin-bottom: 24px;
+          margin-bottom: 16px;
           
         }
         &.left{padding: 0 16px 0 0; border-right: 1px solid rgba(0, 0, 0, 0.08);}
@@ -2568,11 +2503,11 @@ ul.list-group{
           margin: 0;
           display: flex;
           flex-direction: row;
-          margin-top: 42px;
-          margin-bottom: 42px;
+          margin-top: 58px;
+          margin-bottom: 58px;
           li{
             i{
-              margin-bottom: 16px;
+              margin-bottom: 9px;
             }
             border: none;
             background: none;

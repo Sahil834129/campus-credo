@@ -175,7 +175,7 @@ const LoginDialog = (props) => {
                         <ListGroup.Item as="li"><i className='icons payfeeonline-icon'></i> Pay Fee Online</ListGroup.Item>
                     </ListGroup>
                     <Form.Group className="mb-3 button-wrap">
-                        <Button variant="primary" disabled={submitting} onClick={redirectSignUp}>Sign Up</Button>
+                        <Button variant="primary" className='signup-btn' disabled={submitting} onClick={redirectSignUp}>Sign Up</Button>
                     </Form.Group>
                 </div>
             </Modal.Body>

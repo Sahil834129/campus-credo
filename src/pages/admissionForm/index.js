@@ -48,7 +48,7 @@ export const SchoolAdmission = () => {
 	const saveStudentDetails = async(postData) => {
 		console.log("Values are :::::::::: " + JSON.stringify(postData));
 		try {
-			const response = await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData);
+			//const response = await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData);
 			toast.success("Student details saved successfully.");
 			navigate("/userProfile/MedicalForm");
 		} catch (error) {

@@ -133,7 +133,7 @@ const SidebarFilter = (props) => {
                         <InputField fieldName="medium" fieldType="select" placeholder="" label="Medium of Instruction" selectOptions={mediumOfInstructionsOtions} errors={errors} touched={touched}/>
                         <InputField fieldName="facilities" fieldType="select" placeholder="" label="Facilities" selectOptions={facilitiesOptions} errors={errors} touched={touched}/>
                         <InputField fieldName="extracurriculars" fieldType="select" placeholder="" label="Extracurriculars" selectOptions={extracurricularOptions} errors={errors} touched={touched}/>
-                        <Button buttonLabel="Apply" class="signin-btn"/>
+                        <Button buttonLabel="Apply" class="applyFilter"/>
                     </Form>
                 )}
             </Formik>

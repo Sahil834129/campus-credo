@@ -41,7 +41,7 @@ const AllSchools = () => {
             showLoader(dispatch);
             const response =await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});
             setSchoolList(response.data);
-            hideLoader(dispatch);
+             hideLoader(dispatch);
         } catch (error){}
     }
     
