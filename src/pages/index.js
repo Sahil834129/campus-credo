@@ -12,5 +12,7 @@ import VerifyPhone from "./verifyPhone";
 import SchoolDetails from "./schoolDetails";
 import ApplicationCart from "./cartItems";
 import UserProfile from "./userProfile";
+import SchoolAdmission from "./admissionForm";
 
-export { HomePage, AboutUs, HowItWorks, AllSchools, ContactUs, FAQ, TermsOfUse, PrivacyPolicy, SignUp, SignIn, VerifyPhone, SchoolDetails, ApplicationCart, UserProfile};
+
+export { HomePage, AboutUs, HowItWorks, AllSchools, ContactUs, FAQ, TermsOfUse, PrivacyPolicy, SignUp, SignIn, VerifyPhone, SchoolDetails, ApplicationCart, UserProfile, SchoolAdmission};

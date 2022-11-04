@@ -21,6 +21,7 @@ const RestEndPoint = {
     APPLICATION_CART_BASE: "/applicationCart",
     GET_CART_ITEMS: "/applicationCart/child",
     GET_CITIES: "/v1/school/city",
+    CREATE_STUDENT_PROFILE: "student/profile",
 }
 
 export default RestEndPoint;

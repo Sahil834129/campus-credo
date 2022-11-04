@@ -1,7 +1,11 @@
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import {HomePage, AboutUs, HowItWorks, AllSchools, ContactUs, FAQ, TermsOfUse, PrivacyPolicy, SignUp, SignIn, VerifyPhone, SchoolDetails, ApplicationCart, UserProfile} from "../pages";
-
+import {HomePage, AboutUs, HowItWorks, AllSchools, ContactUs, FAQ, TermsOfUse, PrivacyPolicy, SignUp, SignIn, VerifyPhone, SchoolDetails, ApplicationCart, UserProfile, SchoolAdmission} from "../pages";
+import MedicalForm from "../pages/admissionForm/medical.-form"
+import BackgroundCheckForm from "../pages/admissionForm/background-check";
+import ExtracurricularForm from "../pages/admissionForm/extracurriculars";
+import ParentsGuardianForm from "../pages/admissionForm/parents-guardian";
+import SupportingDocumentForm from "../pages/admissionForm/supportingdocumentform";
 function AppRoutes() {
     return (
         <BrowserRouter>
@@ -20,6 +24,12 @@ function AppRoutes() {
                 <Route path="/school/:id" element={<SchoolDetails/>}/>
                 <Route path="/cart" element={<ApplicationCart/>}/>
                 <Route path="/userProfile" element={<UserProfile/>}/>
+                <Route path="/userProfile/MedicalForm" element={<MedicalForm/>}/>
+                <Route path="/userProfile/ExtracurricularForm" element={<ExtracurricularForm/>}/>
+                <Route path="/userProfile/BackgroundCheckForm" element={<BackgroundCheckForm/>}/>
+                <Route path="/userProfile/ParentsGuardianForm" element={<ParentsGuardianForm/>}/>
+                <Route path="/userProfile/SupportingDocumentForm" element={<SupportingDocumentForm/>}/>
+                <Route path="/userProfile/studentDetails" element={<SchoolAdmission/>}/>
             </Routes>
         </BrowserRouter>
     );

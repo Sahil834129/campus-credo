@@ -12,6 +12,21 @@ const PageContent = {
         {"ref":"/contactUs", "title":"Contact Us"},
         {"ref":"/faqs", "title":"FAQ's"},
     ],
+    ADMISSION_FORM_SIDEBAR_MENU_ITEMS: [
+        {"ref":"/userProfile/studentDetails", "title":"Student Details"},
+        {"ref":"/userProfile/MedicalForm", "title":"Medical Details"},
+        {"ref":"/userProfile/ExtracurricularForm", "title":"Extracurriculars"},
+        {"ref":"/userProfile/BackgroundCheckForm", "title":"Background Check"},
+        {"ref":"/userProfile/ParentsGuardianForm", "title":"Parents/Guardian"},
+        {"ref":"/userProfile/SupportingDocumentForm", "title":"Supporting Documents"},
+    ],
+    USER_PROFILE_SIDEBAR_MENU_ITEMS: [
+        {"ref":"/userProfile/studentDetails", "title":"Dashboard"},
+        {"ref":"/aboutUs", "title":"Manage Profile"},
+        {"ref":"/howItWorks", "title":"Fee Payments"},
+        {"ref":"/userProfile/studentDetails", "title":"Admission Form"},
+        {"ref":"/contactUs", "title":"Logout"},
+    ],
     FOOTER_MENU_ITEMS: [
         {"ref":"/", "title":"Home"},
         {"ref":"/aboutUs", "title":"About Us"},
@@ -20,10 +35,10 @@ const PageContent = {
         {"ref":"/faqs", "title":"FAQ's"},
     ],
     SOCIAL_MEDIA_LIST: [
-        {"ref":"/", "type":"facebook", "icon":"fb-icon"},
-        {"ref":"/", "type":"twitter","icon":"twitter-icon"},
-        {"ref":"/", "type":"instagram","icon":"insta-icon"},
-        {"ref":"/", "type":"google","icon":"g-icon"},
+        {"ref":"https://www.facebook.com", "type":"facebook", "icon":"fb-icon"},
+        {"ref":"https://twitter.com", "type":"twitter","icon":"twitter-icon"},
+        {"ref":"https://www.instagram.com", "type":"instagram","icon":"insta-icon"},
+        {"ref":"https://www.google.com", "type":"google","icon":"g-icon"},
     ],
     STUDENT_FEATURE_CARDS:[
         {"image":"feature-pic1.png", "title":"No Queue, No Hassle","description":"Use our unique OneAdmissionForm to add details only once"},

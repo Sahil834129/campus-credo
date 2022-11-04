@@ -37,7 +37,7 @@ const MenuBar = () => {
                     </Navbar.Text>
                     <Navbar.Text className="dot-wrap"><i className="icons divide-dot"></i></Navbar.Text>
                     <Navbar.Text>
-                        <a href="#"><i className="icons email-icon"></i> {PageContent.ENQUIRY_EMAIL}</a>
+                        <a onClick={() => window.location = 'mailto:enquiry@edusmart.com'}><i className="icons email-icon"></i> {PageContent.ENQUIRY_EMAIL}</a>
                     </Navbar.Text>
                 </Navbar.Collapse>
             </Container>
