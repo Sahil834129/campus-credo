@@ -1,15 +1,21 @@
 import React from "react";
-import {Field} from "formik";
+import { Form } from "react-bootstrap";
 
 const TextField = (props) => {
-    const fieldName = props.fieldName;
     return (
-        <div className="form-group mb-3">
-            <Field type="text" className="form-control" name={fieldName} placeholder={props.placeholder} />
-            {props.errors[fieldName] && props.touched[fieldName] ? (
-                <div>{props.errors[props.fieldName]}</div>
-            ) : null}
-        </div>
+        <>
+            <label for={props.fieldName} className="form-label">
+                {props.label} 
+                {props.required ? <span className="req">*</span> : ''}
+            </label>
+            <Form.Group className="mb-3" controlId="">
+                <Form.Control type="text" name={props.fieldName} value={props.value} 
+                    placeholder={props.placeholder} 
+                    { ...(props.onChange) ? {onChange:props.onChange} : {}}
+                    {...(props.disabled ? { disabled: props.disabled } : {})}
+                />
+            </Form.Group>
+        </>
     );
 };
 

@@ -7,7 +7,7 @@ const getOptionTags = (selectOptions) => {
     return (
         <>
             {selectOptions.map((option, index) => (
-                <option key={"stateOption_" + index} value={option.value}>{option.text}</option>
+                <option key={"option_" + index} value={option.value}>{option.text}</option>
             ))
             }
         </>
@@ -47,8 +47,9 @@ const getFieldTagElement = (props) => {
         case FORM_FIELD_TYPE.RADIO:
             return (
                 <label>
-                    <Field type="radio" name={props.fieldName} value={props.value} {...(props.checked ? { checked: props.checked } : {})}/>
-                    <span>{props.label}</span>
+                    <Field type="radio" name={props.fieldName} value={props.value} {...(props.checked ? { checked: props.checked } : {})}
+                    {...(props.onClick ? { onClick: props.onClick} : {} )}/>
+                    <span>{props.label}{props.onChange}</span>
                 </label>
             )
         case FORM_FIELD_TYPE.FILE:
