@@ -1,16 +1,30 @@
 import React, { useState } from 'react'
 import '../../assets/scss/custom-styles.scss'
-import { Formik, Form } from 'formik'
+import { Formik, Form, Field } from 'formik'
 import InputField from '../../components/form/InputField'
 import { useNavigate } from 'react-router-dom'
 import AdmissionForms from '.'
 import { BLOOD_OPTIONS } from '../../constants/formContanst'
+import RestEndPoint from '../../redux/constants/RestEndpoints'
+import RESTClient from '../../utils/RestClient'
+import { ToastContainer, toast } from 'react-toastify'
 
 export const MedicalForm = () => {
   const history = useNavigate()
   const [submitting, setSubmitting] = useState(false)
+  const childId = JSON.parse(localStorage.getItem('childId'))
 
   const saveData = formData => {
+    setSubmitting(true)
+    RESTClient.post(RestEndPoint.MEDICAL_DETAIL, formData)
+      .then(() => {
+        setSubmitting(false)
+        history('/userProfile/ExtracurricularForm')
+      })
+      .catch(error => {
+        setSubmitting(false)
+        toast.error(RESTClient.getAPIErrorMessage(error))
+      })
     console.log(JSON.stringify(formData))
   }
 
@@ -18,12 +32,12 @@ export const MedicalForm = () => {
     <AdmissionForms pageTitle={'Medical Details'}>
       <Formik
         initialValues={{
-          bloodGroup: 'A+',
+          childId: childId,
+          bloodGroup: '',
           allergies: '',
           medicalConditions: '',
           specialCare: '',
-          disabilityDescribtion: '',
-          disability: 'No'
+          disability: []
         }}
         onSubmit={values => {
           saveData(values)
@@ -87,10 +101,10 @@ export const MedicalForm = () => {
                   <InputField
                     className='form-check-input'
                     label='Yes'
-                    fieldName='disability'
+                    fieldName='disabile'
                     fieldType='radio'
                     value={'Yes'}
-                    checked={values.disability === 'Yes'}
+                    checked={values.disabile === 'Yes'}
                     errors={errors}
                     touched={touched}
                   />
@@ -100,22 +114,23 @@ export const MedicalForm = () => {
                     className='form-check-input'
                     label='No'
                     value={'No'}
-                    fieldName='disability'
+                    fieldName='disabile'
                     fieldType='radio'
-                    checked={values.disability === 'No'}
+                    checked={values.disabile === 'No'}
                     errors={errors}
                     touched={touched}
                   />
                 </div>
               </div>
             </div>
-            {values.disability === 'Yes' && (
+            {values.disabile === 'Yes' && (
               <>
                 <div className='d-flex'>
                   <div className='form-check'>
                     <InputField
-                      fieldName='Autism'
+                      fieldName='disability'
                       fieldType='checkbox'
+                      value='Autism'
                       label='Autism'
                       errors={errors}
                       touched={touched}
@@ -123,7 +138,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check ms-3'>
                     <InputField
-                      fieldName='hearingImpairment'
+                      fieldName='disability'
+                      value='hearingImpairment'
                       fieldType='checkbox'
                       label='Hearing impairment'
                       errors={errors}
@@ -132,7 +148,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check ms-3'>
                     <InputField
-                      fieldName='languageDisorder'
+                      fieldName='disability'
+                      value='languageDisorder'
                       fieldType='checkbox'
                       label='Language disorder'
                       errors={errors}
@@ -141,7 +158,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check  ms-3'>
                     <InputField
-                      fieldName='physicalDisability'
+                      fieldName='disability'
+                      value='physicalDisability'
                       fieldType='checkbox'
                       label='Physical disability'
                       errors={errors}
@@ -150,7 +168,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check ms-3'>
                     <InputField
-                      fieldName='learningDifficulty'
+                      fieldName='disability'
+                      value='learningDifficulty'
                       fieldType='checkbox'
                       label='Learning difficulty'
                       errors={errors}
@@ -161,7 +180,8 @@ export const MedicalForm = () => {
                 <div className='d-flex'>
                   <div className='form-check'>
                     <InputField
-                      fieldName='behaviourDisorder'
+                      fieldName='disability'
+                      value='behaviourDisorder'
                       fieldType='checkbox'
                       label='Behaviour disorder'
                       errors={errors}
@@ -170,7 +190,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check ms-3'>
                     <InputField
-                      fieldName='mentalHealth'
+                      fieldName='disability'
+                      value='mentalHealth'
                       fieldType='checkbox'
                       label='Mental health disorder'
                       errors={errors}
@@ -188,7 +209,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check  ms-3'>
                     <InputField
-                      fieldName='visionImpairment'
+                      fieldName='disability'
+                      value='visionImpairment'
                       fieldType='checkbox'
                       label='Vision impairment'
                       errors={errors}
@@ -197,7 +219,8 @@ export const MedicalForm = () => {
                   </div>
                   <div className='form-check ms-3'>
                     <InputField
-                      fieldName='Other'
+                      fieldName='disability'
+                      value='Other'
                       fieldType='checkbox'
                       label='Other'
                       errors={errors}
