@@ -17,19 +17,35 @@ import RestEndPoint from '../../redux/constants/RestEndpoints'
 import TextField from '../../components/form/TextField'
 import SelectField from '../../components/form/SelectField'
 import RadioButton from '../../components/form/RadioButton'
-import { Form } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
+import { combineArray, popularSchoolClasses } from '../../utils/populateOptions'
 
 export default function StudentDetails ({}) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [classOptions, setClassOptions] = useState([
+    { value: '', text: 'Select Class' }
+  ])
+  const [currentStudent, setCurrentStudent] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const [selectedChild, setSelectedChild] = useState({
     childId: '',
     firstName: '',
     middleName: '',
     lastName: '',
+    className: '',
     dateOfBirth: '',
+    isProvidingCurrentSchoolInfo: 'No',
+    transportFacility: false,
+    schoolName: '',
+    schoolBoard: '',
+    obtainedMarks: '',
+    schoolAddressLine1: '',
+    schoolAddressLine2: '',
+    schoolCity: '',
+    schoolState: '',
+    schoolPincode: '',
     gender: 'Male',
     category: 'General',
     identificationMarks: '',
@@ -40,28 +56,36 @@ export default function StudentDetails ({}) {
     pincode: '',
     city: '',
     state: '',
-    tranportFacility: 'false',
-    boardingFacility: 'true'
+    boardingFacility: false
   })
 
-  const saveStudentDetails = async postData => {
-    console.log('Values are :::::::::: ' + JSON.stringify(selectedChild))
-    // const postData = { ...selectedChild }
-    // delete postData['firstName']
-    // delete postData['lastName']
-    // delete postData['gender']
-    // delete postData['dateOfBirth']
+  const saveStudentDetails = async e => {
+    e.preventDefault()
+    const postData = { ...selectedChild, ...currentStudent }
+    console.log('Values are :::::::::: ', postData)
+    delete postData.dateOfBirth
+    delete postData.isProvidingCurrentSchoolInfo
+    delete postData.firstName
+    delete postData.middleName
+    delete postData.lastName
+    delete postData.gender
+
     try {
       const response = await RESTClient.post(
-        RestEndPoint.CREATE_STUDENT_PROFILE
-        // postData
+        RestEndPoint.CREATE_STUDENT_PROFILE,
+        postData
       )
+      console.log(response)
       toast.success('Student details saved successfully.')
-      navigate('/userProfile/MedicalForm')
+      // navigate('/userProfile/MedicalForm')
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
+
+  // function validateForm (data) {
+  //   return data.category.length > 0 && password.length > 0
+  // }
 
   const setFieldValue = (fieldName, fieldValue) => {
     setSelectedChild({
@@ -74,14 +98,23 @@ export default function StudentDetails ({}) {
     dispatch(getChildsList())
   }, [dispatch])
 
+  useEffect(() => {
+    popularSchoolClasses()
+      .then(data => combineArray(data.data.classes))
+      .then(data => {
+        setClassOptions(data)
+      })
+  }, [])
+
   return (
     <AdmissionForms
       showStudentList={true}
       pageTitle={'Student Details'}
       selectedChild={selectedChild}
       setSelectedChild={setSelectedChild}
+      setCurrentStudent={setCurrentStudent}
     >
-      <Form className='row g-3'>
+      <Form className='row g-3' onSubmit={saveStudentDetails}>
         <div className='col-md-6'>
           <TextField
             fieldName='firstName'
@@ -114,8 +147,9 @@ export default function StudentDetails ({}) {
         <div className='col-md-6'>
           <SelectField
             fieldName='gender'
-            label='Select Gender'
+            label='Gender'
             value={selectedChild.gender}
+            disabled
             onChange={e => {
               setFieldValue('gender', e.target.value)
             }}
@@ -124,20 +158,18 @@ export default function StudentDetails ({}) {
           />
         </div>
         <div className='col-md-6'>
-          <label for='exampleFormControlTextarea1' className='form-label'>
-            Identification Marks (Please specify)
-          </label>
-          <textarea
-            className='form-control'
-            name='identificationMarks'
-            rows='4'
-            value={selectedChild.identificationMarks}
-            onChange={e => {
-              setFieldValue('identificationMarks', e.target.value)
-            }}
-          ></textarea>
-        </div>
-        <div className='col-md-6'>
+          <div>
+            <SelectField
+              fieldName='className'
+              label='Select Class'
+              required
+              selectOptions={classOptions}
+              value={selectedChild.class}
+              onChange={e => {
+                setFieldValue('className', e.target.value)
+              }}
+            />
+          </div>
           <div>
             <SelectField
               fieldName='religion'
@@ -150,6 +182,23 @@ export default function StudentDetails ({}) {
               }}
             />
           </div>
+        </div>
+        <div className='col-md-6'>
+          <label htmlFor='exampleFormControlTextarea1' className='form-label'>
+            Identification Marks (Please specify) <span className='req'>*</span>
+          </label>
+          <textarea
+            className='form-control'
+            name='identificationMarks'
+            rows='4'
+            required
+            value={selectedChild.identificationMarks}
+            onChange={e => {
+              setFieldValue('identificationMarks', e.target.value)
+            }}
+          ></textarea>
+        </div>
+        <div className='col-md-6'>
           <div>
             <SelectField
               fieldName='nationality'
@@ -163,6 +212,7 @@ export default function StudentDetails ({}) {
             />
           </div>
         </div>
+
         <div className='col-md-6'>
           <SelectField
             fieldName='category'
@@ -175,24 +225,126 @@ export default function StudentDetails ({}) {
             }}
           />
         </div>
-        <div className='col-12 border-bottom pb-2'>
-          <label className=' me-2'>
-            Please Provide Your Current School Information(If Applicabple)
-          </label>
-          <div className='form-check form-check-inline'>
-            <RadioButton
-              label=' Yes'
-              fieldName='isProvidingCurrentSchoolInfo'
-              value={true}
-            />
+        <div className='col-12 border-bottom border-top pt-2 pb-2'>
+          <div className='col-md-12 mb-2'>
+            <label className=' me-2'>
+              Please Provide Your Current School Information(If Applicabple)
+            </label>
+            <div className='form-check form-check-inline'>
+              <RadioButton
+                label='Yes'
+                value='Yes'
+                fieldName='isProvidingCurrentSchoolInfo'
+                currentValue={selectedChild.isProvidingCurrentSchoolInfo}
+                onChange={e => {
+                  setFieldValue('isProvidingCurrentSchoolInfo', e.target.value)
+                }}
+              />
+            </div>
+            <div className='form-check form-check-inline'>
+              <RadioButton
+                label='No'
+                value='No'
+                fieldName='isProvidingCurrentSchoolInfo'
+                currentValue={selectedChild.isProvidingCurrentSchoolInfo}
+                onChange={e => {
+                  setFieldValue('isProvidingCurrentSchoolInfo', e.target.value)
+                }}
+              />
+            </div>
           </div>
-          <div className='form-check form-check-inline'>
-            <RadioButton
-              label=' No'
-              fieldName='isProvidingCurrentSchoolInfo'
-              value={false}
-            />
-          </div>
+          {selectedChild.isProvidingCurrentSchoolInfo === 'Yes' && (
+            <div className='row g-3'>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolName'
+                  value={selectedChild.schoolName}
+                  label='School Name'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School Name'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolBoard'
+                  value={selectedChild.schoolBoard}
+                  label='School Board'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School Board'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='obtainedMarks'
+                  value={selectedChild.obtainedMarks}
+                  label='Obtained Marks'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='Obtained Marks'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolAddressLine1'
+                  value={selectedChild.schoolAddressLine1}
+                  label='School Address Line 1'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School Address Line 1'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolAddressLine2'
+                  value={selectedChild.schoolAddressLine2}
+                  label='School Address Line 2'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School Address Line 2'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolCity'
+                  value={selectedChild.schoolCity}
+                  label='School City'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School City'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolState'
+                  value={selectedChild.schoolState}
+                  label='School State'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School State'
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='schoolPincode'
+                  value={selectedChild.schoolPincode}
+                  label='School Pincode'
+                  required={
+                    selectedChild.isProvidingCurrentSchoolInfo === 'Yes'
+                  }
+                  placeholder='School Pincode'
+                />
+              </div>
+            </div>
+          )}
         </div>
         <p className='Addresss_info'>
           Please Provide your Address details{' '}
@@ -203,6 +355,7 @@ export default function StudentDetails ({}) {
             <div className='col-md-6'>
               <TextField
                 fieldName='addressLine1'
+                required
                 label='House No., Block No.'
                 value={selectedChild.addressLine1}
                 onChange={e => {
@@ -213,6 +366,7 @@ export default function StudentDetails ({}) {
             <div className='col-md-6'>
               <TextField
                 fieldName='addressLine2'
+                required
                 label='Area or Locality'
                 value={selectedChild.addressLine2}
                 onChange={e => {
@@ -224,6 +378,7 @@ export default function StudentDetails ({}) {
               <TextField
                 fieldName='pincode'
                 label='Pincode'
+                required
                 value={selectedChild.pincode}
                 onChange={e => {
                   setFieldValue('pincode', e.target.value)
@@ -244,6 +399,7 @@ export default function StudentDetails ({}) {
               <TextField
                 fieldName='state'
                 label='State'
+                required
                 value={selectedChild.state}
                 onChange={e => {
                   setFieldValue('state', e.target.value)
@@ -253,16 +409,17 @@ export default function StudentDetails ({}) {
           </div>
         </div>
         <div className='col-md-6'>
-          <label for='validationServer02' className='form-label'>
+          <label htmlFor='validationServer02' className='form-label'>
             Does the student require Transport facility?{' '}
             <span className='req'>*</span>
           </label>
           <div className='d-flex align-items-center py-2'>
             <div className='form-check'>
               <RadioButton
-                label=' Yes'
+                label='Yes'
+                value={true}
                 fieldName='transportFacility'
-                value={selectedChild.transportFacility}
+                currentValue={selectedChild.transportFacility}
                 onChange={e => {
                   setFieldValue('transportFacility', e.target.value)
                 }}
@@ -270,9 +427,10 @@ export default function StudentDetails ({}) {
             </div>
             <div className='form-check ms-2'>
               <RadioButton
-                label=' No'
+                label='No'
+                value={false}
                 fieldName='transportFacility'
-                value={!selectedChild.transportFacility}
+                currentValue={selectedChild.transportFacility}
                 onChange={e => {
                   setFieldValue('transportFacility', e.target.value)
                 }}
@@ -281,16 +439,17 @@ export default function StudentDetails ({}) {
           </div>
         </div>
         <div className='col-md-6'>
-          <label for='validationServer02' className='form-label'>
+          <label htmlFor='validationServer02' className='form-label'>
             Does the student require Boarding facility?{' '}
             <span className='req'>*</span>
           </label>
           <div className='d-flex align-items-center py-2'>
             <div className='form-check'>
               <RadioButton
-                label=' Yes'
-                fieldName='boardingFacility'
+                label='Yes'
                 value={true}
+                fieldName='boardingFacility'
+                currentValue={selectedChild.boardingFacility}
                 onChange={e => {
                   setFieldValue('boardingFacility', e.target.value)
                 }}
@@ -298,10 +457,10 @@ export default function StudentDetails ({}) {
             </div>
             <div className='form-check ms-2'>
               <RadioButton
-                label=' No'
-                fieldName='boardingFacility'
+                label='No'
                 value={false}
-                defaultChecked
+                fieldName='boardingFacility'
+                currentValue={selectedChild.boardingFacility}
                 onChange={e => {
                   setFieldValue('boardingFacility', e.target.value)
                 }}
@@ -317,16 +476,9 @@ export default function StudentDetails ({}) {
           >
             {submitting ? 'Please wait...' : 'Cancel'}
           </button>
-          <button
-            type='button'
-            className='save comn'
-            onClick={() => {
-              saveStudentDetails()
-            }}
-            disabled={submitting}
-          >
+          <Button type='submit' className='save comn' disabled={submitting}>
             {submitting ? 'Please wait...' : 'Save & Next'}
-          </button>
+          </Button>
         </div>
       </Form>
     </AdmissionForms>

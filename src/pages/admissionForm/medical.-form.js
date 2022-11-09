@@ -7,7 +7,7 @@ import AdmissionForms from '.'
 import { BLOOD_OPTIONS } from '../../constants/formContanst'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import RESTClient from '../../utils/RestClient'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 export const MedicalForm = () => {
   const history = useNavigate()

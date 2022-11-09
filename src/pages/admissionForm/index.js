@@ -7,21 +7,29 @@ import Breadcrumbs from '../../common/Breadcrumbs'
 import LeftMenuBar from '../../common/LeftMenuBar'
 import PageContent from '../../resources/pageContent'
 import 'react-datepicker/dist/react-datepicker.css'
+import Button from 'react-bootstrap/Button'
+
 import { useSelector } from 'react-redux'
 import BootStrapForm from 'react-bootstrap/Form'
+import AddChildDialog from '../../dialogs/addChild'
+import { useState } from 'react'
 
 export const AdmissionForms = ({
   showStudentList,
   pageTitle,
   selectedChild,
   setSelectedChild,
+  setCurrentStudent,
   ...props
 }) => {
   const childsList = useSelector(state => state.childsData.childs)
+  const [showAddChildDialog, setShowAddChildDialog] = useState(false)
+
   const handleChildSelection = childId => {
     const selectedChildObj = childsList.find(
       it => it.childId === parseInt(childId)
     )
+    setCurrentStudent({ ...selectedChildObj })
     if (selectedChildObj) {
       let childobj = selectedChildObj
       let selectedChildCopy = JSON.parse(JSON.stringify(selectedChild))
@@ -34,8 +42,17 @@ export const AdmissionForms = ({
     }
   }
 
+  function openAddChildDialog () {
+    setShowAddChildDialog(true)
+  }
+
   useEffect(() => {
-    if (setSelectedChild) setSelectedChild({ ...childsList[0] })
+    if (childsList.length > 0) {
+      if (setSelectedChild) {
+        setSelectedChild({ ...selectedChild, ...childsList[0] })
+        setCurrentStudent({ ...childsList[0] })
+      }
+    }
   }, [childsList])
 
   return (
@@ -46,7 +63,7 @@ export const AdmissionForms = ({
             <Row className='content-section'>
               <Breadcrumbs />
               {showStudentList && (
-                <div className='page-container border-bottom'>
+                <div className='page-container border-bottom d-flex justify-content-between pb-2 pt-2'>
                   <div className='row-wrapper '>
                     <span className='selectbox'>
                       <label>
@@ -77,6 +94,12 @@ export const AdmissionForms = ({
                       </div>
                     </span>
                   </div>
+                  <Button
+                    className='add-child-btn'
+                    onClick={openAddChildDialog}
+                  >
+                    Add Child
+                  </Button>
                 </div>
               )}
               <div className='content-area-inner internal-page-wrapper'>
@@ -98,6 +121,10 @@ export const AdmissionForms = ({
               </div>
             </Row>
           </Col>
+          <AddChildDialog
+            show={showAddChildDialog}
+            handleClose={() => setShowAddChildDialog(false)}
+          />
         </Container>
       </section>
     </Layout>
