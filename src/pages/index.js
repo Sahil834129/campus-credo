@@ -12,7 +12,7 @@ import VerifyPhone from './verifyPhone'
 import SchoolDetails from './schoolDetails'
 import ApplicationCart from './cartItems'
 import UserProfile from './userProfile'
-import SchoolAdmission from './admissionForm/student-details'
+import SchoolAdmission from './admissionForm'
 
 export {
   HomePage,

@@ -1,29 +1,63 @@
-import React, { useEffect } from 'react'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import React, { useEffect, useState } from 'react'
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form as BootStrapForm
+} from 'react-bootstrap'
 import Layout from '../../common/layout'
 import Breadcrumbs from '../../common/Breadcrumbs'
 import LeftMenuBar from '../../common/LeftMenuBar'
 import PageContent from '../../resources/pageContent'
 import 'react-datepicker/dist/react-datepicker.css'
-import Button from 'react-bootstrap/Button'
 
 import { useSelector } from 'react-redux'
-import BootStrapForm from 'react-bootstrap/Form'
 import AddChildDialog from '../../dialogs/addChild'
-import { useState } from 'react'
+import StudentDetails from './student-details'
+import MedicalForm from './medical.-form'
+import ExtracurricularForm from './extracurriculars'
+import BackgroundCheckForm from './background-check'
+import ParentsGuardianForm from './parents-guardian'
+import SupportingDocumentForm from './supportingdocumentform'
 
-export const AdmissionForms = ({
-  showStudentList,
-  pageTitle,
-  selectedChild,
-  setSelectedChild,
-  setCurrentStudent,
-  ...props
-}) => {
+export const AdmissionForms = ({}) => {
+  const [currentStudent, setCurrentStudent] = useState({})
+
   const childsList = useSelector(state => state.childsData.childs)
   const [showAddChildDialog, setShowAddChildDialog] = useState(false)
+  const [showStudentList, setShowStudentList] = useState(false)
+  const [pageTitle, setPageTitle] = useState('')
+  const [step, setStep] = useState(1)
+  const [selectedChild, setSelectedChild] = useState({
+    childId: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    className: '',
+    dateOfBirth: '',
+    isProvidingCurrentSchoolInfo: 'No',
+    transportFacility: false,
+    schoolName: '',
+    schoolBoard: '',
+    obtainedMarks: '',
+    schoolAddressLine1: '',
+    schoolAddressLine2: '',
+    schoolCity: '',
+    schoolState: '',
+    schoolPincode: '',
+    gender: 'Male',
+    category: 'General',
+    identificationMarks: '',
+    religion: 'Hindu',
+    nationality: 'Indian',
+    addressLine1: '',
+    addressLine2: '',
+    pincode: '',
+    city: '',
+    state: '',
+    boardingFacility: false
+  })
 
   const handleChildSelection = childId => {
     const selectedChildObj = childsList.find(
@@ -42,18 +76,50 @@ export const AdmissionForms = ({
     }
   }
 
-  function openAddChildDialog () {
-    setShowAddChildDialog(true)
+  const getCurrentComponent = currentStep => {
+    switch (currentStep) {
+      case 1:
+        setShowStudentList(true)
+        setPageTitle('Student Details')
+        break
+      case 2:
+        setShowStudentList(false)
+        setPageTitle('Medical Details')
+        break
+      case 3:
+        setShowStudentList(false)
+        setPageTitle('Extracurriculars')
+        break
+      case 4:
+        setShowStudentList(false)
+        setPageTitle('Background Check')
+        break
+      case 5:
+        setShowStudentList(false)
+        setPageTitle('Parents/Guardian')
+        break
+      case 6:
+        setShowStudentList(false)
+        setPageTitle('Supporting Documents')
+        break
+      default:
+        break
+    }
   }
-
   useEffect(() => {
     if (childsList.length > 0) {
       if (setSelectedChild) {
-        setSelectedChild({ ...selectedChild, ...childsList[0] })
+        setSelectedChild(val => {
+          return { ...val, ...childsList[0] }
+        })
         setCurrentStudent({ ...childsList[0] })
       }
     }
   }, [childsList])
+
+  useEffect(() => {
+    getCurrentComponent(step)
+  }, [step])
 
   return (
     <Layout>
@@ -96,7 +162,7 @@ export const AdmissionForms = ({
                   </div>
                   <Button
                     className='add-child-btn'
-                    onClick={openAddChildDialog}
+                    onClick={() => setShowAddChildDialog(true)}
                   >
                     Add Child
                   </Button>
@@ -115,7 +181,55 @@ export const AdmissionForms = ({
                       for admission. This information is used to help the school
                       best cater for the educational needs of the student.
                     </p>
-                    {props.children}
+                    {(() => {
+                      switch (step) {
+                        case 1:
+                          return (
+                            <StudentDetails
+                              currentStudent={currentStudent}
+                              selectedChild={selectedChild}
+                              setSelectedChild={setSelectedChild}
+                              setStep={setStep}
+                            />
+                          )
+                        case 2:
+                          return (
+                            <MedicalForm
+                              currentStudent={currentStudent}
+                              setStep={setStep}
+                            />
+                          )
+                        case 3:
+                          return (
+                            <ExtracurricularForm
+                              currentStudent={currentStudent}
+                              setStep={setStep}
+                            />
+                          )
+                        case 4:
+                          return (
+                            <BackgroundCheckForm
+                              currentStudent={currentStudent}
+                              setStep={setStep}
+                            />
+                          )
+                        case 5:
+                          return (
+                            <ParentsGuardianForm
+                              currentStudent={currentStudent}
+                              setStep={setStep}
+                            />
+                          )
+                        case 6:
+                          return (
+                            <SupportingDocumentForm
+                              currentStudent={currentStudent}
+                            />
+                          )
+                        default:
+                          break
+                      }
+                    })()}
                   </div>
                 </div>
               </div>

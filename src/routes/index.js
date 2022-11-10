@@ -17,11 +17,6 @@ import {
   UserProfile,
   SchoolAdmission
 } from '../pages'
-import MedicalForm from '../pages/admissionForm/medical.-form'
-import BackgroundCheckForm from '../pages/admissionForm/background-check'
-import ExtracurricularForm from '../pages/admissionForm/extracurriculars'
-import ParentsGuardianForm from '../pages/admissionForm/parents-guardian'
-import SupportingDocumentForm from '../pages/admissionForm/supportingdocumentform'
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRoutes () {
@@ -43,23 +38,6 @@ function AppRoutes () {
         <Route path='/cart' element={<ApplicationCart />} />
         <Route element={<ProtectedRoute />}>
           <Route path='/userProfile' element={<UserProfile />} />
-          <Route path='/userProfile/MedicalForm' element={<MedicalForm />} />
-          <Route
-            path='/userProfile/ExtracurricularForm'
-            element={<ExtracurricularForm />}
-          />
-          <Route
-            path='/userProfile/BackgroundCheckForm'
-            element={<BackgroundCheckForm />}
-          />
-          <Route
-            path='/userProfile/ParentsGuardianForm'
-            element={<ParentsGuardianForm />}
-          />
-          <Route
-            path='/userProfile/SupportingDocumentForm'
-            element={<SupportingDocumentForm />}
-          />
           <Route
             path='/userProfile/studentDetails'
             element={<SchoolAdmission />}
