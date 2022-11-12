@@ -18,6 +18,7 @@ import SelectField from '../../components/form/SelectField'
 import RadioButton from '../../components/form/RadioButton'
 import { Button, Form } from 'react-bootstrap'
 import { combineArray, popularSchoolClasses } from '../../utils/populateOptions'
+import { str2bool } from '../../utils/helper'
 
 export default function StudentDetails ({
   currentStudent,
@@ -32,25 +33,41 @@ export default function StudentDetails ({
     { value: '', text: 'Select Class' }
   ])
   const [submitting, setSubmitting] = useState(false)
-
+  const [isUserExist, setIsUserExist] = useState(false)
   const saveStudentDetails = async e => {
     e.preventDefault()
-    const postData = { ...selectedChild, ...currentStudent }
+    let postData = { ...selectedChild, ...currentStudent }
     delete postData.dateOfBirth
     delete postData.isProvidingCurrentSchoolInfo
     delete postData.firstName
     delete postData.middleName
     delete postData.lastName
     delete postData.gender
-
+    let response
     try {
-      // const response = await RESTClient.post(
-      //   RestEndPoint.CREATE_STUDENT_PROFILE,
-      //   postData
-      // )
+      if (isUserExist) {
+        postData = {
+          ...postData,
+          profileId: postData.id
+        }
+        delete postData.id
+        delete postData.success
+        delete postData.parentId
+
+        response = await RESTClient.put(
+          RestEndPoint.CREATE_STUDENT_PROFILE,
+          postData
+        )
+      } else {
+        response = await RESTClient.post(
+          RestEndPoint.CREATE_STUDENT_PROFILE,
+          postData
+        )
+      }
       toast.success('Student details saved successfully.')
       setStep(val => val + 1)
     } catch (error) {
+      console.log(error)
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
@@ -58,6 +75,34 @@ export default function StudentDetails ({
   // function validateForm (data) {
   //   return data.category.length > 0 && password.length > 0
   // }
+
+  async function getCurrentUser (user) {
+    try {
+      const response = await RESTClient.get(
+        RestEndPoint.GET_STUDENT_PROFILE + `/${user.childId}`
+      )
+      console.log(response)
+      if (response.data !== '') {
+        setSelectedChild(val => {
+          console.log({
+            ...val,
+            ...response.data
+          })
+
+          return {
+            ...val,
+            ...response.data
+          }
+        })
+
+        setIsUserExist(true)
+      } else {
+        setIsUserExist(false)
+      }
+    } catch (error) {
+      // toast.error(RESTClient.getAPIErrorMessage(error))
+    }
+  }
 
   const setFieldValue = (fieldName, fieldValue) => {
     setSelectedChild({
@@ -69,6 +114,10 @@ export default function StudentDetails ({
   useEffect(() => {
     dispatch(getChildsList())
   }, [dispatch])
+
+  useEffect(() => {
+    if (currentStudent.childId) getCurrentUser(currentStudent)
+  }, [currentStudent])
 
   useEffect(() => {
     popularSchoolClasses()
@@ -129,7 +178,7 @@ export default function StudentDetails ({
             label='Select Class'
             required
             selectOptions={classOptions}
-            value={selectedChild.class}
+            value={selectedChild.className}
             onChange={e => {
               setFieldValue('className', e.target.value)
             }}
@@ -367,10 +416,10 @@ export default function StudentDetails ({
             <RadioButton
               label='Yes'
               value={true}
-              fieldName='transportFacility'
-              currentValue={selectedChild.transportFacility}
+              fieldName='tranportFacility'
+              currentValue={selectedChild.tranportFacility}
               onChange={e => {
-                setFieldValue('transportFacility', e.target.value)
+                setFieldValue('tranportFacility', str2bool(e.target.value))
               }}
             />
           </div>
@@ -378,10 +427,10 @@ export default function StudentDetails ({
             <RadioButton
               label='No'
               value={false}
-              fieldName='transportFacility'
-              currentValue={selectedChild.transportFacility}
+              fieldName='tranportFacility'
+              currentValue={selectedChild.tranportFacility}
               onChange={e => {
-                setFieldValue('transportFacility', e.target.value)
+                setFieldValue('tranportFacility', str2bool(e.target.value))
               }}
             />
           </div>
@@ -400,7 +449,7 @@ export default function StudentDetails ({
               fieldName='boardingFacility'
               currentValue={selectedChild.boardingFacility}
               onChange={e => {
-                setFieldValue('boardingFacility', e.target.value)
+                setFieldValue('boardingFacility', str2bool(e.target.value))
               }}
             />
           </div>
@@ -411,7 +460,8 @@ export default function StudentDetails ({
               fieldName='boardingFacility'
               currentValue={selectedChild.boardingFacility}
               onChange={e => {
-                setFieldValue('boardingFacility', e.target.value)
+                console.log(e)
+                setFieldValue('boardingFacility', str2bool(e.target.value))
               }}
             />
           </div>

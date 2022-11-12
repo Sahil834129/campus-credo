@@ -13,7 +13,11 @@ const SelectField = props => {
           name={props.fieldName}
           {...(props.onChange ? { onChange: props.onChange } : {})}
         >
-          <Form.Select disabled={props.disabled} required={props.required}>
+          <Form.Select
+            disabled={props.disabled}
+            required={props.required}
+            value={props.value}
+          >
             {props.selectOptions.map((option, index) => {
               return (
                 <option

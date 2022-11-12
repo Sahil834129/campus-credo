@@ -46,10 +46,10 @@ const getFieldTagElement = (props) => {
             )
         case FORM_FIELD_TYPE.RADIO:
             return (
-                <label>
+                <label className="d-flex align-items-center">
                     <Field type="radio" name={props.fieldName} value={props.value} {...(props.checked ? { checked: props.checked } : {})}
                     {...(props.onClick ? { onClick: props.onClick} : {} )}/>
-                    <span>{props.label}{props.onChange}</span>
+                    <span className="mx-2">{props.label}{props.onChange}</span>
                 </label>
             )
         case FORM_FIELD_TYPE.FILE:
