@@ -15,7 +15,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useSelector } from 'react-redux'
 import AddChildDialog from '../../dialogs/addChild'
 import StudentDetails from './student-details'
-import MedicalForm from './medical.-form'
+import MedicalForm from './medicalForm'
 import ExtracurricularForm from './extracurriculars'
 import BackgroundCheckForm from './background-check'
 import ParentsGuardianForm from './parents-guardian'
@@ -37,7 +37,7 @@ export const AdmissionForms = ({}) => {
     className: '',
     dateOfBirth: '',
     isProvidingCurrentSchoolInfo: 'No',
-    tranportFacility: false,
+    transportFacility: false,
     schoolName: '',
     schoolBoard: '',
     obtainedMarks: '',
@@ -195,21 +195,21 @@ export const AdmissionForms = ({}) => {
                         case 2:
                           return (
                             <MedicalForm
-                              currentStudent={currentStudent}
+                              selectedChild={selectedChild}
                               setStep={setStep}
                             />
                           )
                         case 3:
                           return (
                             <ExtracurricularForm
-                              currentStudent={currentStudent}
+                              selectedChild={selectedChild}
                               setStep={setStep}
                             />
                           )
                         case 4:
                           return (
                             <BackgroundCheckForm
-                              currentStudent={currentStudent}
+                              selectedChild={selectedChild}
                               setStep={setStep}
                             />
                           )

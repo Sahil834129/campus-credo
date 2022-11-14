@@ -40,8 +40,13 @@ const getFieldTagElement = (props) => {
         case FORM_FIELD_TYPE.CHECKBOX:
             return (
                 <label>
-                    <Field type="checkbox" name={props.fieldName}/>
-                    <span>{props.label}</span>
+                    <Field type="checkbox" name={props.fieldName} 
+                        value={props.value}
+                        {...(props.onChange ? {onChange: props.onChange} :{})}
+                        {...(props.defaultChecked ? { defaultChecked: props.defaultChecked } : {})}
+                        {...(props.checked ? { checked: props.checked } : {})}
+                    />
+                    <span>{' '}{props.label}</span>
                 </label>
             )
         case FORM_FIELD_TYPE.RADIO:
