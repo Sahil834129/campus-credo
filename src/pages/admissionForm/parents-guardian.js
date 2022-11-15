@@ -1,29 +1,36 @@
 import React, { useState } from 'react'
 import '../../assets/scss/custom-styles.scss'
-import { Formik, Form } from 'formik'
-import InputField from '../../components/form/InputField'
+// import { Formik, Form } from 'formik'
 import { useNavigate } from 'react-router-dom'
+import { Button, Form } from 'react-bootstrap'
+import TextField from '../../components/form/TextField'
+import { toast } from 'react-toastify'
 
 import { GENDER_OPTOPNS } from '../../constants/formContanst'
 import DatePicker from 'react-datepicker'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import RESTClient from '../../utils/RestClient'
 import { useEffect } from 'react'
+import RadioButton from '../../components/form/RadioButton'
+import SelectField from '../../components/form/SelectField'
+import moment from 'moment'
 
 export default function ParentsGuardianForm ({ currentStudent, setStep }) {
   const history = useNavigate()
   const [parentExist, setParentExist] = useState(false)
-  const [initialValues, setInitialValues] = useState({
-    relation: 'false',
+  const [values, setValues] = useState({
+    relation: '',
+    otherRelation: '',
     firstName: '',
     lastName: '',
     gender: '',
-    nationality: 'false',
+    nationality: '',
+    otherNationality: '',
     maritalStatus: 'true',
     addressLine1: 'false',
-    qualification: '',
-    occupation: '',
-    annualFamilyIncome: '',
+    qualification: 'Diploma',
+    occupation: 'Chartered_Accountant',
+    annualFamilyIncome: 'THIRD_INCOME',
     dateOfBirth: new Date()
   })
   const [submitting, setSubmitting] = useState(false)
@@ -38,27 +45,88 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     { value: 'Social Worker', text: 'Social Worker' }
   ]
   const income = [
-    { value: '10000000', text: '10000000' },
-    { value: '1000000', text: '1000000' },
-    { value: '100000', text: '100000' }
+    { value: 'FIRST_INCOME', text: 'FIRST INCOME' },
+    { value: 'SECOND_INCOME', text: 'SECOND INCOME' },
+    { value: 'THIRD_INCOME', text: 'THIRD INCOME' },
+    { value: 'FOURTH_INCOME', text: 'FOURTH INCOME' },
+    { value: 'FIFTH_INCOME', text: 'FIFTH INCOME' },
+    { value: 'SIXTH_INCOME', text: 'SIXTH INCOME' },
+    { value: 'SEVENTH_INCOME', text: 'SEVENTH INCOME' }
   ]
 
-  const saveData = formData => {
-    setStep(val => val + 1)
-    console.log(JSON.stringify(formData))
+  const saveData = async (e, formData) => {
+    e.preventDefault()
+    let postData = { ...values, ...formData }
+    postData.nationality =
+      postData.otherNationality !== ''
+        ? postData.otherNationality
+        : postData.nationality
+    postData.otherRelation =
+      postData.relation !== '' ? postData.relation : postData.relation
+
+    postData.dateOfBirth = moment(postData.dateOfBirth).format('yyyy-MM-DD')
+    postData.studentId = postData.studentId || currentStudent.childId
+    delete postData.profileId
+    delete postData.annualFamilyIncomes
+    delete postData.otherNationality
+    delete postData.otherRelation
+
+    let response
+    try {
+      if (parentExist) {
+        postData = {
+          ...postData
+        }
+        delete postData.success
+        delete postData.parentId
+
+        response = await RESTClient.put(
+          RestEndPoint.GET_STUDENT_PARENT,
+          postData
+        )
+      } else {
+        response = await RESTClient.post(
+          RestEndPoint.GET_STUDENT_PARENT,
+          postData
+        )
+      }
+      toast.success('Student details saved successfully.')
+      // setStep(val => val + 1)
+    } catch (error) {
+      console.log(error)
+      toast.error(RESTClient.getAPIErrorMessage(error))
+    }
+    console.log(formData)
+    console.log(postData)
+
+    console.log(values)
   }
 
+  const setFieldValue = (fieldName, fieldValue) => {
+    setValues({
+      ...values,
+      [fieldName]: fieldValue
+    })
+  }
+
+  const handleDatefield = dob => {
+    setValues(val => {
+      return { ...val, dateOfBirth: dob }
+    })
+  }
   async function getUsersParent (user) {
     try {
       const response = await RESTClient.get(
-        RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
+        RestEndPoint.GET_STUDENT_PARENT + `/1` ///${user.childId}`
       )
-      console.log(response)
+      console.log(new Date(response.data[0]?.dateOfBirth))
       if (response.data !== '') {
-        setInitialValues(val => {
+        setValues(val => {
           return {
             ...val,
-            ...response.data
+            ...response.data[0],
+            dateOfBirth: new Date(response.data[0]?.dateOfBirth),
+            otherRelation: response.data[0]?.relation
           }
         })
 
@@ -72,351 +140,363 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
   }
 
   useEffect(() => {
-    if (currentStudent.childId) getUsersParent(currentStudent)
+    // if (currentStudent.childId)
+    getUsersParent(currentStudent)
   }, [currentStudent])
 
   return (
-    <Formik
-      initialValues={{ ...initialValues }}
-      onSubmit={values => {
-        saveData(values)
-      }}
-    >
-      {({ values, setFieldValue, errors, touched }) => (
-        <Form className='row g-3 mt-2'>
-          <div className='tab_btn'>
-            <div className='tab-content'>
-              <div className='tab-pane active' id='demo1'>
-                <form className='row g-3'>
-                  <div className='col-md-6'>
-                    <InputField
-                      fieldName='firstName'
-                      label='First Name'
-                      required
-                      fieldType='text'
-                      placeholder='Please add details...'
-                      errors={errors}
-                      touched={touched}
+    <Form className='row g-3' onSubmit={e => saveData(e, values)}>
+      <div className='tab_btn'>
+        <div className='tab-content'>
+          <div className='tab-pane active' id='demo1'>
+            <form className='row g-3'>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='firstName'
+                  label='First Name'
+                  value={values.firstName}
+                  required
+                  fieldType='text'
+                  placeholder='Please add details...'
+                  onChange={e => {
+                    setFieldValue('firstName', e.target.value)
+                  }}
+                />
+              </div>
+              <div className='col-md-6'>
+                <TextField
+                  fieldName='lastName'
+                  label='Last Name'
+                  value={values.lastName}
+                  required
+                  fieldType='text'
+                  placeholder='Please add details...'
+                  onChange={e => {
+                    setFieldValue('lastName', e.target.value)
+                  }}
+                />
+              </div>
+              <div className='col-md-6'>
+                <label htmlFor='validationServer02' className='form-label'>
+                  Relationship with Student <span className='req'>*</span>
+                </label>
+                <div className='d-flex  align-items-center py-2'>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      label='Father'
+                      value='Father'
+                      fieldName='relation'
+                      currentValue={values.relation}
+                      onChange={e => {
+                        setFieldValue('relation', 'Father')
+                      }}
                     />
                   </div>
-                  <div className='col-md-6'>
-                    <InputField
-                      fieldName='lastName'
-                      label='Last Name'
-                      required
-                      fieldType='text'
-                      placeholder='Please add details...'
-                      errors={errors}
-                      touched={touched}
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      label='Mother'
+                      value='Mother'
+                      fieldName='relation'
+                      currentValue={values.relation}
+                      onChange={e => {
+                        setFieldValue('relation', 'Mother')
+                      }}
                     />
                   </div>
-                  <div className='col-md-6'>
-                    <label for='validationServer02' className='form-label'>
-                      Relationship with Student <span className='req'>*</span>
-                    </label>
-                    <div className='d-flex  align-items-center py-2'>
-                      <div>
-                        <InputField
-                          className='form-check-input'
-                          label='Father'
-                          value='Father'
-                          fieldName='relation'
-                          fieldType='radio'
-                          checked={values.relation === 'Father'}
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='form-check ms-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Mother'
-                          value='Mother'
-                          fieldName='relation'
-                          checked={values.relation === 'Mother'}
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='form-check ms-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Other'
-                          value='Other'
-                          fieldName='relation'
-                          checked={values.relation === 'Other'}
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='col-md-6'>
-                    {/* <label htmlFor="Pincode" className="form-label">If Other, Please Specify</label> */}
-                    <InputField
-                      fieldName='detailTwo'
-                      label='If Other, Please Specify'
-                      required
-                      fieldType='text'
-                      placeholder='Please add details...'
-                      errors={errors}
-                      disabled={values.relation !== 'Other'}
-                      touched={touched}
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      label='Other'
+                      value='Other'
+                      fieldName='relation'
+                      currentValue={
+                        values.relation !== 'Father' &&
+                        values.relation !== 'Mother'
+                          ? 'Other'
+                          : ''
+                      }
+                      onChange={e => {
+                        setFieldValue('relation', 'Other')
+                      }}
                     />
                   </div>
+                </div>
+              </div>
+              <div className='col-md-6'>
+                {/* <label htmlFor="Pincode" className="form-label">If Other, Please Specify</label> */}
+                <TextField
+                  fieldName='otherRelation'
+                  label='If Other, Please Specify'
+                  value={
+                    values.relation !== 'Father' && values.relation !== 'Mother'
+                      ? values.otherRelation
+                      : ''
+                  }
+                  required={
+                    values.relation !== 'Father' && values.relation !== 'Mother'
+                  }
+                  fieldType='text'
+                  placeholder='Please add details...'
+                  disabled={
+                    !(
+                      values.relation !== 'Father' &&
+                      values.relation !== 'Mother'
+                    )
+                  }
+                  onChange={e => {
+                    setFieldValue('otherRelation', e.target.value)
+                  }}
+                />
+              </div>
 
-                  <div className='col-md-6'>
-                    <label>
-                      Date of Birth<span className='req'>*</span>
-                    </label>
-                    <div className='field-group-wrap'>
-                      <DatePicker
-                        selected={values.dateOfBirth}
-                        dateFormat='dd/MM/yyyy'
-                        className='form-control'
-                        name='dateOfBirth'
-                        onChange={date => setFieldValue('dateOfBirth', date)}
+              <div className='col-md-6'>
+                <label>
+                  Date of Birth<span className='req'>*</span>
+                </label>
+                <div className='field-group-wrap'>
+                  <DatePicker
+                    selected={new Date()}
+                    dateFormat='dd/MM/yyyy'
+                    className='form-control'
+                    name='dateOfBirth'
+                    onChange={date => setFieldValue('dateOfBirth', date)}
+                  />
+                </div>
+              </div>
+              <div className='col-md-6'>
+                <label htmlFor='validationServer02' className='form-label'>
+                  Select Gender <span className='req'>*</span>
+                </label>
+                <div className='d-flex  align-items-center py-2'>
+                  {GENDER_OPTOPNS.map(val => (
+                    <div
+                      className='form-check ms-2'
+                      key={`gender-parent-${val.value}`}
+                    >
+                      <RadioButton
+                        className='form-check-input'
+                        label={val.value}
+                        value={val.value}
+                        fieldName='gender'
+                        currentValue={values.gender}
+                        onChange={e => {
+                          setFieldValue('gender', val.value)
+                        }}
                       />
                     </div>
-                  </div>
-                  <div className='col-md-6'>
-                    <label for='validationServer02' className='form-label'>
-                      Select Gender <span className='req'>*</span>
-                    </label>
-                    <div className='d-flex  align-items-center py-2'>
-                      {GENDER_OPTOPNS.map(val => (
-                        <div
-                          className='me-5'
-                          key={`gender-parent-${val.value}`}
-                        >
-                          <InputField
-                            className='form-check-input'
-                            label={val.value}
-                            value={val.value}
-                            fieldName='gender'
-                            checked={values.gender === val.value}
-                            fieldType='radio'
-                            errors={errors}
-                            touched={touched}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  ))}
+                </div>
+              </div>
 
-                  <div className='col-md-6'>
-                    <label for='validationServer02' className='form-label'>
-                      Nationality <span className='req'>*</span>
-                    </label>
+              <div className='col-md-6'>
+                <label htmlFor='validationServer02' className='form-label'>
+                  Nationality <span className='req'>*</span>
+                </label>
 
-                    <div className='d-flex  align-items-center py-2'>
-                      <div className='me-5'>
-                        <InputField
-                          className='form-check-input'
-                          label='Indian'
-                          value='Indian'
-                          fieldName='nationality'
-                          checked={values.nationality === 'Indian'}
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='form-check ms-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Other'
-                          value='Other'
-                          checked={values.nationality === 'Other'}
-                          fieldName='nationality'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='col-md-6'>
-                    <label htmlFor='Other' className='form-label'>
-                      If Other, Please Specify
-                    </label>
-                    <InputField
-                      fieldName='nanitonalityOther'
-                      className='frm-cell'
-                      fieldType='text'
-                      placeholder='Please add details...'
-                      disabled={values.nationality !== 'Other'}
-                      errors={errors}
-                      touched={touched}
-                    />
-                  </div>
-                  <div className='col-md-6'>
-                    <label for='validationServer02' className='form-label'>
-                      Marital Status
-                      <span className='req'>*</span>
-                    </label>
-                    <div className='d-flex flex-wrap align-items-center py-2'>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Married'
-                          value='Married'
-                          checked={values.maritalStatus === 'Married'}
-                          fieldName='maritalStatus'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Widowed'
-                          value='Widowed'
-                          checked={values.maritalStatus === 'Widowed'}
-                          fieldName='maritalStatus'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Divorced'
-                          value='Divorced'
-                          checked={values.maritalStatus === 'Divorced'}
-                          fieldName='maritalStatus'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Seperated'
-                          value='Seperated'
-                          checked={values.maritalStatus === 'Seperated'}
-                          fieldName='maritalStatus'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Never Married'
-                          value='Never Married'
-                          checked={values.maritalStatus === 'Never Married'}
-                          fieldName='maritalStatus'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='col-md-6'>
-                    <label for='validationServer02' className='form-label'>
-                      Residential Address - Same as student?{' '}
-                      <span className='req'>*</span>
-                    </label>
-                    <div className='d-flex  align-items-center py-2'>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='Yes'
-                          value='Yes'
-                          checked={values.addressLine1 === 'Yes'}
-                          fieldName='addressLine1'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                      <div className='me-2'>
-                        <InputField
-                          className='form-check-input'
-                          label='No'
-                          value='No'
-                          checked={values.addressLine1 === 'No'}
-                          fieldName='addressLine1'
-                          fieldType='radio'
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className='col-md-6'>
-                    <InputField
-                      fieldName='qualification'
-                      label='Qualitfication'
+                <div className='d-flex align-items-center py-2'>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Indian'
+                      value='Indian'
+                      fieldName='nationality'
+                      currentValue={values.nationality}
+                      onChange={e => {
+                        setFieldValue('nationality', 'Indian')
+                      }}
                       required
-                      fieldType='select'
-                      placeholder=''
-                      selectOptions={Options}
-                      errors={errors}
-                      touched={touched}
                     />
                   </div>
-                  <div className='col-md-6'>
-                    <InputField
-                      fieldName='occupation'
-                      label='Occupation'
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Other'
+                      value='Other'
+                      currentValue={values.nationality}
+                      onChange={e => {
+                        setFieldValue('nationality', 'Other')
+                      }}
                       required
-                      fieldType='select'
-                      placeholder=''
-                      selectOptions={occupation}
-                      errors={errors}
-                      touched={touched}
+                      fieldName='nationality'
                     />
                   </div>
-                  <div className='col-md-6'>
-                    <InputField
-                      fieldName='annualFamilyIncome'
-                      label=' Annual Family Income'
-                      required
-                      fieldType='select'
-                      placeholder=''
-                      selectOptions={income}
-                      errors={errors}
-                      touched={touched}
+                </div>
+              </div>
+              <div className='col-md-6'>
+                <label htmlFor='Other' className='form-label'>
+                  If Other, Please Specify
+                </label>
+                <TextField
+                  fieldName='nanitonalityOther'
+                  className='frm-cell'
+                  fieldType='text'
+                  value={
+                    values.nationality !== 'Indian'
+                      ? values.otherNationality
+                      : ''
+                  }
+                  required={values.nationality === 'Indian'}
+                  placeholder='Please add details...'
+                  disabled={values.nationality === 'Indian'}
+                />
+              </div>
+              <div className='col-md-6'>
+                <label htmlFor='validationServer02' className='form-label'>
+                  Marital Status
+                  <span className='req'>*</span>
+                </label>
+                <div className='d-flex flex-wrap align-items-center py-2'>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Married'
+                      value='Married'
+                      fieldName='maritalStatus'
+                      currentValue={values.maritalStatus}
+                      onChange={e => {
+                        setFieldValue('maritalStatus', 'Married')
+                      }}
                     />
                   </div>
-                </form>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Widowed'
+                      value='Widowed'
+                      fieldName='maritalStatus'
+                      currentValue={values.maritalStatus}
+                      onChange={e => {
+                        setFieldValue('maritalStatus', 'Widowed')
+                      }}
+                    />
+                  </div>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Divorced'
+                      value='Divorced'
+                      fieldName='maritalStatus'
+                      currentValue={values.maritalStatus}
+                      onChange={e => {
+                        setFieldValue('maritalStatus', 'Divorced')
+                      }}
+                    />
+                  </div>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Seperated'
+                      value='Seperated'
+                      fieldName='maritalStatus'
+                      currentValue={values.maritalStatus}
+                      onChange={e => {
+                        setFieldValue('maritalStatus', 'Seperated')
+                      }}
+                    />
+                  </div>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Never Married'
+                      value='Never Married'
+                      fieldName='maritalStatus'
+                      currentValue={values.maritalStatus}
+                      onChange={e => {
+                        setFieldValue('maritalStatus', 'Never Married')
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className='tab-pane' id='demo2'>
-                <h1>hello shiv</h1>
+              <div className='col-md-6'>
+                <label htmlFor='validationServer02' className='form-label'>
+                  Residential Address - Same as student?{' '}
+                  <span className='req'>*</span>
+                </label>
+                <div className='d-flex  align-items-center py-2'>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Yes'
+                      value='Yes'
+                      fieldName='addressLine1'
+                      currentValue={values.addressLine1}
+                      onChange={e => {
+                        setFieldValue('addressLine1', 'yes')
+                      }}
+                    />
+                  </div>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='No'
+                      value='No'
+                      fieldName='addressLine1'
+                      currentValue={values.addressLine1}
+                      onChange={e => {
+                        setFieldValue('addressLine1', 'No')
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className='tab-pane' id='demo3'>
-                <h1>hello </h1>
+              <div className='col-md-6'>
+                <SelectField
+                  fieldName='qualification'
+                  label='Qualitfication'
+                  required
+                  selectOptions={Options}
+                  value={values.qualification}
+                  onChange={e => {
+                    setFieldValue('qualification', e.target.value)
+                  }}
+                />
               </div>
-            </div>
+              <div className='col-md-6'>
+                <SelectField
+                  fieldName='occupation'
+                  label='Occupation'
+                  required
+                  selectOptions={occupation}
+                  value={values.occupation}
+                  onChange={e => {
+                    setFieldValue('occupation', e.target.value)
+                  }}
+                />
+              </div>
+              <div className='col-md-6'>
+                <SelectField
+                  fieldName='annualFamilyIncome'
+                  label=' Annual Family Income'
+                  required
+                  selectOptions={income}
+                  value={values.annualFamilyIncome}
+                  onChange={e => {
+                    setFieldValue('annualFamilyIncome', e.target.value)
+                  }}
+                />
+              </div>
+            </form>
           </div>
-          <div className='form-group mb-3 button-wrap'>
-            <button
-              type='button'
-              className='cancel comn'
-              onClick={() => history('/backgroundcheckform')}
-            >
-              {submitting ? 'Please wait...' : 'Cancel'}
-            </button>
-            <button
-              className='save comn'
-              type='submit'
-              submitting={submitting}
-              // onClick={() => history('/userProfile/SupportingDocumentForm')}
-            >
-              Save &amp; Next
-            </button>
+          <div className='tab-pane' id='demo2'>
+            <h1>hello shiv</h1>
           </div>
-        </Form>
-      )}
-    </Formik>
+          <div className='tab-pane' id='demo3'>
+            <h1>hello </h1>
+          </div>
+        </div>
+      </div>
+      <div className='form-group mb-3 button-wrap'>
+        <button
+          type='button'
+          className='cancel comn'
+          onClick={() => history('/backgroundcheckform')}
+        >
+          {submitting ? 'Please wait...' : 'Cancel'}
+        </button>
+        <button className='save comn' type='submit'>
+          {parentExist ? `Update & Next` : `Save & Next`}
+        </button>
+      </div>
+    </Form>
   )
 }
