@@ -30,13 +30,13 @@ export const BLOOD_OPTIONS = [
 
 export const DISABILITY_LIST = [
   { value: 'AUTISM', label: 'Autism' },
-  { value: 'Hearing_impairment', label: 'Hearing impairment' },
-  { value: 'Language_disorder', label: 'Language disorder' },
-  { value: 'Physical_disability', label: 'Physical disability' },
-  { value: 'Learning_difficulty', label: 'Learning difficulty' },
-  { value: 'Behaviour_disorder', label: 'Behaviour disorder' },
-  { value: 'Mental_health_disorder', label: 'Mental health disorder' },
-  { value: 'Speech_impairment', label: 'Speech impairment' },
-  { value: 'Vision_impairment', label: 'Vision impairment' },
-  { value: 'Other', label: 'Other' }
+  { value: 'HEARING_IMPAIRMENT', label: 'Hearing impairment' },
+  { value: 'LANGUAGE_DISORDER', label: 'Language disorder' },
+  { value: 'PHYSICAL_DISABILITY', label: 'Physical disability' },
+  { value: 'LEARNING_DIFFICULTY', label: 'Learning difficulty' },
+  { value: 'BEHAVIOUR_DISORDER', label: 'Behaviour disorder' },
+  { value: 'MENTAL_HEALTH_DISORDER', label: 'Mental health disorder' },
+  { value: 'SPEECH_IMPAIRMENT', label: 'Speech impairment' },
+  { value: 'VISION_IMPAIRMENT', label: 'Vision impairment' },
+  { value: 'Other', label: 'Other' },
 ]

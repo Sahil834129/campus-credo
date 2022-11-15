@@ -18,7 +18,8 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
     medicalConditions: '',
     specialCare: '',
     disabilities: [],
-    disability: 'No'
+    disability: 'No',
+    otherDisability:''
   })
   const [isMedicalProfileExists, setIsMedicalProfileExists] = useState(false)
 
@@ -32,11 +33,6 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
         RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${childId}`
       )
       if (response.data !== '') {
-        let disabilityArray = response.data.disabilities
-          .replace('[', '')
-          .replace(']', '')
-          .split(',')
-        disabilityArray = disabilityArray.map(it => it.toString().trim())
         setMedicalProfile({
           ...medicalProfile,
           id: response.data.id,
@@ -44,8 +40,9 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           allergies: response.data.allergies,
           medicalConditions: response.data.medicalConditions,
           specialCare: response.data.specialCare,
-          disabilities: disabilityArray,
-          disability: response.data.disability.length > 0 ? 'Yes' : 'No'
+          disabilities: response.data.disabilities,
+          otherDisability: response.data.otherDisability,
+          disability: response.data.disabilities.length > 0 ? "Yes" : "No"
         })
         setIsMedicalProfileExists(true)
       }
@@ -250,7 +247,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               </div>
               <div className='col-md-6'>
                 <InputField
-                  fieldName='disabilityDescribtion'
+                  fieldName='otherDisability'
                   label='If Yes, Please Specify'
                   required
                   fieldType='text'
