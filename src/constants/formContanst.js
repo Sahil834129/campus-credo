@@ -27,3 +27,16 @@ export const BLOOD_OPTIONS = [
   { value: 'O+', text: 'O+' },
   { value: 'O-', text: 'O-' }
 ]
+
+export const DISABILITY_LIST = [
+  { value: 'AUTISM', label: 'Autism' },
+  { value: 'Hearing_impairment', label: 'Hearing impairment' },
+  { value: 'Language_disorder', label: 'Language disorder' },
+  { value: 'Physical_disability', label: 'Physical disability' },
+  { value: 'Learning_difficulty', label: 'Learning difficulty' },
+  { value: 'Behaviour_disorder', label: 'Behaviour disorder' },
+  { value: 'Mental_health_disorder', label: 'Mental health disorder' },
+  { value: 'Speech_impairment', label: 'Speech impairment' },
+  { value: 'Vision_impairment', label: 'Vision impairment' },
+  { value: 'Other', label: 'Other' }
+]

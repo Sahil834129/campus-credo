@@ -85,7 +85,12 @@ const getFieldTagElement = props => {
           <Field
             type='checkbox'
             name={props.fieldName}
-            {...(props.required ? { required: props.required } : {})}
+            value={props.value}
+            {...(props.onChange ? { onChange: props.onChange } : {})}
+            {...(props.defaultChecked
+              ? { defaultChecked: props.defaultChecked }
+              : {})}
+            {...(props.checked ? { checked: props.checked } : {})}
           />
           <span>{props.label}</span>
         </label>

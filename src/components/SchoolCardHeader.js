@@ -13,7 +13,7 @@ const SchoolCardHeader = (props) => {
                 {/* <Card.Img className='school-logo' variant="left" src={school.schoolThumbnailImgLink} /> */}
             </Row>
             <Row className='info-item school-info-exerpts'>
-                <div className='school-name'>{school.name}</div>
+                <div className='school-name'>{school.schoolName}</div>
                 <ListGroup className='school-type'>
                     <ListGroup.Item>{school.board}</ListGroup.Item>
                     <ListGroup.Item>{school.mediumOfInstruction}</ListGroup.Item>

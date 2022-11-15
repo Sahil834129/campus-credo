@@ -43,16 +43,15 @@ export default function StudentDetails ({
     delete postData.middleName
     delete postData.lastName
     delete postData.gender
+    delete postData.tranportFacility
+
     let response
     try {
+      console.log(isUserExist)
       if (isUserExist) {
-        postData = {
-          ...postData,
-          profileId: postData.id
-        }
-        delete postData.id
         delete postData.success
         delete postData.parentId
+        console.log(isUserExist, postData)
 
         response = await RESTClient.put(
           RestEndPoint.CREATE_STUDENT_PROFILE,
@@ -416,10 +415,10 @@ export default function StudentDetails ({
             <RadioButton
               label='Yes'
               value={true}
-              fieldName='tranportFacility'
-              currentValue={selectedChild.tranportFacility}
+              fieldName='transportFacility'
+              currentValue={selectedChild.transportFacility}
               onChange={e => {
-                setFieldValue('tranportFacility', str2bool(e.target.value))
+                setFieldValue('transportFacility', str2bool(e.target.value))
               }}
             />
           </div>
@@ -427,10 +426,10 @@ export default function StudentDetails ({
             <RadioButton
               label='No'
               value={false}
-              fieldName='tranportFacility'
-              currentValue={selectedChild.tranportFacility}
+              fieldName='transportFacility'
+              currentValue={selectedChild.transportFacility}
               onChange={e => {
-                setFieldValue('tranportFacility', str2bool(e.target.value))
+                setFieldValue('transportFacility', str2bool(e.target.value))
               }}
             />
           </div>

@@ -23,7 +23,11 @@ const RestEndPoint = {
   GET_CITIES: '/v1/school/city',
   CREATE_STUDENT_PROFILE: 'student/profile',
   GET_STUDENT_PROFILE: 'student/profile',
-  GET_STUDENT_PARENT: 'parent/guardian'
+  GET_STUDENT_PARENT: 'parent/guardian',
+  GET_STUDENT_MEDICAL_DETAILS: 'student/medicalDetail',
+  CREATE_STUDENT_MEDICAL_DETAILS: 'student/medicalDetail',
+  CREATE_STUDENT_PROFILE_EXTRA_CURRICULARS: 'student/profile/extracurriculars',
+  CREATE_STUDENT_PROFILE_BACKGROUND_CHECK: 'student/profile/backgroundCheck',
 }
 
 export default RestEndPoint

@@ -91,7 +91,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         )
       }
       toast.success('Student details saved successfully.')
-      // setStep(val => val + 1)
+      setStep(val => val + 1)
     } catch (error) {
       console.log(error)
       toast.error(RESTClient.getAPIErrorMessage(error))
@@ -117,7 +117,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
   async function getUsersParent (user) {
     try {
       const response = await RESTClient.get(
-        RestEndPoint.GET_STUDENT_PARENT + `/1` ///${user.childId}`
+        RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
       )
       console.log(new Date(response.data[0]?.dateOfBirth))
       if (response.data !== '') {
