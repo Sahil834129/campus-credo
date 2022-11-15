@@ -74,3 +74,12 @@ export const str2bool = value => {
   }
   return value
 }
+
+export function humanize (str) {
+  let i
+  let frags = str.split('_')
+  for (i = 0; i < frags.length; i++) {
+    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1).toLowerCase()
+  }
+  return frags.join(' ')
+}

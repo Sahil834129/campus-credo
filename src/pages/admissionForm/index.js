@@ -28,9 +28,9 @@ export const AdmissionForms = ({}) => {
   const [showAddChildDialog, setShowAddChildDialog] = useState(false)
   const [showStudentList, setShowStudentList] = useState(false)
   const [pageTitle, setPageTitle] = useState('')
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(6)
   const [selectedChild, setSelectedChild] = useState({
-    childId: '',
+    childId: 3,
     firstName: '',
     middleName: '',
     lastName: '',
@@ -223,7 +223,8 @@ export const AdmissionForms = ({}) => {
                         case 6:
                           return (
                             <SupportingDocumentForm
-                              currentStudent={currentStudent}
+                              currentStudent={selectedChild}
+                              setStep={setStep}
                             />
                           )
                         default:
