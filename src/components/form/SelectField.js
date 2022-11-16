@@ -8,15 +8,12 @@ const SelectField = props => {
         {props.required ? <span className='req'>*</span> : ''}
       </label>
       <div className='frm-cell'>
-        <Form.Group
-          className='frm-cell'
-          name={props.fieldName}
-          {...(props.onChange ? { onChange: props.onChange } : {})}
-        >
+        <Form.Group className='frm-cell' name={props.fieldName}>
           <Form.Select
             disabled={props.disabled}
             required={props.required}
             value={props.value}
+            {...(props.onChange ? { onChange: props.onChange } : {})}
           >
             {props.selectOptions.map((option, index) => {
               return (

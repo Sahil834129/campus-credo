@@ -1,66 +1,25 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import '../../assets/scss/custom-styles.scss'
-import Button from 'react-bootstrap/Button'
-import Table from 'react-bootstrap/Table'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 
-import { useNavigate } from 'react-router-dom'
-
-import { Formik, Form } from 'formik'
-import InputField from '../../components/form/InputField'
 import RESTClient from '../../utils/RestClient'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { useEffect } from 'react'
-import { humanize } from '../../utils/helper'
+import { DocumentTableFormat } from './documentTableForm'
+import { toast } from 'react-toastify'
+import { useCallback } from 'react'
 
 export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
-  const [submitting, setSubmitting] = useState(false)
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
-  const [fileUploadErrors, setFileUploadErrrors] = useState({})
+  const [key, setKey] = useState('student')
 
-  const [key, setKey] = useState('home')
-
-  const [files, setFiles] = useState({})
-  const [documentExist, setDocumentExist] = useState(false)
-  const [loader, setLoader] = useState(false)
-  const saveData = formData => {
-    console.log(JSON.stringify(formData))
-  }
-  const hiddenFileInput = useRef(null)
-
-  // Customize the file upload UI (see "customization"):
-  const handleFileChangeInput = e => {
-    setFiles(val => {
-      return {
-        ...val,
-        [e.target.name]: e.target.files[0]
-      }
-    })
-  }
-
-  const fileUplaod = (fileType, files) => {
-    const error = {}
-    if (files[fileType]) {
-      console.log(fileType, files)
-      error[fileType] = ''
-    } else {
-      error[fileType] = 'File is not selected'
-    }
-    setFileUploadErrrors(val => {
-      return {
-        ...val,
-        ...error
-      }
-    })
-  }
-  const getSupportingDocument = async () => {
+  const getSupportingDocument = useCallback(async childId => {
     try {
       const response = await RESTClient.get(
-        RestEndPoint.STUDENT_DOCUMENT + `/${currentStudent.childId}`
+        RestEndPoint.STUDENT_DOCUMENT + `/${childId}`
       )
-      console.log(response.data.studentDocumentDto)
       if (response.data.studentDocumentDto !== '') {
         setStudentDocuments(
           (response.data.studentDocumentDto || []).filter(
@@ -72,153 +31,98 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
             val => val.category === 'guardian'
           )
         )
-        setDocumentExist(true)
       } else {
-        setDocumentExist(false)
       }
     } catch (error) {
       // toast.error(RESTClient.getAPIErrorMessage(error))
     }
+  }, [])
+
+  const validateAllDocumentFilled = async (stuDocs, parDocs) => {
+    const stuDocsUnfilled = stuDocs.filter(
+      val => val.status !== 'uploaded' && val.mandatory
+    )
+    const parDocsUnfilled = parDocs.filter(
+      val => val.status !== 'uploaded' && val.mandatory
+    )
+    if (stuDocsUnfilled.length || parDocsUnfilled.length) {
+      toast.error('Some Mandatory Files are missing!')
+    } else {
+      // const response = await RESTClient.post(
+      //   RestEndPoint.APPLICATION_CHECKOUT + `/${currentStudent.childId}`
+      // )
+      // console.log(response.data)
+      toast.success('Student Details saved')
+    }
   }
 
   useEffect(() => {
-    console.log(currentStudent)
-    if (currentStudent.childId) getSupportingDocument(currentStudent)
-  }, [currentStudent])
+    if (currentStudent.childId) getSupportingDocument(currentStudent.childId)
+  }, [currentStudent.childId, getSupportingDocument])
 
   return (
-    <Formik
-      initialValues={{
-        file1: '',
-        documentName: ''
-      }}
-      validateOnBlur
-      onSubmit={values => {
-        saveData(values)
-      }}
-    >
-      {({ values, setFieldValue, errors, touched }) => (
-        <Form className='row g-3'>
-          <div className='tab_btn'>
-            <Tabs
-              id='controlled-tab-example'
-              activeKey={key}
-              onSelect={k => setKey(k)}
-              className='mb-3'
-            >
-              <Tab eventKey='home' title='Student'>
-                <div className='tab-content'>
-                  <div className='tab-pane active' id='paperback'>
-                    <Form className='row g-3'>
-                      <Table bordered hover>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Document Name</th>
-                            <th>Select</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {studentDocuments.map((val, index) => (
-                            <tr>
-                              <td>{index + 1}</td>
-                              <td>{humanize(val.documentName)}</td>
-                              <td>
-                                <input
-                                  type='file'
-                                  name={val.documentName}
-                                  onChange={handleFileChangeInput}
-                                  accept='.png, .jpg, .jpeg .pdf'
-                                />
-                                {fileUploadErrors[val.documentName] !==
-                                undefined
-                                  ? fileUploadErrors[val.documentName]
-                                  : ''}
-                              </td>
-                              <td>
-                                <Button
-                                  className='ok-btn'
-                                  onClick={e => {
-                                    fileUplaod(val.documentName, files)
-                                  }}
-                                >
-                                  Upload
-                                </Button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </Form>
-                  </div>
-                  <div className='tab-pane' id='ebook'>
-                    <h1>hello shiv</h1>
-                  </div>
-                </div>
-              </Tab>
-              <Tab eventKey='profile' title='Parent/Guardian'>
-                <div className='tab-content'>
-                  <div className='tab-pane active' id='paperback'>
-                    <Form className='row g-3'>
-                      <Table bordered hover>
-                        <thead>
-                          <th>#</th>
-                          <th>Document Name</th>
-                          <th>Select</th>
-                          <th>Action</th>
-                        </thead>
-                        <tbody>
-                          {parentDocuments.map((val, index) => (
-                            <tr>
-                              <td>{index + 1}</td>
-                              <td>{humanize(val.documentName)}</td>
-                              <td>
-                                <input type='file' name={val.documentName} />
-                              </td>
-                              <td>
-                                <Button
-                                  className='ok-btn'
-                                  onClick={e => {
-                                    console.log(e)
-                                  }}
-                                >
-                                  Upload
-                                </Button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </Form>
-                  </div>
-                  <div className='tab-pane' id='ebook'>
-                    <h1>hello shiv</h1>
-                  </div>
-                </div>
-              </Tab>
-            </Tabs>
-          </div>
-          <div className='form-group mb-3 button-wrap'>
-            <button
-              type='button'
-              className='cancel comn'
-              // onClick={() => history('/parentsguardianform')}
-            >
-              {submitting ? 'Please wait...' : 'Cancel'}
-            </button>
-            <button
-              className='save comn'
-              type='submit'
-              submitting={submitting}
-              // onClick={() => history('/supportingdocumentform')}
-            >
-              Save &amp; Next
-            </button>
-          </div>
-        </Form>
-      )}
-    </Formik>
+    <>
+      <div className='tab_btn'>
+        <Tabs
+          id='controlled-tab-example'
+          activeKey={key}
+          onSelect={k => setKey(k)}
+          className='mb-3'
+        >
+          <Tab eventKey='student' title='Student' disabled>
+            <div className='tab-content'>
+              <div className='tab-pane active' id='paperback'>
+                <DocumentTableFormat
+                  documents={studentDocuments}
+                  currentStudent={currentStudent}
+                  currentTab={key}
+                  setDocument={setStudentDocuments}
+                />
+              </div>
+            </div>
+          </Tab>
+          <Tab eventKey='parent' title='Parent/Guardian' disabled>
+            <div className='tab-content'>
+              <div className='tab-pane active' id='paperback'>
+                <DocumentTableFormat
+                  documents={parentDocuments}
+                  currentStudent={currentStudent}
+                  currentTab={key}
+                  setDocument={setParentDocuments}
+                />
+              </div>
+            </div>
+          </Tab>
+        </Tabs>
+      </div>
+      <div className='form-group mb-3 button-wrap'>
+        <button
+          type='button'
+          className='cancel comn'
+          // onClick={() => history('/parentsguardianform')}
+        >
+          Cancel
+        </button>
+        <button
+          className='save comn me-2'
+          onClick={() =>
+            setKey(val => (val === 'student' ? 'parent' : 'student'))
+          }
+        >
+          {key === 'student' ? 'Next' : 'Back'}
+        </button>
+        {key === 'parent' && (
+          <button
+            className='save comn'
+            onClick={() =>
+              validateAllDocumentFilled(studentDocuments, parentDocuments)
+            }
+          >
+            Submit
+          </button>
+        )}
+      </div>
+    </>
   )
 }
 export default SupportingDocumentForm

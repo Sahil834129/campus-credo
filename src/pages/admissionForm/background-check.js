@@ -7,22 +7,25 @@ import { useNavigate } from 'react-router-dom'
 import RESTClient from '../../utils/RestClient'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
-import AdmissionForms from '.'
 
 export default function BackgroundCheckForm ({ selectedChild, setStep }) {
   const history = useNavigate()
   const [submitting, setSubmitting] = useState(false)
-  
-  const saveData = async(formData) => {
+
+  const saveData = async formData => {
     try {
-      formData["childId"] = selectedChild.childId
+      formData['childId'] = selectedChild.childId
       setSubmitting(true)
-      await RESTClient.patch(RestEndPoint.CREATE_STUDENT_PROFILE_BACKGROUND_CHECK, formData)
+      await RESTClient.patch(
+        RestEndPoint.CREATE_STUDENT_PROFILE_BACKGROUND_CHECK,
+        formData
+      )
       setSubmitting(false)
       setStep(val => val + 1)
+      window.scrollTo(0, 0)
     } catch (error) {
       setSubmitting(false)
-      toast.error(RESTClient.getAPIErrorMessage(error))  
+      toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
 
@@ -66,7 +69,8 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
           </div>
           <div className='col-md-6'>
             <label className='form-label'>
-              Has the student ever been suspended or expelled from any previous school?If Yes, Please Specify
+              Has the student ever been suspended or expelled from any previous
+              school?If Yes, Please Specify
             </label>
             <InputField
               fieldName='offensiveConduct'
@@ -84,7 +88,7 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
               className='cancel comn'
               onClick={() => history('/extracurricularform')}
             >
-             Cancel
+              Cancel
             </button>
             <button
               className='save comn'
@@ -92,7 +96,7 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
               submitting={submitting}
               // onClick={() => history('/userProfile/ParentsGuardianForm')}
             >
-             {submitting ? 'Please wait...' : 'Save & Next'}
+              {submitting ? 'Please wait...' : 'Save & Next'}
             </button>
           </div>
         </Form>

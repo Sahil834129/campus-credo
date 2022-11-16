@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../../assets/scss/custom-styles.scss'
 // import { Formik, Form } from 'formik'
 import { useNavigate } from 'react-router-dom'
-import { Button, Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import TextField from '../../components/form/TextField'
 import { toast } from 'react-toastify'
 
@@ -33,7 +33,6 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     annualFamilyIncome: 'THIRD_INCOME',
     dateOfBirth: new Date()
   })
-  const [submitting, setSubmitting] = useState(false)
   const Options = [
     { value: "Master's", text: "Master's" },
     { value: "Bachelor's", text: "Bachelor's" },
@@ -70,8 +69,6 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     delete postData.annualFamilyIncomes
     delete postData.otherNationality
     delete postData.otherRelation
-
-    let response
     try {
       if (parentExist) {
         postData = {
@@ -80,12 +77,12 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         delete postData.success
         delete postData.parentId
 
-        response = await RESTClient.put(
+        await RESTClient.put(
           RestEndPoint.GET_STUDENT_PARENT,
           postData
         )
       } else {
-        response = await RESTClient.post(
+        await RESTClient.post(
           RestEndPoint.GET_STUDENT_PARENT,
           postData
         )
@@ -93,13 +90,8 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
       toast.success('Student details saved successfully.')
       setStep(val => val + 1)
     } catch (error) {
-      console.log(error)
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
-    console.log(formData)
-    console.log(postData)
-
-    console.log(values)
   }
 
   const setFieldValue = (fieldName, fieldValue) => {
@@ -109,23 +101,23 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     })
   }
 
-  const handleDatefield = dob => {
-    setValues(val => {
-      return { ...val, dateOfBirth: dob }
-    })
-  }
   async function getUsersParent (user) {
     try {
       const response = await RESTClient.get(
         RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
       )
-      console.log(new Date(response.data[0]?.dateOfBirth))
+      console.log(response.data)
+
       if (response.data !== '') {
+        let dateBirth = (response.data[0]?.dateOfBirth)
+          .split('/')
+          .reverse()
+          .join('-')
         setValues(val => {
           return {
             ...val,
             ...response.data[0],
-            dateOfBirth: new Date(response.data[0]?.dateOfBirth),
+            dateOfBirth: new Date(dateBirth),
             otherRelation: response.data[0]?.relation
           }
         })
@@ -135,6 +127,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         setParentExist(false)
       }
     } catch (error) {
+      console.log(error)
       // toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
@@ -254,7 +247,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                 </label>
                 <div className='field-group-wrap'>
                   <DatePicker
-                    selected={new Date()}
+                    selected={values.dateOfBirth}
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
@@ -326,7 +319,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                   If Other, Please Specify
                 </label>
                 <TextField
-                  fieldName='nanitonalityOther'
+                  fieldName='otherNationality'
                   className='frm-cell'
                   fieldType='text'
                   value={
@@ -334,6 +327,9 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                       ? values.otherNationality
                       : ''
                   }
+                  onChange={e => {
+                    setFieldValue('otherNationality', e.target.value)
+                  }}
                   required={values.nationality === 'Indian'}
                   placeholder='Please add details...'
                   disabled={values.nationality === 'Indian'}
@@ -491,7 +487,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
           className='cancel comn'
           onClick={() => history('/backgroundcheckform')}
         >
-          {submitting ? 'Please wait...' : 'Cancel'}
+          Cancel
         </button>
         <button className='save comn' type='submit'>
           {parentExist ? `Update & Next` : `Save & Next`}

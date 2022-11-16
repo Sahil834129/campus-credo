@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import InputField from '../../components/form/InputField'
+
 import { getChildsList } from '../../redux/actions/childAction'
 
 import {
@@ -19,6 +19,7 @@ import RadioButton from '../../components/form/RadioButton'
 import { Button, Form } from 'react-bootstrap'
 import { combineArray, popularSchoolClasses } from '../../utils/populateOptions'
 import { str2bool } from '../../utils/helper'
+import { useCallback } from 'react'
 
 export default function StudentDetails ({
   currentStudent,
@@ -32,7 +33,6 @@ export default function StudentDetails ({
   const [classOptions, setClassOptions] = useState([
     { value: '', text: 'Select Class' }
   ])
-  const [submitting, setSubmitting] = useState(false)
   const [isUserExist, setIsUserExist] = useState(false)
   const saveStudentDetails = async e => {
     e.preventDefault()
@@ -45,63 +45,47 @@ export default function StudentDetails ({
     delete postData.gender
     delete postData.tranportFacility
 
-    let response
     try {
-      console.log(isUserExist)
       if (isUserExist) {
         delete postData.success
         delete postData.parentId
-        console.log(isUserExist, postData)
 
-        response = await RESTClient.put(
-          RestEndPoint.CREATE_STUDENT_PROFILE,
-          postData
-        )
+        await RESTClient.put(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
       } else {
-        response = await RESTClient.post(
-          RestEndPoint.CREATE_STUDENT_PROFILE,
-          postData
-        )
+        await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
       }
       toast.success('Student details saved successfully.')
       setStep(val => val + 1)
+      window.scrollTo(0, 0)
     } catch (error) {
-      console.log(error)
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
 
-  // function validateForm (data) {
-  //   return data.category.length > 0 && password.length > 0
-  // }
-
-  async function getCurrentUser (user) {
-    try {
-      const response = await RESTClient.get(
-        RestEndPoint.GET_STUDENT_PROFILE + `/${user.childId}`
-      )
-      console.log(response)
-      if (response.data !== '') {
-        setSelectedChild(val => {
-          console.log({
-            ...val,
-            ...response.data
+  const getCurrentUser = useCallback(
+    async childId => {
+      try {
+        const response = await RESTClient.get(
+          RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`
+        )
+        if (response.data !== '') {
+          setSelectedChild(val => {
+            return {
+              ...val,
+              ...response.data
+            }
           })
 
-          return {
-            ...val,
-            ...response.data
-          }
-        })
-
-        setIsUserExist(true)
-      } else {
-        setIsUserExist(false)
+          setIsUserExist(true)
+        } else {
+          setIsUserExist(false)
+        }
+      } catch (error) {
+        // toast.error(RESTClient.getAPIErrorMessage(error))
       }
-    } catch (error) {
-      // toast.error(RESTClient.getAPIErrorMessage(error))
-    }
-  }
+    },
+    [setSelectedChild]
+  )
 
   const setFieldValue = (fieldName, fieldValue) => {
     setSelectedChild({
@@ -115,8 +99,8 @@ export default function StudentDetails ({
   }, [dispatch])
 
   useEffect(() => {
-    if (currentStudent.childId) getCurrentUser(currentStudent)
-  }, [currentStudent])
+    if (currentStudent.childId) getCurrentUser(currentStudent.childId)
+  }, [currentStudent.childId, getCurrentUser])
 
   useEffect(() => {
     popularSchoolClasses()
@@ -459,7 +443,6 @@ export default function StudentDetails ({
               fieldName='boardingFacility'
               currentValue={selectedChild.boardingFacility}
               onChange={e => {
-                console.log(e)
                 setFieldValue('boardingFacility', str2bool(e.target.value))
               }}
             />
@@ -472,10 +455,10 @@ export default function StudentDetails ({
           className='cancel comn'
           onClick={() => navigate('/userProfile')}
         >
-          {submitting ? 'Please wait...' : 'Cancel'}
+          Cancel
         </button>
-        <Button type='submit' className='save comn' disabled={submitting}>
-          {submitting ? 'Please wait...' : 'Save & Next'}
+        <Button type='submit' className='save comn'>
+          Save & Next
         </Button>
       </div>
     </Form>

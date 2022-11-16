@@ -28,7 +28,9 @@ const RestEndPoint = {
   CREATE_STUDENT_MEDICAL_DETAILS: 'student/medicalDetail',
   CREATE_STUDENT_PROFILE_EXTRA_CURRICULARS: 'student/profile/extracurriculars',
   CREATE_STUDENT_PROFILE_BACKGROUND_CHECK: 'student/profile/backgroundCheck',
-  STUDENT_DOCUMENT: 'student/documents'
+  STUDENT_DOCUMENT: 'student/documents',
+  STUDENT_DOCUMENT_UPLOAD: 'student/document/upload',
+  APPLICATION_CHECKOUT: 'applicationCart/checkOutApplication'
 }
 
 export default RestEndPoint

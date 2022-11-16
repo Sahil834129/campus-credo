@@ -21,7 +21,7 @@ import BackgroundCheckForm from './background-check'
 import ParentsGuardianForm from './parents-guardian'
 import SupportingDocumentForm from './supportingdocumentform'
 
-export const AdmissionForms = ({}) => {
+export const AdmissionForms = () => {
   const [currentStudent, setCurrentStudent] = useState({})
 
   const childsList = useSelector(state => state.childsData.childs)
@@ -216,7 +216,7 @@ export const AdmissionForms = ({}) => {
                         case 5:
                           return (
                             <ParentsGuardianForm
-                              currentStudent={currentStudent}
+                              currentStudent={selectedChild}
                               setStep={setStep}
                             />
                           )
