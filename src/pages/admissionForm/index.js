@@ -28,9 +28,9 @@ export const AdmissionForms = ({}) => {
   const [showAddChildDialog, setShowAddChildDialog] = useState(false)
   const [showStudentList, setShowStudentList] = useState(false)
   const [pageTitle, setPageTitle] = useState('')
-  const [step, setStep] = useState(6)
+  const [step, setStep] = useState(1)
   const [selectedChild, setSelectedChild] = useState({
-    childId: 3,
+    childId: '',
     firstName: '',
     middleName: '',
     lastName: '',
