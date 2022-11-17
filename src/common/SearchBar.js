@@ -25,9 +25,15 @@ const SearchBar = () => {
     useEffect(()=>{dispatch(getSelectedLocation())}, [dispatch]);
 
     const getSchoolData = async() => {
+        let filters = []
+        filters.push({
+            field: 'city',
+            operator: 'EQUALS',
+            value: selectedLocation
+        })
         try {
-            const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:[]});
-            setSearchItems(response.data.map(school => ({name:school.name})));
+            const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});
+            setSearchItems(response.data.map(school => ({name:school.schoolName})));
         } catch(e){};
     }
 
