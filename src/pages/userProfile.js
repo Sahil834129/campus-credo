@@ -44,7 +44,7 @@ const UserProfile = () => {
                         <Col className='left sidebar'>
                           <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS}/>
                         </Col>
-                <Col className='right content'>
+                <Col className='profile-content right'>
                   <div className='row-items header'>
                     <div className='col-item select-option left'>
                       <label>Select Child<span className='req'>*</span></label>
@@ -58,7 +58,7 @@ const UserProfile = () => {
                       </Form.Group>
                     </div>
                     <div className='col-item application-link right'>
-                      Your Application<Link to=''>(02)</Link>
+                      <label>Your Application</label> <Link to=''>(02)</Link>
                     </div>
                   </div>
                   {

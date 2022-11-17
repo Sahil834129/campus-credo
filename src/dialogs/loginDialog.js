@@ -127,9 +127,15 @@ const LoginDialog = (props) => {
                                 <Form.Group className="mb-3">
                                     <Form.Control type="phone" onChange={e=> setPhone(e.target.value)} placeholder="Mobile Number" />
                                 </Form.Group>
-                                <div>Sign in using <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)}/>
-                                    password <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} />
-                                    Mobile OTP</div>
+                                <div className="loginoption">
+                                    <span className="loginoption-cell"><h2>Sign in using</h2></span> 
+                                    <span className="loginoption-cell">
+                                        <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)}/><label className="lbl">Password</label>
+                                    </span> 
+                                    <span className="loginoption-cell">
+                                    <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} /><label>Mobile OTP</label>
+                                    </span>
+                                </div>
                                 <Form.Group className="mb-3">
                                     <div className="otp-fields-wrapper mt-3 mb-3">
                                         {loginWithOTP == true ? (
@@ -139,16 +145,13 @@ const LoginDialog = (props) => {
                                                 isInputNum={true}
                                                 shouldAutoFocus
                                                 value={otp}
+                                                className='otpfield'
+                                               
                                                 placeholder="------"
                                                 inputStyle={{
-                                                    color: "blue",
-                                                    width: "2.5rem",
-                                                    height: "3rem",
-                                                    margin: "0 0.5rem",
-                                                    fontSize: "2rem",
-                                                    borderRadius: 4,
-                                                    caretColor: "blue",
-                                                    border: "1px solid rgba(0,0,0,0.3)",
+                                                    width: "52px",
+                                                    height: "52px",
+                                                    caretColor: "#000000",
                                                 }}
 
                                             />

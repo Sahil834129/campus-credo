@@ -17,7 +17,7 @@ const HomePage = () => {
     const navigate = useNavigate();
     return (
         <Layout>
-            <section className="content-area">
+            <section className="content-area home-page">
                 <Container className="content-area-inner">
                     <Col className="hero-info-panel">
                         <div className="hero-item left">

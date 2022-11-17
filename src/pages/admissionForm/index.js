@@ -172,6 +172,7 @@ export const AdmissionForms = () => {
                 <LeftMenuBar
                   menuItems={PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS}
                   parentPage='userProfile'
+                  step={step}
                 />
                 <div className='inner-page-content right'>
                   <div className='inner-page-right-container'>

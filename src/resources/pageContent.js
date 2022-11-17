@@ -22,11 +22,11 @@ const PageContent = {
     { ref: '#', title: 'Supporting Documents' }
   ],
   USER_PROFILE_SIDEBAR_MENU_ITEMS: [
-    { ref: '/userProfile/studentDetails', title: 'Dashboard' },
-    { ref: '/aboutUs', title: 'Manage Profile' },
-    { ref: '/howItWorks', title: 'Fee Payments' },
+    { ref: '/userProfile', title: 'Dashboard' },
+    { ref: '/manageProfile', title: 'Manage Profile' },
+    //{ ref: '/userProfile', title: 'Fee Payments' },
     { ref: '/userProfile/studentDetails', title: 'Admission Form' },
-    { ref: '/contactUs', title: 'Logout' }
+    //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },

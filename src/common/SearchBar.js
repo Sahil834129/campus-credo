@@ -120,7 +120,7 @@ const SearchBar = () => {
                         </Dropdown>
                     </div>
                     <div className="search-wrapper">
-                        <div style={{ width: 500, margin: 20 }}>
+                        <div className="search-inner" style={{ width: 500, marginTop: 4, marginBottom:4 }}>
                             <ReactSearchAutocomplete
                                 items={searchItems}
                                 onSelect={handleOnSelect}

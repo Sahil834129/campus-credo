@@ -8,11 +8,9 @@ const LeftMenuBar = props => {
   const location = useLocation()
   const pageRef =
     '/' +
-    (props.parentPage !== null && props.parentPage !== ''
-      ? props.parentPage + '/'
-      : '') +
-    location.pathname.split('/')[2]
-
+    (props.parentPage ? props.parentPage + '/' : '') +
+    location.pathname.split('/')[1]
+  
   return (
     <div className='inner-page-content left sidebar'>
       <Nav defaultActiveKey='/home' className='sideNav-indicator'>
@@ -21,9 +19,10 @@ const LeftMenuBar = props => {
             <Fragment key={'sidemenuItem_' + index}>
               <Navbar.Text>
                 <Link
-                  className={menuItem.ref === pageRef ? 'active' : ''}
+                  className={menuItem.ref === pageRef || (props.step ? index+1 == props.step : false) ? 'active' : ''}
                   to={menuItem.ref}
-                >
+                  
+                ><span className='indicator'><span className='indiShape circle'></span></span>
                   {menuItem.title}
                 </Link>
               </Navbar.Text>

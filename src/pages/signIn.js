@@ -89,7 +89,7 @@ const SignIn = () => {
     }
 
     return (
-        <Container className="main-container singup-main" fluid>
+        <Container className="main-container signup-main" fluid>
             <div className="signup-wrapper">
                 <div className="signup-col left">
                     <RegisterInfoGraphic />
