@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Breadcrumbs from '../common/Breadcrumbs';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,72 +9,86 @@ import Layout from "../common/layout";
 import AppliedSchools from "../components/userProfile/AppliedSchools";
 import LeftMenuBar from "../common/LeftMenuBar";
 import PageContent from "../resources/pageContent";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import RESTClient from "../utils/RestClient";
+import { useSelector, useDispatch } from "react-redux";
+import { getChildsList } from '../redux/actions/childAction';
+import { isLoggedIn } from '../utils/helper';
+import NoRecordsFound from "../common/NoRecordsFound";
 
 const UserProfile = () => {
-  const schoolData = [
-    {
-        schoolName: "Orchids - The International School",
-        applyingtoClass: "STD I",
-        admissionFeePaid:"₹240",
-        board: "CBSE",
-        mediumOfInstruction: "English",
-        gender: "Co-ed"
-    },
-    {
-      schoolName: "Orchids - The International School",
-      applyingtoClass: "STD I",
-      admissionFeePaid:"₹240",
-      board: "CBSE",
-      mediumOfInstruction: "English",
-      gender: "Co-ed"
-  },
+  const dispatch = useDispatch()
+  const [selectedChild, setSelectedChild] = useState('')
+  const [applications, setApplications] = useState([])
+  const childs = useSelector((state) => state.childsData.childs)
+
+  useEffect(() => { 
+    if (isLoggedIn())
+      dispatch(getChildsList());
+  }, [dispatch]);
+
+  useEffect(()=> {
+    childs.length && handleChildSelection(childs[0].childId);
+  }, [childs]);
+
+  const handleChildSelection = async (childId) => {
+	setSelectedChild(childId)
+    try {
+      const response = await RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`)
+      setApplications(response.data)
+    } catch (error) {
+		setApplications([])
+	}
+  }
   
-  ];
-    return (
-        <Layout>
-        <section className="content-area">
-                <Container className="content-area-inner profile-page-wrap">
-                  <Col className='inner-page-content '>
-                    <Row className='content-section profile-bc-section'>
-                        <Col className='bc-col'>
-                            <Breadcrumbs/>
-                        </Col>
-                    </Row>
-                    <Row className='content-section profile-content-main'>
-                        <Col className='left sidebar'>
-                          <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS}/>
-                        </Col>
-                <Col className='profile-content right'>
-                  <div className='row-items header'>
-                    <div className='col-item select-option left'>
-                      <label>Select Child<span className='req'>*</span></label>
-                      <Form.Group className='frm-cell'>
-                        <Form.Select aria-label="Default select example">
-                          <option>--Select Child--</option>
-                          <option value="1">Child-one</option>
-                          <option value="2">Child-two</option>
-                          <option value="3">Child-three</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </div>
-                    <div className='col-item application-link right'>
-                      <label>Your Application</label> <Link to=''>(02)</Link>
-                    </div>
+  return (
+    <Layout>
+      <section className="content-area">
+        <Container className="content-area-inner profile-page-wrap">
+          <Col className='inner-page-content '>
+            <Row className='content-section profile-bc-section'>
+              <Col className='bc-col'>
+                <Breadcrumbs />
+              </Col>
+            </Row>
+            <Row className='content-section profile-content-main'>
+              <Col className='left sidebar'>
+                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+              </Col>
+              <Col className='profile-content right'>
+                <div className='row-items header'>
+                  <div className='col-item select-option left'>
+                    <label>Select Child<span className='req'>*</span></label>
+                    <Form.Group className='frm-cell'>
+                      <Form.Select value={selectedChild} onChange={e=>handleChildSelection(e.target.value)}>
+                        <option>--Select Child--</option>
+                        {
+                          childs && childs.map((child, index) => {
+                            return <option key={'applicationChild_'+index} value={child.childId}>{child.firstName} {(child.lastName ? ' ' + child.lastName : '')}</option>
+                          })
+                        }
+
+                      </Form.Select>
+                    </Form.Group>
                   </div>
-                  {
-                    schoolData.length && schoolData.map((school, index) => {
-                      return <AppliedSchools key={"appliedSchools_" + index} school={school} />
-                    })
-                  }
-                </Col>
-                    </Row>
-                  </Col>
-    
-             
-                </Container>
-                </section>
-                </Layout>
-    )
+                  <div className='col-item application-link right'>
+                    <label>Your Application</label> <Link to=''>({applications.length})</Link>
+                  </div>
+                </div>
+                {
+                  applications.length > 0 ?
+				  	applications.map((application, index) => {
+                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} />
+                  	})
+					: <NoRecordsFound message="No applications found for select child."/>
+                }
+              </Col>
+            </Row>
+          </Col>
+        </Container>
+      </section>
+    </Layout>
+  )
 }
 
 export default UserProfile;

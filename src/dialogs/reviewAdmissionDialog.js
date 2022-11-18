@@ -1,66 +1,44 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Accordion, Tab, Tabs } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import { useDispatch } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
 import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { humanize } from '../utils/helper'
-import { propTypes } from "react-bootstrap/esm/Image";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
-
-    const dispatch = useDispatch()
-    const [studentdetail, setStudentdetail] = useState({})
-    const [medicaldetail, setmedicaldetail] = useState({})
-    const [parentdetail, setParentDetail] = useState({})
+const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
+    const navigate = useNavigate()
+    const [studentDetail, setStudentDetail] = useState({})
+    const [medicalDetail, setMedicalDetail] = useState({})
+    const [parentDetail, setParentDetail] = useState({})
     const [studentDocuments, setStudentDocuments] = useState([])
     const [parentDocuments, setParentDocuments] = useState([])
     const [key, setKey] = useState('student')
-    console.log("student id : " + studentid)
-    async function getCurrentUser(user) {
+    
+    async function getChildProfile(childId) {
         try {
-            const response = await RESTClient.get(
-                RestEndPoint.GET_STUDENT_PROFILE + `/${user}`
-            )
-            console.log(response)
-            if (response.data) {
-                setStudentdetail(response.data)
-            }
-        } catch (error) {
-        }
+            const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`)
+            setStudentDetail(response.data)
+        } catch (error) {}
     }
 
-    async function getMedicalProfile(user) {
+    async function getMedicalProfile(childId) {
         try {
-            const response = await RESTClient.get(
-                RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${user}`
-            )
-            console.log(response)
-            if (response.data) {
-                setmedicaldetail(response.data)
-            }
-
-        } catch (error) {
-        }
+            const response = await RESTClient.get(RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${childId}`)
+            setMedicalDetail(response.data)
+        } catch (error) {}
     }
 
-    async function getUsersParent(user) {
+    async function getParentDetails(childId) {
         try {
-            const response = await RESTClient.get(
-                RestEndPoint.GET_STUDENT_PARENT + `/${user}`
-            )
-            console.log(response)
-            if (response.data) {
-                setParentDetail(response.data[0])
-            }
-        } catch (error) {
-        }
+            const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PARENT + `/${childId}`)
+            setParentDetail(response.data[0])
+        } catch (error) {}
     }
 
-    const getSupportingDocument = useCallback(async childId => {
+    async function getSupportingDocuments(childId) {
         try {
           const response = await RESTClient.get(
             RestEndPoint.STUDENT_DOCUMENT + `/${childId}`
@@ -76,26 +54,32 @@ const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
                 val => val.category === 'guardian'
               )
             )
-          } else {
           }
-        } catch (error) {
-          // toast.error(RESTClient.getAPIErrorMessage(error))
-        }
-      }, [])
+        } catch (error) {}
+      }
 
     useEffect(() => {
-        getCurrentUser(studentid)
-        getMedicalProfile(studentid)
-        getUsersParent(studentid)
-        getSupportingDocument(studentid)
-    }, [studentid])
+        getChildProfile(childId)
+        getMedicalProfile(childId)
+        getParentDetails(childId)
+        getSupportingDocuments(childId)
+    }, [childId])
+
+    async function checkOutApplication() {
+        try {
+            await RESTClient.get(RestEndPoint.APPLICATION_CHECKOUT + `/${childId}`)
+            handleClose()
+            navigate('/userProfile')
+        } catch (error) {
+            toast.error(RESTClient.getAPIErrorMessage(error))
+        }
+    }
 
     return (
         <>
             <Modal dialogClassName="signin-model add-child-model" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>Application</Modal.Header>
                 <Modal.Body dialogClassName="model-body" >
-                    {/* <div closeButton>{getLocalData("name")}</div> */}
                     <Accordion defaultActiveKey="0" flush>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>Candidate Details/Extracurriculars</Accordion.Header>
@@ -103,47 +87,47 @@ const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
                                 <div className="row">
                                     <div className='col-md-4'>
                                         <span>Name </span>
-                                        <span>{studentdetail.firstName} {studentdetail.lastName}</span>
+                                        <span>{studentDetail.firstName} {studentDetail.lastName}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>Gender </span>
-                                        <span>{studentdetail.gender}</span>
+                                        <span>{studentDetail.gender}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>DOB </span>
-                                        <span> {studentdetail.dateOfBirth}</span>
+                                        <span> {studentDetail.dateOfBirth}</span>
                                     </div>
                                 </div>
                                 
                                 <div className="row">
                                     <div className='col-md-4'>
                                         <span>Identification Marks </span>
-                                        <span>{studentdetail.identificationMarks}</span>
+                                        <span>{studentDetail.identificationMarks}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>Gender </span>
-                                        <span>{studentdetail.religion}</span>
+                                        <span>{studentDetail.religion}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>Nationality </span>
-                                        <span>{studentdetail.nationality}</span>
+                                        <span>{studentDetail.nationality}</span>
                                     </div>
                                 </div>
                                     
                                 <div className="row">
                                     <div className='col-md-6'>
                                         <span>Require Tranport </span>
-                                        <span>{studentdetail.tranportFacility ? "Yes" : "No"}</span>
+                                        <span>{studentDetail.tranportFacility ? "Yes" : "No"}</span>
                                     </div>
                                     <div className='col-md-6'>
                                         <span>Require Boarding </span>
-                                        <span>{studentdetail.boardingFacility ? "Yes" : "No"}</span>
+                                        <span>{studentDetail.boardingFacility ? "Yes" : "No"}</span>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className='col-md-12'>
                                         <span>Address </span>
-                                        <span>{studentdetail.addressLine1}, {studentdetail.addressLine2}, {studentdetail.city}, {studentdetail.state} - {studentdetail.pincode}</span>
+                                        <span>{studentDetail.addressLine1}, {studentDetail.addressLine2}, {studentDetail.city}, {studentDetail.state} - {studentDetail.pincode}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
@@ -154,27 +138,27 @@ const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
                                 <div className="row">
                                     <div className='col-md-6'>
                                         <span>Blood Group </span>
-                                        <span>{medicaldetail.bloodGroup}</span>
+                                        <span>{medicalDetail.bloodGroup}</span>
                                     </div>
                                     <div className='col-md-6'>
                                         <span>Allergies </span>
-                                        <span>{medicaldetail.allergies && medicaldetail.allergies !== '' ? medicaldetail.allergies : "No"}</span>
+                                        <span>{medicalDetail.allergies && medicalDetail.allergies !== '' ? medicalDetail.allergies : "No"}</span>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className='col-md-6'>
                                         <span>Special Care </span>
-                                        <span>{medicaldetail.specialCare && medicaldetail.specialCare !== '' ? medicaldetail.specialCare : "No"}</span>
+                                        <span>{medicalDetail.specialCare && medicalDetail.specialCare !== '' ? medicalDetail.specialCare : "No"}</span>
                                     </div>
                                     <div className='col-md-6'>
                                         <span>Medical Conditions </span>
-                                        <span>{medicaldetail.medicalConditions && medicaldetail.medicalConditions !== '' ? medicaldetail.medicalConditions : "No"}</span>
+                                        <span>{medicalDetail.medicalConditions && medicalDetail.medicalConditions !== '' ? medicalDetail.medicalConditions : "No"}</span>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className='col-md-12'>
                                         <span>Disabilities </span>
-                                        <span>{medicaldetail.disabilities && medicaldetail.disabilities !== '' ? medicaldetail.disabilities.join(', ') : "No"}</span>
+                                        <span>{medicalDetail.disabilities && medicalDetail.disabilities !== '' ? medicalDetail.disabilities.join(', ') : "No"}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
@@ -185,45 +169,45 @@ const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
                                 <div className="row">
                                     <div className='col-md-4'>
                                         <span>Name </span>
-                                        <span>{parentdetail.firstName} {parentdetail.lastName}</span>
+                                        <span>{parentDetail.firstName} {parentDetail.lastName}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>Gender </span>
-                                        <span>{parentdetail.gender}</span>
+                                        <span>{parentDetail.gender}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>DOB </span>
-                                        <span>{parentdetail.dateOfBirth}</span>
+                                        <span>{parentDetail.dateOfBirth}</span>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className='col-md-4'>
                                         <span>Relation </span>
-                                        <span>{parentdetail.relation}</span>
+                                        <span>{parentDetail.relation}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>Marital Status </span>
-                                        <span>{parentdetail.maritalStatus}</span>
+                                        <span>{parentDetail.maritalStatus}</span>
                                     </div>
                                     <div className='col-md-4'>
                                         <span>Nationality </span>
-                                        <span>{parentdetail.nationality}</span>
+                                        <span>{parentDetail.nationality}</span>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className='col-md-4'>
                                         <span>Qualification </span>
-                                        <span>{parentdetail.qualification}</span>
+                                        <span>{parentDetail.qualification}</span>
                                     </div>
                                     <div className='col-md-8'>
                                         <span>Occupation </span>
-                                        <span>{parentdetail.occupation}</span>
+                                        <span>{parentDetail.occupation}</span>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className='col-md-8'>
                                         <span>Annual Family Income </span>
-                                        <span>{parentdetail.annualFamilyIncomes?.replace('[','').replace(']','').replace(',',' - ')}</span>
+                                        <span>{parentDetail.annualFamilyIncomes?.replace('[','').replace(']','').replace(',',' - ')}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
@@ -279,14 +263,12 @@ const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
                                     </Tab>
                                 </Tabs>
                             </div>
-                                
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                    {/* <Button>Download Details</Button> */}
+                    <Button className='applyFilter' onClick={()=>checkOutApplication()}>Checkout</Button>
                 </Modal.Body>
             </Modal>
-
         </>
     );
 }
