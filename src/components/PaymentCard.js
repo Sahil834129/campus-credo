@@ -18,7 +18,7 @@ const PaymentCard = ({selectedChild}) => {
     const handleCloseReviewApplicationDialog = () => {
         setShowReviewApplication(false);
     }
-    console.log("selected cjild : "  + JSON.stringify(selectedChild))
+    
     return (
         <Card className='school-card cart-payment-card'>
             <div className='card-header-item title'>Cart Details</div>

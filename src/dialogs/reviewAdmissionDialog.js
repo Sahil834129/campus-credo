@@ -224,40 +224,36 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                     <Tab eventKey='student' title='Student' >
                                         {
                                             studentDocuments.length && studentDocuments.map((document, index) => {
-                                                return <>
-                                                    <div className="row">
-                                                        <div className="col-md-6">
-                                                            {humanize(document.documentName)}
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                        {document.status === 'uploaded' && (
-                                                            <a target='_blank' href={document.documentLink}>
-                                                            {document.documentName}
-                                                            </a>
-                                                        )}
-                                                        </div>
+                                                return <div key={'childDoc_'+index} className="row">
+                                                    <div className="col-md-6">
+                                                        {humanize(document.documentName)}
                                                     </div>
-                                                </>
+                                                    <div className="col-md-6">
+                                                    {document.status === 'uploaded' && (
+                                                        <a target='_blank' href={document.documentLink}>
+                                                        {document.documentName}
+                                                        </a>
+                                                    )}
+                                                    </div>
+                                                </div>
                                             })
                                         }
                                     </Tab>
                                     <Tab eventKey='parent1' title='Parent/Guardian' >
                                         {
                                             parentDocuments.length && parentDocuments.map((document, index) => {
-                                                return <>
-                                                    <div className="row">
-                                                        <div className="col-md-6">
-                                                            {humanize(document.documentName)}
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                        {document.status === 'uploaded' && (
-                                                            <a target='_blank' href={document.documentLink}>
-                                                            {document.documentName}
-                                                            </a>
-                                                        )}
-                                                        </div>
+                                                return <div key={'parentDoc_'+index} className="row">
+                                                    <div className="col-md-6">
+                                                        {humanize(document.documentName)}
                                                     </div>
-                                                </>
+                                                    <div className="col-md-6">
+                                                    {document.status === 'uploaded' && (
+                                                        <a target='_blank' href={document.documentLink}>
+                                                        {document.documentName}
+                                                        </a>
+                                                    )}
+                                                    </div>
+                                                </div>
                                             })
                                         }
                                     </Tab>
