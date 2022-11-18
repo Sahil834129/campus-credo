@@ -11,12 +11,17 @@ const SchoolCardGrid = (props) => {
     const [selectedSchoolToApply, setSelectedSchoolToApply] = useState('');
     const [showApplyToSchoolDialog, setShowApplyToSchoolDialog] = useState(false);
     const [showAlertDialog, setShowAlertDialog] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('')
     const selectedLocation = useSelector(
         state => state.locationData.selectedLocation
       )
-    const handleAddToCart = (schoolId) => {
-        console.log("is logged n : " + isLoggedIn())
+    const handleAddToCart = (schoolId, isAdmissionOpen) => {
         if (!isLoggedIn()) {
+            setAlertMessage(PageContent.MUST_BE_LOGGED_IN_MSG)
+            setShowAlertDialog(true);
+            return;
+        } else if (!isAdmissionOpen) {
+            setAlertMessage(PageContent.ADMISSION_CLOSED_ERROR_MSG)
             setShowAlertDialog(true);
             return;
         }
@@ -45,7 +50,7 @@ const SchoolCardGrid = (props) => {
             }
         </div>
         <ApplyToSchoolDialog show={showApplyToSchoolDialog} schoolId={selectedSchoolToApply} handleClose={handleAddToCartDialogClose}/>
-        <AlertDialog show={showAlertDialog} message={PageContent.MUST_BE_LOGGED_IN_MSG} handleClose={handleAlertDialogClose}/>
+        <AlertDialog show={showAlertDialog} message={alertMessage} handleClose={handleAlertDialogClose}/>
         </>
     );
 };

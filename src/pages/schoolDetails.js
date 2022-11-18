@@ -61,6 +61,9 @@ const SchoolDetails = () => {
 									}
 									<div className='academic-stat-wrapper'>
 										<SchoolStats schoolDetails={schoolDetails} />
+										<Col className='about-school-wrap'>
+											<Description heading="About School" description={schoolDetails.aboutSchool} />
+										</Col>
 										<Col className='facilities-list'>
 											<SchoolFacilities schoolCategoryFacilitiesMap={schoolCategoryFacilitiesMap} />
 										</Col>
@@ -68,7 +71,6 @@ const SchoolDetails = () => {
 											<SchoolDetailFeeStructure />
 										</Col>
 										<Col className='about-school-wrap'>
-											<Description heading="About Schoo" description={schoolDetails.aboutSchool} />
 											<Description heading="Curriculum & Infrastructure" description={schoolDetails.curriculamInfra} />
 											<Description heading="Achievements" description={schoolDetails.achievements} />
 										</Col>

@@ -3,15 +3,17 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useNavigate } from "react-router-dom";
 
 import InfoDropDown from "./InfoDropDown";
 import PageContent from "../resources/pageContent";
 import SchoolCardHeader from "./SchoolCardHeader";
 
 const SchoolCard = (props) => {
+    const navigate = useNavigate()
     const school = props.school;
     return (
-        <Card className='school-card'>
+        <Card className='school-card' onClick={()=>navigate("/schools/"+school.schoolName+"?id="+school.schoolId)}>
             <SchoolCardHeader school={school}/>
             <ListGroup className="info-list-group">
                 <ListGroup.Item>
@@ -36,12 +38,12 @@ const SchoolCard = (props) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                     <div className='left'>Seats Available:</div>
-                    <div className='right seats'>{school.admissionInfo?.seatsAvailable}</div>
+                    <div className='right seats'>{school.admissionInfo ? school.admissionInfo.seatsAvailable :"NA"}</div>
                 </ListGroup.Item>
             </ListGroup>
             <Card.Body className='button-wrap'>
-                <Card.Link href={"/school/"+school.name+"?id="+school.schoolId} className='view'>View Details</Card.Link>
-                <Card.Link className='add' onClick={()=> {props.handleAddToCart(school.schoolId)}}>Add to Cart</Card.Link>
+                <Card.Link href={"/schools/"+school.schoolName+"?id="+school.schoolId} className='view'>View Details</Card.Link>
+                <Card.Link className='add' onClick={(e)=> {props.handleAddToCart(school.schoolId, school.admissionInfo ? true :false);e.stopPropagation()}}>Add to Cart</Card.Link>
             </Card.Body>
             <Col className='salient-features'>
                 <Row className='partner-wrap'>
@@ -66,9 +68,9 @@ const SchoolCard = (props) => {
                                         <>
                                             <span className='session-title'></span>
                                             <InfoDropDown icon={school.facilities.length - 4}
-                                                options={school.facilities.map((it) => (it.facilityName))} />
+                                                options={school.facilities.filter((it,index) => {return index>3}).map((it) => (it.facilityName))} />
                                         </>
-                                        : 'Closed'}
+                                        : ''}
                             
                         </ListGroup.Item>
                     </ListGroup>

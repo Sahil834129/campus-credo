@@ -17,7 +17,7 @@ const PaymentCard = (props) => {
     const handleCloseLoginDialog = () => {
         setShowLoginDialog(false);
     }
-
+    console.log("selected child : " + JSON.stringify(props.selectedChild))
     return (
         <Card className='school-card cart-payment-card'>
             <div className='card-header-item title'>Cart Details</div>
@@ -41,7 +41,7 @@ const PaymentCard = (props) => {
                 <Card.Link className='btn checkour' onClick={handleShowLoginDialog}>Review Admission Form <br /> and Checkout</Card.Link>
                 <Card.Link href="#" className='btn addmore'>Add More Schools</Card.Link>
             </Card.Body>
-            <ReviewAdmissionDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} studentid="3" />
+            <ReviewAdmissionDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} studentid={props.selectedChild.id} />
         </Card>
     )
 }

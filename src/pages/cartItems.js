@@ -48,6 +48,8 @@ const ApplicationCart = () => {
   useEffect(() => { getSimilarSchools() }, []);
 
   const handleChildSelection = (childId) => {
+    if (!itemsInCart.childCartItemsList)
+      return
     for (let i=0; i < itemsInCart.childCartItemsList.length; i++) {
       let childCartItem = itemsInCart.childCartItemsList[i];
       if (childCartItem.childId === parseInt(childId)) {
