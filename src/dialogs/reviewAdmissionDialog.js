@@ -7,6 +7,7 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import { humanize } from '../utils/helper'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import NoRecordsFound from "../common/NoRecordsFound";
 
 const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
     const navigate = useNavigate()
@@ -21,21 +22,27 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
         try {
             const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`)
             setStudentDetail(response.data)
-        } catch (error) {}
+        } catch (error) {
+            setStudentDetail({})
+        }
     }
 
     async function getMedicalProfile(childId) {
         try {
             const response = await RESTClient.get(RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${childId}`)
             setMedicalDetail(response.data)
-        } catch (error) {}
+        } catch (error) {
+            setMedicalDetail({})
+        }
     }
 
     async function getParentDetails(childId) {
         try {
             const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PARENT + `/${childId}`)
-            setParentDetail(response.data[0])
-        } catch (error) {}
+            response.data.length ? setParentDetail(response.data[0]) : setParentDetail({})
+        } catch (error) {
+            setParentDetail({})
+        }
     }
 
     async function getSupportingDocuments(childId) {
@@ -55,7 +62,10 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
               )
             )
           }
-        } catch (error) {}
+        } catch (error) {
+            setStudentDocuments([])
+            setParentDocuments([])
+        }
       }
 
     useEffect(() => {
@@ -223,38 +233,42 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                 >
                                     <Tab eventKey='student' title='Student' >
                                         {
-                                            studentDocuments.length && studentDocuments.map((document, index) => {
-                                                return <div key={'childDoc_'+index} className="row">
-                                                    <div className="col-md-6">
-                                                        {humanize(document.documentName)}
+                                            studentDocuments.length > 0 ?
+                                                studentDocuments.map((document, index) => {
+                                                    return <div key={'childDoc_'+index} className="row">
+                                                        <div className="col-md-6">
+                                                            {humanize(document.documentName)}
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                        {document.status === 'uploaded' && (
+                                                            <a target='_blank' href={document.documentLink}>
+                                                            {document.documentName}
+                                                            </a>
+                                                        )}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-md-6">
-                                                    {document.status === 'uploaded' && (
-                                                        <a target='_blank' href={document.documentLink}>
-                                                        {document.documentName}
-                                                        </a>
-                                                    )}
-                                                    </div>
-                                                </div>
-                                            })
+                                                })
+                                                : <NoRecordsFound message="No documents uploaded yet."/>
                                         }
                                     </Tab>
                                     <Tab eventKey='parent1' title='Parent/Guardian' >
                                         {
-                                            parentDocuments.length && parentDocuments.map((document, index) => {
-                                                return <div key={'parentDoc_'+index} className="row">
-                                                    <div className="col-md-6">
-                                                        {humanize(document.documentName)}
+                                            parentDocuments.length > 0 ?
+                                                parentDocuments.map((document, index) => {
+                                                    return <div key={'parentDoc_'+index} className="row">
+                                                        <div className="col-md-6">
+                                                            {humanize(document.documentName)}
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                        {document.status === 'uploaded' && (
+                                                            <a target='_blank' href={document.documentLink}>
+                                                            {document.documentName}
+                                                            </a>
+                                                        )}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-md-6">
-                                                    {document.status === 'uploaded' && (
-                                                        <a target='_blank' href={document.documentLink}>
-                                                        {document.documentName}
-                                                        </a>
-                                                    )}
-                                                    </div>
-                                                </div>
-                                            })
+                                                })
+                                                : <NoRecordsFound message="No documents uploaded yet."/>
                                         }
                                     </Tab>
                                 </Tabs>
