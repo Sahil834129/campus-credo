@@ -33,12 +33,14 @@ export const resetUserLoginData = () => {
   localStorage.removeItem('token')
   localStorage.removeItem('refreshToken')
   localStorage.removeItem('name')
+  localStorage.removeItem('roles')
 }
 
 export const setUserLoginData = loginData => {
   setLocalData('token', loginData.token)
   setLocalData('refreshToken', loginData.refreshToken)
   setLocalData('name', loginData?.firstName)
+  setLocalData('roles', loginData?.roles)
 }
 
 export const getLocalData = key => {
@@ -79,7 +81,26 @@ export function humanize (str) {
   let i
   let frags = str.split('_')
   for (i = 0; i < frags.length; i++) {
-    frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1).toLowerCase()
+    frags[i] =
+      frags[i].charAt(0).toUpperCase() + frags[i].slice(1).toLowerCase()
   }
   return frags.join(' ')
+}
+
+export function isArrayWithLength (arr) {
+  return Array.isArray(arr) && arr.length
+}
+
+export function getAllowedRoutes (routes) {
+  const roles = JSON.parse(localStorage.getItem('roles'))
+  const data = routes.filter(({ permission }) => {
+    if (!permission) return true
+    else if (!isArrayWithLength(permission)) return true
+    else {
+      const interSectedArray = permission.filter(value => roles.includes(value))
+      return interSectedArray.length
+    }
+  })
+  console.log(data)
+  return data
 }

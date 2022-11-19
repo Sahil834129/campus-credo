@@ -14,6 +14,7 @@ import { getChildsList } from "../redux/actions/childAction";
 import { toast } from "react-toastify";
 import OtpTimer from "otp-timer";
 import OtpInput from "react-otp-input";
+import { DEFAULT_ROLES } from "../constants/app";
 
 const LoginDialog = (props) => {
     const dispatch = useDispatch();
@@ -87,6 +88,10 @@ const LoginDialog = (props) => {
             setSubmitting(false);
             loadUserData();
             props.handleClose();
+            const roles = response.data.roles
+            if (roles.find(val => val === DEFAULT_ROLES.SCHOOL_ADMIN)) {
+                window.location.href = '/admin-dashboard'
+            }
         }).catch((error) => {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));

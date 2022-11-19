@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { DEFAULT_ROLES } from '../constants/app'
 import {
   HomePage,
   AboutUs,
@@ -15,7 +16,9 @@ import {
   SchoolDetails,
   ApplicationCart,
   UserProfile,
-  SchoolAdmission
+  SchoolAdmission,
+  AdminDashboard,
+  NotFound
 } from '../pages'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -36,12 +39,18 @@ function AppRoutes () {
         <Route path='/verifyPhone/:phone' element={<VerifyPhone />} />
         <Route path='/school/:id' element={<SchoolDetails />} />
         <Route path='/cart' element={<ApplicationCart />} />
-        <Route element={<ProtectedRoute />}>
+        <Route path='/notFound' element={<NotFound />} />
+      </Routes>
+      <Routes>
+        <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path='/userProfile' element={<UserProfile />} />
           <Route
             path='/userProfile/studentDetails'
             element={<SchoolAdmission />}
           />
+        </Route>
+        <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}>
+          <Route path='/admin-dashboard' element={<AdminDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>
