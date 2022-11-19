@@ -5,6 +5,7 @@ const PageContent = {
   UNEXPECTED_ERROR_MSG:
     'An unexpected error has been occurred. Please try again later.',
   MUST_BE_LOGGED_IN_MSG: 'You must be logged in to add school to apply list.',
+  ADMISSION_CLOSED_ERROR_MSG: 'Admission is closed for selected school.',
   HEADER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
@@ -57,7 +58,7 @@ const PageContent = {
       image: 'feature-pic3.png',
       title: 'All in one',
       description:
-        'Apply to multiple schools at once &amp; OneAdmissionForm will be attached automatically'
+        'Apply to multiple schools at once & OneAdmissionForm will be attached automatically'
     },
     {
       image: 'feature-pic4.png',
@@ -88,7 +89,7 @@ const PageContent = {
       image: 'feature-pic3.png',
       title: 'All in one',
       description:
-        'Apply to multiple schools at once &amp; OneAdmissionForm will be attached automatically'
+        'Apply to multiple schools at once & OneAdmissionForm will be attached automatically'
     },
     {
       image: 'feature-pic4.png',

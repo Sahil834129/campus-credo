@@ -30,7 +30,8 @@ const RestEndPoint = {
   CREATE_STUDENT_PROFILE_BACKGROUND_CHECK: 'student/profile/backgroundCheck',
   STUDENT_DOCUMENT: 'student/documents',
   STUDENT_DOCUMENT_UPLOAD: 'student/document/upload',
-  APPLICATION_CHECKOUT: 'applicationCart/checkOutApplication'
+  APPLICATION_CHECKOUT: 'applicationCart/checkOutApplication',
+  GET_APPLICATION_LIST: 'admission/application'
 }
 
 export default RestEndPoint

@@ -1,11 +1,9 @@
-import { Row } from "react-bootstrap";
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg"
-import UserStatus from "./UserStatus";
-const AppliedSchools = (props) => {
-    const school = props.school;
+
+const AppliedSchools = ({application}) => {
     return (
         <Col className='right content'>
             <div className='row-items application-block'>
@@ -16,23 +14,29 @@ const AppliedSchools = (props) => {
                         </div>
                         <div className='info-item school-info-exerpts'>
                             <div className='school-name'>
-                                {school.schoolName}
+                                {application.schoolName}
                             </div>
                             <ListGroup className='school-type'>
-                                <ListGroup.Item>{school.board}</ListGroup.Item>
-                                <ListGroup.Item>{school.mediumOfInstruction}</ListGroup.Item>
-                                <ListGroup.Item>{school.gender}</ListGroup.Item>
+                                <ListGroup.Item>{application.board}</ListGroup.Item>
+                                <ListGroup.Item>{application.mediumOfInstruction}</ListGroup.Item>
+                                <ListGroup.Item>{application.gender}</ListGroup.Item>
                             </ListGroup>
                            
                             <div className='moreinfo-block'>
-                                <div className='col'>Applying to Class : <strong>{school.applyingtoClass}</strong></div>
+                                <div className='col'>Applying to Class : <strong>{application.className}</strong></div>
                                 <div className='col divider'>|</div>
-                                <div className='col'>Admission Fee Paid : <strong>{school.admissionFeePaid}</strong></div>
+                                <div className='col'>Admission Fee Paid : <strong>{application.formFee}</strong></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <UserStatus />
+                
+                <div className='col-item right'>
+                    <div className='col'><label>Status</label></div>
+                    <div className='col'><span className='badge accepted'>{application.applicationStatus}</span></div>
+                    <div className='col'></div>
+                </div>
+                
             </div>
         </Col>
     )

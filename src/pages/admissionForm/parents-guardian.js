@@ -417,7 +417,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                       fieldName='addressLine1'
                       currentValue={values.addressLine1}
                       onChange={e => {
-                        setFieldValue('addressLine1', 'yes')
+                        setFieldValue('addressLine1', 'Yes')
                       }}
                     />
                   </div>

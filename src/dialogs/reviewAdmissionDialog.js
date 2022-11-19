@@ -1,153 +1,284 @@
 import React, { useState, useEffect } from "react";
-import { Accordion } from "react-bootstrap";
+import { Accordion, Tab, Tabs } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import { useDispatch } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
 import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
+import { humanize } from '../utils/helper'
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import NoRecordsFound from "../common/NoRecordsFound";
 
-const ReviewAdmissionDialog = ({ show, studentid, handleClose }) => {
-
-    const dispatch = useDispatch()
-    const [studentdetail, setStudentdetail] = useState({})
-    const [medicaldetail, setmedicaldetail] = useState({})
-    const [parentdetail, setParentDetail] = useState({})
-    async function getCurrentUser(user) {
+const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
+    const navigate = useNavigate()
+    const [studentDetail, setStudentDetail] = useState({})
+    const [medicalDetail, setMedicalDetail] = useState({})
+    const [parentDetail, setParentDetail] = useState({})
+    const [studentDocuments, setStudentDocuments] = useState([])
+    const [parentDocuments, setParentDocuments] = useState([])
+    const [key, setKey] = useState('student')
+    
+    async function getChildProfile(childId) {
         try {
-            const response = await RESTClient.get(
-                RestEndPoint.GET_STUDENT_PROFILE + `/${user}`
-            )
-            console.log(response)
-            if (response.data) {
-                setStudentdetail(response.data)
-            }
+            const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`)
+            setStudentDetail(response.data)
         } catch (error) {
+            setStudentDetail({})
         }
     }
 
-    async function getMedicalProfile(user) {
+    async function getMedicalProfile(childId) {
         try {
-            const response = await RESTClient.get(
-                RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${user}`
-            )
-            console.log(response)
-            if (response.data) {
-                setmedicaldetail(response.data)
-            }
-
+            const response = await RESTClient.get(RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${childId}`)
+            setMedicalDetail(response.data)
         } catch (error) {
+            setMedicalDetail({})
         }
     }
 
-    async function getUsersParent(user) {
+    async function getParentDetails(childId) {
         try {
-            const response = await RESTClient.get(
-                RestEndPoint.GET_STUDENT_PARENT + `/${user}`
-            )
-            console.log(response)
-            if (response.data) {
-                setParentDetail(response.data[0])
-            }
+            const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PARENT + `/${childId}`)
+            response.data.length ? setParentDetail(response.data[0]) : setParentDetail({})
         } catch (error) {
+            setParentDetail({})
         }
     }
+
+    async function getSupportingDocuments(childId) {
+        try {
+          const response = await RESTClient.get(
+            RestEndPoint.STUDENT_DOCUMENT + `/${childId}`
+          )
+          if (response.data.studentDocumentDto !== '') {
+            setStudentDocuments(
+              (response.data.studentDocumentDto || []).filter(
+                val => val.category === 'student'
+              )
+            )
+            setParentDocuments(
+              (response.data.studentDocumentDto || []).filter(
+                val => val.category === 'guardian'
+              )
+            )
+          }
+        } catch (error) {
+            setStudentDocuments([])
+            setParentDocuments([])
+        }
+      }
 
     useEffect(() => {
-        getCurrentUser(studentid)
-        getMedicalProfile(studentid)
-        getUsersParent(studentid)
-    }, [studentid])
+        getChildProfile(childId)
+        getMedicalProfile(childId)
+        getParentDetails(childId)
+        getSupportingDocuments(childId)
+    }, [childId])
+
+    async function checkOutApplication() {
+        try {
+            await RESTClient.get(RestEndPoint.APPLICATION_CHECKOUT + `/${childId}`)
+            handleClose()
+            navigate('/userProfile')
+        } catch (error) {
+            toast.error(RESTClient.getAPIErrorMessage(error))
+        }
+    }
 
     return (
         <>
-            <Modal dialogClassName="signin-model" show={show} onHide={handleClose}>
+            <Modal dialogClassName="signin-model add-child-model" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>Application</Modal.Header>
                 <Modal.Body dialogClassName="model-body" >
-                    {/* <div closeButton>{getLocalData("name")}</div> */}
                     <Accordion defaultActiveKey="0" flush>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>Candidate Details/Extracurriculars</Accordion.Header>
                             <Accordion.Body>
-                                <Col>
-                                    <Row>
-                                        Name {studentdetail.firstName} {studentdetail.lastName} Gender {studentdetail.gender} DOB {studentdetail.dateOfBirth}
-                                    </Row>
-
-                                    <Row>
-                                        Age {studentdetail.age}
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        Identification Marks {studentdetail.identificationMarks}  Religion {studentdetail.religion}  Nationality {studentdetail.nationality}
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        Require Tranport {studentdetail.tranportFacility} Require Boarding {studentdetail.boardingFacility}
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        Esidetails Address {studentdetail.addressLine1}{studentdetail.addressLine2}-
-                                        {studentdetail.pincode}
-                                    </Row>
-                                </Col>
+                                <div className="row">
+                                    <div className='col-md-4'>
+                                        <span>Name </span>
+                                        <span>{studentDetail.firstName} {studentDetail.lastName}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>Gender </span>
+                                        <span>{studentDetail.gender}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>DOB </span>
+                                        <span> {studentDetail.dateOfBirth}</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="row">
+                                    <div className='col-md-4'>
+                                        <span>Identification Marks </span>
+                                        <span>{studentDetail.identificationMarks}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>Gender </span>
+                                        <span>{studentDetail.religion}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>Nationality </span>
+                                        <span>{studentDetail.nationality}</span>
+                                    </div>
+                                </div>
+                                    
+                                <div className="row">
+                                    <div className='col-md-6'>
+                                        <span>Require Tranport </span>
+                                        <span>{studentDetail.tranportFacility ? "Yes" : "No"}</span>
+                                    </div>
+                                    <div className='col-md-6'>
+                                        <span>Require Boarding </span>
+                                        <span>{studentDetail.boardingFacility ? "Yes" : "No"}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className='col-md-12'>
+                                        <span>Address </span>
+                                        <span>{studentDetail.addressLine1}, {studentDetail.addressLine2}, {studentDetail.city}, {studentDetail.state} - {studentDetail.pincode}</span>
+                                    </div>
+                                </div>
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="1">
                             <Accordion.Header>Medical Detail / Background Check</Accordion.Header>
                             <Accordion.Body>
-                                <Col>
-                                    <Row>
-                                        Name {medicaldetail.firstName} {medicaldetail.lastName}  Gender {studentdetail.gender} DOB {studentdetail.dateOfBirth}
-                                    </Row>
-                                    <Row>
-                                        Blood Group {medicaldetail.bloodGroup} Allergies {medicaldetail.allergies}   SpecialCare {studentdetail.specialCare}
-                                    </Row>
-                                    <Row>
-                                        Medical Conditions {studentdetail.medicalConditions}  Disabilities {studentdetail.disabilities}
-                                    </Row>
-                                </Col>
+                                <div className="row">
+                                    <div className='col-md-6'>
+                                        <span>Blood Group </span>
+                                        <span>{medicalDetail.bloodGroup}</span>
+                                    </div>
+                                    <div className='col-md-6'>
+                                        <span>Allergies </span>
+                                        <span>{medicalDetail.allergies && medicalDetail.allergies !== '' ? medicalDetail.allergies : "No"}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className='col-md-6'>
+                                        <span>Special Care </span>
+                                        <span>{medicalDetail.specialCare && medicalDetail.specialCare !== '' ? medicalDetail.specialCare : "No"}</span>
+                                    </div>
+                                    <div className='col-md-6'>
+                                        <span>Medical Conditions </span>
+                                        <span>{medicalDetail.medicalConditions && medicalDetail.medicalConditions !== '' ? medicalDetail.medicalConditions : "No"}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className='col-md-12'>
+                                        <span>Disabilities </span>
+                                        <span>{medicalDetail.disabilities && medicalDetail.disabilities !== '' ? medicalDetail.disabilities.join(', ') : "No"}</span>
+                                    </div>
+                                </div>
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="2">
                             <Accordion.Header>Parents/Guardian</Accordion.Header>
                             <Accordion.Body>
-                                <Col>
-                                    <Row>
-                                        Name {parentdetail.firstName} {parentdetail.lastName}  Gender {parentdetail.gender} DOB {parentdetail.dateOfBirth}
-                                    </Row>
-                                    <Row>
-                                        Relation{parentdetail.relation}   Marital Status {parentdetail.maritalStatus} Qualification {parentdetail.qualification}
-                                    </Row>
-                                    <Row>
-                                        Occupation {parentdetail.occupation} {parentdetail.lastName} Nationality {parentdetail.nationality}
-                                    </Row>
-                                    <Row>
-                                        Annual Family Incomes {parentdetail.annualFamilyIncomes}
-                                    </Row>
-                                </Col>
+                                <div className="row">
+                                    <div className='col-md-4'>
+                                        <span>Name </span>
+                                        <span>{parentDetail.firstName} {parentDetail.lastName}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>Gender </span>
+                                        <span>{parentDetail.gender}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>DOB </span>
+                                        <span>{parentDetail.dateOfBirth}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className='col-md-4'>
+                                        <span>Relation </span>
+                                        <span>{parentDetail.relation}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>Marital Status </span>
+                                        <span>{parentDetail.maritalStatus}</span>
+                                    </div>
+                                    <div className='col-md-4'>
+                                        <span>Nationality </span>
+                                        <span>{parentDetail.nationality}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className='col-md-4'>
+                                        <span>Qualification </span>
+                                        <span>{parentDetail.qualification}</span>
+                                    </div>
+                                    <div className='col-md-8'>
+                                        <span>Occupation </span>
+                                        <span>{parentDetail.occupation}</span>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className='col-md-8'>
+                                        <span>Annual Family Income </span>
+                                        <span>{parentDetail.annualFamilyIncomes?.replace('[','').replace(']','').replace(',',' - ')}</span>
+                                    </div>
+                                </div>
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="3">
                             <Accordion.Header>Additional information & Supporting Documents</Accordion.Header>
                             <Accordion.Body>
-                                <Col>
-                                    <Row>
-
-                                    </Row>
-
-                                </Col>
+                            <div className='tab_btn'>
+                                <Tabs id="controlled-tab-example"
+                                    activeKey={key}
+                                    onSelect={k => setKey(k)}
+                                    className='mb-3'
+                                >
+                                    <Tab eventKey='student' title='Student' >
+                                        {
+                                            studentDocuments.length > 0 ?
+                                                studentDocuments.map((document, index) => {
+                                                    return <div key={'childDoc_'+index} className="row">
+                                                        <div className="col-md-6">
+                                                            {humanize(document.documentName)}
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                        {document.status === 'uploaded' && (
+                                                            <a target='_blank' href={document.documentLink}>
+                                                            {document.documentName}
+                                                            </a>
+                                                        )}
+                                                        </div>
+                                                    </div>
+                                                })
+                                                : <NoRecordsFound message="No documents uploaded yet."/>
+                                        }
+                                    </Tab>
+                                    <Tab eventKey='parent1' title='Parent/Guardian' >
+                                        {
+                                            parentDocuments.length > 0 ?
+                                                parentDocuments.map((document, index) => {
+                                                    return <div key={'parentDoc_'+index} className="row">
+                                                        <div className="col-md-6">
+                                                            {humanize(document.documentName)}
+                                                        </div>
+                                                        <div className="col-md-6">
+                                                        {document.status === 'uploaded' && (
+                                                            <a target='_blank' href={document.documentLink}>
+                                                            {document.documentName}
+                                                            </a>
+                                                        )}
+                                                        </div>
+                                                    </div>
+                                                })
+                                                : <NoRecordsFound message="No documents uploaded yet."/>
+                                        }
+                                    </Tab>
+                                </Tabs>
+                            </div>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                    {/* <Button>Download Details</Button> */}
+                    <Button className='applyFilter' onClick={()=>checkOutApplication()}>Checkout</Button>
                 </Modal.Body>
             </Modal>
-
         </>
     );
 }

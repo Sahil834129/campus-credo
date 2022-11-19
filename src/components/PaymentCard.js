@@ -3,21 +3,22 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ReviewAdmissionDialog from "../dialogs/reviewAdmissionDialog";
 
-const PaymentCard = (props) => {
+const PaymentCard = ({selectedChild}) => {
 
-    const [showLoginDialog, setShowLoginDialog] = useState(false);
+    const [showReviewApplication, setShowReviewApplication] = useState(false);
     let totalFee = 0;
     let convenienceFee = 0;
     let totalPay = 0;
-    props.selectedChild.cartItems.forEach(cartItem => {
+    selectedChild.cartItems.forEach(cartItem => {
       totalFee += parseFloat(cartItem.admissionFormFee);
     });
     totalPay = totalFee;
-    const handleShowLoginDialog = () => setShowLoginDialog(true);
-    const handleCloseLoginDialog = () => {
-        setShowLoginDialog(false);
-    }
 
+    const handleShowReviewApplication = () => setShowReviewApplication(true)
+    const handleCloseReviewApplicationDialog = () => {
+        setShowReviewApplication(false);
+    }
+    
     return (
         <Card className='school-card cart-payment-card'>
             <div className='card-header-item title'>Cart Details</div>
@@ -38,10 +39,15 @@ const PaymentCard = (props) => {
                 </ListGroup>
             </Card.Body>
             <Card.Body className='button-wrap'>
-                <Card.Link className='btn checkour' onClick={handleShowLoginDialog}>Review Admission Form <br /> and Checkout</Card.Link>
+                <Card.Link 
+                    className={'btn checkour' + (selectedChild.id ==='' || selectedChild.cartItems.length === 0 ? ' disabled' : '')} 
+                    onClick={handleShowReviewApplication}
+                    >
+                    Review Admission Form <br /> and Checkout
+                </Card.Link>
                 <Card.Link href="#" className='btn addmore'>Add More Schools</Card.Link>
             </Card.Body>
-            <ReviewAdmissionDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} studentid="3" />
+            <ReviewAdmissionDialog show={showReviewApplication} handleClose={handleCloseReviewApplicationDialog} childId={selectedChild.id} />
         </Card>
     )
 }

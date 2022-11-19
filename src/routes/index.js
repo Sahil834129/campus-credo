@@ -37,7 +37,7 @@ function AppRoutes () {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signIn' element={<SignIn />} />
         <Route path='/verifyPhone/:phone' element={<VerifyPhone />} />
-        <Route path='/school/:id' element={<SchoolDetails />} />
+        <Route path='/schools/:id' element={<SchoolDetails />} />
         <Route path='/cart' element={<ApplicationCart />} />
         <Route path='/notFound' element={<NotFound />} />
       </Routes>
