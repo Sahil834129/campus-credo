@@ -13,6 +13,7 @@ const RestEndPoint = {
   LOGIN_WITH_OTP: 'user/loginWithOtp',
   LOGIN_WITH_PASSWORD: 'user/loginWithPassword',
   REFRESH_TOKEN: 'user/refreshToken',
+  FORGOT_PASSWORD: 'user/forgetPassword',
   FIND_SCHOOLS: '/v1/school/find',
   SCHOOL_BY_ID: '/v1/schooldetails',
   GET_CHILD_LIST: '/parent/childList',
