@@ -27,10 +27,10 @@ const AboutUs = () => {
                         <section className="section-wrapper hero-wrap">
                             <div className="hero-img"><img src={aboutpic1} alt="" /></div>
                             <div className="hero-caption">
-                                No more waiting at queue for admission forms or filling out online forms for every single school. <Link href=''>Apply Now <i className="icons green-arrow-icon"></i></Link>
+                                No more waiting at queue for admission forms or filling out online forms for every single school. <Link to='/schools'>Apply Now <i className="icons green-arrow-icon"></i></Link>
                             </div>
                         </section>
-                        <section className="section-wrapper section-team">
+                        <section className="section-wrapper">
                             <div className="img-wrap"><img src={aboutpic2} alt="" /></div>
                             <div className="content-wrap">
                             We are a group of technocrats who, as parents to toddlers and schoolgoers, realized the need to bring educational institutions and parents on the same digital platform for realizing the mutual benefits.
