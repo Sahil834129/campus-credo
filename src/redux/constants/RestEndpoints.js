@@ -32,7 +32,10 @@ const RestEndPoint = {
   STUDENT_DOCUMENT: 'student/documents',
   STUDENT_DOCUMENT_UPLOAD: 'student/document/upload',
   APPLICATION_CHECKOUT: 'applicationCart/checkOutApplication',
-  GET_APPLICATION_LIST: 'admission/application'
+  GET_APPLICATION_LIST: 'admission/application',
+  GET_USER_DETAILS: '/parent/getProfile',
+  UPDATE_USER: '/parent/updateUser',
+  CHANGE_PASSWORD: '/parent/changePassword',
 }
 
 export default RestEndPoint

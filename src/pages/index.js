@@ -14,7 +14,9 @@ import ApplicationCart from './cartItems'
 import UserProfile from './userProfile'
 import SchoolAdmission from './admissionForm'
 import AdminDashboard from './admin'
+import ManageProfile from './manageProfile'
 import NotFound from './notFound'
+
 
 export {
   HomePage,
@@ -33,5 +35,6 @@ export {
   UserProfile,
   SchoolAdmission,
   AdminDashboard,
+  ManageProfile,
   NotFound
 }

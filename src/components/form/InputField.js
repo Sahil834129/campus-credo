@@ -49,6 +49,15 @@ const getFieldTagElement = props => {
       )
     case FORM_FIELD_TYPE.PASSWORD:
       return (
+        <>
+        {props.label ? (
+          <label>
+            {props.label}{' '}
+            {props.required ? <span className='req'>*</span> : ''}{' '}
+          </label>
+        ) : (
+          ''
+        )}
         <Field
           type='password'
           className='form-control'
@@ -56,6 +65,7 @@ const getFieldTagElement = props => {
           placeholder={props.placeholder}
           {...(props.required ? { required: props.required } : {})}
         />
+        </>
       )
     case FORM_FIELD_TYPE.SELECT:
       return (
@@ -73,6 +83,7 @@ const getFieldTagElement = props => {
             className='form-select'
             name={props.fieldName}
             {...(props.onBlur ? { onBlur: props.onBlur } : {})}
+            {...(props.onChange ? { onBlur: props.onChange } : {})}
             {...(props.required ? { required: props.required } : {})}
           >
             {getOptionTags(props.selectOptions)}
