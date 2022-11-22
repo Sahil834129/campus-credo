@@ -167,44 +167,82 @@
                 font-weight: 400;
             }         
         }
-        .tab_btn{
+        .supporting-document{
             margin-top: 0px;
             padding-bottom: 10px;
+            table.document-tbl{
+                border-radius: 8px;
+                thead{
+                    tr{
+                        th{
+                            background: rgba(65, 40, 95, 0.08);
+                            color: $primarycolor;
+                            font-size: 15px;
+                        }
+                    }
+                }
+                tbody{
+                    tr{
+                        td{
+                            .btn{
+                                &.upload-btn{
+                                    background: $darkgreen;
+                                    border: 1px solid $darkgreen;
+                                    font-size: 14px;
+                                    height: 34px;
+                                    padding: 4px 12px;
+                                }
+                            }
+                            &.doc-name{
+                                font-size: 15px;
+                                font-weight: 600;
+                                color: $primarycolor;
+                            }
+                            &.doc-upload-fld{}
+                            &.doc-upload-btn{}
+                            &.doc-filename{
+                                a{
+                                    color: $primarycolor;
+                                    font-size: 14px;
+                                    font-weight: 400;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             .nav-tabs .nav-item .nav-link{
-            padding: 10px 15px;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 24px;;  
-            color: rgba(0, 0, 0, 0.4);
-            text-transform: capitalize;
-            &.active{
-            color: #007490;
-            border: none;
-            border-bottom: 2px solid#007490;
-            }
-           }   
-        //    .form-check-input:checked {
-        //     background: #41285F;
-        //     border-color: #41285F;
-        // }    
-        .tab-pane{
-            .upload_pic{
+                padding: 10px 15px;
                 font-weight: 500;
-            }
-            .format-type{
-                font-style: normal;
-                font-weight: 400;
-                font-size: 13px;
-                line-height: 15px;   
-                color: rgba(0, 0, 0, 0.4);                
-            }
-            .upload_btn{
-                font-weight: 400;
                 font-size: 14px;
-                line-height: 22px;
-                color: rgba(0, 0, 0, 0.85);                
-            }
-        }   
+                line-height: 24px;;  
+                color: rgba(0, 0, 0, 0.4);
+                text-transform: capitalize;
+                &.active{
+                    color: #007490;
+                    border: none;
+                    border-bottom: 2px solid#007490;
+                }
+            }   
+            .tab-pane{
+                .upload_pic{
+                    font-weight: 500;
+                }
+                .format-type{
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 13px;
+                    line-height: 15px;   
+                    color: rgba(0, 0, 0, 0.4);                
+                }
+                .upload_btn{
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: rgba(0, 0, 0, 0.85);                
+                }
+            }   
         }
         .mt-n77{margin-top: 77px;}
         .mt-n47{margin-top: 47px;}

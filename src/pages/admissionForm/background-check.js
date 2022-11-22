@@ -86,7 +86,7 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
             <button
               type='button'
               className='cancel comn'
-              onClick={() => history('/extracurricularform')}
+              onClick={() => history('/userProfile')}
             >
               Cancel
             </button>
@@ -94,7 +94,6 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
               className='save comn'
               type='submit'
               submitting={submitting}
-              onClick={() => history('/userProfile')}
             >
               {submitting ? 'Please wait...' : 'Save & Next'}
             </button>

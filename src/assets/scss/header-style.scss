@@ -99,6 +99,18 @@
             align-content: center;
             align-items: center;
             .dropdown{
+              &.show{}
+              .dropdown-menu{
+                &.show{
+                  ul.list-unstyled{
+                    height: 252px;
+                    overflow: auto;
+                    a{
+
+                    }
+                  }
+                }
+              }
                 a{
                     font-style: normal;
                     font-weight: 500;
@@ -114,7 +126,7 @@
                         margin-right: 8px;
                     }
                     i.icons{margin: 4px;}
-                }
+                 }
             }
           }
           .search-wrapper{

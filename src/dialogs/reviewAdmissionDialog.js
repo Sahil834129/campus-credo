@@ -87,57 +87,57 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
 
     return (
         <>
-            <Modal dialogClassName="signin-model add-child-model" show={show} onHide={handleClose}>
-                <Modal.Header closeButton>Application</Modal.Header>
+            <Modal dialogClassName="review-admission-modal add-child-model" show={show} onHide={handleClose}>
+                <Modal.Header closeButton><h2>Application Details</h2></Modal.Header>
                 <Modal.Body dialogClassName="model-body" >
                     <Accordion defaultActiveKey="0" flush>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>Candidate Details/Extracurriculars</Accordion.Header>
                             <Accordion.Body>
-                                <div className="row">
-                                    <div className='col-md-4'>
-                                        <span>Name </span>
-                                        <span>{studentDetail.firstName} {studentDetail.lastName}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Name</label>
+                                        <span className="item-entry">{studentDetail.firstName} {studentDetail.lastName}</span>
                                     </div>
-                                    <div className='col-md-4'>
-                                        <span>Gender </span>
-                                        <span>{studentDetail.gender}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Gender</label>
+                                        <span className="item-entry">{studentDetail.gender}</span>
                                     </div>
-                                    <div className='col-md-4'>
+                                    <div className='admin-detail-cell'>
                                         <span>DOB </span>
-                                        <span> {studentDetail.dateOfBirth}</span>
+                                        <span className="item-entry">{studentDetail.dateOfBirth}</span>
                                     </div>
                                 </div>
                                 
-                                <div className="row">
-                                    <div className='col-md-4'>
-                                        <span>Identification Marks </span>
-                                        <span>{studentDetail.identificationMarks}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Identification Marks</label>
+                                        <span className="item-entry">{studentDetail.identificationMarks}</span>
                                     </div>
-                                    <div className='col-md-4'>
-                                        <span>Gender </span>
-                                        <span>{studentDetail.religion}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Gender</label>
+                                        <span className="item-entry">{studentDetail.religion}</span>
                                     </div>
-                                    <div className='col-md-4'>
-                                        <span>Nationality </span>
-                                        <span>{studentDetail.nationality}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Nationality</label>
+                                        <span className="item-entry">{studentDetail.nationality}</span>
                                     </div>
                                 </div>
                                     
-                                <div className="row">
-                                    <div className='col-md-6'>
-                                        <span>Require Tranport </span>
-                                        <span>{studentDetail.tranportFacility ? "Yes" : "No"}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Require Tranport </label>
+                                        <span className="item-entry">{studentDetail.tranportFacility ? "Yes" : "No"}</span>
                                     </div>
-                                    <div className='col-md-6'>
-                                        <span>Require Boarding </span>
-                                        <span>{studentDetail.boardingFacility ? "Yes" : "No"}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Require Boarding </label>
+                                        <span className="item-entry">{studentDetail.boardingFacility ? "Yes" : "No"}</span>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className='col-md-12'>
-                                        <span>Address </span>
-                                        <span>{studentDetail.addressLine1}, {studentDetail.addressLine2}, {studentDetail.city}, {studentDetail.state} - {studentDetail.pincode}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Address </label>
+                                        <span className="item-entry">{studentDetail.addressLine1}, {studentDetail.addressLine2}, {studentDetail.city}, {studentDetail.state} - {studentDetail.pincode}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
@@ -145,30 +145,30 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                         <Accordion.Item eventKey="1">
                             <Accordion.Header>Medical Detail / Background Check</Accordion.Header>
                             <Accordion.Body>
-                                <div className="row">
-                                    <div className='col-md-6'>
-                                        <span>Blood Group </span>
-                                        <span>{medicalDetail.bloodGroup}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Blood Group </label>
+                                        <span className="item-entry">{medicalDetail.bloodGroup}</span>
                                     </div>
-                                    <div className='col-md-6'>
-                                        <span>Allergies </span>
-                                        <span>{medicalDetail.allergies && medicalDetail.allergies !== '' ? medicalDetail.allergies : "No"}</span>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className='col-md-6'>
-                                        <span>Special Care </span>
-                                        <span>{medicalDetail.specialCare && medicalDetail.specialCare !== '' ? medicalDetail.specialCare : "No"}</span>
-                                    </div>
-                                    <div className='col-md-6'>
-                                        <span>Medical Conditions </span>
-                                        <span>{medicalDetail.medicalConditions && medicalDetail.medicalConditions !== '' ? medicalDetail.medicalConditions : "No"}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Allergies </label>
+                                        <span className="item-entry">{medicalDetail.allergies && medicalDetail.allergies !== '' ? medicalDetail.allergies : "No"}</span>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className='col-md-12'>
-                                        <span>Disabilities </span>
-                                        <span>{medicalDetail.disabilities && medicalDetail.disabilities !== '' ? medicalDetail.disabilities.join(', ') : "No"}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Special Care </label>
+                                        <span className="item-entry">{medicalDetail.specialCare && medicalDetail.specialCare !== '' ? medicalDetail.specialCare : "No"}</span>
+                                    </div>
+                                    <div className='admin-detail-cell'>
+                                        <label>Medical Conditions </label>
+                                        <span className="item-entry">{medicalDetail.medicalConditions && medicalDetail.medicalConditions !== '' ? medicalDetail.medicalConditions : "No"}</span>
+                                    </div>
+                                </div>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Disabilities </label>
+                                        <span className="item-entry">{medicalDetail.disabilities && medicalDetail.disabilities !== '' ? medicalDetail.disabilities.join(', ') : "No"}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
@@ -176,73 +176,73 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                         <Accordion.Item eventKey="2">
                             <Accordion.Header>Parents/Guardian</Accordion.Header>
                             <Accordion.Body>
-                                <div className="row">
-                                    <div className='col-md-4'>
-                                        <span>Name </span>
-                                        <span>{parentDetail.firstName} {parentDetail.lastName}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Name </label>
+                                        <span className="item-entry">{parentDetail.firstName} {parentDetail.lastName}</span>
                                     </div>
-                                    <div className='col-md-4'>
-                                        <span>Gender </span>
-                                        <span>{parentDetail.gender}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Gender </label>
+                                        <span className="item-entry">{parentDetail.gender}</span>
                                     </div>
-                                    <div className='col-md-4'>
-                                        <span>DOB </span>
-                                        <span>{parentDetail.dateOfBirth}</span>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className='col-md-4'>
-                                        <span>Relation </span>
-                                        <span>{parentDetail.relation}</span>
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <span>Marital Status </span>
-                                        <span>{parentDetail.maritalStatus}</span>
-                                    </div>
-                                    <div className='col-md-4'>
-                                        <span>Nationality </span>
-                                        <span>{parentDetail.nationality}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>DOB </label>
+                                        <span className="item-entry">{parentDetail.dateOfBirth}</span>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className='col-md-4'>
-                                        <span>Qualification </span>
-                                        <span>{parentDetail.qualification}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Relation </label>
+                                        <span className="item-entry">{parentDetail.relation}</span>
                                     </div>
-                                    <div className='col-md-8'>
-                                        <span>Occupation </span>
-                                        <span>{parentDetail.occupation}</span>
+                                    <div className='admin-detail-cell'>
+                                        <label>Marital Status </label>
+                                        <span className="item-entry">{parentDetail.maritalStatus}</span>
+                                    </div>
+                                    <div className='admin-detail-cell'>
+                                        <label>Nationality </label>
+                                        <span className="item-entry">{parentDetail.nationality}</span>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className='col-md-8'>
-                                        <span>Annual Family Income </span>
-                                        <span>{parentDetail.annualFamilyIncomes?.replace('[','').replace(']','').replace(',',' - ')}</span>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Qualification </label>
+                                        <span className="item-entry">{parentDetail.qualification}</span>
+                                    </div>
+                                    <div className='admin-detail-cell'>
+                                        <label>Occupation </label>
+                                        <span className="item-entry">{parentDetail.occupation}</span>
+                                    </div>
+                                </div>
+                                <div className="admin-detail-row">
+                                    <div className='admin-detail-cell'>
+                                        <label>Annual Family Income </label>
+                                        <span className="item-entry">{parentDetail.annualFamilyIncomes?.replace('[','').replace(']','').replace(',',' - ')}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="3">
-                            <Accordion.Header>Additional information & Supporting Documents</Accordion.Header>
+                            <Accordion.Header>Additional information &amp; Supporting Documents</Accordion.Header>
                             <Accordion.Body>
-                            <div className='tab_btn'>
+                            <div className='tab-wrapper'>
                                 <Tabs id="controlled-tab-example"
                                     activeKey={key}
                                     onSelect={k => setKey(k)}
-                                    className='mb-3'
+                                    className='tab-header'
                                 >
                                     <Tab eventKey='student' title='Student' >
                                         {
                                             studentDocuments.length > 0 ?
                                                 studentDocuments.map((document, index) => {
-                                                    return <div key={'childDoc_'+index} className="row">
-                                                        <div className="col-md-6">
+                                                    return <div key={'childDoc_'+index} className="admin-detail-row">
+                                                        <div className="admin-detail-cell">
                                                             {humanize(document.documentName)}
                                                         </div>
-                                                        <div className="col-md-6">
+                                                        <div className="admin-detail-cell">
                                                         {document.status === 'uploaded' && (
                                                             <a target='_blank' href={document.documentLink}>
-                                                            {document.documentName}
+                                                            {document.documentName} <i className="icons link-icon"></i>
                                                             </a>
                                                         )}
                                                         </div>
@@ -255,14 +255,14 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                         {
                                             parentDocuments.length > 0 ?
                                                 parentDocuments.map((document, index) => {
-                                                    return <div key={'parentDoc_'+index} className="row">
-                                                        <div className="col-md-6">
+                                                    return <div key={'parentDoc_'+index} className="admin-detail-row">
+                                                        <div className="dmin-detail-cell">
                                                             {humanize(document.documentName)}
                                                         </div>
-                                                        <div className="col-md-6">
+                                                        <div className="admin-detail-cell">
                                                         {document.status === 'uploaded' && (
                                                             <a target='_blank' href={document.documentLink}>
-                                                            {document.documentName}
+                                                            {document.documentName} <i className="icons link-icon"></i>
                                                             </a>
                                                         )}
                                                         </div>
@@ -276,7 +276,9 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
-                    <Button className='applyFilter' onClick={()=>checkOutApplication()}>Checkout</Button>
+                    <div className="btn-wrapper">
+                        <Button className='submit' onClick={()=>checkOutApplication()}>Checkout</Button>
+                    </div>
                 </Modal.Body>
             </Modal>
         </>

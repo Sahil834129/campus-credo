@@ -87,7 +87,7 @@ export function DocumentTableFormat ({
   }
 
   return (
-    <Table bordered hover>
+    <Table bordered hover className='document-tbl'>
       <thead>
         <tr>
           <th>#</th>
@@ -101,11 +101,11 @@ export function DocumentTableFormat ({
         {documents.map((val, index) => (
           <tr key={`${currentTab}-${index}`}>
             <td>{index + 1}</td>
-            <td>
+            <td className='doc-name'>
               <span>{humanize(val.documentName)}</span>
               <span>{val.mandatory ? '*' : ''}</span>
             </td>
-            <td>
+            <td className='doc-upload-fld'>
               <input
                 type='file'
                 name={val.documentName}
@@ -116,9 +116,9 @@ export function DocumentTableFormat ({
                 ? fileUploadErrors[val.documentName]
                 : ''}
             </td>
-            <td>
+            <td className='doc-upload-btn'>
               <Button
-                className='ok-btn'
+                className='upload-btn'
                 onClick={e => {
                   fileUplaod(val.documentName, files)
                 }}
@@ -126,14 +126,10 @@ export function DocumentTableFormat ({
                 Upload
               </Button>
             </td>
-            <td>
+            <td className='doc-filename'>
               {val.status === 'uploaded' && (
-                <a
-                  target='_blank'
-                  href={val.documentLink}
-                  rel='noreferrer'
-                >
-                  {val.documentName}
+                <a target='_blank' href={val.documentLink}>
+                  {val.documentName} <i className="icons link-icon"></i>
                 </a>
               )}
             </td>
