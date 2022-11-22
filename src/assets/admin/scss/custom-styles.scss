@@ -1007,6 +1007,36 @@ align-items: center;
   }
 }
 
+.range-slider-wrapper{
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-bottom: 16px;
+  .multi-range-slider {
+    box-shadow: none;
+    border: none;
+    .bar{}
+    .bar-inner{
+      .bar-inner-left{}
+      .bar-inner-right{}
+    }
+    .bar-left{}
+    .bar-right{}
+  }
+  .income-range-value{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    color: #221F1F;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 8px
+  }
+}
 
 
 @import "../scss/media.scss";

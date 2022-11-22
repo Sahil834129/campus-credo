@@ -9,6 +9,7 @@ import RestEndPoint from '../redux/constants/RestEndpoints'
 import RESTClient from '../utils/RestClient'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSchoolClasses } from '../redux/actions/masterData'
+import MultiRangeSlider from "multi-range-slider-react";
 
 const SidebarFilter = ({ applyFilters }) => {
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const SidebarFilter = ({ applyFilters }) => {
     { value: '', text: 'Select Activity' }
   ])
   const [minMonthlyTutionFee, setMinMonthlyTutionFee] = React.useState(0)
-  const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(0)
+  const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(20000)
   const selectedLocation = useSelector(
     state => state.locationData.selectedLocation
   )
@@ -252,8 +253,27 @@ const SidebarFilter = ({ applyFilters }) => {
               errors={errors}
               touched={touched}
             />
-            <label>Min. Monthly Tuition Fees ₹</label>
-            <BootStrapForm.Range
+            <label>Monthly Tuition Fees</label>
+            <div className='range-slider-wrapper'>
+              
+              <MultiRangeSlider min={0}
+                max={20000}
+                step={5000}
+                minValue={minMonthlyTutionFee}
+                maxValue={maxMonthlyTutionFee}
+                ruler='false'
+                label='false'
+                onInput={(e) => {
+                  setMinMonthlyTutionFee(e.minValue);
+                  setMaxMonthlyTutionFee(e.maxValue);
+                }}
+                />
+
+                <label className="income-range-value">₹ ({minMonthlyTutionFee + '-'+ maxMonthlyTutionFee})</label>
+            </div>
+            
+
+            {/* <BootStrapForm.Range
               id='minTutionFeeRange'
               value={minMonthlyTutionFee}
               min={0}
@@ -283,7 +303,7 @@ const SidebarFilter = ({ applyFilters }) => {
               placeholder=''
               errors={errors}
               touched={touched}
-            />
+            /> */}
             <InputField
               fieldName='board'
               fieldType='select'
