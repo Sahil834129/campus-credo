@@ -86,7 +86,6 @@ const LoginDialog = (props) => {
         RESTClient.post(action, reqPayload).then((response) => {
             setUserLoginData(response.data);
             setSubmitting(false);
-            loadUserData();
             props.handleClose();
             
             if (props.loginCallbackFunction)
@@ -95,6 +94,8 @@ const LoginDialog = (props) => {
             const roles = response.data.roles
             if (roles.find(val => val === DEFAULT_ROLES.SCHOOL_ADMIN)) {
                 window.location.href = '/admin-dashboard'
+            } else {
+                loadUserData()
             }
         }).catch((error) => {
             setSubmitting(false);

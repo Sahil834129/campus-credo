@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../assets/scss/custom-styles.scss'
+import '../../assets/admin/scss/custom-styles.scss'
 import Container from 'react-bootstrap/Container'
 import { ReactComponent as CampusLogo } from '../../assets/img/campuscredso-logo.svg'
 import { ReactComponent as SignupGraphic } from '../../assets/img/singup-graphic1.svg'
