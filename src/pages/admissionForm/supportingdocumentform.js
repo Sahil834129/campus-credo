@@ -64,7 +64,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
 
   return (
     <>
-      <div className='tab_btn'>
+      <div className='supporting-document tab_btn'>
         <Tabs
           id='controlled-tab-example'
           activeKey={key}

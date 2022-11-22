@@ -54,11 +54,14 @@ export const ManageProfile = () => {
     async function getUserDetails() {
         try{
             const response = await RESTClient.get(RestEndPoint.GET_USER_DETAILS)
+            populateCities(response.data.state)
             setUserDetails({
                 ...userDetails,
-                firstName: (response).data.firstName,
-                lastName: (response).data.lastName,
-                email: (response).data.email,
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                email: response.data.email,
+                city: response.data.city,
+                state: response.data.state
             })
         } catch(error){}
     }
