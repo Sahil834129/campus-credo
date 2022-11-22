@@ -4,15 +4,23 @@ import { Formik, Form } from 'formik';
 import InputField from "../components/form/InputField";
 import Button from "../components/form/Button";
 import { ForgotPasswordSchema } from "../data/validationSchema";
+import RESTClient from "../utils/RestClient";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import { toast } from "react-toastify";
 
 const ForgotPasswordDialog = (props) => {
     const [submitting, setSubmitting] = useState(false);
-    const submitResetPasswordForm = (values) => {
+    const submitResetPasswordForm = async(values) => {
         setSubmitting(true);
-        setTimeout(() => {
-            alert("here : " + JSON.stringify(values, null, 2));
+        try {
+            const response = await RESTClient.post(RestEndPoint.FORGOT_PASSWORD, values)
+            console.log("response : " + JSON.stringify(response))
             setSubmitting(false);
-        }, 1000);
+            toast.success("Password reset mail sent.")
+        } catch (error) {
+            setSubmitting(false);
+            toast.error(RESTClient.getAPIErrorMessage(error))
+        }
     };
     return (
         <Modal dialogClassName="signin-model" show={props.show} onHide={props.handleClose}>

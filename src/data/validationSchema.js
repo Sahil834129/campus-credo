@@ -40,3 +40,28 @@ export const AddChildSchema  = Yup.object().shape({
     gender: Yup.string().required("Required"),
     dateOfBirth: Yup.string().required("Required"),
 });
+
+export const UpdateProfileSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+});
+
+export const ChangePasswordSchema = Yup.object().shape({
+    password: Yup.string().password().required('Required')
+        .min(8, 'Password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
+        .minLowercase(1, 'Password must contain at least 1 lower case letter')
+        .minUppercase(1, 'Password must contain at least 1 upper case letter')
+        .minNumbers(1, 'Password must contain at least 1 number')
+        .minSymbols(1, 'Password must contain at least 1 special character'),
+    confirmPassword: Yup.string().required('Required')
+        .when("password", {
+            is: val => (val && val.length ? true : false),
+            then: Yup.string().oneOf(
+                [Yup.ref("password")],
+                "Password and Confirm password must be the same."
+            )
+        })
+});
+
+export const UpdatePhoneSchema = Yup.object().shape({
+    phone: Yup.string().matches(/^[7-9]\d{9}$/, {message: "Please enter valid number.", excludeEmptyString: false}),
+});

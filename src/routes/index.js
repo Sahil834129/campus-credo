@@ -18,8 +18,10 @@ import {
   UserProfile,
   SchoolAdmission,
   AdminDashboard,
+  ManageProfile,
   NotFound
 } from '../pages'
+
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRoutes () {
@@ -44,6 +46,7 @@ function AppRoutes () {
       <Routes>
         <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path='/userProfile' element={<UserProfile />} />
+          <Route path='/manageProfile' element={<ManageProfile />} />
           <Route
             path='/userProfile/studentDetails'
             element={<SchoolAdmission />}

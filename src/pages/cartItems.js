@@ -8,13 +8,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getItemsInCart } from '../redux/actions/cartAction';
 import Breadcrumbs from '../common/Breadcrumbs';
 import CartItemsGrid from '../components/CartItemsGrid';
-import NoRecordsFound from '../common/NoRecordsFound';
 import PaymentCard from '../components/PaymentCard';
 import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
 import SchoolCard from '../components/SchoolCard';
 import { getChildsList } from '../redux/actions/childAction';
 import { isLoggedIn } from '../utils/helper';
+import EmptyCart from '../components/EmptyCart';
 
 const ApplicationCart = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,8 @@ const ApplicationCart = () => {
   const [selectedChild, setSelectedChild] = useState({id:'', cartItems:[]});
   const childs = useSelector((state) => state.childsData.childs);
   const [similarSchools, setSimilarSchools] = useState([]);
+  const selectedLocation = useSelector((state) => state.locationData.selectedLocation)
+  const [cartItemsGroupByChild, setCartItemsGroupByChild] = useState({})
   
   useEffect(() => { 
     if (isLoggedIn())
@@ -38,11 +40,15 @@ const ApplicationCart = () => {
     }, [dispatch]);
     
   useEffect(() => {
+    let cartItemGrouped = {}
     itemsInCart.childCartItemsList != null && itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
       if (childCartItem.childId === selectedChild.id) {
         setSelectedChild({id: childCartItem.childId, cartItems: childCartItem.cartItems})
       }
+      cartItemGrouped[childCartItem.childId] = childCartItem.cartItems
     });
+    
+    setCartItemsGroupByChild(cartItemGrouped)
   }, [itemsInCart]);
 
   useEffect(() => { getSimilarSchools() }, []);
@@ -61,7 +67,7 @@ const ApplicationCart = () => {
 
   const getSimilarSchools = async() => {
     try {
-      let payload = {filters:[], offset:1, limit: 2};
+      let payload = {filters:[{field:"city",operator:"EQUALS", value:selectedLocation}], offset:1, limit: 2};
       const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, payload) ;
       setSimilarSchools(response.data);
     } catch (e) {}
@@ -77,15 +83,19 @@ const ApplicationCart = () => {
             <Col className='page-container'>
               <div className='row-wrapper'>
                 <label>Select Child<span className='req'>*</span></label>
-                <Form.Group className='frm-cell'>
-                  <Form.Select value={selectedChild.id} onChange={e=>handleChildSelection(e.target.value)} >
-                      <option value="" key="cartChildSelect">--Select Child--</option>
-                      {
-                        childs.map((c, i) => {
-                            return <option key={"cartChild_"+i} value={c.childId}>{c.firstName + " " + c.lastName}</option>
-                        })
-                      }
-                  </Form.Select>
+                <Form.Group className='d-flex'>
+                  {
+                    childs.map((c, i) => {
+                        return <Form.Check type="radio" 
+                          key={"cartChildSelect_"+ i}
+                          name="selectChild"
+                          value={c.childId}
+                          checked={c.childId === selectedChild.id}
+                          onChange={e=>handleChildSelection(e.target.value)} 
+                          label={c.firstName + " " + c.lastName 
+                          + (cartItemsGroupByChild.hasOwnProperty(c.childId) &&  cartItemsGroupByChild[c.childId].length>0 ? ' (' + cartItemsGroupByChild[c.childId].length +')' : '' )}/>
+                    })
+                  }
                 </Form.Group>
               </div>
               <div className='cart-content-row'>
@@ -93,7 +103,7 @@ const ApplicationCart = () => {
                   {
                     selectedChild.id !== '' 
                     ? <CartItemsGrid selectedChild={selectedChild} handleChildSelection={handleChildSelection}/>
-                    : <NoRecordsFound message={selectedChild.id ==='' ? "Please select child to see applications." : "No applications in cart"}/>
+                    : <EmptyCart/>
                   }
                 </Col>
                 <Col className='cell right'>

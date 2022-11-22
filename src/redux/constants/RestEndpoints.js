@@ -13,6 +13,7 @@ const RestEndPoint = {
   LOGIN_WITH_OTP: 'user/loginWithOtp',
   LOGIN_WITH_PASSWORD: 'user/loginWithPassword',
   REFRESH_TOKEN: 'user/refreshToken',
+  FORGOT_PASSWORD: 'user/forgetPassword',
   FIND_SCHOOLS: '/v1/school/find',
   SCHOOL_BY_ID: '/v1/schooldetails',
   GET_CHILD_LIST: '/parent/childList',
@@ -34,7 +35,10 @@ const RestEndPoint = {
   GET_APPLICATION_LIST: 'admission/application',
   GET_DISABILITIES: 'v1/school/disabilities',
   GET_PARENT_OCCUPATION: 'v1/school/parentOccupation',
-  MARK_PROFILE_COMPLETE: '/student/markProfileComplete'
+  MARK_PROFILE_COMPLETE: '/student/markProfileComplete',
+  GET_USER_DETAILS: '/parent/getProfile',
+  UPDATE_USER: '/parent/updateUser',
+  CHANGE_PASSWORD: '/parent/changePassword',
 }
 
 export default RestEndPoint

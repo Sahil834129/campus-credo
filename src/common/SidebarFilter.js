@@ -98,7 +98,7 @@ const SidebarFilter = ({ applyFilters }) => {
     if (filterForm.gender !== null && filterForm.gender !== '')
       filters.push({
         field: 'gender',
-        operator: OPERATORS.EQUALS,
+        operator: OPERATORS.LIKE,
         value: filterForm.gender
       })
     if (filterForm.medium !== null && filterForm.medium !== '')
@@ -216,7 +216,7 @@ const SidebarFilter = ({ applyFilters }) => {
         <h2>
           <i className='icons filter-icon'></i> Filters
         </h2>
-        <Link href=''>Reset</Link>
+        <Link to='/schools'>Reset</Link>
       </div>
       <Formik
         initialValues={{
@@ -256,7 +256,7 @@ const SidebarFilter = ({ applyFilters }) => {
             <BootStrapForm.Range
               id='minTutionFeeRange'
               value={minMonthlyTutionFee}
-              min={1000}
+              min={0}
               max={50000}
               onChange={e => setMinMonthlyTutionFee(e.target.value)}
             />
@@ -272,7 +272,7 @@ const SidebarFilter = ({ applyFilters }) => {
             <BootStrapForm.Range
               id='maxTutionFeeRange'
               value={maxMonthlyTutionFee}
-              min={1000}
+              min={0}
               max={50000}
               onChange={e => setMaxMonthlyTutionFee(e.target.value)}
             />

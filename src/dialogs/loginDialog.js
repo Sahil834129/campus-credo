@@ -88,6 +88,10 @@ const LoginDialog = (props) => {
             setSubmitting(false);
             loadUserData();
             props.handleClose();
+            
+            if (props.loginCallbackFunction)
+                props.loginCallbackFunction()
+
             const roles = response.data.roles
             if (roles.find(val => val === DEFAULT_ROLES.SCHOOL_ADMIN)) {
                 window.location.href = '/admin-dashboard'

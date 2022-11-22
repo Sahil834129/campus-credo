@@ -52,10 +52,6 @@ const FAQ = () => {
 
 
                     </ListGroup>
-                        
-                        <div className="btn-wrapper">
-                            <Button className="begin-application-btn">Begin Application</Button>
-                        </div>
                     </Row>
                     
                 </Container>

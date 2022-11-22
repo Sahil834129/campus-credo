@@ -17,7 +17,7 @@ const SchoolBasicInfo = (props) => {
             <div className='cell right'>
                 <ListGroup as="ul" className=''>
                     <ListGroup.Item as="li">{getAddressInfo()}</ListGroup.Item>
-                    <ListGroup.Item as="li"><strong>Mr. RadheyShyam Munjal (Principal)</strong></ListGroup.Item>
+                    <ListGroup.Item as="li"><strong>{schoolDetails.principalName} (Principal)</strong></ListGroup.Item>
                     <ListGroup.Item as="li"><span>Curriculum:</span> <strong>{schoolDetails.board}</strong></ListGroup.Item>
                     <ListGroup.Item as="li"><span>Monthly Fees:</span> <strong className='greentext'>₹{schoolDetails.monthlyFeeMin} - ₹{schoolDetails.monthlyFeeMax}</strong></ListGroup.Item>
                     <ListGroup.Item as="li"><span>Gender:</span> <strong>{schoolDetails.gender}</strong></ListGroup.Item>
