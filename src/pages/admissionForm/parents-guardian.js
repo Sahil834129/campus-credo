@@ -14,9 +14,12 @@ import { useEffect } from 'react'
 import RadioButton from '../../components/form/RadioButton'
 import SelectField from '../../components/form/SelectField'
 import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux'
+import { getParentOCcupation } from '../../redux/actions/masterData'
 
 export default function ParentsGuardianForm ({ currentStudent, setStep }) {
-  const history = useNavigate()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [parentExist, setParentExist] = useState(false)
   const [values, setValues] = useState({
     relation: '',
@@ -24,13 +27,13 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     firstName: '',
     lastName: '',
     gender: '',
-    nationality: '',
+    nationality: 'Other',
     otherNationality: '',
     maritalStatus: 'true',
     addressLine1: 'false',
     qualification: 'Diploma',
     occupation: 'Chartered_Accountant',
-    annualFamilyIncome: 'THIRD_INCOME',
+    annualFamilyIncome: '',
     dateOfBirth: new Date()
   })
   const Options = [
@@ -38,20 +41,9 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     { value: "Bachelor's", text: "Bachelor's" },
     { value: 'Diploma', text: 'Diploma' }
   ]
-  const occupation = [
-    { value: 'Teacher', text: 'Teacher' },
-    { value: 'Lawyer', text: 'Lawyer' },
-    { value: 'Social Worker', text: 'Social Worker' }
-  ]
-  const income = [
-    { value: 'FIRST_INCOME', text: 'FIRST INCOME' },
-    { value: 'SECOND_INCOME', text: 'SECOND INCOME' },
-    { value: 'THIRD_INCOME', text: 'THIRD INCOME' },
-    { value: 'FOURTH_INCOME', text: 'FOURTH INCOME' },
-    { value: 'FIFTH_INCOME', text: 'FIFTH INCOME' },
-    { value: 'SIXTH_INCOME', text: 'SIXTH INCOME' },
-    { value: 'SEVENTH_INCOME', text: 'SEVENTH INCOME' }
-  ]
+  const occupation = useSelector(
+    state => state?.masterData?.parentOccupation || []
+  )
 
   const saveData = async (e, formData) => {
     e.preventDefault()
@@ -77,15 +69,9 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         delete postData.success
         delete postData.parentId
 
-        await RESTClient.put(
-          RestEndPoint.GET_STUDENT_PARENT,
-          postData
-        )
+        await RESTClient.put(RestEndPoint.GET_STUDENT_PARENT, postData)
       } else {
-        await RESTClient.post(
-          RestEndPoint.GET_STUDENT_PARENT,
-          postData
-        )
+        await RESTClient.post(RestEndPoint.GET_STUDENT_PARENT, postData)
       }
       toast.success('Student details saved successfully.')
       setStep(val => val + 1)
@@ -106,7 +92,6 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
       const response = await RESTClient.get(
         RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
       )
-      console.log(response.data)
 
       if (response.data !== '') {
         let dateBirth = (response.data[0]?.dateOfBirth)
@@ -118,7 +103,11 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
             ...val,
             ...response.data[0],
             dateOfBirth: new Date(dateBirth),
-            otherRelation: response.data[0]?.relation
+            otherRelation: response.data[0]?.relation,
+            nationality:
+              response.data[0]?.nationality === ''
+                ? 'Other'
+                : response.data[0]?.nationality
           }
         })
 
@@ -127,7 +116,6 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         setParentExist(false)
       }
     } catch (error) {
-      console.log(error)
       // toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
@@ -137,6 +125,11 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
     getUsersParent(currentStudent)
   }, [currentStudent])
 
+  useEffect(() => {
+    if (occupation.length === 0) {
+      dispatch(getParentOCcupation())
+    }
+  }, [occupation])
   return (
     <Form className='row g-3' onSubmit={e => saveData(e, values)}>
       <div className='tab_btn'>
@@ -460,15 +453,17 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                 />
               </div>
               <div className='col-md-6'>
-                <SelectField
+                <TextField
+                  label='Annual Family Income'
                   fieldName='annualFamilyIncome'
-                  label=' Annual Family Income'
-                  required
-                  selectOptions={income}
+                  className='frm-cell'
+                  fieldType='number'
                   value={values.annualFamilyIncome}
                   onChange={e => {
                     setFieldValue('annualFamilyIncome', e.target.value)
                   }}
+                  required
+                  placeholder='Please add details...'
                 />
               </div>
             </form>
@@ -485,7 +480,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         <button
           type='button'
           className='cancel comn'
-          onClick={() => history('/backgroundcheckform')}
+          onClick={() => navigate('/userProfile')}
         >
           Cancel
         </button>

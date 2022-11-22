@@ -23,14 +23,8 @@ import SupportingDocumentForm from './supportingdocumentform'
 
 export const AdmissionForms = () => {
   const [currentStudent, setCurrentStudent] = useState({})
-
-  const childsList = useSelector(state => state.childsData.childs)
-  const [showAddChildDialog, setShowAddChildDialog] = useState(false)
-  const [showStudentList, setShowStudentList] = useState(false)
-  const [pageTitle, setPageTitle] = useState('')
-  const [step, setStep] = useState(1)
-  const [selectedChild, setSelectedChild] = useState({
-    childId: '',
+  const studentInitialValue = {
+    childId: 3,
     firstName: '',
     middleName: '',
     lastName: '',
@@ -46,18 +40,24 @@ export const AdmissionForms = () => {
     schoolCity: '',
     schoolState: '',
     schoolPincode: '',
-    gender: 'Male',
-    category: 'General',
+    gender: '',
+    category: '',
     identificationMarks: '',
-    religion: 'Hindu',
-    nationality: 'Indian',
+    religion: '',
+    nationality: '',
     addressLine1: '',
     addressLine2: '',
     pincode: '',
     city: '',
     state: '',
     boardingFacility: false
-  })
+  }
+  const childsList = useSelector(state => state.childsData.childs)
+  const [showAddChildDialog, setShowAddChildDialog] = useState(false)
+  const [showStudentList, setShowStudentList] = useState(false)
+  const [pageTitle, setPageTitle] = useState('')
+  const [step, setStep] = useState(1)
+  const [selectedChild, setSelectedChild] = useState(studentInitialValue)
 
   const handleChildSelection = childId => {
     const selectedChildObj = childsList.find(
@@ -66,12 +66,12 @@ export const AdmissionForms = () => {
     setCurrentStudent({ ...selectedChildObj })
     if (selectedChildObj) {
       let childobj = selectedChildObj
-      let selectedChildCopy = JSON.parse(JSON.stringify(selectedChild))
-      selectedChildCopy.childId = childId
-      selectedChildCopy.firstName = childobj.firstName
-      selectedChildCopy.middleName = childobj.middleName
-      selectedChildCopy.lastName = childobj.lastName
-      selectedChildCopy.dateOfBirth = childobj.dateOfBirth
+      let selectedChildCopy = JSON.parse(JSON.stringify(studentInitialValue))
+      selectedChildCopy = {
+        ...selectedChildCopy,
+        ...childobj
+      }
+
       setSelectedChild(selectedChildCopy)
     }
   }

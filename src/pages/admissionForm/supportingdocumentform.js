@@ -9,8 +9,10 @@ import { useEffect } from 'react'
 import { DocumentTableFormat } from './documentTableForm'
 import { toast } from 'react-toastify'
 import { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
+  const navigate = useNavigate()
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
   const [key, setKey] = useState('student')
@@ -48,11 +50,11 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
     if (stuDocsUnfilled.length || parDocsUnfilled.length) {
       toast.error('Some Mandatory Files are missing!')
     } else {
-      // const response = await RESTClient.post(
-      //   RestEndPoint.APPLICATION_CHECKOUT + `/${currentStudent.childId}`
-      // )
-      // console.log(response.data)
+      await RESTClient.get(
+        RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
+      )
       toast.success('Student Details saved')
+      navigate('/userProfile')
     }
   }
 
@@ -99,7 +101,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         <button
           type='button'
           className='cancel comn'
-          // onClick={() => history('/parentsguardianform')}
+          onClick={() => navigate('/userProfile')}
         >
           Cancel
         </button>

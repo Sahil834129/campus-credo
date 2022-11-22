@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { getChildsList } from '../../redux/actions/childAction'
@@ -17,9 +17,12 @@ import TextField from '../../components/form/TextField'
 import SelectField from '../../components/form/SelectField'
 import RadioButton from '../../components/form/RadioButton'
 import { Button, Form } from 'react-bootstrap'
-import { combineArray, popularSchoolClasses } from '../../utils/populateOptions'
+import {
+  populateCities
+} from '../../utils/populateOptions'
 import { str2bool } from '../../utils/helper'
 import { useCallback } from 'react'
+import { getSchoolClasses, getStates } from '../../redux/actions/masterData'
 
 export default function StudentDetails ({
   currentStudent,
@@ -29,10 +32,13 @@ export default function StudentDetails ({
 }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-  const [classOptions, setClassOptions] = useState([
-    { value: '', text: 'Select Class' }
+  const classOptions = useSelector(state => state.masterData.schoolClasses)
+  const states = useSelector(state => state.masterData.states)
+  const [schoolCity, setSchoolCity] = useState([
+    { value: '', text: 'Select State' }
   ])
+  const [city, setCity] = useState([{ value: '', text: 'Select City' }])
+
   const [isUserExist, setIsUserExist] = useState(false)
   const saveStudentDetails = async e => {
     e.preventDefault()
@@ -72,16 +78,23 @@ export default function StudentDetails ({
           setSelectedChild(val => {
             return {
               ...val,
-              ...response.data
+              ...response.data,
+              isProvidingCurrentSchoolInfo: response.data.schoolName
+                ? 'Yes'
+                : 'No'
             }
           })
-
+          populateCities(response.data.state, setCity)
+          if (response.data.schoolCity) {
+            populateCities(response.data.schoolState, setSchoolCity)
+          }
           setIsUserExist(true)
         } else {
           setIsUserExist(false)
         }
       } catch (error) {
-        // toast.error(RESTClient.getAPIErrorMessage(error))
+        setIsUserExist(false)
+        toast.error(RESTClient.getAPIErrorMessage(error))
       }
     },
     [setSelectedChild]
@@ -96,19 +109,19 @@ export default function StudentDetails ({
 
   useEffect(() => {
     dispatch(getChildsList())
+    if (classOptions.length === 0) {
+      dispatch(getSchoolClasses())
+    }
+    if (states.length === 1) {
+      dispatch(getStates())
+    }
   }, [dispatch])
 
   useEffect(() => {
     if (currentStudent.childId) getCurrentUser(currentStudent.childId)
   }, [currentStudent.childId, getCurrentUser])
 
-  useEffect(() => {
-    popularSchoolClasses()
-      .then(data => combineArray(data.data.classes))
-      .then(data => {
-        setClassOptions(data)
-      })
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <Form className='row g-3' onSubmit={saveStudentDetails}>
@@ -259,6 +272,9 @@ export default function StudentDetails ({
                 label='School Name'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                 placeholder='School Name'
+                onChange={e => {
+                  setFieldValue('schoolName', e.target.value)
+                }}
               />
             </div>
             <div className='col-md-6'>
@@ -268,6 +284,9 @@ export default function StudentDetails ({
                 label='School Board'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                 placeholder='School Board'
+                onChange={e => {
+                  setFieldValue('schoolBoard', e.target.value)
+                }}
               />
             </div>
             <div className='col-md-6'>
@@ -277,6 +296,9 @@ export default function StudentDetails ({
                 label='Obtained Marks'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                 placeholder='Obtained Marks'
+                onChange={e => {
+                  setFieldValue('obtainedMarks', e.target.value)
+                }}
               />
             </div>
             <div className='col-md-6'>
@@ -286,6 +308,9 @@ export default function StudentDetails ({
                 label='School Address Line 1'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                 placeholder='School Address Line 1'
+                onChange={e => {
+                  setFieldValue('schoolAddressLine1', e.target.value)
+                }}
               />
             </div>
             <div className='col-md-6'>
@@ -295,24 +320,34 @@ export default function StudentDetails ({
                 label='School Address Line 2'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                 placeholder='School Address Line 2'
+                onChange={e => {
+                  setFieldValue('schoolAddressLine2', e.target.value)
+                }}
               />
             </div>
             <div className='col-md-6'>
-              <TextField
-                fieldName='schoolCity'
-                value={selectedChild.schoolCity}
-                label='School City'
-                required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
-                placeholder='School City'
-              />
-            </div>
-            <div className='col-md-6'>
-              <TextField
+              <SelectField
                 fieldName='schoolState'
-                value={selectedChild.schoolState}
-                label='School State'
+                label='Select State'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
-                placeholder='School State'
+                selectOptions={states}
+                value={selectedChild.schoolState}
+                onChange={e => {
+                  populateCities(e.target.value, setSchoolCity)
+                  setFieldValue('schoolState', e.target.value)
+                }}
+              />
+            </div>
+            <div className='col-md-6'>
+              <SelectField
+                fieldName='schoolCity'
+                label='Select City'
+                required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                selectOptions={schoolCity}
+                value={selectedChild.schoolCity}
+                onChange={e => {
+                  setFieldValue('schoolCity', e.target.value)
+                }}
               />
             </div>
             <div className='col-md-6'>
@@ -322,6 +357,9 @@ export default function StudentDetails ({
                 label='School Pincode'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                 placeholder='School Pincode'
+                onChange={e => {
+                  setFieldValue('schoolPincode', e.target.value)
+                }}
               />
             </div>
           </div>
@@ -367,23 +405,27 @@ export default function StudentDetails ({
             />
           </div>
           <div className='col-md-6'>
-            <TextField
-              fieldName='city'
-              label='City'
-              value={selectedChild.city}
+            <SelectField
+              fieldName='state'
+              label='Select State'
+              required
+              selectOptions={states}
+              value={selectedChild.state}
               onChange={e => {
-                setFieldValue('city', e.target.value)
+                populateCities(e.target.value, setCity)
+                setFieldValue('state', e.target.value)
               }}
             />
           </div>
           <div className='col-md-6'>
-            <TextField
-              fieldName='state'
-              label='State'
+            <SelectField
+              fieldName='city'
+              label='Select City'
               required
-              value={selectedChild.state}
+              selectOptions={city}
+              value={selectedChild.city}
               onChange={e => {
-                setFieldValue('state', e.target.value)
+                setFieldValue('city', e.target.value)
               }}
             />
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../../assets/scss/custom-styles.scss'
 import { useNavigate } from 'react-router-dom'
 import { Formik, Form } from 'formik'
@@ -8,16 +8,18 @@ import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
 
 export default function ExtracurricularForm ({ selectedChild, setStep }) {
-  const history = useNavigate()
-  const [submitting, setSubmitting] = useState(false)
-  
-  const saveData = async(formData) => {
-    formData["childId"] = selectedChild.childId
+  const navigate = useNavigate()
+
+  const saveData = async formData => {
+    formData['childId'] = selectedChild.childId
     try {
-      await RESTClient.patch(RestEndPoint.CREATE_STUDENT_PROFILE_EXTRA_CURRICULARS, formData)
+      await RESTClient.patch(
+        RestEndPoint.CREATE_STUDENT_PROFILE_EXTRA_CURRICULARS,
+        formData
+      )
       setStep(val => val + 1)
     } catch (error) {
-      toast.error(RESTClient.getAPIErrorMessage(error))  
+      toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
 
@@ -37,12 +39,13 @@ export default function ExtracurricularForm ({ selectedChild, setStep }) {
         <Form className='row g-3 mt-2'>
           <div className='col-12'>
             <label htmlFor='validationServer02' className='form-label'>
-              Has the student participated/won any competitions? If Yes, Please Specify the level of competition
+              Has the student participated/won any competitions? If Yes, Please
+              Specify the level of competition
               <span className='req'>*</span>
             </label>
           </div>
           <div className='d-flex'>
-            <div className='form-check'>
+            <div className='form-check ms-3'>
               <InputField
                 fieldName='competitionCertificate'
                 value='zonal'
@@ -82,8 +85,18 @@ export default function ExtracurricularForm ({ selectedChild, setStep }) {
                 touched={touched}
               />
             </div>
+            <div className='ms-3'>
+              <InputField
+                fieldName='competitionCertificate'
+                value=''
+                fieldType='radio'
+                label='None'
+                errors={errors}
+                touched={touched}
+              />
+            </div>
           </div>
-          
+
           <div className='col-md-6'>
             <label htmlFor='validationServer02' className='form-label'>
               Does the student have any other interest? If Yes, Please Specify
@@ -99,8 +112,16 @@ export default function ExtracurricularForm ({ selectedChild, setStep }) {
             />{' '}
           </div>
           <div className='form-group mb-3 button-wrap'>
-            <button type='button' className='cancel comn'>Cancel</button>
-            <button className='save comn' type='submit'>Save &amp; Next</button>
+            <button
+              type='button'
+              className='cancel comn'
+              onClick={() => navigate('/userProfile')}
+            >
+              Cancel
+            </button>
+            <button className='save comn' type='submit'>
+              Save &amp; Next
+            </button>
           </div>
         </Form>
       )}

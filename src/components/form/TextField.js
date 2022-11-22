@@ -10,7 +10,7 @@ const TextField = props => {
       </label>
       <Form.Group className='mb-3' controlId=''>
         <Form.Control
-          type='text'
+          type={props.fieldType || 'text'}
           name={props.fieldName}
           value={props.value}
           placeholder={props.placeholder}

@@ -7,10 +7,18 @@ export const combineArray = arr => {
   )
 }
 
-export const popularSchoolClasses = async () => {
-  try {
-    return RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES)
-  } catch (e) {
-    console.log('Error while getting classes list' + e)
-  }
+export const populateCities = (stateId, setCityOptions) => {
+  RESTClient.get(RestEndPoint.GET_STATE_CITIES + '/' + stateId)
+    .then(response => {
+      let cities = [{ text: 'Select State' }]
+      if (response.data.success)
+        setCityOptions(
+          cities.concat(
+            response.data.cities.map(it => ({ value: it.id, text: it.name }))
+          )
+        )
+    })
+    .catch(error => {
+      console.log('Error while getting cities list' + error)
+    })
 }

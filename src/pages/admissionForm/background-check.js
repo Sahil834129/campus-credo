@@ -94,7 +94,7 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
               className='save comn'
               type='submit'
               submitting={submitting}
-              // onClick={() => history('/userProfile/ParentsGuardianForm')}
+              onClick={() => history('/userProfile')}
             >
               {submitting ? 'Please wait...' : 'Save & Next'}
             </button>

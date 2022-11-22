@@ -7,19 +7,21 @@ import InputField from '../components/form/InputField'
 import Button from '../components/form/Button'
 import RestEndPoint from '../redux/constants/RestEndpoints'
 import RESTClient from '../utils/RestClient'
-import { useSelector } from 'react-redux'
-import { combineArray, popularSchoolClasses } from '../utils/populateOptions'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSchoolClasses } from '../redux/actions/masterData'
 
-const SidebarFilter = props => {
+const SidebarFilter = ({ applyFilters }) => {
+  const dispatch = useDispatch()
+  const classOptions = useSelector(
+    state => state?.masterData?.schoolClasses || []
+  )
   const distanceOptions = [
     { text: '--Select Distance--' },
     { value: '1', text: '0 - 2km' },
     { value: '2', text: '2 - 6km' },
     { value: '3', text: '6 - 10km' }
   ]
-  const [classOptions, setClassOptions] = useState([
-    { value: '', text: 'Select Class' }
-  ])
+
   const [boardOptions, setBoardOptions] = useState([
     { value: '', text: 'Select Board' }
   ])
@@ -63,16 +65,14 @@ const SidebarFilter = props => {
     popularExtraCurricularActivities()
   }, [])
 
-    useEffect(() => {
-    popularSchoolClasses()
-      .then(data => combineArray(data.data.classes))
-      .then(data => {
-        setClassOptions(data)
-      })
+  useEffect(() => {
+    if (classOptions.length === 0) {
+      dispatch(getSchoolClasses())
+    }
   }, [])
 
   const applyFilter = values => {
-    props.applyFilters(prepareSchoolFilter(values))
+    applyFilters(prepareSchoolFilter(values))
   }
 
   function prepareSchoolFilter (filterForm) {

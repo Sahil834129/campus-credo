@@ -3,14 +3,19 @@ import '../../assets/scss/custom-styles.scss'
 import { Formik, Form } from 'formik'
 import InputField from '../../components/form/InputField'
 import { useNavigate } from 'react-router-dom'
-import { BLOOD_OPTIONS, DISABILITY_LIST } from '../../constants/formContanst'
+import { BLOOD_OPTIONS } from '../../constants/formContanst'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import RESTClient from '../../utils/RestClient'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDisabilites } from '../../redux/actions/masterData'
 
 export const MedicalForm = ({ selectedChild, setStep }) => {
-  const history = useNavigate()
-  const [submitting, setSubmitting] = useState(false)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const disabilitiesOption = useSelector(
+    state => state?.masterData?.disabilities || []
+  )
   const [medicalProfile, setMedicalProfile] = useState({
     childId: selectedChild.childId,
     bloodGroup: '',
@@ -19,7 +24,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
     specialCare: '',
     disabilities: [],
     disability: 'No',
-    otherDisability:''
+    otherDisability: ''
   })
   const [isMedicalProfileExists, setIsMedicalProfileExists] = useState(false)
 
@@ -27,6 +32,11 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
     if (selectedChild.childId) getMedicalProfile(selectedChild.childId)
   }, [selectedChild])
 
+  useEffect(() => {
+    if (disabilitiesOption.length === 0) {
+      dispatch(getDisabilites())
+    }
+  }, [disabilitiesOption])
   async function getMedicalProfile (childId) {
     try {
       const response = await RESTClient.get(
@@ -41,8 +51,8 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           medicalConditions: response.data.medicalConditions,
           specialCare: response.data.specialCare,
           disabilities: response.data.disabilities,
-          otherDisability: response.data.otherDisability,
-          disability: response.data.disabilities.length > 0 ? "Yes" : "No"
+          otherDisability: response.data.otherDisability || '',
+          disability: response.data.disabilities.length > 0 ? 'Yes' : 'No'
         })
         setIsMedicalProfileExists(true)
       }
@@ -50,35 +60,36 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
   }
 
   const saveData = async formData => {
-    let response
+    const disabilities =
+      formData.disability === 'Yes' ? formData.disabilities : []
+
     formData = {
       ...formData,
-      childId: selectedChild.childId
+      childId: selectedChild.childId,
+      disabilities: disabilities
     }
     delete formData.disability
 
     try {
-      setSubmitting(true)
       if (isMedicalProfileExists) {
         formData['id'] = medicalProfile.id
-        response = await RESTClient.put(
+        await RESTClient.put(
           RestEndPoint.CREATE_STUDENT_MEDICAL_DETAILS,
           formData
         )
       } else {
-        response = await RESTClient.post(
+        await RESTClient.post(
           RestEndPoint.GET_STUDENT_MEDICAL_DETAILS,
           formData
         )
       }
-      setSubmitting(false)
       setStep(val => val + 1)
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
 
-  const getDisabilites = (disabilities, value) => {
+  const getDisabilitesData = (disabilities, value) => {
     const valueIndex = disabilities.indexOf(value)
     if (valueIndex >= 0) disabilities.splice(valueIndex, 1)
     else disabilities.push(value)
@@ -117,7 +128,6 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               fieldName='allergies'
               value={values.allergies}
               label='Does the student have any allergies? If yes, Please Specify'
-              required
               fieldType='text'
               placeholder='Please add details...'
               errors={errors}
@@ -129,7 +139,6 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               fieldName='medicalConditions'
               value={values.medicalConditions}
               label='Is the student being treated for any medical conditions? If yes, Please Specify'
-              required
               fieldType='text'
               placeholder='Please add details...'
               errors={errors}
@@ -141,7 +150,6 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               fieldName='specialCare'
               value={values.specialCare}
               label='Does the student need any special care due to any allergies/medical conditions? If Yes, Please Specify'
-              required
               fieldType='text'
               placeholder='Please add details...'
               errors={errors}
@@ -167,7 +175,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                   touched={touched}
                 />
               </div>
-              <div className='form-check ms-2'>
+              <div className='ms-2'>
                 <InputField
                   className='form-check-input'
                   label='No'
@@ -184,72 +192,90 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           {values.disability === 'Yes' && (
             <>
               <div className='d-flex'>
-                {DISABILITY_LIST.filter((it, idx) => {
-                  return idx < 5
-                }).map((it, index) => {
-                  return (
-                    <div
-                      key={'disability_' + index}
-                      className={'form-check' + (index !== 0 ? ' ms-3' : '')}
-                    >
-                      <InputField
-                        fieldName='disabilities'
-                        fieldType='checkbox'
-                        value={it.value}
-                        label={it.label}
-                        checked={
-                          isSelected(values.disabilities, it.value)
-                            ? 'checked'
-                            : ''
-                        }
-                        onChange={e => {
-                          setFieldValue(
-                            getDisabilites(values.disabilities, e.target.value)
-                          )
-                        }}
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
-                  )
-                })}
+                {disabilitiesOption
+                  .filter((it, idx) => {
+                    return idx < 5
+                  })
+                  .map((it, index) => {
+                    return (
+                      <div
+                        key={'disability_' + index}
+                        className={index !== 0 ? ' ms-3' : ''}
+                      >
+                        <InputField
+                          fieldName='disabilities'
+                          fieldType='checkbox'
+                          value={it.value}
+                          label={it.text}
+                          checked={
+                            isSelected(values.disabilities, it.value)
+                              ? 'checked'
+                              : ''
+                          }
+                          onChange={e => {
+                            setFieldValue(
+                              getDisabilitesData(
+                                values.disabilities,
+                                e.target.value
+                              )
+                            )
+                          }}
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>
+                    )
+                  })}
               </div>
               <div className='d-flex'>
-                {DISABILITY_LIST.filter((it, idx) => {
-                  return idx >= 5 && idx < 10
-                }).map((it, index) => {
-                  return (
-                    <div
-                      key={'disability_' + index}
-                      className={'form-check' + (index !== 0 ? ' ms-3' : '')}
-                    >
-                      <InputField
-                        fieldName='disabilities'
-                        fieldType='checkbox'
-                        value={it.value}
-                        label={it.label}
-                        checked={
-                          isSelected(values.disabilities, it.value)
-                            ? 'checked'
-                            : ''
-                        }
-                        onChange={e => {
-                          setFieldValue(
-                            getDisabilites(values.disabilities, e.target.value)
-                          )
-                        }}
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
-                  )
-                })}
+                {disabilitiesOption
+                  .filter((it, idx) => {
+                    return idx >= 5 && idx < 10
+                  })
+                  .map((it, index) => {
+                    return (
+                      <div
+                        key={'disability_' + index}
+                        className={index !== 0 ? ' ms-3' : ''}
+                      >
+                        <InputField
+                          fieldName='disabilities'
+                          fieldType='checkbox'
+                          value={it.value}
+                          label={it.text}
+                          checked={
+                            isSelected(values.disabilities, it.value)
+                              ? 'checked'
+                              : ''
+                          }
+                          onChange={e => {
+                            setFieldValue(
+                              getDisabilitesData(
+                                values.disabilities,
+                                e.target.value
+                              )
+                            )
+                          }}
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>
+                    )
+                  })}
               </div>
               <div className='col-md-6'>
                 <InputField
                   fieldName='otherDisability'
                   label='If Yes, Please Specify'
-                  required
+                  required={values.disabilities.find(val => {
+                    return val === 'Other'
+                  })}
+                  disabled={
+                    !values.disabilities.find(val => {
+                      return val === 'Other'
+                    })
+                  }
+                  value={values.otherDisability}
                   fieldType='text'
                   placeholder='Please add details...'
                   errors={errors}
@@ -262,12 +288,12 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
             <button
               type='button'
               className='cancel comn'
-              onClick={() => history('/school-admission')}
+              onClick={() => navigate('/userProfile')}
             >
               Cancel
             </button>
             <button className='save comn' type='submit'>
-              {submitting ? 'Please wait...' : 'Save & Next'}
+              Save & Next
             </button>
           </div>
         </Form>

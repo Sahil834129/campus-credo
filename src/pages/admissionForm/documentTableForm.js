@@ -128,7 +128,11 @@ export function DocumentTableFormat ({
             </td>
             <td>
               {val.status === 'uploaded' && (
-                <a target='_blank' href={val.documentLink}>
+                <a
+                  target='_blank'
+                  href={val.documentLink}
+                  rel='noreferrer'
+                >
                   {val.documentName}
                 </a>
               )}

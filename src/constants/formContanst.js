@@ -4,13 +4,18 @@ export const GENDER_OPTOPNS = [
 ]
 
 export const RELIGION_OPTIONS = [
+  { value: '', text: 'Select Option' },
   { value: 'Hindu', text: 'Hindu' },
   { value: 'Muslim', text: 'Muslim' }
 ]
 
-export const NATIONALITY_OPTIONS = [{ value: 'Indian', text: 'Indian' }]
+export const NATIONALITY_OPTIONS = [
+  { value: '', text: 'Select Option' },
+  { value: 'Indian', text: 'Indian' }
+]
 
 export const CATEGORY_OPTIONS = [
+  { value: '', text: 'Select Option' },
   { value: 'General', text: 'General' },
   { value: 'OBC', text: 'OBC' },
   { value: 'SC', text: 'SC' },
@@ -18,6 +23,7 @@ export const CATEGORY_OPTIONS = [
 ]
 
 export const BLOOD_OPTIONS = [
+  { value: '', text: 'Select Option' },
   { value: 'A+', text: 'A+' },
   { value: 'A-', text: 'A-' },
   { value: 'B+', text: 'B+' },
@@ -26,17 +32,4 @@ export const BLOOD_OPTIONS = [
   { value: 'AB-', text: 'AB-' },
   { value: 'O+', text: 'O+' },
   { value: 'O-', text: 'O-' }
-]
-
-export const DISABILITY_LIST = [
-  { value: 'AUTISM', label: 'Autism' },
-  { value: 'HEARING_IMPAIRMENT', label: 'Hearing impairment' },
-  { value: 'LANGUAGE_DISORDER', label: 'Language disorder' },
-  { value: 'PHYSICAL_DISABILITY', label: 'Physical disability' },
-  { value: 'LEARNING_DIFFICULTY', label: 'Learning difficulty' },
-  { value: 'BEHAVIOUR_DISORDER', label: 'Behaviour disorder' },
-  { value: 'MENTAL_HEALTH_DISORDER', label: 'Mental health disorder' },
-  { value: 'SPEECH_IMPAIRMENT', label: 'Speech impairment' },
-  { value: 'VISION_IMPAIRMENT', label: 'Vision impairment' },
-  { value: 'Other', label: 'Other' },
 ]

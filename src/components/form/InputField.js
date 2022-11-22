@@ -81,7 +81,7 @@ const getFieldTagElement = props => {
       )
     case FORM_FIELD_TYPE.CHECKBOX:
       return (
-        <label>
+        <label className='d-flex align-items-center'>
           <Field
             type='checkbox'
             name={props.fieldName}
@@ -92,7 +92,7 @@ const getFieldTagElement = props => {
               : {})}
             {...(props.checked ? { checked: props.checked } : {})}
           />
-          <span>{props.label}</span>
+          <span className='mx-2'>{props.label}</span>
         </label>
       )
     case FORM_FIELD_TYPE.RADIO:
