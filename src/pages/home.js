@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "../assets/scss/custom-styles.scss";
 import HeroGraphic from "../assets/img/slider-graphics.png";
 import Container from "react-bootstrap/Container";
@@ -12,10 +12,23 @@ import TabContent from 'react-bootstrap/TabContent';
 import Layout from "../common/layout";
 import PageContent from "../resources/pageContent";
 import FeatureCard from "../components/FeatureCard";
+import LoginDialog from "../dialogs/loginDialog"
+import { useLocation } from 'react-router-dom';
 
 const HomePage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+	const showLogin = queryParams.get("login") !== null ? true : false;
+    const [showLoginDialog, setShowLoginDialog] = useState(showLogin)
+    
+    const handleCloseLoginDialog = () => {
+        //setIsLoggedInUser(isLoggedIn());
+        setShowLoginDialog(false);
+    }
+    
     return (
+        <>
         <Layout>
             <section className="content-area home-page">
                 <Container className="content-area-inner">
@@ -61,6 +74,8 @@ const HomePage = () => {
                 </Container>
             </section>
         </Layout>
+        <LoginDialog show={showLoginDialog} handleClose={handleCloseLoginDialog}/>
+        </>
     );
 };
 

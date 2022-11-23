@@ -21,7 +21,7 @@ const VerifyPhone = () => {
         let reqPayload = {phone: phone, otp: formData.otp};
         RESTClient.post(RestEndPoint.VERIFY_PHONE, reqPayload).then((response) => {
             setSubmitting(false);
-            navigate("/signIn");
+            navigate("/?login=true");
         }).catch((error) => {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
@@ -29,7 +29,7 @@ const VerifyPhone = () => {
     };
 
     return (
-        <Container className="main-container singup-main" fluid>
+        <Container className="main-container signup-main" fluid>
             <div className="signup-wrapper">
                 <div className="signup-col left">
                     <RegisterInfoGraphic/>

@@ -39,8 +39,6 @@ const SignUp = () => {
       })
   }
 
-  
-
   return (
     <Container className='main-container signup-main' fluid>
       <div className='signup-wrapper'>
@@ -154,7 +152,7 @@ const SignUp = () => {
                       submitting={submitting}
                     />
                     <div className='form-group mb-3 linkback-wrap'>
-                      Have an account?<Link to='/signIn'>Sign In</Link>
+                      Have an account?<Link to='/?login=true'>Sign In</Link>
                     </div>
                   </Form>
                 )}
