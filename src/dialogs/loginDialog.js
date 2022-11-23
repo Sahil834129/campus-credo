@@ -77,13 +77,14 @@ const LoginDialog = (props) => {
         setShowForgotPasswordDialog(true);
     }
     const handleForgotPasswordClose = () => { setShowForgotPasswordDialog(false) };
-    const signIn = () => {
+    const signIn = async() => {
         const reqPayload = {phone: phone}
         reqPayload[(loginWithOTP ? "otp" : "password")] = loginWithOTP ? otp : password;
         const action = loginWithOTP ? RestEndPoint.LOGIN_WITH_OTP : RestEndPoint.LOGIN_WITH_PASSWORD
         setSubmitting(true);
         resetUserLoginData();
-        RESTClient.post(action, reqPayload).then((response) => {
+        try {
+            const response = await RESTClient.post(action, reqPayload)
             setUserLoginData(response.data);
             setSubmitting(false);
             props.handleClose();
@@ -97,10 +98,19 @@ const LoginDialog = (props) => {
             } else {
                 loadUserData()
             }
-        }).catch((error) => {
+        } catch (error) {
+            let errorMsg = RESTClient.getAPIErrorMessage(error)
+            if (errorMsg === 'MOBILE NOT VERIFIED') {
+                try {
+                    await RESTClient.post(RestEndPoint.SEND_OTP, {phone: phone})
+                    navigate('/verifyPhone/'+ phone)
+                } catch (err) {
+                    toast.error(RESTClient.getAPIErrorMessage(err))
+                }
+            }
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
-        });
+        };
     }
 
     const redirectSignUp = () => {
