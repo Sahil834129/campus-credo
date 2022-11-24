@@ -34,7 +34,7 @@ export default class RESTClient {
 
 axios.interceptors.request.use(async config => {
   // Do something before request is sent
-  config.baseURL = 'http://182.69.227.174:8080/api/'
+  config.baseURL = 'http://182.69.231.203:8080/api/'
 
   // config.baseURL = "http://ec2-65-0-204-110.ap-south-1.compute.amazonaws.com:8080/api/";
   //config.baseURL = "http://59.144.164.132:8080/api/"; //process.env.BASE_URL;

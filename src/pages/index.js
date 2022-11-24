@@ -13,10 +13,14 @@ import SchoolDetails from './schoolDetails'
 import ApplicationCart from './cartItems'
 import UserProfile from './userProfile'
 import SchoolAdmission from './admissionForm'
-import AdminDashboard from './admin'
+import AdminDashboard from './admin/dashboard'
+import ManageAdmission from './admin/manageAdmission'
+import ManageApplication from './admin/manageApplication'
+import ManageFees from './admin/manageFees'
+import ManageUsers from './admin/manageUsers'
+
 import ManageProfile from './manageProfile'
 import NotFound from './notFound'
-
 
 export {
   HomePage,
@@ -36,5 +40,9 @@ export {
   SchoolAdmission,
   AdminDashboard,
   ManageProfile,
-  NotFound
+  NotFound,
+  ManageAdmission,
+  ManageApplication,
+  ManageFees,
+  ManageUsers
 }

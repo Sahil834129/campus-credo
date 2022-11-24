@@ -18,6 +18,10 @@ import {
   UserProfile,
   SchoolAdmission,
   AdminDashboard,
+  ManageAdmission,
+  ManageFees,
+  ManageUsers,
+  ManageApplication,
   ManageProfile,
   NotFound
 } from '../pages'
@@ -28,6 +32,7 @@ function AppRoutes () {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='*' element={<></>} />
         <Route path='/' element={<HomePage />} />
         <Route path='/aboutUs' element={<AboutUs />} />
         <Route path='/howItWorks' element={<HowItWorks />} />
@@ -52,8 +57,30 @@ function AppRoutes () {
             element={<SchoolAdmission />}
           />
         </Route>
-        <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}>
+        <Route
+          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
+        >
           <Route path='/admin-dashboard' element={<AdminDashboard />} />
+        </Route>
+        <Route
+          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
+        >
+          <Route path='/manage-admission' element={<ManageAdmission />} />
+        </Route>
+        <Route
+          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
+        >
+          <Route path='/manage-fees' element={<ManageFees />} />
+        </Route>
+        <Route
+          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
+        >
+          <Route path='/manage-users' element={<ManageUsers />} />
+        </Route>
+        <Route
+          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
+        >
+          <Route path='/manage-application' element={<ManageApplication />} />
         </Route>
       </Routes>
     </BrowserRouter>
