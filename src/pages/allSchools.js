@@ -28,6 +28,7 @@ const AllSchools = () => {
         } catch (error){
             hideLoader(dispatch);
         }
+        window.scrollTo(0, 0)
     }
 
     const getSchoolList = async() => {

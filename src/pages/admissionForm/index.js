@@ -24,7 +24,7 @@ import SupportingDocumentForm from './supportingdocumentform'
 export const AdmissionForms = () => {
   const [currentStudent, setCurrentStudent] = useState({})
   const studentInitialValue = {
-    childId: 3,
+    childId: '',
     firstName: '',
     middleName: '',
     lastName: '',

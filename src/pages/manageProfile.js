@@ -89,12 +89,28 @@ export const ManageProfile = () => {
     }
 
     const updatePhone = async(formData) => {
+        setSubmitting(true);
         if (!showOTP) {
-            //sendOTP(formData.phone);
-            setShowOTP(true)
-            return
+            delete formData.otp
+            try {
+                await RESTClient.patch(RestEndPoint.UPDATE_PHONE, formData)
+                toast.success('OTP sent successfully')
+                setShowOTP(true)
+                setSubmitting(false)
+            } catch(error) {
+                toast.error(RestEndPoint.getAPIErrorMessage(error))
+                setSubmitting(false)
+            }
+        } else {
+            try {
+                await RESTClient.post(RestEndPoint.VERIFY_PHONE, formData)
+                toast.success('Phone varification successfully')
+                setSubmitting(false)
+            } catch (error) {
+                toast.error(RESTClient.getAPIErrorMessage(error))
+                setSubmitting(false)
+            }
         }
-
     }
 
     return (
@@ -175,8 +191,8 @@ export const ManageProfile = () => {
                                                 <Tab eventKey='updateMobile' title='Update mobile'>
                                                     <Formik initialValues={{ phone: '', otp: '' }}
                                                         validationSchema={UpdatePhoneSchema} validateOnBlur onSubmit={values => { updatePhone(values) }}>
-                                                        {({ values, errors, touched }) => (
-                                                            <Form className='row g-3' onSubmit={updatePhone}>
+                                                        {({ values, setFieldValue, errors, touched }) => (
+                                                            <Form className='row g-3'>
                                                                 <div className='col-md-6'>
                                                                     <InputField fieldName="phone" required label="Mobile Number" fieldType="text" placeholder="Enter mobile number" errors={errors} touched={touched}/>
                                                                 </div>
@@ -185,11 +201,11 @@ export const ManageProfile = () => {
                                                                     <div className='col-md-6'>
                                                                         <label>An OTP is sent to the mobile number. Please enter the OTP below</label>
                                                                         <OtpInput
-                                                                            //onChange={handleOtpChange}
+                                                                            onChange={otp=>setFieldValue('otp', otp)}
                                                                             numInputs={4}
                                                                             isInputNum={true}
                                                                             shouldAutoFocus
-                                                                            //value={values.otp}
+                                                                            value={values.otp}
                                                                             placeholder="----"
                                                                             inputStyle={{
                                                                                 color: "blue",

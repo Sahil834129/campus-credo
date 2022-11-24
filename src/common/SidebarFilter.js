@@ -38,6 +38,11 @@ const SidebarFilter = ({ applyFilters }) => {
   const [extracurricularOptions, setExtracurricularOptions] = useState([
     { value: '', text: 'Select Activity' }
   ])
+  const [admissionStatusOptions, setAdmissionStatusOptions] = useState([
+    { value: '', text: 'Select Status' },
+    { value: 'open', text: 'Open' },
+    { value: 'closed', text: 'Closed' }
+  ])
   const [minMonthlyTutionFee, setMinMonthlyTutionFee] = React.useState(0)
   const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(20000)
   const selectedLocation = useSelector(
@@ -129,6 +134,13 @@ const SidebarFilter = ({ applyFilters }) => {
       operator: OPERATORS.BETWEEN,
       values: [minMonthlyTutionFee, maxFee]
     })
+    if (filterForm.status != null && filterForm.status !== '')
+      filters.push({
+        field: 'status',
+        operator: OPERATORS.LIKE,
+        value: filterForm.status
+      })
+    
     filterPayload['filters'] = filters
     return filterPayload
   }
@@ -227,7 +239,8 @@ const SidebarFilter = ({ applyFilters }) => {
           gender: '',
           medium: '',
           facilities: '',
-          extracurriculars: ''
+          extracurriculars: '',
+          status:''
         }}
         onSubmit={values => {
           applyFilter(values)
@@ -346,6 +359,15 @@ const SidebarFilter = ({ applyFilters }) => {
               placeholder=''
               label='Extracurriculars'
               selectOptions={extracurricularOptions}
+              errors={errors}
+              touched={touched}
+            />
+            <InputField
+              fieldName='status'
+              fieldType='select'
+              placeholder=''
+              label='Admission Status'
+              selectOptions={admissionStatusOptions}
               errors={errors}
               touched={touched}
             />

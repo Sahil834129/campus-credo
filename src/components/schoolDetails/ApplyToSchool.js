@@ -8,6 +8,7 @@ import RESTClient from "../../utils/RestClient";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { toast } from "react-toastify";
 import { getItemsInCart } from "../../redux/actions/cartAction";
+import moment from "moment";
 
 const ApplyToSchool = (props) => {
     const dispatch = useDispatch();
@@ -17,10 +18,12 @@ const ApplyToSchool = (props) => {
     const [classFeeMap, setClassFeeMap] = useState({});
     const [sessionOptions, setSessionOptions] = useState([{value:"", text: "Select Session"}]);
     const [rows, setRows] = useState([{childId:'', class:'', session:''}]);
+    const [classMapWithAge, setClassMapWithAge] = useState({})
     const schoolId = props.schoolId;
     useEffect(() => { dispatch(getChildsList());}, [dispatch]);
     useEffect(()=> {popularSchoolClasses(props)}, [props]);
     useEffect(()=>{populateSessionOptions(props)}, [props]);
+    useEffect(()=>{populateClassesWithAge()},[])
     
     const handleAddRow = () => {
         const item = { childId: '', class: '', session: '' };
@@ -58,8 +61,42 @@ const ApplyToSchool = (props) => {
         setSessionOptions(sessionOptions);
     }
 
+    const populateClassesWithAge = async() => {
+        try{
+            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES_WITH_AGE)
+            console.log("rest..." + JSON.stringify(response.data))
+            let classWithAgeMap = {}
+            response.data.classesWithAgeLimit.length 
+            && response.data.classesWithAgeLimit.forEach((it, index) =>{
+                classWithAgeMap[parseInt(it[1])] = it[0]
+            })
+            console.log("classWithAgeMap ::: " + JSON.stringify(classWithAgeMap))
+            setClassMapWithAge(classWithAgeMap)
+        } catch (error){}
+    }
+
     function openAddChildDialog() {
         setShowAddChildDialog(true);
+    }
+
+    const handleChildSelection = (index, field, value) => {
+        setRowFieldValue(index, field, value)
+        // Select class based on child age
+        const selectedChild = childsList.find(it => it.childId === parseInt(value))
+        let dateAsOnSTR = '31/10/' + moment().year()
+        let childAge = moment(dateAsOnSTR, 'DD/MM/YYYY').diff(moment(selectedChild.dateOfBirth, "DD/MM/YYYY"), 'years');
+        let age = 0
+        Object.keys(classMapWithAge).forEach((value, idx) => {
+            if (parseInt(value) <= childAge && parseInt(value) > age)
+                age = value
+        })
+
+        let optionText = classMapWithAge[parseInt(age)]
+        const selectedClass = classOptions.find(it => it.text === optionText)
+        if(selectedClass)
+            setRowFieldValue(index, 'class', selectedClass.value.toString())
+        else
+        setRowFieldValue(index, 'class', '')
     }
 
     const setRowFieldValue = (index, field, value) => {
@@ -80,7 +117,7 @@ const ApplyToSchool = (props) => {
         const childObjList = JSON.parse(JSON.stringify(childsList));
         rows.forEach((row) => {
             let appObj = {};
-            let childObj = childObjList.find(e => e.childId = row.childId);
+            let childObj = childObjList.find(e => e.childId === row.childId);
             appObj["schoolId"] = schoolId;
             appObj["childId"] = row.childId;
             appObj["classId"] = row.class;
@@ -117,7 +154,7 @@ const ApplyToSchool = (props) => {
                             rows.map((item, idx) => (
                                 <div className='frm-row form-content' key={"addChildRow_"+idx}>
                                     <Form.Group className='cell' key={"childSelectorGrmGrp_"+idx}>
-                                        <Form.Select name={item.child} key={"childSelector_"+idx} onChange={e=> setRowFieldValue(idx, "childId",e.target.value)}>
+                                        <Form.Select name={item.child} key={"childSelector_"+idx} onChange={e=> handleChildSelection(idx, "childId",e.target.value)}>
                                             <option value="" key="child_select">--Select Child--</option>
                                             {
                                                 childsList.map((child, i) => {
@@ -127,7 +164,7 @@ const ApplyToSchool = (props) => {
                                         </Form.Select>
                                     </Form.Group>
                                     <Form.Group className='cell' key={"classSelectorFrmGrp_"+idx}>
-                                        <Form.Select key={"classSelector_"+idx} name={item.class} onChange={e=> setRowFieldValue(idx, "class", e.target.value)}>
+                                        <Form.Select key={"classSelector_"+idx} name={item.class} value={item.class} onChange={e=> setRowFieldValue(idx, "class", e.target.value)}>
                                             {
                                                 classOptions.map((option, i) => {
                                                     return <option key={"class_" + i} value={option.value}>{option.text}</option>

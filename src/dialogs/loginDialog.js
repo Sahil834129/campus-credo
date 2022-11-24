@@ -3,11 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {Form, Button} from "react-bootstrap";
-import { isValidatePhone } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import ForgotPasswordDialog from "./forgotPassword";
-import { setUserLoginData, resetUserLoginData } from "../utils/helper";
+import { setUserLoginData, resetUserLoginData, isLoggedIn, isValidatePhone} from "../utils/helper";
 import { useDispatch } from "react-redux";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
@@ -15,6 +14,7 @@ import { toast } from "react-toastify";
 import OtpTimer from "otp-timer";
 import OtpInput from "react-otp-input";
 import { DEFAULT_ROLES } from "../constants/app";
+import { setIsUserLoggedIn } from "../redux/actions/userAction";
 
 const LoginDialog = (props) => {
     const dispatch = useDispatch();
@@ -77,14 +77,16 @@ const LoginDialog = (props) => {
         setShowForgotPasswordDialog(true);
     }
     const handleForgotPasswordClose = () => { setShowForgotPasswordDialog(false) };
-    const signIn = () => {
+    const signIn = async() => {
         const reqPayload = {phone: phone}
         reqPayload[(loginWithOTP ? "otp" : "password")] = loginWithOTP ? otp : password;
         const action = loginWithOTP ? RestEndPoint.LOGIN_WITH_OTP : RestEndPoint.LOGIN_WITH_PASSWORD
         setSubmitting(true);
         resetUserLoginData();
-        RESTClient.post(action, reqPayload).then((response) => {
+        try {
+            const response = await RESTClient.post(action, reqPayload)
             setUserLoginData(response.data);
+            dispatch(setIsUserLoggedIn(isLoggedIn()));
             setSubmitting(false);
             props.handleClose();
             
@@ -97,10 +99,19 @@ const LoginDialog = (props) => {
             } else {
                 loadUserData()
             }
-        }).catch((error) => {
+        } catch (error) {
+            let errorMsg = RESTClient.getAPIErrorMessage(error)
+            if (errorMsg === 'MOBILE NOT VERIFIED') {
+                try {
+                    await RESTClient.post(RestEndPoint.SEND_OTP, {phone: phone})
+                    navigate('/verifyPhone/'+ phone)
+                } catch (err) {
+                    toast.error(RESTClient.getAPIErrorMessage(err))
+                }
+            }
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
-        });
+        };
     }
 
     const redirectSignUp = () => {
@@ -133,51 +144,51 @@ const LoginDialog = (props) => {
                     <h2>Sign in</h2>
                     <h4>Sign in to check your favourite schools, filled forms and status of admission process.</h4>
                     <div className="form-container">
-                            <Form>
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="phone" onChange={e=> setPhone(e.target.value)} placeholder="Mobile Number" />
-                                </Form.Group>
-                                <div className="loginoption">
-                                    <span className="loginoption-cell"><h2>Sign in using</h2></span> 
-                                    <span className="loginoption-cell">
-                                        <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)}/><label className="lbl">Password</label>
-                                    </span> 
-                                    <span className="loginoption-cell">
+                        <Form>
+                            <Form.Group className="mb-3">
+                                <Form.Control type="phone" onChange={e => setPhone(e.target.value)} placeholder="Mobile Number" />
+                            </Form.Group>
+                            <div className="loginoption">
+                                <span className="loginoption-cell"><h2>Sign in using</h2></span>
+                                <span className="loginoption-cell">
+                                    <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)} /><label className="lbl">Password</label>
+                                </span>
+                                <span className="loginoption-cell">
                                     <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} /><label>Mobile OTP</label>
-                                    </span>
-                                </div>
-                                <Form.Group className="mb-3">
-                                    <div className="otp-fields-wrapper mt-3 mb-3">
-                                        {loginWithOTP === true ? (
-                                            <OtpInput
-                                                onChange={handleOtpChange}
-                                                numInputs={4}zzxzzx
-                                                isInputNum={true}
-                                                shouldAutoFocus
-                                                value={otp}
-                                                className='otpfield'
-                                               
-                                                placeholder="------"
-                                                inputStyle={{
-                                                    width: "52px",
-                                                    height: "52px",
-                                                    caretColor: "#000000",
-                                                }}
+                                </span>
+                            </div>
+                            <Form.Group className="mb-3">
+                                <div className="otp-fields-wrapper mt-3 mb-3">
+                                    {loginWithOTP === true ? (
+                                        <OtpInput
+                                            onChange={handleOtpChange}
+                                            numInputs={4} zzxzzx
+                                            isInputNum={true}
+                                            shouldAutoFocus
+                                            value={otp}
+                                            className='otpfield'
 
-                                            />
-                                        ) : <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e=> setOtpOrPassword(e.target.value)}/>}
-                                        {loginWithOTP ? getSendOTPLinkMessage() : ''}
-                                    </div>
-                                </Form.Group>
-                                
-                                <div className="form-group mb-3 forgot-pwd-container">
-                                    <Link onClick={handleShowPasswordDialog}>Forgot Password?</Link>
+                                            placeholder="------"
+                                            inputStyle={{
+                                                width: "52px",
+                                                height: "52px",
+                                                caretColor: "#000000",
+                                            }}
+
+                                        />
+                                    ) : <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e => setOtpOrPassword(e.target.value)} />}
+                                    {loginWithOTP ? getSendOTPLinkMessage() : ''}
                                 </div>
-                                <Form.Group className="mb-3 button-wrap">
-                                    <Button variant="primary signin-btn" disabled={submitting} onClick={signIn}>{submitting ? "Please wait..." :"Sign In"}</Button>
-                                </Form.Group>
-                            </Form>
-                        </div>
+                            </Form.Group>
+
+                            <div className="form-group mb-3 forgot-pwd-container">
+                                <Link onClick={handleShowPasswordDialog}>Forgot Password?</Link>
+                            </div>
+                            <Form.Group className="mb-3 button-wrap">
+                                <Button variant="primary signin-btn" disabled={submitting} onClick={signIn}>{submitting ? "Please wait..." : "Sign In"}</Button>
+                            </Form.Group>
+                        </Form>
+                    </div>
                 </div>
                 <div className='model-body-col right'>
                     <h2>Create an account</h2>

@@ -6,7 +6,7 @@ const initialState = {
 
 export const LocationReducer = (state = initialState, {type, payload}) => {
     switch(type) {
-        case ActionTypes.GET_CHILDS_LIST:
+        case ActionTypes.GET_LOCATION:
             return {...state};
         case ActionTypes.SET_LOCATION:
             return {...state, selectedLocation: payload};

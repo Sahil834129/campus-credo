@@ -1,11 +1,13 @@
 import React, { useState, useEffect, Button } from "react";
 import { getLocalData, isLoggedIn, logout } from "../utils/helper";
 import Dropdown from 'react-bootstrap/Dropdown';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import LoginDialog from "../dialogs/loginDialog";
 import CartIcon from "../assets/img/icons/cart-icon.png";
 import { useSelector, useDispatch } from "react-redux";
 import { getItemsInCart } from "../redux/actions/cartAction";
+import { setIsUserLoggedIn } from "../redux/actions/userAction";
+import { getChildsList } from "../redux/actions/childAction";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a href="" ref={ref} onClick={(e) => {
@@ -34,15 +36,22 @@ const CustomMenu = React.forwardRef(
 
 const LoggedInUserDropDown = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [showLoginDialog, setShowLoginDialog] = useState(false);
-    const [isLoggedInUser, setIsLoggedInUser] = useState(isLoggedIn());
     const itemsInCart = useSelector((state) => state.cartData.itemsInCart);
+    const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser)
     const [totalItemsInCart, setTotalItemsInCart] = useState(0);
     
+    useEffect(() => {
+        dispatch(setIsUserLoggedIn(isLoggedIn()))
+    },[dispatch])
+    
     useEffect(() => { 
-        if (isLoggedInUser)
+        if (isLoggedInUser) {
             dispatch(getItemsInCart());
-    }, [dispatch]);
+            dispatch(getChildsList());
+        }
+    }, [dispatch, isLoggedInUser]);
     useEffect(() => {
         let total = 0;
         itemsInCart.childCartItemsList != null && itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
@@ -53,14 +62,15 @@ const LoggedInUserDropDown = () => {
 
     const handleShowLoginDialog = () => setShowLoginDialog(true);
     const handleCloseLoginDialog = () => {
-        setIsLoggedInUser(isLoggedIn());
+        dispatch(setIsUserLoggedIn(isLoggedIn()));
         setShowLoginDialog(false);
     }
 
     const logoutUser = () => {
         logout();
-        setIsLoggedInUser(isLoggedIn());
-        window.location.reload();
+        dispatch(setIsUserLoggedIn(isLoggedIn()));
+        navigate("/")
+        //window.location.reload();
     }
     
     return (

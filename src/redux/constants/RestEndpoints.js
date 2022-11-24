@@ -7,6 +7,7 @@ const RestEndPoint = {
   GET_SCHOOL_FACILITIES: 'v1/school/facilities',
   GET_SCHOOL_EXTRA_CURRICULAR_ACTIVITIES: 'v1/school/extracurricularActivities',
   GET_SCHOOL_CLASSES: 'v1/school/classes',
+  GET_SCHOOL_CLASSES_WITH_AGE: 'v1/school/classesWithAge',
   REGISTER: 'user/register',
   VERIFY_PHONE: 'user/verifyPhone/',
   SEND_OTP: 'user/sendOtp',
@@ -39,6 +40,7 @@ const RestEndPoint = {
   GET_USER_DETAILS: '/parent/getProfile',
   UPDATE_USER: '/parent/updateUser',
   CHANGE_PASSWORD: '/parent/changePassword',
+  UPDATE_PHONE: '/parent/updatePhone',
 }
 
 export default RestEndPoint
