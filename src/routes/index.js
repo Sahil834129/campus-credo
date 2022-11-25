@@ -25,6 +25,7 @@ import {
   ManageProfile,
   NotFound
 } from '../pages'
+import DisclaimerPolicy from '../pages/disclaimer_Policy'
 import ResetPassword from '../pages/resetPassword'
 
 import ProtectedRoute from './ProtectedRoute'
@@ -41,6 +42,7 @@ function AppRoutes () {
         <Route path='/contactUs' element={<ContactUs />} />
         <Route path='/faqs' element={<FAQ />} />
         <Route path='/terms' element={<TermsOfUse />} />
+        <Route path='/disclaimerpolicy' element={<DisclaimerPolicy/>} />
         <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signIn' element={<SignIn />} />
