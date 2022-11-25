@@ -139,6 +139,7 @@ const SignUp = () => {
                       errors={errors}
                       touched={touched}
                     />
+                    
                     <InputField
                       fieldName='receiveSMSUpdates'
                       fieldType='checkbox'
@@ -151,8 +152,10 @@ const SignUp = () => {
                       buttonLabel='Sign Up'
                       submitting={submitting}
                     />
+                    
                     <div className='form-group mb-3 linkback-wrap'>
-                      Have an account?<Link to='/?login=true'>Sign In</Link>
+                      <div className='linkback-cell left'><Link to={"/disclaimerpolicy"}>* Policy Disclaimer</Link></div>
+                      <div className='linkback-cell right'>Have an account?<Link to='/?login=true'>Sign In</Link></div> 
                     </div>
                   </Form>
                 )}

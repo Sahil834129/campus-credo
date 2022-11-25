@@ -100,6 +100,23 @@
           font-size: 14px;
           line-height: 17px;
           color: #000000;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          .linkback-cell{
+            &.left{
+              a{
+                
+                font-weight: 500;
+                color: $primarycolor;
+                &:hover{
+                  text-decoration: underline;
+                  color: #333333;
+                }
+              }
+            }
+            &.right{}
+          }
           a{
             margin-left: 8px;
             color: $secondarycolor;
