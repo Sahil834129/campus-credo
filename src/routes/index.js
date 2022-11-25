@@ -25,6 +25,7 @@ import {
   ManageProfile,
   NotFound
 } from '../pages'
+import ResetPassword from '../pages/resetPassword'
 
 import ProtectedRoute from './ProtectedRoute'
 
@@ -43,6 +44,7 @@ function AppRoutes () {
         <Route path='/privacyPolicy' element={<PrivacyPolicy />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signIn' element={<SignIn />} />
+        <Route path='/user/reset/:token' element={<ResetPassword />} />
         <Route path='/verifyPhone/:phone' element={<VerifyPhone />} />
         <Route path='/schools/:id' element={<SchoolDetails />} />
         <Route path='/cart' element={<ApplicationCart />} />
