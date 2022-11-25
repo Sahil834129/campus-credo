@@ -1547,11 +1547,34 @@ ul.list-group{
           }
         }
       }
+      
       &.about-content-main{
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 42px 0;
+        &.terms-main{
+          .terms-section{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .section-wrapper{
+              flex-direction: column;
+              margin: 0 0 42px 0;
+              gap: 16px;
+              align-items: flex-start;
+              .list-group{
+                .list-group-item{
+                  border: none;
+                  padding: 0;
+                  margin-bottom: 24px;
+                }
+              }
+           
+            }
+          }
+        }
+       
         .section-wrapper{
           display: flex;
           flex-direction: row;
@@ -2308,6 +2331,13 @@ ul.list-group{
           text-transform: capitalize;
           color: #333333;
           padding: 0;
+          a{
+            color: #333333;
+            &:hover{
+              text-decoration: underline;
+              color: $primarycolor;
+            }
+          }
         }
       }
       &.btn-container{
