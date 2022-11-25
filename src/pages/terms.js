@@ -6,6 +6,7 @@ import Breadcrumbs from '../common/Breadcrumbs';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 const TermsOfUse = () => {
+    window.scrollTo(0, 0)
     return(
         <Layout>
             <section className="content-area about-page">
