@@ -83,23 +83,23 @@ export const AdmissionForms = () => {
         setPageTitle('Student Details')
         break
       case 2:
-        setShowStudentList(false)
+        //setShowStudentList(false)
         setPageTitle('Medical Details')
         break
       case 3:
-        setShowStudentList(false)
+        //setShowStudentList(false)
         setPageTitle('Extracurriculars')
         break
       case 4:
-        setShowStudentList(false)
+        //setShowStudentList(false)
         setPageTitle('Background Check')
         break
       case 5:
-        setShowStudentList(false)
+        //setShowStudentList(false)
         setPageTitle('Parents/Guardian')
         break
       case 6:
-        setShowStudentList(false)
+        //setShowStudentList(false)
         setPageTitle('Supporting Documents')
         break
       default:
@@ -139,6 +139,7 @@ export const AdmissionForms = () => {
                         <BootStrapForm.Group className='frm-cell'>
                           <BootStrapForm.Select
                             name='selectedChildId'
+                            disabled={step>1}
                             onChange={e => {
                               handleChildSelection(e.target.value)
                             }}
@@ -160,12 +161,13 @@ export const AdmissionForms = () => {
                       </div>
                     </span>
                   </div>
-                  <Button
-                    className='add-child-btn'
-                    onClick={() => setShowAddChildDialog(true)}
-                  >
+                  {step === 1 ? <Button
+                      className='add-child-btn'
+                      onClick={() => setShowAddChildDialog(true)}
+                    > 
                     Add Child
                   </Button>
+                  : '' }
                 </div>
               )}
               <div className='content-area-inner internal-page-wrapper'>

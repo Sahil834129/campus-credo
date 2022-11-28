@@ -35,7 +35,7 @@ export default function StudentDetails ({
   const classOptions = useSelector(state => state.masterData.schoolClasses)
   const states = useSelector(state => state.masterData.states)
   const [schoolCity, setSchoolCity] = useState([
-    { value: '', text: 'Select State' }
+    { value: '', text: 'Select City' }
   ])
   const [city, setCity] = useState([{ value: '', text: 'Select City' }])
 
