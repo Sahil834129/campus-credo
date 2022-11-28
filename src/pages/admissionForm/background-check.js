@@ -15,6 +15,10 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
   const saveData = async formData => {
     try {
       formData['childId'] = selectedChild.childId
+      delete formData.hadViolenceBehavior
+      delete formData.hadSuspension
+      delete formData.anyOffensiveConduct
+
       setSubmitting(true)
       await RESTClient.patch(
         RestEndPoint.CREATE_STUDENT_PROFILE_BACKGROUND_CHECK,
@@ -33,11 +37,11 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
     <Formik
       initialValues={{
         childId: selectedChild.childId,
-        violenceBehaviour: selectedChild.violenceBehaviour,
+        violenceBehaviour: selectedChild.violenceBehaviour ? selectedChild.violenceBehaviour :'',
         hadViolenceBehavior: selectedChild.violenceBehaviour ? 'Yes' : 'No',
-        suspension: selectedChild.suspension,
+        suspension: selectedChild.suspension ? selectedChild.suspension : '',
         hadSuspension: selectedChild.suspension ? 'Yes' : 'No',
-        offensiveConduct: selectedChild.offensiveConduct,
+        offensiveConduct: selectedChild.offensiveConduct ? selectedChild.offensiveConduct : '',
         anyOffensiveConduct: selectedChild.offensiveConduct ? 'Yes' : 'No'
       }}
       onSubmit={values => {

@@ -22,15 +22,15 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
   const dispatch = useDispatch()
   const [parentExist, setParentExist] = useState(false)
   const [values, setValues] = useState({
-    relation: '',
+    relation: 'Father',
     otherRelation: '',
     firstName: '',
     lastName: '',
-    gender: '',
-    nationality: 'Other',
+    gender: 'Male',
+    nationality: 'Indian',
     otherNationality: '',
-    maritalStatus: 'true',
-    addressLine1: 'false',
+    maritalStatus: 'Married',
+    addressLine1: 'Yes',
     qualification: 'Diploma',
     occupation: 'Chartered_Accountant',
     annualFamilyIncome: '',
