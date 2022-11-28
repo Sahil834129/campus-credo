@@ -44,6 +44,7 @@ const DisclaimerPolicy = () => {
                             <p>We are committed to respecting Your online privacy. We further recognize Your need for appropriate protection and management of any Personal Information You share with us. We may collect the following information:</p>
                             <p>a.	Personal data includes but is not limited to: </p>
                             <h4>1.	Educational Institution:</h4>
+                            
                             <ListGroup className="list">
                                     <ListGroup.Item>●	Name</ListGroup.Item>
                                     <ListGroup.Item>●	Address</ListGroup.Item>

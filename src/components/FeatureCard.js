@@ -13,7 +13,7 @@ const FeatureCard = (card) => {
       
     return (
         <div className="feature-card-item">
-            <img src={images[card.image]} alt="feature-pic" />
+            <div className="img-wrap"><img src={images[card.image]} alt="feature-pic" /></div>
             <h2>{card.title}</h2>
             <h4>{card.description}</h4>
         </div>
