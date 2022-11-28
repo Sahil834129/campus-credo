@@ -34,43 +34,133 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
       initialValues={{
         childId: selectedChild.childId,
         violenceBehaviour: selectedChild.violenceBehaviour,
+        hadViolenceBehavior: selectedChild.violenceBehaviour ? 'Yes' : 'No',
         suspension: selectedChild.suspension,
-        offensiveConduct: selectedChild.offensiveConduct
+        hadSuspension: selectedChild.suspension ? 'Yes' : 'No',
+        offensiveConduct: selectedChild.offensiveConduct,
+        anyOffensiveConduct: selectedChild.offensiveConduct ? 'Yes' : 'No'
       }}
       onSubmit={values => {
         saveData(values)
       }}
     >
-      {({ values, errors, touched }) => (
+      {({ values, setFieldValue, errors, touched }) => (
         <Form className='row g-3'>
+          <div className='col-md-6'>
+            <label className="form-label">
+              Does the student have any history of violent behaviour?
+            </label>
+            <div className="d-flex  align-items-center py-2">
+              <InputField
+                fieldName='hadViolenceBehavior'
+                value={'Yes'}
+                label='Yes'
+                checked={values.hadViolenceBehavior === 'Yes'}
+                fieldType='radio'
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='hadViolenceBehavior'
+                value={'No'}
+                label='No'
+                checked={values.hadViolenceBehavior === 'No'}
+                fieldType='radio'
+                onClick={e => {
+                    setFieldValue('violenceBehaviour', '')
+                }}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
+          </div>
           <div className='col-md-6'>
             <InputField
               fieldName='violenceBehaviour'
               value={values.violenceBehaviour}
-              label='Does the student have any history of violent behaviour? If Yes, Please Specify'
+              label='If Yes, Please Specify'
               className='frm-cell'
               fieldType='text'
               placeholder='Please add details...'
+              disabled={values.hadViolenceBehavior === 'No'}
               errors={errors}
               touched={touched}
             />
+          </div>
+
+          <div className='col-md-6'>
+            <label className="form-label">
+              Has the student ever been suspended or expelled from any previous school?
+            </label>
+            <div className="d-flex  align-items-center py-2">
+              <InputField
+                fieldName='hadSuspension'
+                value={'Yes'}
+                label='Yes'
+                checked={values.hadSuspension === 'Yes'}
+                fieldType='radio'
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='hadSuspension'
+                value={'No'}
+                label='No'
+                checked={values.hadSuspension === 'No'}
+                fieldType='radio'
+                onClick={e => {
+                    setFieldValue('suspension', '')
+                }}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
           </div>
           <div className='col-md-6'>
             <InputField
               fieldName='suspension'
               value={values.suspension}
-              label='Has the student ever been suspended or expelled from any previous school? If Yes, Please Specify.'
+              label='If Yes, Please Specify.'
               className='frm-cell'
               fieldType='text'
               placeholder='Please add details...'
+              disabled={values.hadSuspension === 'No'}
               errors={errors}
               touched={touched}
             />
           </div>
+
+          <div className='col-md-6'>
+            <label className="form-label">
+              Has the student been involved in any incidents outside of school that involve serious behaviours?
+            </label>
+            <div className="d-flex  align-items-center py-2">
+              <InputField
+                fieldName='anyOffensiveConduct'
+                value={'Yes'}
+                label='Yes'
+                checked={values.anyOffensiveConduct === 'Yes'}
+                fieldType='radio'
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='anyOffensiveConduct'
+                value={'No'}
+                label='No'
+                checked={values.anyOffensiveConduct === 'No'}
+                fieldType='radio'
+                onClick={e => {
+                    setFieldValue('offensiveConduct', '')
+                }}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
+          </div>
           <div className='col-md-6'>
             <label className='form-label'>
-              Has the student ever been suspended or expelled from any previous
-              school?If Yes, Please Specify
+              If Yes, Please Specify
             </label>
             <InputField
               fieldName='offensiveConduct'
@@ -78,6 +168,7 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
               className='frm-cell'
               fieldType='text'
               placeholder='Please add details...'
+              disabled={values.anyOffensiveConduct === 'No'}
               errors={errors}
               touched={touched}
             />
@@ -89,6 +180,13 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
               onClick={() => history('/userProfile')}
             >
               Cancel
+            </button>
+            <button
+              type='button'
+              className='save comn me-2'
+              onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
+              >
+                Back
             </button>
             <button
               className='save comn'

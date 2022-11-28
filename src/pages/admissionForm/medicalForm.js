@@ -19,9 +19,12 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
   const [medicalProfile, setMedicalProfile] = useState({
     childId: selectedChild.childId,
     bloodGroup: '',
+    hasAllergies: 'No',
     allergies: '',
+    hasMedicalConditions: 'No',
     medicalConditions: '',
     specialCare: '',
+    doesNeedSpecialCare: 'No',
     disabilities: [],
     disability: 'No',
     otherDisability: ''
@@ -48,8 +51,11 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           id: response.data.id,
           bloodGroup: response.data.bloodGroup,
           allergies: response.data.allergies,
+          hasAllergies: response.data.allergies ? 'Yes' : 'No',
           medicalConditions: response.data.medicalConditions,
+          hasMedicalConditions: response.data.medicalConditions ? 'Yes' : 'No',
           specialCare: response.data.specialCare,
+          doesNeedSpecialCare: response.data.specialCare ? 'Yes' : 'No',
           disabilities: response.data.disabilities,
           otherDisability: response.data.otherDisability || '',
           disability: response.data.disabilities.length > 0 ? 'Yes' : 'No'
@@ -123,35 +129,125 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               touched={touched}
             />
           </div>
+          <div className='col-md-6'></div>
+          <div className='col-12 border-bottom'></div>
+          <div className='col-md-6'>
+            <label className="form-label">
+              Does the student have any allergies?
+            </label>
+            <div className="d-flex  align-items-center py-2">
+              <InputField
+                fieldName='hasAllergies'
+                value={'Yes'}
+                label='Yes'
+                checked={values.hasAllergies === 'Yes'}
+                fieldType='radio'
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='hasAllergies'
+                value={'No'}
+                label='No'
+                checked={values.hasAllergies === 'No'}
+                fieldType='radio'
+                onClick={e => {
+                    setFieldValue('allergies', '')
+                }}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
+          </div>
           <div className='col-md-6'>
             <InputField
               fieldName='allergies'
               value={values.allergies}
-              label='Does the student have any allergies? If yes, Please Specify'
+              label='If yes, Please Specify'
               fieldType='text'
               placeholder='Please add details...'
+              disabled={values.hasAllergies === 'No'}
               errors={errors}
               touched={touched}
             />
+          </div>
+          
+          <div className='col-md-6 '>
+            <label className="form-label">
+              Is the student being treated for any medical conditions? 
+            </label>
+            <div className="d-flex  align-items-center py-2">
+              <InputField
+                fieldName='hasMedicalConditions'
+                value={'Yes'}
+                label='Yes'
+                checked={values.hasMedicalConditions === 'Yes'}
+                fieldType='radio'
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='hasMedicalConditions'
+                value={'No'}
+                label='No'
+                checked={values.hasMedicalConditions === 'No'}
+                fieldType='radio'
+                onClick={e => {
+                  setFieldValue('medicalConditions', '')
+              }}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
           </div>
           <div className='col-md-6'>
             <InputField
               fieldName='medicalConditions'
               value={values.medicalConditions}
-              label='Is the student being treated for any medical conditions? If yes, Please Specify'
+              label='If yes, Please Specify'
               fieldType='text'
               placeholder='Please add details...'
+              disabled={values.hasMedicalConditions === 'No'}
               errors={errors}
               touched={touched}
             />
           </div>
           <div className='col-md-6'>
+            <label className="form-label">
+              Does the student need any special care due to any allergies/medical conditions?
+            </label>
+            <div className="d-flex  align-items-center py-2">
+              <InputField
+                fieldName='doesNeedSpecialCare'
+                value={'Yes'}
+                label='Yes'
+                checked={values.doesNeedSpecialCare === 'Yes'}
+                fieldType='radio'
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='doesNeedSpecialCare'
+                value={'No'}
+                label='No'
+                checked={values.doesNeedSpecialCare === 'No'}
+                fieldType='radio'
+                onClick={e => {
+                  setFieldValue('specialCare', '')
+              }}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
+          </div>
+          <div className='col-md-6'>
             <InputField
               fieldName='specialCare'
               value={values.specialCare}
-              label='Does the student need any special care due to any allergies/medical conditions? If Yes, Please Specify'
+              label='If Yes, Please Specify'
               fieldType='text'
               placeholder='Please add details...'
+              disabled={values.doesNeedSpecialCare === 'No'}
               errors={errors}
               touched={touched}
             />
@@ -291,6 +387,13 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               onClick={() => navigate('/userProfile')}
             >
               Cancel
+            </button>
+            <button
+              type='button'
+              className='save comn me-2'
+              onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
+              >
+                Back
             </button>
             <button className='save comn' type='submit'>
               Save & Next

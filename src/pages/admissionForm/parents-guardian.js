@@ -484,6 +484,13 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
         >
           Cancel
         </button>
+        <button
+              type='button'
+              className='save comn me-2'
+              onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
+              >
+                Back
+            </button>
         <button className='save comn' type='submit'>
           {parentExist ? `Update & Next` : `Save & Next`}
         </button>

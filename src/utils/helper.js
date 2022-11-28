@@ -87,3 +87,7 @@ export function humanize (str) {
   }
   return frags.join(' ')
 }
+
+export function convertCamelCaseToPresentableText(str) {
+  return str.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
+}
