@@ -362,7 +362,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               <div className='col-md-6'>
                 <InputField
                   fieldName='otherDisability'
-                  label='If Yes, Please Specify'
+                  label='If Other, Please Specify'
                   required={values.disabilities.find(val => {
                     return val === 'Other'
                   })}

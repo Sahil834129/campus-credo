@@ -22,6 +22,7 @@ import OtpInput from "react-otp-input";
 export const ManageProfile = () => {
     const navigate = useNavigate()
     const [key, setKey] = useState("userProfile")
+    const [userPassword, SetUserPassword] = useState("")
     const [submitting, setSubmitting] = useState(false);
     const [stateOptions, setStateOptions] = useState([{ "text": "Select State" }]);
     const [cityOptions, setCityOptions] = useState([{ "text": "Select City" }]);
@@ -72,6 +73,15 @@ export const ManageProfile = () => {
             toast.success('Profile Updated successfully')
             setSubmitting(false)
             navigate('/manageProfile')
+            setUserDetails({
+                ...userDetails,
+                firstName: '',
+                lastName: '',
+                email: '',
+                city: '',
+                state: ''
+            })
+
         }).catch((error) => {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
@@ -82,6 +92,9 @@ export const ManageProfile = () => {
         setSubmitting(true);
         RESTClient.post(RestEndPoint.CHANGE_PASSWORD,formData).then((response) => {
             toast.success('Password changed successfully')
+            setSubmitting(false)
+            navigate('/manageProfile')
+            SetUserPassword('')
         }).catch((error) => {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));

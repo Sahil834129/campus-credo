@@ -6,7 +6,8 @@ export const GENDER_OPTOPNS = [
 export const RELIGION_OPTIONS = [
   { value: '', text: 'Select Option' },
   { value: 'Hindu', text: 'Hindu' },
-  { value: 'Muslim', text: 'Muslim' }
+  { value: 'Muslim', text: 'Muslim' },
+  { value: 'Other', text: 'Other' }
 ]
 
 export const NATIONALITY_OPTIONS = [

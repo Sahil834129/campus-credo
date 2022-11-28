@@ -84,7 +84,7 @@ const ApplyToSchool = (props) => {
         // Select class based on child age
         const selectedChild = childsList.find(it => it.childId === parseInt(value))
         let dateAsOnSTR = '31/10/' + moment().year()
-        let childAge = moment(dateAsOnSTR, 'DD/MM/YYYY').diff(moment(selectedChild.dateOfBirth, "DD/MM/YYYY"), 'years');
+        let childAge = moment(dateAsOnSTR, 'DD-MM-YYYY').diff(moment(selectedChild.dateOfBirth, "DD-MM-YYYY"), 'years');
         let age = 0
         Object.keys(classMapWithAge).forEach((value, idx) => {
             if (parseInt(value) <= childAge && parseInt(value) > age)
