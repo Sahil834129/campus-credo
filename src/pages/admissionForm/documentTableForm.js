@@ -112,9 +112,9 @@ export function DocumentTableFormat ({
                 onChange={handleFileChangeInput}
                 accept='.png, .jpg, .jpeg .pdf'
               />
-              {fileUploadErrors[val.documentName] !== undefined
+              <span className='error-msg'>{fileUploadErrors[val.documentName] !== undefined
                 ? fileUploadErrors[val.documentName]
-                : ''}
+                : ''}</span>
             </td>
             <td className='doc-upload-btn'>
               <Button

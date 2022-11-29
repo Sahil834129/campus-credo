@@ -184,6 +184,14 @@
                 tbody{
                     tr{
                         td{
+                            &.doc-upload-fld{
+                                display: flex;
+                                flex-direction: column;
+                                .error-msg{
+                                    color: #FF5767;
+                                    font-size: 14px;
+                                }
+                            }
                             .btn{
                                 &.upload-btn{
                                     background: $darkgreen;

@@ -35,7 +35,7 @@ export default function StudentDetails ({
   const classOptions = useSelector(state => state.masterData.schoolClasses)
   const states = useSelector(state => state.masterData.states)
   const [schoolCity, setSchoolCity] = useState([
-    { value: '', text: 'Select State' }
+    { value: '', text: 'Select City' }
   ])
   const [city, setCity] = useState([{ value: '', text: 'Select City' }])
 
@@ -168,7 +168,7 @@ export default function StudentDetails ({
         />
       </div>
       <div className='col-md-6'>
-        <div>
+        <div className='mb-4'>
           <SelectField
             fieldName='className'
             label='Select Class'
@@ -200,7 +200,7 @@ export default function StudentDetails ({
         <textarea
           className='form-control'
           name='identificationMarks'
-          rows='4'
+          rows='5'
           required
           value={selectedChild.identificationMarks}
           onChange={e => {
@@ -238,7 +238,7 @@ export default function StudentDetails ({
       <div className='col-12 border-bottom border-top pt-2 pb-2'>
         <div className='col-md-12 mb-2'>
           <label className=' me-2'>
-            Please Provide Your Current School Information(If Applicabple)
+            Please Provide Your Current School Information(If Applicable)
           </label>
           <div className='form-check form-check-inline'>
             <RadioButton
@@ -369,7 +369,7 @@ export default function StudentDetails ({
         Please Provide your Address details{' '}
         <span>(Add Your complete address for easy communication)</span>
       </p>
-      <div className='tab_btn border-bottom'>
+      <div className='tab_btn border-bottom pb-3'>
         <div className='row g-3'>
           <div className='col-md-6'>
             <TextField

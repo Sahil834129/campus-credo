@@ -5,8 +5,15 @@ export const GENDER_OPTOPNS = [
 
 export const RELIGION_OPTIONS = [
   { value: '', text: 'Select Option' },
-  { value: 'Hindu', text: 'Hindu' },
-  { value: 'Muslim', text: 'Muslim' }
+  { value: 'Hinduism', text: 'Hinduism' },
+  { value: 'Islam', text: 'Islam' },
+  { value: 'Christianity', text: 'Christianity' },
+  { value: 'Sikhism', text: 'Sikhism' },
+  { value: 'Buddhism', text: 'Buddhism' },
+  { value: 'Jainism', text: 'Jainism' },
+  { value: 'Tribal', text: 'Tribal' },
+  { value: 'No religion', text: 'No religion' },
+  { value: 'Other', text: 'Other' }
 ]
 
 export const NATIONALITY_OPTIONS = [

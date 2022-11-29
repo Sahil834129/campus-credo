@@ -52,7 +52,7 @@ const UserProfile = () => {
               </Col>
             </Row>
             <Row className='content-section profile-content-main'>
-              <Col className='left sidebar'>
+              <Col className='left sidebar profile-sidebar'>
                 <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
               </Col>
               <Col className='profile-content right'>

@@ -10,7 +10,7 @@ export const combineArray = arr => {
 export const populateCities = (stateId, setCityOptions) => {
   RESTClient.get(RestEndPoint.GET_STATE_CITIES + '/' + stateId)
     .then(response => {
-      let cities = [{ text: 'Select State' }]
+      let cities = [{ text: 'Select City' }]
       if (response.data.success)
         setCityOptions(
           cities.concat(

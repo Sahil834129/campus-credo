@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { convertCamelCaseToPresentableText } from "../utils/helper";
 
 const Breadcrumbs = () => {
     const location = useLocation();
@@ -14,8 +15,8 @@ const Breadcrumbs = () => {
             {
                 pathNestedRoutes.map((path, index) => {
                     return index === pathNestedRoutes.length - 1 ?
-                        <Breadcrumb.Item key={index} href={getLinkRef(index)} active>{path}</Breadcrumb.Item>
-                        : <Breadcrumb.Item key={index} href={getLinkRef(index)}>{path}</Breadcrumb.Item>
+                        <Breadcrumb.Item key={index} href={getLinkRef(index)} active>{convertCamelCaseToPresentableText(path)}</Breadcrumb.Item>
+                        : <Breadcrumb.Item key={index} href={getLinkRef(index)}>{convertCamelCaseToPresentableText(path)}</Breadcrumb.Item>
                 })
             }
         </Breadcrumb>

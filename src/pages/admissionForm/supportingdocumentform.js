@@ -71,7 +71,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
           onSelect={k => setKey(k)}
           className='mb-3'
         >
-          <Tab eventKey='student' title='Student' disabled>
+          <Tab eventKey='student' title='Student' >
             <div className='tab-content'>
               <div className='tab-pane active' id='paperback'>
                 <DocumentTableFormat
@@ -83,7 +83,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
               </div>
             </div>
           </Tab>
-          <Tab eventKey='parent' title='Parent/Guardian' disabled>
+          <Tab eventKey='parent' title='Parent/Guardian' >
             <div className='tab-content'>
               <div className='tab-pane active' id='paperback'>
                 <DocumentTableFormat
@@ -105,6 +105,15 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         >
           Cancel
         </button>
+        { key === 'student' ? 
+          <button
+            type='button'
+            className='save comn me-2'
+            onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
+            >
+              Back
+          </button>
+          : '' }
         <button
           className='save comn me-2'
           onClick={() =>

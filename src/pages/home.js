@@ -14,6 +14,8 @@ import PageContent from "../resources/pageContent";
 import FeatureCard from "../components/FeatureCard";
 import LoginDialog from "../dialogs/loginDialog"
 import { useLocation } from 'react-router-dom';
+import { isLoggedIn } from "../utils/helper";
+import { useEffect } from "react";
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -22,9 +24,21 @@ const HomePage = () => {
 	const showLogin = queryParams.get("login") !== null ? true : false;
     const [showLoginDialog, setShowLoginDialog] = useState(showLogin)
     
+    useEffect(()=> {
+        if (isLoggedIn())
+            navigate('/userProfile') 
+    }, [])
+    
     const handleCloseLoginDialog = () => {
-        //setIsLoggedInUser(isLoggedIn());
         setShowLoginDialog(false);
+        navigate('/userProfile')
+    }
+
+    function beginApplication() {
+        if (isLoggedIn())
+            navigate('/userProfile')
+        else
+            setShowLoginDialog(true)
     }
     
     return (
@@ -40,7 +54,7 @@ const HomePage = () => {
                                 <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Common Application Form</span></ListGroup.Item>
                                 <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Curated School Listing</span></ListGroup.Item>
                             </ListGroup>
-                            <Button className="" onClick={()=>{navigate("/schools")}}>Begin Application</Button> <Link className="">Read more about us</Link>
+                            <Button className="" onClick={()=>{beginApplication()}}>Begin Application</Button> <Link className="">Read more about us</Link>
                         </div>
                         <div className="hero-item right">
                             <img src={HeroGraphic} alt="" />
@@ -56,7 +70,7 @@ const HomePage = () => {
                                             <FeatureCard {...card} key={"student_fc"+index}/>
                                         ))}
                                     </div>
-                                    <div className="tab-button-wrap"><Button onClick={()=>{navigate("/schools")}}>Begin Application</Button></div>
+                                    <div className="tab-button-wrap"><Button onClick={()=>{beginApplication()}}>Begin Application</Button></div>
                                 </TabContent>
                             </Tab>
                             <Tab eventKey="schoolsTab" className="school-cat" title={<span> <i className="icons school-icon" /> For Schools</span>}>
@@ -66,7 +80,7 @@ const HomePage = () => {
                                             <FeatureCard {...card} key={"school_fc"+index}/>
                                         ))}
                                     </div>
-                                    <div className="tab-button-wrap"><Button onClick={()=>{navigate("/schools")}}>Begin Application</Button></div>
+                                    <div className="tab-button-wrap"><Button onClick={()=>{beginApplication()}}>Begin Application</Button></div>
                                 </TabContent>
                             </Tab>
                         </Tabs>
