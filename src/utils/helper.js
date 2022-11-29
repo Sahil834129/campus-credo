@@ -13,6 +13,7 @@ export const refreshAccessToken = async () => {
     setLocalData('refreshToken', response.data.refreshToken)
     return response.data.token
   } catch (error) {
+    logout()
     console.log('Error :' + error)
   }
 }

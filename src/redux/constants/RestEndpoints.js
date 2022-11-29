@@ -41,6 +41,7 @@ const RestEndPoint = {
   UPDATE_USER: '/parent/updateUser',
   CHANGE_PASSWORD: '/parent/changePassword',
   UPDATE_PHONE: '/parent/updatePhone',
+  CLASS_ADMISSION_DATA: '/admission/classAdmissionData'
 }
 
 export default RestEndPoint

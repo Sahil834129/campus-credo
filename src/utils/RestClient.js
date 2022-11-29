@@ -47,6 +47,9 @@ axios.interceptors.response.use(
   response => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+    if (response.status === 400) {
+       return Promise.reject(response)
+    }
     return response
   },
   async error => {
