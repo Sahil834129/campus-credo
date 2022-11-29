@@ -28,7 +28,7 @@ export default class RESTClient {
   static getAPIErrorMessage (error) {
     if (error.response && error.response.data) {
       let apiError = error.response.data.apierror
-      if (apiError && apiError.hasOwnProperty('subErrors')) {
+      if (apiError && apiError.hasOwnProperty('subErrors') && apiError.subErrors.length > 0) {
         return apiError.subErrors.map( it => it.message).join('. ') //.join('<br/>')
       } 
       return apiError?.message

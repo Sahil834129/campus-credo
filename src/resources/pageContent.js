@@ -26,7 +26,7 @@ const PageContent = {
     { ref: '/userProfile', title: 'Dashboard' },
     { ref: '/manageProfile', title: 'Manage Profile' },
     //{ ref: '/userProfile', title: 'Fee Payments' },
-    { ref: '/userProfile/studentDetails', title: 'Admission Form' },
+    { ref: '/userProfile/admissionForm', title: 'Admission Form' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [

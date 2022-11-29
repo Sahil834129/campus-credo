@@ -278,7 +278,7 @@ const SidebarFilter = ({ applyFilters }) => {
               
               <MultiRangeSlider min={0}
                 max={20000}
-                step={5000}
+                step={500}
                 minValue={minMonthlyTutionFee}
                 maxValue={maxMonthlyTutionFee}
                 ruler='false'

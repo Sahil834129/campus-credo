@@ -43,6 +43,16 @@ export default function StudentDetails ({
   const saveStudentDetails = async e => {
     e.preventDefault()
     let postData = { ...selectedChild, ...currentStudent }
+    if (postData.isProvidingCurrentSchoolInfo === 'No') {
+      delete postData.schoolName
+      delete postData.schoolBoard
+      delete postData.obtainedMarks
+      delete postData.schoolAddressLine1  
+      delete postData.schoolAddressLine2
+      delete postData.schoolCity
+      delete postData.schoolState
+      delete postData.schoolPincode
+    }
     delete postData.dateOfBirth
     delete postData.isProvidingCurrentSchoolInfo
     delete postData.firstName

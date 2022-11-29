@@ -57,7 +57,7 @@ function AppRoutes () {
           <Route path='/userProfile' element={<UserProfile />} />
           <Route path='/manageProfile' element={<ManageProfile />} />
           <Route
-            path='/userProfile/studentDetails'
+            path='/userProfile/admissionForm'
             element={<SchoolAdmission />}
           />
         </Route>
