@@ -73,7 +73,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
       } else {
         await RESTClient.post(RestEndPoint.GET_STUDENT_PARENT, postData)
       }
-      toast.success('Student details saved successfully.')
+      //toast.success('Student details saved successfully.')
       setStep(val => val + 1)
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))

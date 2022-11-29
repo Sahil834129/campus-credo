@@ -26,8 +26,13 @@ export default class RESTClient {
   }
 
   static getAPIErrorMessage (error) {
-    if (error.response && error.response.data)
-      return error.response.data.apierror?.message
+    if (error.response && error.response.data) {
+      let apiError = error.response.data.apierror
+      if (apiError && apiError.hasOwnProperty('subErrors')) {
+        return apiError.subErrors.map( it => it.message).join('. ') //.join('<br/>')
+      } 
+      return apiError?.message
+    }
     return PageContent.UNEXPECTED_ERROR_MSG
   }
 }

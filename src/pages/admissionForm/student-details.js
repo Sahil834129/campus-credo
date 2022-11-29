@@ -60,7 +60,7 @@ export default function StudentDetails ({
       } else {
         await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
       }
-      toast.success('Student details saved successfully.')
+      //toast.success('Student details saved successfully.')
       setStep(val => val + 1)
       window.scrollTo(0, 0)
     } catch (error) {
