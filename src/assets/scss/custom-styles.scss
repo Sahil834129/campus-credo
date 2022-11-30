@@ -1237,9 +1237,20 @@ ul.list-group{
                             width: 100%;
                             flex-direction: row;
                             padding: 0 16px;
+                            i{}
+                            .category-name{margin-left: 8px;}
                             &.active{
                               background: $primarycolor;
                               color: $white;
+                              i.dashboard-icon{
+                                background-image: url('../img/icons/dashboard-white.svg');
+                              }
+                              i.manageprofile-icon{
+                                background-image: url('../img/icons/manage-profile-white.svg');
+                              }
+                              i.oneapplicationform-icon{
+                                background-image: url('../img/icons/one-applicationform-white.svg');
+                              }
                               .indicator{
                                 background: $white;
                                 border: 1px solid #fff;

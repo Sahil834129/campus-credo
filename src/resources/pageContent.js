@@ -23,10 +23,10 @@ const PageContent = {
     { ref: '#', title: 'Supporting Documents' }
   ],
   USER_PROFILE_SIDEBAR_MENU_ITEMS: [
-    { ref: '/userProfile', title: 'Dashboard' },
-    { ref: '/manageProfile', title: 'Manage Profile' },
+    { ref: '/userProfile', icon:'dashboard-icon', class:'dashboard', title: 'Dashboard' },
+    { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
     //{ ref: '/userProfile', title: 'Fee Payments' },
-    { ref: '/userProfile/admissionForm', title: 'Admission Form' },
+    { ref: '/userProfile/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [
