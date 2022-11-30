@@ -155,7 +155,7 @@ ul.list-group{
   }
   .bc-main-wrap{
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    padding: 0;
+    padding: 0 8px;
     margin: 0;
     ol.breadcrumb{
       margin-bottom: 12px;
@@ -1098,6 +1098,7 @@ ul.list-group{
       
       .inner-page-content{
         .content-section{
+
           &.profile-bc-section{
             justify-content: space-between;
             width: 100%;
@@ -1123,11 +1124,71 @@ ul.list-group{
             grid-template-columns: 272px 1fr;
             min-height: 17vh;
             .profile-content{
+              .tab_btn_wrapper{
+                margin-top: 16px;
+                ul.nav-tabs{
+                  margin: 0;
+                  li.nav-item{
+                    button.nav-link{
+                      color: rgba(0, 0, 0, 0.85);
+                    }
+                  }
+                }
+                .tab-content{
+                  border: 1px solid #dee2e6;
+                  padding: 24px;
+                  border-radius: 0 8px 8px 8px;
+                  border-top: none;
+                  .tab-pane{
+                    .form-control, .form-select{
+                      
+                      border: 1px solid #D9D9D9;
+                      border-radius: 4px;
+                      height: 44px;
+                      font-style: normal;
+                      font-weight: 400;
+                      font-size: 14px;
+                      line-height: 18px;
+                    }
+                    .button-wrap{
+                      display: flex;
+                      flex-direction: row;
+                      align-items: flex-start;
+                      
+                      gap: 8px;
+                      .comn{
+                        height: 46px;
+                        border-radius: 4px;
+                        padding: 12px 30px;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 24px;
+                        text-align: center;
+                        display: flex;
+                        align-items: center;
+                        align-content: center;
+                        &.cancel{
+                          background: $white;
+                          border: 1px solid #E22445;
+                          color: #E22445;
+                        }
+                        &.save{
+                          background: #549B43;
+                          border: 1px solid #549B43;
+                          color: $white;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
               .header{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 padding: 16px 0;
+                border-bottom:1px solid rgba(0, 0, 0, 0.08);
                 .select-option{
                   display: flex;
                   flex-direction: row;
@@ -1157,13 +1218,14 @@ ul.list-group{
                 &.profile-sidebar{
                   background: #F3F3F3;
                   .sidebar{
-                    margin: 0 16px 16px 16px;
+                    margin: 16px 16px 16px 16px;
                     .nav{
                       &.sideNav-indicator{
                         background: #ffffff;
                         width: 100%;
                         margin: 0;
-                        border-radius: 0 0 12px 12px;
+                        border-radius: 12px;
+                        overflow: hidden;
                         .navbar-text{
                           display: flex;
                           width: 100%;
@@ -1229,6 +1291,7 @@ ul.list-group{
                 &.content{
                   
                   .row-items{
+                    padding: 0 0 16px 0;
                     display: grid;
                     grid-template-columns: 1fr auto;
                     margin: 24px 0;
@@ -1272,6 +1335,8 @@ ul.list-group{
                               padding: 0;
                               display: flex;
                               flex-direction: row;
+                              border-radius: 0;
+                              // border-right:1px solid rgba(0, 0, 0, 0.08);
                               .list-group-item{
                                 background: none;
                                 border: none;
