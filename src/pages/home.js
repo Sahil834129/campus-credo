@@ -27,7 +27,7 @@ const HomePage = () => {
     useEffect(()=> {
         if (isLoggedIn())
             navigate('/userProfile') 
-    }, [])
+    }, [navigate])
     
     const handleCloseLoginDialog = () => {
         setShowLoginDialog(false);
