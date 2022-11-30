@@ -8,6 +8,13 @@ export default class RESTClient {
   static async get (action, params) {
     return await axios.get(action, params)
   }
+  
+  static async getBlob(action) {
+    return await axios.get(action, {
+      responseType: 'blob',
+      timeout: 30000,
+    })
+  }
 
   static async post (action, params) {
     return await axios.post(action, params)
