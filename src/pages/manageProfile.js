@@ -27,6 +27,7 @@ export const ManageProfile = () => {
     const [cityOptions, setCityOptions] = useState([{ "text": "Select City" }]);
     const [userDetails, setUserDetails] = useState({ firstName: '', lastName: '', email: '', city: '', state: '' })
     const [showOTP, setShowOTP] = useState(false)
+    const [updatePhoneObject, setUpdatePhoneObject] = useState({ phone: '', otp: '' })
     
     const populateStateList = () => {
         RESTClient.get(RestEndPoint.GET_STATE).then((response) => {
@@ -109,13 +110,14 @@ export const ManageProfile = () => {
                 setShowOTP(true)
                 setSubmitting(false)
             } catch(error) {
-                toast.error(RestEndPoint.getAPIErrorMessage(error))
+                toast.error(RESTClient.getAPIErrorMessage(error))
                 setSubmitting(false)
             }
         } else {
             try {
                 await RESTClient.post(RestEndPoint.VERIFY_PHONE, formData)
-                toast.success('Phone varification successfully')
+                setUpdatePhoneObject({ ...updatePhoneObject, phone: '', otp: '' })
+                toast.success('New mobile number updated successfully.')
                 setSubmitting(false)
             } catch (error) {
                 toast.error(RESTClient.getAPIErrorMessage(error))
@@ -203,12 +205,13 @@ export const ManageProfile = () => {
                                         </Formik>
                                         </Tab>
                                         <Tab eventKey='updateMobile' title='Update mobile'>
-                                            <Formik initialValues={{ phone: '', otp: '' }}
+                                            <Formik initialValues={updatePhoneObject}
+                                                enableReinitialize={true} 
                                                 validationSchema={UpdatePhoneSchema} validateOnBlur onSubmit={values => { updatePhone(values) }}>
                                                 {({ values, setFieldValue, errors, touched }) => (
                                                     <Form className='row g-3'>
                                                         <div className='col-md-6'>
-                                                            <InputField fieldName="phone" required label="Mobile Number" fieldType="text" placeholder="Enter mobile number" errors={errors} touched={touched}/>
+                                                            <InputField fieldName="phone" value={values.phone} required label="Mobile Number" fieldType="text" placeholder="Enter mobile number" errors={errors} touched={touched}/>
                                                         </div>
                                                         <div className='col-md-6'></div>
                                                         {showOTP ? <>
