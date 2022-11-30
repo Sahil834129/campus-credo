@@ -8,3 +8,7 @@ export const getClassAdmissionData = () => {
 export const saveClassAdmissionData = (data) => {
   return RESTClient.post(RestEndPoint.CLASS_ADMISSION_DATA, data)
 }
+
+export const getSchoolAdmissinSummary = () => {
+  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY)
+}

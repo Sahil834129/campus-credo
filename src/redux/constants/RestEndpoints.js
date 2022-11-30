@@ -42,7 +42,7 @@ const RestEndPoint = {
   CHANGE_PASSWORD: '/parent/changePassword',
   UPDATE_PHONE: '/parent/updatePhone',
   CLASS_ADMISSION_DATA: '/admission/classAdmissionData',
-  RESET_PASSWORD: 'user/resetPassword',
-}
+  SCHOOL_ADMISSION_SUMMARY: 'admission/application/schoolAdmissionSummary',
+};
 
-export default RestEndPoint
+export default RestEndPoint;

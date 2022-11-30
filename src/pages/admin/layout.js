@@ -1,29 +1,29 @@
-import React from 'react'
-import '../../assets/admin/scss/custom-styles.scss'
-import Container from 'react-bootstrap/Container'
-import { ReactComponent as CampusLogo } from '../../assets/img/campuscredso-logo.svg'
-import Button from 'react-bootstrap/Button'
-import { Link, useLocation } from 'react-router-dom'
-import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import ListGroup from 'react-bootstrap/ListGroup'
+import React from 'react';
+import '../../assets/admin/scss/custom-styles.scss';
+import Container from 'react-bootstrap/Container';
+import { ReactComponent as CampusLogo } from '../../assets/img/campuscredso-logo.svg';
+import Button from 'react-bootstrap/Button';
+import { Link, useLocation } from 'react-router-dom';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-import Nav from 'react-bootstrap/Nav'
+import Nav from 'react-bootstrap/Nav';
 
-import Navbar from 'react-bootstrap/Navbar'
-import Avatar from 'react-avatar'
-import { ADMIN_DASHBOARD_LINK } from '../../constants/app'
-import { logout } from '../../utils/helper'
+import Navbar from 'react-bootstrap/Navbar';
+import Avatar from 'react-avatar';
+import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
+import { logout } from '../../utils/helper';
 
-export const Layout = props => {
-  const location = useLocation()
+export const Layout = ({ admissionSummary, ...props }) => {
+  const location = useLocation();
   const breadcrumbTitle = ADMIN_DASHBOARD_LINK.find(
     val => val.url === location.pathname
-  )
+  );
 
   const handleLogout = () => {
-    logout()
-    window.location.reload()
-  }
+    logout();
+    window.location.reload();
+  };
 
   return (
     <Container className='main-container' fluid>
@@ -78,37 +78,34 @@ export const Layout = props => {
               <ListGroup className='kpi-list-group'>
                 <ListGroup.Item>
                   <label className='lbl'>Seats</label>{' '}
-                  <span className='value'>200</span>
+                  <span className='value'>{admissionSummary?.totalSeats || 0}</span>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <label className='lbl'>Application Received</label>{' '}
-                  <span className='value'>300</span>
+                  <span className='value'>{admissionSummary?.received || 0}</span>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <label className='lbl'>Under Review</label>{' '}
-                  <span className='value'>60</span>
+                  <span className='value'>{admissionSummary?.underReview || 0}</span>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <label className='lbl'>AT/PI</label>{' '}
-                  <span className='value'>80</span>
+                  <span className='value'>{admissionSummary?.atPi || 0}</span>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <label className='lbl'>Final Review</label>{' '}
-                  <span className='value'>20</span>
+                  <span className='value'>{admissionSummary?.underFinalReview || 0}</span>
                 </ListGroup.Item>
                 <ListGroup.Item className='application-status'>
-                  <label className='lbl'>Application Status</label>
+                  <label className='lbl'>Application Status :: </label>
                   <div className='app-status-cell'>
                     <label className='lbl'>Accepted</label>{' '}
-                    <span className='value'>20</span>
+                    <span className='value text-success'>{admissionSummary?.accepted || 0} </span>{' | '}
                   </div>
                   <div className='app-status-cell'>
                     <label className='lbl'>Declined</label>{' '}
-                    <span className='value'>10</span>
+                    <span className='value text-danger'>{admissionSummary?.declined || 0}</span>
                   </div>
-                  <span className='value'>
-                    Accepted <span>20</span>
-                  </span>
                 </ListGroup.Item>
               </ListGroup>
             </div>
@@ -120,6 +117,6 @@ export const Layout = props => {
         <Link href=''>Terms &amp; Conditions</Link>
       </div>
     </Container>
-  )
-}
-export default Layout
+  );
+};
+export default Layout;
