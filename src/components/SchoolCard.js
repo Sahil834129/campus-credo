@@ -93,7 +93,7 @@ const SchoolCard = (props) => {
                 </ListGroup>
                 <Card.Body className='button-wrap'>
                     <Card.Link onClick={(e)=>{handleViewDetails(school.schoolId, school.schoolName);e.stopPropagation()}} className='view'>View Details</Card.Link>
-                    <Card.Link className='add' onClick={(e)=> {handleAddToCart(school.schoolId, school.admissionInfo ? true :false);e.stopPropagation()}}>Add to Cart</Card.Link>
+                    <Card.Link className='add' onClick={(e)=> {handleAddToCart(school.schoolId, school.admissionInfo ? true :false);e.stopPropagation()}}>Add to Apply</Card.Link>
                 </Card.Body>
                 <Col className='salient-features'>
                     <Row className='partner-wrap'>

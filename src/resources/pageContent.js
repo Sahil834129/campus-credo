@@ -11,8 +11,8 @@ const PageContent = {
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/howItWorks', title: 'How It Works' },
     { ref: '/schools', title: 'All Schools' },
-    { ref: '/contactUs', title: 'Contact Us' },
-    { ref: '/faqs', title: "FAQ's" }
+    { ref: '/faqs', title: "FAQ's" },
+    { ref: '/contactUs', title: "Contact Us" }
   ],
   ADMISSION_FORM_SIDEBAR_MENU_ITEMS: [
     { ref: '#', title: 'Student Details' },
@@ -38,8 +38,8 @@ const PageContent = {
   ],
   SOCIAL_MEDIA_LIST: [
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
-    { ref: 'https://twitter.com', type: 'twitter', icon: 'twitter-icon' },
     { ref: 'https://www.instagram.com', type: 'instagram', icon: 'insta-icon' },
+    { ref: 'https://twitter.com', type: 'twitter', icon: 'twitter-icon' },
     { ref: 'https://www.google.com', type: 'google', icon: 'g-icon' }
   ],
   STUDENT_FEATURE_CARDS: [
