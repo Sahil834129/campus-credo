@@ -11,8 +11,8 @@ const PageContent = {
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/howItWorks', title: 'How It Works' },
     { ref: '/schools', title: 'All Schools' },
-    { ref: '/contactUs', title: 'Contact Us' },
-    { ref: '/faqs', title: "FAQ's" }
+    { ref: '/faqs', title: "FAQ's" },
+    { ref: '/contactUs', title: "Contact Us" }
   ],
   ADMISSION_FORM_SIDEBAR_MENU_ITEMS: [
     { ref: '#', title: 'Student Details' },
@@ -23,10 +23,10 @@ const PageContent = {
     { ref: '#', title: 'Supporting Documents' }
   ],
   USER_PROFILE_SIDEBAR_MENU_ITEMS: [
-    { ref: '/userProfile', title: 'Dashboard' },
-    { ref: '/manageProfile', title: 'Manage Profile' },
+    { ref: '/userProfile', icon:'dashboard-icon', class:'dashboard', title: 'Dashboard' },
+    { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
     //{ ref: '/userProfile', title: 'Fee Payments' },
-    { ref: '/userProfile/studentDetails', title: 'Admission Form' },
+    { ref: '/userProfile/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [
@@ -38,8 +38,8 @@ const PageContent = {
   ],
   SOCIAL_MEDIA_LIST: [
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
-    { ref: 'https://twitter.com', type: 'twitter', icon: 'twitter-icon' },
     { ref: 'https://www.instagram.com', type: 'instagram', icon: 'insta-icon' },
+    { ref: 'https://twitter.com', type: 'twitter', icon: 'twitter-icon' },
     { ref: 'https://www.google.com', type: 'google', icon: 'g-icon' }
   ],
   STUDENT_FEATURE_CARDS: [

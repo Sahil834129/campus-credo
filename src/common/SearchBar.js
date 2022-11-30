@@ -132,6 +132,7 @@ const SearchBar = () => {
                                 onSelect={handleOnSelect}
                                 onSearch={handleOnSearch}
                                 styling={{ zIndex: 4 }}
+                                placeholder='Search schools'
                             />
                         </div>
                     </div>

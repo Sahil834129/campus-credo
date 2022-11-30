@@ -43,6 +43,8 @@ const RestEndPoint = {
   UPDATE_PHONE: '/parent/updatePhone',
   CLASS_ADMISSION_DATA: '/admission/classAdmissionData',
   SCHOOL_ADMISSION_SUMMARY: 'admission/application/schoolAdmissionSummary',
-};
+  RESET_PASSWORD: 'user/resetPassword',
+  DOWNLOAD_DOCUMENT:'/student/download/document'
+}
 
 export default RestEndPoint;

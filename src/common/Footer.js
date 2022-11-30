@@ -43,8 +43,8 @@ const Footer = () => {
             
             </Container>
             <Container className="copyright-row">
-                <div className="copyright-col">&copy; 2022 EduSmart. | All rights reserved.</div>
-                <div className="copyright-col"><Link to={"/terms"}>Terms of use</Link> <Link to={"/privacyPolicy"}>Privacy policy</Link></div>
+                <div className="copyright-col">&copy; 2022 EduSmart. | All Rights Reserved.</div>
+                <div className="copyright-col"><Link to={"/terms"}>Terms Of Use</Link> <Link to={"/privacyPolicy"}>Privacy Policy</Link></div>
             </Container>
         </footer>
     );

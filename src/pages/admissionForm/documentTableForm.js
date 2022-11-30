@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 import { ACCEPT_MIME_TYPE, FILE_SIZE } from '../../constants/app'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { humanize } from '../../utils/helper'
 import RESTClient from '../../utils/RestClient'
+import { downloadDocument } from '../../utils/services'
 
 export function DocumentTableFormat ({
   documents,
@@ -128,9 +130,7 @@ export function DocumentTableFormat ({
             </td>
             <td className='doc-filename'>
               {val.status === 'uploaded' && (
-                <a target='_blank' href={val.documentLink}>
-                  {val.documentName} <i className="icons link-icon"></i>
-                </a>
+                <a href="javascript:void(0)" onClick={()=> {downloadDocument(currentStudent.childId, val.documentName)}}> Download <i className="icons link-icon"></i></a>
               )}
             </td>
           </tr>

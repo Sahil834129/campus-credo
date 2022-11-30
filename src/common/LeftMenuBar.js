@@ -22,8 +22,9 @@ const LeftMenuBar = props => {
                   className={menuItem.ref === pageRef || (props.step ? index+1 == props.step : false) ? 'active' : ''}
                   to={menuItem.ref}
                   
-                ><span className='indicator'><span className='indiShape circle'></span></span>
-                  {menuItem.title}
+                >{menuItem.icon ? <i className={'icons '+menuItem.icon}></i>:
+                  <span className='indicator'><span className='indiShape circle'></span></span> }
+                  <span className='category-name'>{menuItem.title}</span>
                 </Link>
               </Navbar.Text>
             </Fragment>

@@ -8,6 +8,8 @@ import { humanize } from '../utils/helper'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import NoRecordsFound from "../common/NoRecordsFound";
+import { downloadDocument } from "../utils/services";
+import AlertDialog from "../common/AlertDialog";
 
 const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
     const navigate = useNavigate()
@@ -17,6 +19,8 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
     const [studentDocuments, setStudentDocuments] = useState([])
     const [parentDocuments, setParentDocuments] = useState([])
     const [key, setKey] = useState('student')
+    const [showAlertDialog, setShowAlertDialog] = useState(false)
+    const [alertMessage, setAlertMessage] = useState('')
     
     async function getChildProfile(childId) {
         try {
@@ -76,6 +80,13 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
     }, [childId])
 
     async function checkOutApplication() {
+        const isProfileCompleted = studentDetail.profileCompleted ? true : false
+        if (!isProfileCompleted) {
+            setAlertMessage('Admission form is not complete, it must be complete to checkout.')
+            setShowAlertDialog(true)
+            return
+        }
+
         try {
             await RESTClient.get(RestEndPoint.APPLICATION_CHECKOUT + `/${childId}`)
             handleClose()
@@ -241,9 +252,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                                         </div>
                                                         <div className="admin-detail-cell">
                                                         {document.status === 'uploaded' && (
-                                                            <a target='_blank' href={document.documentLink}>
-                                                            {document.documentName} <i className="icons link-icon"></i>
-                                                            </a>
+                                                            <a href="javascript:void(0)" onClick={()=> {downloadDocument(childId, document.documentName)}}> Download <i className="icons link-icon"></i></a>
                                                         )}
                                                         </div>
                                                     </div>
@@ -256,14 +265,12 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                             parentDocuments.length > 0 ?
                                                 parentDocuments.map((document, index) => {
                                                     return <div key={'parentDoc_'+index} className="admin-detail-row">
-                                                        <div className="dmin-detail-cell">
+                                                        <div className="admin-detail-cell">
                                                             {humanize(document.documentName)}
                                                         </div>
                                                         <div className="admin-detail-cell">
                                                         {document.status === 'uploaded' && (
-                                                            <a target='_blank' href={document.documentLink}>
-                                                            {document.documentName} <i className="icons link-icon"></i>
-                                                            </a>
+                                                            <a href="javascript:void(0)" onClick={()=> {downloadDocument(childId, document.documentName)}}> Download <i className="icons link-icon"></i></a>
                                                         )}
                                                         </div>
                                                     </div>
@@ -281,6 +288,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                     </div>
                 </Modal.Body>
             </Modal>
+            <AlertDialog show={showAlertDialog} message={alertMessage} handleClose={()=> setShowAlertDialog(false)}/>
         </>
     );
 }

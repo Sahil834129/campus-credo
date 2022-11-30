@@ -13,7 +13,7 @@ import MultiRangeSlider from "multi-range-slider-react";
 
 const SidebarFilter = ({ applyFilters }) => {
   const dispatch = useDispatch()
-  const [filter, SetFilter]=useState('')
+  const [filter, setFilter]=useState('')
   const classOptions = useSelector(
     state => state?.masterData?.schoolClasses || []
   )
@@ -82,7 +82,7 @@ const SidebarFilter = ({ applyFilters }) => {
     resetFilter();
   },[filter])
   const resetFilter =()=>{
-    SetFilter(filter)
+    setFilter(filter)
   }
   const applyFilter = values => {
     applyFilters(prepareSchoolFilter(values))
@@ -236,7 +236,18 @@ const SidebarFilter = ({ applyFilters }) => {
         <h2>
           <i className='icons filter-icon'></i> Filters
         </h2>
-        <Link onClick={resetFilter}>Reset</Link>
+        <Link onClick={() => Formik.resetForm({
+          values: {
+            distance: '',
+            class: '',
+            board: '',
+            gender: '',
+            medium: '',
+            facilities: '',
+            extracurriculars: '',
+            status: ''
+          }
+        })}>Reset</Link>
       </div>
       <Formik
         initialValues={{
@@ -278,7 +289,7 @@ const SidebarFilter = ({ applyFilters }) => {
               
               <MultiRangeSlider min={0}
                 max={20000}
-                step={5000}
+                step={500}
                 minValue={minMonthlyTutionFee}
                 maxValue={maxMonthlyTutionFee}
                 ruler='false'

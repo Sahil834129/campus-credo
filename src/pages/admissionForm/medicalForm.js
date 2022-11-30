@@ -75,6 +75,9 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
       disabilities: disabilities
     }
     delete formData.disability
+    delete formData.hasAllergies
+    delete formData.hasMedicalConditions
+    delete formData.doesNeedSpecialCare
 
     try {
       if (isMedicalProfileExists) {

@@ -8,6 +8,13 @@ export default class RESTClient {
   static async get (action, params) {
     return await axios.get(action, params)
   }
+  
+  static async getBlob(action) {
+    return await axios.get(action, {
+      responseType: 'blob',
+      timeout: 30000,
+    })
+  }
 
   static async post (action, params) {
     return await axios.post(action, params)
@@ -26,8 +33,13 @@ export default class RESTClient {
   }
 
   static getAPIErrorMessage (error) {
-    if (error.response && error.response.data)
-      return error.response.data.apierror?.message
+    if (error.response && error.response.data) {
+      let apiError = error.response.data.apierror
+      if (apiError && apiError.hasOwnProperty('subErrors') && apiError.subErrors.length > 0) {
+        return apiError.subErrors.map( it => it.message).join('. ') //.join('<br/>')
+      } 
+      return apiError?.message
+    }
     return PageContent.UNEXPECTED_ERROR_MSG
   }
 }
