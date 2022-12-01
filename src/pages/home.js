@@ -54,7 +54,7 @@ const HomePage = () => {
                                 <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Common Application Form</span></ListGroup.Item>
                                 <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Curated School Listing</span></ListGroup.Item>
                             </ListGroup>
-                            <Button className="" onClick={()=>{beginApplication()}}>Begin Application</Button> <Link className="">Read more about us</Link>
+                            <Button className="" onClick={()=>{beginApplication()}}>Begin Application</Button> <Link className="" to='/aboutUs'>Read more about us</Link>
                         </div>
                         <div className="hero-item right">
                             <img src={HeroGraphic} alt="" />

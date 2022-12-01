@@ -29,10 +29,6 @@ export const VerifyPhoneSchema = Yup.object().shape({
     otp: Yup.string().matches(/^[0-9]+$/, { message: 'Please Enter only numeric value.' }).max(4).test('len', ' OTP Must Be Of 4 Digits', val => val.length === 4).required('Required *')
 });
 
-export const SignInSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required *'),
-    password: Yup.string().required('Required *')
-});
 export const ForgotPasswordSchema = Yup.object().shape({ email: Yup.string().email('Invalid email').required('Required'), });
 export const AddChildSchema = Yup.object().shape({
     firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
@@ -64,4 +60,23 @@ export const ChangePasswordSchema = Yup.object().shape({
 
 export const UpdatePhoneSchema = Yup.object().shape({
     phone: Yup.string().matches(/^[6-9]\d{9}$/gi, { message: "Please enter valid number.", excludeEmptyString: false }).required('Required *'),
+});
+
+export const SignInSchema = Yup.object().shape({
+    loginWithOTP: Yup.boolean(),
+    phone: Yup.string().required('Required *').matches(/^[6-9]\d{9}$/gi, { message: "Please enter valid number.", excludeEmptyString: false }),
+    password: Yup.string().when('loginWithOTP',{
+        is: false,
+        then: Yup.string().when('phone',{
+            is: val => (val && val.length ? true : false),
+            then: Yup.string().required('Required *')
+        })
+    }),
+    otp: Yup.string().when('loginWithOTP',{
+        is: true,
+        then: Yup.string().when('phone',{
+            is: val => (val && val.length ? true : false),
+            then: Yup.string().required('Required *')
+        })
+    })
 });
