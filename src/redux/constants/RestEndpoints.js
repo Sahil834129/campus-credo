@@ -44,7 +44,8 @@ const RestEndPoint = {
   CLASS_ADMISSION_DATA: '/admission/classAdmissionData',
   SCHOOL_ADMISSION_SUMMARY: 'admission/application/schoolAdmissionSummary',
   RESET_PASSWORD: 'user/resetPassword',
-  DOWNLOAD_DOCUMENT:'/student/download/document'
-}
+  DOWNLOAD_DOCUMENT: '/student/download/document',
+  APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined'
+};
 
 export default RestEndPoint;

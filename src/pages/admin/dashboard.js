@@ -2,24 +2,149 @@ import { useState } from "react";
 import { useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { getSchoolAdmissinSummary } from "../../utils/services";
+import { getSchoolAdmissinSummary, getApplicationChartStatus } from "../../utils/services";
+
 import Layout from './layout';
+import { Barchart } from '../../common/Chart';
+
 
 export const Dashboard = () => {
 
   const [dashBoardData, setDashBoardData] = useState({});
+  const [applicationStatusChartData, setApplicationStatusChartData] = useState({});
+  const [barData, setBarData] = useState({ labels: [], datasets: [] });
+  const [appAppVsOffAcc, setAppAppVsOffAcc] = useState({ labels: [], datasets: [] });
+  const [chartOptionsValue, setChartOptionsValue] = useState({});
+
 
   const fetchSchoolAdmissinSummary = () => {
     getSchoolAdmissinSummary()
-      .then(response => {
-        if (response.status === 200) {
-          setDashBoardData(response.data);
-        };
+      .then((response) => {
+        setDashBoardData(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
+
   };
+
+  const fetchApplicationChartStatus = () => {
+    getApplicationChartStatus()
+      .then(response => {
+        setApplicationStatusChartData(response.data);
+      });
+
+  };
+  const getBarDataValues = (tempData) => {
+    const labels = Object.keys(tempData);
+    const approved = [];
+    const accepted = [];
+    const declined = [];
+    const received = [];
+    labels.map(val => {
+      // approved.push(val.approved);
+      // accepted.push(val.accepted);
+      // declined.push(val.declined);
+      // received.push(val.received);
+      approved.push(Math.floor(Math.random() * 11) + 1);
+      accepted.push(Math.floor(Math.random() * 11) + 1);
+      declined.push(Math.floor(Math.random() * 11) + 1);
+      received.push(Math.floor(Math.random() * 11) + 1);
+
+    });
+    setBarData({
+      labels: labels, datasets: [
+        {
+          label: "Received",
+          data: received,
+          backgroundColor: "#41285F",
+          borderRadius: 4,
+          boxWidth: 12,
+
+        },
+        {
+          label: "Approved",
+          data: approved,
+          backgroundColor: "#59D04D",
+          borderRadius: 4,
+          boxWidth: 12,
+        },
+        {
+          label: "Declined",
+          data: declined,
+          backgroundColor: "#FF5767",
+          borderRadius: 4,
+          boxWidth: 12,
+        }
+      ]
+    });
+    setAppAppVsOffAcc({
+      labels: labels,
+      datasets: [
+        {
+          label: "Application Approved",
+          data: approved,
+          backgroundColor: "#F7C32E",
+          boxWidth: 14,
+
+        },
+        {
+          label: "Offers Accepted",
+          data: accepted,
+          backgroundColor: "#4AB900",
+          boxWidth: 14,
+        },
+      ]
+    });
+    setChartOptionsValue({
+      plugins: {
+        legend: {
+          position: "top",
+
+        },
+        title: {
+          display: false,
+          text: "Class",
+
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          title: {
+            display: false,
+            text: "x axis",
+            color: "000000",
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          },
+          title: {
+            display: false,
+            text: "y axis",
+            color: "000000",
+          }
+        }
+      }
+    }
+    );
+
+
+  };
+  useEffect(() => {
+    if (applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined) {
+      const tempData = applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined;
+      getBarDataValues(tempData);
+    }
+  }, [applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined]);
+
+  useEffect(() => {
+    fetchApplicationChartStatus();
+  }, []);
 
   useEffect(() => {
     fetchSchoolAdmissinSummary();
@@ -52,7 +177,7 @@ export const Dashboard = () => {
                 </div>
                 <div className='mitem-wrap'>
                   <label className='lbl'>Under Final Review</label>{' '}
-                  <span className='value'>{dashBoardData?.applicationProcessing?.totalApplicationProcessing || 0}</span>
+                  <span className='value'>{dashBoardData?.applicationProcessing?.underFinalReview || 0}</span>
                 </div>
               </ListGroup.Item>
             </ListGroup>
@@ -90,7 +215,9 @@ export const Dashboard = () => {
             <div className='title-area'>
               <h2>Application Approved Vs Offers Accepted</h2>
             </div>
-            <div className='chart-area'>sdsdsds</div>
+            <div className='chart-area'>
+              <Barchart option={chartOptionsValue} labelsdata={appAppVsOffAcc || []} styling={{ height: '120px', width: '100%' }} />
+            </div>
           </div>
         </div>
         <div className='chart-wrap'>
@@ -102,21 +229,23 @@ export const Dashboard = () => {
               <div className='right-col'>
                 <ListGroup className='clist-group'>
                   <ListGroup.Item>
-                    <span className='value'>1200</span>
+                    <span className='value'>{dashBoardData?.applicationStatus?.received || 0}</span>
                     <label>Received</label>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <span className='value'>180</span>
+                    <span className='value'>{dashBoardData?.applicationStatus?.approved || 0}</span>
                     <label>Approved</label>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                    <span className='value'>20</span>
+                    <span className='value'>{dashBoardData?.applicationStatus?.declined || 0}</span>
                     <label>Declined</label>
                   </ListGroup.Item>
                 </ListGroup>
               </div>
             </div>
-            <div className='chart-area'>dsdsdsd</div>
+            <div className='chart-area'>
+              <Barchart labelsdata={barData || []} styling={{ height: '300px', width: '100%' }} />
+            </div>
           </div>
           <div className='chart-block ch2'>
             <div className='title-area'>

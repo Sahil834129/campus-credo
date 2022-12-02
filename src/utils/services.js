@@ -14,6 +14,10 @@ export const getSchoolAdmissinSummary = () => {
   return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY);
 };
 
+export const getApplicationChartStatus = () => {
+  return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS);
+};
+
 export const downloadDocument = async (childId, documentName) => {
   try {
     const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_DOCUMENT + '/' + childId + '/' + documentName);
