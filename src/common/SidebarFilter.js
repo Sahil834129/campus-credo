@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import BootStrapForm from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 import Row from 'react-bootstrap/Row'
 import { Formik, Form } from 'formik'
@@ -78,12 +77,6 @@ const SidebarFilter = ({ applyFilters }) => {
     }
   }, [])
 
-  useEffect(()=>{
-    resetFilter();
-  },[filter])
-  const resetFilter =()=>{
-    setFilter(filter)
-  }
   const applyFilter = values => {
     applyFilters(prepareSchoolFilter(values))
   }
@@ -232,24 +225,7 @@ const SidebarFilter = ({ applyFilters }) => {
 
   return (
     <Row className='filter-panel'>
-      <div className='filter-head'>
-        <h2>
-          <i className='icons filter-icon'></i> Filters
-        </h2>
-        <Link onClick={() => Formik.resetForm({
-          values: {
-            distance: '',
-            class: '',
-            board: '',
-            gender: '',
-            medium: '',
-            facilities: '',
-            extracurriculars: '',
-            status: ''
-          }
-        })}>Reset</Link>
-      </div>
-      <Formik
+    <Formik
         initialValues={{
           distance: '',
           class: '',
@@ -264,8 +240,17 @@ const SidebarFilter = ({ applyFilters }) => {
           applyFilter(values)
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, resetForm, touched }) => (
           <Form className='filter-components'>
+            
+              <div className='filter-head'>
+                <h2>
+                  <i className='icons filter-icon'></i> Filters
+                </h2>
+                <Link onClick={() => resetForm()}>Reset</Link>
+              </div>
+      
+          
             <InputField
               fieldName='distance'
               fieldType='select'
@@ -303,38 +288,6 @@ const SidebarFilter = ({ applyFilters }) => {
                 <label className="income-range-value">₹ ({minMonthlyTutionFee + '-'+ maxMonthlyTutionFee})</label>
             </div>
             
-
-            {/* <BootStrapForm.Range
-              id='minTutionFeeRange'
-              value={minMonthlyTutionFee}
-              min={0}
-              max={50000}
-              onChange={e => setMinMonthlyTutionFee(e.target.value)}
-            />
-            <InputField
-              fieldName='minMonthlyTutionFee'
-              value={minMonthlyTutionFee}
-              fieldType='text'
-              placeholder=''
-              errors={errors}
-              touched={touched}
-            />
-            <label>Max. Monthly Tuition Fees ₹</label>
-            <BootStrapForm.Range
-              id='maxTutionFeeRange'
-              value={maxMonthlyTutionFee}
-              min={0}
-              max={50000}
-              onChange={e => setMaxMonthlyTutionFee(e.target.value)}
-            />
-            <InputField
-              fieldName='maxMonthlyTutionFee'
-              value={maxMonthlyTutionFee}
-              fieldType='text'
-              placeholder=''
-              errors={errors}
-              touched={touched}
-            /> */}
             <InputField
               fieldName='board'
               fieldType='select'
@@ -390,10 +343,11 @@ const SidebarFilter = ({ applyFilters }) => {
               touched={touched}
             />
             <Button buttonLabel='Apply' class='applyFilter' />
+            
           </Form>
         )}
       </Formik>
-    </Row>
+      </Row>
   )
 }
 
