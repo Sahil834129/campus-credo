@@ -578,8 +578,12 @@ ul.list-group{
       &.school-details-wrap{
         grid-template-columns: auto 362px;
         .inner-page-content{
+          
           &.left{
-            padding-right: 24px;
+            padding: 0;
+            .content-section{
+              padding: 16px 24px 24px 24px;
+            }
           }
           &.right{
             .sb-card-holder{
@@ -1108,7 +1112,7 @@ ul.list-group{
         
         .filter-panel{
           padding: 0;
-          margin: 0 16px;
+          margin: 0;
           .filter-head{
             display: flex;
             flex-direction: row;
@@ -1934,6 +1938,9 @@ ul.list-group{
               display: flex;
               flex-direction: row;
               padding: 0;
+              i.location-icon{
+                
+              }
               .loc-items{
                 display: flex;
                 flex-direction: column;
@@ -2758,6 +2765,7 @@ ul.list-group{
     }
   }
   &.add-child-model{
+    
     &.review-admission-modal{
       min-width: 70%;
       .modal-content{
@@ -2883,6 +2891,18 @@ ul.list-group{
     .modal-content{
       .modal-body{
         grid-template-columns: 1fr;
+        &.add-child-body{
+          .model-body-col{
+            .model-frm{
+              .frm-cell{
+                margin-bottom: 8px;
+                &.button-wrap{
+                  border-top: 1px solid #D9D9D9;
+                }
+              }
+            }
+          }
+        }
         .model-body-col{
           .model-frm{
             .frm-cell{
@@ -2910,6 +2930,14 @@ ul.list-group{
                 flex-direction: row;
                 align-content: flex-end;
                 justify-content: flex-end;
+                border-top: 1px solid #d2d3d3;
+                padding: 24px 0 0 0;
+                margin-top: 16px;
+                .form-group{
+                  &.mb-3{
+                    margin-bottom: 0 !important;
+                  }
+                }
                 .btn{
                   height: 48px;
                   border: 1px solid #41285F;
@@ -2938,11 +2966,13 @@ ul.list-group{
                 column-gap: 24px;
               }
               .fld-inst{
+                display: flex;
                 font-style: italic;
                 font-weight: 500;
                 font-size: 14px;
                 line-height: 18px;
                 color: rgba(0, 0, 0, 0.6);
+                margin-bottom: 16px;
               }
               
             }
