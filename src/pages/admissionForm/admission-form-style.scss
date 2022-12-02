@@ -30,13 +30,15 @@
     }
 }
 .sidebar{
-    margin-top: 24px;
+    // margin-top: 24px;
     .sideNav-indicator{
-      display: flex;
-      flex-direction: column;
-      align-content: flex-start;
-      justify-content: center;
-      margin-left: 12px;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        justify-content: center;
+        background: #fff;
+        padding: 24px;
+        border-radius: 12px;
       .navbar-text{
         padding: 0;
         &:last-child{
