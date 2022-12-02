@@ -20,6 +20,12 @@
   }
 }
 .red{background: red;}
+.error-exception{
+  font-size: 12px;
+  color: $darkred;
+  //position: absolute;
+  bottom: -15px;
+}
 .signup-wrapper{
   display: grid;
   grid-template-columns: 1fr 1fr;

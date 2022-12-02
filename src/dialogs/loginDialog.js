@@ -15,6 +15,7 @@ import OtpTimer from "otp-timer";
 import OtpInput from "react-otp-input";
 import { DEFAULT_ROLES } from "../constants/app";
 import { setIsUserLoggedIn } from "../redux/actions/userAction";
+import { SignInSchema } from "../data/validationSchema";
 
 const LoginDialog = (props) => {
     const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const LoginDialog = (props) => {
     const [showForgotPasswordDialog, setShowForgotPasswordDialog] = useState(false);
     const [otpSentCounter, setOtpSentCounter] = useState(1);
     const [otpMinutes, setOtpMinutes] = useState(0);
-
+    const [validationErrors, setValidationErrors] = useState({})
+    
     useEffect(() => {
         if (otpSentCounter === 4) {
             setOtpMinutes(2);
@@ -78,9 +80,14 @@ const LoginDialog = (props) => {
     }
     const handleForgotPasswordClose = () => { setShowForgotPasswordDialog(false) };
     const signIn = async() => {
+        resetValidationErrors()
         const reqPayload = {phone: phone}
         reqPayload[(loginWithOTP ? "otp" : "password")] = loginWithOTP ? otp : password;
         const action = loginWithOTP ? RestEndPoint.LOGIN_WITH_OTP : RestEndPoint.LOGIN_WITH_PASSWORD
+        
+        if (!isValidSignInPayload(reqPayload))
+            return
+        
         setSubmitting(true);
         resetUserLoginData();
         try {
@@ -134,6 +141,22 @@ const LoginDialog = (props) => {
         props.handleClose();
     }
 
+    function resetValidationErrors() {
+        setValidationErrors({})
+    }
+
+    function isValidSignInPayload(payload) {
+        let isValidPayload = true
+        try {
+            isValidPayload = SignInSchema.validateSync({...payload, loginWithOTP: loginWithOTP})
+        } catch(error) {
+            let errors = {}
+            errors[error.path] = error.message
+            setValidationErrors(errors)
+            isValidPayload = false
+        }
+        return isValidPayload
+    }
 
     return (
         <>
@@ -147,6 +170,9 @@ const LoginDialog = (props) => {
                         <Form>
                             <Form.Group className="mb-3">
                                 <Form.Control type="phone" onChange={e => setPhone(e.target.value)} placeholder="Mobile Number" />
+                                {
+                                    validationErrors.hasOwnProperty('phone') ? <div className='error-exception'>{validationErrors.phone}</div> : ''
+                                }
                             </Form.Group>
                             <div className="loginoption">
                                 <span className="loginoption-cell"><h2>Sign in using</h2></span>
@@ -158,17 +184,17 @@ const LoginDialog = (props) => {
                                 </span>
                             </div>
                             <Form.Group className="mb-3">
-                                <div className="otp-fields-wrapper mt-3 mb-3">
+                                <div className="otp-fields-wrapper mt-3 mb-2">
                                     {loginWithOTP === true ? (
                                         <OtpInput
                                             onChange={handleOtpChange}
-                                            numInputs={4} zzxzzx
+                                            numInputs={4}
                                             isInputNum={true}
                                             shouldAutoFocus
                                             value={otp}
                                             className='otpfield'
 
-                                            placeholder="------"
+                                            placeholder="----"
                                             inputStyle={{
                                                 width: "52px",
                                                 height: "52px",
@@ -176,9 +202,16 @@ const LoginDialog = (props) => {
                                             }}
 
                                         />
-                                    ) : <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e => setOtpOrPassword(e.target.value)} />}
+                                    ) 
+                                    : 
+                                        <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e => setOtpOrPassword(e.target.value)} />
+                                    }
                                     {loginWithOTP ? getSendOTPLinkMessage() : ''}
                                 </div>
+                                {
+                                    loginWithOTP ? (validationErrors.hasOwnProperty('otp') ? <div className='error-exception'>{validationErrors.otp}</div> : '')
+                                    : (validationErrors.hasOwnProperty('password') ? <div className='error-exception'>{validationErrors.password}</div> : '')
+                                }
                             </Form.Group>
 
                             <div className="form-group mb-3 forgot-pwd-container">
