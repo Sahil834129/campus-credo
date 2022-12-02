@@ -270,7 +270,8 @@ ul.list-group{
   display: flex;
   flex-direction: column;
   .content-area-inner{
-    padding: 16px 24px;
+    // padding: 16px 24px;
+    padding: 0;
     .metrics-wrap{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;

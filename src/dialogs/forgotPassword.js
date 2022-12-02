@@ -23,7 +23,7 @@ const ForgotPasswordDialog = (props) => {
         }
     };
     return (
-        <Modal dialogClassName="signin-model" show={props.show} onHide={props.handleClose}>
+        <Modal dialogClassName="forgotpwd-model" show={props.show} onHide={props.handleClose}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body dialogClassName="model-body">
                 <div className='model-body-col'>
