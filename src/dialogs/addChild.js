@@ -31,12 +31,11 @@ const AddChildDialog = props => {
       onHide={props.handleClose}
     >
       <Modal.Header closeButton></Modal.Header>
-      <Modal.Body dialogClassName='model-body'>
+      <Modal.Body dialogClassName='model-body add-child-body'>
         <div className='model-body-col'>
           <h2>Add Child Information</h2>
           <h4>
-            Join theEduSmart to find best featured schools, seats available,
-            their benefits, pay school fees and fill admission form online.
+            Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.
           </h4>
           <Formik
             initialValues={{
@@ -53,7 +52,7 @@ const AddChildDialog = props => {
           >
             {({ values, setFieldValue, errors, touched }) => (
               <Form className='model-frm'>
-                <div class='frm-cell mb-3'>
+                <div class='frm-cell'>
                   <label>
                     Child’s Full Name<span className='req'>*</span>
                   </label>
@@ -76,7 +75,7 @@ const AddChildDialog = props => {
                     />
                   </div>
                 </div>
-                <div class='frm-cell mb-3'>
+                <div class='frm-cell'>
                   <label>
                     Date of Birth<span className='req'>*</span>
                   </label>
@@ -90,12 +89,10 @@ const AddChildDialog = props => {
                     />
                   </div>
                   <div className='fld-inst'>
-                    Editing Date of Birth may remove schools from your
-                    shortlisted schools list if age criteria doesn't meet with
-                    the applying class
+                    Editing Date of Birth may remove schools from your shortlisted schools list if age criteria doesn't meet with the applying class
                   </div>
                 </div>
-                <div class='frm-cell mb-3'>
+                <div class='frm-cell '>
                   <label className='sel-gender-lbl'>
                     Select Gender<span className='req'>*</span>
                   </label>
@@ -110,7 +107,7 @@ const AddChildDialog = props => {
                     />
                   </div>
                 </div>
-                <div class='frm-cell button-wrap mb-3'>
+                <div class='frm-cell button-wrap'>
                   <Button
                     class='cancel-btn'
                     buttonLabel='Cancel'
