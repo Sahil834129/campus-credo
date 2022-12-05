@@ -92,3 +92,8 @@ export function humanize (str) {
 export function convertCamelCaseToPresentableText(str) {
   return str.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
 }
+
+export function gotoHome(e, navigate) {
+  e.preventDefault()
+  navigate(isLoggedIn() ? '/userProfile' : '/')
+}

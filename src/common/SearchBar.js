@@ -12,6 +12,7 @@ import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedLocation, getSelectedLocation} from "../redux/actions/locationAction";
+import { gotoHome } from "../utils/helper";
 
 const SearchBar = () => {
     const navigate = useNavigate();
@@ -105,7 +106,7 @@ const SearchBar = () => {
         <>
         <Col className="navbar-header">
             <Container className="header-container">
-                <div className="header-item brand-logo"><Link to='/'><img src={logoHeader} alt="brand logo" /></Link></div>
+                <div className="header-item brand-logo"><Link to='/' onClick={(e)=> gotoHome(e, navigate)}><img src={logoHeader} alt="brand logo" /></Link></div>
                 <div className="header-item search-region-pane">
                     <div className="region-dropdown-wrap">
                         <i className="loc-icon">
@@ -119,7 +120,7 @@ const SearchBar = () => {
                             <Dropdown.Menu as={LocationDropDownMenu}>
                                 {
                                     cities.map((city, index) => {
-                                        return <Dropdown.Item key={"city_"+index} eventKey={"city_e_" + index} onClick={ e => handleSelectCity(city)}>{city}</Dropdown.Item>
+                                        return <Dropdown.Item key={"city_"+index} eventKey={"city_e_" + index} onClick={ e => handleSelectCity(city)}>{city ? city : ''}</Dropdown.Item>
                                     })
                                 }
                             </Dropdown.Menu>

@@ -18,6 +18,9 @@ import InputField from '../components/form/InputField';
 import { UpdateProfileSchema, ChangePasswordSchema, UpdatePhoneSchema } from "../data/validationSchema"
 import { toast } from "react-toastify"
 import OtpInput from "react-otp-input";
+import ConfirmDialog from "../common/ConfirmDialog"
+import AlertDialog from "../common/AlertDialog"
+import { resetUserLoginData } from "../utils/helper"
 
 export const ManageProfile = () => {
     const navigate = useNavigate()
@@ -28,6 +31,9 @@ export const ManageProfile = () => {
     const [userDetails, setUserDetails] = useState({ firstName: '', lastName: '', email: '', city: '', state: '' })
     const [showOTP, setShowOTP] = useState(false)
     const [updatePhoneObject, setUpdatePhoneObject] = useState({ phone: '', otp: '' })
+    const confirmMessage = "You will not be able to login with the previous mobile number and your current login session will expire once you update the mobile number. Please confirm to continue?"
+    const [showUpdatePhoneConfirmDialog, setShowUpdatePhoneConfirmDialog] = useState({show:false});
+    const [showMobileVerificationDialog, setShowMobileVerificationDialog] = useState(false)
     
     const populateStateList = () => {
         RESTClient.get(RestEndPoint.GET_STATE).then((response) => {
@@ -49,7 +55,7 @@ export const ManageProfile = () => {
         });
     }
     
-    useEffect(() => { getUserDetails(); }, []);
+    useEffect(() => { getUserDetails(); });
     useEffect(() => { populateStateList(); }, []);
 
     async function getUserDetails() {
@@ -101,32 +107,48 @@ export const ManageProfile = () => {
     }
 
     const updatePhone = async(formData) => {
-        setSubmitting(true);
-        if (!showOTP) {
-            delete formData.otp
-            try {
-                await RESTClient.patch(RestEndPoint.UPDATE_PHONE, formData)
-                toast.success('OTP sent successfully')
-                setShowOTP(true)
-                setSubmitting(false)
-            } catch(error) {
-                toast.error(RESTClient.getAPIErrorMessage(error))
-                setSubmitting(false)
-            }
-        } else {
-            try {
-                await RESTClient.post(RestEndPoint.VERIFY_PHONE, formData)
-                setUpdatePhoneObject({ ...updatePhoneObject, phone: '', otp: '' })
-                toast.success('New mobile number updated successfully.')
-                setSubmitting(false)
-            } catch (error) {
-                toast.error(RESTClient.getAPIErrorMessage(error))
-                setSubmitting(false)
-            }
+        showOTP ? verifyPhone(formData) : setShowUpdatePhoneConfirmDialog({show: true, formData: formData})
+    }
+
+    const handleUpdatePhoneConfirm = async() => {
+        setSubmitting(true)
+        const formData = {...showUpdatePhoneConfirmDialog.formData}
+        delete formData.otp
+        try {
+            await RESTClient.patch(RestEndPoint.UPDATE_PHONE, formData)
+            toast.success('Mobile number updated and an OTP sent successfully')
+            setShowOTP(true)
+            setSubmitting(false)
+            closeUpdatePhoneConfirmDialog()
+        } catch(error) {
+            toast.error(RESTClient.getAPIErrorMessage(error))
+            setSubmitting(false)
         }
     }
 
+    const verifyPhone = async(formData) => {
+        setSubmitting(true)
+        try {
+            await RESTClient.post(RestEndPoint.VERIFY_PHONE, formData)
+            setUpdatePhoneObject({phone: '', otp: '' })
+            setShowMobileVerificationDialog(true)
+        } catch (error) {
+            toast.error(RESTClient.getAPIErrorMessage(error))
+        }
+        setSubmitting(false)
+    }
+
+    const closeUpdatePhoneConfirmDialog = () => {
+        setShowUpdatePhoneConfirmDialog({show:false})
+    }
+
+    const handleMobileVerifiedDialogClose = () => {
+        resetUserLoginData()
+        navigate('/?login=true')
+    }
+
     return (
+        <>
         <Layout>
             <section className='content-area'>
                 <Container className='content-area-inner profile-page-wrap'>
@@ -141,7 +163,6 @@ export const ManageProfile = () => {
                                 <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
                             </Col>
                             <Col className='profile-content right'>
-
                                 <div className='tab_btn_wrapper'>
                                     <Tabs id="manage-profile-tab"
                                         activeKey={key}
@@ -206,7 +227,7 @@ export const ManageProfile = () => {
                                         </Tab>
                                         <Tab eventKey='updateMobile' title='Update mobile'>
                                             <Formik initialValues={updatePhoneObject}
-                                                enableReinitialize={true} 
+                                                enableReinitialize
                                                 validationSchema={UpdatePhoneSchema} validateOnBlur onSubmit={values => { updatePhone(values) }}>
                                                 {({ values, setFieldValue, errors, touched }) => (
                                                     <Form className='row g-3'>
@@ -216,7 +237,7 @@ export const ManageProfile = () => {
                                                         <div className='col-md-6'></div>
                                                         {showOTP ? <>
                                                             <div className='col-md-6'>
-                                                                <label>An OTP is sent to the mobile number. Please enter the OTP below</label>
+                                                                <label>An OTP is sent to the mobile number. Please enter the OTP below to verify the mobile number</label>
                                                                 <OtpInput
                                                                     onChange={otp=>setFieldValue('otp', otp)}
                                                                     numInputs={4}
@@ -240,7 +261,7 @@ export const ManageProfile = () => {
                                                             </> : ''}
                                                         <div className='form-group mb-3 button-wrap'>
                                                             <button type='button' className='cancel comn'>Cancel</button>
-                                                            <button className='save comn' type='submit'>{showOTP ? 'Update' : 'Get OTP'}</button>
+                                                            <button className='save comn' type='submit'>{showOTP ? 'Verify' : 'Update'}</button>
                                                         </div>
                                                     </Form>
                                                 )}
@@ -248,13 +269,20 @@ export const ManageProfile = () => {
                                         </Tab>
                                     </Tabs>
                                 </div>
-                                   
                             </Col>
                         </Row>
                     </Col>
                 </Container>
             </section>
         </Layout>
+        <ConfirmDialog show={showUpdatePhoneConfirmDialog.show} message={confirmMessage} 
+            handleConfirm={handleUpdatePhoneConfirm}
+            handleClose={closeUpdatePhoneConfirmDialog}
+        />
+        <AlertDialog show={showMobileVerificationDialog} message='Mobile number updated successfully. You need to login again with the new mobile number.'
+            handleClose={handleMobileVerifiedDialogClose}
+        />
+        </>
     )
 }
 

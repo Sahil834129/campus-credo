@@ -223,6 +223,12 @@ const SidebarFilter = ({ applyFilters }) => {
     }
   }
 
+  function handleResetForm(resetForm) {
+    setMinMonthlyTutionFee(0)
+    setMaxMonthlyTutionFee(20000)
+    resetForm()
+  }
+
   return (
     <Row className='filter-panel'>
     <Formik
@@ -247,7 +253,7 @@ const SidebarFilter = ({ applyFilters }) => {
                 <h2>
                   <i className='icons filter-icon'></i> Filters
                 </h2>
-                <Link onClick={() => resetForm()}>Reset</Link>
+                <Link onClick={() => handleResetForm()}>Reset</Link>
               </div>
       
           

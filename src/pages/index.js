@@ -18,8 +18,8 @@ import ManageAdmission from './admin/manageAdmission'
 import ManageApplication from './admin/manageApplication'
 import ManageFees from './admin/manageFees'
 import ManageUsers from './admin/manageUsers'
-
 import ManageProfile from './manageProfile'
+import ManageChild from './manageChild'
 import NotFound from './notFound'
 
 export {
@@ -44,5 +44,6 @@ export {
   ManageAdmission,
   ManageApplication,
   ManageFees,
-  ManageUsers
+  ManageUsers,
+  ManageChild
 }

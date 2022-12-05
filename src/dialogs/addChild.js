@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from '../components/form/Button'
 import { Formik, Form } from 'formik'
@@ -8,18 +8,40 @@ import 'react-datepicker/dist/react-datepicker.css'
 import * as moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { AddChildSchema } from '../data/validationSchema'
-import { addChild } from '../redux/actions/childAction'
+import { addChild, updateChild } from '../redux/actions/childAction'
 import { GENDER_OPTOPNS } from '../constants/formContanst'
 
-const AddChildDialog = props => {
+const AddChildDialog = (props) => {
   const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false)
+  const [selectedChild, setSelectedChild] = useState({
+    firstName:  '',
+    lastName: '',
+    gender: 'Male',
+    dateOfBirth: '01/01/2022'
+  })
+
+  useEffect(() => {
+    if (props.child) {
+      setSelectedChild({...selectedChild,
+        firstName: props.child.firstName,
+        lastName: props.child.lastName,
+        dateOfBirth: props.child.dateOfBirth,
+        gender: props.child.gender
+      })
+    }
+  }, [props.child])
 
   const saveChild = async formData => {
     setSubmitting(true)
-    const reqPayload = JSON.parse(JSON.stringify(formData))
+    const reqPayload = {...formData}
     reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format('DD/MM/yyyy')
-    dispatch(addChild(reqPayload))
+    if (props.child) {
+      reqPayload.childId = props.child.childId
+      dispatch(updateChild(reqPayload))
+    } else {
+      dispatch(addChild(reqPayload))
+    }
     setSubmitting(false)
     props.handleClose()
   }
@@ -38,27 +60,29 @@ const AddChildDialog = props => {
             Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.
           </h4>
           <Formik
-            initialValues={{
+            initialValues={props.child ? props.child : {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: new Date()
+              dateOfBirth: '01/01/2022'
             }}
             validationSchema={AddChildSchema}
+            enableReinitialize
             validateOnBlur
             onSubmit={values => {
-              saveChild(values)
+              void(values)
             }}
           >
             {({ values, setFieldValue, errors, touched }) => (
               <Form className='model-frm'>
-                <div class='frm-cell'>
+                <div className='frm-cell'>
                   <label>
                     Child’s Full Name<span className='req'>*</span>
                   </label>
                   <div className='field-group-wrap'>
                     <InputField
                       fieldName='firstName'
+                      value={values.firstName}
                       className='frm-cell'
                       fieldType='text'
                       placeholder='First Name'
@@ -67,6 +91,7 @@ const AddChildDialog = props => {
                     />
                     <InputField
                       fieldName='lastName'
+                      value={values.lastName}
                       className='frm-cell'
                       fieldType='text'
                       placeholder='Last Name'
@@ -75,13 +100,15 @@ const AddChildDialog = props => {
                     />
                   </div>
                 </div>
-                <div class='frm-cell'>
+                <div className='frm-cell'>
                   <label>
                     Date of Birth<span className='req'>*</span>
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth}
+                      selected={values.dateOfBirth  ? moment(values.dateOfBirth,'DD/MM/yyyy').toDate() : new Date()}
+                      //value={values.dateOfBirth}
+                      showYearDropdown={true}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
@@ -92,13 +119,14 @@ const AddChildDialog = props => {
                     Editing Date of Birth may remove schools from your shortlisted schools list if age criteria doesn't meet with the applying class
                   </div>
                 </div>
-                <div class='frm-cell '>
+                <div className='frm-cell '>
                   <label className='sel-gender-lbl'>
                     Select Gender<span className='req'>*</span>
                   </label>
                   <div className='field-group-wrap'>
                     <InputField
                       fieldName='gender'
+                      value={values.gender}
                       fieldType='select'
                       placeholder=''
                       selectOptions={GENDER_OPTOPNS}
@@ -107,8 +135,9 @@ const AddChildDialog = props => {
                     />
                   </div>
                 </div>
-                <div class='frm-cell button-wrap'>
+                <div className='frm-cell button-wrap'>
                   <Button
+                    type='button'
                     class='cancel-btn'
                     buttonLabel='Cancel'
                     onClick={props.handleClose}
@@ -116,8 +145,9 @@ const AddChildDialog = props => {
                   <Button
                     type='submit'
                     class='save-btn'
-                    buttonLabel='Add Child'
+                    buttonLabel={props.child ? 'Update' : 'Add'}
                     submitting={submitting}
+                    onClick={()=>saveChild(values)}
                   />
                 </div>
               </Form>

@@ -1,17 +1,18 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { convertCamelCaseToPresentableText } from "../utils/helper";
+import { convertCamelCaseToPresentableText, gotoHome } from "../utils/helper";
 
 const Breadcrumbs = () => {
-    const location = useLocation();
-    const pathWithoutQuery = decodeURIComponent(location.pathname.split("?")[0]);
-	const pathNestedRoutes = pathWithoutQuery.split("/").filter(v => v.length > 0);
-    const getLinkRef = (index) => { return "/"+ pathNestedRoutes.slice(0,index+1).join("/"); }
+    const location = useLocation()
+    const navigate = useNavigate()
+    const pathWithoutQuery = decodeURIComponent(location.pathname.split("?")[0])
+	const pathNestedRoutes = pathWithoutQuery.split("/").filter(v => v.length > 0)
+    const getLinkRef = (index) => { return "/"+ pathNestedRoutes.slice(0,index+1).join("/") }
     
     return (
         <Breadcrumb className='bc-main-wrap'>
-            <Breadcrumb.Item href='/'>Home</Breadcrumb.Item>
+            <Breadcrumb.Item onClick={(e)=> gotoHome(e, navigate)}>Home</Breadcrumb.Item>
             {
                 pathNestedRoutes.map((path, index) => {
                     return index === pathNestedRoutes.length - 1 ?

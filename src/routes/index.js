@@ -23,7 +23,8 @@ import {
   ManageUsers,
   ManageApplication,
   ManageProfile,
-  NotFound
+  NotFound,
+  ManageChild
 } from '../pages'
 import DisclaimerPolicy from '../pages/disclaimer_Policy'
 import ResetPassword from '../pages/resetPassword'
@@ -56,6 +57,7 @@ function AppRoutes () {
         <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path='/userProfile' element={<UserProfile />} />
           <Route path='/manageProfile' element={<ManageProfile />} />
+          <Route path='/manageChild' element={<ManageChild />} />
           <Route
             path='/userProfile/admissionForm'
             element={<SchoolAdmission />}
