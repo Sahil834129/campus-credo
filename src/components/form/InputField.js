@@ -145,7 +145,7 @@ const InputField = props => {
     <div className='form-group mb-3'>
       {getFieldTagElement(props)}
       {props.errors[props.fieldName] && props.touched[props.fieldName] ? (
-        <div className='error-exception'>{props.errors[props.fieldName]}</div>
+        <div className='error-exception mt-2'>{props.errors[props.fieldName]}</div>
       ) : null}
     </div>
   )

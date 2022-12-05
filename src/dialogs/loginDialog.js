@@ -118,7 +118,8 @@ const LoginDialog = (props) => {
             }
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
-        };
+        }
+        resetSignInFormValues();
     }
 
     const redirectSignUp = () => {
@@ -145,6 +146,12 @@ const LoginDialog = (props) => {
         setValidationErrors({})
     }
 
+    function resetSignInFormValues() {
+        setPassword('')
+        setPhone('')
+        setOtp('')
+    }
+
     function isValidSignInPayload(payload) {
         let isValidPayload = true
         try {
@@ -163,6 +170,15 @@ const LoginDialog = (props) => {
         setValidationErrors(errors)
     }
 
+    function handlePhoneBlur(phone) {
+        try {
+            UpdatePhoneSchema.validateSync({phone: phone})
+            setValidationErrors({...validationErrors, phone: ''})
+        }catch(error) {
+            addPayloadError(error)
+        }
+    }
+
     return (
         <>
         <Modal dialogClassName="signin-model" show={props.show} onHide={handleClose}>
@@ -174,7 +190,7 @@ const LoginDialog = (props) => {
                     <div className="form-container">
                         <Form>
                             <Form.Group className="mb-3">
-                                <Form.Control type="phone" maxLength="10" onChange={e => setPhone(e.target.value)} placeholder="Mobile Number" />
+                                <Form.Control type="phone" maxLength="10" onChange={e => setPhone(e.target.value)} onBlur={e=> handlePhoneBlur(e.target.value)} placeholder="Mobile Number" />
                                 {
                                     validationErrors.hasOwnProperty('phone') ? <div className='error-exception'>{validationErrors.phone}</div> : ''
                                 }

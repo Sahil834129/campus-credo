@@ -55,7 +55,7 @@ export const ManageProfile = () => {
         });
     }
     
-    useEffect(() => { getUserDetails(); });
+    useEffect(() => { getUserDetails(); }, []);
     useEffect(() => { populateStateList(); }, []);
 
     async function getUserDetails() {
@@ -232,7 +232,7 @@ export const ManageProfile = () => {
                                                 {({ values, setFieldValue, errors, touched }) => (
                                                     <Form className='row g-3'>
                                                         <div className='col-md-6'>
-                                                            <InputField fieldName="phone" value={values.phone} required label="Mobile Number" fieldType="text" placeholder="Enter mobile number" errors={errors} touched={touched}/>
+                                                            <InputField fieldName="phone" value={values.phone} label="Mobile Number" fieldType="text" placeholder="Enter mobile number" errors={errors} touched={touched}/>
                                                         </div>
                                                         <div className='col-md-6'></div>
                                                         {showOTP ? <>
@@ -279,7 +279,7 @@ export const ManageProfile = () => {
             handleConfirm={handleUpdatePhoneConfirm}
             handleClose={closeUpdatePhoneConfirmDialog}
         />
-        <AlertDialog show={showMobileVerificationDialog} message='Mobile number updated successfully. You need to login again with the new mobile number.'
+        <AlertDialog show={showMobileVerificationDialog} message='Mobile number verified successfully. You need to login again with the new mobile number.'
             handleClose={handleMobileVerifiedDialogClose}
         />
         </>
