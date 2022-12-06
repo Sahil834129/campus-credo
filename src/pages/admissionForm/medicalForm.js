@@ -9,6 +9,7 @@ import RESTClient from '../../utils/RestClient'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDisabilites } from '../../redux/actions/masterData'
+import { StudentMedicalDetailsSchema } from '../../data/validationSchema'
 
 export const MedicalForm = ({ selectedChild, setStep }) => {
   const navigate = useNavigate()
@@ -112,6 +113,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
   return (
     <Formik
       initialValues={medicalProfile}
+      validationSchema={StudentMedicalDetailsSchema}
       enableReinitialize={true}
       onSubmit={values => {
         saveData(values)
@@ -353,7 +355,8 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                                 values.disabilities,
                                 e.target.value
                               )
-                            )
+                            );
+                            (e.target.value === 'Other' && !e.target.checked) ? setFieldValue('otherDisability', '') : setFieldValue(values.otherDisability);
                           }}
                           errors={errors}
                           touched={touched}

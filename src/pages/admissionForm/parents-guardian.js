@@ -16,10 +16,11 @@ import SelectField from '../../components/form/SelectField'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { getParentOCcupation } from '../../redux/actions/masterData'
-
-export default function ParentsGuardianForm ({ currentStudent, setStep }) {
+import { StudentParentGuardianSchema } from '../../data/validationSchema'
+export default function ParentsGuardianForm({ currentStudent, setStep }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [validationErrors, setValidationErrors] = useState({})
   const [parentExist, setParentExist] = useState(false)
   const [values, setValues] = useState({
     relation: 'Father',
@@ -48,6 +49,8 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
   const saveData = async (e, formData) => {
     e.preventDefault()
     let postData = { ...values, ...formData }
+    if(!isValidFormData(postData))
+    return
     postData.nationality =
       postData.otherNationality !== ''
         ? postData.otherNationality
@@ -130,6 +133,29 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
       dispatch(getParentOCcupation())
     }
   }, [occupation])
+
+  function isValidFormData(formData) {
+    try {
+      StudentParentGuardianSchema.validateSync(formData, { abortEarly: false })
+    } catch (error) {
+      addPayloadError(error)
+      return false
+    }
+    return true
+  }
+  function addPayloadError(error) {
+    let errors = {}
+
+    let errorsObj = error.inner ? error.inner : error
+    errorsObj.forEach(e => {
+      errors[e.path] = e.message
+    })
+    setValidationErrors(errors)
+  }
+
+  function resetValidationErrors() {
+    setValidationErrors({})
+  }
   return (
     <Form className='row g-3' onSubmit={e => saveData(e, values)}>
       <div className='tab_btn'>
@@ -144,6 +170,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                   required
                   fieldType='text'
                   placeholder='Please add details...'
+                  errors={validationErrors}
                   onChange={e => {
                     setFieldValue('firstName', e.target.value)
                   }}
@@ -157,6 +184,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                   required
                   fieldType='text'
                   placeholder='Please add details...'
+                  errors={validationErrors}
                   onChange={e => {
                     setFieldValue('lastName', e.target.value)
                   }}
@@ -221,6 +249,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                     values.relation !== 'Father' && values.relation !== 'Mother'
                   }
                   fieldType='text'
+                  errors={validationErrors}
                   placeholder='Please add details...'
                   disabled={
                     !(
@@ -315,6 +344,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                   fieldName='otherNationality'
                   className='frm-cell'
                   fieldType='text'
+                  errors={validationErrors}
                   value={
                     values.nationality !== 'Indian'
                       ? values.otherNationality
@@ -459,6 +489,7 @@ export default function ParentsGuardianForm ({ currentStudent, setStep }) {
                   className='frm-cell'
                   fieldType='number'
                   value={values.annualFamilyIncome}
+                  errors={validationErrors}
                   onChange={e => {
                     setFieldValue('annualFamilyIncome', e.target.value)
                   }}

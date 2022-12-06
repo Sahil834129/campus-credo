@@ -129,3 +129,57 @@ export const StudentDetailsSchema = Yup.object().shape({
     state: Yup.string().required("Required *"),
     city: Yup.string().required("Required *"),
 })
+
+export const StudentMedicalDetailsSchema = Yup.object().shape({
+    bloodGroup: Yup.string().required("Required *"),
+    allergies: Yup.string().when('hasAllergies', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    medicalConditions: Yup.string().when('hasMedicalConditions', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    specialCare: Yup.string().when('doesNeedSpecialCare', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    otherDisability: Yup.string().when('disabilities', {
+        is: val => val && val.indexOf('Other') >= 0,
+        then: Yup.string().required("Required *"),
+    }),
+})
+
+export const StudentBackgroundCheckSchema = Yup.object().shape({
+    violenceBehaviour: Yup.string().when('hadViolenceBehavior', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    suspension: Yup.string().when('hadSuspension', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+
+    offensiveConduct: Yup.string().when('anyOffensiveConduct', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+})
+
+export const StudentParentGuardianSchema = Yup.object().shape({
+    firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    lastName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    otherRelation: Yup.string().when('relation', {
+        is: val => val && val === 'Other',
+        then: Yup.string().required("Required *"),
+    }),
+    otherNationality: Yup.string().when('nationality', {
+        is: val => val && val === 'Other',
+        then: Yup.string().required("Required *"),
+    }),
+    qualification: Yup.string().required("Required *"),
+    occupation: Yup.string().required("Required *"),
+    annualFamilyIncome: Yup.string().required("Required *"),
+})
+
+
