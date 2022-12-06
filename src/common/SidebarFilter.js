@@ -256,62 +256,70 @@ const SidebarFilter = ({ applyFilters }) => {
                 <Link onClick={() => handleResetForm()}>Reset</Link>
               </div>
       
-          
-            <InputField
-              fieldName='distance'
-              fieldType='select'
-              placeholder=''
-              label='Distance from Home'
-              selectOptions={distanceOptions}
-              errors={errors}
-              touched={touched}
-            />
-            <InputField
-              fieldName='class'
-              fieldType='select'
-              placeholder=''
-              label='Class'
-              selectOptions={classOptions}
-              errors={errors}
-              touched={touched}
-            />
-            <label>Monthly Tuition Fees</label>
-            <div className='range-slider-wrapper'>
-              
-              <MultiRangeSlider min={0}
-                max={20000}
-                step={500}
-                minValue={minMonthlyTutionFee}
-                maxValue={maxMonthlyTutionFee}
-                ruler='false'
-                label='false'
-                onInput={(e) => {
-                  setMinMonthlyTutionFee(e.minValue);
-                  setMaxMonthlyTutionFee(e.maxValue);
-                }}
-                />
+              <InputField
+                fieldName='status'
+                fieldType='select'
+                placeholder=''
+                label='Admission Status'
+                selectOptions={admissionStatusOptions}
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='distance'
+                fieldType='select'
+                placeholder=''
+                label='Distance from Home'
+                selectOptions={distanceOptions}
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='class'
+                fieldType='select'
+                placeholder=''
+                label='Class'
+                selectOptions={classOptions}
+                errors={errors}
+                touched={touched}
+              />
+              <label>Monthly Tuition Fees</label>
+              <div className='range-slider-wrapper'>
+                
+                <MultiRangeSlider min={0}
+                  max={20000}
+                  step={500}
+                  minValue={minMonthlyTutionFee}
+                  maxValue={maxMonthlyTutionFee}
+                  ruler='false'
+                  label='false'
+                  onInput={(e) => {
+                    setMinMonthlyTutionFee(e.minValue);
+                    setMaxMonthlyTutionFee(e.maxValue);
+                  }}
+                  />
 
-                <label className="income-range-value">₹ ({minMonthlyTutionFee + '-'+ maxMonthlyTutionFee})</label>
-            </div>
+                  <label className="income-range-value">₹ ({minMonthlyTutionFee + '-'+ maxMonthlyTutionFee})</label>
+              </div>
             
-            <InputField
-              fieldName='board'
-              fieldType='select'
-              placeholder=''
-              label='School Board'
-              selectOptions={boardOptions}
-              errors={errors}
-              touched={touched}
-            />
-            <InputField
-              fieldName='gender'
-              fieldType='select'
-              placeholder=''
-              label='Gender'
-              selectOptions={genderOptions}
-              errors={errors}
-              touched={touched}
-            />
+              <InputField
+                fieldName='board'
+                fieldType='select'
+                placeholder=''
+                label='School Board'
+                selectOptions={boardOptions}
+                errors={errors}
+                touched={touched}
+              />
+              <InputField
+                fieldName='gender'
+                fieldType='select'
+                placeholder=''
+                label='Gender'
+                selectOptions={genderOptions}
+                errors={errors}
+                touched={touched}
+              />
             <InputField
               fieldName='medium'
               fieldType='select'
@@ -339,15 +347,7 @@ const SidebarFilter = ({ applyFilters }) => {
               errors={errors}
               touched={touched}
             />
-            <InputField
-              fieldName='status'
-              fieldType='select'
-              placeholder=''
-              label='Admission Status'
-              selectOptions={admissionStatusOptions}
-              errors={errors}
-              touched={touched}
-            />
+            
             <Button buttonLabel='Apply' class='applyFilter' />
             
           </Form>
