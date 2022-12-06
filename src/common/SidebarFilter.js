@@ -9,6 +9,7 @@ import RESTClient from '../utils/RestClient'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSchoolClasses } from '../redux/actions/masterData'
 import MultiRangeSlider from "multi-range-slider-react";
+import { MultiSelect } from 'react-multi-select-component'
 
 const SidebarFilter = ({ applyFilters }) => {
   const dispatch = useDispatch()
@@ -32,12 +33,8 @@ const SidebarFilter = ({ applyFilters }) => {
   const [mediumOfInstructionsOtions, setMediumOfInstructionsOtions] = useState([
     { value: '', text: 'Select Medium' }
   ])
-  const [facilitiesOptions, setFacilitiesOptions] = useState([
-    { value: '', text: 'Select Facilities' }
-  ])
-  const [extracurricularOptions, setExtracurricularOptions] = useState([
-    { value: '', text: 'Select Activity' }
-  ])
+  const [facilitiesOptions, setFacilitiesOptions] = useState([])
+  const [extracurricularOptions, setExtracurricularOptions] = useState([])
   const [admissionStatusOptions, setAdmissionStatusOptions] = useState([
     { value: '', text: 'Select Status' },
     { value: 'open', text: 'Open' },
@@ -45,6 +42,8 @@ const SidebarFilter = ({ applyFilters }) => {
   ])
   const [minMonthlyTutionFee, setMinMonthlyTutionFee] = React.useState(0)
   const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(20000)
+  const [facilities, setFacilities] = useState([])
+  const [extracurriculars, setExtracurriculars] = useState([])
   const selectedLocation = useSelector(
     state => state.locationData.selectedLocation
   )
@@ -82,6 +81,8 @@ const SidebarFilter = ({ applyFilters }) => {
   }
 
   function prepareSchoolFilter (filterForm) {
+    const selectedFacilities = facilities.map(v=>v.value)
+    const selectedExtracurriculars = extracurriculars.map(v=>v.value)
     let filterPayload = {}
     let filters = []
     filters.push({
@@ -113,20 +114,17 @@ const SidebarFilter = ({ applyFilters }) => {
         operator: OPERATORS.LIKE,
         value: filterForm.medium
       })
-    if (filterForm.facilities !== null && filterForm.facilities !== '')
+    if (selectedFacilities && selectedFacilities.length)
       filters.push({
         field: 'facilities',
         operator: OPERATORS.IN,
-        values: [filterForm.facilities]
+        values: selectedFacilities
       })
-    if (
-      filterForm.extracurriculars !== null &&
-      filterForm.extracurriculars !== ''
-    )
+    if (selectedExtracurriculars && selectedExtracurriculars.length)
       filters.push({
         field: 'extracurriculars',
         operator: OPERATORS.IN,
-        values: [filterForm.extracurriculars.value]
+        values: selectedExtracurriculars
       })
     let maxFee = maxMonthlyTutionFee > 0 ? maxMonthlyTutionFee : 100000
     filters.push({
@@ -193,15 +191,13 @@ const SidebarFilter = ({ applyFilters }) => {
     try {
       const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_FACILITIES)
       setFacilitiesOptions(
-        [{ value: '', text: 'Select Facilities' }].concat(
-          response.data.schoolFacilities.map(it => ({
-            value: it.facilityName,
-            text: it.facilityName
-          }))
-        )
+        response.data.schoolFacilities.map(it => ({
+          value: it.facilityName,
+          label:it.facilityName
+        }))
       )
     } catch (e) {
-      console.log('Error while getting gender list' + e)
+      console.log('Error while getting school facilities' + e)
     }
   }
 
@@ -211,12 +207,10 @@ const SidebarFilter = ({ applyFilters }) => {
         RestEndPoint.GET_SCHOOL_EXTRA_CURRICULAR_ACTIVITIES
       )
       setExtracurricularOptions(
-        [{ value: '', text: 'Select Activity' }].concat(
-          response.data.extracurriculars.map(it => ({
-            value: it.activity,
-            text: it.activity
-          }))
-        )
+        response.data.extracurriculars.map(it => ({
+          value: it.activity,
+          label: it.activity
+        }))
       )
     } catch (e) {
       console.log('Error while getting extracurriculars list' + e)
@@ -238,9 +232,7 @@ const SidebarFilter = ({ applyFilters }) => {
           board: '',
           gender: '',
           medium: '',
-          facilities: '',
-          extracurriculars: '',
-          status:''
+          status:'open'
         }}
         onSubmit={values => {
           applyFilter(values)
@@ -253,7 +245,7 @@ const SidebarFilter = ({ applyFilters }) => {
                 <h2>
                   <i className='icons filter-icon'></i> Filters
                 </h2>
-                <Link onClick={() => handleResetForm()}>Reset</Link>
+                <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
               </div>
       
               <InputField
@@ -329,25 +321,22 @@ const SidebarFilter = ({ applyFilters }) => {
               errors={errors}
               touched={touched}
             />
-            <InputField
-              fieldName='facilities'
-              fieldType='select'
-              placeholder=''
-              label='Facilities'
-              selectOptions={facilitiesOptions}
-              errors={errors}
-              touched={touched}
-            />
-            <InputField
-              fieldName='extracurriculars'
-              fieldType='select'
-              placeholder=''
-              label='Extracurriculars'
-              selectOptions={extracurricularOptions}
-              errors={errors}
-              touched={touched}
-            />
-            
+            <label>Facilities</label>
+            <MultiSelect 
+              options={facilitiesOptions}
+              value={facilities}
+              onChange={setFacilities}
+              labelledBy="Facilities"
+              >
+            </MultiSelect>
+            <label>Extracurriculars</label>
+            <MultiSelect 
+              options={extracurricularOptions}
+              value={extracurriculars}
+              onChange={setExtracurriculars}
+              labelledBy="Extracurriculars"
+              >
+            </MultiSelect>
             <Button buttonLabel='Apply' class='applyFilter' />
             
           </Form>
