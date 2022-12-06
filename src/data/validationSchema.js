@@ -121,11 +121,11 @@ export const StudentDetailsSchema = Yup.object().shape({
     }),
     schoolPincode: Yup.string().when('isProvidingCurrentSchoolInfo', {
         is: val => val && val === 'Yes',
-        then: Yup.string().required("Required *").matches(/^[0-9]\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
+        then: Yup.string().required("Required *").matches(/\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
     }),
     addressLine1: Yup.string().required("Required *"),
     addressLine2: Yup.string().required("Required *"),
-    pincode: Yup.string().required("Required *").matches(/^[0-9]\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
+    pincode: Yup.string().required("Required *").matches(/\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
     state: Yup.string().required("Required *"),
     city: Yup.string().required("Required *"),
 })
