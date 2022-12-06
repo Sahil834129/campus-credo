@@ -80,3 +80,52 @@ export const SignInSchema = Yup.object().shape({
         })
     })
 });
+
+export const StudentDetailsSchema = Yup.object().shape({
+    firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    lastName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    dateOfBirth: Yup.string().required("Required *"),
+    gender: Yup.string().required("Required *"),
+    className: Yup.string().required("Required *"),
+    religion: Yup.string().required("Required *"),
+    identificationMarks: Yup.string().required("Required *"),
+    nationality: Yup.string().required("Required *"),
+    category: Yup.string().required("Required *"),
+    schoolName: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolBoard: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    obtainedMarks: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolAddressLine1: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolAddressLine2: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolState: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolCity: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolPincode: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *").matches(/^[0-9]\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
+    }),
+    addressLine1: Yup.string().required("Required *"),
+    addressLine2: Yup.string().required("Required *"),
+    pincode: Yup.string().required("Required *").matches(/^[0-9]\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
+    state: Yup.string().required("Required *"),
+    city: Yup.string().required("Required *"),
+})
