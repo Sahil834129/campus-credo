@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 const ConfirmDialog = (props) => {
     return (
-        <Modal dialogClassName="salert-popup" show={props.show} onHide={props.handleClose}>
+        <Modal dialogClassName="alert-popup" show={props.show} onHide={props.handleClose}>
             <Modal.Header closeButton>Confirm</Modal.Header>
             <Modal.Body dialogClassName="model-body" >
                 <div className='alert-content-inner'>

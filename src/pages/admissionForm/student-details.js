@@ -23,6 +23,7 @@ import {
 import { str2bool } from '../../utils/helper'
 import { useCallback } from 'react'
 import { getSchoolClasses, getStates } from '../../redux/actions/masterData'
+import { StudentDetailsSchema } from '../../data/validationSchema'
 
 export default function StudentDetails ({
   currentStudent,
@@ -34,6 +35,7 @@ export default function StudentDetails ({
   const dispatch = useDispatch()
   const classOptions = useSelector(state => state.masterData.schoolClasses)
   const states = useSelector(state => state.masterData.states)
+  const [validationErrors, setValidationErrors] = useState({})
   const [schoolCity, setSchoolCity] = useState([
     { value: '', text: 'Select City' }
   ])
@@ -41,8 +43,12 @@ export default function StudentDetails ({
 
   const [isUserExist, setIsUserExist] = useState(false)
   const saveStudentDetails = async e => {
+    resetValidationErrors()
     e.preventDefault()
     let postData = { ...selectedChild, ...currentStudent }
+    if (!isValidFormData(postData))
+      return
+    
     if (postData.isProvidingCurrentSchoolInfo === 'No') {
       delete postData.schoolName
       delete postData.schoolBoard
@@ -131,18 +137,40 @@ export default function StudentDetails ({
     if (currentStudent.childId) getCurrentUser(currentStudent.childId)
   }, [currentStudent.childId, getCurrentUser])
 
-  useEffect(() => {}, [])
+  function isValidFormData(formData) {
+    try {
+      StudentDetailsSchema.validateSync(formData, {abortEarly: false})
+    } catch(error) {
+      addPayloadError(error)
+      return false
+    }
+    return true
+  }
+
+  function addPayloadError(error) {
+    let errors = {}
+
+    let errorsObj = error.inner ? error.inner : error
+    errorsObj.forEach(e => {
+      errors[e.path] = e.message
+    })
+    setValidationErrors(errors)
+  }
+
+  function resetValidationErrors() {
+    setValidationErrors({})
+  }
 
   return (
-    <Form className='row g-3' onSubmit={saveStudentDetails}>
+    <Form className='row g-3' onSubmit={saveStudentDetails} noValidate>
       <div className='col-md-6'>
         <TextField
           fieldName='firstName'
           disabled
           value={selectedChild.firstName}
           label='First Name'
-          required
           placeholder='First Name'
+          errors={validationErrors}
         />
       </div>
       <div className='col-md-6'>
@@ -151,8 +179,8 @@ export default function StudentDetails ({
           disabled
           value={selectedChild.lastName}
           label='Last Name'
-          required
           placeholder='Last Name'
+          errors={validationErrors}
         />
       </div>
       <div className='col-md-6'>
@@ -161,7 +189,7 @@ export default function StudentDetails ({
           disabled
           value={selectedChild.dateOfBirth}
           label='Date of Birth'
-          required
+          errors={validationErrors}
         />
       </div>
       <div className='col-md-6'>
@@ -173,8 +201,8 @@ export default function StudentDetails ({
           onChange={e => {
             setFieldValue('gender', e.target.value)
           }}
-          required
           selectOptions={GENDER_OPTOPNS}
+          errors={validationErrors}
         />
       </div>
       <div className='col-md-6'>
@@ -182,7 +210,7 @@ export default function StudentDetails ({
           <SelectField
             fieldName='className'
             label='Select Class'
-            required
+            errors={validationErrors}
             selectOptions={classOptions}
             value={selectedChild.className}
             onChange={e => {
@@ -194,7 +222,7 @@ export default function StudentDetails ({
           <SelectField
             fieldName='religion'
             label='Select Religion'
-            required
+            errors={validationErrors}
             selectOptions={RELIGION_OPTIONS}
             value={selectedChild.religion}
             onChange={e => {
@@ -211,19 +239,21 @@ export default function StudentDetails ({
           className='form-control'
           name='identificationMarks'
           rows='5'
-          required
           value={selectedChild.identificationMarks}
           onChange={e => {
             setFieldValue('identificationMarks', e.target.value)
           }}
         ></textarea>
+        {
+          validationErrors.hasOwnProperty('identificationMarks') ? <div className='error-exception'>{validationErrors.identificationMarks}</div> : ''
+        }
       </div>
       <div className='col-md-6'>
         <div>
           <SelectField
             fieldName='nationality'
             label='Nationality'
-            required
+            errors={validationErrors}
             selectOptions={NATIONALITY_OPTIONS}
             value={selectedChild.nationality}
             onChange={e => {
@@ -237,7 +267,7 @@ export default function StudentDetails ({
         <SelectField
           fieldName='category'
           label='Select Category'
-          required
+          errors={validationErrors}
           selectOptions={CATEGORY_OPTIONS}
           value={selectedChild.category}
           onChange={e => {
@@ -281,6 +311,7 @@ export default function StudentDetails ({
                 value={selectedChild.schoolName}
                 label='School Name'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 placeholder='School Name'
                 onChange={e => {
                   setFieldValue('schoolName', e.target.value)
@@ -293,6 +324,7 @@ export default function StudentDetails ({
                 value={selectedChild.schoolBoard}
                 label='School Board'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 placeholder='School Board'
                 onChange={e => {
                   setFieldValue('schoolBoard', e.target.value)
@@ -305,6 +337,7 @@ export default function StudentDetails ({
                 value={selectedChild.obtainedMarks}
                 label='Obtained Marks'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 placeholder='Obtained Marks'
                 onChange={e => {
                   setFieldValue('obtainedMarks', e.target.value)
@@ -317,6 +350,7 @@ export default function StudentDetails ({
                 value={selectedChild.schoolAddressLine1}
                 label='School Address Line 1'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 placeholder='School Address Line 1'
                 onChange={e => {
                   setFieldValue('schoolAddressLine1', e.target.value)
@@ -329,6 +363,7 @@ export default function StudentDetails ({
                 value={selectedChild.schoolAddressLine2}
                 label='School Address Line 2'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 placeholder='School Address Line 2'
                 onChange={e => {
                   setFieldValue('schoolAddressLine2', e.target.value)
@@ -340,6 +375,7 @@ export default function StudentDetails ({
                 fieldName='schoolState'
                 label='Select State'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 selectOptions={states}
                 value={selectedChild.schoolState}
                 onChange={e => {
@@ -353,6 +389,7 @@ export default function StudentDetails ({
                 fieldName='schoolCity'
                 label='Select City'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 selectOptions={schoolCity}
                 value={selectedChild.schoolCity}
                 onChange={e => {
@@ -366,7 +403,9 @@ export default function StudentDetails ({
                 value={selectedChild.schoolPincode}
                 label='School Pincode'
                 required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
+                errors={validationErrors}
                 placeholder='School Pincode'
+                maxLength='6'
                 onChange={e => {
                   setFieldValue('schoolPincode', e.target.value)
                 }}
@@ -385,6 +424,7 @@ export default function StudentDetails ({
             <TextField
               fieldName='addressLine1'
               required
+              errors={validationErrors}
               label='House No., Block No.'
               value={selectedChild.addressLine1}
               onChange={e => {
@@ -396,6 +436,7 @@ export default function StudentDetails ({
             <TextField
               fieldName='addressLine2'
               required
+              errors={validationErrors}
               label='Area or Locality'
               value={selectedChild.addressLine2}
               onChange={e => {
@@ -408,7 +449,9 @@ export default function StudentDetails ({
               fieldName='pincode'
               label='Pincode'
               required
+              errors={validationErrors}
               value={selectedChild.pincode}
+              maxLength='6'
               onChange={e => {
                 setFieldValue('pincode', e.target.value)
               }}
@@ -419,6 +462,7 @@ export default function StudentDetails ({
               fieldName='state'
               label='Select State'
               required
+              errors={validationErrors}
               selectOptions={states}
               value={selectedChild.state}
               onChange={e => {
@@ -432,6 +476,7 @@ export default function StudentDetails ({
               fieldName='city'
               label='Select City'
               required
+              errors={validationErrors}
               selectOptions={city}
               value={selectedChild.city}
               onChange={e => {

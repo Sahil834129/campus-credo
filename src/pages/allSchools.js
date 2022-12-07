@@ -34,6 +34,7 @@ const AllSchools = () => {
     const getSchoolList = async() => {
         let filters = [];
         filters.push({field:"city",operator:"EQUALS", value:selectedLocation})
+        filters.push({field:"status",operator:"LIKE", value:'open'})
         const queryParams = new URLSearchParams(location.search);
         const schoolName = queryParams.get("name");
         if (schoolName !== null && schoolName !== '')

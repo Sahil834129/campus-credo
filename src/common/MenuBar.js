@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import PageContent from "../resources/pageContent";
+import { gotoHome } from '../utils/helper';
 
 const MenuBar = () => {
     const location = useLocation();
+    const navigate = useNavigate()
     const pageRef = "/"+ location.pathname.split("/")[1]
     
     return (
@@ -16,7 +18,7 @@ const MenuBar = () => {
                     {PageContent.HEADER_MENU_ITEMS.map((menuItem, index) => (
                         <Fragment key={"menuItem_"+index}>
                             <Navbar.Text>
-                                <Link className={(menuItem.ref === pageRef ? "active-page" : "")} to={menuItem.ref}>{menuItem.title}</Link>
+                                <Link className={(menuItem.ref === pageRef ? "active-page" : "")} to={menuItem.ref} onClick={(e)=> menuItem.ref === '/' ? gotoHome(e, navigate) : ''}>{menuItem.title}</Link>    
                             </Navbar.Text>
                             {index < PageContent.HEADER_MENU_ITEMS.length - 1 ? <Navbar.Text className="dot-wrap"><i className="icons divide-dot"></i></Navbar.Text> : ''}
                         </Fragment>

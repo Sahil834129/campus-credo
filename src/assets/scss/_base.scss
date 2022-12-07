@@ -12,7 +12,9 @@
 *, *::after, *::before {
   box-sizing: border-box;
 }
-html {}
+html {
+  scroll-behavior: smooth;
+}
 html, body {
     background:$white; 
     height: calc(100%); 

@@ -48,7 +48,7 @@ const HomePage = () => {
                 <Container className="content-area-inner">
                     <Col className="hero-info-panel">
                         <div className="hero-item left">
-                            <h2>School Admissions Simplified!</h2>
+                            <h2>School <span>Admissions Simplified!</span></h2>
                             <h6>Secure. Streamlined. Paperless</h6>
                             <ListGroup as="ul">
                                 <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Common Application Form</span></ListGroup.Item>
@@ -60,7 +60,7 @@ const HomePage = () => {
                             <img src={HeroGraphic} alt="" />
                         </div>
                     </Col>
-
+                    <Col className="info-panel"><h2>No more waiting at queue for admission forms or filling out online forms for every single school.</h2></Col>
                     <Col className="service-features">
                         <Tabs defaultActiveKey="studentsTab" id="fill-tab-example" className="service-type-tabs" fill>
                             <Tab eventKey="studentsTab" title={<span> <i className="icons student-icon" /> For Students</span>}>

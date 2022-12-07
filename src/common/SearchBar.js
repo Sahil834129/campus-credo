@@ -12,6 +12,7 @@ import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedLocation, getSelectedLocation} from "../redux/actions/locationAction";
+import { gotoHome } from "../utils/helper";
 
 const SearchBar = () => {
     const navigate = useNavigate();
@@ -105,11 +106,11 @@ const SearchBar = () => {
         <>
         <Col className="navbar-header">
             <Container className="header-container">
-                <div className="header-item brand-logo"><Link to='/'><img src={logoHeader} alt="brand logo" /></Link></div>
+                <div className="header-item brand-logo"><Link to='/' onClick={(e)=> gotoHome(e, navigate)}><img src={logoHeader} alt="brand logo" /></Link></div>
                 <div className="header-item search-region-pane">
                     <div className="region-dropdown-wrap">
                         <i className="loc-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" /></svg>
                         </i>
                         <Dropdown>
                             <Dropdown.Toggle as={LocationDropDownToggle} id="dropdown-custom-components">
@@ -119,7 +120,7 @@ const SearchBar = () => {
                             <Dropdown.Menu as={LocationDropDownMenu}>
                                 {
                                     cities.map((city, index) => {
-                                        return <Dropdown.Item key={"city_"+index} eventKey={"city_e_" + index} onClick={ e => handleSelectCity(city)}>{city}</Dropdown.Item>
+                                        return <Dropdown.Item key={"city_"+index} eventKey={"city_e_" + index} onClick={ e => handleSelectCity(city)}>{city ? city : ''}</Dropdown.Item>
                                     })
                                 }
                             </Dropdown.Menu>

@@ -27,24 +27,27 @@ const AboutUs = () => {
                         <section className="section-wrapper hero-wrap">
                             <div className="hero-img"><img src={aboutpic1} alt="" /></div>
                             <div className="hero-caption">
-                                No more waiting at queue for admission forms or filling out online forms for every single school. <Link to='/schools'>Apply Now <i className="icons green-arrow-icon"></i></Link>
+                                <h2>No more waiting at queue for admission forms or filling out online forms for every single school.</h2> <Link to='/schools'><label>Apply Now</label> <i className="icons green-arrow-icon"></i></Link>
                             </div>
                         </section>
                         <section className="section-wrapper">
                             <div className="img-wrap"><img src={aboutpic2} alt="" /></div>
                             <div className="content-wrap">
-                            We are a group of technocrats who, as parents to toddlers and schoolgoers, realized the need to bring educational institutions and parents on the same digital platform for realizing the mutual benefits.
+                                <h2>All your needs are in one place with one simple aaplication form</h2>
+                                <h4>We are a group of technocrats who, as parents to toddlers and schoolgoers, realized the need to bring educational institutions and parents on the same digital platform for realizing the mutual benefits.</h4>
                             </div>
                         </section>
                         <section className="section-wrapper full-width">
                             <div className="content-wrap">
-                                As Parents in this age of digitalization, the convenience of virtualized experience of picking the right type and kind of educational institute for our kids, without having to spend hours physically searching, visiting, and analyzing, is ingrained in our ethos to find the ‘best’ from the plethora of available options that would best suit our own preferences and choices. CampusCredo therefore provides the much needed platform to find and connect to such educational institutes.
+                                <h2>Minimizing Parents hardship</h2>
+                                <h4>As Parents in this age of digitalization, the convenience of virtualized experience of picking the right type and kind of educational institute for our kids, without having to spend hours physically searching, visiting, and analyzing, is ingrained in our ethos to find the ‘best’ from the plethora of available options that would best suit our own preferences and choices. CampusCredo therefore provides the much needed platform to find and connect to such educational institutes.</h4>
                             </div>
                             <div className="img-wrap"><img src={aboutpic3} alt="" /></div>
                         </section>
                         <section className="section-wrapper">
                         <div className="img-wrap"><img src={aboutpic4} alt="" /></div>
                             <div className="content-wrap">
+                                <h2>Schools and Educational Institutes</h2>
                                 <p>For Educational Institutes, CampusCredo is the hassle free digital platform that portrays the journey, growth and prosperity of aspirants with the institutes’ heritage and unique capabilities and offerings; and also acts as the single point solution to </p>
                                 <ListGroup>
                                     <ListGroup.Item>be responsive to the needs of prospective students, </ListGroup.Item>

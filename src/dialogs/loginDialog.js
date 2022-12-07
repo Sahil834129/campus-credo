@@ -15,7 +15,7 @@ import OtpTimer from "otp-timer";
 import OtpInput from "react-otp-input";
 import { DEFAULT_ROLES } from "../constants/app";
 import { setIsUserLoggedIn } from "../redux/actions/userAction";
-import { SignInSchema } from "../data/validationSchema";
+import { SignInSchema, UpdatePhoneSchema } from "../data/validationSchema";
 
 const LoginDialog = (props) => {
     const dispatch = useDispatch();
@@ -118,7 +118,8 @@ const LoginDialog = (props) => {
             }
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
-        };
+        }
+        resetSignInFormValues();
     }
 
     const redirectSignUp = () => {
@@ -145,17 +146,37 @@ const LoginDialog = (props) => {
         setValidationErrors({})
     }
 
+    function resetSignInFormValues() {
+        setPassword('')
+        setPhone('')
+        setOtp('')
+    }
+
     function isValidSignInPayload(payload) {
         let isValidPayload = true
         try {
-            isValidPayload = SignInSchema.validateSync({...payload, loginWithOTP: loginWithOTP})
+            UpdatePhoneSchema.validateSync({phone: phone})
+            SignInSchema.validateSync({...payload, loginWithOTP: loginWithOTP})
         } catch(error) {
-            let errors = {}
-            errors[error.path] = error.message
-            setValidationErrors(errors)
+            addPayloadError(error)
             isValidPayload = false
         }
         return isValidPayload
+    }
+
+    function addPayloadError(error) {
+        let errors = {}
+        errors[error.path] = error.message
+        setValidationErrors(errors)
+    }
+
+    function handlePhoneBlur(phone) {
+        try {
+            UpdatePhoneSchema.validateSync({phone: phone})
+            setValidationErrors({...validationErrors, phone: ''})
+        }catch(error) {
+            addPayloadError(error)
+        }
     }
 
     return (
@@ -169,7 +190,7 @@ const LoginDialog = (props) => {
                     <div className="form-container">
                         <Form>
                             <Form.Group className="mb-3">
-                                <Form.Control type="phone" onChange={e => setPhone(e.target.value)} placeholder="Mobile Number" />
+                                <Form.Control type="phone" maxLength="10" onChange={e => setPhone(e.target.value)} onBlur={e=> handlePhoneBlur(e.target.value)} placeholder="Mobile Number" />
                                 {
                                     validationErrors.hasOwnProperty('phone') ? <div className='error-exception'>{validationErrors.phone}</div> : ''
                                 }

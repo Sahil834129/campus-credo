@@ -1,6 +1,7 @@
 import { Form } from 'react-bootstrap'
 
 const SelectField = props => {
+  const errors = props.errors
   return (
     <span className='selectbox'>
       <label>
@@ -26,6 +27,9 @@ const SelectField = props => {
               )
             })}
           </Form.Select>
+          {
+            errors && errors.hasOwnProperty(props.fieldName) ? <div className='error-exception'>{errors[props.fieldName]}</div> : ''
+          }
         </Form.Group>
       </div>
     </span>

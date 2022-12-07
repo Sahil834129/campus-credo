@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import RESTClient from '../../utils/RestClient'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
+import { StudentBackgroundCheckSchema } from '../../data/validationSchema'
 
 export default function BackgroundCheckForm ({ selectedChild, setStep }) {
   const history = useNavigate()
@@ -44,6 +45,7 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
         offensiveConduct: selectedChild.offensiveConduct ? selectedChild.offensiveConduct : '',
         anyOffensiveConduct: selectedChild.offensiveConduct ? 'Yes' : 'No'
       }}
+      validationSchema={StudentBackgroundCheckSchema}
       onSubmit={values => {
         saveData(values)
       }}

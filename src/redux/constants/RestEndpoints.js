@@ -19,6 +19,7 @@ const RestEndPoint = {
   SCHOOL_BY_ID: '/v1/schooldetails',
   GET_CHILD_LIST: '/parent/childList',
   ADD_CHILD: '/parent/child/create',
+  UPDATE_CHILD: '/parent/child',
   ADD_TO_CART: '/applicationCart/applicationList',
   APPLICATION_CART_BASE: '/applicationCart',
   GET_CART_ITEMS: '/applicationCart/child',

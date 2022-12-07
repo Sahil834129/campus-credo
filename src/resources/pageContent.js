@@ -25,7 +25,7 @@ const PageContent = {
   USER_PROFILE_SIDEBAR_MENU_ITEMS: [
     { ref: '/userProfile', icon:'dashboard-icon', class:'dashboard', title: 'Dashboard' },
     { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
-    //{ ref: '/userProfile', title: 'Fee Payments' },
+    { ref: '/manageChild', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Child' },
     { ref: '/userProfile/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],

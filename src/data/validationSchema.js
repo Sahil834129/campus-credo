@@ -80,3 +80,106 @@ export const SignInSchema = Yup.object().shape({
         })
     })
 });
+
+export const StudentDetailsSchema = Yup.object().shape({
+    firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    lastName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    dateOfBirth: Yup.string().required("Required *"),
+    gender: Yup.string().required("Required *"),
+    className: Yup.string().required("Required *"),
+    religion: Yup.string().required("Required *"),
+    identificationMarks: Yup.string().required("Required *"),
+    nationality: Yup.string().required("Required *"),
+    category: Yup.string().required("Required *"),
+    schoolName: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolBoard: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    obtainedMarks: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolAddressLine1: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolAddressLine2: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolState: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolCity: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    schoolPincode: Yup.string().when('isProvidingCurrentSchoolInfo', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *").matches(/\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
+    }),
+    addressLine1: Yup.string().required("Required *"),
+    addressLine2: Yup.string().required("Required *"),
+    pincode: Yup.string().required("Required *").matches(/\d{6}$/gi, { message: "Please enter valid 6 digit number.", excludeEmptyString: false }),
+    state: Yup.string().required("Required *"),
+    city: Yup.string().required("Required *"),
+})
+
+export const StudentMedicalDetailsSchema = Yup.object().shape({
+    bloodGroup: Yup.string().required("Required *"),
+    allergies: Yup.string().when('hasAllergies', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    medicalConditions: Yup.string().when('hasMedicalConditions', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    specialCare: Yup.string().when('doesNeedSpecialCare', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    otherDisability: Yup.string().when('disabilities', {
+        is: val => val && val.indexOf('Other') >= 0,
+        then: Yup.string().required("Required *"),
+    }),
+})
+
+export const StudentBackgroundCheckSchema = Yup.object().shape({
+    violenceBehaviour: Yup.string().when('hadViolenceBehavior', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+    suspension: Yup.string().when('hadSuspension', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+
+    offensiveConduct: Yup.string().when('anyOffensiveConduct', {
+        is: val => val && val === 'Yes',
+        then: Yup.string().required("Required *"),
+    }),
+})
+
+export const StudentParentGuardianSchema = Yup.object().shape({
+    firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    lastName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
+    otherRelation: Yup.string().when('relation', {
+        is: val => val && val === 'Other',
+        then: Yup.string().required("Required *"),
+    }),
+    otherNationality: Yup.string().when('nationality', {
+        is: val => val && val === 'Other',
+        then: Yup.string().required("Required *"),
+    }),
+    qualification: Yup.string().required("Required *"),
+    occupation: Yup.string().required("Required *"),
+    annualFamilyIncome: Yup.string().required("Required *"),
+})
+
+
