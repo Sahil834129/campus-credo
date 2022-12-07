@@ -24,9 +24,11 @@ const SchoolDetails = () => {
 	const [schoolDetails, setSchoolDetails] = useState({});
 	const [schoolCategoryFacilitiesMap, setSchoolCategoryFacilitiesMap] = useState({});
 	const queryParams = new URLSearchParams(location.search);
-	const schoolId = queryParams.get("id");
+	const schoolId = atob(queryParams.get("id")).replace("#", "");
 
-	useEffect(() => { fetchSchoolDetails(schoolId); }, [schoolId]);
+	useEffect(() => {
+		fetchSchoolDetails(schoolId);
+	}, [schoolId]);
 
 	const fetchSchoolDetails = async (schoolId) => {
 		try {
@@ -43,7 +45,7 @@ const SchoolDetails = () => {
 		} catch (e) {
 			console.log("error : " + e);
 		}
-	}
+	};
 	return (
 		<Layout>
 			<section className="content-area">
@@ -55,7 +57,7 @@ const SchoolDetails = () => {
 								<SchoolDetailTitle schoolName={schoolDetails.name} establishYear={schoolDetails.yearEstablishedIn} />
 								<div className='school-details-container'>
 									<SchoolBasicInfo schoolDetails={schoolDetails} />
-									{ isLoggedIn() && schoolDetails.hasOwnProperty("admissionInfo") ?
+									{isLoggedIn() && schoolDetails.hasOwnProperty("admissionInfo") ?
 										<ApplyToSchool schoolId={schoolId} schoolDetails={schoolDetails} />
 										: ''
 									}
@@ -91,7 +93,7 @@ const SchoolDetails = () => {
 				</Container>
 			</section>
 		</Layout>
-	)
+	);
 };
 
 export default SchoolDetails;

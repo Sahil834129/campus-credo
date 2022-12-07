@@ -50,7 +50,7 @@ const SchoolCard = (props) => {
     }
 
     function viewSchoolDetails(schoolId, schoolName) {
-        navigate("/schools/"+schoolName+"?id="+schoolId);
+        navigate("/schools/"+schoolName+"?id="+btoa(`#${schoolId}`));
     }
 
     const handleAlertDialogClose = () => {
