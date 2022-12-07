@@ -1207,7 +1207,7 @@ ul.list-group{
             }
           }
           .filter-components{
-            padding: 10px 0 24px 0;
+            padding: 10px 0 0 0;
             .filter-item{
               margin-bottom: 16px;
               select{
@@ -1220,7 +1220,7 @@ ul.list-group{
                 line-height: 17px;
                 display: flex;
                 align-items: center;
-                color: rgba(0, 0, 0, 0.4);
+                //color: rgba(0, 0, 0, 0.4);
               }
               input{
                 background: #FFFFFF;
@@ -1264,6 +1264,68 @@ ul.list-group{
                   text-align: center;
                 }
               }
+              &.multiselect-fld{
+                .multi-select{
+                  border-radius: 4px;
+                  height: 42px;
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 17px;
+                  .dropdown-container{
+                    &[aria-expanded="true"]{
+                      background-color: #efefef;
+                    }
+                    .dropdown-content{
+                      .panel-content{
+                        .select-panel{
+                          .search{}
+                          ul.options{
+                            label.select-item{
+                              background: $primarycolor;
+                              color: $white;
+                              font-style: normal;
+                              font-weight: 500;
+                              font-size: 14px;
+                              line-height: 17px;
+                              .item-renderer{
+                                align-items: center;
+                                input{
+                                  height: auto;
+                                }
+                                span{
+
+                                }
+                              }
+                            }
+                            
+                            li{
+                              label.select-item{
+                                background: none;
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: $black;
+                                .item-renderer{
+                                  align-items: center;
+                                  input{
+                                    height: auto;
+
+                                  }
+                                  span{
+
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              &.btn-wrap{margin-bottom: 0;}
             }
             .btn{
               &.applyFilter{
