@@ -2,8 +2,8 @@ import RestEndPoint from '../redux/constants/RestEndpoints';
 import RESTClient from './RestClient';
 import { toast } from 'react-toastify';
 
-export const getClassAdmissionData = () => {
-  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_DATA);
+export const getClassAdmissionData = (session) => {
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_DATA + `/${session}`);
 };
 
 export const saveClassAdmissionData = (data) => {
@@ -16,6 +16,10 @@ export const getSchoolAdmissinSummary = () => {
 
 export const getApplicationChartStatus = () => {
   return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS);
+};
+
+export const getClassAdmissionSessionData = () => {
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SESSION_DATA);
 };
 
 export const downloadDocument = async (childId, documentName) => {

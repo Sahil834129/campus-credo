@@ -1,6 +1,6 @@
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Layout from './layout'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Layout from './layout';
 
 export const ManageUsers = () => {
   return (
@@ -80,6 +80,6 @@ export const ManageUsers = () => {
         </div>
       </div>
     </Layout>
-  )
-}
-export default ManageUsers
+  );
+};
+export default ManageUsers;

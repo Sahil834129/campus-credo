@@ -5,7 +5,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import { getSchoolAdmissinSummary, getApplicationChartStatus } from "../../utils/services";
 
 import Layout from './layout';
-import { Barchart } from '../../common/Chart';
+import { Barchart, DoughnutChart } from '../../common/Chart';
 
 
 export const Dashboard = () => {
@@ -35,6 +35,7 @@ export const Dashboard = () => {
       });
 
   };
+
   const getBarDataValues = (tempData) => {
     const labels = Object.keys(tempData);
     const approved = [];
@@ -135,6 +136,7 @@ export const Dashboard = () => {
 
 
   };
+
   useEffect(() => {
     if (applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined) {
       const tempData = applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined;
@@ -264,9 +266,28 @@ export const Dashboard = () => {
                     <label>Fee Collected</label>
                   </ListGroup.Item>
                 </ListGroup>
+                <div style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '30px' }}>Application Status</div>
               </div>
             </div>
-            <div className='chart-area'>dsdsdsd</div>
+            <table className='chart-area' style={{ padding: 0 }}>
+              <tr>
+                <td>
+                  <DoughnutChart data={{}} />
+                </td>
+                <td>
+                  <DoughnutChart data={{
+                    datasets: [
+                      {
+                        data: [85, 15],
+                        backgroundColor: ["#59D04D", "#EEF0F5"],
+                        borderRadius: 30,
+                        cutout: 90,
+                        radius: 80
+                      }],
+                  } || {}} />
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>

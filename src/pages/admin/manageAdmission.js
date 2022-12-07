@@ -6,7 +6,8 @@ import Form from 'react-bootstrap/Form';
 import DateRangePicker from '../../common/DateRangePicker';
 import {
   getClassAdmissionData,
-  saveClassAdmissionData
+  saveClassAdmissionData,
+  getClassAdmissionSessionData
 } from '../../utils/services';
 import Layout from './layout';
 
@@ -15,6 +16,8 @@ const initialFormData = undefined;
 export const ManageAdmission = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [changedData, setChangedData] = useState({});
+  const [sessionValue, setSessionValue] = useState(0);
+  const [sessionOption, setSessionOption] = useState([]);
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
     setFieldData(fieldName, value);
@@ -26,8 +29,18 @@ export const ManageAdmission = () => {
     });
   };
 
-  const fetchClassAdmissionData = () => {
-    getClassAdmissionData()
+  const fetchAdmissionSession = () => {
+    getClassAdmissionSessionData()
+      .then(response => {
+        setSessionOption(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const fetchClassAdmissionData = (session) => {
+    getClassAdmissionData(session)
       .then(response => {
         if (response.status === 200) {
           const data = response.data.map(val => {
@@ -41,7 +54,7 @@ export const ManageAdmission = () => {
               val?.personalInterviewStartDate || null;
             val.personalInterviewEndDate = val?.personalInterviewEndDate || null;
             val.formFee = val?.formFee || null;
-
+            val.registrationFee = val?.registrationFee || null;
             return val;
           });
           setFormData(data);
@@ -58,7 +71,6 @@ export const ManageAdmission = () => {
     if (formDate !== null) {
       parseDate = moment(formDate).format('YYYY-MM-DD');
     }
-
     return parseDate;
   };
   const handleSubmitData = formData => {
@@ -83,6 +95,7 @@ export const ManageAdmission = () => {
       val.personalInterviewEndDate = convertDateForSave(
         val?.personalInterviewEndDate || null
       );
+      val.admissionSession = 1;
       delete val?.isOpen;
       delete val?.className;
       delete val?.schoolName;
@@ -98,7 +111,11 @@ export const ManageAdmission = () => {
   };
 
   useEffect(() => {
-    fetchClassAdmissionData();
+    fetchClassAdmissionData(sessionValue);
+  }, [sessionValue]);
+
+  useEffect(() => {
+    fetchAdmissionSession();
   }, []);
 
   return (
@@ -106,6 +123,7 @@ export const ManageAdmission = () => {
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
           <div className='inner-content-wrap padt8'>
+
             {formData && (
               <Formik
                 initialValues={{ data: formData }}
@@ -121,6 +139,19 @@ export const ManageAdmission = () => {
                         Activate and modify admission status for different
                         classes
                       </h2>
+                      <div className="d-flex">
+                        <span>Admission Year</span>
+                        <Form.Select
+                          value={sessionValue}
+                          onChange={(e) => {
+                            setSessionValue(e.target.value);
+                          }}
+                          size='sm'>
+                          {sessionOption.map((val, index) => (
+                            <option value={index} selected >{val}</option>
+                          ))}
+                        </Form.Select>
+                      </div>
                       <div className='btn-wrapper'>
                         <Button
                           className='reset-btn'
@@ -143,14 +174,14 @@ export const ManageAdmission = () => {
                           <table>
                             <thead>
                               <tr>
-                                <th>Class</th>
-                                <th>Admisssion Open</th>
+                                <th>Class (Capacity)</th>
                                 <th>Allocate Seats</th>
-                                <th>Capacity</th>
+                                <th>Vacant Seats</th>
                                 <th>Application(Start Date - End Date)</th>
                                 <th>Parent Interview</th>
                                 <th>Candidate Screening Test</th>
                                 <th>Application Fee</th>
+                                <th>Registration Fee</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -158,7 +189,7 @@ export const ManageAdmission = () => {
                                 values.data.length > 0 &&
                                 values.data.map((admissionData, index) => (
                                   <tr key={index}>
-                                    <td>{admissionData.className}</td>
+                                    <td>{admissionData.className} ({admissionData.capacity})</td>
                                     <td>
                                       <div className='switch-wrapper'>
                                         <Form.Label className='no'>
@@ -187,27 +218,13 @@ export const ManageAdmission = () => {
                                     <td>
                                       <Form.Control
                                         size='sm'
-                                        type='text'
-                                        name={`data[${index}].capacity`}
-                                        value={admissionData?.capacity || ''}
-                                        disabled={!admissionData?.isOpen}
-                                        onChange={e => {
-                                          handleData(
-                                            setFieldValue,
-                                            `data[${index}].capacity`,
-                                            e.target.value,
-                                            formData[index]?.capacity || ''
-                                          );
-                                        }}
-                                      />
-                                    </td>
-                                    <td>
-                                      <Form.Control
-                                        size='sm'
-                                        type='text'
+                                        type='number'
                                         name={`data[${index}].vacantSeats`}
                                         value={admissionData?.vacantSeats || ''}
                                         disabled={!admissionData?.isOpen}
+                                        min="0"
+                                        max={admissionData.capacity}
+                                        onPaste={e => e.preventDefault()}
                                         onChange={e => {
                                           handleData(
                                             setFieldValue,
@@ -294,6 +311,23 @@ export const ManageAdmission = () => {
                                             `data[${index}].formFee`,
                                             e.target.value,
                                             formData[index]?.formFee || ''
+                                          );
+                                        }}
+                                      />
+                                    </td>
+                                    <td>
+                                      <Form.Control
+                                        size='sm'
+                                        type='text'
+                                        name={`data[${index}].registrationFee`}
+                                        value={admissionData?.registrationFee || ''}
+                                        disabled={!admissionData?.isOpen}
+                                        onChange={e => {
+                                          handleData(
+                                            setFieldValue,
+                                            `data[${index}].registrationFee`,
+                                            e.target.value,
+                                            formData[index]?.registrationFee || ''
                                           );
                                         }}
                                       />

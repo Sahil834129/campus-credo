@@ -740,18 +740,18 @@ ul.list-group{
     border-collapse: collapse;
     min-width: 100%;
     grid-template-columns: 
-      minmax(150px, 1.67fr)
       minmax(150px, 1fr)
       minmax(150px, 1fr)
       minmax(150px, 1fr)
-      minmax(150px, 3fr)
-      minmax(150px, 3.33fr)
-      minmax(150px, 2.67fr)
+      minmax(150px, 2.5fr)
+      minmax(150px, 2.5fr)
+      minmax(150px, 2.5fr)
+      minmax(150px, 1fr)
       minmax(150px, 1fr);
 
       &.user-tbl{
         grid-template-columns: 
-        minmax(150px, 2fr)
+        minmax(150px, 1fr)
         minmax(150px, 1fr)
         minmax(150px, 1fr)
         minmax(150px, 1fr)
