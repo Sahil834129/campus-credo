@@ -1,50 +1,52 @@
-import React, { useState, useEffect } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from '../components/form/Button'
-import { Formik, Form } from 'formik'
-import InputField from '../components/form/InputField'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import * as moment from 'moment'
-import { useDispatch } from 'react-redux'
-import { AddChildSchema } from '../data/validationSchema'
-import { addChild, updateChild } from '../redux/actions/childAction'
-import { GENDER_OPTOPNS } from '../constants/formContanst'
+import React, { useState, useEffect } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from '../components/form/Button';
+import { Formik, Form } from 'formik';
+import InputField from '../components/form/InputField';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import * as moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { AddChildSchema } from '../data/validationSchema';
+import { addChild, updateChild } from '../redux/actions/childAction';
+import { GENDER_OPTOPNS } from '../constants/formContanst';
 
 const AddChildDialog = (props) => {
-  const dispatch = useDispatch()
-  const [submitting, setSubmitting] = useState(false)
+  const dispatch = useDispatch();
+  const [submitting, setSubmitting] = useState(false);
+  const maxDate = new Date().setFullYear(parseInt(new Date().getFullYear()) - 2);
   const [selectedChild, setSelectedChild] = useState({
-    firstName:  '',
+    firstName: '',
     lastName: '',
     gender: 'Male',
-    dateOfBirth: '01/01/2022'
-  })
+    dateOfBirth: ''
+  });
 
   useEffect(() => {
     if (props.child) {
-      setSelectedChild({...selectedChild,
+      setSelectedChild({
+        ...selectedChild,
         firstName: props.child.firstName,
         lastName: props.child.lastName,
         dateOfBirth: props.child.dateOfBirth,
         gender: props.child.gender
-      })
+      });
     }
-  }, [props.child])
+  }, [props.child]);
 
   const saveChild = async formData => {
-    setSubmitting(true)
-    const reqPayload = {...formData}
-    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format('DD/MM/yyyy')
+    setSubmitting(true);
+    const reqPayload = { ...formData };
+    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format('DD/MM/yyyy');
     if (props.child) {
-      reqPayload.childId = props.child.childId
-      dispatch(updateChild(reqPayload))
+      reqPayload.childId = props.child.childId;
+      dispatch(updateChild(reqPayload));
     } else {
-      dispatch(addChild(reqPayload))
+      dispatch(addChild(reqPayload));
     }
-    setSubmitting(false)
-    props.handleClose()
-  }
+    setSubmitting(false);
+    props.handleClose();
+  };
 
   return (
     <Modal
@@ -64,13 +66,13 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: '01/01/2022'
+              dateOfBirth: ''
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
             validateOnBlur
             onSubmit={values => {
-              void(values)
+              void (values);
             }}
           >
             {({ values, setFieldValue, errors, touched }) => (
@@ -106,13 +108,14 @@ const AddChildDialog = (props) => {
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth  ? moment(values.dateOfBirth,'DD/MM/yyyy').toDate() : new Date()}
-                      //value={values.dateOfBirth}
+                      selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate}
+                      // value={values.dateOfBirth}
                       showYearDropdown={true}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
                       onChange={date => setFieldValue('dateOfBirth', date)}
+                      maxDate={maxDate}
                     />
                   </div>
                   <div className='fld-inst'>
@@ -147,7 +150,7 @@ const AddChildDialog = (props) => {
                     class='save-btn'
                     buttonLabel={props.child ? 'Update' : 'Add'}
                     submitting={submitting}
-                    onClick={()=>saveChild(values)}
+                    onClick={() => saveChild(values)}
                   />
                 </div>
               </Form>
@@ -157,7 +160,7 @@ const AddChildDialog = (props) => {
       </Modal.Body>
       {/* <Modal.Footer></Modal.Footer> */}
     </Modal>
-  )
-}
+  );
+};
 
-export default AddChildDialog
+export default AddChildDialog;
