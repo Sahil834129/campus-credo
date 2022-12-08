@@ -49,7 +49,7 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
   const saveData = async (e, formData) => {
     e.preventDefault()
     let postData = { ...values, ...formData }
-    if(!isValidFormData(postData))
+    if (!isValidFormData(postData))
     return
     postData.nationality =
       postData.otherNationality !== ''
@@ -90,22 +90,21 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
     })
   }
 
-  async function getUsersParent (user) {
+  async function getUsersParent(user) {
     try {
       const response = await RESTClient.get(
         RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
       )
-
       if (response.data !== '') {
-        let dateBirth = (response.data[0]?.dateOfBirth)
+        let dateBirth = response.data[0]?.dateOfBirth ? ((response.data[0]?.dateOfBirth)
           .split('/')
           .reverse()
-          .join('-')
+          .join('-')) : ''
         setValues(val => {
           return {
             ...val,
             ...response.data[0],
-            dateOfBirth: new Date(dateBirth),
+            dateOfBirth: dateBirth !== '' ? new Date(dateBirth) : '',
             otherRelation: response.data[0]?.relation,
             nationality:
               response.data[0]?.nationality === ''
@@ -119,13 +118,14 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
         setParentExist(false)
       }
     } catch (error) {
-      // toast.error(RESTClient.getAPIErrorMessage(error))
+      console.log(error)
+      toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
 
   useEffect(() => {
-    // if (currentStudent.childId)
-    getUsersParent(currentStudent)
+    if (currentStudent.childId)
+      getUsersParent(currentStudent)
   }, [currentStudent])
 
   useEffect(() => {
@@ -153,9 +153,6 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
     setValidationErrors(errors)
   }
 
-  function resetValidationErrors() {
-    setValidationErrors({})
-  }
   return (
     <Form className='row g-3' onSubmit={e => saveData(e, values)}>
       <div className='tab_btn'>
@@ -224,7 +221,7 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
                       fieldName='relation'
                       currentValue={
                         values.relation !== 'Father' &&
-                        values.relation !== 'Mother'
+                          values.relation !== 'Mother'
                           ? 'Other'
                           : ''
                       }
@@ -403,12 +400,12 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
                   <div className='form-check ms-2'>
                     <RadioButton
                       className='form-check-input'
-                      label='Seperated'
-                      value='Seperated'
+                      label='Separated'
+                      value='Separated'
                       fieldName='maritalStatus'
                       currentValue={values.maritalStatus}
                       onChange={e => {
-                        setFieldValue('maritalStatus', 'Seperated')
+                        setFieldValue('maritalStatus', 'Separated')
                       }}
                     />
                   </div>
@@ -516,12 +513,12 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
           Cancel
         </button>
         <button
-              type='button'
-              className='save comn me-2'
-              onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
-              >
-                Back
-            </button>
+          type='button'
+          className='save comn me-2'
+          onClick={() => { setStep(val => val - 1); window.scrollTo(0, 0) }}
+        >
+          Back
+        </button>
         <button className='save comn' type='submit'>
           {parentExist ? `Update & Next` : `Save & Next`}
         </button>

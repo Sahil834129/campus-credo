@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import '../../assets/scss/custom-styles.scss'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 import RESTClient from '../../utils/RestClient'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
@@ -16,6 +18,21 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
   const [key, setKey] = useState('student')
+  const [show, setShow] = useState(false)
+  const [check, setCheck] = useState(false)
+
+  const finalSubmit = () => {
+    if (check) {
+      RESTClient.get(
+        RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
+      )
+      toast.success('Student Details saved')
+      navigate('/userProfile')
+    }
+    else {
+      toast.error('Please accept all T&C ')
+    }
+  }
 
   const getSupportingDocument = useCallback(async childId => {
     try {
@@ -49,12 +66,9 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
     )
     if (stuDocsUnfilled.length || parDocsUnfilled.length) {
       toast.error('Some Mandatory Files are missing!')
-    } else {
-      await RESTClient.get(
-        RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
-      )
-      toast.success('Student Details saved')
-      navigate('/userProfile')
+    }
+    else {
+      setShow(true)
     }
   }
 
@@ -105,15 +119,18 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         >
           Cancel
         </button>
-        { key === 'student' ? 
+        {key === 'student' ?
           <button
             type='button'
             className='save comn me-2'
-            onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
-            >
-              Back
+            onClick={() => {
+              setStep(val => val - 1)
+              window.scrollTo(0, 0)
+            }}
+          >
+            Back
           </button>
-          : '' }
+          : ''}
         <button
           className='save comn me-2'
           onClick={() =>
@@ -126,12 +143,36 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
           <button
             className='save comn'
             onClick={() =>
-              validateAllDocumentFilled(studentDocuments, parentDocuments)
-            }
+              validateAllDocumentFilled(studentDocuments, parentDocuments)}
           >
             Submit
           </button>
         )}
+        <Modal show={show} onHide={() => setShow(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Please Confirm</Modal.Title>
+          </Modal.Header>
+          <Modal.Body class=" modal-content">
+            <div style={{ padding: "20px" }}>
+              <p >
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              </p>
+            </div>
+            <div style={{ padding: "20px" }}>
+              <input type='checkbox' onChange={() => { setCheck(true) }} style={{ marginRight: "10px" }} />
+              <label>I understand and Accept</label>
+
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={()=> setShow(false)}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={finalSubmit}>
+              Save
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   )
