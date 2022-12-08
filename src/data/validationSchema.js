@@ -179,7 +179,7 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     }),
     qualification: Yup.string().required("Required *"),
     occupation: Yup.string().required("Required *"),
-    annualFamilyIncome: Yup.string().required("Required *"),
+    annualFamilyIncome: Yup.string().matches(/^[0-9]+$/, { message: 'Please Enter only numeric value.' }).required("Required *"),
 })
 
 
