@@ -20,17 +20,18 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const [key, setKey] = useState('student')
   const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
-
+  const [condition, setCondition] = useState(false)
   const finalSubmit = () => {
     if (check) {
       RESTClient.get(
         RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
       )
+      setCondition(false)
       toast.success('Student Details saved')
       navigate('/userProfile')
     }
     else {
-      toast.error('Please accept all T&C ')
+      setCondition(true)
     }
   }
 
@@ -148,7 +149,13 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
             Submit
           </button>
         )}
-        <Modal show={show} onHide={() => setShow(false)}>
+        <Modal
+          show={show}
+          onHide={() => {
+            setCheck(false)
+            setShow(false)
+            setCondition(false)
+          }}>
           <Modal.Header closeButton>
             <Modal.Title>Please Confirm</Modal.Title>
           </Modal.Header>
@@ -159,13 +166,22 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
               </p>
             </div>
             <div style={{ padding: "20px" }}>
-              <input type='checkbox' onChange={() => { setCheck(true) }} style={{ marginRight: "10px" }} />
+              <input
+                type='checkbox'
+                onChange={(e) => {
+                  setCheck(e.target.checked)
+                  setCondition(!e.target.checked)
+                }} style={{ marginRight: "10px" }} />
               <label>I understand and Accept</label>
-
+              {condition && <label style={{ display: 'flex', color: 'Red' }}>Please accept all T&C  </label>}
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={()=> setShow(false)}>
+            <Button variant="secondary" onClick={() => {
+              setCheck(false)
+              setShow(false)
+              setCondition(false)
+            }}>
               Close
             </Button>
             <Button variant="primary" onClick={finalSubmit}>
