@@ -18,7 +18,7 @@ import StudentDetails from './student-details'
 import MedicalForm from './medicalForm'
 import ExtracurricularForm from './extracurriculars'
 import BackgroundCheckForm from './background-check'
-import ParentsGuardianForm from './parents-guardian'
+import ParentsGuardianComponent from './parents-guardian'
 import SupportingDocumentForm from './supportingdocumentform'
 
 export const AdmissionForms = () => {
@@ -218,7 +218,7 @@ export const AdmissionForms = () => {
                           )
                         case 5:
                           return (
-                            <ParentsGuardianForm
+                            <ParentsGuardianComponent
                               currentStudent={selectedChild}
                               setStep={setStep}
                             />
