@@ -27,7 +27,7 @@ const ManageChild = () => {
     const [showEditChildDialog, setShowEditChildDialog] = useState(false)
     const [selectedChild, setSelectedChild] = useState()
     const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] = useState(false)
-
+    
     useEffect(()=> {
         isLoggedIn() ? dispatch(getChildsList()) : navigate('/?login=true')
     } ,[dispatch, navigate])
@@ -46,8 +46,8 @@ const ManageChild = () => {
     const handleDeleteChildConfirm = async() => {
         try {
             await RESTClient.delete(RestEndPoint.UPDATE_CHILD + '/' + selectedChild.childId)
-            dispatch(getChildsList)
             toast.success("Child deleted successfully.")
+            dispatch(getChildsList())
         } catch (error) {
             toast.error(RESTClient.getAPIErrorMessage(error))
         }
@@ -70,6 +70,16 @@ const ManageChild = () => {
                                 <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
                             </Col>
                             <Col className='profile-content right'>
+                                <div className='border-bottom d-flex justify-content-right pb-2 pt-2'>
+                                   
+                                    <Button
+                                        className='add-child-btn'
+                                        onClick={() => setShowEditChildDialog(true)}
+                                    >
+                                        Add Child
+                                    </Button>
+                                   
+                                </div>
                                 <div className='mt-3'>
                                 <Table bordered hover className='document-tbl'>
                                     <thead>

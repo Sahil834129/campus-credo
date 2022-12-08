@@ -59,7 +59,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           doesNeedSpecialCare: response.data.specialCare ? 'Yes' : 'No',
           disabilities: response.data.disabilities ? response.data.disabilities : [],
           otherDisability: response.data.otherDisability || '',
-          disability: response.data.disabilities.length > 0 ? 'Yes' : 'No'
+          disability: response.data.disabilities.filter(v=> v!='').length > 0 ? 'Yes' : 'No'
         })
         setIsMedicalProfileExists(true)
       }

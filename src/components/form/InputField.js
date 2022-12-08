@@ -64,6 +64,8 @@ const getFieldTagElement = props => {
           name={props.fieldName}
           placeholder={props.placeholder}
           {...(props.required ? { required: props.required } : {})}
+          onPaste={e => e.preventDefault()}
+          onCopy={e => e.preventDefault()}
         />
         </>
       )

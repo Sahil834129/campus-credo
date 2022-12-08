@@ -6,10 +6,13 @@ import InputField from '../components/form/InputField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as moment from 'moment';
+import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux';
 import { AddChildSchema } from '../data/validationSchema';
-import { addChild, updateChild } from '../redux/actions/childAction';
+import { getChildsList } from '../redux/actions/childAction';
 import { GENDER_OPTOPNS } from '../constants/formContanst';
+import RESTClient from '../utils/RestClient';
+import RestEndPoint from '../redux/constants/RestEndpoints';
 
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
@@ -38,11 +41,19 @@ const AddChildDialog = (props) => {
     setSubmitting(true);
     const reqPayload = { ...formData };
     reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format('DD/MM/yyyy');
-    if (props.child) {
-      reqPayload.childId = props.child.childId;
-      dispatch(updateChild(reqPayload));
-    } else {
-      dispatch(addChild(reqPayload));
+    try {
+      if (props.child) {
+        reqPayload.childId = props.child.childId;
+        await RESTClient.put(RestEndPoint.UPDATE_CHILD, reqPayload)
+        dispatch(getChildsList(reqPayload));
+        toast.success("Child updated successfuly")
+      } else {
+        await RESTClient.post(RestEndPoint.ADD_CHILD, reqPayload)
+        dispatch(getChildsList(reqPayload));
+        toast.success("Child created successfuly")		
+      }
+    } catch (error) {
+      toast.error(RESTClient.getAPIErrorMessage(error))
     }
     setSubmitting(false);
     props.handleClose();
@@ -66,13 +77,13 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: ''
+              dateOfBirth: moment(maxDate).format('DD/MM/yyyy'), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
             validateOnBlur
             onSubmit={values => {
-              void (values);
+              saveChild(values)
             }}
           >
             {({ values, setFieldValue, errors, touched }) => (
@@ -109,7 +120,6 @@ const AddChildDialog = (props) => {
                   <div className='field-group-wrap'>
                     <DatePicker
                       selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate}
-                      // value={values.dateOfBirth}
                       showYearDropdown={true}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
@@ -150,7 +160,6 @@ const AddChildDialog = (props) => {
                     class='save-btn'
                     buttonLabel={props.child ? 'Update' : 'Add'}
                     submitting={submitting}
-                    onClick={() => saveChild(values)}
                   />
                 </div>
               </Form>
