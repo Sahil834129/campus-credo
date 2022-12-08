@@ -20,6 +20,8 @@ const initalValue = {
   qualification: 'Diploma',
   occupation: 'Chartered_Accountant',
   annualFamilyIncome: '',
+  isAddressSameAsStudent:'No',
+  guardianDeceased: 'No',
   dateOfBirth: new Date()
 };
 export default function ParentsGuardianComponent({ currentStudent, setStep }) {
@@ -80,7 +82,8 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
           nationality:
             data?.nationality === ''
               ? 'Other'
-              : data?.nationality
+              : data?.nationality,
+          isAddressSameAsStudent: 'No'
         };
       });
       setParentExist(data ? true : false);
@@ -132,7 +135,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
             </div>
           </div>
         </Tab>
-        <Tab eventKey='other' title='Others' >
+        <Tab eventKey='other' title='Guardian' >
           <div className='tab-content'>
             <div className='tab-pane active' id='paperback'>
               <ParentsGuardianForm

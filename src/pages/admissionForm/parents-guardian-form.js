@@ -17,6 +17,7 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getParentOCcupation } from '../../redux/actions/masterData';
 import { StudentParentGuardianSchema } from '../../data/validationSchema';
+import { populateCities } from '../../utils/populateOptions';
 export default function ParentsGuardianForm({
   currentStudent,
   setStep,
@@ -30,6 +31,8 @@ export default function ParentsGuardianForm({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validationErrors, setValidationErrors] = useState({});
+  const states = useSelector(state => state.masterData.states)
+  const [city, setCity] = useState([{ value: '', text: 'Select City' }])
 
   const Options = [
     { value: "Master's", text: "Master's" },
@@ -154,10 +157,10 @@ export default function ParentsGuardianForm({
                 />
               </div>
               {currentParent === 'other' && (
-                <div className='col-md-6'>
+                <><div className='col-md-6'>
                   <TextField
                     fieldName='otherRelation'
-                    label='Other Parent Name'
+                    label='Relationship with Student'
                     value={
                       values.relation !== 'Father' && values.relation !== 'Mother'
                         ? values.otherRelation
@@ -179,8 +182,8 @@ export default function ParentsGuardianForm({
                       setFieldValue('otherRelation', e.target.value);
                     }}
                   />
-                </div>)}
-
+                </div><div className='col-md-6'></div></>)}
+                    
               <div className='col-md-6'>
                 <label>
                   Date of Birth<span className='req'>*</span>
@@ -222,7 +225,6 @@ export default function ParentsGuardianForm({
                   ))}
                 </div>
               </div>
-
               <div className='col-md-6'>
                 <label htmlFor='validationServer02' className='form-label'>
                   Nationality <span className='req'>*</span>
@@ -257,6 +259,7 @@ export default function ParentsGuardianForm({
                   </div>
                 </div>
               </div>
+              
               <div className='col-md-6'>
                 <label htmlFor='Other' className='form-label'>
                   If Other, Please Specify
@@ -348,8 +351,8 @@ export default function ParentsGuardianForm({
                 </div>
               </div>
               <div className='col-md-6'>
-                <label htmlFor='validationServer02' className='form-label'>
-                  Residential Address - Same as student?{' '}
+              <label htmlFor='validationServer02' className='form-label'>
+                  Deceased?{' '}
                   <span className='req'>*</span>
                 </label>
                 <div className='d-flex  align-items-center py-2'>
@@ -358,10 +361,10 @@ export default function ParentsGuardianForm({
                       className='form-check-input'
                       label='Yes'
                       value='Yes'
-                      fieldName='addressLine1'
-                      currentValue={values.addressLine1}
+                      fieldName='guardianDeceased'
+                      currentValue={values.guardianDeceased}
                       onChange={e => {
-                        setFieldValue('addressLine1', 'Yes');
+                        setFieldValue('guardianDeceased', 'Yes');
                       }}
                     />
                   </div>
@@ -370,10 +373,10 @@ export default function ParentsGuardianForm({
                       className='form-check-input'
                       label='No'
                       value='No'
-                      fieldName='addressLine1'
-                      currentValue={values.addressLine1}
+                      fieldName='guardianDeceased'
+                      currentValue={values.guardianDeceased}
                       onChange={e => {
-                        setFieldValue('addressLine1', 'No');
+                        setFieldValue('guardianDeceased', 'No');
                       }}
                     />
                   </div>
@@ -418,6 +421,108 @@ export default function ParentsGuardianForm({
                   placeholder='Please add details...'
                 />
               </div>
+
+              <div className='col-md-6'>
+                <label htmlFor='validationServer02' className='form-label'>
+                  Residential Address - Same as student?{' '}
+                  <span className='req'>*</span>
+                </label>
+                <div className='d-flex  align-items-center py-2'>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='Yes'
+                      value='Yes'
+                      fieldName='isAddressSameAsStudent'
+                      currentValue={values.isAddressSameAsStudent}
+                      onChange={e => {
+                        setFieldValue('isAddressSameAsStudent', 'Yes');
+                      }}
+                    />
+                  </div>
+                  <div className='form-check ms-2'>
+                    <RadioButton
+                      className='form-check-input'
+                      label='No'
+                      value='No'
+                      fieldName='isAddressSameAsStudent'
+                      currentValue={values.isAddressSameAsStudent}
+                      onChange={e => {
+                        setFieldValue('isAddressSameAsStudent', 'No');
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='tab_btn pb-3'>
+                <div className='row g-3'>
+                  <div className='col-md-6'>
+                    <TextField
+                      fieldName='addressLine1'
+                      required
+                      errors={validationErrors}
+                      label='House No., Block No.'
+                      value={values.addressLine1}
+                      onChange={e => {
+                        setFieldValue('addressLine1', e.target.value)
+                      }}
+                    />
+                  </div>
+                  <div className='col-md-6'>
+                    <TextField
+                      fieldName='addressLine2'
+                      required
+                      errors={validationErrors}
+                      label='Area or Locality'
+                      value={values.addressLine2}
+                      onChange={e => {
+                        setFieldValue('addressLine2', e.target.value)
+                      }}
+                    />
+                  </div>
+                  <div className='col-md-6'>
+                    <TextField
+                      fieldName='pincode'
+                      label='Pincode'
+                      required
+                      errors={validationErrors}
+                      value={values.pincode}
+                      maxLength='6'
+                      onChange={e => {
+                        setFieldValue('pincode', e.target.value)
+                      }}
+                    />
+                  </div>
+                  <div className='col-md-6'>
+                    <SelectField
+                      fieldName='state'
+                      label='Select State'
+                      required
+                      errors={validationErrors}
+                      selectOptions={states}
+                      value={values.state}
+                      onChange={e => {
+                        populateCities(e.target.value, setCity)
+                        setFieldValue('state', e.target.value)
+                      }}
+                    />
+                  </div>
+                  <div className='col-md-6'>
+                    <SelectField
+                      fieldName='city'
+                      label='Select City'
+                      required
+                      errors={validationErrors}
+                      selectOptions={city}
+                      value={values.city}
+                      onChange={e => {
+                        setFieldValue('city', e.target.value)
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
             </form>
           </div>
           <div className='tab-pane' id='demo2'>
