@@ -72,74 +72,92 @@ const SignUp = () => {
                 }}
               >
                 {({ errors, touched }) => (
-                  <Form>
-                    <InputField
-                      fieldName='firstName'
-                      fieldType='text'
-                      placeholder='First Name'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='lastName'
-                      fieldType='text'
-                      placeholder='Last Name'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='email'
-                      fieldType='text'
-                      placeholder='Email Address'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='password'
-                      fieldType='password'
-                      placeholder='Password'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='confirmPassword'
-                      fieldType='password'
-                      placeholder='Confirm Password'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='phone'
-                      fieldType='text'
-                      placeholder='Phone Number'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='state'
-                      fieldType='select'
-                      placeholder=''
-                      selectOptions={stateOptions}
-                      onBlur={e => populateCities(e.target.value, setCityOptions)}
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='city'
-                      fieldType='select'
-                      placeholder=''
-                      selectOptions={cityOptions}
-                      errors={errors}
-                      touched={touched}
-                    />
-                    <InputField
-                      fieldName='receiveEmailUpdates'
-                      fieldType='checkbox'
-                      label=' I agree to receive school admission updates, School facilities related emails.'
-                      errors={errors}
-                      touched={touched}
-                    />
-                    
+                  <Form className=''>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='firstName'
+                        fieldType='text'
+                        placeholder='First Name'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='lastName'
+                        fieldType='text'
+                        placeholder='Last Name'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='email'
+                        fieldType='text'
+                        placeholder='Email Address'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='password'
+                        fieldType='password'
+                        placeholder='Password'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='confirmPassword'
+                        fieldType='password'
+                        placeholder='Confirm Password'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='phone'
+                        fieldType='text'
+                        placeholder='Phone Number'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='state'
+                        fieldType='select'
+                        placeholder=''
+                        selectOptions={stateOptions}
+                        onBlur={e => populateCities(e.target.value, setCityOptions)}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell'>
+                      <InputField
+                        fieldName='city'
+                        fieldType='select'
+                        placeholder=''
+                        selectOptions={cityOptions}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell frm-lbl-cell'>
+                      <InputField
+                        fieldName='receiveEmailUpdates'
+                        fieldType='checkbox'
+                        label=' I agree to receive school admission updates, School facilities related emails.'
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </div>
+                    <div className='frm-cell frm-lbl-cell'>
                     <InputField
                       fieldName='receiveSMSUpdates'
                       fieldType='checkbox'
@@ -147,12 +165,14 @@ const SignUp = () => {
                       errors={errors}
                       touched={touched}
                     />
+                    </div>
+                    <div className='frm-cell frm-btn-wrap'>
                     <Button
                       type='submit'
                       buttonLabel='Sign Up'
                       submitting={submitting}
                     />
-                    
+                    </div>
                     <div className='form-group mb-3 linkback-wrap'>
                       <div className='linkback-cell left'><Link to={"/disclaimerpolicy"}>* Policy Disclaimer</Link></div>
                       <div className='linkback-cell right'>Have an account?<Link to='/?login=true'>Sign In</Link></div> 

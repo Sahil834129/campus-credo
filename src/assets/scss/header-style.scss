@@ -190,6 +190,53 @@
             }
             
           }
+          .user-profile{
+            .dropdown{
+              a{
+                font-style: normal;
+                  font-weight: 500;
+                  font-size: 14px;
+                  line-height: 18px;
+                  
+                  color: rgba(0, 0, 0, 0.8);
+                .user-name{
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 14px;
+                  line-height: 18px;
+                  text-align: right;
+                  color: rgba(0, 0, 0, 0.8);
+                }
+              }
+              &.show{
+                .dropdown-menu{
+                  border-radius: 4px;
+                  padding: 0;
+                  &.show{
+                    ul.list-unstyled{
+                      margin-bottom: 0;
+                      text-align: left;
+                     
+                      a{
+                        text-align: left;
+                        padding:16px 16px;
+                        &:active{
+                          background: $primarycolor;
+                          color: $white;
+                          &:first-child{
+                            border-radius: 4px 4px 0 0;
+                          }
+                          &:last-child{
+                            border-radius: 0 0 4px 4px;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
           .profile-login{
             a{font-style: normal;
               font-weight: 500;
