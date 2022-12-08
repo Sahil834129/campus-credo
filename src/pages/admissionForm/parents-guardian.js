@@ -58,7 +58,7 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
     postData.otherRelation =
       postData.relation !== '' ? postData.relation : postData.relation
 
-    postData.dateOfBirth = moment(postData.dateOfBirth).format('yyyy-MM-DD')
+    postData.dateOfBirth = moment(postData.dateOfBirth).format('DD/MM/yyyy')
     postData.studentId = postData.studentId || currentStudent.childId
     delete postData.profileId
     delete postData.annualFamilyIncomes
@@ -96,15 +96,11 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
         RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
       )
       if (response.data !== '') {
-        let dateBirth = response.data[0]?.dateOfBirth ? ((response.data[0]?.dateOfBirth)
-          .split('/')
-          .reverse()
-          .join('-')) : ''
         setValues(val => {
           return {
             ...val,
             ...response.data[0],
-            dateOfBirth: dateBirth !== '' ? new Date(dateBirth) : '',
+            dateOfBirth: response.data[0]?.dateOfBirth,
             otherRelation: response.data[0]?.relation,
             nationality:
               response.data[0]?.nationality === ''
@@ -112,8 +108,8 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
                 : response.data[0]?.nationality
           }
         })
-
-        setParentExist(true)
+        
+        setParentExist(response.data[0].id ? true : false)
       } else {
         setParentExist(false)
       }
@@ -266,12 +262,15 @@ export default function ParentsGuardianForm({ currentStudent, setStep }) {
                 </label>
                 <div className='field-group-wrap'>
                   <DatePicker
-                    selected={values.dateOfBirth}
+                    selected={ values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : new Date()}
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
                     onChange={date => setFieldValue('dateOfBirth', date)}
                   />
+                  {
+                    validationErrors && validationErrors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mt-2'>{validationErrors['dateOfBirth']}</div> : ''
+                  }
                 </div>
               </div>
               <div className='col-md-6'>

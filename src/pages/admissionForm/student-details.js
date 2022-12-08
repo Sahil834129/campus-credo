@@ -104,7 +104,8 @@ export default function StudentDetails ({
           if (response.data.schoolCity) {
             populateCities(response.data.schoolState, setSchoolCity)
           }
-          setIsUserExist(true)
+          setIsUserExist(response.data.profileId ? true : false)
+
         } else {
           setIsUserExist(false)
         }

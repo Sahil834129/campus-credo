@@ -57,7 +57,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           hasMedicalConditions: response.data.medicalConditions ? 'Yes' : 'No',
           specialCare: response.data.specialCare,
           doesNeedSpecialCare: response.data.specialCare ? 'Yes' : 'No',
-          disabilities: response.data.disabilities,
+          disabilities: response.data.disabilities ? response.data.disabilities : [],
           otherDisability: response.data.otherDisability || '',
           disability: response.data.disabilities.length > 0 ? 'Yes' : 'No'
         })
@@ -67,6 +67,13 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
   }
 
   const saveData = async formData => {
+    let disabilitiesArray = formData.disabilities.filter(v=>v!= '')
+    
+    if (formData.disability === 'Yes' && disabilitiesArray.length === 0){
+      toast.error("Please select disability.")
+      return
+    }
+
     const disabilities =
       formData.disability === 'Yes' ? formData.disabilities : []
 
