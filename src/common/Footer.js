@@ -9,8 +9,14 @@ const Footer = () => {
     const navigate = useNavigate();
     
     function handleClick(path) {
+        window.scrollTo(0, 0)
         navigate(path);
     };
+
+    function navigateToRef(ref) {
+        window.scrollTo(0, 0)
+        navigate(ref)
+    }
     
     return(
         <footer className="footer-main">
@@ -22,7 +28,7 @@ const Footer = () => {
                 <h2>Quick Links</h2>
                 <ListGroup as="ul">
                     {PageContent.FOOTER_MENU_ITEMS.map((fMenuItem, index) => (
-                        <ListGroup.Item as="li" key={"footer_" + index}><Link to={fMenuItem.ref}>{fMenuItem.title}</Link></ListGroup.Item>
+                        <ListGroup.Item as="li" key={"footer_" + index}><a href='javascript:void(0);' onClick={e => navigateToRef(fMenuItem.ref)}>{fMenuItem.title}</a></ListGroup.Item>
                     ))}
                 </ListGroup>
             </div>

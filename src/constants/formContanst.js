@@ -18,7 +18,8 @@ export const RELIGION_OPTIONS = [
 
 export const NATIONALITY_OPTIONS = [
   { value: '', text: 'Select Option' },
-  { value: 'Indian', text: 'Indian' }
+  { value: 'Indian', text: 'Indian' },
+  { value: 'Other', text: 'Other' }
 ]
 
 export const CATEGORY_OPTIONS = [

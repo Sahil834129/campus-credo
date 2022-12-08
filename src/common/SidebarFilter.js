@@ -247,98 +247,118 @@ const SidebarFilter = ({ applyFilters }) => {
                 </h2>
                 <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
               </div>
-      
-              <InputField
-                fieldName='status'
-                fieldType='select'
-                placeholder=''
-                label='Admission Status'
-                selectOptions={admissionStatusOptions}
-                errors={errors}
-                touched={touched}
-              />
-              <InputField
-                fieldName='distance'
-                fieldType='select'
-                placeholder=''
-                label='Distance from Home'
-                selectOptions={distanceOptions}
-                errors={errors}
-                touched={touched}
-              />
-              <InputField
-                fieldName='class'
-                fieldType='select'
-                placeholder=''
-                label='Class'
-                selectOptions={classOptions}
-                errors={errors}
-                touched={touched}
-              />
-              <label>Monthly Tuition Fees</label>
-              <div className='range-slider-wrapper'>
-                
-                <MultiRangeSlider min={0}
-                  max={20000}
-                  step={500}
-                  minValue={minMonthlyTutionFee}
-                  maxValue={maxMonthlyTutionFee}
-                  ruler='false'
-                  label='false'
-                  onInput={(e) => {
-                    setMinMonthlyTutionFee(e.minValue);
-                    setMaxMonthlyTutionFee(e.maxValue);
-                  }}
-                  />
 
-                  <label className="income-range-value">₹ ({minMonthlyTutionFee + '-'+ maxMonthlyTutionFee})</label>
+              <div className='filter-item'>
+                <InputField
+                  fieldName='status'
+                  fieldType='select'
+                  placeholder=''
+                  label='Admission Status'
+                  selectOptions={admissionStatusOptions}
+                  errors={errors}
+                  touched={touched}
+                />
               </div>
-            
-              <InputField
-                fieldName='board'
-                fieldType='select'
-                placeholder=''
-                label='School Board'
-                selectOptions={boardOptions}
-                errors={errors}
-                touched={touched}
-              />
-              <InputField
-                fieldName='gender'
-                fieldType='select'
-                placeholder=''
-                label='Gender'
-                selectOptions={genderOptions}
-                errors={errors}
-                touched={touched}
-              />
-            <InputField
-              fieldName='medium'
-              fieldType='select'
-              placeholder=''
-              label='Medium of Instruction'
-              selectOptions={mediumOfInstructionsOtions}
-              errors={errors}
-              touched={touched}
-            />
-            <label>Facilities</label>
-            <MultiSelect 
-              options={facilitiesOptions}
-              value={facilities}
-              onChange={setFacilities}
-              labelledBy="Facilities"
-              >
-            </MultiSelect>
-            <label>Extracurriculars</label>
-            <MultiSelect 
-              options={extracurricularOptions}
-              value={extracurriculars}
-              onChange={setExtracurriculars}
-              labelledBy="Extracurriculars"
-              >
-            </MultiSelect>
-            <Button buttonLabel='Apply' class='applyFilter' />
-            
+              <div className='filter-item'>
+                <InputField
+                  fieldName='distance'
+                  fieldType='select'
+                  placeholder=''
+                  label='Distance from Home'
+                  selectOptions={distanceOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className='filter-item'>
+                <InputField
+                  fieldName='class'
+                  fieldType='select'
+                  placeholder=''
+                  label='Class'
+                  selectOptions={classOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className='filter-item'>
+                <label>Monthly Tuition Fees</label>
+                <div className='range-slider-wrapper'>
+                  
+                  <MultiRangeSlider min={0}
+                    max={20000}
+                    step={500}
+                    minValue={minMonthlyTutionFee}
+                    maxValue={maxMonthlyTutionFee}
+                    ruler='false'
+                    label='false'
+                    onInput={(e) => {
+                      setMinMonthlyTutionFee(e.minValue);
+                      setMaxMonthlyTutionFee(e.maxValue);
+                    }}
+                    />
+
+                    <label className="income-range-value">₹ ({minMonthlyTutionFee + '-'+ maxMonthlyTutionFee})</label>
+                </div>
+              </div>
+              <div className='filter-item'>
+                <InputField
+                  fieldName='board'
+                  fieldType='select'
+                  placeholder=''
+                  label='School Board'
+                  selectOptions={boardOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className='filter-item'>
+                <InputField
+                  fieldName='gender'
+                  fieldType='select'
+                  placeholder=''
+                  label='Gender'
+                  selectOptions={genderOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className='filter-item'>
+                <InputField
+                  fieldName='medium'
+                  fieldType='select'
+                  placeholder=''
+                  label='Medium of Instruction'
+                  selectOptions={mediumOfInstructionsOtions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className='filter-item multiselect-fld'>
+                <label>Facilities</label>
+                <MultiSelect 
+                  options={facilitiesOptions}
+                  value={facilities}
+                  onChange={setFacilities}
+                  labelledBy="Facilities"
+                  //isOpen={true}
+                  >
+                </MultiSelect>
+              </div>
+              <div className='filter-item multiselect-fld'>
+                <label>Extracurriculars</label>
+                <MultiSelect 
+                  options={extracurricularOptions}
+                  value={extracurriculars}
+                  onChange={setExtracurriculars}
+                  labelledBy="Extracurriculars"
+                  //isOpen={true}
+                  >
+                </MultiSelect>
+              </div>
+              <div className='filter-item btn-wrap'>
+                <Button buttonLabel='Apply' class='applyFilter' />
+              </div>
           </Form>
         )}
       </Formik>
