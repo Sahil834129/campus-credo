@@ -62,26 +62,26 @@ const SchoolDetails = () => {
 										: ''
 									}
 									<div className='academic-stat-wrapper'>
-										<SchoolStats schoolDetails={schoolDetails} />
 										<Col className='about-school-wrap'>
-											<Description heading="About School" description={schoolDetails.aboutSchool} />
+											{schoolDetails.aboutSchool && <Description heading="About School" description={schoolDetails.aboutSchool} />}
 										</Col>
+										<SchoolStats schoolDetails={schoolDetails} />
 										<Col className='facilities-list'>
 											<SchoolFacilities schoolCategoryFacilitiesMap={schoolCategoryFacilitiesMap} />
 										</Col>
-										<Col className='fee-structure-wrap'>
+										{/* <Col className='fee-structure-wrap'>
 											<SchoolDetailFeeStructure />
 										</Col>
 										<Col className='about-school-wrap'>
 											<Description heading="Curriculum & Infrastructure" description={schoolDetails.curriculamInfra} />
 											<Description heading="Achievements" description={schoolDetails.achievements} />
-										</Col>
+										</Col> */}
 										<Col>
 											<Desclaimer heading={PageContent.SCHOOL_DTL_DISCLAIMER.heading} description={PageContent.SCHOOL_DTL_DISCLAIMER.description} />
 										</Col>
-										<Col>
+										{/* <Col>
 											<FAQAccordion />
-										</Col>
+										</Col> */}
 									</div>
 								</div>
 							</Col>

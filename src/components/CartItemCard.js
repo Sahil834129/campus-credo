@@ -68,7 +68,7 @@ const CartItemCard = (props) => {
                         <div className='right seats'>₹{cartItem.admissionFormFee}</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <div className='left'>Convenience Fee:</div>
+                        <div className='left'>Platform Fee:</div>
                         <div className='right seats'>₹0</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
