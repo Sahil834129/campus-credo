@@ -18,7 +18,19 @@
     background-position: 0 0;
     background-size: cover;
   }
+  header.header{
+    position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+      
+  }
+  .content-area{
+    padding-top: 116px;
+  }
 }
+
 .no-record-wrap{
   display: flex;
   width: 100%;
@@ -90,6 +102,68 @@
       }
       .form-container{
         padding: 0 12% 40px 12%;
+        .frm-cell{
+          display: flex;
+          .form-group{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            input{
+              //background: #EEEEEE;
+             // border: 1px solid #41285F;
+              //box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+              border-radius: 4px;
+              height: 42px;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 18px;
+              letter-spacing: 0.01em;
+              &:focus{
+                background: #EEEEEE;
+                border: 1px solid #41285F;
+                box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                color: $primarycolor;
+              }
+            }
+            select{
+              //background: #EEEEEE;
+              //border: 1px solid #41285F;
+              //box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+              border-radius: 4px;
+              height: 42px;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 18px;
+              letter-spacing: 0.01em;
+              &:focus{
+                background: #EEEEEE;
+                border: 1px solid #41285F;
+                box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                color: $primarycolor;
+              }
+            }
+            label{
+              align-items: flex-start;
+              span{
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 18px;
+                letter-spacing: 0.01em;
+                color: rgba(0, 0, 0, 0.8);
+              }
+              input[type=checkbox]{
+                margin-top: 3px;
+                height: auto;
+              }
+            }
+          }
+          &.frm-lbl-cell{
+            flex-direction: row;
+          }
+          &.frm-btn-wrap{}
+        }
         .form-group{
           position: relative;
           .error-exception{
@@ -237,11 +311,11 @@ ul.list-group{
   background-color: $white;
   padding: 0;
   &.home-page{
-    padding-top: 42px;
+    // padding-top: 42px;
   }
   &.about-page{
     background-image: none;
-    padding: 0;
+    
   }
   .bc-main-wrap{
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -310,7 +384,7 @@ ul.list-group{
             border: 1px solid $darkgreen;
             background: $darkgreen;
             border-radius: 24px;
-            top: 7px;
+            top: 6px;
             left: 10px;
           }
         }
@@ -326,7 +400,7 @@ ul.list-group{
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 42px;
-      padding: 0 52px;
+      padding: 42px 52px;
       margin-bottom: 0;
       .hero-item{
         h2{
@@ -670,6 +744,7 @@ ul.list-group{
             align-content: center;
             justify-content: space-between;
             padding: 0 0 12px 0;
+            align-items: center;
             .cell{
               h4{
                 font-style: normal;
@@ -3472,9 +3547,9 @@ ul.list-group{
             border: 1px solid $primarycolor;
           }
           &.signup-btn{
-            background: #FFFFFF;
+            background: #41285F;
             border: 1px solid #41285F;
-            color: #41285F;
+            color: #ffffff;
             
             
           }
@@ -3486,7 +3561,7 @@ ul.list-group{
           display: flex;
           flex-direction: row;
           margin-top: 58px;
-          margin-bottom: 58px;
+          margin-bottom: 71px;
           li{
             i{
               margin-bottom: 9px;

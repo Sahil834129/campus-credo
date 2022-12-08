@@ -43,7 +43,7 @@ const Footer = () => {
                 </ListGroup>
             </div>
             <div className="fcol btn-container">
-                <Button className="faq-btn" onClick={() => handleClick("/faqs")}><i className="icons questionmark-icon"></i> Frequesntly Asked Questions</Button>
+                <Button className="faq-btn" onClick={() => handleClick("/faqs")}><i className="icons questionmark-icon"></i> Frequently Asked Questions</Button>
                 <Button className="contact-btn" onClick={() => handleClick("/contactUs")}><i className="icons contactloc-icon"></i>Contact Us</Button>
             </div>
             
