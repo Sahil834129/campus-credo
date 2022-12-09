@@ -12,7 +12,8 @@ const PaymentCard = ({selectedChild}) => {
     selectedChild.cartItems.forEach(cartItem => {
       totalFee += parseFloat(cartItem.admissionFormFee);
     });
-    totalPay = totalFee;
+    let gstAmt = parseFloat((totalFee + parseFloat(convenienceFee)) * 18/100,).toFixed(2)
+    totalPay = parseFloat(totalFee) + parseFloat(gstAmt);
 
     const handleShowReviewApplication = () => setShowReviewApplication(true)
     const handleCloseReviewApplicationDialog = () => {
@@ -36,9 +37,13 @@ const PaymentCard = ({selectedChild}) => {
                         <div className='cell left'>Platform Fee</div>
                         <div className='cell right'> ₹{convenienceFee}</div>
                     </ListGroup.Item>
+                    <ListGroup.Item>
+                        <div className='cell left'>GST 18%</div>
+                        <div className='cell right'> ₹{gstAmt}</div>
+                    </ListGroup.Item>
                     <ListGroup.Item className="total">
                         <div className='cell left'>Total Payment</div>
-                        <div className='cell right totalpayment'>₹{totalPay}</div>
+                        <div className='cell right totalpayment'>₹{totalPay.toFixed(2)}</div>
                     </ListGroup.Item>
                 </ListGroup>
             </Card.Body>
@@ -49,7 +54,7 @@ const PaymentCard = ({selectedChild}) => {
                     >
                     Review Admission Form <br /> and Checkout
                 </Card.Link>
-                <Card.Link href="#" className='btn addmore'>Add More Schools</Card.Link>
+                <Card.Link href="/schools" className='btn addmore'>Add More Schools</Card.Link>
             </Card.Body>
             <ReviewAdmissionDialog show={showReviewApplication} handleClose={handleCloseReviewApplicationDialog} childId={selectedChild.id} />
         </Card>
