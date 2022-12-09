@@ -52,7 +52,7 @@ export function DocumentTableFormat ({
         setFiles(fileData)
       }
     } catch (error) {
-      // toast.error(RESTClient.getAPIErrorMessage(error))
+      toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
 

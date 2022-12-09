@@ -228,7 +228,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                 <div className="admin-detail-row">
                                     <div className='admin-detail-cell'>
                                         <label>Annual Family Income </label>
-                                        <span className="item-entry">{parentDetail.annualFamilyIncomes?.replace('[','').replace(']','').replace(',',' - ')}</span>
+                                        <span className="item-entry">{parentDetail.annualFamilyIncome}</span>
                                     </div>
                                 </div>
                             </Accordion.Body>
