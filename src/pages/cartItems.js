@@ -77,11 +77,14 @@ const ApplicationCart = () => {
   return (
     <Layout>
       <section className="content-area">
-        <Container className="content-area-inner cart-page-wrapper">
-          <Row className='content-section'>
+        <Container className="content-area-inner inner-page-container cart-page-wrapper">
+          <Row className='content-section bc-section'>
             <Breadcrumbs />
             <Col className='page-container'>
-              <div className='row-wrapper'>
+              
+              <div className='cart-content-row'>
+                <Col className='cell left'>
+                <div className='row-wrapper'>
                 <label>Select Child<span className='req'>*</span></label>
                 <Form.Group className='d-flex'>
                   {
@@ -98,8 +101,6 @@ const ApplicationCart = () => {
                   }
                 </Form.Group>
               </div>
-              <div className='cart-content-row'>
-                <Col className='cell left'>
                   {
                     selectedChild.id !== '' 
                     ? <CartItemsGrid selectedChild={selectedChild} handleChildSelection={handleChildSelection}/>
