@@ -74,7 +74,6 @@ export default function StudentDetails ({
         delete postData.success
         delete postData.parentId
         const response = await RESTClient.put(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
-        console.log(response, postData);
         setSelectedChild(val => {
           return {
             ...val,
@@ -86,7 +85,6 @@ export default function StudentDetails ({
         })
       } else {
         const response = await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
-        console.log(response, postData);
         setSelectedChild(val => {
           return {
             ...val,

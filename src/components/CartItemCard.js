@@ -1,17 +1,18 @@
 import React, {useState} from "react";
 import Card from 'react-bootstrap/Card';
 import SchoolCardHeader from "./SchoolCardHeader";
-import ListGroup from 'react-bootstrap/ListGroup';
 import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getItemsInCart } from '../redux/actions/cartAction';
 import ConfirmDialog from "../common/ConfirmDialog";
+import { useNavigate } from "react-router-dom";
 
 const CartItemCard = (props) => {
     const cartItem = props.cartItem;
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const confirmMessage = "Are you sure to remove the school from application list?";
     const [showConfirmDialog, setShowConfirmDialog] = useState({show:false});
     
@@ -34,6 +35,10 @@ const CartItemCard = (props) => {
 
     const handleConfirmDialogClose = () => {
         setShowConfirmDialog(false);
+    }
+
+    function viewSchoolDetails(schoolId, schoolName) {
+        navigate("/schools/"+schoolName+"?id="+btoa(`#${schoolId}`));
     }
 
     return (
@@ -72,7 +77,7 @@ const CartItemCard = (props) => {
                 </ListGroup> */}
                 <div className='card-header-item'>
                     <div className='cell'>
-                        <Card.Link>View Details</Card.Link>
+                        <Card.Link href='javascript:void(0)' onClick={(e)=>viewSchoolDetails(cartItem.schoolDto.schoolId, cartItem.schoolDto.schoolName)}>View Details</Card.Link>
                     </div>
                     <div className='cell'>
                         <Card.Link onClick={e=>removeFromCart(cartItem.cartId)} className='rem'>Remove</Card.Link>
