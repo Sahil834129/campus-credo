@@ -38,16 +38,10 @@ const CartItemCard = (props) => {
 
     return (
         <>
-            <Card className='school-card cart-active'>
-                <div className='card-header-item'>
-                    <div className='cell'>
-                    </div>
-                    <div className='cell'>
-                        <Card.Link onClick={e=>removeFromCart(cartItem.cartId)} className='rem'>Remove</Card.Link>
-                    </div>
-                </div>
+            <Card className='school-card cart-block cart-active'>
+                
                 <SchoolCardHeader school={cartItem.schoolDto}/>
-                <ListGroup className="info-list-group">
+                {/* <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Applying to Class</div>
                         <div className='right'>{cartItem.className}</div>
@@ -75,7 +69,15 @@ const CartItemCard = (props) => {
                         <div className='left'>Total Fee:</div>
                         <div className='right seats'>₹{cartItem.admissionFormFee}</div>
                     </ListGroup.Item>
-                </ListGroup>
+                </ListGroup> */}
+                <div className='card-header-item'>
+                    <div className='cell'>
+                        <Card.Link>View Details</Card.Link>
+                    </div>
+                    <div className='cell'>
+                        <Card.Link onClick={e=>removeFromCart(cartItem.cartId)} className='rem'>Remove</Card.Link>
+                    </div>
+                </div>
             </Card>
             <ConfirmDialog show={showConfirmDialog.show} message={confirmMessage} 
                 handleConfirm={handleRemoveFromCartConfirm}
