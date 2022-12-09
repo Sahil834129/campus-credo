@@ -7,6 +7,7 @@ const RadioButton = props => {
         name={props.fieldName}
         value={props.value}
         checked={props.value === props.currentValue}
+        disabled={props.disabled}
         {...(props.onChange ? { onChange: props.onChange } : {})}
         {...(props.defaultChecked
           ? { defaultChecked: props.defaultChecked }

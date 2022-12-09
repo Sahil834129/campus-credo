@@ -12,15 +12,15 @@ const initalValue = {
   otherRelation: '',
   firstName: '',
   lastName: '',
-  gender: '',
-  nationality: 'Indian',
+  gender: 'Male',
+  nationality: '',
   otherNationality: '',
   maritalStatus: 'Married',
   addressLine1: 'Yes',
   qualification: 'Diploma',
   occupation: 'Chartered_Accountant',
   annualFamilyIncome: '',
-  isAddressSameAsStudent:'No',
+  isAddressSameAsStudent: 'No',
   guardianDeceased: 'No',
   dateOfBirth: new Date()
 };
@@ -33,7 +33,11 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
   const getParentDetail = (parentDetails, selectedParent) => {
     return parentDetails.find(val => {
       const parent = val.relation;
-      return (parent.toLowerCase() === selectedParent);
+      if (selectedParent === 'other') {
+        return (parent.toLowerCase() !== 'father' && parent.toLowerCase() !== 'mother');
+      } else {
+        return (parent.toLowerCase() === selectedParent);
+      }
     });
   };
   async function getUsersParent(user) {
@@ -41,7 +45,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
       const response = await RESTClient.get(
         RestEndPoint.GET_STUDENT_PARENT + `/${user.childId}`
       );
-      if (response.data !== '') {
+      if (response.data !== '' && response.data.length > 0) {
         const parents = response.data;
         setAllParentDetail(parents);
         const fatherDetail = getParentDetail(parents, 'father');
@@ -51,6 +55,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
               ...val,
               ...fatherDetail,
               dateOfBirth: fatherDetail?.dateOfBirth,
+              gender: 'Male',
               otherRelation: fatherDetail?.relation,
               nationality:
                 fatherDetail?.nationality === ''
@@ -71,21 +76,33 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
   }
 
   useEffect(() => {
-    if (key !== "father") {
+    if (key !== "") {
       const data = getParentDetail(allParentDetail, key);
-      setValues(() => {
-        return {
-          ...initalValue,
-          ...data,
-          dateOfBirth: data?.dateOfBirth,
-          otherRelation: data?.relation,
-          nationality:
-            data?.nationality === ''
-              ? 'Other'
-              : data?.nationality,
-          isAddressSameAsStudent: 'No'
-        };
-      });
+      if (data) {
+        setValues(() => {
+          return {
+            ...initalValue,
+            ...data,
+            dateOfBirth: data?.dateOfBirth,
+            otherRelation: data?.relation,
+            gender: key == "mother" ? 'Female' : ( key == "father" ? 'Male' :data?.gender),
+            nationality:
+              data?.nationality === ''
+                ? 'Other'
+                : data?.nationality,
+            isAddressSameAsStudent: 'No'
+          };
+        });
+        setParentExist(data ? true : false);
+      }else {
+        setValues(() => {
+          return {
+            ...initalValue,
+            gender: key == "mother" ? 'Female' : ( key == "father" ? 'Male' :data?.gender),
+            relation: key,
+          }
+        })
+      }
       setParentExist(data ? true : false);
     }
   }, [key, allParentDetail]);
@@ -115,6 +132,8 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                 setKey={setKey}
                 nextParent={'mother'}
                 parentExist={parentExist}
+                disableGender={true}
+                setAllParentDetail={setAllParentDetail}
               />
             </div>
           </div>
@@ -131,6 +150,8 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                 setKey={setKey}
                 nextParent={'other'}
                 parentExist={parentExist}
+                disableGender={true}
+                setAllParentDetail={setAllParentDetail}
               />
             </div>
           </div>
@@ -147,6 +168,8 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                 setKey={setKey}
                 nextParent={''}
                 parentExist={parentExist}
+                disableGender={false}
+                setAllParentDetail={setAllParentDetail}
               />
             </div>
           </div>

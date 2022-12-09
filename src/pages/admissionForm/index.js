@@ -110,9 +110,9 @@ export const AdmissionForms = () => {
     if (childsList.length > 0) {
       if (setSelectedChild) {
         setSelectedChild(val => {
-          return { ...val, ...childsList[0] }
+          return { ...val, ...childsList[2] }
         })
-        setCurrentStudent({ ...childsList[0] })
+        setCurrentStudent({ ...childsList[2] })
       }
     }
   }, [childsList])

@@ -26,7 +26,9 @@ export default function ParentsGuardianForm({
   nextParent,
   values,
   setValues,
-  parentExist
+  disableGender,
+  parentExist,
+  setAllParentDetail,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -72,9 +74,25 @@ export default function ParentsGuardianForm({
         delete postData.parentId;
 
         await RESTClient.put(RestEndPoint.GET_STUDENT_PARENT, postData);
+        setAllParentDetail(val => {
+          return val.map(parent => {
+            if(parent.id === formData.id){
+              return {...values, ...formData}
+            }else{
+              return parent
+            }
+          })
+        })
       } else {
         await RESTClient.post(RestEndPoint.GET_STUDENT_PARENT, postData);
+        setAllParentDetail(val => {
+          return [
+            ...val,
+            {...formData}
+          ]
+        })
       }
+      
       //toast.success('Student details saved successfully.')
       if (nextParent === '') {
         setStep(val => val + 1);
@@ -102,7 +120,6 @@ export default function ParentsGuardianForm({
   }, [occupation]);
 
   function isValidFormData(formData) {
-    console.log(formData);
     try {
       StudentParentGuardianSchema.validateSync(formData, { abortEarly: false });
     } catch (error) {
@@ -217,6 +234,7 @@ export default function ParentsGuardianForm({
                         value={val.value}
                         fieldName='gender'
                         currentValue={values.gender}
+                        disabled={disableGender}
                         onChange={e => {
                           setFieldValue('gender', val.value);
                         }}
@@ -279,7 +297,7 @@ export default function ParentsGuardianForm({
                   }}
                   required={values.nationality === 'Indian'}
                   placeholder='Please add details...'
-                  disabled={values.nationality === 'Indian'}
+                  disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
                 />
               </div>
               <div className='col-md-6'>

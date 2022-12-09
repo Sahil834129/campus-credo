@@ -33,6 +33,7 @@ export default function StudentDetails ({
 }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const childsList = useSelector(state => state.childsData.childs)
   const classOptions = useSelector(state => state.masterData.schoolClasses)
   const states = useSelector(state => state.masterData.states)
   const [validationErrors, setValidationErrors] = useState({})
@@ -45,6 +46,7 @@ export default function StudentDetails ({
   const saveStudentDetails = async e => {
     resetValidationErrors()
     e.preventDefault()
+    console.log(selectedChild, currentStudent )
     let postData = { ...selectedChild, ...currentStudent }
     if (!isValidFormData(postData))
       return
@@ -71,10 +73,29 @@ export default function StudentDetails ({
       if (isUserExist) {
         delete postData.success
         delete postData.parentId
-
-        await RESTClient.put(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
+        const response = await RESTClient.put(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
+        console.log(response, postData);
+        setSelectedChild(val => {
+          return {
+            ...val,
+            ...response.data,
+            isProvidingCurrentSchoolInfo: response.data.schoolName
+              ? 'Yes'
+              : 'No'
+          }
+        })
       } else {
-        await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
+        const response = await RESTClient.post(RestEndPoint.CREATE_STUDENT_PROFILE, postData)
+        console.log(response, postData);
+        setSelectedChild(val => {
+          return {
+            ...val,
+            ...response.data,
+            isProvidingCurrentSchoolInfo: response.data.schoolName
+              ? 'Yes'
+              : 'No'
+          }
+        })
       }
       //toast.success('Student details saved successfully.')
       setStep(val => val + 1)
@@ -100,6 +121,8 @@ export default function StudentDetails ({
                 : 'No'
             }
           })
+          setIsUserExist(response.data.profileId ? true : false)
+
           populateCities(response.data.state, setCity)
           if (response.data.schoolCity) {
             populateCities(response.data.schoolState, setSchoolCity)
@@ -125,14 +148,15 @@ export default function StudentDetails ({
   }
 
   useEffect(() => {
-    dispatch(getChildsList())
+    if(childsList.length ===0 )
+      dispatch(getChildsList())
     if (classOptions.length === 0) {
       dispatch(getSchoolClasses())
     }
     if (states.length === 1) {
       dispatch(getStates())
     }
-  }, [dispatch])
+  }, [dispatch, childsList])
 
   useEffect(() => {
     if (currentStudent.childId) getCurrentUser(currentStudent.childId)
@@ -211,6 +235,7 @@ export default function StudentDetails ({
           <SelectField
             fieldName='className'
             label='Select Class'
+            required={true}
             errors={validationErrors}
             selectOptions={classOptions}
             value={selectedChild.className}
@@ -223,6 +248,7 @@ export default function StudentDetails ({
           <SelectField
             fieldName='religion'
             label='Select Religion'
+            required={true}
             errors={validationErrors}
             selectOptions={RELIGION_OPTIONS}
             value={selectedChild.religion}
@@ -242,6 +268,7 @@ export default function StudentDetails ({
           rows='5'
           value={selectedChild.identificationMarks}
           onChange={e => {
+            console.log(e.target.value)
             setFieldValue('identificationMarks', e.target.value)
           }}
         ></textarea>
@@ -254,6 +281,7 @@ export default function StudentDetails ({
           <SelectField
             fieldName='nationality'
             label='Nationality'
+            required={true}
             errors={validationErrors}
             selectOptions={NATIONALITY_OPTIONS}
             value={selectedChild.nationality}
@@ -268,6 +296,7 @@ export default function StudentDetails ({
         <SelectField
           fieldName='category'
           label='Select Category'
+          required={true}
           errors={validationErrors}
           selectOptions={CATEGORY_OPTIONS}
           value={selectedChild.category}
