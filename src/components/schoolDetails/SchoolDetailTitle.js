@@ -6,7 +6,9 @@ const SchoolDetailTitle = (props) => {
         <div className='titlebar'>
             <div className='cell left'>
                 <h2>{props.schoolName}</h2>
-                <h6>Since - {props.establishYear}</h6>
+                {
+                    props.establishYear ? <h6>Since - {props.establishYear}</h6> : ''
+                }
             </div>
             <div className='cell right'>
                 <h4>Got Questions?</h4>

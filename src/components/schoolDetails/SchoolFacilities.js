@@ -1,13 +1,32 @@
 import React, {useState, useEffect} from "react";
 import Accordion from 'react-bootstrap/Accordion';
+import PageContent from "../../resources/pageContent";
 
-const SchoolFacilities = (props) => {
+const SchoolFacilities = ({schoolCategoryFacilitiesMap}) => {
     return (
         <>
         <h2>Facilities</h2>
-        <Accordion defaultActiveKey="0" flush>
+        
         {
-            Object.entries(props.schoolCategoryFacilitiesMap).map(([key,values],index)=>{
+            Object.entries(schoolCategoryFacilitiesMap).map(([key,values],index)=>{
+                return (
+                    <div key={"featureHeader_"+index}>
+                        {key}
+                        <ul>
+                            {
+                               values.map((value, i) => {
+                                    let fIcon = PageContent.FACILITY_ICON_MAP.hasOwnProperty(value) ? PageContent.FACILITY_ICON_MAP[value] : null;
+                                    return <li key={"featureName_"+i}><i className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i>{value}</li>
+                               })
+                            }
+                        </ul>
+                    </div>
+                )
+            })
+        }
+        {/* <Accordion defaultActiveKey="0" flush>
+        {
+            Object.entries(schoolCategoryFacilitiesMap).map(([key,values],index)=>{
                 return (
                 <Accordion.Item eventKey={index} key={"feature_"+index}>
                     <Accordion.Header key={"featureHeader_"+index}>{key}</Accordion.Header>
@@ -25,7 +44,7 @@ const SchoolFacilities = (props) => {
                 )
             })
         }
-        </Accordion>
+        </Accordion> */}
         </>
     )
 }

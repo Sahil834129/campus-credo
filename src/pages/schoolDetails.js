@@ -16,7 +16,6 @@ import Description from '../components/Description';
 import PageContent from '../resources/pageContent';
 import Desclaimer from '../components/Desclaimer';
 import NearBySchools from '../components/NearBySchools';
-import FAQAccordion from '../components/FAQAccordion';
 import { isLoggedIn } from '../utils/helper';
 
 const SchoolDetails = () => {
@@ -54,7 +53,10 @@ const SchoolDetails = () => {
 						<Row className='content-section'>
 							<Breadcrumbs />
 							<Col className='page-container'>
-								<SchoolDetailTitle schoolName={schoolDetails.name} establishYear={schoolDetails.yearEstablishedIn} />
+								{
+									console.log("here " ,schoolDetails )
+								}
+								<SchoolDetailTitle schoolName={schoolDetails.schoolName} establishYear={schoolDetails.yearEstablishedIn} />
 								<div className='school-details-container'>
 									<SchoolBasicInfo schoolDetails={schoolDetails} />
 									{isLoggedIn() && schoolDetails.hasOwnProperty("admissionInfo") ?
@@ -71,17 +73,14 @@ const SchoolDetails = () => {
 										</Col>
 										{/* <Col className='fee-structure-wrap'>
 											<SchoolDetailFeeStructure />
-										</Col>
-										<Col className='about-school-wrap'>
-											<Description heading="Curriculum & Infrastructure" description={schoolDetails.curriculamInfra} />
-											<Description heading="Achievements" description={schoolDetails.achievements} />
 										</Col> */}
+										<Col className='about-school-wrap'>
+											{ schoolDetails.curriculamInfra ? <Description heading="Curriculum & Infrastructure" description={schoolDetails.curriculamInfra} /> :''}
+											{ schoolDetails.achievements ? <Description heading="Achievements" description={schoolDetails.achievements} /> : ''}
+										</Col> 
 										<Col>
 											<Desclaimer heading={PageContent.SCHOOL_DTL_DISCLAIMER.heading} description={PageContent.SCHOOL_DTL_DISCLAIMER.description} />
 										</Col>
-										{/* <Col>
-											<FAQAccordion />
-										</Col> */}
 									</div>
 								</div>
 							</Col>
