@@ -10,13 +10,13 @@ const SchoolFacilities = ({schoolCategoryFacilitiesMap}) => {
         {
             Object.entries(schoolCategoryFacilitiesMap).map(([key,values],index)=>{
                 return (
-                    <div key={"featureHeader_"+index}>
-                        {key}
+                    <div className="facility-row" key={"featureHeader_"+index}>
+                        <h2>{key}</h2>
                         <ul>
                             {
                                values.map((value, i) => {
                                     let fIcon = PageContent.FACILITY_ICON_MAP.hasOwnProperty(value) ? PageContent.FACILITY_ICON_MAP[value] : null;
-                                    return <li key={"featureName_"+i}><i className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i>{value}</li>
+                                    return <li key={"featureName_"+i}><i className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i><label>{value}</label></li>
                                })
                             }
                         </ul>
