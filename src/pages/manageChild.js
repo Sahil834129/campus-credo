@@ -70,7 +70,7 @@ const ManageChild = () => {
                                 <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
                             </Col>
                             <Col className='profile-content right'>
-                                <div className='border-bottom d-flex justify-content-right pb-2 pt-2'>
+                                <div className='border-bottom top-btn-wrap'>
                                    
                                     <Button
                                         className='add-child-btn'
