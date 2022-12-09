@@ -106,6 +106,7 @@ const LoginDialog = (props) => {
             } else {
                 loadUserData()
             }
+            resetSignInFormValues();
         } catch (error) {
             let errorMsg = RESTClient.getAPIErrorMessage(error)
             if (errorMsg === 'MOBILE NOT VERIFIED') {
@@ -119,7 +120,6 @@ const LoginDialog = (props) => {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));
         }
-        resetSignInFormValues();
     }
 
     const redirectSignUp = () => {
