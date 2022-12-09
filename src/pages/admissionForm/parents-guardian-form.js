@@ -105,19 +105,24 @@ export default function ParentsGuardianForm({
   };
 
   const setFieldValue = (fieldName, fieldValue) => {
-    setValues({
-      ...values,
-      [fieldName]: fieldValue
-    });
+    setValues(val=> {
+      return {
+        ...val,
+        [fieldName]: fieldValue
+      }
+    })
   };
-
-
 
   useEffect(() => {
     if (occupation.length === 0) {
       dispatch(getParentOCcupation());
     }
   }, [occupation]);
+
+  useEffect(()=>{
+    if(values?.state)
+      populateCities(values.state, setCity)
+  }, [values.state])
 
   function isValidFormData(formData) {
     try {
@@ -144,7 +149,7 @@ export default function ParentsGuardianForm({
       <div className='tab_btn'>
         <div className='tab-content'>
           <div className='tab-pane active' id='demo1'>
-            <form className='row g-3'>
+            <div className='row g-3'>
               <div className='col-md-6'>
                 <TextField
                   fieldName='firstName'
@@ -454,6 +459,11 @@ export default function ParentsGuardianForm({
                       fieldName='isAddressSameAsStudent'
                       currentValue={values.isAddressSameAsStudent}
                       onChange={e => {
+                        setFieldValue('addressLine1', currentStudent.addressLine1)
+                        setFieldValue('addressLine2', currentStudent.addressLine2)
+                        setFieldValue('state', currentStudent.state)
+                        setFieldValue('pincode', currentStudent.pincode)
+                        setFieldValue('city', currentStudent.city)
                         setFieldValue('isAddressSameAsStudent', 'Yes');
                       }}
                     />
@@ -466,6 +476,11 @@ export default function ParentsGuardianForm({
                       fieldName='isAddressSameAsStudent'
                       currentValue={values.isAddressSameAsStudent}
                       onChange={e => {
+                        setFieldValue('addressLine1', '')
+                        setFieldValue('addressLine2', '')
+                        setFieldValue('state', '')
+                        setFieldValue('pincode', '')
+                        setFieldValue('city', '')
                         setFieldValue('isAddressSameAsStudent', 'No');
                       }}
                     />
@@ -541,13 +556,7 @@ export default function ParentsGuardianForm({
                 </div>
               </div>
 
-            </form>
-          </div>
-          <div className='tab-pane' id='demo2'>
-            <h1>hello shiv</h1>
-          </div>
-          <div className='tab-pane' id='demo3'>
-            <h1>hello </h1>
+            </div>
           </div>
         </div>
       </div>

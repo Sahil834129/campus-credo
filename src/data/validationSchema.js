@@ -181,6 +181,11 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     occupation: Yup.string().required("Required *"),
     dateOfBirth: Yup.string().required("Required *"),
     annualFamilyIncome: Yup.string().matches(/^[0-9]+$/, { message: 'Please Enter only numeric value.' }).required("Required *"),
+    addressLine1: Yup.string().required("Required *"),
+    addressLine2: Yup.string().required("Required *"),
+    city: Yup.string().required("Required *"),
+    state: Yup.string().required("Required *"),
+    pincode: Yup.string().required("Required *"),
 })
 
 

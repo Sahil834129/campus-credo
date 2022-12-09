@@ -60,8 +60,9 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
               nationality:
                 fatherDetail?.nationality === ''
                   ? 'Other'
-                  : fatherDetail?.nationality
-
+                  : fatherDetail?.nationality,
+              
+              isAddressSameAsStudent: (isAddressSameAsStudent(fatherDetail, currentStudent) ? 'Yes' : 'No')
             };
           });
           setParentExist(true);
@@ -73,6 +74,18 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
       console.log(error);
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
+  }
+
+  function isAddressSameAsStudent(fatherAddress, studentAddress) {
+    if (fatherAddress.addressLine1) {
+      return (
+        fatherAddress.addressLine1 === studentAddress.addressLine1 &&
+        fatherAddress.addressLine2 === studentAddress.addressLine2 &&
+        fatherAddress.city === studentAddress.city &&
+        fatherAddress.state === studentAddress.state &&
+        fatherAddress.pincode === studentAddress.pincode)
+    }
+    return false
   }
 
   useEffect(() => {
@@ -90,7 +103,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
               data?.nationality === ''
                 ? 'Other'
                 : data?.nationality,
-            isAddressSameAsStudent: 'No'
+            isAddressSameAsStudent: ( isAddressSameAsStudent(data, currentStudent) ? 'Yes' : 'No')
           };
         });
         setParentExist(data ? true : false);
