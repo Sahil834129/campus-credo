@@ -83,10 +83,10 @@ const ApplicationCart = () => {
             <Col className='page-container'>
               
               <div className='cart-content-row'>
-                <Col className='cell left'>
+                <Col className='cell cart-content-area left'>
                 <div className='row-wrapper'>
                 <label>Select Child<span className='req'>*</span></label>
-                <Form.Group className='d-flex'>
+                <Form.Group className='item-list-container'>
                   {
                     childs.map((c, i) => {
                         return <Form.Check type="radio" 

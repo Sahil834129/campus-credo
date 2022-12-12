@@ -305,7 +305,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           </div>
           {values.disability === 'Yes' && (
             <>
-              <div className='d-flex'>
+              <div className='disability-list-wrapper'>
                 {disabilitiesOption
                   .filter((it, idx) => {
                     return idx < 5
@@ -314,7 +314,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        className={index !== 0 ? ' ms-3' : ''}
+                        className={index !== 0 ? 'disability-list' : ''}
                       >
                         <InputField
                           fieldName='disabilities'
@@ -341,7 +341,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     )
                   })}
               </div>
-              <div className='d-flex'>
+              <div className='disability-list-wrapper'>
                 {disabilitiesOption
                   .filter((it, idx) => {
                     return idx >= 5 && idx < 10
@@ -350,7 +350,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        className={index !== 0 ? ' ms-3' : ''}
+                        className={index !== 0 ? 'disability-list' : ''}
                       >
                         <InputField
                           fieldName='disabilities'
