@@ -496,6 +496,7 @@ export default function ParentsGuardianForm({
                       errors={validationErrors}
                       label='House No., Block No.'
                       value={values.addressLine1}
+                      disabled={values.isAddressSameAsStudent}
                       onChange={e => {
                         setFieldValue('addressLine1', e.target.value)
                       }}
@@ -508,6 +509,7 @@ export default function ParentsGuardianForm({
                       errors={validationErrors}
                       label='Area or Locality'
                       value={values.addressLine2}
+                      disabled={values.isAddressSameAsStudent}
                       onChange={e => {
                         setFieldValue('addressLine2', e.target.value)
                       }}
@@ -520,6 +522,7 @@ export default function ParentsGuardianForm({
                       required
                       errors={validationErrors}
                       value={values.pincode}
+                      disabled={values.isAddressSameAsStudent}
                       maxLength='6'
                       onChange={e => {
                         setFieldValue('pincode', e.target.value)
@@ -538,6 +541,7 @@ export default function ParentsGuardianForm({
                         populateCities(e.target.value, setCity)
                         setFieldValue('state', e.target.value)
                       }}
+                      disabled={values.isAddressSameAsStudent}
                     />
                   </div>
                   <div className='col-md-6'>
@@ -551,6 +555,7 @@ export default function ParentsGuardianForm({
                       onChange={e => {
                         setFieldValue('city', e.target.value)
                       }}
+                      disabled={values.isAddressSameAsStudent}
                     />
                   </div>
                 </div>

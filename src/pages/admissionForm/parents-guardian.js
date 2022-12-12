@@ -20,7 +20,7 @@ const initalValue = {
   qualification: 'Diploma',
   occupation: 'Chartered_Accountant',
   annualFamilyIncome: '',
-  isAddressSameAsStudent: 'No',
+  isAddressSameAsStudent: 'Yes',
   guardianDeceased: 'No',
   dateOfBirth: new Date()
 };
@@ -85,7 +85,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
         fatherAddress.state === studentAddress.state &&
         fatherAddress.pincode === studentAddress.pincode)
     }
-    return false
+    return true
   }
 
   useEffect(() => {
