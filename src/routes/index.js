@@ -50,7 +50,6 @@ function AppRoutes () {
         <Route path='/user/reset/:token' element={<ResetPassword />} />
         <Route path='/verifyPhone/:phone' element={<VerifyPhone />} />
         <Route path='/schools/:id' element={<SchoolDetails />} />
-        <Route path='/cart' element={<ApplicationCart />} />
         <Route path='/notFound' element={<NotFound />} />
       </Routes>
       <Routes>
@@ -58,6 +57,7 @@ function AppRoutes () {
           <Route path='/userProfile' element={<UserProfile />} />
           <Route path='/manageProfile' element={<ManageProfile />} />
           <Route path='/manageChild' element={<ManageChild />} />
+          <Route path='/selectedSchools' element={<ApplicationCart />} />
           <Route
             path='/userProfile/admissionForm'
             element={<SchoolAdmission />}
