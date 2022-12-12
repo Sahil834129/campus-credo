@@ -44,7 +44,7 @@ const ApplyToSchool = (props) => {
             let feeMap = {};
             setClassOptions([{"value":"","text":"Select Class"}].concat(props.schoolDetails.classes.map(it => ({value: it.classId, text: it.className}))));
             props.schoolDetails && props.schoolDetails.classes.forEach(element => {
-                feeMap[element.classId] = element.admissionFormFee;
+                feeMap[element.classId] = element.fee;
             });
             setClassFeeMap(feeMap);
         } catch(e) {
@@ -123,7 +123,7 @@ const ApplyToSchool = (props) => {
             appObj["classId"] = row.class;
             appObj["parentId"] = childObj?.parentId;
             appObj["admissionSession"] = row.session;
-            appObj["admissionFormFee"] = classFeeMap[row.class];
+            appObj["fee"] = classFeeMap[row.class];
             applications.push(appObj);
         });
         
