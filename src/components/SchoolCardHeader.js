@@ -13,7 +13,10 @@ const SchoolCardHeader = (props) => {
                 {/* <Card.Img className='school-logo' variant="left" src={school.schoolThumbnailImgLink} /> */}
             </Row>
             <Row className='info-item school-info-exerpts'>
-                <div className='school-name'>{school.schoolName}</div>
+                <div className='school-name'>
+                    {school.schoolName}  
+                    <div className="tutionfee-wrap"><label>Admission Form Fee</label> <span className='fee-to'>₹500*</span></div>
+                </div>
                 <ListGroup className='school-type'>
                     <ListGroup.Item>{school.board}</ListGroup.Item>
                     <ListGroup.Item>{school.mediumOfInstruction}</ListGroup.Item>

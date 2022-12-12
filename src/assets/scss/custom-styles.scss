@@ -553,16 +553,18 @@ ul.list-group{
       .page-container{
         .row-wrapper{
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
           align-items: center;
           padding: 16px 0 16px 0;
           margin-bottom: 24px;
           border-bottom: 1px solid #D9D9D9;
+          align-items: flex-start;
+          justify-content: flex-start;
           label{
             margin-right: 8px;
             font-style: normal;
             font-size: 15px;
-            margin-bottom: 0;
+            margin-bottom: 16px;
           }
           .child-list-for-admission{
             display: flex;
@@ -630,6 +632,9 @@ ul.list-group{
               border-right: 1px solid #E6E6E6;
               .school-list-container{
                 display: flex;
+              }
+              &.cart-content-area{
+                padding-right: 24px;
               }
             }
             &.right{
@@ -830,6 +835,7 @@ ul.list-group{
               .school-list-container{
                 display: grid;
                 grid-template-columns: 1fr;
+                margin: 0;
                 .school-card{
                   .school-info-main{
                     grid-template-columns: 104px auto;
@@ -1368,7 +1374,7 @@ ul.list-group{
             .filter-item{
               margin-bottom: 16px;
               select{
-                background: #FFFFFF;
+                //background: #FFFFFF;
                 border: 1px solid #D3DDF0;
                 border-radius: 4px;
                 height: 42px;
@@ -1378,6 +1384,9 @@ ul.list-group{
                 display: flex;
                 align-items: center;
                 //color: rgba(0, 0, 0, 0.4);
+                &::placeholder {
+                  color: rgba(0, 0, 0, 0.25);
+                }
               }
               input{
                 background: #FFFFFF;
@@ -1391,6 +1400,9 @@ ul.list-group{
                 display: flex;
                 align-items: center;
                 color: rgba(0, 0, 0, 0.4);
+                &::placeholder {
+                  color: rgba(0, 0, 0, 0.25);
+                }
               }
 
               label{
@@ -2189,13 +2201,30 @@ ul.list-group{
     }
     
   }
+
+  .disability-list-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr) ) ;
+   .disability-list{
+
+   } 
+  }
+  .item-list-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr) ) ;
+    width: 100%;
+   .form-check{
+
+   } 
+  }
+
   .school-list-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 24px;
     grid-column-gap: 24px;
     margin-bottom: 24px;
-    margin-right: 24px;
+    // margin-right: 24px;
    
     .school-card{
       overflow: hidden;
@@ -2266,6 +2295,12 @@ ul.list-group{
               color: $primarycolor;
               padding: 0;
               margin-bottom: 8px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              .tutionfee-wrap{
+                label{margin-bottom: 0;}
+              }
             }
             .school-type{
               display: flex;
