@@ -79,7 +79,7 @@ const LoggedInUserDropDown = () => {
             <div className="header-item cart-profile-wrap">
             { isLoggedInUser ?
                 <>
-                <div className="cart-num-comp"><Link to="/cart"><span className="cart-img"><img src={CartIcon} alt="Cart" /></span><span className="num-badge">{totalItemsInCart}</span> </Link></div>
+                <div className="cart-num-comp"><Link to="/selectedSchools"><span className="cart-img"><img src={CartIcon} alt="Selected Schools" /></span><span className="num-badge">{totalItemsInCart}</span> </Link></div>
                 {/* <div className="cart-num-comp">
                                 
                 <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>

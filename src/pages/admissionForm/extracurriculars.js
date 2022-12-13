@@ -7,16 +7,25 @@ import RESTClient from '../../utils/RestClient'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
 
-export default function ExtracurricularForm ({ selectedChild, setStep }) {
+export default function ExtracurricularForm ({ selectedChild, setSelectedChild, setStep }) {
   const navigate = useNavigate()
 
   const saveData = async formData => {
     formData['childId'] = selectedChild.childId
     try {
-      await RESTClient.patch(
+      const response = await RESTClient.patch(
         RestEndPoint.CREATE_STUDENT_PROFILE_EXTRA_CURRICULARS,
         formData
       )
+      setSelectedChild(val => {
+        return {
+          ...val,
+          ...response.data,
+          isProvidingCurrentSchoolInfo: response.data.schoolName
+            ? 'Yes'
+            : 'No'
+        }
+      })
       setStep(val => val + 1)
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))

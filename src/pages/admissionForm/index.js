@@ -206,6 +206,7 @@ export const AdmissionForms = () => {
                           return (
                             <ExtracurricularForm
                               selectedChild={selectedChild}
+                              setSelectedChild={setSelectedChild}
                               setStep={setStep}
                             />
                           )
@@ -213,6 +214,7 @@ export const AdmissionForms = () => {
                           return (
                             <BackgroundCheckForm
                               selectedChild={selectedChild}
+                              setSelectedChild={setSelectedChild}
                               setStep={setStep}
                             />
                           )

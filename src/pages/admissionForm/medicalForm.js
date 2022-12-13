@@ -47,21 +47,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
         RestEndPoint.GET_STUDENT_MEDICAL_DETAILS + `/${childId}`
       )
       if (response.data !== '') {
-        setMedicalProfile({
-          ...medicalProfile,
-          id: response.data.id,
-          bloodGroup: response.data.bloodGroup,
-          allergies: response.data.allergies,
-          hasAllergies: response.data.allergies ? 'Yes' : 'No',
-          medicalConditions: response.data.medicalConditions,
-          hasMedicalConditions: response.data.medicalConditions ? 'Yes' : 'No',
-          specialCare: response.data.specialCare,
-          doesNeedSpecialCare: response.data.specialCare ? 'Yes' : 'No',
-          disabilities: response.data.disabilities ? response.data.disabilities : [],
-          otherDisability: response.data.otherDisability || '',
-          disability: response.data.disabilities.filter(v=> v!='').length > 0 ? 'Yes' : 'No'
-        })
-        setIsMedicalProfileExists(true)
+        updateMedicalProfileData(response)
       }
     } catch (error) {}
   }
@@ -90,20 +76,40 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
     try {
       if (isMedicalProfileExists) {
         formData['id'] = medicalProfile.id
-        await RESTClient.put(
+        const response =  await RESTClient.put(
           RestEndPoint.CREATE_STUDENT_MEDICAL_DETAILS,
           formData
         )
+        updateMedicalProfileData(response)
       } else {
-        await RESTClient.post(
+        const response = await RESTClient.post(
           RestEndPoint.GET_STUDENT_MEDICAL_DETAILS,
           formData
         )
+        updateMedicalProfileData(response)
       }
       setStep(val => val + 1)
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
+  }
+
+  function updateMedicalProfileData (response) {
+    setMedicalProfile({
+      ...medicalProfile,
+      id: response.data.id,
+      bloodGroup: response.data.bloodGroup,
+      allergies: response.data.allergies,
+      hasAllergies: response.data.allergies ? 'Yes' : 'No',
+      medicalConditions: response.data.medicalConditions,
+      hasMedicalConditions: response.data.medicalConditions ? 'Yes' : 'No',
+      specialCare: response.data.specialCare,
+      doesNeedSpecialCare: response.data.specialCare ? 'Yes' : 'No',
+      disabilities: response.data.disabilities ? response.data.disabilities : [],
+      otherDisability: response.data.otherDisability || '',
+      disability: response.data.disabilities.filter(v=> v!='').length > 0 ? 'Yes' : 'No'
+    })
+    setIsMedicalProfileExists(true)
   }
 
   const getDisabilitesData = (disabilities, value) => {
@@ -299,7 +305,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
           </div>
           {values.disability === 'Yes' && (
             <>
-              <div className='d-flex'>
+              <div className='disability-list-wrapper'>
                 {disabilitiesOption
                   .filter((it, idx) => {
                     return idx < 5
@@ -308,7 +314,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        className={index !== 0 ? ' ms-3' : ''}
+                        className={index !== 0 ? 'disability-list' : ''}
                       >
                         <InputField
                           fieldName='disabilities'
@@ -335,7 +341,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     )
                   })}
               </div>
-              <div className='d-flex'>
+              <div className='disability-list-wrapper'>
                 {disabilitiesOption
                   .filter((it, idx) => {
                     return idx >= 5 && idx < 10
@@ -344,7 +350,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        className={index !== 0 ? ' ms-3' : ''}
+                        className={index !== 0 ? 'disability-list' : ''}
                       >
                         <InputField
                           fieldName='disabilities'

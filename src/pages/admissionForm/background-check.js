@@ -9,7 +9,7 @@ import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
 import { StudentBackgroundCheckSchema } from '../../data/validationSchema'
 
-export default function BackgroundCheckForm ({ selectedChild, setStep }) {
+export default function BackgroundCheckForm ({ selectedChild, setSelectedChild, setStep }) {
   const history = useNavigate()
   const [submitting, setSubmitting] = useState(false)
 
@@ -21,10 +21,19 @@ export default function BackgroundCheckForm ({ selectedChild, setStep }) {
       delete formData.anyOffensiveConduct
 
       setSubmitting(true)
-      await RESTClient.patch(
+      const response = await RESTClient.patch(
         RestEndPoint.CREATE_STUDENT_PROFILE_BACKGROUND_CHECK,
         formData
       )
+      setSelectedChild(val => {
+        return {
+          ...val,
+          ...response.data,
+          isProvidingCurrentSchoolInfo: response.data.schoolName
+            ? 'Yes'
+            : 'No'
+        }
+      })
       setSubmitting(false)
       setStep(val => val + 1)
       window.scrollTo(0, 0)
