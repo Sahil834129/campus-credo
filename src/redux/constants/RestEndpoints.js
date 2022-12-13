@@ -44,6 +44,7 @@ const RestEndPoint = {
   UPDATE_PHONE: '/parent/updatePhone',
   CLASS_ADMISSION_DATA: '/admission/classAdmissionData',
   SCHOOL_ADMISSION_SUMMARY: 'admission/application/schoolAdmissionSummary',
+  SCHOOL_ADMISSION_FEE_SUMMARY: 'dashboard/schoolAdmissionFeeSummary',
   RESET_PASSWORD: 'user/resetPassword',
   DOWNLOAD_DOCUMENT: '/student/download/document',
   CLASS_ADMISSION_SESSION_DATA: 'admission/classAdmissionSessions',

@@ -14,6 +14,10 @@ export const getSchoolAdmissinSummary = () => {
   return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY);
 };
 
+export const getSchoolAdmissinFeeSummary = () => {
+  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_FEE_SUMMARY);
+};
+
 export const getApplicationChartStatus = () => {
   return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS);
 };

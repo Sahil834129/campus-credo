@@ -22,11 +22,16 @@ ChartJS.register(
 const defaultOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  padding: 20,
   plugins: {
     legend: {
       position: "top",
       align: "start",
-
+      labels: {
+        boxWidth: 10,
+        useBorderRadius: true,
+        borderRadius: 6
+      }
     },
     title: {
       display: false,
@@ -57,8 +62,6 @@ const defaultOptions = {
     }
   }
 };
-
-
 
 
 export default function Barchart({ option = {}, labelsdata, styling }) {

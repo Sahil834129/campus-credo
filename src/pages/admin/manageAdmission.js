@@ -1,6 +1,6 @@
 import { Field, FieldArray, Formik } from 'formik';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import DateRangePicker from '../../common/DateRangePicker';
@@ -16,7 +16,7 @@ const initialFormData = undefined;
 export const ManageAdmission = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [changedData, setChangedData] = useState({});
-  const [sessionValue, setSessionValue] = useState(0);
+  const [sessionValue, setSessionValue] = useState(null);
   const [sessionOption, setSessionOption] = useState([]);
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
@@ -33,11 +33,19 @@ export const ManageAdmission = () => {
     getClassAdmissionSessionData()
       .then(response => {
         setSessionOption(response.data);
+        setSessionValue(response.data[1])
       })
       .catch(error => {
         console.log(error);
       });
   };
+  const converDate = (currentDate) => {
+    if (currentDate) {
+      const currentDateArr = currentDate.split("/");
+      return new Date(`${currentDateArr[1]}/${currentDateArr[0]}/${currentDateArr[2]}`)
+    }
+    return null
+  }
 
   const fetchClassAdmissionData = (session) => {
     getClassAdmissionData(session)
@@ -46,13 +54,13 @@ export const ManageAdmission = () => {
           const data = response.data.map(val => {
             val.isOpen =
               val.formSubmissionStartDate && val.formSubmissionEndDate;
-            val.formSubmissionStartDate = val?.formSubmissionStartDate || null;
-            val.formSubmissionEndDate = val?.formSubmissionEndDate || null;
-            val.admissionTestStartDate = val?.admissionTestStartDate || null;
-            val.admissionTestEndDate = val?.admissionTestEndDate || null;
+            val.formSubmissionStartDate = converDate(val?.formSubmissionStartDate || null);
+            val.formSubmissionEndDate = converDate(val?.formSubmissionEndDate || null);
+            val.admissionTestStartDate = converDate(val?.admissionTestStartDate || null);
+            val.admissionTestEndDate = converDate(val?.admissionTestEndDate || null);
             val.personalInterviewStartDate =
-              val?.personalInterviewStartDate || null;
-            val.personalInterviewEndDate = val?.personalInterviewEndDate || null;
+              converDate(val?.personalInterviewStartDate || null);
+            val.personalInterviewEndDate = converDate(val?.personalInterviewEndDate || null);
             val.formFee = val?.formFee || null;
             val.registrationFee = val?.registrationFee || null;
             return val;
@@ -69,11 +77,11 @@ export const ManageAdmission = () => {
     let parseDate = null;
 
     if (formDate !== null) {
-      parseDate = moment(formDate).format('YYYY-MM-DD');
+      parseDate = moment(formDate).format('DD/MM/YYYY');
     }
     return parseDate;
   };
-  const handleSubmitData = formData => {
+  const handleSubmitData = (formData, selectedSession) => {
     let postData = formData.data;
     postData = postData.filter(val => val.isOpen);
     postData = postData.map(val => {
@@ -95,7 +103,7 @@ export const ManageAdmission = () => {
       val.personalInterviewEndDate = convertDateForSave(
         val?.personalInterviewEndDate || null
       );
-      val.admissionSession = 1;
+      val.admissionSession = selectedSession;
       delete val?.isOpen;
       delete val?.className;
       delete val?.schoolName;
@@ -111,13 +119,15 @@ export const ManageAdmission = () => {
   };
 
   useEffect(() => {
-    fetchClassAdmissionData(sessionValue);
+    if (sessionValue !== null)
+      fetchClassAdmissionData(sessionValue);
   }, [sessionValue]);
 
   useEffect(() => {
     fetchAdmissionSession();
   }, []);
 
+ 
   return (
     <Layout>
       <div className='content-area-inner inner-page-outer'>
@@ -129,7 +139,7 @@ export const ManageAdmission = () => {
                 initialValues={{ data: formData }}
                 enableReinitialize
                 onSubmit={values => {
-                  handleSubmitData(values);
+                  handleSubmitData(values, sessionValue);
                 }}
               >
                 {({ values, handleSubmit, setFieldValue }) => (
@@ -148,7 +158,7 @@ export const ManageAdmission = () => {
                           }}
                           size='sm'>
                           {sessionOption.map((val, index) => (
-                            <option value={index} selected >{val}</option>
+                            <option value={val} key={`select${index}`}>{val}</option>
                           ))}
                         </Form.Select>
                       </div>
@@ -349,4 +359,4 @@ export const ManageAdmission = () => {
     </Layout>
   );
 };
-export default ManageAdmission;
+export default React.memo(ManageAdmission);

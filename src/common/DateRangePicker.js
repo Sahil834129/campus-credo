@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React from 'react';
 import ReactDatePicker from 'react-datepicker';
 import Form from 'react-bootstrap/Form';
 
-export default function DateRangePicker({
+function DateRangePicker({
   dateRanges,
   fieldName,
   setFieldData,
@@ -37,3 +37,5 @@ export default function DateRangePicker({
     />
   );
 }
+
+export default React.memo(DateRangePicker)
