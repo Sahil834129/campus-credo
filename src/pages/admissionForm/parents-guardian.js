@@ -13,7 +13,7 @@ const initalValue = {
   firstName: '',
   lastName: '',
   gender: 'Male',
-  nationality: '',
+  nationality: 'Indian',
   otherNationality: '',
   maritalStatus: 'Married',
   addressLine1: '',
@@ -66,7 +66,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                   ? 'Other'
                   : fatherDetail?.nationality,
               
-              isAddressSameAsStudent: (isAddressSameAsStudent(fatherDetail, currentStudent) ? 'Yes' : 'No')
+              isAddressSameAsStudent: (isAddressSameAsStudent(fatherDetail, currentStudent) ? 'Yes' : 'No'),
             };
           });
           setParentExist(true);
@@ -74,6 +74,16 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
       } else {
         setParentExist(false);
       }
+      setValues(val => {
+        return {
+          ...val,
+          addressLine1: values.isAddressSameAsStudent === 'Yes' ? currentStudent.addressLine1 : '',
+          addressLine2: values.isAddressSameAsStudent === 'Yes' ? currentStudent.addressLine2 : '',
+          pincode: values.isAddressSameAsStudent === 'Yes' ? currentStudent.pincode : '',
+          state: values.isAddressSameAsStudent === 'Yes' ? currentStudent.state : '',
+          city: values.isAddressSameAsStudent === 'Yes' ? currentStudent.city : '',
+        }
+      })
     } catch (error) {
       console.log(error);
       toast.error(RESTClient.getAPIErrorMessage(error));

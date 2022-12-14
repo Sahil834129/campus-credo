@@ -18,17 +18,20 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
   const [key, setKey] = useState('student')
-  const [show, setShow] = useState(false)
   const [check, setCheck] = useState(false)
   const [condition, setCondition] = useState(false)
-  const finalSubmit = () => {
+  const finalSubmit = async() => {
     if (check) {
-      RESTClient.get(
-        RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
-      )
-      setCondition(false)
-      toast.success('Student Details saved')
-      navigate('/userProfile')
+      try {
+        await RESTClient.get(
+          RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
+        )
+        setCondition(false)
+        toast.success('Student profile submitted successfully.')
+        navigate('/userProfile')
+      } catch (error) {
+        toast.error(RESTClient.getAPIErrorMessage(error))
+      }
     }
     else {
       setCondition(true)
@@ -66,12 +69,10 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
       val => val.status !== 'uploaded' && val.mandatory
     )
     if (stuDocsUnfilled.length || parDocsUnfilled.length) {
-      toast.error('Some Mandatory Files are missing!')
+      toast.error('Some Mandatory Documents are missing!')
     }
     else {
-      // setShow(true)
       finalSubmit()
-      toast.success("document uploaded successfully")
     }
   }
 

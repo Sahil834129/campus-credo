@@ -91,7 +91,7 @@ const LoggedInUserDropDown = () => {
                             <Dropdown>
                                 <Dropdown.Toggle as={CustomToggle} id="dropdown-user-profile">Hi <span className='user-name'>{getLocalData("name")}</span></Dropdown.Toggle>
                                 <Dropdown.Menu as={CustomMenu}>
-                                    <Dropdown.Item eventKey="1" href="/userProfile">User Profile</Dropdown.Item>
+                                    <Dropdown.Item eventKey="1" href="/userProfile">Dashboard</Dropdown.Item>
                                     <Dropdown.Item eventKey="2" onClick={logoutUser}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

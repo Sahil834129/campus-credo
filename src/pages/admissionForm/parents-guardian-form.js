@@ -104,6 +104,14 @@ export default function ParentsGuardianForm({
     }
   };
 
+  const skipAndNext = () => {
+    if (nextParent === '') {
+      setStep(val => val + 1);
+    } else {
+      setKey(nextParent);
+    }
+  }
+
   const setFieldValue = (fieldName, fieldValue) => {
     setValues(val=> {
       return {
@@ -476,91 +484,84 @@ export default function ParentsGuardianForm({
                       fieldName='isAddressSameAsStudent'
                       currentValue={values.isAddressSameAsStudent}
                       onChange={e => {
-                        setFieldValue('addressLine1', '')
-                        setFieldValue('addressLine2', '')
-                        setFieldValue('state', '')
-                        setFieldValue('pincode', '')
-                        setFieldValue('city', '')
                         setFieldValue('isAddressSameAsStudent', 'No');
                       }}
                     />
                   </div>
                 </div>
               </div>
-              <div className='tab_btn pb-3'>
-                <div className='row g-3'>
-                  <div className='col-md-6'>
-                    <TextField
-                      fieldName='addressLine1'
-                      required
-                      errors={validationErrors}
-                      label='House No., Block No.'
-                      value={values.addressLine1}
-                      disabled={values.isAddressSameAsStudent}
-                      onChange={e => {
-                        setFieldValue('addressLine1', e.target.value)
-                      }}
-                    />
+              {
+                values.isAddressSameAsStudent === 'No' ?
+                  <div className='tab_btn pb-3'>
+                    <div className='row g-3'>
+                      <div className='col-md-6'>
+                        <TextField
+                          fieldName='addressLine1'
+                          required={values.isAddressSameAsStudent === 'No'}
+                          errors={validationErrors}
+                          label='House No., Block No.'
+                          value={values.addressLine1}
+                          onChange={e => {
+                            setFieldValue('addressLine1', e.target.value)
+                          }}
+                        />
+                      </div>
+                      <div className='col-md-6'>
+                        <TextField
+                          fieldName='addressLine2'
+                          required={values.isAddressSameAsStudent === 'No'}
+                          errors={validationErrors}
+                          label='Area or Locality'
+                          value={values.addressLine2}
+                          onChange={e => {
+                            setFieldValue('addressLine2', e.target.value)
+                          }}
+                        />
+                      </div>
+                      <div className='col-md-6'>
+                        <TextField
+                          fieldName='pincode'
+                          label='Pincode'
+                          required={values.isAddressSameAsStudent === 'No'}
+                          errors={validationErrors}
+                          value={values.pincode}
+                          maxLength='6'
+                          onChange={e => {
+                            setFieldValue('pincode', e.target.value)
+                          }}
+                        />
+                      </div>
+                      <div className='col-md-6'>
+                        <SelectField
+                          fieldName='state'
+                          label='Select State'
+                          required={values.isAddressSameAsStudent === 'No'}
+                          errors={validationErrors}
+                          selectOptions={states}
+                          value={values.state}
+                          onChange={e => {
+                            populateCities(e.target.value, setCity)
+                            setFieldValue('state', e.target.value)
+                          }}
+                        />
+                      </div>
+                      <div className='col-md-6'>
+                        <SelectField
+                          fieldName='city'
+                          label='Select City'
+                          required={values.isAddressSameAsStudent === 'No'}
+                          errors={validationErrors}
+                          selectOptions={city}
+                          value={values.city}
+                          onChange={e => {
+                            setFieldValue('city', e.target.value)
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className='col-md-6'>
-                    <TextField
-                      fieldName='addressLine2'
-                      required
-                      errors={validationErrors}
-                      label='Area or Locality'
-                      value={values.addressLine2}
-                      disabled={values.isAddressSameAsStudent}
-                      onChange={e => {
-                        setFieldValue('addressLine2', e.target.value)
-                      }}
-                    />
-                  </div>
-                  <div className='col-md-6'>
-                    <TextField
-                      fieldName='pincode'
-                      label='Pincode'
-                      required
-                      errors={validationErrors}
-                      value={values.pincode}
-                      disabled={values.isAddressSameAsStudent}
-                      maxLength='6'
-                      onChange={e => {
-                        setFieldValue('pincode', e.target.value)
-                      }}
-                    />
-                  </div>
-                  <div className='col-md-6'>
-                    <SelectField
-                      fieldName='state'
-                      label='Select State'
-                      required
-                      errors={validationErrors}
-                      selectOptions={states}
-                      value={values.state}
-                      onChange={e => {
-                        populateCities(e.target.value, setCity)
-                        setFieldValue('state', e.target.value)
-                      }}
-                      disabled={values.isAddressSameAsStudent}
-                    />
-                  </div>
-                  <div className='col-md-6'>
-                    <SelectField
-                      fieldName='city'
-                      label='Select City'
-                      required
-                      errors={validationErrors}
-                      selectOptions={city}
-                      value={values.city}
-                      onChange={e => {
-                        setFieldValue('city', e.target.value)
-                      }}
-                      disabled={values.isAddressSameAsStudent}
-                    />
-                  </div>
-                </div>
-              </div>
-
+                : ''
+              }
             </div>
           </div>
         </div>
@@ -579,6 +580,13 @@ export default function ParentsGuardianForm({
           onClick={() => { setStep(val => val - 1); window.scrollTo(0, 0); }}
         >
           Back
+        </button>
+        <button
+          type='button'
+          className='save comn me-2'
+          onClick={() => { skipAndNext(); window.scrollTo(0, 0); }}
+        >
+          Skip
         </button>
         <button className='save comn' type='submit'>
           {parentExist ? `Update & Next` : `Save & Next`}
