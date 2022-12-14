@@ -63,7 +63,7 @@ const SchoolCard = (props) => {
 
     return (
         <>
-            <Card className='school-card' onClick={(e)=>handleViewDetails(school.schoolId, school.schoolName)}>
+            <Card className='school-card' style={{ cursor: "pointer" }} onClick={(e)=>handleViewDetails(school.schoolId, school.schoolName)}>
                 <SchoolCardHeader school={school}/>
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
