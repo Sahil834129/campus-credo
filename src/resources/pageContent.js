@@ -66,12 +66,12 @@ const PageContent = {
       description:
         'Track, manage applications and accept admission offers to kickstart the journey'
     },
-    {
-      image: 'feature-pic5.png',
-      title: 'Free Counselling',
-      description:
-        'Track, manage applications and accept admission offers to kickstart the journey'
-    }
+    // {
+    //   image: 'feature-pic5.png',
+    //   title: 'Free Counselling',
+    //   description:
+    //     'Track, manage applications and accept admission offers to kickstart the journey'
+    // }
   ],
   SCHOOL_FEATURE_CARDS: [
     {
@@ -97,12 +97,12 @@ const PageContent = {
       description:
         'Track, manage applications and accept admission offers to kickstart the journey'
     },
-    {
-      image: 'feature-pic5.png',
-      title: 'Free Counselling',
-      description:
-        'Track, manage applications and accept admission offers to kickstart the journey'
-    }
+    // {
+    //   image: 'feature-pic5.png',
+    //   title: 'Free Counselling',
+    //   description:
+    //     'Track, manage applications and accept admission offers to kickstart the journey'
+    // }
   ],
   SCHOOL_DTL_ABOUT: {
     heading: 'About School',

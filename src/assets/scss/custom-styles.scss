@@ -140,6 +140,24 @@
         padding: 0 12% 40px 12%;
         .frm-cell{
           display: flex;
+          &.termslink{
+            display: inline-block;
+            margin-bottom: 18px;
+            text-align: center;
+            border: 1px dashed #d9d9d9;
+            padding: 16px;
+            background: #fbfbfb;
+            border-radius: 8px;
+            a{
+              white-space: normal;
+              color: $secondarycolor;
+              font-weight: 500;
+              &:hover{
+                text-decoration: underline !important;
+                
+              }
+            }
+          }
           .form-group{
             display: flex;
             flex-direction: column;
@@ -190,7 +208,7 @@
                 color: rgba(0, 0, 0, 0.8);
               }
               input[type=checkbox]{
-                margin-top: 3px;
+                // margin-top: 3px;
                 height: auto;
               }
             }
@@ -785,11 +803,14 @@ ul.list-group{
           
           &.left{
             padding: 0;
+            background: none;
             .content-section{
               padding: 16px 24px 24px 24px;
             }
           }
           &.right{
+            background: #F3F3F3;
+            .content-section{padding: 16px 16px 16px 16px;}
             .sb-card-holder{
               .salient-features{
                 .partner-item{
@@ -1181,12 +1202,13 @@ ul.list-group{
                     width: 294px;
                     height: 294px;
                     background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
-                    box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.24);
+                    box-shadow: 0px 0px 4px rgb(0 0 0 / 4%);
                     border-radius: 6px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
+                    border: 1px solid #efefef;
                     img{
 
                     }
@@ -2101,6 +2123,13 @@ ul.list-group{
           gap: 42px;
           width: 68%;
           margin-bottom: 42px;
+          &.infotoschools{
+            width: 74%;
+            border: 1px solid #efefef;
+            padding: 24px;
+            border-radius: 16px;
+            // background: url(../img/product-connections.png) center/cover no-repeat;
+          }
           &.full-width{
             width: 74%;
             // background: rgba(84, 155, 67, 0.04);
@@ -2108,7 +2137,7 @@ ul.list-group{
             border-radius: 24px;
             background: url(../img/testimonials-back-lines.png) center/cover no-repeat #faf8f3;
             border-radius: 20px;
-            padding: 60px 40px 30px 40px;
+            padding: 60px 40px 60px 40px;
           }
           &.hero-wrap{
             flex-direction: column;
@@ -2161,18 +2190,31 @@ ul.list-group{
           .content-wrap{
             font-size: 16px;
             font-weight: 500;
+            blockquote{
+              padding: 16px;
+              border: 1px dashed #52cd96;
+              border-radius: 8px;
+              font-weight: 600;
+              margin-top: 24px;
+              background: #21b573;
+              color: #ffffff;
+              font-size: 16px;
+            }
             h2{
-              color: #252E48;
+              color: $primarycolor;
               animation: fadeInDownSmall .8s forwards;
               visibility: visible;
               animation-delay: .2s;
               font-size: 28px;
               margin-bottom: 24px;
+              line-height: 2.2rem;
             }
             h4{
-              color: #545F7E;
+              color: #000;
               max-width: 100%;
               font-size: 18px;
+              line-height: 1.6rem;
+              font-weight: 400;
             }
             .list-group{
               list-style-type: circle;
@@ -2181,7 +2223,7 @@ ul.list-group{
                 background: none;
                 padding: 0 0 0 16px;
                 position: relative;
-                font-weight: 700;
+                font-weight: 400;
                 &:before{
                   content: "";
                   position: absolute;
@@ -2595,7 +2637,7 @@ ul.list-group{
       button.nav-link{
        // width: 284px;
         margin: 0;
-        padding: 12px 54px 12px 16px;
+        padding:12px 28px 12px 12px;
         display: flex;
         border: 1px solid rgba(217, 217, 217, 0.4);
         filter: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.16));
@@ -2609,7 +2651,7 @@ ul.list-group{
         opacity: 0.8;
         span{
           i.icons{
-            margin-right: 24px;
+            margin-right: 8px;
           }
         }
         &.active{
@@ -2626,8 +2668,8 @@ ul.list-group{
     padding: 1.5rem 0;
     .feature-card-main{
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      column-gap: 8px;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      column-gap: 16px;
       .feature-card-item{
         display: flex;
         flex-direction: column;
@@ -2639,7 +2681,8 @@ ul.list-group{
         box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.5), 0 3px 12px rgba(239, 239, 239, 0.5019607843);
         transition: background 1s ease-out;
         border-radius: 8px;
-        padding: 1rem;
+        padding: 2.8rem 1rem;
+        
         .img-wrap{
           height:142px;
           display: flex;
@@ -2683,17 +2726,18 @@ ul.list-group{
       display: flex;
       align-items: center;
       color: $white;
-      background: $secondarycolor;
       border-radius: 108px;
-      border: 1px solid $secondarycolor;
+      border: 1px solid #549B43;
       padding: 22px 42px;
-      background: linear-gradient(180deg, #714E9B 0, #41285F 100%);
-      box-shadow: 0 6px 12px rgba(118, 109, 232, 0.5019607843);
+      background: linear-gradient(180deg, #549B43 0%, #5BB446 100%);
+box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
       white-space: nowrap;
       word-break: keep-all;
       &:hover{
-        background: linear-gradient(180deg,#714E9B 0,#714E9B 100%);
-        box-shadow: 0 6px 24px #766de880;
+        background: linear-gradient(180deg,#74C161 0,#74C161 100%);
+        // box-shadow: 0 6px 24px #74C16180;
+        border: 1px solid #549B43;
+        
       }
     }
   }
