@@ -1,16 +1,12 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import ListGroup from 'react-bootstrap/ListGroup';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import { getSchoolAdmissinSummary, getApplicationChartStatus } from "../../../utils/services";
+import { useEffect, useState } from "react";
+import { getApplicationChartStatus, getSchoolAdmissinSummary } from "../../../utils/services";
 
 import Layout from '../layout';
-import { Barchart, DoughnutChart } from '../../../common/Chart';
 import ApplicationProcessing from "./applicationProcessing";
-import SeatsDetail from "./seatsDetail";
-import ApprovedAcceptedGraph from "./approvedAcceptedGraph";
 import ApplicationStatus from "./applicationStatus";
+import ApprovedAcceptedGraph from "./approvedAcceptedGraph";
 import SeatsFeesGraph from "./seatFeesGraph";
+import SeatsDetail from "./seatsDetail";
 
 
 export const Dashboard = () => {
@@ -91,7 +87,7 @@ export const Dashboard = () => {
 
   return (
     <Layout admissionSummary={dashBoardData?.upperSchoolAdmissionSummary}>
-      <div className='content-area-inner'>
+      <div className='content-area-inner dashboard-wrapper'>
         <div className='metrics-wrap'>
           <ApplicationProcessing applicationProcessing={dashBoardData?.applicationProcessing} />
           <SeatsDetail schoolSeatsSummary={schoolSeatsSummary} />

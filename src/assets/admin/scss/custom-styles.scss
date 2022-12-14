@@ -11,6 +11,17 @@
 .main-container {
   position: relative;
   padding: 0;
+  &.admin-contianer{
+    .content-area{
+      padding: 0;
+      .content-area-inner{
+        &.dashboard-wrapper{
+          padding:24px;
+        }
+        
+      }
+    }
+  }
   .top-navigation{
     height: 48px;
     display: flex;
@@ -215,6 +226,7 @@
           label.lbl{
             color: rgba(255, 255, 255, 0.9);
             font-weight: 400;
+            margin-bottom: 0;
           }
           .value{
             color: #FFFFFF;
@@ -317,6 +329,11 @@ ul.list-group{
             grid-template-columns: 1fr 1fr;
             column-gap: 24px;
             justify-content: space-between;
+            border-bottom: 1px solid #efefef;
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+            border-top: 1px solid #efefef;
             
             &:last-child{border: none;}
             .mitem-wrap{
@@ -330,6 +347,7 @@ ul.list-group{
               font-size: 14px;
               line-height: 18px;
               color: rgba(0, 0, 0, 0.85);
+              margin-bottom: 0;
             }
             .value{
               font-style: normal;
@@ -414,6 +432,7 @@ ul.list-group{
                 font-size: 14px;
                 line-height: 18px;
                 color: rgba(0, 0, 0, 0.6);
+                margin-bottom: 0;
               }
               .value{
                 font-style: normal;
@@ -628,6 +647,7 @@ ul.list-group{
       }
       &.sidenav{
         padding: 24px 0 24px 24px;
+        min-height: 76vh;
         .nav{
           a.nav-link{
             font-style: normal;
@@ -731,6 +751,14 @@ ul.list-group{
     line-height: 20px;
     letter-spacing: 0.25px;
     color: $black;
+    margin-bottom: 0;
+  }
+  .admission-fld-wrap{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    label{white-space: nowrap; margin: 0;}
+    select{}
   }
 }
 
