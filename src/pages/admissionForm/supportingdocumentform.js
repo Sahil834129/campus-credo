@@ -4,7 +4,7 @@ import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-
+import Form from 'react-bootstrap/Form'
 import RESTClient from '../../utils/RestClient'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { useEffect } from 'react'
@@ -69,7 +69,9 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
       toast.error('Some Mandatory Files are missing!')
     }
     else {
-      setShow(true)
+      // setShow(true)
+      finalSubmit()
+      toast.success("document uploaded successfully")
     }
   }
 
@@ -108,6 +110,28 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
                   setDocument={setParentDocuments}
                 />
               </div>
+            </div>
+            <div>
+              <Form.Check
+                type='checkbox'
+                label='I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct'
+                required
+                onChange={(e) => {
+                  setCheck(e.target.checked)
+                  setCondition(!e.target.checked)
+                }} 
+              />
+              {condition && <label style={{ display: 'flex', color: 'Red' }}>Please accept all T&C  </label>}
+              <Form.Check
+                type='checkbox'
+                label='I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy'
+                required
+                onChange={(e) => {
+                  setCheck(e.target.checked)
+                  setCondition(!e.target.checked)
+                }} 
+              />
+              {condition && <label style={{ display: 'flex', color: 'Red' }}>Please accept all T&C  </label>}
             </div>
           </Tab>
         </Tabs>
