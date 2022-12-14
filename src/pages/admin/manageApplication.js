@@ -3,10 +3,32 @@ import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 import Layout from './layout'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import {getClassAdmissionSummary } from '../../utils/services';
+
 
 export const ManageApplication = () => {
+  const [admissionData, setAdmisiionData] = useState(null)
+  const fetchClassAdmissionSummary =()=>{
+    getClassAdmissionSummary()
+    .then(response =>{
+      if (response.status === 200){
+      setAdmisiionData(response.data)
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+  console.log( admissionData)
+  useEffect(()=> {
+    fetchClassAdmissionSummary()
+  }, [])
+
+
   return (
-    <Layout>
+    <Layout admissionSummary={admissionData?.upperSchoolAdmissionSummary}>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
           <div className='filterpanel'>
@@ -21,7 +43,6 @@ export const ManageApplication = () => {
               <Form.Group className='form-element-group' controlId=''>
                 <Form.Label className='form-label'>Select Class</Form.Label>
                 <Form.Select aria-label='Default select example'>
-                  <option>All</option>
                   <option value='1'>UKG</option>
                   <option value='2'>LKG</option>
                   <option value='3'>Nursery</option>

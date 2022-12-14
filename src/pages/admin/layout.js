@@ -67,7 +67,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
           <Button className='guide-btn'>Guide</Button>
         </Navbar.Collapse>
       </Navbar>
-      <div className='content-area'>
+      <div className='content-area' style={{paddingTop: 0}}>
         <div className='title-kpi-wrapper'>
           <Breadcrumb className='bc-nav'>
             <Breadcrumb.Item href='#'>Admin</Breadcrumb.Item>

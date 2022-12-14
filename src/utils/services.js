@@ -26,6 +26,10 @@ export const getClassAdmissionSessionData = () => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SESSION_DATA);
 };
 
+export const getClassAdmissionSummary = () => {
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY);
+};
+
 export const downloadDocument = async (childId, documentName) => {
   try {
     const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_DOCUMENT + '/' + childId + '/' + documentName);
