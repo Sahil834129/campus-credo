@@ -1,15 +1,14 @@
-import Layout from "../common/layout";
-import { Link, useNavigate } from "react-router-dom";
+import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/esm/Container";
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Link } from "react-router-dom";
 import Breadcrumbs from '../common/Breadcrumbs';
+import Layout from "../common/layout";
 
 import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
 
-import aboutpic1 from "../assets/img/about-hero-pic.jpg";
 import aboutpic2 from "../assets/img/about-elearning.svg";
+import aboutpic1 from "../assets/img/about-hero-pic.jpg";
 import aboutpic3 from "../assets/img/about-pic3.png";
 import aboutpic4 from "../assets/img/about-pic4.png";
 
@@ -40,19 +39,20 @@ const AboutUs = () => {
                         <section className="section-wrapper full-width">
                             <div className="content-wrap">
                                 <h2>Minimizing Parents hardship</h2>
-                                <h4>As Parents in this age of digitalization, the convenience of virtualized experience of picking the right type and kind of educational institute for our kids, without having to spend hours physically searching, visiting, and analyzing, is ingrained in our ethos to find the ‘best’ from the plethora of available options that would best suit our own preferences and choices. CampusCredo therefore provides the much needed platform to find and connect to such educational institutes.</h4>
+                                <h4>As Parents in this age of digitalization, the convenience of virtualized experience of picking the right type and kind of educational institute for our kids, without having to spend hours physically searching, visiting, and analyzing, is ingrained in our ethos to find the ‘best’ from the plethora of available options that would best suit our own preferences and choices. </h4>
+                                <blockquote>CampusCredo therefore provides the much needed platform to find and connect to such educational institutes.</blockquote>
                             </div>
                             <div className="img-wrap"><img src={aboutpic3} alt="" /></div>
                         </section>
-                        <section className="section-wrapper">
+                        <section className="section-wrapper infotoschools">
                         <div className="img-wrap"><img src={aboutpic4} alt="" /></div>
                             <div className="content-wrap">
                                 <h2>Schools and Educational Institutes</h2>
                                 <p>For Educational Institutes, CampusCredo is the hassle free digital platform that portrays the journey, growth and prosperity of aspirants with the institutes’ heritage and unique capabilities and offerings; and also acts as the single point solution to </p>
                                 <ListGroup>
-                                    <ListGroup.Item>be responsive to the needs of prospective students, </ListGroup.Item>
-                                    <ListGroup.Item>onboard them without hassles and, </ListGroup.Item>
-                                    <ListGroup.Item>manage and track the educational, emotional and personal growth and progress of all students.</ListGroup.Item>
+                                    <ListGroup.Item>Be responsive to the needs of prospective students, </ListGroup.Item>
+                                    <ListGroup.Item>Onboard them without hassles and, </ListGroup.Item>
+                                    <ListGroup.Item>Manage and track the educational, emotional and personal growth and progress of all students.</ListGroup.Item>
                                 </ListGroup>
                             </div>
                             

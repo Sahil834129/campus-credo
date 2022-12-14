@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-import '../assets/scss/custom-styles.scss'
+import { Link, useNavigate } from 'react-router-dom'
 import { ReactComponent as SignupLogo } from '../assets/img/singup-logo.svg'
+import '../assets/scss/custom-styles.scss'
 
-import { Formik, Form } from 'formik'
-import { SignUpSchema } from '../data/validationSchema'
-import InputField from '../components/form/InputField'
-import Button from '../components/form/Button'
-import RESTClient from '../utils/RestClient'
-import RestEndPoint from '../redux/constants/RestEndpoints'
-import RegisterInfoGraphic from '../components/user/RegisterInfoGraphic'
-import { ToastContainer, toast } from 'react-toastify'
+import { Form, Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast, ToastContainer } from 'react-toastify'
+import Button from '../components/form/Button'
+import InputField from '../components/form/InputField'
+import RegisterInfoGraphic from '../components/user/RegisterInfoGraphic'
+import { SignUpSchema } from '../data/validationSchema'
 import { getStates } from '../redux/actions/masterData'
-import { populateCities } from "../utils/populateOptions";
+import RestEndPoint from '../redux/constants/RestEndpoints'
+import { populateCities } from "../utils/populateOptions"
+import RESTClient from '../utils/RestClient'
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -148,7 +148,7 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>
-                    <div className='frm-cell frm-lbl-cell'>
+                    {/* <div className='frm-cell frm-lbl-cell'>
                       <InputField
                         fieldName='receiveEmailUpdates'
                         fieldType='checkbox'
@@ -156,8 +156,8 @@ const SignUp = () => {
                         errors={errors}
                         touched={touched}
                       />
-                    </div>
-                    <div className='frm-cell frm-lbl-cell'>
+                    </div> */}
+                    {/* <div className='frm-cell frm-lbl-cell'>
                     <InputField
                       fieldName='receiveSMSUpdates'
                       fieldType='checkbox'
@@ -165,7 +165,8 @@ const SignUp = () => {
                       errors={errors}
                       touched={touched}
                     />
-                    </div>
+                    </div> */}
+                    <div className='frm-cell termslink'>By continuing, you agree to CampusCredo’s <Link to={"/terms"}>Terms of Use</Link> and <Link to={"/disclaimerpolicy"}>Privacy Policy</Link>.</div>
                     <div className='frm-cell frm-btn-wrap'>
                     <Button
                       type='submit'
@@ -174,7 +175,7 @@ const SignUp = () => {
                     />
                     </div>
                     <div className='form-group mb-3 linkback-wrap'>
-                      <div className='linkback-cell left'><Link to={"/disclaimerpolicy"}>* Policy Disclaimer</Link></div>
+                      {/* <div className='linkback-cell left'><Link to={"/disclaimerpolicy"}>* Policy Disclaimer</Link></div> */}
                       <div className='linkback-cell right'>Have an account?<Link to='/?login=true'>Sign In</Link></div> 
                     </div>
                   </Form>
