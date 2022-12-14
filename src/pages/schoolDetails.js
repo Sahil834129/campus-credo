@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Container from "react-bootstrap/Container";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Row, Col } from 'react-bootstrap';
 import Layout from '../common/layout';
 import Breadcrumbs from '../common/Breadcrumbs';
@@ -21,13 +21,22 @@ import { isLoggedIn } from '../utils/helper';
 const SchoolDetails = () => {
 	const location = useLocation();
 	const [schoolDetails, setSchoolDetails] = useState({});
+	const navigate = useNavigate();
 	const [schoolCategoryFacilitiesMap, setSchoolCategoryFacilitiesMap] = useState({});
 	const queryParams = new URLSearchParams(location.search);
-	const schoolId = atob(queryParams.get("id")).replace("#", "");
-
+	const schoolId = getSchoolIdFromURL();
+		
 	useEffect(() => {
 		fetchSchoolDetails(schoolId);
 	}, [schoolId]);
+
+	function getSchoolIdFromURL() {
+		try {
+			return atob(queryParams.get("id")).replace("#", "");
+		} catch(error) {
+			return 0;
+		}
+	}
 
 	const fetchSchoolDetails = async (schoolId) => {
 		try {
@@ -43,6 +52,7 @@ const SchoolDetails = () => {
 			setSchoolCategoryFacilitiesMap(categoryFaciltiesMap);
 		} catch (e) {
 			console.log("error : " + e);
+			//navigate("/notFound")
 		}
 	};
 	return (
@@ -53,9 +63,6 @@ const SchoolDetails = () => {
 						<Row className='content-section'>
 							<Breadcrumbs />
 							<Col className='page-container'>
-								{
-									console.log("here " ,schoolDetails )
-								}
 								<SchoolDetailTitle schoolName={schoolDetails.schoolName} establishYear={schoolDetails.yearEstablishedIn} />
 								<div className='school-details-container'>
 									<SchoolBasicInfo schoolDetails={schoolDetails} />
