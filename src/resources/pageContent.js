@@ -1,7 +1,7 @@
 const PageContent = {
   PHONE: '080-4150 5473',
-  ENQUIRY_EMAIL: 'enquiry@edusmart.com',
-  INFO_EMAIL: 'enquiry@edusmart.com',
+  ENQUIRY_EMAIL: 'support@campuscredo.com',
+  INFO_EMAIL: 'support@campuscredo.com',
   UNEXPECTED_ERROR_MSG:
     'An unexpected error has been occurred. Please try again later.',
   MUST_BE_LOGGED_IN_MSG: 'You must be logged in to add school to apply list.',

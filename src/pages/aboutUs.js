@@ -32,7 +32,7 @@ const AboutUs = () => {
                         <section className="section-wrapper">
                             <div className="img-wrap"><img src={aboutpic2} alt="" /></div>
                             <div className="content-wrap">
-                                <h2>All your needs are in one place with one simple aaplication form</h2>
+                                <h2>All your needs are in one place with one simple application form</h2>
                                 <h4>We are a group of technocrats who, as parents to toddlers and schoolgoers, realized the need to bring educational institutions and parents on the same digital platform for realizing the mutual benefits.</h4>
                             </div>
                         </section>

@@ -159,7 +159,7 @@ const TermsOfUse = () => {
                             <section className="section-wrapper">
                                 <h2>COMMUNICATION</h2>
                                 <p>By using this Website and providing Your identity and contact information to Us through the Website, You agree and consent to receive emails or SMS from Us and/or any of its representatives at any time.</p>
-                                <p>You can report to “complaints@campuscredo.com” if you find any discrepancy with regard to Website or content-related information or copyright infringement issues and we will take necessary action after an investigation. The response with resolution (if any issues found) shall be dependent on the time taken for investigation.</p>
+                                <p>You can report to “support@campuscredo.com” if you find any discrepancy with regard to Website or content-related information or copyright infringement issues and we will take necessary action after an investigation. The response with resolution (if any issues found) shall be dependent on the time taken for investigation.</p>
                                 <p>You expressly agree that notwithstanding anything contained hereinabove, it may be contacted by Us relating to any services availed by You on the Website or anything pursuant thereto and You agree to indemnify Us from any harassment claims. It is expressly agreed to by Us that any information shared by Us shall be governed by the Privacy Policy.</p>
                             
                             </section>
