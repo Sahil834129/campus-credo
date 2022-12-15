@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import '../../assets/scss/custom-styles.scss'
-import { Formik, Form } from 'formik'
-import InputField from '../../components/form/InputField'
+import { Form, Formik } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import '../../assets/scss/custom-styles.scss'
+import InputField from '../../components/form/InputField'
 import { BLOOD_OPTIONS } from '../../constants/formContanst'
+import { StudentMedicalDetailsSchema } from '../../data/validationSchema'
+import { getDisabilites } from '../../redux/actions/masterData'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import RESTClient from '../../utils/RestClient'
-import { toast } from 'react-toastify'
-import { useDispatch, useSelector } from 'react-redux'
-import { getDisabilites } from '../../redux/actions/masterData'
-import { StudentMedicalDetailsSchema } from '../../data/validationSchema'
 
 export const MedicalForm = ({ selectedChild, setStep }) => {
   const navigate = useNavigate()
@@ -307,14 +307,15 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
             <>
               <div className='disability-list-wrapper'>
                 {disabilitiesOption
-                  .filter((it, idx) => {
-                    return idx < 5
-                  })
+                  // .filter((it, idx) => {
+                  //   return idx < 5
+                  // })
                   .map((it, index) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        className={index !== 0 ? 'disability-list' : ''}
+                        // className={index !== 0 ? 'disability-list' : ''}
+                        className='disability-list'
                       >
                         <InputField
                           fieldName='disabilities'
@@ -341,7 +342,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     )
                   })}
               </div>
-              <div className='disability-list-wrapper'>
+              {/* <div className='disability-list-wrapper'>
                 {disabilitiesOption
                   .filter((it, idx) => {
                     return idx >= 5 && idx < 10
@@ -377,7 +378,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                       </div>
                     )
                   })}
-              </div>
+              </div> */}
               <div className='col-md-6'>
                 <InputField
                   fieldName='otherDisability'
