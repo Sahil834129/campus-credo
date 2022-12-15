@@ -101,5 +101,11 @@ export function gotoHome(e, navigate) {
 
 export function getChildAge(dateOfBirth) {
   let dateAsOnSTR = '31/03/' + moment().year()
-  return moment(dateAsOnSTR, 'DD/MM/YYYY').diff(moment(dateOfBirth, "DD/MM/YYYY"), 'years')
+  let age = 0
+  try {
+    age = moment(dateAsOnSTR, 'DD/MM/YYYY').diff(moment(dateOfBirth, "DD/MM/YYYY"), 'years')
+  } catch (error) {
+    console.log("Error while parsing the date : " + dateOfBirth)
+  }
+  return age
 }

@@ -33,12 +33,17 @@ const AllSchools = () => {
 
     const getSchoolList = async() => {
         let filters = [];
-        filters.push({field:"city",operator:"EQUALS", value:selectedLocation})
-        filters.push({field:"status",operator:"LIKE", value:'open'})
         const queryParams = new URLSearchParams(location.search);
         const schoolName = queryParams.get("name");
         if (schoolName !== null && schoolName !== '')
             filters.push({field: 'name', operator: "LIKE", value: schoolName});
+        
+        // If there is no filter then by default show the schools with admission open for selected city
+        if (filters.length === 0) {
+            filters.push({field:"city",operator:"EQUALS", value:selectedLocation})
+            filters.push({field:"status",operator:"LIKE", value:'open'})
+        }
+            
         try {
             showLoader(dispatch);
             const response =await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});

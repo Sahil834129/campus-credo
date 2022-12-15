@@ -123,7 +123,7 @@ export const AdmissionForms = () => {
   }, [step])
 
   function getSidebarMenuItems() {
-    if (getChildAge(selectedChild.dateOfBirth < 11))
+    if (getChildAge(selectedChild.dateOfBirth) < 11)
       return PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS.filter(it => it.title !== 'Extracurriculars' && it.title !== 'Background Check')
     return PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS
   }
