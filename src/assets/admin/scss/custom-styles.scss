@@ -681,7 +681,79 @@ ul.list-group{
   }
 
 }
+.application-form-wrap{
+  
+  .fld-row{
+    display: flex;
+    column-gap: 24px;
+    flex-basis: 100%;
+    .fld-cell{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      &.identification-mark-cell{
+        margin-bottom: 16px;
+      }
+      &.info-title{
+        margin-bottom: 16px;
+      }
+    }
+    &.check-option{
+      margin-top: 24px;
+      margin-bottom: 16px;
+      .fld-cell{
+        display: flex;
+        flex-direction: column;
+        .title{
+          margin-bottom: 8px;
+        }
+        .option-fld-cell{
+          display: flex;
+          
+          .input-fld{
+            margin-right: 16px;
+            display: flex;
+            column-gap: 4px;
+            input[type=radio]{
+              margin-top: 0;
+            }
+          }
+        }
+        
+     
+        
+      }
+    }
+    &.button-wrap{
+      display: flex;
+      justify-content: flex-end;
+      column-gap: 8px;
+    }
+  }
 
+  .currentschoolinfo-row{
+    display: flex;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px;
+    margin-top: 16px;
+    padding: 8px 0;
+    flex-direction: column;
+    .currentschoolinfo-cell{
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      column-gap: 8px;
+      label{
+        margin-bottom: 0;
+        margin-right: 16px;
+      }
+    }
+    .ifschool-block{
+
+    }
+  }
+}
 .btn-wrapper{
   display: flex;
   flex-direction: row;
