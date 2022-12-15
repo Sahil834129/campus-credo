@@ -1,3 +1,4 @@
+import moment from 'moment'
 import * as Yup from 'yup'
 import RestEndPoint from '../redux/constants/RestEndpoints'
 import RESTClient from './RestClient'
@@ -96,4 +97,9 @@ export function convertCamelCaseToPresentableText(str) {
 export function gotoHome(e, navigate) {
   e.preventDefault()
   navigate(isLoggedIn() ? '/userProfile' : '/')
+}
+
+export function getChildAge(dateOfBirth) {
+  let dateAsOnSTR = '31/03/' + moment().year()
+  return moment(dateAsOnSTR, 'DD/MM/YYYY').diff(moment(dateOfBirth, "DD/MM/YYYY"), 'years')
 }

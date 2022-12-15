@@ -34,8 +34,11 @@ const PageContent = {
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/schools', title: 'Schools' },
     { ref: '/howItWorks', title: 'How It Works' },
-    { ref: '/faqs', title: "FAQ's" }
+    { ref: '/FAQs', title: "FAQ's" }
   ],
+  CUSTOM_LINK_TITLES: {
+    "faqs":"FAQ's",
+  },
   SOCIAL_MEDIA_LIST: [
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
     { ref: 'https://www.instagram.com', type: 'instagram', icon: 'insta-icon' },
