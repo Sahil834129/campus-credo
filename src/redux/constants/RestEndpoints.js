@@ -48,7 +48,8 @@ const RestEndPoint = {
   RESET_PASSWORD: 'user/resetPassword',
   DOWNLOAD_DOCUMENT: '/student/download/document',
   CLASS_ADMISSION_SESSION_DATA: 'admission/classAdmissionSessions',
-  CLASS_ADMISSION_SUMMARY:'admissionApplications/classAdmissionSummary/1',
+  CLASS_ADMISSION_SUMMARY:'admissionApplications/classAdmissionSummary',
+  SCHOOL_CLASSES_DATA: 'v1/schooldetails',
   APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined'
 };
 

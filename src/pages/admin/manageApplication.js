@@ -5,13 +5,17 @@ import Table from 'react-bootstrap/Table'
 import Layout from './layout'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import {getClassAdmissionSummary } from '../../utils/services';
+import {getClassAdmissionSummary, getSchoolClassesData } from '../../utils/services';
 
 
 export const ManageApplication = () => {
+  const schoolId = 1
   const [admissionData, setAdmisiionData] = useState(null)
-  const fetchClassAdmissionSummary =()=>{
-    getClassAdmissionSummary()
+  const [schoolClassesData, setSchoolClassesData] = useState([])
+  const [classId, setClassId] = useState(null)
+
+  const fetchClassAdmissionSummary =(classId)=>{
+    getClassAdmissionSummary(classId)
     .then(response =>{
       if (response.status === 200){
       setAdmisiionData(response.data)
@@ -21,11 +25,28 @@ export const ManageApplication = () => {
       console.log(error);
     });
   }
-  console.log( admissionData)
-  useEffect(()=> {
-    fetchClassAdmissionSummary()
-  }, [])
+  
+  const fetchSchoolClassesData = (schoolId) => {
+    getSchoolClassesData(schoolId )
+    .then(response=>{
+      if (response.status === 200){
+        setSchoolClassesData(response?.data)
+        setClassId(response?.data[0]?.classId)
+        }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
 
+  useEffect(()=> {
+    if (classId !== null){
+    fetchClassAdmissionSummary(classId)
+    }}, [classId])
+
+  useEffect(()=> {
+    fetchSchoolClassesData(schoolId)
+  }, [schoolId])
 
   return (
     <Layout admissionSummary={admissionData?.upperSchoolAdmissionSummary}>
@@ -42,10 +63,16 @@ export const ManageApplication = () => {
             <div className='filter-form-area'>
               <Form.Group className='form-element-group' controlId=''>
                 <Form.Label className='form-label'>Select Class</Form.Label>
-                <Form.Select aria-label='Default select example'>
-                  <option value='1'>UKG</option>
-                  <option value='2'>LKG</option>
-                  <option value='3'>Nursery</option>
+                <Form.Select 
+                    value={classId} 
+                    onChange={(e) => {
+                      setClassId(e.target.value);
+                          }}> 
+                    {schoolClassesData.map((val) => (
+                            <option value={val.classId} >
+                              {val.className}
+                            </option>
+                    ))}
                 </Form.Select>
               </Form.Group>
               <Form.Group className='form-element-group' controlId=''>
