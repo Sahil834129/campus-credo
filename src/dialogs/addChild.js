@@ -149,18 +149,22 @@ const AddChildDialog = (props) => {
                   </div>
                 </div>
                 <div className='frm-cell button-wrap'>
-                  <Button
-                    type='button'
-                    class='cancel-btn'
-                    buttonLabel='Cancel'
+                <button
+                    type="button"
+                    className={"cancel-btn btn btn-primary " + props.class}
+                    buttonLabel="Cancel"
                     onClick={props.handleClose}
-                  />
-                  <Button
-                    type='submit'
-                    class='save-btn'
-                    buttonLabel={props.child ? 'Update' : 'Add'}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="save-btn"
+                    className={"save-btn btn btn-primary " + props.class}
                     submitting={submitting}
-                  />
+                  >
+                    {props.child ? "Update" : "Add"}
+                  </button>
                 </div>
               </Form>
             )}

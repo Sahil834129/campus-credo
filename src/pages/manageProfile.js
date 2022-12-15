@@ -80,12 +80,7 @@ export const ManageProfile = () => {
             setSubmitting(false)
             navigate('/manageProfile')
             setUserDetails({
-                ...userDetails,
-                firstName: '',
-                lastName: '',
-                email: '',
-                city: '',
-                state: ''
+                ...userDetails
             })
 
         }).catch((error) => {
