@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Layout from '../common/layout';
-import { useSelector, useDispatch } from "react-redux";
-import { getItemsInCart } from '../redux/actions/cartAction';
+import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from '../common/Breadcrumbs';
+import Layout from '../common/layout';
 import CartItemsGrid from '../components/CartItemsGrid';
-import PaymentCard from '../components/PaymentCard';
-import RESTClient from '../utils/RestClient';
-import RestEndPoint from '../redux/constants/RestEndpoints';
-import SchoolCard from '../components/SchoolCard';
-import { getChildsList } from '../redux/actions/childAction';
-import { isLoggedIn } from '../utils/helper';
 import EmptyCart from '../components/EmptyCart';
+import PaymentCard from '../components/PaymentCard';
+import SchoolCard from '../components/SchoolCard';
+import { getItemsInCart } from '../redux/actions/cartAction';
+import { getChildsList } from '../redux/actions/childAction';
+import RestEndPoint from '../redux/constants/RestEndpoints';
+import { isLoggedIn } from '../utils/helper';
+import RESTClient from '../utils/RestClient';
 
 const ApplicationCart = () => {
   const dispatch = useDispatch();
@@ -84,7 +84,7 @@ const ApplicationCart = () => {
               
               <div className='cart-content-row'>
                 <Col className='cell cart-content-area left'>
-                <div className='row-wrapper'>
+                <div className='row-wrapper select-child-wrapper'>
                 <label>Select Child<span className='req'>*</span></label>
                 <Form.Group className='item-list-container'>
                   {

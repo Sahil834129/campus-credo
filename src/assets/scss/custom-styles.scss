@@ -149,6 +149,8 @@
             padding: 16px;
             background: #fbfbfb;
             border-radius: 8px;
+            font-size: 15px;
+            line-height: 1.6rem;
             a{
               white-space: normal;
               color: $secondarycolor;
@@ -579,11 +581,49 @@ ul.list-group{
           border-bottom: 1px solid #D9D9D9;
           align-items: flex-start;
           justify-content: flex-start;
+          &.select-child-wrapper{
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e9e9e9;
+            align-items: flex-start;
+            justify-content: flex-start;
+            border-radius: 8px;
+            margin-top: 24px;
+          }
+          .item-list-container{
+            .form-check{
+              margin: 0;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              column-gap: 8px;
+              padding: 8px 16px;
+              border: 1px solid #efefef;
+              border-radius: 28px;
+              &:hover{
+                border: 1px solid #efefef;
+                background: #efefef;
+              }
+              &.active{
+                border: 1px solid #549B43;
+                background: rgba(84, 155, 67, 0.10);
+                box-shadow: 0px 1px 8px rgba(84, 155, 67, 0.16);
+              }
+              input[type=radio]{
+                margin: 0;
+              }
+              label{
+                margin: 0;
+              }
+            }
+          }
           label{
             margin-right: 8px;
             font-style: normal;
             font-size: 15px;
-            margin-bottom: 16px;
+            // margin-bottom: 16px;
           }
           .child-list-for-admission{
             display: flex;
@@ -2200,6 +2240,7 @@ ul.list-group{
               background: #21b573;
               color: #ffffff;
               font-size: 16px;
+              line-height: 1.4rem;
             }
             h2{
               color: $primarycolor;
@@ -2254,8 +2295,10 @@ ul.list-group{
   }
   .item-list-container{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr) ) ;
+    grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
     width: 100%;
+    column-gap: 16px;
+    row-gap: 16px;
    .form-check{
 
    } 
@@ -3147,6 +3190,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
         .loginoption{
           display: flex;
           flex-direction: row;
+          align-items: center;
           .loginoption-cell{
             margin-right: 8px;
             h2{
@@ -3156,9 +3200,13 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               line-height: 24px;
               color: #000000;
               margin-right: 8px;
+              margin-bottom: 0;
             }
             .form-check-inline{
               margin-right: 4px;
+              input[type=radio]{
+                margin: 0;
+              }
             }
           }
         }
@@ -3725,7 +3773,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           display: flex;
           flex-direction: row;
           margin-top: 58px;
-          margin-bottom: 71px;
+          margin-bottom: 62px;
           li{
             i{
               margin-bottom: 9px;
