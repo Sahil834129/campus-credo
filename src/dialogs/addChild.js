@@ -120,13 +120,15 @@ const AddChildDialog = (props) => {
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate}
-                      //showYearDropdown={true}
+                      selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate.toDate()}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
                       onChange={date => setFieldValue('dateOfBirth', date)}
-                      maxDate={maxDate}
+                      maxDate={maxDate.toDate()}
+                      dropdownMode="select"
+                      showMonthDropdown
+                      showYearDropdown
                     />
                   </div>
                   {
