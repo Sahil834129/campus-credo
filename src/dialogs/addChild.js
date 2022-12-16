@@ -40,7 +40,8 @@ const AddChildDialog = (props) => {
   const saveChild = async formData => {
     setSubmitting(true);
     const reqPayload = { ...formData };
-    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format('DD/MM/yyyy');
+    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth, 'DD/MM/yyyy').format('DD/MM/yyyy');
+    
     try {
       if (props.child) {
         reqPayload.childId = props.child.childId;
@@ -77,7 +78,7 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: moment(maxDate).format('DD/MM/yyyy'), 
+              dateOfBirth: moment(maxDate, 'DD/MM/yyyy').format('DD/MM/yyyy'), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
@@ -128,6 +129,9 @@ const AddChildDialog = (props) => {
                       maxDate={maxDate}
                     />
                   </div>
+                  {
+                    errors && errors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mb-2'>{errors['dateOfBirth']}</div> : ''
+                  }
                   <div className='fld-inst'>
                     Editing Date of Birth may remove schools from your shortlisted schools list if age criteria doesn't meet with the applying class
                   </div>

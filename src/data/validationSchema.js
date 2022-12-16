@@ -1,5 +1,7 @@
+import moment from "moment";
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
+import { getChildAge } from "../utils/helper";
 
 YupPassword(Yup);
 export const SignUpSchema = Yup.object().shape({
@@ -34,7 +36,14 @@ export const AddChildSchema = Yup.object().shape({
     firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
     lastName: Yup.string().min(2, "Value is too short.").max(13, "Value is too long.").required("Required *"),
     gender: Yup.string().required("Required *"),
-    dateOfBirth: Yup.string().required("Required *"),
+    dateOfBirth: Yup.string().required("Required *")
+    .test(
+        "DOB",
+        "Please select a valid date, age should be at least 2 years at 31st March current year.",
+        value => {
+          return value && value != '' && (getChildAge(moment(value).format('DD/MM/YYYY')) >=2);
+        }
+    ),
 });
 
 export const UpdateProfileSchema = Yup.object().shape({
