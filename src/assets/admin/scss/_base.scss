@@ -21,10 +21,12 @@ html, body {
     font-size: 1rem; 
     line-height: inherit; 
     width: calc(100%); 
+    font-family: $rubik-slab;
 }
-html, body, p, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, img, pre, form, fieldset {
+html, body, p, div, h1, h2, h3, h4, h5, h6, ul, li, ol, dl, img, pre, form, fieldset {
     margin: 0;
     padding: 0;
+    font-family: $rubik-slab;
 }
 ::-webkit-input-placeholder { /* Chrome */
     color: $primarycolor;
