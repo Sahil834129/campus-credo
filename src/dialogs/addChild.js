@@ -17,7 +17,7 @@ import RestEndPoint from '../redux/constants/RestEndpoints';
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
-  const maxDate = new Date().setFullYear(parseInt(new Date().getFullYear()) - 2);
+  const maxDate =  moment().set('year', parseInt(new Date().getFullYear()) - 2) //new Date().setFullYear(parseInt(new Date().getFullYear()) - 2);
   const [selectedChild, setSelectedChild] = useState({
     firstName: '',
     lastName: '',
@@ -78,7 +78,7 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: moment(maxDate, 'DD/MM/yyyy').format('DD/MM/yyyy'), 
+              dateOfBirth: moment(maxDate).format('DD/MM/yyyy'), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
@@ -121,7 +121,7 @@ const AddChildDialog = (props) => {
                   <div className='field-group-wrap'>
                     <DatePicker
                       selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate}
-                      showYearDropdown={true}
+                      //showYearDropdown={true}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
