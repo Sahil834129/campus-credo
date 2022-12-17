@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from '../components/form/Button';
 import { Formik, Form } from 'formik';
 import InputField from '../components/form/InputField';
 import DatePicker from 'react-datepicker';
@@ -13,6 +11,7 @@ import { getChildsList } from '../redux/actions/childAction';
 import { GENDER_OPTOPNS } from '../constants/formContanst';
 import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
+import GenericDialog from './GenericDialog';
 
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
@@ -61,14 +60,8 @@ const AddChildDialog = (props) => {
   };
 
   return (
-    <Modal
-      dialogClassName='signin-model add-child-model'
-      show={props.show}
-      onHide={props.handleClose}
-    >
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body dialogClassName='model-body add-child-body'>
-        <div className='model-body-col'>
+    <GenericDialog className='signin-model add-child-model' show={props.show} handleClose={props.handleClose}>
+      <div className='model-body-col'>
           <h2>Add Child Information</h2>
           <h4>
             Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.
@@ -176,9 +169,7 @@ const AddChildDialog = (props) => {
             )}
           </Formik>
         </div>
-      </Modal.Body>
-      {/* <Modal.Footer></Modal.Footer> */}
-    </Modal>
+    </GenericDialog>
   );
 };
 

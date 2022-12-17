@@ -23,8 +23,8 @@ const ApplyToSchool = (props) => {
     const [validationErrors, setValidationErrors] = useState({})
     const schoolId = props.schoolId;
     useEffect(() => { dispatch(getChildsList());}, [dispatch]);
-    useEffect(()=> {popularSchoolClasses(props)}, [props]);
-    useEffect(()=>{populateSessionOptions(props)}, [props]);
+    useEffect(()=> {popularSchoolClasses(props)}, [props.schoolDetails]);
+    useEffect(()=>{populateSessionOptions(props)}, [props.schoolDetails]);
     useEffect(()=>{populateClassesWithAge()},[])
     
     const handleAddRow = () => {
@@ -41,26 +41,26 @@ const ApplyToSchool = (props) => {
         setRows(tempRows);
     }
 
-    const popularSchoolClasses = (props) => {
-      try {
-        let feeMap = {};
-        setClassOptions(
-          // [{ value: "", text: "Select Class" }].concat(
-          props.schoolDetails.classes.map((it) => ({
-            value: it.classId,
-            text: it.className,
-          })),
-          // ),
-        );
-        props.schoolDetails &&
-          props.schoolDetails.classes.forEach((element) => {
-            feeMap[element.classId] = element.fee;
-          });
-        setClassFeeMap(feeMap);
-      } catch (e) {
-        console.log("Error while getting classes list" + e);
-      }
-    };
+	const popularSchoolClasses = (props) => {
+		try {
+			let feeMap = {};
+			if (props.schoolDetails && props.schoolDetails.classes) {
+				setClassOptions(
+					props.schoolDetails.classes.map((it) => ({
+						value: it.classId,
+						text: it.className,
+					})),
+				);
+			
+				props.schoolDetails.classes.forEach((element) => {
+					feeMap[element.classId] = element.fee;
+				});
+			}
+			setClassFeeMap(feeMap);
+		} catch (e) {
+			console.log("Error while getting classes list" + e);
+		}
+	};
 
     const populateSessionOptions = (props) => {
       let sessionOptions = [];
