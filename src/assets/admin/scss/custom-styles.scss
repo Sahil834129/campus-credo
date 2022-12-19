@@ -692,10 +692,16 @@ ul.list-group{
       flex-direction: column;
       flex: 1;
       &.identification-mark-cell{
-        margin-bottom: 16px;
+        margin-bottom: 0;
       }
       &.info-title{
         margin-bottom: 16px;
+      }
+      .fld-item{
+
+      }
+      &.two-row{
+        row-gap: 12px;
       }
     }
     &.check-option{
