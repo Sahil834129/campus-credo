@@ -13,3 +13,10 @@ export const ADMIN_DASHBOARD_LINK = [
   { title: 'Manage Fees', url: '/manage-fees', showsData: false },
   { title: 'Manage Users', url: '/manage-users', showsData: false }
 ]
+ 
+export const OPERATORS = {
+  EQUALS: 'EQUALS',
+  IN: 'IN',
+  BETWEEN: 'BETWEEN',
+  LIKE: 'LIKE'
+}

@@ -43,6 +43,7 @@ const RestEndPoint = {
   CHANGE_PASSWORD: '/parent/changePassword',
   UPDATE_PHONE: '/parent/updatePhone',
   CLASS_ADMISSION_DATA: '/admission/classAdmissionData',
+  SCHOOL_FILTER_DATA:'/admissionApplications/find',
   SCHOOL_ADMISSION_SUMMARY: 'admission/application/schoolAdmissionSummary',
   SCHOOL_ADMISSION_FEE_SUMMARY: 'dashboard/schoolAdmissionFeeSummary',
   RESET_PASSWORD: 'user/resetPassword',

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSchoolClasses } from '../redux/actions/masterData'
 import MultiRangeSlider from "multi-range-slider-react";
 import { MultiSelect } from 'react-multi-select-component'
+import { OPERATORS } from '../constants/app' 
 
 const SidebarFilter = ({ applyFilters }) => {
   const dispatch = useDispatch()
@@ -47,12 +48,7 @@ const SidebarFilter = ({ applyFilters }) => {
   const selectedLocation = useSelector(
     state => state.locationData.selectedLocation
   )
-  const OPERATORS = {
-    EQUALS: 'EQUALS',
-    IN: 'IN',
-    BETWEEN: 'BETWEEN',
-    LIKE: 'LIKE'
-  }
+  
 
   useEffect(() => {
     populateSchoolBoardsList()
