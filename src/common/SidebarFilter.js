@@ -220,6 +220,8 @@ const SidebarFilter = ({ applyFilters }) => {
   function handleResetForm(resetForm) {
     setMinMonthlyTutionFee(0)
     setMaxMonthlyTutionFee(20000)
+    setFacilities([])
+    setExtracurriculars([])
     resetForm()
   }
 

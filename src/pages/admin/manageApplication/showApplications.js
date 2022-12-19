@@ -5,9 +5,10 @@ import moment from "moment";
 
 import TableComponent from "../../../common/TableComponent";
 import { getClassApplication } from "../../../utils/services";
-import { DATE_FORMAT, FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
+import { FAILED_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
 import Action from "../../../assets/img/actions.png";
 import { humanize } from "../../../utils/helper";
+import { getDefaultDateFormat } from "../../../utils/DateUtil";
 
 
 export default function ShowApplications({ selectedClass, setApplicationStatus, setApplicationId, setOpenModal }) {
@@ -59,7 +60,7 @@ export default function ShowApplications({ selectedClass, setApplicationStatus, 
       accessor: 'submissionDate',
       Header: 'Application Date',
       Cell: ((e) => {
-        return moment(e.row.original?.submissionDate).format(DATE_FORMAT);
+        return moment(e.row.original?.submissionDate).format(getDefaultDateFormat());
       })
     },
     {

@@ -181,10 +181,15 @@ div.noMargin {
   }
 }
 .modal{
-  .modal-dialog{
-    &.alert-popup{
+  &.alert-popup{
+    .modal-dialog{
       .modal-content{
-        .modal-header{}
+        .modal-header{
+          font-size: 16px;
+          font-weight: 600;
+          color: $primarycolor;
+          padding: 24px 24px;
+        }
         .modal-body{
           display: flex;
           align-items: center;
@@ -235,7 +240,6 @@ div.noMargin {
       }
     }
   }
-  
 }
 
 

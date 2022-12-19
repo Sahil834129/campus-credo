@@ -52,7 +52,7 @@ const PaymentCard = ({selectedChild}) => {
                     className={'btn checkour' + (selectedChild.id ==='' || selectedChild.cartItems.length === 0 ? ' disabled' : '')} 
                     onClick={handleShowReviewApplication}
                     >
-                    Review Admission Form <br /> and Checkout
+                    Review Admission Form <br /> and Submit
                 </Card.Link>
                 <Card.Link href="/schools" className='btn addmore'>Add More Schools</Card.Link>
             </Card.Body>

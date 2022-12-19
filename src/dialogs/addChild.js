@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from '../components/form/Button';
 import { Formik, Form } from 'formik';
 import InputField from '../components/form/InputField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import * as moment from 'moment';
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux';
 import { AddChildSchema } from '../data/validationSchema';
@@ -13,17 +10,18 @@ import { getChildsList } from '../redux/actions/childAction';
 import { GENDER_OPTOPNS } from '../constants/formContanst';
 import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
-import { DATE_FORMAT } from "../constants/app";
+import GenericDialog from './GenericDialog';
+import { getStudentMaxDateOfBirth } from '../utils/helper';
+import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../utils/DateUtil';
 
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
-  const maxDate = new Date().setFullYear(parseInt(new Date().getFullYear()) - 2);
   const [selectedChild, setSelectedChild] = useState({
     firstName: '',
     lastName: '',
     gender: 'Male',
-    dateOfBirth: ''
+    dateOfBirth: formatDateToDDMMYYYY(getStudentMaxDateOfBirth())
   });
 
   useEffect(() => {
@@ -41,7 +39,6 @@ const AddChildDialog = (props) => {
   const saveChild = async formData => {
     setSubmitting(true);
     const reqPayload = { ...formData };
-    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format(DATE_FORMAT);
     try {
       if (props.child) {
         reqPayload.childId = props.child.childId;
@@ -61,14 +58,8 @@ const AddChildDialog = (props) => {
   };
 
   return (
-    <Modal
-      dialogClassName='signin-model add-child-model'
-      show={props.show}
-      onHide={props.handleClose}
-    >
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body dialogClassName='model-body add-child-body'>
-        <div className='model-body-col'>
+    <GenericDialog className='signin-model add-child-model' show={props.show} handleClose={props.handleClose}>
+      <div className='model-body-col'>
           <h2>Add Child Information</h2>
           <h4>
             Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.
@@ -78,7 +69,7 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: moment(maxDate).format(DATE_FORMAT), 
+              dateOfBirth: formatDateToDDMMYYYY(getStudentMaxDateOfBirth()), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
@@ -120,15 +111,20 @@ const AddChildDialog = (props) => {
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth ? moment(values.dateOfBirth, DATE_FORMAT).toDate() : maxDate}
-                      showYearDropdown={true}
+                      selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : getStudentMaxDateOfBirth()}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
-                      onChange={date => setFieldValue('dateOfBirth', date)}
-                      maxDate={maxDate}
+                      onChange={date => {setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date))}}
+                      maxDate={getStudentMaxDateOfBirth()}
+                      dropdownMode="select"
+                      showMonthDropdown
+                      showYearDropdown
                     />
                   </div>
+                  {
+                    errors && errors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mb-2'>{errors['dateOfBirth']}</div> : ''
+                  }
                   <div className='fld-inst'>
                     Editing Date of Birth may remove schools from your shortlisted schools list if age criteria doesn't meet with the applying class
                   </div>
@@ -150,26 +146,26 @@ const AddChildDialog = (props) => {
                   </div>
                 </div>
                 <div className='frm-cell button-wrap'>
-                  <Button
-                    type='button'
-                    class='cancel-btn'
-                    buttonLabel='Cancel'
+                <button
+                    type="button"
+                    className={"cancel-btn btn btn-primary " + props.class}
                     onClick={props.handleClose}
-                  />
-                  <Button
-                    type='submit'
-                    class='save-btn'
-                    buttonLabel={props.child ? 'Update' : 'Add'}
-                    submitting={submitting}
-                  />
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className={"save-btn btn btn-primary " + props.class}
+                    disabled={submitting}
+                  >
+                    {submitting ? "Please wait..." : (props.child ? 'Update' : 'Add')}
+                  </button>
                 </div>
               </Form>
             )}
           </Formik>
         </div>
-      </Modal.Body>
-      {/* <Modal.Footer></Modal.Footer> */}
-    </Modal>
+    </GenericDialog>
   );
 };
 

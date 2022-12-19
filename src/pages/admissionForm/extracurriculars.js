@@ -36,7 +36,7 @@ export default function ExtracurricularForm ({ selectedChild, setSelectedChild, 
     <Formik
       initialValues={{
         childId: selectedChild.childId,
-        competitionCertificate: selectedChild.competitionCertificate,
+        competitionCertificate: selectedChild.competitionCertificate ? selectedChild.competitionCertificate : '',
         otherInterest: selectedChild.otherInterest
       }}
       validateOnBlur

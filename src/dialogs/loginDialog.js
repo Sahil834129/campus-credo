@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {Form, Button} from "react-bootstrap";
 import RESTClient from "../utils/RestClient";
@@ -16,6 +15,7 @@ import OtpInput from "react-otp-input";
 import { DEFAULT_ROLES } from "../constants/app";
 import { setIsUserLoggedIn } from "../redux/actions/userAction";
 import { SignInSchema, UpdatePhoneSchema } from "../data/validationSchema";
+import GenericDialog from "./GenericDialog";
 
 const LoginDialog = (props) => {
     const dispatch = useDispatch();
@@ -181,83 +181,80 @@ const LoginDialog = (props) => {
 
     return (
         <>
-        <Modal dialogClassName="signin-model" show={props.show} onHide={handleClose}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body dialogClassName="model-body">
-                <div className='model-body-col left'>
-                    <h2>Sign in</h2>
-                    <h4>Sign in to check your favourite schools, filled forms and status of admission process.</h4>
-                    <div className="form-container">
-                        <Form>
-                            <Form.Group className="mb-3">
-                                <Form.Control type="phone" maxLength="10" onChange={e => setPhone(e.target.value)} onBlur={e=> handlePhoneBlur(e.target.value)} placeholder="Mobile Number" />
-                                {
-                                    validationErrors.hasOwnProperty('phone') ? <div className='error-exception'>{validationErrors.phone}</div> : ''
+        <GenericDialog className='signin-model' show={props.show} handleClose={handleClose}>
+            <div className='model-body-col left'>
+                <h2>Sign in</h2>
+                <h4>Sign in to check your favourite schools, filled forms and status of admission process.</h4>
+                <div className="form-container">
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Control type="phone" maxLength="10" onChange={e => setPhone(e.target.value)} onBlur={e => handlePhoneBlur(e.target.value)} placeholder="Mobile Number" />
+                            {
+                                validationErrors.hasOwnProperty('phone') ? <div className='error-exception'>{validationErrors.phone}</div> : ''
+                            }
+                        </Form.Group>
+                        <div className="loginoption">
+                            <span className="loginoption-cell"><h2>Sign in using</h2></span>
+                            <span className="loginoption-cell">
+                                <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)} /><label className="lbl">Password</label>
+                            </span>
+                            <span className="loginoption-cell">
+                                <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} /><label>Mobile OTP</label>
+                            </span>
+                        </div>
+                        <Form.Group className="mb-3">
+                            <div className="otp-fields-wrapper mt-3 mb-2">
+                                {loginWithOTP === true ? (
+                                    <OtpInput
+                                        onChange={handleOtpChange}
+                                        numInputs={4}
+                                        isInputNum={true}
+                                        shouldAutoFocus
+                                        value={otp}
+                                        className='otpfield'
+
+                                        placeholder="----"
+                                        inputStyle={{
+                                            width: "52px",
+                                            height: "52px",
+                                            caretColor: "#000000",
+                                        }}
+
+                                    />
+                                )
+                                    :
+                                    <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e => setOtpOrPassword(e.target.value)} />
                                 }
-                            </Form.Group>
-                            <div className="loginoption">
-                                <span className="loginoption-cell"><h2>Sign in using</h2></span>
-                                <span className="loginoption-cell">
-                                    <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)} /><label className="lbl">Password</label>
-                                </span>
-                                <span className="loginoption-cell">
-                                    <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} /><label>Mobile OTP</label>
-                                </span>
+                                {loginWithOTP ? getSendOTPLinkMessage() : ''}
                             </div>
-                            <Form.Group className="mb-3">
-                                <div className="otp-fields-wrapper mt-3 mb-2">
-                                    {loginWithOTP === true ? (
-                                        <OtpInput
-                                            onChange={handleOtpChange}
-                                            numInputs={4}
-                                            isInputNum={true}
-                                            shouldAutoFocus
-                                            value={otp}
-                                            className='otpfield'
-
-                                            placeholder="----"
-                                            inputStyle={{
-                                                width: "52px",
-                                                height: "52px",
-                                                caretColor: "#000000",
-                                            }}
-
-                                        />
-                                    ) 
-                                    : 
-                                        <Form.Control type="password" placeholder={loginWithOTP ? "OTP" : "Password"} onChange={e => setOtpOrPassword(e.target.value)} />
-                                    }
-                                    {loginWithOTP ? getSendOTPLinkMessage() : ''}
-                                </div>
-                                {
-                                    loginWithOTP ? (validationErrors.hasOwnProperty('otp') ? <div className='error-exception'>{validationErrors.otp}</div> : '')
+                            {
+                                loginWithOTP ? (validationErrors.hasOwnProperty('otp') ? <div className='error-exception'>{validationErrors.otp}</div> : '')
                                     : (validationErrors.hasOwnProperty('password') ? <div className='error-exception'>{validationErrors.password}</div> : '')
-                                }
-                            </Form.Group>
+                            }
+                        </Form.Group>
 
-                            <div className="form-group mb-3 forgot-pwd-container">
-                                <Link onClick={handleShowPasswordDialog}>Forgot Password?</Link>
-                            </div>
-                            <Form.Group className="mb-3 button-wrap">
-                                <Button variant="primary signin-btn" disabled={submitting} onClick={signIn}>{submitting ? "Please wait..." : "Sign In"}</Button>
-                            </Form.Group>
-                        </Form>
-                    </div>
+                        <div className="form-group mb-3 forgot-pwd-container">
+                            <Link onClick={handleShowPasswordDialog}>Forgot Password?</Link>
+                        </div>
+                        <Form.Group className="mb-3 button-wrap">
+                            <Button variant="primary signin-btn" disabled={submitting} onClick={signIn}>{submitting ? "Please wait..." : "Sign In"}</Button>
+                        </Form.Group>
+                    </Form>
                 </div>
-                <div className='model-body-col right'>
-                    <h2>Create an account</h2>
-                    <h4>Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.</h4>
-                    <ListGroup as="ul" className='benfits-list'>
-                        <ListGroup.Item as="li"><i className='icons schoollisting-icon'></i> Popular School Listing</ListGroup.Item>
-                        <ListGroup.Item as="li"><i className='icons onlineadmission-icon'></i> Online Admission </ListGroup.Item>
-                        <ListGroup.Item as="li"><i className='icons payfeeonline-icon'></i> Pay Fee Online</ListGroup.Item>
-                    </ListGroup>
-                    <Form.Group className="mb-3 button-wrap">
-                        <Button variant="primary" className='signup-btn' disabled={submitting} onClick={redirectSignUp}>Sign Up</Button>
-                    </Form.Group>
-                </div>
-            </Modal.Body>
-        </Modal>
+            </div>
+            <div className='model-body-col right'>
+                <h2>Create an account</h2>
+                <h4>Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.</h4>
+                <ListGroup as="ul" className='benfits-list'>
+                    <ListGroup.Item as="li"><i className='icons schoollisting-icon'></i> Popular School Listing</ListGroup.Item>
+                    <ListGroup.Item as="li"><i className='icons onlineadmission-icon'></i> Online Admission </ListGroup.Item>
+                    <ListGroup.Item as="li"><i className='icons payfeeonline-icon'></i> Pay Fee Online</ListGroup.Item>
+                </ListGroup>
+                <Form.Group className="mb-3 button-wrap">
+                    <Button variant="primary" className='signup-btn' disabled={submitting} onClick={redirectSignUp}>Sign Up</Button>
+                </Form.Group>
+            </div>
+        </GenericDialog>
         <ForgotPasswordDialog show={showForgotPasswordDialog} handleClose={handleForgotPasswordClose}/>
         </>
     );

@@ -1,5 +1,7 @@
+import moment from 'moment'
 import * as Yup from 'yup'
 import RestEndPoint from '../redux/constants/RestEndpoints'
+import { getDefaultDateFormat } from './DateUtil'
 import RESTClient from './RestClient'
 
 export const refreshAccessToken = async () => {
@@ -97,3 +99,48 @@ export function gotoHome(e, navigate) {
   e.preventDefault()
   navigate(isLoggedIn() ? '/userProfile' : '/')
 }
+
+export function getStudentAge(dateOfBirth) {
+  const baseDate = moment().set('date', 31).set('month',2)
+  return baseDate.diff(moment(dateOfBirth, getDefaultDateFormat()), 'years')
+}
+
+export function getAge(dateOfBirth) {
+  return moment().diff(moment(dateOfBirth, getDefaultDateFormat()), 'years')
+}
+
+export function getChildAge(dateOfBirth) {
+  let dateAsOnSTR = '31/03/' + moment().year()
+  let age = 0
+  try {
+    age = moment(dateAsOnSTR, 'DD/MM/YYYY').diff(moment(dateOfBirth, "DD/MM/YYYY"), 'years')
+  } catch (error) {
+    console.log("Error while parsing the date : " + dateOfBirth)
+  }
+  return age
+}
+
+export function getStudentMaxDateOfBirth() {
+  return moment().subtract(2, 'years').set('date', 31).set('month',2).toDate()
+}
+
+export function getGuadianMaxDateOfBirth() {
+  return moment().subtract(10, 'years').toDate()
+}
+
+// It needs an array of class names and returns the suitable class based on student age
+export function getClassBasedOnAge(classMapWithAge, classOptions, childAge) {
+  let age = 0
+  let availableClassOptionsAgeMap = {}
+  let classOptionTexts  = classOptions.length ? classOptions.map(it => it.text.toLowerCase()) : []
+  Object.entries(classMapWithAge).forEach(([k, v]) => {
+    if (classOptionTexts.indexOf(v.toLowerCase()) >= 0)
+      availableClassOptionsAgeMap[k] = v
+  })
+  Object.keys(availableClassOptionsAgeMap).forEach((value, idx) => {
+          if (parseInt(value) <= childAge && parseInt(value) > age)
+              age = value
+      })
+  return availableClassOptionsAgeMap[parseInt(age)]
+}
+

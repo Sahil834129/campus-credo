@@ -1,16 +1,16 @@
 import React from 'react';
-import '../../assets/admin/scss/custom-styles.scss';
-import Container from 'react-bootstrap/Container';
-import { ReactComponent as CampusLogo } from '../../assets/img/campuscredso-logo.svg';
-import Button from 'react-bootstrap/Button';
-import { Link, useLocation } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link, useLocation } from 'react-router-dom';
+import '../../assets/admin/scss/custom-styles.scss';
+import { ReactComponent as CampusLogo } from '../../assets/img/campuscredso-logo.svg';
 
 import Nav from 'react-bootstrap/Nav';
 
-import Navbar from 'react-bootstrap/Navbar';
 import Avatar from 'react-avatar';
+import Navbar from 'react-bootstrap/Navbar';
 import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
 import { logout } from '../../utils/helper';
 
@@ -26,7 +26,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
   };
 
   return (
-    <Container className='main-container' fluid>
+    <Container className='main-container admin-contianer' fluid>
       <div className='top-navigation'>
         <div className='items-row'>
           <div className='item-col'>
@@ -67,7 +67,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
           <Button className='guide-btn'>Guide</Button>
         </Navbar.Collapse>
       </Navbar>
-      <div className='content-area' style={{paddingTop: 0}}>
+      <div className='content-area'>
         <div className='title-kpi-wrapper'>
           <Breadcrumb className='bc-nav'>
             <Breadcrumb.Item href='#'>Admin</Breadcrumb.Item>

@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import '../../assets/scss/custom-styles.scss'
-import { Formik, Form } from 'formik'
-import InputField from '../../components/form/InputField'
-import { useNavigate } from 'react-router-dom'
-import { BLOOD_OPTIONS } from '../../constants/formContanst'
-import RestEndPoint from '../../redux/constants/RestEndpoints'
-import RESTClient from '../../utils/RestClient'
-import { toast } from 'react-toastify'
+import { Form, Formik } from 'formik'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDisabilites } from '../../redux/actions/masterData'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import '../../assets/scss/custom-styles.scss'
+import InputField from '../../components/form/InputField'
+import { BLOOD_OPTIONS } from '../../constants/formContanst'
 import { StudentMedicalDetailsSchema } from '../../data/validationSchema'
+import { getDisabilites } from '../../redux/actions/masterData'
+import RestEndPoint from '../../redux/constants/RestEndpoints'
+import { getStudentAge } from '../../utils/helper'
+import RESTClient from '../../utils/RestClient'
 
 export const MedicalForm = ({ selectedChild, setStep }) => {
   const navigate = useNavigate()
@@ -88,7 +89,11 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
         )
         updateMedicalProfileData(response)
       }
-      setStep(val => val + 1)
+      // If age is less than 11 skip extracurricular and background check
+      if (getStudentAge(selectedChild.dateOfBirth) < 11)
+        setStep(val => val + 3)
+      else
+        setStep(val => val + 1)
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
@@ -307,14 +312,11 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
             <>
               <div className='disability-list-wrapper'>
                 {disabilitiesOption
-                  .filter((it, idx) => {
-                    return idx < 5
-                  })
                   .map((it, index) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        className={index !== 0 ? 'disability-list' : ''}
+                        className='disability-list'
                       >
                         <InputField
                           fieldName='disabilities'
@@ -333,43 +335,6 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                                 e.target.value
                               )
                             )
-                          }}
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    )
-                  })}
-              </div>
-              <div className='disability-list-wrapper'>
-                {disabilitiesOption
-                  .filter((it, idx) => {
-                    return idx >= 5 && idx < 10
-                  })
-                  .map((it, index) => {
-                    return (
-                      <div
-                        key={'disability_' + index}
-                        className={index !== 0 ? 'disability-list' : ''}
-                      >
-                        <InputField
-                          fieldName='disabilities'
-                          fieldType='checkbox'
-                          value={it.value}
-                          label={it.text}
-                          checked={
-                            isSelected(values.disabilities, it.value)
-                              ? 'checked'
-                              : ''
-                          }
-                          onChange={e => {
-                            setFieldValue(
-                              getDisabilitesData(
-                                values.disabilities,
-                                e.target.value
-                              )
-                            );
-                            (e.target.value === 'Other' && !e.target.checked) ? setFieldValue('otherDisability', '') : setFieldValue(values.otherDisability);
                           }}
                           errors={errors}
                           touched={touched}

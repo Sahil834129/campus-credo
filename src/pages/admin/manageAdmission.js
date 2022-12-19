@@ -5,9 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import DateRangePicker from '../../common/DateRangePicker';
 import {
-  getClassAdmissionData,
-  saveClassAdmissionData,
-  getClassAdmissionSessionData
+  getClassAdmissionData, getClassAdmissionSessionData, saveClassAdmissionData
 } from '../../utils/services';
 import Layout from './layout';
 
@@ -149,8 +147,8 @@ export const ManageAdmission = () => {
                         Activate and modify admission status for different
                         classes
                       </h2>
-                      <div className="d-flex">
-                        <span>Admission Year</span>
+                      <div className="admission-fld-wrap">
+                        <label>Admission Year</label>
                         <Form.Select
                           value={sessionValue}
                           onChange={(e) => {

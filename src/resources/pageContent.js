@@ -15,12 +15,12 @@ const PageContent = {
     { ref: '/contactUs', title: "Contact Us" }
   ],
   ADMISSION_FORM_SIDEBAR_MENU_ITEMS: [
-    { ref: '#', title: 'Student Details' },
-    { ref: '#', title: 'Medical Details' },
-    { ref: '#', title: 'Extracurriculars' },
-    { ref: '#', title: 'Background Check' },
-    { ref: '#', title: 'Parents/Guardian' },
-    { ref: '#', title: 'Supporting Documents' }
+    { ref: '#', title: 'Student Details', menuIndex: 1, show: true },
+    { ref: '#', title: 'Medical Details', menuIndex: 2, show: true },
+    { ref: '#', title: 'Extracurriculars', menuIndex: 3, show: true },
+    { ref: '#', title: 'Background Check', menuIndex: 4, show: true },
+    { ref: '#', title: 'Parents/Guardian', menuIndex: 5, show: true },
+    { ref: '#', title: 'Supporting Documents', menuIndex: 6, show: true }
   ],
   USER_PROFILE_SIDEBAR_MENU_ITEMS: [
     { ref: '/userProfile', icon:'dashboard-icon', class:'dashboard', title: 'Dashboard' },
@@ -34,8 +34,11 @@ const PageContent = {
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/schools', title: 'Schools' },
     { ref: '/howItWorks', title: 'How It Works' },
-    { ref: '/faqs', title: "FAQ's" }
+    { ref: '/FAQs', title: "FAQ's" }
   ],
+  CUSTOM_LINK_TITLES: {
+    "faqs":"FAQ's",
+  },
   SOCIAL_MEDIA_LIST: [
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
     { ref: 'https://www.instagram.com', type: 'instagram', icon: 'insta-icon' },

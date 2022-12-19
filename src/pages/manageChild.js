@@ -74,7 +74,7 @@ const ManageChild = () => {
                                    
                                     <Button
                                         className='add-child-btn'
-                                        onClick={() => setShowEditChildDialog(true)}
+                                        onClick={() => {setShowEditChildDialog(true); setSelectedChild(null)}}
                                     >
                                         Add Child
                                     </Button>

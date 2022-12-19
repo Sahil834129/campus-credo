@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { convertCamelCaseToPresentableText, gotoHome } from "../utils/helper";
+import PageContent from "../resources/pageContent";
 
 const Breadcrumbs = () => {
     const location = useLocation()
@@ -17,8 +18,15 @@ const Breadcrumbs = () => {
             {
                 pathNestedRoutes.map((path, index) => {
                     return index === pathNestedRoutes.length - 1 ?
-                        <Breadcrumb.Item key={index} href={getLinkRef(index)} active>{convertCamelCaseToPresentableText(path)}</Breadcrumb.Item>
-                        : <Breadcrumb.Item key={index} href={getLinkRef(index)}>{convertCamelCaseToPresentableText(path)}</Breadcrumb.Item>
+                        <Breadcrumb.Item key={index} href={getLinkRef(index)} active>
+                            {
+                                PageContent.CUSTOM_LINK_TITLES.hasOwnProperty(path) ? PageContent.CUSTOM_LINK_TITLES[path] : convertCamelCaseToPresentableText(path)
+                            }</Breadcrumb.Item>
+                        : <Breadcrumb.Item key={index} href={getLinkRef(index)}>
+                            {
+                                PageContent.CUSTOM_LINK_TITLES.hasOwnProperty(path) ? PageContent.CUSTOM_LINK_TITLES[path] : convertCamelCaseToPresentableText(path)
+                            }
+                        </Breadcrumb.Item>
                 })
             }
         </Breadcrumb>

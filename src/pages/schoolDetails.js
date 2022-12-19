@@ -17,6 +17,9 @@ import PageContent from '../resources/pageContent';
 import Desclaimer from '../components/Desclaimer';
 import NearBySchools from '../components/NearBySchools';
 import { isLoggedIn } from '../utils/helper';
+import { ObjectSchema } from 'yup';
+import NotFound from './notFound';
+import NoRecordsFound from '../common/NoRecordsFound';
 
 const SchoolDetails = () => {
 	const location = useLocation();
@@ -51,6 +54,7 @@ const SchoolDetails = () => {
 			});
 			setSchoolCategoryFacilitiesMap(categoryFaciltiesMap);
 		} catch (e) {
+			setSchoolDetails({})
 			console.log("error : " + e);
 			//navigate("/notFound")
 		}
@@ -61,6 +65,9 @@ const SchoolDetails = () => {
 				<Container className="content-area-inner internal-page-wrapper school-details-wrap">
 					<Col className='inner-page-content left'>
 						<Row className='content-section'>
+							{
+							 Object.keys(schoolDetails).length > 0 ? 
+							<>
 							<Breadcrumbs />
 							<Col className='page-container'>
 								<SchoolDetailTitle schoolName={schoolDetails.schoolName} establishYear={schoolDetails.yearEstablishedIn} />
@@ -91,6 +98,8 @@ const SchoolDetails = () => {
 									</div>
 								</div>
 							</Col>
+							</>
+						: <NoRecordsFound message='No school found'/>}
 						</Row>
 					</Col>
 					<Col className='inner-page-content right'>

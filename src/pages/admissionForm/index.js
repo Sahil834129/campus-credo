@@ -20,6 +20,7 @@ import ExtracurricularForm from './extracurriculars'
 import BackgroundCheckForm from './background-check'
 import ParentsGuardianComponent from './parents-guardian'
 import SupportingDocumentForm from './supportingdocumentform'
+import { getChildAge } from '../../utils/helper'
 
 export const AdmissionForms = () => {
   const [currentStudent, setCurrentStudent] = useState({})
@@ -121,6 +122,17 @@ export const AdmissionForms = () => {
     getCurrentComponent(step)
   }, [step])
 
+  function getSidebarMenuItems() {
+    let menuItems = PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS
+    if (getChildAge(selectedChild.dateOfBirth) < 11){
+      menuItems.forEach((item, index) => {
+        if (item.title === 'Extracurriculars' || item.title === 'Background Check')
+          item.show = false
+      })
+    }
+    return menuItems
+  }
+
   return (
     <Layout>
       <section className='content-area'>
@@ -172,7 +184,7 @@ export const AdmissionForms = () => {
               )}
               <div className='content-area-inner internal-page-wrapper'>
                 <LeftMenuBar
-                  menuItems={PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS}
+                  menuItems={getSidebarMenuItems()}
                   parentPage='userProfile'
                   step={step}
                 />
