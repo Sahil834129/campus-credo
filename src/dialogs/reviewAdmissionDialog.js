@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion, Tab, Tabs } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import RESTClient from "../utils/RestClient";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import { humanize } from '../utils/helper'
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import NoRecordsFound from "../common/NoRecordsFound";
-import { downloadDocument } from "../utils/services";
+import { toast } from "react-toastify";
 import AlertDialog from "../common/AlertDialog";
+import NoRecordsFound from "../common/NoRecordsFound";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import { humanize } from '../utils/helper';
+import RESTClient from "../utils/RestClient";
+import { downloadDocument } from "../utils/services";
 import GenericDialog from "./GenericDialog";
 
 const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
@@ -282,8 +281,9 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-                <div className="btn-wrapper">
+                <div className="btn-wrapper review-section-btn">
                     <Button className='submit' onClick={() => checkOutApplication()}>Checkout</Button>
+                    <Button className='edit' onClick=''>Edit</Button>
                 </div>
             </GenericDialog>
             <AlertDialog show={showAlertDialog} message={alertMessage} handleClose={()=> setShowAlertDialog(false)}/>

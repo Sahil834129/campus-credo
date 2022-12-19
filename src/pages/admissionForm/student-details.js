@@ -280,28 +280,25 @@ export default function StudentDetails ({
       </div>
       <div className='fld-row mt-3'>
         <div className='fld-cell identification-mark-cell'>
-          <label htmlFor='exampleFormControlTextarea1' className='form-label'>
-            Identification Marks (Please specify) <span className='req'>*</span>
-          </label>
-          <textarea
-            className='form-control'
-            name='identificationMarks'
-            rows='5'
-            value={selectedChild.identificationMarks}
-            onChange={e => {
-              console.log(e.target.value)
-              setFieldValue('identificationMarks', e.target.value)
-            }}
-          ></textarea>
-          {
-            validationErrors.hasOwnProperty('identificationMarks') ? <div className='error-exception'>{validationErrors.identificationMarks}</div> : ''
-          }
-        </div>
-      </div>
-     
-
-      <div className='fld-row'>
-        <div className='fld-cell'>
+            <label htmlFor='exampleFormControlTextarea1' className='form-label'>
+                Identification Marks (Please specify) <span className='req'>*</span>
+              </label>
+              <textarea
+                className='form-control'
+                name='identificationMarks'
+                rows='4'
+                value={selectedChild.identificationMarks}
+                onChange={e => {
+                  console.log(e.target.value)
+                  setFieldValue('identificationMarks', e.target.value)
+                }}
+              ></textarea>
+              {
+                validationErrors.hasOwnProperty('identificationMarks') ? <div className='error-exception'>{validationErrors.identificationMarks}</div> : ''
+              }
+          </div>
+        <div className='fld-cell two-row'>
+          <div className='fld-item'>
           <SelectField
               fieldName='nationality'
               label='Nationality'
@@ -313,21 +310,26 @@ export default function StudentDetails ({
                 setFieldValue('nationality', e.target.value)
               }}
             />
+          </div>
+          <div className='fld-item'>
+            <SelectField
+              fieldName='category'
+              label='Select Category'
+              required={true}
+              errors={validationErrors}
+              selectOptions={CATEGORY_OPTIONS}
+              value={selectedChild.category}
+              onChange={e => {
+                setFieldValue('category', e.target.value)
+              }}
+            />
+          </div>
+
         </div>
-        <div className='fld-cell'>
-          <SelectField
-            fieldName='category'
-            label='Select Category'
-            required={true}
-            errors={validationErrors}
-            selectOptions={CATEGORY_OPTIONS}
-            value={selectedChild.category}
-            onChange={e => {
-              setFieldValue('category', e.target.value)
-            }}
-          />
-        </div>
+        
+        
       </div>
+
      
       <div className='currentschoolinfo-row'>
         <div className='currentschoolinfo-cell'>
