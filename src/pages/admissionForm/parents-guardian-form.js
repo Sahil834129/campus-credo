@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getParentOCcupation } from '../../redux/actions/masterData';
 import { StudentParentGuardianSchema } from '../../data/validationSchema';
 import { populateCities } from '../../utils/populateOptions';
+import { DATE_FORMAT } from "../../constants/app";
 export default function ParentsGuardianForm({
   currentStudent,
   setStep,
@@ -59,7 +60,7 @@ export default function ParentsGuardianForm({
     // postData.otherRelation =
     //   postData.relation !== '' ? postData.relation : postData.relation;
 
-    postData.dateOfBirth = moment(postData.dateOfBirth).format('DD/MM/yyyy');
+    postData.dateOfBirth = moment(postData.dateOfBirth).format(DATE_FORMAT);
     postData.studentId = postData.studentId || currentStudent.childId;
     delete postData.profileId;
     delete postData.annualFamilyIncomes;
@@ -220,7 +221,7 @@ export default function ParentsGuardianForm({
                 </label>
                 <div className='field-group-wrap'>
                   <DatePicker
-                    selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : new Date()}
+                    selected={values.dateOfBirth ? moment(values.dateOfBirth, DATE_FORMAT).toDate() : new Date()}
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'

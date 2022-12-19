@@ -26,9 +26,17 @@ export const getClassAdmissionSessionData = () => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SESSION_DATA);
 };
 
-export const getClassAdmissionSummary = () => {
-  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY);
+export const getClassAdmissionSummary = (classId) => {
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY+`/${classId}`);
 };
+
+export const getClassApplication = (classId) => {
+  return RESTClient.get(RestEndPoint.CLASS_APPLICATION_CLASS + `/${classId}`)
+}
+
+export const updateApplicationStatus = (payload) => {
+  return RESTClient.post(RestEndPoint.CHANGE_APPLICATION_STATUS, payload);
+}
 
 export const downloadDocument = async (childId, documentName) => {
   try {

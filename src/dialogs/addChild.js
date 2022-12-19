@@ -13,6 +13,7 @@ import { getChildsList } from '../redux/actions/childAction';
 import { GENDER_OPTOPNS } from '../constants/formContanst';
 import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
+import { DATE_FORMAT } from "../constants/app";
 
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const AddChildDialog = (props) => {
   const saveChild = async formData => {
     setSubmitting(true);
     const reqPayload = { ...formData };
-    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format('DD/MM/yyyy');
+    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth).format(DATE_FORMAT);
     try {
       if (props.child) {
         reqPayload.childId = props.child.childId;
@@ -77,7 +78,7 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: moment(maxDate).format('DD/MM/yyyy'), 
+              dateOfBirth: moment(maxDate).format(DATE_FORMAT), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
@@ -119,7 +120,7 @@ const AddChildDialog = (props) => {
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate}
+                      selected={values.dateOfBirth ? moment(values.dateOfBirth, DATE_FORMAT).toDate() : maxDate}
                       showYearDropdown={true}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
