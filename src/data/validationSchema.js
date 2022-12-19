@@ -1,7 +1,7 @@
 import moment from "moment";
 import * as Yup from "yup";
 import YupPassword from 'yup-password';
-import { getChildAge } from "../utils/helper";
+import { getStudentAge } from "../utils/helper";
 
 YupPassword(Yup);
 export const SignUpSchema = Yup.object().shape({
@@ -41,7 +41,7 @@ export const AddChildSchema = Yup.object().shape({
         "DOB",
         "Please select a valid date, age should be at least 2 years at 31st March current year.",
         value => {
-          return value && value != '' && (getChildAge(moment(value).format('DD/MM/YYYY')) >=2);
+          return value && value != '' && (getStudentAge(value) >=2);
         }
     ),
 });
@@ -179,7 +179,7 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
     lastName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
     otherRelation: Yup.string().when('relation', {
-        is: val => val && val === 'Other',
+        is: val => val && val !== 'Father' && val !== 'Mother',
         then: Yup.string().required("Required *"),
     }),
     otherNationality: Yup.string().when('nationality', {
@@ -190,11 +190,26 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     occupation: Yup.string().required("Required *"),
     dateOfBirth: Yup.string().required("Required *"),
     annualFamilyIncome: Yup.string().matches(/^[0-9]+$/, { message: 'Please Enter only numeric value.' }).required("Required *"),
-    addressLine1: Yup.string().required("Required *"),
-    addressLine2: Yup.string().required("Required *"),
-    city: Yup.string().required("Required *"),
-    state: Yup.string().required("Required *"),
-    pincode: Yup.string().required("Required *"),
+    addressLine1: Yup.string().when('isAddressSameAsStudent',{
+        is: val => val && val === 'No',
+        then: Yup.string().required("Required *")
+    }),
+    addressLine2: Yup.string().when('isAddressSameAsStudent',{
+        is: val => val && val === 'No',
+        then: Yup.string().required("Required *")
+    }),
+    city: Yup.string().when('isAddressSameAsStudent',{
+        is: val => val && val === 'No',
+        then: Yup.string().required("Required *")
+    }),
+    state: Yup.string().when('isAddressSameAsStudent',{
+        is: val => val && val === 'No',
+        then: Yup.string().required("Required *")
+    }),
+    pincode: Yup.string().when('isAddressSameAsStudent',{
+        is: val => val && val === 'No',
+        then: Yup.string().required("Required *")
+    }),
 })
 
 

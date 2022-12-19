@@ -206,7 +206,7 @@ export default function BackgroundCheckForm ({ selectedChild, setSelectedChild, 
             <button
               className='save comn'
               type='submit'
-              submitting={submitting}
+              disabled={submitting}
             >
               {submitting ? 'Please wait...' : 'Save & Next'}
             </button>

@@ -9,6 +9,7 @@ import { BLOOD_OPTIONS } from '../../constants/formContanst'
 import { StudentMedicalDetailsSchema } from '../../data/validationSchema'
 import { getDisabilites } from '../../redux/actions/masterData'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
+import { getStudentAge } from '../../utils/helper'
 import RESTClient from '../../utils/RestClient'
 
 export const MedicalForm = ({ selectedChild, setStep }) => {
@@ -88,7 +89,11 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
         )
         updateMedicalProfileData(response)
       }
-      setStep(val => val + 1)
+      // If age is less than 11 skip extracurricular and background check
+      if (getStudentAge(selectedChild.dateOfBirth) < 11)
+        setStep(val => val + 3)
+      else
+        setStep(val => val + 1)
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
@@ -307,14 +312,10 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
             <>
               <div className='disability-list-wrapper'>
                 {disabilitiesOption
-                  // .filter((it, idx) => {
-                  //   return idx < 5
-                  // })
                   .map((it, index) => {
                     return (
                       <div
                         key={'disability_' + index}
-                        // className={index !== 0 ? 'disability-list' : ''}
                         className='disability-list'
                       >
                         <InputField
@@ -342,43 +343,6 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                     )
                   })}
               </div>
-              {/* <div className='disability-list-wrapper'>
-                {disabilitiesOption
-                  .filter((it, idx) => {
-                    return idx >= 5 && idx < 10
-                  })
-                  .map((it, index) => {
-                    return (
-                      <div
-                        key={'disability_' + index}
-                        className={index !== 0 ? 'disability-list' : ''}
-                      >
-                        <InputField
-                          fieldName='disabilities'
-                          fieldType='checkbox'
-                          value={it.value}
-                          label={it.text}
-                          checked={
-                            isSelected(values.disabilities, it.value)
-                              ? 'checked'
-                              : ''
-                          }
-                          onChange={e => {
-                            setFieldValue(
-                              getDisabilitesData(
-                                values.disabilities,
-                                e.target.value
-                              )
-                            );
-                            (e.target.value === 'Other' && !e.target.checked) ? setFieldValue('otherDisability', '') : setFieldValue(values.otherDisability);
-                          }}
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    )
-                  })}
-              </div> */}
               <div className='col-md-6'>
                 <InputField
                   fieldName='otherDisability'

@@ -19,11 +19,12 @@ import {
 import { StudentDetailsSchema } from '../../data/validationSchema'
 import { getSchoolClasses, getStates } from '../../redux/actions/masterData'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
-import { str2bool } from '../../utils/helper'
+import { getClassBasedOnAge, getStudentAge, str2bool } from '../../utils/helper'
 import {
   populateCities
 } from '../../utils/populateOptions'
 import RESTClient from '../../utils/RestClient'
+import { getAgeClassMap } from '../../utils/services'
 
 export default function StudentDetails ({
   currentStudent,
@@ -41,12 +42,12 @@ export default function StudentDetails ({
     { value: '', text: 'Select City' }
   ])
   const [city, setCity] = useState([{ value: '', text: 'Select City' }])
-
   const [isUserExist, setIsUserExist] = useState(false)
+  const [classMapWithAge, setClassMapWithAge] = useState({})
+  
   const saveStudentDetails = async e => {
     resetValidationErrors()
     e.preventDefault()
-    console.log(selectedChild, currentStudent )
     let postData = { ...selectedChild, ...currentStudent }
     if (!isValidFormData(postData))
       return
@@ -121,12 +122,12 @@ export default function StudentDetails ({
           })
           setIsUserExist(response.data.profileId ? true : false)
 
-          populateCities(response.data.state, setCity)
+          if (response.data.city)
+            populateCities(response.data.state, setCity)
           if (response.data.schoolCity) {
             populateCities(response.data.schoolState, setSchoolCity)
           }
           setIsUserExist(response.data.profileId ? true : false)
-
         } else {
           setIsUserExist(false)
         }
@@ -138,12 +139,22 @@ export default function StudentDetails ({
     [setSelectedChild]
   )
 
+  function getClassFromAge() {
+    const optionText = getClassBasedOnAge(classMapWithAge, classOptions, getStudentAge(selectedChild.dateOfBirth))
+    const selectedClass = classOptions.find(it => it.text.toLowerCase() === optionText?.toLowerCase())
+    return (selectedClass ? selectedClass.value.toString() : '')
+  }
+
   const setFieldValue = (fieldName, fieldValue) => {
     setSelectedChild({
       ...selectedChild,
       [fieldName]: fieldValue
     })
   }
+
+  const populateClassesWithAge = async() => {
+    setClassMapWithAge(await getAgeClassMap())
+}
 
   useEffect(() => {
     if(childsList.length ===0 )
@@ -159,6 +170,8 @@ export default function StudentDetails ({
   useEffect(() => {
     if (currentStudent.childId) getCurrentUser(currentStudent.childId)
   }, [currentStudent.childId, getCurrentUser])
+
+  useEffect(()=>{populateClassesWithAge()},[])
 
   function isValidFormData(formData) {
     try {
@@ -245,7 +258,7 @@ export default function StudentDetails ({
               required={true}
               errors={validationErrors}
               selectOptions={classOptions}
-              value={selectedChild.className}
+              value={selectedChild.className ? selectedChild.className : getClassFromAge()}
               onChange={e => {
                 setFieldValue('className', e.target.value)
               }}
@@ -265,7 +278,7 @@ export default function StudentDetails ({
             />
         </div>
       </div>
-      <div className='fld-row'>
+      <div className='fld-row mt-3'>
         <div className='fld-cell identification-mark-cell'>
           <label htmlFor='exampleFormControlTextarea1' className='form-label'>
             Identification Marks (Please specify) <span className='req'>*</span>

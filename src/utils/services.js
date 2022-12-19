@@ -56,3 +56,18 @@ export const downloadDocument = async (childId, documentName) => {
     toast.error("Error while downloading document." + error);
   }
 };
+
+export const getAgeClassMap = async () => {
+  let classAgeMap = {}
+  try {
+    const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES_WITH_AGE)
+    response.data.classesWithAgeLimit.length
+      && response.data.classesWithAgeLimit.forEach((it) => {
+        classAgeMap[parseInt(it[1])] = it[0]
+      })
+    return classAgeMap
+  } catch (error) {
+    return classAgeMap
+  }
+  
+}

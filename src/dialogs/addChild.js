@@ -3,7 +3,6 @@ import { Formik, Form } from 'formik';
 import InputField from '../components/form/InputField';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import * as moment from 'moment';
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux';
 import { AddChildSchema } from '../data/validationSchema';
@@ -12,16 +11,17 @@ import { GENDER_OPTOPNS } from '../constants/formContanst';
 import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
 import GenericDialog from './GenericDialog';
+import { getStudentMaxDateOfBirth } from '../utils/helper';
+import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../utils/DateUtil';
 
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
-  const maxDate =  moment().set('year', parseInt(new Date().getFullYear()) - 2) //new Date().setFullYear(parseInt(new Date().getFullYear()) - 2);
   const [selectedChild, setSelectedChild] = useState({
     firstName: '',
     lastName: '',
     gender: 'Male',
-    dateOfBirth: ''
+    dateOfBirth: formatDateToDDMMYYYY(getStudentMaxDateOfBirth())
   });
 
   useEffect(() => {
@@ -39,8 +39,6 @@ const AddChildDialog = (props) => {
   const saveChild = async formData => {
     setSubmitting(true);
     const reqPayload = { ...formData };
-    reqPayload.dateOfBirth = moment(reqPayload.dateOfBirth, 'DD/MM/yyyy').format('DD/MM/yyyy');
-    
     try {
       if (props.child) {
         reqPayload.childId = props.child.childId;
@@ -71,7 +69,7 @@ const AddChildDialog = (props) => {
               firstName: '',
               lastName: '',
               gender: 'Male',
-              dateOfBirth: moment(maxDate).format('DD/MM/yyyy'), 
+              dateOfBirth: formatDateToDDMMYYYY(getStudentMaxDateOfBirth()), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
@@ -113,12 +111,12 @@ const AddChildDialog = (props) => {
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : maxDate.toDate()}
+                      selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : getStudentMaxDateOfBirth()}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
-                      onChange={date => setFieldValue('dateOfBirth', date)}
-                      maxDate={maxDate.toDate()}
+                      onChange={date => {setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date))}}
+                      maxDate={getStudentMaxDateOfBirth()}
                       dropdownMode="select"
                       showMonthDropdown
                       showYearDropdown
@@ -151,18 +149,16 @@ const AddChildDialog = (props) => {
                 <button
                     type="button"
                     className={"cancel-btn btn btn-primary " + props.class}
-                    buttonLabel="Cancel"
                     onClick={props.handleClose}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    class="save-btn"
                     className={"save-btn btn btn-primary " + props.class}
-                    submitting={submitting}
+                    disabled={submitting}
                   >
-                    {props.child ? "Update" : "Add"}
+                    {submitting ? "Please wait..." : (props.child ? 'Update' : 'Add')}
                   </button>
                 </div>
               </Form>

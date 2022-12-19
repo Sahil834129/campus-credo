@@ -9,7 +9,8 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { toast } from "react-toastify";
 import { getItemsInCart } from "../../redux/actions/cartAction";
 import moment from "moment";
-import { getChildAge } from "../../utils/helper";
+import { getChildAge, getClassBasedOnAge, getStudentAge } from "../../utils/helper";
+import { getAgeClassMap, getClassAdmissionSummary } from "../../utils/services";
 
 const ApplyToSchool = (props) => {
     const dispatch = useDispatch();
@@ -22,10 +23,11 @@ const ApplyToSchool = (props) => {
     const [classMapWithAge, setClassMapWithAge] = useState({})
     const [validationErrors, setValidationErrors] = useState({})
     const schoolId = props.schoolId;
-    useEffect(() => { dispatch(getChildsList());}, [dispatch]);
+    
+	useEffect(() => { dispatch(getChildsList());}, [dispatch]);
+	useEffect(()=>{populateClassesWithAge()},[])
     useEffect(()=> {popularSchoolClasses(props)}, [props.schoolDetails]);
     useEffect(()=>{populateSessionOptions(props)}, [props.schoolDetails]);
-    useEffect(()=>{populateClassesWithAge()},[])
     
     const handleAddRow = () => {
         const item = { childId: '', class: '', session: '' };
@@ -72,16 +74,8 @@ const ApplyToSchool = (props) => {
     };
 
     const populateClassesWithAge = async() => {
-        try{
-            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES_WITH_AGE)
-            let classWithAgeMap = {}
-            response.data.classesWithAgeLimit.length 
-            && response.data.classesWithAgeLimit.forEach((it, index) =>{
-                classWithAgeMap[parseInt(it[1])] = it[0]
-            })
-            setClassMapWithAge(classWithAgeMap)
-        } catch (error){}
-    }
+        setClassMapWithAge(await getAgeClassMap())
+	}
 
     function openAddChildDialog() {
         setShowAddChildDialog(true);
@@ -89,24 +83,16 @@ const ApplyToSchool = (props) => {
 
     const handleChildSelection = (index, field, value) => {
         setRowFieldValue(index, field, value)
-        // Select class based on child age
-        const selectedChild = childsList.find(it => it.childId === parseInt(value))
-        let childAge = getChildAge(selectedChild.dateOfBirth);
-        let age = 0
         
-        Object.keys(classMapWithAge).forEach((value, idx) => {
-            if (parseInt(value) <= childAge && parseInt(value) > age)
-                age = value
-        })
-		let optionText = classMapWithAge[parseInt(age)]
-		const selectedClass = classOptions.find(it => it.text.toLowerCase() === optionText.toLowerCase())
-        if(selectedClass)
-            setRowFieldValue(index, 'class', selectedClass.value.toString())
-        else
-        	setRowFieldValue(index, 'class', '')
+		// Select class based on child age
+        const selectedChild = childsList.find(it => it.childId === parseInt(value))
+        let childAge = getStudentAge(selectedChild.dateOfBirth);
+        let optionText = getClassBasedOnAge(classMapWithAge, classOptions, childAge)
+		const selectedClass = classOptions.find(it => it.text.toLowerCase() === optionText?.toLowerCase())
+        setRowFieldValue(index, 'class', (selectedClass ? selectedClass.value.toString() : ''))
     }
 
-    const setRowFieldValue = (index, field, value) => {
+	const setRowFieldValue = (index, field, value) => {
         let tempRows = [...rows];
         if (!(index < tempRows.length))
             return;

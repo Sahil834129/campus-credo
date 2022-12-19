@@ -6,6 +6,8 @@ import RESTClient from "../../utils/RestClient";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { getGuadianMaxDateOfBirth } from '../../utils/helper';
+import { formatDateToDDMMYYYY } from '../../utils/DateUtil';
 
 const initalValue = {
   relation: 'father',
@@ -26,7 +28,7 @@ const initalValue = {
   annualFamilyIncome: '',
   isAddressSameAsStudent: 'Yes',
   guardianDeceased: 'No',
-  dateOfBirth: new Date()
+  dateOfBirth: formatDateToDDMMYYYY(getGuadianMaxDateOfBirth())
 };
 export default function ParentsGuardianComponent({ currentStudent, setStep }) {
   const [key, setKey] = useState('father');
@@ -74,16 +76,6 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
       } else {
         setParentExist(false);
       }
-      setValues(val => {
-        return {
-          ...val,
-          addressLine1: values.isAddressSameAsStudent === 'Yes' ? currentStudent.addressLine1 : '',
-          addressLine2: values.isAddressSameAsStudent === 'Yes' ? currentStudent.addressLine2 : '',
-          pincode: values.isAddressSameAsStudent === 'Yes' ? currentStudent.pincode : '',
-          state: values.isAddressSameAsStudent === 'Yes' ? currentStudent.state : '',
-          city: values.isAddressSameAsStudent === 'Yes' ? currentStudent.city : '',
-        }
-      })
     } catch (error) {
       console.log(error);
       toast.error(RESTClient.getAPIErrorMessage(error));
@@ -132,16 +124,6 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
         })
       }
       setParentExist(data ? true : false);
-      setValues(val => {
-        return {
-          ...val,
-          addressLine1: values.isAddressSameAsStudent === 'Yes' ? currentStudent.addressLine1 : '',
-          addressLine2: values.isAddressSameAsStudent === 'Yes' ? currentStudent.addressLine2 : '',
-          pincode: values.isAddressSameAsStudent === 'Yes' ? currentStudent.pincode : '',
-          state: values.isAddressSameAsStudent === 'Yes' ? currentStudent.state : '',
-          city: values.isAddressSameAsStudent === 'Yes' ? currentStudent.city : '',
-        }
-      })
     }
   }, [key, allParentDetail]);
 

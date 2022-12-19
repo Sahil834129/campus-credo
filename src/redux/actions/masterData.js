@@ -7,7 +7,6 @@ export const getSchoolClasses = () => {
     dispatch({ type: ActionTypes.GET_SCHOOL_CLASS })
     RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES)
       .then(response => {
-        console.log('response.data', response.data)
         dispatch({
           type: ActionTypes.GET_SCHOOL_CLASS_SUCCESS,
           payload: response.data.classes
@@ -24,7 +23,6 @@ export const getStates = () => {
     dispatch({ type: ActionTypes.GET_STATES })
     RESTClient.get(RestEndPoint.GET_STATE)
       .then(response => {
-        console.log('response.data', response.data)
         dispatch({
           type: ActionTypes.GET_STATES_SUCCESS,
           payload: response.data.states
@@ -41,7 +39,6 @@ export const getDisabilites = () => {
     dispatch({ type: ActionTypes.GET_DISABILITIES })
     RESTClient.get(RestEndPoint.GET_DISABILITIES)
       .then(response => {
-        console.log('response.data', response.data)
         dispatch({
           type: ActionTypes.GET_DISABILITIES_SUCCESS,
           payload: response.data.disabilities
@@ -58,7 +55,6 @@ export const getParentOCcupation = () => {
     dispatch({ type: ActionTypes.GET_PARENT_OCCUPATION })
     RESTClient.get(RestEndPoint.GET_PARENT_OCCUPATION)
       .then(response => {
-        console.log('response.data', response.data)
         dispatch({
           type: ActionTypes.GET_PARENT_OCCUPATION_SUCCESS,
           payload: response.data.occupations

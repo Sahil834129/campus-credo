@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import PageContent from '../resources/pageContent'
 
 const LeftMenuBar = props => {
   const location = useLocation()
@@ -14,12 +13,12 @@ const LeftMenuBar = props => {
   return (
     <div className='inner-page-content left sidebar'>
       <Nav defaultActiveKey='/home' className='sideNav-indicator'>
-        {props.menuItems.map((menuItem, index) => {
+        {props.menuItems.filter(it=> it.show !== false).map((menuItem, index) => {
           return (
             <Fragment key={'sidemenuItem_' + index}>
               <Navbar.Text>
                 <Link
-                  className={menuItem.ref === pageRef || (props.step ? index+1 == props.step : false) ? 'active' : ''}
+                  className={menuItem.ref === pageRef || (props.step ? menuItem.menuIndex == props.step : false) ? 'active' : ''}
                   to={menuItem.ref}
                   
                 >{menuItem.icon ? <i className={'icons '+menuItem.icon}></i>:

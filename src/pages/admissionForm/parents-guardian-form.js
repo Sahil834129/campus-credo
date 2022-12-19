@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import '../../assets/scss/custom-styles.scss';
-// import { Formik, Form } from 'formik'
 import { useNavigate } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import TextField from '../../components/form/TextField';
 import { toast } from 'react-toastify';
-
 import { GENDER_OPTOPNS } from '../../constants/formContanst';
 import DatePicker from 'react-datepicker';
 import RestEndPoint from '../../redux/constants/RestEndpoints';
@@ -13,11 +11,13 @@ import RESTClient from '../../utils/RestClient';
 import { useEffect } from 'react';
 import RadioButton from '../../components/form/RadioButton';
 import SelectField from '../../components/form/SelectField';
-import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getParentOCcupation } from '../../redux/actions/masterData';
 import { StudentParentGuardianSchema } from '../../data/validationSchema';
 import { populateCities } from '../../utils/populateOptions';
+import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
+import { getAge, getGuadianMaxDateOfBirth } from '../../utils/helper';
+
 export default function ParentsGuardianForm({
   currentStudent,
   setStep,
@@ -47,6 +47,7 @@ export default function ParentsGuardianForm({
 
   const saveData = async (e, formData) => {
     e.preventDefault();
+    resetValidationErrors()
     let postData = { ...values, ...formData };
     if (!isValidFormData(postData))
       return;
@@ -56,10 +57,6 @@ export default function ParentsGuardianForm({
         ? postData.otherNationality
         : postData.nationality;
     postData.relation = currentParent !== 'other' ? currentParent : postData.otherRelation;
-    // postData.otherRelation =
-    //   postData.relation !== '' ? postData.relation : postData.relation;
-
-    postData.dateOfBirth = moment(postData.dateOfBirth).format('DD/MM/yyyy');
     postData.studentId = postData.studentId || currentStudent.childId;
     delete postData.profileId;
     delete postData.annualFamilyIncomes;
@@ -139,17 +136,33 @@ export default function ParentsGuardianForm({
       addPayloadError(error);
       return false;
     }
-    return true;
+    if (!isValidDateOfBirth(formData.dateOfBirth))
+      return false
+    return true
   }
+
+  function isValidDateOfBirth(dateOfBirth) {
+    const guardianAge = getAge(dateOfBirth)
+    const childAge = getAge(currentStudent.dateOfBirth)
+    if (guardianAge-childAge < 10) {
+      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age. Student date of birth is '+ formatDateToDDMMYYYY(currentStudent.dateOfBirth) +'.'})
+      return false
+    }
+    return true
+  }
+
   function addPayloadError(error) {
     let errors = {};
 
     let errorsObj = error.inner ? error.inner : error;
-    console.log(errorsObj);
     errorsObj.forEach(e => {
       errors[e.path] = e.message;
     });
     setValidationErrors(errors);
+  }
+
+  function resetValidationErrors() {
+    setValidationErrors({})
   }
 
   return (
@@ -163,7 +176,7 @@ export default function ParentsGuardianForm({
                   fieldName='firstName'
                   label='First Name'
                   value={values.firstName}
-                  required
+                  //required
                   fieldType='text'
                   placeholder='Please add details...'
                   errors={validationErrors}
@@ -177,7 +190,7 @@ export default function ParentsGuardianForm({
                   fieldName='lastName'
                   label='Last Name'
                   value={values.lastName}
-                  required
+                  //required
                   fieldType='text'
                   placeholder='Please add details...'
                   errors={validationErrors}
@@ -196,9 +209,9 @@ export default function ParentsGuardianForm({
                         ? values.otherRelation
                         : ''
                     }
-                    required={
-                      values.relation !== 'Father' && values.relation !== 'Mother'
-                    }
+                    // required={
+                    //   values.relation !== 'Father' && values.relation !== 'Mother'
+                    // }
                     fieldType='text'
                     errors={validationErrors}
                     placeholder='Please add details...'
@@ -220,11 +233,15 @@ export default function ParentsGuardianForm({
                 </label>
                 <div className='field-group-wrap'>
                   <DatePicker
-                    selected={values.dateOfBirth ? moment(values.dateOfBirth, 'DD/MM/yyyy').toDate() : new Date()}
+                    selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : getGuadianMaxDateOfBirth()}
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
-                    onChange={date => setFieldValue('dateOfBirth', date)}
+                    onChange={date => setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date))}
+                    maxDate={getGuadianMaxDateOfBirth()}
+                    dropdownMode="select"
+                    showMonthDropdown
+                    showYearDropdown
                   />
                   {
                     validationErrors && validationErrors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mt-2'>{validationErrors['dateOfBirth']}</div> : ''
@@ -272,7 +289,7 @@ export default function ParentsGuardianForm({
                       onChange={e => {
                         setFieldValue('nationality', 'Indian');
                       }}
-                      required
+                      //required
                     />
                   </div>
                   <div className='form-check ms-2'>
@@ -284,7 +301,7 @@ export default function ParentsGuardianForm({
                       onChange={e => {
                         setFieldValue('nationality', 'Other');
                       }}
-                      required
+                      //required
                       fieldName='nationality'
                     />
                   </div>
@@ -308,7 +325,7 @@ export default function ParentsGuardianForm({
                   onChange={e => {
                     setFieldValue('otherNationality', e.target.value);
                   }}
-                  required={values.nationality === 'Indian'}
+                  //required={values.nationality === 'Indian'}
                   placeholder='Please add details...'
                   disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
                 />
@@ -417,7 +434,7 @@ export default function ParentsGuardianForm({
                 <SelectField
                   fieldName='qualification'
                   label='Qualitfication'
-                  required
+                  //required
                   selectOptions={Options}
                   value={values.qualification}
                   onChange={e => {
@@ -429,7 +446,7 @@ export default function ParentsGuardianForm({
                 <SelectField
                   fieldName='occupation'
                   label='Occupation'
-                  required
+                  //required
                   selectOptions={occupation}
                   value={values.occupation}
                   onChange={e => {
@@ -448,14 +465,14 @@ export default function ParentsGuardianForm({
                   onChange={e => {
                     setFieldValue('annualFamilyIncome', e.target.value);
                   }}
-                  required
+                  //required
                   placeholder='Please add details...'
                 />
               </div>
 
               <div className='col-md-6'>
                 <label htmlFor='validationServer02' className='form-label'>
-                  Residential Address - Same as student?{' '}
+                  Residential Address - Same as student? {values.isAddressSameAsStudent}{' '}
                   <span className='req'>*</span>
                 </label>
                 <div className='d-flex  align-items-center py-2'>
@@ -497,7 +514,7 @@ export default function ParentsGuardianForm({
                       <div className='col-md-6'>
                         <TextField
                           fieldName='addressLine1'
-                          required={values.isAddressSameAsStudent === 'No'}
+                          //required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           label='House No., Block No.'
                           value={values.addressLine1}
@@ -509,7 +526,7 @@ export default function ParentsGuardianForm({
                       <div className='col-md-6'>
                         <TextField
                           fieldName='addressLine2'
-                          required={values.isAddressSameAsStudent === 'No'}
+                          //required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           label='Area or Locality'
                           value={values.addressLine2}
@@ -522,7 +539,7 @@ export default function ParentsGuardianForm({
                         <TextField
                           fieldName='pincode'
                           label='Pincode'
-                          required={values.isAddressSameAsStudent === 'No'}
+                          //required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           value={values.pincode}
                           maxLength='6'
@@ -535,7 +552,7 @@ export default function ParentsGuardianForm({
                         <SelectField
                           fieldName='state'
                           label='Select State'
-                          required={values.isAddressSameAsStudent === 'No'}
+                          //required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           selectOptions={states}
                           value={values.state}
@@ -549,7 +566,7 @@ export default function ParentsGuardianForm({
                         <SelectField
                           fieldName='city'
                           label='Select City'
-                          required={values.isAddressSameAsStudent === 'No'}
+                          //required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           selectOptions={city}
                           value={values.city}
