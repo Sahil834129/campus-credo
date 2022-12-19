@@ -73,10 +73,12 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
       }
 
     useEffect(() => {
-        getChildProfile(childId)
-        getMedicalProfile(childId)
-        getParentDetails(childId)
-        getSupportingDocuments(childId)
+        if (childId && childId != '') {
+            getChildProfile(childId)
+            getMedicalProfile(childId)
+            getParentDetails(childId)
+            getSupportingDocuments(childId)
+        }
     }, [childId])
 
     async function checkOutApplication() {
