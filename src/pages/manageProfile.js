@@ -142,6 +142,11 @@ export const ManageProfile = () => {
         navigate('/?login=true')
     }
 
+    function handleProfileFormReset(resetForm) {
+       populateCities(userDetails.state)
+       resetForm()
+    }
+
     return (
         <>
         <Layout>
@@ -169,7 +174,7 @@ export const ManageProfile = () => {
                                                 validationSchema={UpdateProfileSchema} validateOnBlur
                                                 enableReinitialize={true} 
                                                 onSubmit={values => { updateUserProfile(values) }}>
-                                                {({ values, errors, touched }) => (
+                                                {({ values, resetForm, errors, touched }) => (
                                                     <Form className='row g-3'>
                                                         <div className='col-md-6'>
                                                             <InputField fieldName="firstName" value={values.firstName} label="First Name" disabled fieldType="text" placeholder="First Name" errors={errors} touched={touched} />
@@ -178,16 +183,16 @@ export const ManageProfile = () => {
                                                             <InputField fieldName="lastName" value={values.lastName} label="Last Name" disabled fieldType="text" placeholder="Last Name" errors={errors} touched={touched} />
                                                         </div>
                                                         <div className='col-md-6'>
-                                                            <InputField fieldName="email" value={values.email} label="Email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} />
+                                                            <InputField fieldName="email" required value={values.email} label="Email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} />
                                                         </div>
                                                         <div className="col-md-6">
-                                                            <InputField fieldName="state" label="State" fieldType="select" placeholder="" selectOptions={stateOptions} onChange={e => populateCities(e.target.value)} errors={errors} touched={touched} />
+                                                            <InputField fieldName="state" value={values.state} label="State" fieldType="select" placeholder="" selectOptions={stateOptions} onChange={e => {populateCities(e.target.value);  }} errors={errors} touched={touched} />
                                                         </div>
                                                         <div className="col-md-6">
-                                                        <InputField fieldName="city" label="City" fieldType="select" placeholder="" selectOptions={cityOptions} errors={errors} touched={touched} />
+                                                            <InputField fieldName="city" label="City" value={values.city} fieldType="select" placeholder="" selectOptions={cityOptions} errors={errors} touched={touched} />
                                                         </div>
                                                         <div className='form-group mb-3 button-wrap'>
-                                                            <button type='button' className='cancel comn'>Cancel</button>
+                                                            <button type='button' className='cancel comn' onClick={() => handleProfileFormReset(resetForm)}>Cancel</button>
                                                             <button className='save comn' type='submit' disabled={submitting}>{submitting ? 'Please wait' : 'Update'}</button>
                                                         </div>
                                                     </Form>
@@ -198,7 +203,7 @@ export const ManageProfile = () => {
                                         <Formik initialValues={{ currentPassword: '', password:'',confirmPassword:'' }}
                                             validationSchema={ChangePasswordSchema} validateOnBlur 
                                             onSubmit={values => { changePassword(values) }}>
-                                            {({ values, errors, touched }) => (
+                                            {({ values, resetForm, errors, touched }) => (
                                                 <Form className='row g-3'>
                                                     <div className='col-md-6'>
                                                         <InputField fieldName="currentPassword" required label="Current Password" fieldType="password" placeholder="Enter current password" errors={errors} touched={touched}/>
@@ -213,7 +218,7 @@ export const ManageProfile = () => {
                                                     </div>
                                                     <div className='col-md-6'></div>
                                                     <div className='form-group mb-3 button-wrap'>
-                                                        <button type='button' className='cancel comn'>Cancel</button>
+                                                        <button type='button' className='cancel comn' onClick={()=> resetForm()}>Cancel</button>
                                                         <button className='save comn' type='submit'>Update</button>
                                                     </div>
                                                 </Form>
@@ -224,7 +229,7 @@ export const ManageProfile = () => {
                                             <Formik initialValues={updatePhoneObject}
                                                 enableReinitialize
                                                 validationSchema={UpdatePhoneSchema} validateOnBlur onSubmit={values => { updatePhone(values) }}>
-                                                {({ values, setFieldValue, errors, touched }) => (
+                                                {({ values, setFieldValue, resetForm, errors, touched }) => (
                                                     <Form className='row g-3'>
                                                         <div className='col-md-6'>
                                                             <InputField fieldName="phone" value={values.phone} label="Mobile Number" fieldType="text" placeholder="Enter mobile number" errors={errors} touched={touched}/>
@@ -255,7 +260,7 @@ export const ManageProfile = () => {
                                                             </div>
                                                             </> : ''}
                                                         <div className='form-group mb-3 button-wrap'>
-                                                            <button type='button' className='cancel comn'>Cancel</button>
+                                                            <button type='button' className='cancel comn' onClick={()=> resetForm()}>Cancel</button>
                                                             <button className='save comn' type='submit'>{showOTP ? 'Verify' : 'Update'}</button>
                                                         </div>
                                                     </Form>
