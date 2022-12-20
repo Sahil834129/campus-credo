@@ -50,8 +50,11 @@ export default function ParentsGuardianForm({
     e.preventDefault();
     resetValidationErrors()
     let postData = { ...values, ...formData };
-    if (!isValidFormData(postData))
+    if (!isValidFormData(postData)) {
+      console.log("validatio error guardian -- " + validationErrors)
       return;
+    }
+      
 
     postData.nationality =
       postData.otherNationality !== ''
