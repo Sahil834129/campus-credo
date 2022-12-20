@@ -82,6 +82,13 @@ function TableComponent({ showSelectedAll, data, columns }) {
                 </tr>
               );
             })}
+            {rows.length === 0 && (
+              <tr>
+                <td colSpan={columns.length} style={{ textAlign: 'center' }}>
+                  No Data found
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>

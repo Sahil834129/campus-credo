@@ -2,10 +2,10 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import MultiRangeSlider from "multi-range-slider-react";
 import { useState } from 'react';
-import { saveSchoolfilterData } from '../../../utils/services';
+import { applicationfilterData } from '../../../utils/services';
 import { OPERATORS } from '../../../constants/app';
 
-export const FilterApp = ({ schoolClassesData, classId, setClassId }) => {
+export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData }) => {
   const [grade, setGrade] = useState('');
   const gradeOption = [
     {
@@ -125,9 +125,9 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId }) => {
     }
 
     filterPyaload['filters'] = filter;
-    saveSchoolfilterData(filterPyaload)
+    applicationfilterData(filterPyaload)
       .then(response => {
-        console.log('response', response);
+        setRowsData(response?.data);
       })
       .error(error => console.log(error));
   };

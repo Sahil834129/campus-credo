@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import Layout from '../layout';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { getClassAdmissionSummary, getSchoolClassesData } from '../../../utils/services';
+import { getClassAdmissionSummary, getClassApplication, getSchoolClassesData } from '../../../utils/services';
 import ShowApplications from "./showApplications";
 import OpenModal from "./openModal";
 import FilterApp from "./filterApp";
 
 
 export const ManageApplication = () => {
+  const [rowsData, setRowsData] = useState([]);
   const schoolId = 1;
   const [openModal, setOpenModal] = useState(false);
   const [admissionData, setAdmissionData] = useState(null);
@@ -43,27 +44,49 @@ export const ManageApplication = () => {
       });
   };
 
+  const fetchClassApplication = (classId) => {
+    getClassApplication(classId).
+      then(response => {
+        let res = response.data;
+        console.log(res);
+        res = res.map((val, index) => {
+          return {
+            ...val,
+            rowIndex: index + 1
+          };
+        });
+        console.log(res);
+
+        setRowsData(res);
+      });
+  };
+
   useEffect(() => {
     fetchSchoolClassesData(schoolId);
   }, [schoolId]);
 
   useEffect(() => {
-    if (classId)
+    if (classId) {
       fetchClassAdmissionSummary(classId);
+      fetchClassApplication(classId);
+    }
   }, [classId]);
 
   return (
     <Layout admissionSummary={admissionData?.upperSchoolAdmissionSummary}>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
-          <FilterApp schoolClassesData={schoolClassesData} classId={classId} setClassId={setClassId} />
+          <FilterApp
+            schoolClassesData={schoolClassesData}
+            classId={classId}
+            setClassId={setClassId}
+            setRowsData={setRowsData}
+          />
           <ShowApplications
-            selectedClass={classId}
-            applicationStaus={applicationStaus}
             setApplicationStatus={setApplicationStatus}
-            applicationId={applicationId}
             setApplicationId={setApplicationId}
             setOpenModal={setOpenModal}
+            rowsData={rowsData}
           />
           <OpenModal
             show={openModal}

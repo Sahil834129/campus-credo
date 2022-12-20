@@ -11,8 +11,8 @@ import { humanize } from "../../../utils/helper";
 import { getDefaultDateFormat } from "../../../utils/DateUtil";
 
 
-export default function ShowApplications({ selectedClass, setApplicationStatus, setApplicationId, setOpenModal }) {
-  const [rowsData, setRowsData] = useState([]);
+export default function ShowApplications({ setApplicationStatus, setApplicationId, setOpenModal, rowsData }) {
+
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
       src={Action}
@@ -113,28 +113,6 @@ export default function ShowApplications({ selectedClass, setApplicationStatus, 
       })
     }
   ];
-
-  const fetchClassApplication = (classId) => {
-    getClassApplication(classId).
-      then(response => {
-        let res = response.data;
-        console.log(res);
-        res = res.map((val, index) => {
-          return {
-            ...val,
-            rowIndex: index + 1
-          };
-        });
-        console.log(res);
-
-        setRowsData(res);
-      });
-  };
-
-  useEffect(() => {
-    if (selectedClass)
-      fetchClassApplication(selectedClass);
-  }, [selectedClass]);
 
   return (
     <div className='inner-content-wrap'>

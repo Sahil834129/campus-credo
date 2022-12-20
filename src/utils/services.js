@@ -10,8 +10,8 @@ export const saveClassAdmissionData = (data) => {
   return RESTClient.post(RestEndPoint.CLASS_ADMISSION_DATA, data);
 };
 
-export const saveSchoolfilterData = (data) => {
-  return RESTClient.post(RestEndPoint.SCHOOL_FILTER_DATA, data);
+export const applicationfilterData = (data) => {
+  return RESTClient.post(RestEndPoint.APPLICATION_FILTER_DATA, data);
 };
 
 export const getSchoolAdmissinSummary = () => {
