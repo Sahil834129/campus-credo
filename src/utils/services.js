@@ -10,6 +10,10 @@ export const saveClassAdmissionData = (data) => {
   return RESTClient.post(RestEndPoint.CLASS_ADMISSION_DATA, data);
 };
 
+export const saveSchoolfilterData = (data) => {
+  return RESTClient.post(RestEndPoint.SCHOOL_FILTER_DATA, data);
+};
+
 export const getSchoolAdmissinSummary = () => {
   return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY);
 };
@@ -27,7 +31,11 @@ export const getClassAdmissionSessionData = () => {
 };
 
 export const getClassAdmissionSummary = (classId) => {
-  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY+`/${classId}`);
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}`);
+};
+
+export const getSchoolClassesData = (schoolId) => {
+  return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
 };
 
 export const getClassApplication = (classId) => {

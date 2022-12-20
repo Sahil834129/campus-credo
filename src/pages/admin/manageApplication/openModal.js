@@ -9,6 +9,7 @@ import { SCHOOL_APPLICATION_STATUS } from "../../../constants/app";
 import { Form } from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
 import moment from "moment";
+import GenericDialog from "../../../dialogs/GenericDialog";
 
 export default function OpenModal({ show, setShow, applicationStaus, applicationId, setApplicationId, setApplicationStatus }) {
   const [remark, setRemarks] = useState('');
@@ -51,38 +52,33 @@ export default function OpenModal({ show, setShow, applicationStaus, application
   };
 
   return (
-    <Modal dialogClassName='signin-model add-child-model' show={show} onHide={handleClose}>
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body dialogClassName="model-body" >
-        <div className='model-body-col'>
-          <h2>{humanize(applicationStaus || 'Header')}</h2>
-          <div className="message-content" >
-            <Form.Label className='form-label'>Add your remarks below</Form.Label>
-            <textarea className='form-control' rows={10} value={remark} onChange={e => setRemarks(e.target.value)} />
-          </div>
-          {SCHOOL_APPLICATION_STATUS.REVOKED && (
-            <div className='inner-container option-filter'>
-              <Form.Label className='form-label'>AT/PI Time Slot</Form.Label>
-              <div className='radio-choice'>
-                <ReactDatePicker
-                  selected={atPiDate}
-                  onChange={(date) => setATPIDate(date)}
-                  timeInputLabel="Time:"
-                  dateFormat="dd/MM/yyyy h:mm aa"
-                  showTimeInput
-                />
-              </div>
+    <GenericDialog className='signin-model add-child-model' modalHeader={humanize(applicationStaus)} show={show} onHide={handleClose}>
+      <div className='model-body-col'>
+        <div className="message-content" >
+          <Form.Label className='form-label'>Add your remarks below</Form.Label>
+          <textarea className='form-control' rows={10} value={remark} onChange={e => setRemarks(e.target.value)} />
+        </div>
+        {SCHOOL_APPLICATION_STATUS.AT_PI === applicationStaus && (
+          <div className='inner-container option-filter'>
+            <Form.Label className='form-label'>AT/PI Time Slot</Form.Label>
+            <div className='radio-choice'>
+              <ReactDatePicker
+                selected={atPiDate}
+                onChange={(date) => setATPIDate(date)}
+                timeInputLabel="Time:"
+                dateFormat="dd/MM/yyyy h:mm aa"
+                showTimeInput
+              />
             </div>
-          )}
-        </div>
-        <div className="frm-cell button-wrap" style={{ marginTop: '20px', justifyContent: 'end', display: 'flex' }}>
-          <Button className='cancel-btn mx-2' onClick={handleClose} buttonLabel='Cancel' />
-          <Button className='save-btn' onClick={() => {
-            handleSubmit(remark, applicationStaus, applicationId, atPiDate);
-          }} buttonLabel='Save' />
-
-        </div>
-      </Modal.Body>
-    </Modal>
+          </div>
+        )}
+      </div>
+      <div className="frm-cell button-wrap" style={{ marginTop: '20px', justifyContent: 'end', display: 'flex' }}>
+        <Button class='cancel-btn mx-2' onClick={handleClose} buttonLabel='Cancel' />
+        <Button class='save-btn' onClick={() => {
+          handleSubmit(remark, applicationStaus, applicationId, atPiDate);
+        }} buttonLabel='Save' />
+      </div>
+    </GenericDialog>
   );
 }

@@ -43,6 +43,7 @@ const RestEndPoint = {
   CHANGE_PASSWORD: '/parent/changePassword',
   UPDATE_PHONE: '/parent/updatePhone',
   CLASS_ADMISSION_DATA: '/admission/classAdmissionData',
+  SCHOOL_FILTER_DATA:'/admissionApplications/find',
   SCHOOL_ADMISSION_SUMMARY: 'admission/application/schoolAdmissionSummary',
   SCHOOL_ADMISSION_FEE_SUMMARY: 'dashboard/schoolAdmissionFeeSummary',
   RESET_PASSWORD: 'user/resetPassword',
@@ -51,6 +52,7 @@ const RestEndPoint = {
   CLASS_ADMISSION_SUMMARY: 'admissionApplications/classAdmissionSummary',
   CLASS_APPLICATION_CLASS: 'admissionApplications/classApplicationsByClass',
   CHANGE_APPLICATION_STATUS: 'admissionApplications/changeApplicationStatus',
+  SCHOOL_CLASSES_DATA: 'v1/schooldetails',
   APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined'
 };
 

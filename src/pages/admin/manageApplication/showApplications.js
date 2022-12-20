@@ -132,7 +132,8 @@ export default function ShowApplications({ selectedClass, setApplicationStatus, 
   };
 
   useEffect(() => {
-    fetchClassApplication(selectedClass);
+    if (selectedClass)
+      fetchClassApplication(selectedClass);
   }, [selectedClass]);
 
   return (

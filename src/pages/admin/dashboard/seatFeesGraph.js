@@ -8,39 +8,39 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
     //dashboard/schoolAdmissionFeeSummary
     const [feesCollected, setFeesCollected] = useState(0);
     const [totalSeats, setTotalSeats] = useState(0);
-    const [accepetedPercentsage, setAcceptedPercentage] = useState(0)
+    const [accepetedPercentsage, setAcceptedPercentage] = useState(0);
     const [totalFeesCollected, setTotalFeesCollected] = useState(0);
     // const accepetedPercentsage =;
     const fetchSchoolAdmissinFeesSummary = () => {
         getSchoolAdmissinFeeSummary().then(res => {
             const val = res?.data;
             if (val?.schoolAdmissionFeeSummary?.projectedFee === 0) {
-                setTotalFeesCollected(0)
-                setFeesCollected(0)
+                setTotalFeesCollected(0);
+                setFeesCollected(0);
             } else {
                 setTotalFeesCollected(val?.schoolAdmissionFeeSummary?.projectedFee);
-                setFeesCollected(((parseInt(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseInt(val?.schoolAdmissionFeeSummary?.projectedFee)))
+                setFeesCollected(((parseInt(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseInt(val?.schoolAdmissionFeeSummary?.projectedFee)));
             }
         }).catch((e) => {
             console.log(e);
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        fetchSchoolAdmissinFeesSummary()
-    }, [])
+        fetchSchoolAdmissinFeesSummary();
+    }, []);
 
     useEffect(() => {
-        setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant)
-    }, [schoolSeatsSummary])
+        setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant);
+    }, [schoolSeatsSummary]);
 
     useEffect(() => {
-        setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant)
-    }, [schoolSeatsSummary])
+        setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant);
+    }, [schoolSeatsSummary]);
 
     useEffect(() => {
-        setAcceptedPercentage((((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats))
-    }, [acceptedOffer, totalSeats])
+        setAcceptedPercentage((((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats));
+    }, [acceptedOffer, totalSeats]);
 
     return (
         <div className='chart-block ch2'>
@@ -64,46 +64,48 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                 </div>
             </div>
             <table className='chart-area' style={{ padding: 0 }}>
-                <tr>
-                    <td>
-                        <DoughnutChart
-                            data={{
-                                datasets: [
-                                    {
-                                        data: [accepetedPercentsage, 100 - accepetedPercentsage],
-                                        backgroundColor: ["#41285F", "#EEF0F5"],
-                                        borderRadius: 30,
-                                        cutout: 90,
-                                        radius: 80,
-                                    }],
-                            } || {}}
-                            midNumberText={accepetedPercentsage}
-                            midTextFirst={'Offer'}
-                            midTextSecond={'Accepted'}
-                            totalRemainng={`${totalSeats} Remaining Seats`}
-                        />
-                    </td>
-                    <td>
-                        <DoughnutChart
-                            data={{
-                                datasets: [
-                                    {
-                                        data: [feesCollected, 100 - feesCollected],
-                                        backgroundColor: ["#59D04D", "#EEF0F5"],
-                                        borderRadius: 30,
-                                        cutout: 90,
-                                        radius: 80
-                                    }],
-                            } || {}}
-                            midNumberText={feesCollected}
-                            midTextFirst={'Fee'}
-                            midTextSecond={'Collected'}
-                            totalRemainng={`${totalFeesCollected} Projected Fee`}
+                <tbody>
+                    <tr>
+                        <td>
+                            <DoughnutChart
+                                data={{
+                                    datasets: [
+                                        {
+                                            data: [accepetedPercentsage, 100 - accepetedPercentsage],
+                                            backgroundColor: ["#41285F", "#EEF0F5"],
+                                            borderRadius: 30,
+                                            cutout: 90,
+                                            radius: 80,
+                                        }],
+                                } || {}}
+                                midNumberText={accepetedPercentsage}
+                                midTextFirst={'Offer'}
+                                midTextSecond={'Accepted'}
+                                totalRemainng={`${totalSeats} Remaining Seats`}
+                            />
+                        </td>
+                        <td>
+                            <DoughnutChart
+                                data={{
+                                    datasets: [
+                                        {
+                                            data: [feesCollected, 100 - feesCollected],
+                                            backgroundColor: ["#59D04D", "#EEF0F5"],
+                                            borderRadius: 30,
+                                            cutout: 90,
+                                            radius: 80
+                                        }],
+                                } || {}}
+                                midNumberText={feesCollected}
+                                midTextFirst={'Fee'}
+                                midTextSecond={'Collected'}
+                                totalRemainng={`${totalFeesCollected} Projected Fee`}
 
-                        />
-                    </td>
-                </tr>
+                            />
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
-    )
+    );
 } 
