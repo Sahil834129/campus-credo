@@ -10,21 +10,17 @@ import SchoolStats from '../components/schoolDetails/SchoolStats';
 import SchoolBasicInfo from '../components/schoolDetails/SchoolBasicInfo';
 import SchoolDetailTitle from '../components/schoolDetails/SchoolDetailTitle';
 import SchoolFacilities from '../components/schoolDetails/SchoolFacilities';
-import SchoolDetailFeeStructure from '../components/schoolDetails/SchoolDetailFeeStructure';
 import ApplyToSchool from '../components/schoolDetails/ApplyToSchool';
 import Description from '../components/Description';
 import PageContent from '../resources/pageContent';
 import Desclaimer from '../components/Desclaimer';
 import NearBySchools from '../components/NearBySchools';
 import { isLoggedIn } from '../utils/helper';
-import { ObjectSchema } from 'yup';
-import NotFound from './notFound';
 import NoRecordsFound from '../common/NoRecordsFound';
 
 const SchoolDetails = () => {
 	const location = useLocation();
 	const [schoolDetails, setSchoolDetails] = useState({});
-	const navigate = useNavigate();
 	const [schoolCategoryFacilitiesMap, setSchoolCategoryFacilitiesMap] = useState({});
 	const queryParams = new URLSearchParams(location.search);
 	const schoolId = getSchoolIdFromURL();
