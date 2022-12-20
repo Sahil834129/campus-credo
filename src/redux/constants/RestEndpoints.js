@@ -52,6 +52,7 @@ const RestEndPoint = {
   CLASS_ADMISSION_SUMMARY: 'admissionApplications/classAdmissionSummary',
   CLASS_APPLICATION_CLASS: 'admissionApplications/classApplicationsByClass',
   CHANGE_APPLICATION_STATUS: 'admissionApplications/changeApplicationStatus',
+  CHANGE_BULK_APPLICATION_STATUS: 'admissionApplications/changeBulkApplicationStatus',
   SCHOOL_CLASSES_DATA: 'v1/schooldetails',
   APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined'
 };

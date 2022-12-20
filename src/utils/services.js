@@ -46,6 +46,10 @@ export const updateApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_APPLICATION_STATUS, payload);
 }
 
+export const updateBulkApplicationStatus = (payload) => {
+  return RESTClient.post(RestEndPoint.CHANGE_BULK_APPLICATION_STATUS, payload);
+};
+
 export const downloadDocument = async (childId, documentName) => {
   try {
     const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_DOCUMENT + '/' + childId + '/' + documentName);

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { useState } from "react";
 import { Table } from "react-bootstrap";
-import { useTable, useRowSelect } from 'react-table';
+import { useTable, useRowSelect, useMountedLayoutEffect } from 'react-table';
 
 const CheckboxRender = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -19,7 +20,7 @@ const CheckboxRender = React.forwardRef(
   }
 );
 
-function TableComponent({ showSelectedAll, data, columns }) {
+function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelectedRowsChange }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -31,6 +32,9 @@ function TableComponent({ showSelectedAll, data, columns }) {
     {
       columns,
       data,
+      initialState: {
+        selectedRowIds: selectedRows
+      }
     },
     useRowSelect,
     hooks => {
@@ -54,17 +58,18 @@ function TableComponent({ showSelectedAll, data, columns }) {
     }
   );
 
-  useEffect(() => {
-    console.log(selectedRowIds);
-  }, [selectedRowIds]);
+  useMountedLayoutEffect(() => {
+    console.log("SELECTED ROWS CHANGED", selectedRowIds, onSelectedRowsChange);
+    onSelectedRowsChange && onSelectedRowsChange(selectedRowIds);
+  }, [onSelectedRowsChange, selectedRowIds]);
 
   return (
     <div className='inner-content-wrap'>
       <div className='table-wrapper'>
-        <Table  {...getTableProps()}>
+        <Table striped {...getTableProps()}>
           <thead>
             {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
+              <tr valign="middle" {...headerGroup.getHeaderGroupProps()} style={{ background: 'rgba(65, 40, 95, 0.06)', height: '60px'}}>
                 {headerGroup.headers.map(column => (
                   <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                 ))}
@@ -75,7 +80,7 @@ function TableComponent({ showSelectedAll, data, columns }) {
             {rows.map((row, i) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr valign="middle" {...row.getRowProps()} style={{height: '60px'}}>
                   {row.cells.map(cell => {
                     return <td key={`column${i}`} {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                   })}
@@ -83,7 +88,7 @@ function TableComponent({ showSelectedAll, data, columns }) {
               );
             })}
             {rows.length === 0 && (
-              <tr>
+              <tr valign="middle">
                 <td colSpan={columns.length} style={{ textAlign: 'center' }}>
                   No Data found
                 </td>

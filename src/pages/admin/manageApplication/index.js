@@ -7,11 +7,15 @@ import { getClassAdmissionSummary, getClassApplication, getSchoolClassesData } f
 import ShowApplications from "./showApplications";
 import OpenModal from "./openModal";
 import FilterApp from "./filterApp";
+import { Spinner } from "react-bootstrap";
 
 
 export const ManageApplication = () => {
   const [rowsData, setRowsData] = useState([]);
+  const [selectedRows, setSelectedRows] = useState({});
   const schoolId = 1;
+  const [isBulkOperation, setIsbulkOperation] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [admissionData, setAdmissionData] = useState(null);
   const [applicationStaus, setApplicationStatus] = useState('');
@@ -29,6 +33,7 @@ export const ManageApplication = () => {
       })
       .catch(error => {
         console.log(error);
+        setIsloading(false)
       });
   };
 
@@ -45,6 +50,7 @@ export const ManageApplication = () => {
   };
 
   const fetchClassApplication = (classId) => {
+    setIsloading(true);
     getClassApplication(classId).
       then(response => {
         let res = response.data;
@@ -55,10 +61,26 @@ export const ManageApplication = () => {
             rowIndex: index + 1
           };
         });
-        console.log(res);
-
+        setIsloading(false);
+        setSelectedRows({});
         setRowsData(res);
+      }).
+      catch(() => {
+        setSelectedRows({});
+        setIsloading(false);
       });
+  };
+
+  const handleBulkStatusUpdate = (status, rowIndexes, allData) => {
+    console.log(status, rowIndexes, allData);
+    const appIds = Object.keys(rowIndexes).map(val => {
+      return allData[val]?.applicationId;
+    });
+    console.log(appIds);
+    setApplicationStatus(status);
+    setApplicationId(appIds);
+    setOpenModal(true);
+    setIsbulkOperation(true);
   };
 
   useEffect(() => {
@@ -82,18 +104,26 @@ export const ManageApplication = () => {
             setClassId={setClassId}
             setRowsData={setRowsData}
           />
-          <ShowApplications
+          {!isLoading && <ShowApplications
             setApplicationStatus={setApplicationStatus}
             setApplicationId={setApplicationId}
             setOpenModal={setOpenModal}
+            setIsbulkOperation={setIsbulkOperation}
+            selectedRows={selectedRows}
             rowsData={rowsData}
-          />
+            handleBulkStatusUpdate={handleBulkStatusUpdate}
+            setSelectedRows={setSelectedRows}
+          />}
+          {isLoading && <div style={{ margin: '50px auto'}}><Spinner animation="border" /></div>}
           <OpenModal
             show={openModal}
             setShow={setOpenModal}
+            isBulkOperation={isBulkOperation}
             applicationStaus={applicationStaus}
             setApplicationStatus={setApplicationStatus}
             applicationId={applicationId}
+            fetchClassApplication={fetchClassApplication}
+            classId={classId}
             setApplicationId={setApplicationId}
           />
         </div>

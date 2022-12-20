@@ -5,13 +5,13 @@ import moment from "moment";
 
 import TableComponent from "../../../common/TableComponent";
 import { getClassApplication } from "../../../utils/services";
-import { FAILED_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
+import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
 import Action from "../../../assets/img/actions.png";
 import { humanize } from "../../../utils/helper";
 import { getDefaultDateFormat } from "../../../utils/DateUtil";
 
 
-export default function ShowApplications({ setApplicationStatus, setApplicationId, setOpenModal, rowsData }) {
+export default function ShowApplications({ setApplicationStatus, applicationId, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation }) {
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
@@ -26,10 +26,10 @@ export default function ShowApplications({ setApplicationStatus, setApplicationI
   ));
 
   const handleDropdownAction = (actionName, appId) => {
-    console.log(actionName);
     setApplicationStatus(actionName);
     setApplicationId(appId);
     setOpenModal(true);
+    setIsbulkOperation(false);
   };
 
   const columns = [
@@ -114,18 +114,47 @@ export default function ShowApplications({ setApplicationStatus, setApplicationI
     }
   ];
 
+  useEffect(() => {
+    console.log(selectedRows);
+  }, [selectedRows]);
+
   return (
     <div className='inner-content-wrap'>
       <div className='table-wrapper'>
-        <TableComponent data={rowsData} showSelectedAll={true} columns={columns} />
+        <TableComponent
+          data={rowsData}
+          showSelectedAll={true}
+          columns={columns}
+          selectedRows={selectedRows}
+          onSelectedRowsChange={setSelectedRows}
+        />
       </div>
       {rowsData.length > 0 && (
         <div className='btn-wrapper'>
-          <Button className='approval-btn'>
+          <Button
+            className='approval-btn'
+            disabled={selectedRows && Object.keys(selectedRows).length === 0}
+            onClick={() => {
+              handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW, selectedRows, rowsData);
+            }}>
             Send for <strong>FINAL</strong> Approval
           </Button>
-          <Button className='decline-btn'>Decline Wtih Remarks</Button>
-          <Button className='accept-btn'>Accept</Button>
+          <Button
+            className='decline-btn'
+            disabled={selectedRows && Object.keys(selectedRows).length === 0}
+            onClick={() => {
+              handleBulkStatusUpdate(PARENT_APPLICATION_STATUS.DECLINED, selectedRows, rowsData);
+            }}>
+            Decline Wtih Remarks
+          </Button>
+          <Button
+            className='accept-btn'
+            disabled={selectedRows && Object.keys(selectedRows).length === 0}
+            onClick={() => {
+              handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.APPROVED, selectedRows, rowsData);
+            }}>
+            Approved
+          </Button>
         </div>)}
     </div>
   );
