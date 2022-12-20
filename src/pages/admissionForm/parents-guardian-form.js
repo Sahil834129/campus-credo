@@ -16,7 +16,7 @@ import { getParentOCcupation } from '../../redux/actions/masterData';
 import { StudentParentGuardianSchema } from '../../data/validationSchema';
 import { populateCities } from '../../utils/populateOptions';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
-import { getAge, getGuadianMaxDateOfBirth } from '../../utils/helper';
+import { getAge, getGuadianMaxDateOfBirth, getStudentAge } from '../../utils/helper';
 
 export default function ParentsGuardianForm({
   currentStudent,
@@ -24,6 +24,7 @@ export default function ParentsGuardianForm({
   currentParent,
   setKey,
   nextParent,
+  previousParent,
   values,
   setValues,
   disableGender,
@@ -163,6 +164,18 @@ export default function ParentsGuardianForm({
 
   function resetValidationErrors() {
     setValidationErrors({})
+  }
+
+  function handleGuardianBackClick() {
+    if (previousParent === '') {
+      if (getStudentAge(currentStudent.dateOfBirth) < 11)
+        setStep(val => val - 3)
+      else
+        setStep(val => val - 1);
+    } else {
+      setKey(previousParent)
+    }
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -595,7 +608,7 @@ export default function ParentsGuardianForm({
         <button
           type='button'
           className='save comn me-2'
-          onClick={() => { setStep(val => val - 1); window.scrollTo(0, 0); }}
+          onClick={() => { handleGuardianBackClick() }}
         >
           Back
         </button>

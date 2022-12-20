@@ -25,10 +25,10 @@ const PaymentCard = ({selectedChild}) => {
             <div className='card-header-item title'>Order Summary</div>
             <Card.Body className='school-info-main'>
                 <ListGroup className="info-list-group">
-                    <ListGroup.Item>
+                    {/* <ListGroup.Item>
                         <div className='cell left'>School Admission Request</div>
                         <div className='cell right'>{selectedChild.cartItems.length}</div>
-                    </ListGroup.Item>
+                    </ListGroup.Item> */}
                     <ListGroup.Item>
                         <div className='cell left'>Admission Fee</div>
                         <div className='cell right'>₹{totalFee}</div>

@@ -21,7 +21,7 @@ const SchoolBasicInfo = (props) => {
                     {schoolDetails.websiteLink ? <ListGroup.Item as="li"><span>Website:</span> <a href={schoolDetails.websiteLink} target='_blank'><strong className='greentext'>{schoolDetails.websiteLink}</strong></a></ListGroup.Item> : ''}
                     {schoolDetails.contactNo ? <ListGroup.Item as="li"><span>Contact No. :</span> <strong>{schoolDetails.contactNo}</strong></ListGroup.Item> : ''}
                     {schoolDetails.email ? <ListGroup.Item as="li"><span>Email-ID:</span> <strong>{schoolDetails.email}</strong></ListGroup.Item> : ''}
-                    {schoolDetails.monthlyFeeMin && schoolDetails.monthlyFeeMax ? <ListGroup.Item as="li"><span>Monthly Fees:</span> <strong className='greentext'>₹{schoolDetails.monthlyFeeMin} - ₹{schoolDetails.monthlyFeeMax}</strong></ListGroup.Item> : ''}
+                    {schoolDetails.monthlyFeeMin && schoolDetails.monthlyFeeMax ? <ListGroup.Item as="li"><span>Average Monthly Fees:</span> <strong className='greentext'>₹{schoolDetails.monthlyFeeMin} - ₹{schoolDetails.monthlyFeeMax}</strong></ListGroup.Item> : ''}
                     {/* <ListGroup.Item as="li"><span>Curriculum:</span> <strong>{schoolDetails.board}</strong></ListGroup.Item> */}
                 </ListGroup>
             </div>

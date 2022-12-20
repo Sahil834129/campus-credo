@@ -151,6 +151,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                 currentParent={key}
                 setKey={setKey}
                 nextParent={'mother'}
+                previousParent={''}
                 parentExist={parentExist}
                 disableGender={true}
                 setAllParentDetail={setAllParentDetail}
@@ -169,6 +170,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                 currentParent={key}
                 setKey={setKey}
                 nextParent={'other'}
+                previousParent={'father'}
                 parentExist={parentExist}
                 disableGender={true}
                 setAllParentDetail={setAllParentDetail}
@@ -187,6 +189,7 @@ export default function ParentsGuardianComponent({ currentStudent, setStep }) {
                 currentParent={key}
                 setKey={setKey}
                 nextParent={''}
+                previousParent={'mother'}
                 parentExist={parentExist}
                 disableGender={false}
                 setAllParentDetail={setAllParentDetail}
