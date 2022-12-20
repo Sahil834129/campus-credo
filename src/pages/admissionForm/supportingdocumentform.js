@@ -28,7 +28,9 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         )
         setCondition(false)
         toast.success('Student profile submitted successfully.')
+        setTimeout(() => {
         navigate('/userProfile')
+     }, 1000);
       } catch (error) {
         toast.error(RESTClient.getAPIErrorMessage(error))
       }

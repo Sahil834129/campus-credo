@@ -47,7 +47,7 @@ const LoggedInUserDropDown = () => {
     },[dispatch])
     
     useEffect(() => { 
-        if (isLoggedInUser) {
+        if (isLoggedInUser && isLoggedIn()) {
             dispatch(getItemsInCart());
             dispatch(getChildsList());
         }

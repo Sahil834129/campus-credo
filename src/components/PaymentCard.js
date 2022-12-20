@@ -27,7 +27,7 @@ const PaymentCard = ({selectedChild}) => {
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='cell left'>School Admission Request</div>
-                        <div className='cell right'>1</div>
+                        <div className='cell right'>{selectedChild.cartItems.length}</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <div className='cell left'>Admission Fee</div>

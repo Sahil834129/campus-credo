@@ -179,8 +179,8 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     firstName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
     lastName: Yup.string().min(2, "Value is too short.").max(30, "Value is too long.").required("Required *"),
     otherRelation: Yup.string().when('relation', {
-        is: val => val && val !== 'Father' && val !== 'Mother',
-        then: Yup.string().required("Required *"),
+        is: val => val && (val !== 'father' && val !== 'mother'),
+        then: Yup.string().required("Required*"),
     }),
     otherNationality: Yup.string().when('nationality', {
         is: val => val && val === 'Other',

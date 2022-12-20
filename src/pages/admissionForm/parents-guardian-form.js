@@ -462,6 +462,7 @@ export default function ParentsGuardianForm({
                   fieldType='number'
                   value={values.annualFamilyIncome}
                   errors={validationErrors}
+                  min='0'
                   onChange={e => {
                     setFieldValue('annualFamilyIncome', e.target.value);
                   }}
