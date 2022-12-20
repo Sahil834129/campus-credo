@@ -19,6 +19,8 @@ const TextField = props => {
           {...(props.onChange ? { onChange: props.onChange } : {})}
           {...(props.disabled ? { disabled: props.disabled } : {})}
           {...(props.maxLength ? { maxLength: props.maxLength } : {})}
+          {...(props.minLength ? { minLength: props.minLength } : {})}
+          {...(props.min ? { min: props.min } : {})}
         />
         {
           errors && errors.hasOwnProperty(props.fieldName) ? <div className='error-exception mt-2'>{errors[props.fieldName]}</div> : ''
