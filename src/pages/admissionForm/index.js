@@ -59,6 +59,7 @@ export const AdmissionForms = () => {
   const [pageTitle, setPageTitle] = useState('')
   const [step, setStep] = useState(1)
   const [selectedChild, setSelectedChild] = useState(studentInitialValue)
+  const [sidebarMenuItems, setSidebarMenuItems] = useState(PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS)
 
   const handleChildSelection = childId => {
     const selectedChildObj = childsList.find(
@@ -72,7 +73,6 @@ export const AdmissionForms = () => {
         ...selectedChildCopy,
         ...childobj
       }
-
       setSelectedChild(selectedChildCopy)
     }
   }
@@ -122,15 +122,20 @@ export const AdmissionForms = () => {
     getCurrentComponent(step)
   }, [step])
 
+  useEffect(() => {
+    if (currentStudent) 
+      getSidebarMenuItems()
+  }, [currentStudent])
+
   function getSidebarMenuItems() {
-    let menuItems = PageContent.ADMISSION_FORM_SIDEBAR_MENU_ITEMS
-    if (getChildAge(selectedChild.dateOfBirth) < 11){
-      menuItems.forEach((item, index) => {
-        if (item.title === 'Extracurriculars' || item.title === 'Background Check')
-          item.show = false
-      })
-    }
-    return menuItems
+    let menuItems = [...sidebarMenuItems]
+    const childAge = getChildAge(selectedChild.dateOfBirth)
+    menuItems.forEach((item, index) => {
+      if (item.title === 'Extracurriculars' || item.title === 'Background Check'){
+        item.show = (childAge < 11 ? false : true)
+      }
+    })
+    setSidebarMenuItems(menuItems)
   }
 
   return (
@@ -184,7 +189,7 @@ export const AdmissionForms = () => {
               )}
               <div className='content-area-inner internal-page-wrapper'>
                 <LeftMenuBar
-                  menuItems={getSidebarMenuItems()}
+                  menuItems={sidebarMenuItems}
                   parentPage='userProfile'
                   step={step}
                 />

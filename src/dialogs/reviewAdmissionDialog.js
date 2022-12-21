@@ -100,7 +100,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
 
     return (
         <>
-            <GenericDialog className='review-admission-modal add-child-model' show={show} handleClose={handleClose}>
+            <GenericDialog className='review-admission-modal add-child-model' show={show} handleClose={handleClose} modalHeader='Application Details'>
                 <Accordion defaultActiveKey="0" flush>
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Candidate Details/Extracurriculars</Accordion.Header>

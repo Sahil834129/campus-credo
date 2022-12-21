@@ -52,16 +52,15 @@ const ApplyToSchool = (props) => {
 			if (props.schoolDetails && props.schoolDetails.classes) {
 				setClassOptions(
 					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').map((it) => ({
-						value: it.className,
+						value: it.classId,
 						text: it.className,
 					})),
 				);
 			
 				props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').forEach((element) => {
-					feeMap[element.className] = element.formFee;
+					feeMap[element.classId] = element.formFee;
 				});
 			}
-			console.log('feemap ' , feeMap)
 			setClassFeeMap(feeMap);
 		} catch (e) {
 			console.log("Error while getting classes list" + e);
@@ -111,7 +110,8 @@ const ApplyToSchool = (props) => {
 			setRowFieldValue(index, field, '')
 			return
 		}
-		const stdClass = classOptions.find(it=> it.value === studentProfile.className) ? studentProfile.className : ''
+		const stdClass = classOptions.find(it=> it.value === studentProfile.className) ? it.value : ''
+		classOptions.find(it=> it.text === stdClass)
 		setRowFieldValue(index, field, value)
         setRowFieldValue(index, 'class', stdClass)
     }
