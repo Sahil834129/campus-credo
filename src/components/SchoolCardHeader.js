@@ -15,7 +15,7 @@ const SchoolCardHeader = (props) => {
             <Row className='info-item school-info-exerpts'>
                 <div className='school-name'>
                     {school.schoolName}  
-                    <div className="tutionfee-wrap"><label>Application Fee</label> <span className='fee-to'>{school.admissionInfo?.admissionFormFee}</span></div>
+                    <div className="tutionfee-wrap">{school.admissionInfo?.admissionFormFee?<label>Application Fee</label>:""} <span className='fee-to'>{school.admissionInfo?.admissionFormFee}</span></div>
                 </div>
                 <ListGroup className='school-type'>
                     <ListGroup.Item>{school.board}</ListGroup.Item>

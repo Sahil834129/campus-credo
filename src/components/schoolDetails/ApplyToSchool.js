@@ -51,16 +51,17 @@ const ApplyToSchool = (props) => {
 			let feeMap = {};
 			if (props.schoolDetails && props.schoolDetails.classes) {
 				setClassOptions(
-					props.schoolDetails.classes.map((it) => ({
-						value: it.classId,
+					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').map((it) => ({
+						value: it.className,
 						text: it.className,
 					})),
 				);
 			
-				props.schoolDetails.classes.forEach((element) => {
-					feeMap[element.classId] = element.fee;
+				props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').forEach((element) => {
+					feeMap[element.className] = element.formFee;
 				});
 			}
+			console.log('feemap ' , feeMap)
 			setClassFeeMap(feeMap);
 		} catch (e) {
 			console.log("Error while getting classes list" + e);
@@ -97,10 +98,12 @@ const ApplyToSchool = (props) => {
 			setRowFieldValue(index, field, '')
 			return
 		}
+		let studentProfile
 		let isProfileCompleted = false
 		try {
 			const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${value}`)
-			isProfileCompleted = response.data.profileCompleted ? true : false
+			studentProfile = response.data
+			isProfileCompleted = studentProfile.profileCompleted ? true : false
 		} catch (error) {}
 		if (!isProfileCompleted) {
 			setAlertMessage('Cannot be added to the apply list because the student profile for the selected child is incomplete.')
@@ -108,14 +111,9 @@ const ApplyToSchool = (props) => {
 			setRowFieldValue(index, field, '')
 			return
 		}
+		const stdClass = classOptions.find(it=> it.value === studentProfile.className) ? studentProfile.className : ''
 		setRowFieldValue(index, field, value)
-        
-		// Select class based on child age
-        const selectedChild = childsList.find(it => it.childId === parseInt(value))
-        let childAge = getStudentAge(selectedChild.dateOfBirth);
-        let optionText = getClassBasedOnAge(classMapWithAge, classOptions, childAge)
-		const selectedClass = classOptions.find(it => it.text.toLowerCase() === optionText?.toLowerCase())
-        setRowFieldValue(index, 'class', (selectedClass ? selectedClass.value.toString() : ''))
+        setRowFieldValue(index, 'class', stdClass)
     }
 
 	const setRowFieldValue = (index, field, value) => {

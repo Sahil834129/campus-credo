@@ -134,13 +134,13 @@ export function getClassBasedOnAge(classMapWithAge, classOptions, childAge) {
   let availableClassOptionsAgeMap = {}
   let classOptionTexts  = classOptions.length ? classOptions.map(it => it.text.toLowerCase()) : []
   Object.entries(classMapWithAge).forEach(([k, v]) => {
-    if (classOptionTexts.indexOf(v.toLowerCase()) >= 0)
-      availableClassOptionsAgeMap[k] = v
+    if (classOptionTexts.indexOf(v.replace('_',' ').toLowerCase()) >= 0)
+      availableClassOptionsAgeMap[k] = v.replace('_', ' ')
   })
   Object.keys(availableClassOptionsAgeMap).forEach((value, idx) => {
-          if (parseInt(value) <= childAge && parseInt(value) > age)
-              age = value
-      })
+    if (parseInt(value) <= childAge && parseInt(value) > age)
+      age = value
+  })
   return availableClassOptionsAgeMap[parseInt(age)]
 }
 

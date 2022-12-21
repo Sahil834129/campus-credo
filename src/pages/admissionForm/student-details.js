@@ -171,6 +171,12 @@ export default function StudentDetails ({
     if (currentStudent.childId) getCurrentUser(currentStudent.childId)
   }, [currentStudent.childId, getCurrentUser])
 
+  useEffect(() => {
+    if (selectedChild.className === '') {
+      setSelectedChild({...selectedChild, className: getClassFromAge()})
+    }
+  }, [selectedChild, setSelectedChild, getClassFromAge])
+
   useEffect(()=>{populateClassesWithAge()},[])
 
   function isValidFormData(formData) {
