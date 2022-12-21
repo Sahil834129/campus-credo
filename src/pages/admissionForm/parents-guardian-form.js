@@ -471,8 +471,11 @@ export default function ParentsGuardianForm({
                 />
               </div>
               <div className='col-md-6'>
+              <label htmlFor='validationServer02' className='form-label'>
+              Annual Family Income
+                  <span className='req'>*</span>
+                </label>
                 <TextField
-                  label='Annual Family Income'
                   fieldName='annualFamilyIncome'
                   className='frm-cell'
                   fieldType='number'
