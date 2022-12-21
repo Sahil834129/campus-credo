@@ -33,7 +33,7 @@ const AppliedSchools = ({application}) => {
                 
                 <div className='col-item right'>
                     <div className='col'><label>Status</label></div>
-                    <div className='col'><span className='badge accepted'>{application.applicationStatus}</span></div>
+                    <div className='col'><span className='badge accepted'>{application.applicationStatus?.replace('_',' ')}</span></div>
                     <div className='col'></div>
                 </div>
                 

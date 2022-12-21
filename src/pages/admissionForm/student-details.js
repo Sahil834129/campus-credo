@@ -295,7 +295,6 @@ export default function StudentDetails ({
                 rows='4'
                 value={selectedChild.identificationMarks}
                 onChange={e => {
-                  console.log(e.target.value)
                   setFieldValue('identificationMarks', e.target.value)
                 }}
               ></textarea>

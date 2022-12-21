@@ -149,7 +149,7 @@ export default function ParentsGuardianForm({
     const guardianAge = getAge(dateOfBirth)
     const childAge = getAge(currentStudent.dateOfBirth)
     if (guardianAge-childAge < 10) {
-      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age. Student date of birth is '+ formatDateToDDMMYYYY(currentStudent.dateOfBirth) +'.'})
+      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age.'})
       return false
     }
     return true

@@ -43,7 +43,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
     async function getParentDetails(childId) {
         try {
             const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PARENT + `/${childId}`)
-            response.data.length ? setParentDetail(response.data[0]) : setParentDetail({})
+            response.data.length ? setParentDetail(response.data) : setParentDetail({})
         } catch (error) {
             setParentDetail({})
         }
@@ -144,12 +144,20 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                     <label>Require Boarding </label>
                                     <span className="item-entry">{studentDetail.boardingFacility ? "Yes" : "No"}</span>
                                 </div>
+                                <div className='admin-detail-cell'>
+                                    <label>Competition Certificate</label>
+                                    <span className="item-entry">{studentDetail.competitionCertificate}</span>
+                                </div>
                             </div>
                             <div className="admin-detail-row">
                                 <div className='admin-detail-cell'>
                                     <label>Address </label>
                                     <span className="item-entry">{studentDetail.addressLine1}, {studentDetail.addressLine2}, {studentDetail.city}, {studentDetail.state} - {studentDetail.pincode}</span>
                                 </div>
+                                <div className="admin-detail-cell">
+                                    <label>Other Interest</label>
+                                    <span className="item-entry">{studentDetail.otherInterest}</span>
+                              </div>
                             </div>
                         </Accordion.Body>
                     </Accordion.Item>
@@ -181,56 +189,233 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                                     <label>Disabilities </label>
                                     <span className="item-entry">{medicalDetail.disabilities && medicalDetail.disabilities !== '' ? medicalDetail.disabilities.join(', ') : "No"}</span>
                                 </div>
+                                <div className="admin-detail-cell">
+                          <label>Violence Behaviour </label>
+                          <span className="item-entry">
+                            {studentDetail.violenceBehaviour}
+                          </span>
+                        </div>
+                            </div>
+                            <div className="admin-detail-row">
+                            <div className="admin-detail-cell">
+                          <label>Suspension </label>
+                          <span className="item-entry">
+                            {studentDetail.suspension}
+                          </span>
+                        </div>
                             </div>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="2">
                         <Accordion.Header>Parents/Guardian</Accordion.Header>
                         <Accordion.Body>
-                            <div className="admin-detail-row">
-                                <div className='admin-detail-cell'>
-                                    <label>Name </label>
-                                    <span className="item-entry">{parentDetail.firstName} {parentDetail.lastName}</span>
-                                </div>
-                                <div className='admin-detail-cell'>
-                                    <label>Gender </label>
-                                    <span className="item-entry">{parentDetail.gender}</span>
-                                </div>
-                                <div className='admin-detail-cell'>
-                                    <label>DOB </label>
-                                    <span className="item-entry">{parentDetail.dateOfBirth}</span>
-                                </div>
-                            </div>
-                            <div className="admin-detail-row">
-                                <div className='admin-detail-cell'>
-                                    <label>Relation </label>
-                                    <span className="item-entry">{parentDetail.relation}</span>
-                                </div>
-                                <div className='admin-detail-cell'>
-                                    <label>Marital Status </label>
-                                    <span className="item-entry">{parentDetail.maritalStatus}</span>
-                                </div>
-                                <div className='admin-detail-cell'>
-                                    <label>Nationality </label>
-                                    <span className="item-entry">{parentDetail.nationality}</span>
-                                </div>
-                            </div>
-                            <div className="admin-detail-row">
-                                <div className='admin-detail-cell'>
-                                    <label>Qualification </label>
-                                    <span className="item-entry">{parentDetail.qualification}</span>
-                                </div>
-                                <div className='admin-detail-cell'>
-                                    <label>Occupation </label>
-                                    <span className="item-entry">{parentDetail.occupation}</span>
-                                </div>
-                            </div>
-                            <div className="admin-detail-row">
-                                <div className='admin-detail-cell'>
-                                    <label>Annual Family Income </label>
-                                    <span className="item-entry">{parentDetail.annualFamilyIncome}</span>
-                                </div>
-                            </div>
+                        <div className="tab-wrapper">
+                <Tabs
+                  id="controlled-tab-example"
+                  activeKey={key}
+                  onSelect={(k) => setKey(k)}
+                  className="tab-header"
+                >
+                  <Tab eventKey="Father" title="Father">
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Name </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.firstName}{" "}
+                          {parentDetail[0]?.lastName}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Gender </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.gender}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>DOB </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.dateOfBirth}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Relation </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.relation}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Marital Status </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.maritalStatus}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Nationality </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.nationality}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Qualification </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.qualification}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Occupation </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.occupation}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Annual Family Income </label>
+                        <span className="item-entry">
+                          {parentDetail[0]?.annualFamilyIncome}
+                        </span>
+                      </div>
+                      
+                    </div>
+                  </Tab>
+                  <Tab eventKey="Mother" title="Mother">
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Name </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.firstName}{" "}
+                          {parentDetail[1]?.lastName}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Gender </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.gender}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>DOB </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.dateOfBirth}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Relation </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.relation}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Marital Status </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.maritalStatus}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Nationality </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.nationality}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Qualification </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.qualification}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Occupation </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.occupation}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Annual Family Income </label>
+                        <span className="item-entry">
+                          {parentDetail[1]?.annualFamilyIncome}
+                        </span>
+                      </div>
+                      
+                    </div>
+                  </Tab>
+                  <Tab eventKey="Guardian" title="Guardian">
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Name </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.firstName}{" "}
+                          {parentDetail[2]?.lastName}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Gender </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.gender}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>DOB </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.dateOfBirth}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Relation </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.relation}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Marital Status </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.maritalStatus}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Nationality </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.nationality}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Qualification </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.qualification}
+                        </span>
+                      </div>
+                      <div className="admin-detail-cell">
+                        <label>Occupation </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.occupation}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="admin-detail-row">
+                      <div className="admin-detail-cell">
+                        <label>Annual Family Income </label>
+                        <span className="item-entry">
+                          {parentDetail[2]?.annualFamilyIncome}
+                        </span>
+                      </div>
+                     
+                    </div>
+                  </Tab>
+                </Tabs>
+              </div>
                         </Accordion.Body>
                     </Accordion.Item>
                     <Accordion.Item eventKey="3">
@@ -285,7 +470,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                 </Accordion>
                 <div className="btn-wrapper review-section-btn">
                     <Button className='submit' onClick={() => checkOutApplication()}>Checkout</Button>
-                    <Button className='edit' onClick=''>Edit</Button>
+                    <Button className='edit' onClick={()=>{navigate("/userProfile/admissionForm")}}>Edit</Button>
                 </div>
             </GenericDialog>
             <AlertDialog show={showAlertDialog} message={alertMessage} handleClose={()=> setShowAlertDialog(false)}/>
