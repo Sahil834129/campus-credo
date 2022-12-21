@@ -1,67 +1,54 @@
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import MultiRangeSlider from "multi-range-slider-react";
-import { useState } from 'react';
-import { applicationfilterData } from '../../../utils/services';
+import { useState, useEffect } from 'react';
+import { getSchoolAdmissionGradeList, applicationfilterData } from '../../../utils/services';
 import { OPERATORS } from '../../../constants/app';
 
 export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData }) => {
-  const [grade, setGrade] = useState('');
-  const gradeOption = [
-    {
-      value: 0,
-      name: 'Select Grade'
-    },
-    {
-      value: 1,
-      name: 'A'
-    },
-    {
-      value: 2,
-      name: 'B'
-    },
-    {
-      value: 3,
-      name: 'C'
-    },
-    {
-      value: 4,
-      name: 'D'
-    },
-    {
-      value: 5,
-      name: 'E'
-    },
-    {
-      value: 6,
-      name: 'F'
-    }];
-  const [checkValue, setCheckValue] = useState(1);
-  const [minAge, setMinAge] = useState(0);
-  const [maxAge, setMaxAge] = useState(30);
-  const [minIncome, setMinIncome] = useState(0);
-  const [maxIncome, setMaxIncome] = useState(2000000);
-  const [minMarks, setMinMarks] = useState(0);
-  const [maxMarks, setMaxMarks] = useState(100);
-  const [maxGpa, setMaxGpa] = useState(10);
-  const [minGpa, setMinGpa] = useState(0);
-  const [transport, setTransport] = useState();
-  const [boarding, setBoarding] = useState();
+  const intialValue ={
+    grade:'',
+    gradeOption: null,
+    checkValue: 1,
+    minAge:0,
+    maxAge:30,
+    minIncome:0,
+    maxIncome:2000000,
+    minMarks:0,
+    maxMarks:100,
+    minGpa: 0,
+    maxGpa: 10,
+    transport:'',
+    boarding:''
+  }
+  const [grade, setGrade] = useState(intialValue.grade);
+  const [gradeOption, setGradeOption] = useState(intialValue.gradeOption)
+  const [checkValue, setCheckValue] = useState(intialValue.checkValue);
+  const [minAge, setMinAge] = useState(intialValue.minAge);
+  const [maxAge, setMaxAge] = useState(intialValue.maxAge);
+  const [minIncome, setMinIncome] = useState(intialValue.minIncome);
+  const [maxIncome, setMaxIncome] = useState(intialValue.maxIncome);
+  const [minMarks, setMinMarks] = useState(intialValue.minMarks);
+  const [maxMarks, setMaxMarks] = useState(intialValue.maxMarks);
+  const [maxGpa, setMaxGpa] = useState(intialValue.maxGpa);
+  const [minGpa, setMinGpa] = useState(intialValue.minGpa);
+  const [transport, setTransport] = useState(intialValue.transport);
+  const [boarding, setBoarding] = useState(intialValue.boarding);
 
   const ClearForm = () => {
     setClassId(1);
-    setMinAge(0);
-    setMaxAge(30);
-    setMinIncome(0);
-    setMaxIncome(2000000);
-    setMinMarks(0);
-    setMaxMarks(100);
-    setMinGpa(0);
-    setMaxGpa(10);
-    setGrade(gradeOption[0].value);
-    setCheckValue(1);
-    setTransport(null);
-    setBoarding(null);
+    setMinAge(intialValue.minAge);
+    setMaxAge(intialValue.maxAge);
+    setMinIncome(intialValue.minIncome);
+    setMaxIncome(intialValue.maxIncome);
+    setMinMarks(intialValue.minMarks);
+    setMaxMarks(intialValue.maxMarks);
+    setMinGpa(intialValue.minGpa);
+    setMaxGpa(intialValue.maxGpa);
+    setGrade(intialValue.grade);
+    setCheckValue(intialValue.checkValue);
+    setTransport(intialValue.transport);
+    setBoarding(intialValue.boarding);
   };
 
   const HandleApply = (checkValue) => {
@@ -131,6 +118,20 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
       })
       .error(error => console.log(error));
   };
+
+  const fetchSchoolAdmissionGradeList =() =>{
+    getSchoolAdmissionGradeList()
+    .then(response => {
+      if (response.status === 200) {
+        setGradeOption(response.data)
+      }
+    })
+    .catch(error => console.log(error));
+  }
+  
+  useEffect(()=>{
+    fetchSchoolAdmissionGradeList()
+  },[])
 
   return (
     <div className='filterpanel'>
@@ -303,9 +304,10 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
                     setGrade(e.target.value);
                   }}
                 >
+                  <option value=""> Select</option>
                   {gradeOption.map((val) => (
-                    <option value={val.value} >
-                      {val.name}
+                    <option value={val} >
+                      {val}
                     </option>
                   ))}
                 </Form.Select>
