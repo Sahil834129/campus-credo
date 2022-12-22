@@ -83,11 +83,11 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
       });
     }
     if (minGpa !== null && minGpa !== '' && maxGpa !== null && maxGpa !== '') {
-      filter.push({
-        field: 'SGPA',
-        operator: OPERATORS.BETWEEN,
-        values: [minGpa, maxGpa]
-      });
+      // filter.push({
+      //   field: 'SGPA',
+      //   operator: OPERATORS.BETWEEN,
+      //   values: [minGpa, maxGpa]
+      // });
     }
     if (grade !== null && grade !== '') {
       filter.push({
