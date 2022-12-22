@@ -190,9 +190,13 @@
                             &.doc-upload-fld{
                                 display: flex;
                                 flex-direction: column;
+                                position: relative;
                                 .error-msg{
                                     color: #FF5767;
                                     font-size: 14px;
+                                    position: absolute;
+                                    bottom: 12px;
+                                    right: 18px;
                                 }
                             }
                             .btn{
