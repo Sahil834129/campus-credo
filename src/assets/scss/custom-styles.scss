@@ -871,6 +871,37 @@ ul.list-group{
             background: #F3F3F3;
             .content-section{padding: 16px 16px 16px 16px;}
             .sb-card-holder{
+              .school-list-container{
+                
+                .school-card{
+                  .school-info-main{
+                    &.card-body{
+                      display: flex;
+                      flex-direction: column;
+                      .info-item{
+                        &.school-logo-wrap{
+                          
+                        }
+                        &.school-info-exerpts{
+                          flex-direction: column;
+                          margin-left: 0;
+                          .school-name{
+                            flex-direction: column;
+                            .tutionfee-wrap{
+                              text-align: left;
+                            }
+                          }
+                        }
+  
+                      }
+
+                    }
+                    
+                    
+                    
+                  }
+                }
+              }
               .salient-features{
                 .partner-item{
                   &.lbl{
@@ -991,6 +1022,7 @@ ul.list-group{
                   h4{
                     color: rgba(0, 0, 0, 0.8);
                     font-weight: 400;
+                    margin: 0
                   }
                   a{
                     font-style: normal;
@@ -1049,6 +1081,7 @@ ul.list-group{
                     grid-template-columns: 1fr 1fr 1fr;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                     padding: 18px 0;
+                    column-gap: 16px;
                     .cell{
                       .title{
                         font-style: normal;

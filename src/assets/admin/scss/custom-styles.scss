@@ -766,6 +766,10 @@ ul.list-group{
     }
   }
 }
+.school-list-container:has(.no-record-wrap){
+  display: flex;
+}
+
 .btn-wrapper{
   display: flex;
   flex-direction: row;
