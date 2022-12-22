@@ -18,10 +18,12 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
   const [key, setKey] = useState('student')
-  const [check, setCheck] = useState(false)
+  const [check1, setCheck1] = useState(false)
+  const [check2, setCheck2] = useState(false)
+
   const [condition, setCondition] = useState(false)
   const finalSubmit = async() => {
-    if (check) {
+    if (check1 && check2) {
       try {
         await RESTClient.get(
           RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
@@ -120,17 +122,16 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
                 label='I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct'
                 required
                 onChange={(e) => {
-                  setCheck(e.target.checked)
+                  setCheck1(e.target.checked)
                   setCondition(!e.target.checked)
                 }} 
               />
-              {condition && <label style={{ display: 'flex', color: 'Red' }}>Please accept all T&C  </label>}
               <Form.Check
                 type='checkbox'
                 label='I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy'
                 required
                 onChange={(e) => {
-                  setCheck(e.target.checked)
+                  setCheck2(e.target.checked)
                   setCondition(!e.target.checked)
                 }} 
               />

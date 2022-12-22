@@ -8,13 +8,14 @@ import RESTClient from "../../utils/RestClient";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { toast } from "react-toastify";
 import { getItemsInCart } from "../../redux/actions/cartAction";
-import moment from "moment";
-import { getChildAge, getClassBasedOnAge, getStudentAge } from "../../utils/helper";
-import { getAgeClassMap, getClassAdmissionSummary } from "../../utils/services";
+import { getClassBasedOnAge, getStudentAge } from "../../utils/helper";
+import { getAgeClassMap } from "../../utils/services";
+import AlertDialog from "../../common/AlertDialog";
 
 const ApplyToSchool = (props) => {
     const dispatch = useDispatch();
     const childsList = useSelector((state) => state.childsData.childs);
+	const itemsInCart = useSelector((state) => state.cartData.itemsInCart);
     const [showAddChildDialog, setShowAddChildDialog] = useState(false);
     const [classOptions, setClassOptions] = useState([]);
     const [classFeeMap, setClassFeeMap] = useState({});
@@ -22,6 +23,8 @@ const ApplyToSchool = (props) => {
     const [rows, setRows] = useState([{childId:'', class:'', session:''}]);
     const [classMapWithAge, setClassMapWithAge] = useState({})
     const [validationErrors, setValidationErrors] = useState({})
+	const [showAlertDialog, setShowAlertDialog] = useState(false)
+	const [alertMessage, setAlertMessage] = useState('')
     const schoolId = props.schoolId;
     
 	useEffect(() => { dispatch(getChildsList());}, [dispatch]);
@@ -48,14 +51,14 @@ const ApplyToSchool = (props) => {
 			let feeMap = {};
 			if (props.schoolDetails && props.schoolDetails.classes) {
 				setClassOptions(
-					props.schoolDetails.classes.map((it) => ({
+					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').map((it) => ({
 						value: it.classId,
 						text: it.className,
 					})),
 				);
 			
-				props.schoolDetails.classes.forEach((element) => {
-					feeMap[element.classId] = element.fee;
+				props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').forEach((element) => {
+					feeMap[element.classId] = element.formFee;
 				});
 			}
 			setClassFeeMap(feeMap);
@@ -81,15 +84,36 @@ const ApplyToSchool = (props) => {
         setShowAddChildDialog(true);
     }
 
-    const handleChildSelection = (index, field, value) => {
-        setRowFieldValue(index, field, value)
-        
-		// Select class based on child age
-        const selectedChild = childsList.find(it => it.childId === parseInt(value))
-        let childAge = getStudentAge(selectedChild.dateOfBirth);
-        let optionText = getClassBasedOnAge(classMapWithAge, classOptions, childAge)
-		const selectedClass = classOptions.find(it => it.text.toLowerCase() === optionText?.toLowerCase())
-        setRowFieldValue(index, 'class', (selectedClass ? selectedClass.value.toString() : ''))
+	function isSchoolAlreadyInApplyList(childId) {
+		const childCartItemsGroupedOnChild = itemsInCart.childCartItemsList.filter(it=> it.childId === parseInt(childId))
+		const childCartItems = childCartItemsGroupedOnChild.filter(it => it.childId === parseInt(childId))
+		return (childCartItems.length && childCartItems[0].cartItems.filter(it => it.schoolId === parseInt(schoolId)).length > 0)
+	}
+
+    const handleChildSelection = async(index, field, value) => {
+		if (isSchoolAlreadyInApplyList(value)) {
+			setAlertMessage('Schools is already in applied list for the selected child.')
+			setShowAlertDialog(true)
+			setRowFieldValue(index, field, '')
+			return
+		}
+		let studentProfile
+		let isProfileCompleted = false
+		try {
+			const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${value}`)
+			studentProfile = response.data
+			isProfileCompleted = studentProfile.profileCompleted ? true : false
+		} catch (error) {}
+		if (!isProfileCompleted) {
+			setAlertMessage('Cannot be added to the apply list because the student profile for the selected child is incomplete.')
+			setShowAlertDialog(true)
+			setRowFieldValue(index, field, '')
+			return
+		}
+		const stdClass = classOptions.find(it=> it.value === studentProfile.className) ? it.value : ''
+		classOptions.find(it=> it.text === stdClass)
+		setRowFieldValue(index, field, value)
+        setRowFieldValue(index, 'class', stdClass)
     }
 
 	const setRowFieldValue = (index, field, value) => {
@@ -148,6 +172,11 @@ const ApplyToSchool = (props) => {
     function resetValidationErrors() {
       setValidationErrors({})
     }
+
+	function handleAlertDialogClose() {
+		setShowAlertDialog(false)
+	}
+
 	return (
 		<>
 			<div className="readytoapply-block">
@@ -286,6 +315,7 @@ const ApplyToSchool = (props) => {
 				show={showAddChildDialog}
 				handleClose={() => setShowAddChildDialog(false)}
 			/>
+			<AlertDialog show={showAlertDialog} handleClose={handleAlertDialogClose} message={alertMessage}/>
 		</>
 	);
 };

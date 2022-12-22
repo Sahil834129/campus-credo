@@ -16,6 +16,7 @@ import { DEFAULT_ROLES } from "../constants/app";
 import { setIsUserLoggedIn } from "../redux/actions/userAction";
 import { SignInSchema, UpdatePhoneSchema } from "../data/validationSchema";
 import GenericDialog from "./GenericDialog";
+import AlertDialog from "../common/AlertDialog";
 
 const LoginDialog = (props) => {
     const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const LoginDialog = (props) => {
     const [otpSentCounter, setOtpSentCounter] = useState(1);
     const [otpMinutes, setOtpMinutes] = useState(0);
     const [validationErrors, setValidationErrors] = useState({})
+    const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] = useState(false)
     
     useEffect(() => {
         if (otpSentCounter === 4) {
@@ -109,16 +111,13 @@ const LoginDialog = (props) => {
             resetSignInFormValues();
         } catch (error) {
             let errorMsg = RESTClient.getAPIErrorMessage(error)
-            if (errorMsg === 'MOBILE NOT VERIFIED') {
-                try {
-                    await RESTClient.post(RestEndPoint.SEND_OTP, {phone: phone})
-                    navigate('/verifyPhone/'+ phone)
-                } catch (err) {
-                    toast.error(RESTClient.getAPIErrorMessage(err))
-                }
+            if (errorMsg.toUpperCase() === 'MOBILE NOT VERIFIED') {
+                props.handleClose();
+                setShowMobileNotVerifiedDialog(true);
+            } else {
+                toast.error(RESTClient.getAPIErrorMessage(error));    
             }
             setSubmitting(false);
-            toast.error(RESTClient.getAPIErrorMessage(error));
         }
     }
 
@@ -178,6 +177,15 @@ const LoginDialog = (props) => {
             addPayloadError(error)
         }
     }
+
+    const verifyPhoneDialog = async () => {
+        try {
+            await RESTClient.post(RestEndPoint.SEND_OTP, { phone: phone });
+            navigate("/verifyPhone/" + phone);
+        } catch (err) {
+            toast.error(RESTClient.getAPIErrorMessage(err));
+        }
+    };
 
     return (
         <>
@@ -256,6 +264,7 @@ const LoginDialog = (props) => {
             </div>
         </GenericDialog>
         <ForgotPasswordDialog show={showForgotPasswordDialog} handleClose={handleForgotPasswordClose}/>
+        <AlertDialog show={showMobileNotVerifiedDialog} handleClose={verifyPhoneDialog} buttonLabel="Veirfy" message="Mobile number not verified."/>
         </>
     );
 }

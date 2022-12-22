@@ -11,7 +11,7 @@ const AlertDialog = (props) => {
                     {props.children ?? ''}
                 </div>
                 <div className="button-wrapper">
-                    <Button className="ok-btn" onClick={props.handleClose}>OK</Button>
+                    <Button className="ok-btn" onClick={props.handleClose}>{props.buttonLabel ? props.buttonLabel : "OK"}</Button>
                 </div>
             </div>
         </GenericDialog>

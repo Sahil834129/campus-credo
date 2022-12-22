@@ -16,7 +16,7 @@ import { getParentOCcupation } from '../../redux/actions/masterData';
 import { StudentParentGuardianSchema } from '../../data/validationSchema';
 import { populateCities } from '../../utils/populateOptions';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
-import { getAge, getGuadianMaxDateOfBirth } from '../../utils/helper';
+import { getAge, getGuadianMaxDateOfBirth, getStudentAge } from '../../utils/helper';
 
 export default function ParentsGuardianForm({
   currentStudent,
@@ -24,6 +24,7 @@ export default function ParentsGuardianForm({
   currentParent,
   setKey,
   nextParent,
+  previousParent,
   values,
   setValues,
   disableGender,
@@ -49,8 +50,11 @@ export default function ParentsGuardianForm({
     e.preventDefault();
     resetValidationErrors()
     let postData = { ...values, ...formData };
-    if (!isValidFormData(postData))
+    if (!isValidFormData(postData)) {
+      console.log("validatio error guardian -- " + validationErrors)
       return;
+    }
+      
 
     postData.nationality =
       postData.otherNationality !== ''
@@ -145,7 +149,7 @@ export default function ParentsGuardianForm({
     const guardianAge = getAge(dateOfBirth)
     const childAge = getAge(currentStudent.dateOfBirth)
     if (guardianAge-childAge < 10) {
-      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age. Student date of birth is '+ formatDateToDDMMYYYY(currentStudent.dateOfBirth) +'.'})
+      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age.'})
       return false
     }
     return true
@@ -163,6 +167,18 @@ export default function ParentsGuardianForm({
 
   function resetValidationErrors() {
     setValidationErrors({})
+  }
+
+  function handleGuardianBackClick() {
+    if (previousParent === '') {
+      if (getStudentAge(currentStudent.dateOfBirth) < 11)
+        setStep(val => val - 3)
+      else
+        setStep(val => val - 1);
+    } else {
+      setKey(previousParent)
+    }
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -237,7 +253,7 @@ export default function ParentsGuardianForm({
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
-                    onChange={date => setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date))}
+                    onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
                     maxDate={getGuadianMaxDateOfBirth()}
                     dropdownMode="select"
                     showMonthDropdown
@@ -455,8 +471,11 @@ export default function ParentsGuardianForm({
                 />
               </div>
               <div className='col-md-6'>
+              <label htmlFor='validationServer02' className='form-label'>
+              Annual Family Income
+                  <span className='req'>*</span>
+                </label>
                 <TextField
-                  label='Annual Family Income'
                   fieldName='annualFamilyIncome'
                   className='frm-cell'
                   fieldType='number'
@@ -595,7 +614,7 @@ export default function ParentsGuardianForm({
         <button
           type='button'
           className='save comn me-2'
-          onClick={() => { setStep(val => val - 1); window.scrollTo(0, 0); }}
+          onClick={() => { handleGuardianBackClick() }}
         >
           Back
         </button>
