@@ -115,7 +115,7 @@ const AddChildDialog = (props) => {
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
-                      onChange={date => {setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date))}}
+                      onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
                       maxDate={getStudentMaxDateOfBirth()}
                       dropdownMode="select"
                       showMonthDropdown

@@ -253,7 +253,7 @@ export default function ParentsGuardianForm({
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
-                    onChange={date => setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date))}
+                    onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
                     maxDate={getGuadianMaxDateOfBirth()}
                     dropdownMode="select"
                     showMonthDropdown
