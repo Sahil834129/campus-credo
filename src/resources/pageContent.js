@@ -134,6 +134,7 @@ const PageContent = {
   },
   FACILITY_ICON_MAP: {
     Bus: 'trasport-icon',
+    'GPS enabled tran':'gpsenabled-icon',
     'Computer Lab': 'computer-lab',
     CCTV: 'security-icon',
     Biometrics: 'biometrics-icon',

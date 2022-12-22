@@ -20,7 +20,7 @@ const SchoolStats = (props) => {
             </div>
             <div className='academic-stats-row'>
                 <div className='cell'>
-                    <div className='title'>Co-Ed Status</div>
+                    <div className='title'>Gender</div>
                     <div className='particular'>{schoolDetails.gender || 'NA'}</div>
                 </div>
                 <div className='cell'>
@@ -29,7 +29,7 @@ const SchoolStats = (props) => {
                 </div>
                 <div className='cell'>
                     <div className='title'>School Format</div>
-                    <div className='particular'>{schoolDetails.schoolFormat || 'NA'}</div>
+                    <div className='particular'>{schoolDetails.schoolType || 'NA'}</div>
                 </div>
             </div>
             <div className='academic-stats-row'>
@@ -49,7 +49,7 @@ const SchoolStats = (props) => {
             <div className='academic-stats-row'>
                 <div className='cell'>
                     <div className='title'>School Timings</div>
-                    <div className='particular'>8:00 a.m. to 3:00 p.m.</div>
+                    <div className='particular'>{schoolDetails.schoolTimings || 'NA'}</div>
                 </div>
                 <div className='cell'>
                     <div className='title'>Admission Status</div>

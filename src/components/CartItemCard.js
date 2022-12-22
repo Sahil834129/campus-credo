@@ -41,11 +41,17 @@ const CartItemCard = (props) => {
         navigate("/schools/"+schoolName+"?id="+btoa(`#${schoolId}`));
     }
 
+    function schoolCardHeaderObject() {
+        let cardHeader = {...cartItem.schoolDto}
+        cardHeader['admissionInfo'] = {admissionFormFee:cartItem.admissionFormFee}
+        return cardHeader
+    }
+
     return (
         <>
             <Card className='school-card cart-block cart-active'>
                 
-                <SchoolCardHeader school={cartItem.schoolDto}/>
+                <SchoolCardHeader school={schoolCardHeaderObject()}/>
                 {/* <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Applying to Class</div>
