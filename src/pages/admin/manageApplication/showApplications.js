@@ -4,14 +4,13 @@ import { Dropdown } from "react-bootstrap";
 import moment from "moment";
 
 import TableComponent from "../../../common/TableComponent";
-import { getClassApplication } from "../../../utils/services";
 import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
 import Action from "../../../assets/img/actions.png";
 import { humanize } from "../../../utils/helper";
 import { getDefaultDateFormat } from "../../../utils/DateUtil";
 
 
-export default function ShowApplications({ setApplicationStatus, applicationId, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation }) {
+export default function ShowApplications({ setApplicationStatus, applicationId, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId }) {
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
@@ -34,14 +33,23 @@ export default function ShowApplications({ setApplicationStatus, applicationId, 
 
   const columns = [
     {
-      accessor: 'rowIndex',
-      Header: '#',
+      accessor: 'applicationId',
+      Header: 'Application Id',
     },
     {
       accessor: '',
       Header: 'Applicant’s Name',
       Cell: ((e) => {
-        return `${e.row.original?.firstName} ${e.row.original?.lastName}`;
+        return (
+          <a
+            href="#"
+            onClick={() => {
+              setShowApplication(false);
+              setSelectedApplicationId(e.row.original?.applicationId);
+            }}>
+            {`${e.row.original?.firstName} ${e.row.original?.lastName}`}
+          </a>
+        );
       })
     },
     {
@@ -65,7 +73,7 @@ export default function ShowApplications({ setApplicationStatus, applicationId, 
     },
     {
       accessor: 'applicationStatus',
-      Header: 'Under Final Review',
+      Header: 'Application Status',
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
         if (SUCCESS_STATUS.includes(applicationStatus.toUpperCase())) {
@@ -113,10 +121,6 @@ export default function ShowApplications({ setApplicationStatus, applicationId, 
       })
     }
   ];
-
-  useEffect(() => {
-    console.log(selectedRows);
-  }, [selectedRows]);
 
   return (
     <div className='inner-content-wrap'>

@@ -8,13 +8,18 @@ import ShowApplications from "./showApplications";
 import OpenModal from "./openModal";
 import FilterApp from "./filterApp";
 import { Spinner } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import ReviewAdmissionDialog from "../../../dialogs/reviewAdmissionDialog";
 
 
 export const ManageApplication = () => {
   const [rowsData, setRowsData] = useState([]);
   const [selectedRows, setSelectedRows] = useState({});
   const schoolId = 1;
+  const [apiError, setApiError] = useState('');
   const [isBulkOperation, setIsbulkOperation] = useState(false);
+  const [showApplication, setShowApplication] = useState(false);
+  const [selectedApplicationId, setSelectedApplicationId] = useState('');
   const [isLoading, setIsloading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [admissionData, setAdmissionData] = useState(null);
@@ -33,7 +38,7 @@ export const ManageApplication = () => {
       })
       .catch(error => {
         console.log(error);
-        setIsloading(false)
+        setIsloading(false);
       });
   };
 
@@ -54,7 +59,6 @@ export const ManageApplication = () => {
     getClassApplication(classId).
       then(response => {
         let res = response.data;
-        console.log(res);
         res = res.map((val, index) => {
           return {
             ...val,
@@ -72,11 +76,9 @@ export const ManageApplication = () => {
   };
 
   const handleBulkStatusUpdate = (status, rowIndexes, allData) => {
-    console.log(status, rowIndexes, allData);
     const appIds = Object.keys(rowIndexes).map(val => {
       return allData[val]?.applicationId;
     });
-    console.log(appIds);
     setApplicationStatus(status);
     setApplicationId(appIds);
     setOpenModal(true);
@@ -93,6 +95,12 @@ export const ManageApplication = () => {
       fetchClassApplication(classId);
     }
   }, [classId]);
+
+  useEffect(() => {
+    if (apiError !== '') {
+      toast.error(apiError);
+    }
+  }, [apiError]);
 
   return (
     <Layout admissionSummary={admissionData?.upperSchoolAdmissionSummary}>
@@ -113,8 +121,10 @@ export const ManageApplication = () => {
             rowsData={rowsData}
             handleBulkStatusUpdate={handleBulkStatusUpdate}
             setSelectedRows={setSelectedRows}
+            setShowApplication={setShowApplication}
+            setSelectedApplicationId={setSelectedApplicationId}
           />}
-          {isLoading && <div style={{ margin: '50px auto'}}><Spinner animation="border" /></div>}
+          {isLoading && <div style={{ margin: '50px auto' }}><Spinner animation="border" /></div>}
           <OpenModal
             show={openModal}
             setShow={setOpenModal}
@@ -125,9 +135,18 @@ export const ManageApplication = () => {
             fetchClassApplication={fetchClassApplication}
             classId={classId}
             setApplicationId={setApplicationId}
+            setApiError={setApiError}
           />
         </div>
       </div>
+      <ToastContainer autoClose={2000} position="top-right" />
+      {/* <ReviewAdmissionDialog
+        show={showApplication}
+        handleClose={() => {
+          setShowApplication(false);
+          setSelectedApplicationId('');
+        }}
+        applicationId={selectedApplicationId} /> */}
     </Layout>
   );
 };

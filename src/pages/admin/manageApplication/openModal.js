@@ -3,7 +3,7 @@ import Button from '../../../components/form/Button';
 
 import { useState } from "react";
 import { humanize } from "../../../utils/helper";
-import { useEffect } from "react";
+
 import { updateApplicationStatus, updateBulkApplicationStatus } from "../../../utils/services";
 import { SCHOOL_APPLICATION_STATUS } from "../../../constants/app";
 import { Form } from "react-bootstrap";
@@ -13,14 +13,13 @@ import GenericDialog from "../../../dialogs/GenericDialog";
 import AlertDialog from "../../../common/AlertDialog";
 
 const ShowWarningMessage = ({ errorList }) => {
-  console.log('error', errorList);
   return (
     <table>
       <tbody>
         {Object.keys(errorList).map(val => {
           return (
             <tr>
-              <td style={{width: '30%'}}>{val}</td>
+              <td style={{ width: '30%' }}>{val}</td>
               <td>{errorList[val]}</td>
             </tr>
           );
@@ -29,7 +28,7 @@ const ShowWarningMessage = ({ errorList }) => {
     </table>
   );
 };
-export default function OpenModal({ show, isBulkOperation, setShow, applicationStaus, applicationId, setApplicationId, setApplicationStatus, fetchClassApplication, classId }) {
+export default function OpenModal({ show, isBulkOperation, setShow, applicationStaus, applicationId, setApplicationId, setApplicationStatus, fetchClassApplication, classId, setApiError }) {
   const [remark, setRemarks] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [errorList, setErrorList] = useState({});
@@ -44,8 +43,6 @@ export default function OpenModal({ show, isBulkOperation, setShow, applicationS
   };
 
   const handleSubmit = (note, status, appId, selectDate) => {
-    //admissionApplications/changeApplicationStatus
-
     let payloadData = {
       applicationId: appId,
       applicationStatus: status,
@@ -66,22 +63,24 @@ export default function OpenModal({ show, isBulkOperation, setShow, applicationS
       };
       updateBulkApplicationStatus(payloadData)
         .then(response => {
-          console.log(response.data);
-
           if (!response.data.success) {
             setErrorList(response.data);
             setShowAlert(true);
           } else {
             setErrorList({});
             setShowAlert(false);
+            fetchClassApplication(classId);
           }
 
         });
     } else {
       updateApplicationStatus(payloadData)
         .then(response => {
-          let res = response.data;
           fetchClassApplication(classId);
+        })
+        .catch(res => {
+          const messageData = res?.response?.data?.apierror?.message;
+          setApiError(messageData);
         });
     }
     handleClose();

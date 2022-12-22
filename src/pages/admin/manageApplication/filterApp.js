@@ -56,7 +56,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
     const filter = [];
     if (classId !== null && classId !== '') {
       filter.push({
-        field: 'className',
+        field: 'classId',
         operator: OPERATORS.IN,
         values: [classId]
       });
