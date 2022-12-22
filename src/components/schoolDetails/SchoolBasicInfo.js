@@ -1,6 +1,7 @@
 import React from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import FooterGraphic from "../../assets/img/footer-graphic.png";
+import { baseURL } from "../../utils/RestClient";
 
 const SchoolBasicInfo = (props) => {
     const schoolDetails = props.schoolDetails;
@@ -13,7 +14,7 @@ const SchoolBasicInfo = (props) => {
 
     return (
         <div className='school-basic-info'>
-            <div className='cell left '><span className='image-wrapper'><img src={FooterGraphic} alt="" /></span></div>
+            <div className='cell left '><span className='image-wrapper'><img alt={schoolDetails.schoolName} src={schoolDetails.schoolImgLink ? (baseURL + schoolDetails.schoolImgLink) : FooterGraphic}/></span></div>
             <div className='cell right'>
                 <ListGroup as="ul" className=''>
                     {/* <ListGroup.Item as="li"><strong>{schoolDetails.admissionInfo?.schoolName}</strong></ListGroup.Item> */}
