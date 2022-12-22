@@ -31,6 +31,7 @@ const Footer = () => {
               <ListGroup.Item as="li" key={"footer_" + index}>
                 <Link
                   href="javascript:void(0);"
+		              to={fMenuItem.ref}
                   onClick={(e) => navigateToRef(fMenuItem.ref)}
                 >
                   {fMenuItem.title}
