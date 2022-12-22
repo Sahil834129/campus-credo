@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import {
   Container,
   Row,
@@ -24,6 +26,8 @@ import { getChildAge } from '../../utils/helper'
 
 export const AdmissionForms = () => {
   const [currentStudent, setCurrentStudent] = useState({})
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   const studentInitialValue = {
     childId: '',
     firstName: '',
@@ -109,12 +113,26 @@ export const AdmissionForms = () => {
   }
   useEffect(() => {
     if (childsList.length > 0) {
-      if (setSelectedChild) {
-        setSelectedChild(val => {
-          return { ...val, ...childsList[0] }
-        })
-        setCurrentStudent({ ...childsList[0] })
+      let queryChildId 
+      let selectedChild
+      try {
+        queryChildId= atob(queryParams.get("childId")).replace("#", "")
+      } catch(error) {
+        console.log('Error while getting the query string')
       }
+      
+      if (queryChildId && !isNaN(queryChildId)) {
+        selectedChild = childsList.find(
+          it => it.childId === parseInt(queryChildId)
+        )
+      }
+      if (!selectedChild)
+        selectedChild = childsList[0]
+      
+      setSelectedChild(val => {
+        return { ...val, ...selectedChild }
+      })
+      setCurrentStudent({ ...selectedChild })
     }
   }, [childsList])
 

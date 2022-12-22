@@ -530,12 +530,10 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
           <Button className='submit' onClick={() => downloadApplication(applicationId)} style={{ background: ' rgba(65, 40, 95, 0.84)' }} ><img src={PdfIcon} alt="" style={{ marginRight: '10px' }} />Download  Details</Button>
           <div>Master Admission Manager Remarks: <span className="text-danger">No Remarks</span></div>
         </div>)}
-
       </GenericDialog>
       <AlertDialog show={showAlertDialog} message={alertMessage} handleClose={() => setShowAlertDialog(false)} />
     </>
   );
 };
-
 export default ReviewAdmissionDialog;
 

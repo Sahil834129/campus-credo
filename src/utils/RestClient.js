@@ -3,7 +3,7 @@ import PageContent from '../resources/pageContent'
 import { getLocalData, refreshAccessToken } from '../utils/helper'
 
 axios.defaults.baseURL = 'https://api.escuelajs.co/api/' //process.env.BASE_URL;
-
+export const baseURL = 'http://ec2-65-0-204-110.ap-south-1.compute.amazonaws.com'
 export default class RESTClient {
   static async get (action, params) {
     return await axios.get(action, params)

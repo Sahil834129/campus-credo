@@ -88,7 +88,7 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
             })}
             {rows.length === 0 && (
               <tr valign="middle">
-                <td colSpan={columns.length} style={{ textAlign: 'center' }}>
+                <td colSpan={columns.length+1} style={{ textAlign: 'center' }}>
                   No Data found
                 </td>
               </tr>
