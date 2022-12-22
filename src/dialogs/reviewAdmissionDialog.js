@@ -477,7 +477,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose }) => {
                 </Accordion>
                 <div className="btn-wrapper review-section-btn">
                     <Button className='submit' onClick={() => checkOutApplication()}>Checkout</Button>
-                    <Button className='edit' onClick={()=>{navigate("/userProfile/admissionForm")}}>Edit</Button>
+                    <Button className='edit' onClick={()=>{navigate('/userProfile/admissionForm/?childId='+ btoa(`#${studentDetail.childId}`))}}>Edit</Button>
                 </div>
             </GenericDialog>
             <AlertDialog show={showAlertDialog} message={alertMessage} handleClose={()=> setShowAlertDialog(false)}/>

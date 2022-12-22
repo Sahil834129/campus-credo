@@ -3,14 +3,14 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import schoolpic01 from "../assets/img/school-picture/boarding-icon.jpg"
+import { baseURL } from "../utils/RestClient";
 
 const SchoolCardHeader = (props) => {
     const school = props.school;
     return (
         <Card.Body className='school-info-main'>
             <Row className='info-item school-logo-wrap'>
-                <Card.Img className='school-logo' variant="left" src={schoolpic01} />
-                {/* <Card.Img className='school-logo' variant="left" src={school.schoolThumbnailImgLink} /> */}
+                <Card.Img className='school-logo' variant="left" alt={school.schoolName} src={school.schoolImgLink ? (baseURL + school.schoolImgLink) : schoolpic01} />
             </Row>
             <Row className='info-item school-info-exerpts'>
                 <div className='school-name'>
