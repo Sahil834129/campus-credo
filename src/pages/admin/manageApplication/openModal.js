@@ -11,6 +11,7 @@ import ReactDatePicker from "react-datepicker";
 import moment from "moment";
 import GenericDialog from "../../../dialogs/GenericDialog";
 import AlertDialog from "../../../common/AlertDialog";
+import { parseDateWithDefaultFormat } from "../../../utils/DateUtil";
 
 const ShowWarningMessage = ({ errorList }) => {
   return (
@@ -28,17 +29,37 @@ const ShowWarningMessage = ({ errorList }) => {
     </table>
   );
 };
-export default function OpenModal({ show, isBulkOperation, setShow, applicationStaus, applicationId, setApplicationId, setApplicationStatus, fetchClassApplication, classId, setApiError }) {
+export default function OpenModal({
+  show,
+  isBulkOperation,
+  setShow,
+  applicationStaus,
+  applicationId,
+  setApplicationId,
+  setApplicationStatus,
+  fetchClassApplication,
+  classId,
+  setApiError,
+  // atPiData,
+  isAtPiData
+}) {
+  const atPiData = {
+    "ATScheduleStartDate": "12/12/2022",
+    "ATScheduleEndDate": "17/12/2022",
+    "PIScheduleStartDate": "12/12/2022",
+    "PIScheduleEndDate": "15/12/2022"
+  }
   const [remark, setRemarks] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [errorList, setErrorList] = useState({});
-
-  const [atPiDate, setATPIDate] = useState(new Date());
+  const minDate = moment.min([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleStartDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleStartDate))]);
+  const maxDate = moment.max([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleEndDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleEndDate))]);
+  const [atPiDate, setATPIDate] = useState(null);
   const handleClose = () => {
     setRemarks('');
     setApplicationId('');
     setApplicationStatus('');
-    setATPIDate(new Date());
+    setATPIDate(null);
     setShow(false);
   };
 
@@ -88,22 +109,26 @@ export default function OpenModal({ show, isBulkOperation, setShow, applicationS
 
   return (
     <>
-      <GenericDialog className='signin-model add-child-model' modalHeader={humanize(applicationStaus)} show={show} onHide={handleClose}>
+      <GenericDialog className='signin-model add-child-model' modalHeader={humanize(applicationStaus)} show={show} handleClose={handleClose}>
         <div className='model-body-col'>
           <div className="message-content" >
             <Form.Label className='form-label'>Add your remarks below</Form.Label>
             <textarea className='form-control' rows={10} value={remark} onChange={e => setRemarks(e.target.value)} />
           </div>
-          {SCHOOL_APPLICATION_STATUS.AT_PI === applicationStaus && (
+          {isAtPiData && SCHOOL_APPLICATION_STATUS.AT_PI === applicationStaus && (
             <div className='inner-container option-filter'>
               <Form.Label className='form-label'>AT/PI Time Slot</Form.Label>
               <div className='radio-choice'>
+                {/* {JSON.stringify(minDate)}-{JSON.stringify(maxDate)} */}
                 <ReactDatePicker
                   selected={atPiDate}
                   onChange={(date) => setATPIDate(date)}
+                  minDate={minDate.toDate()}
+                  maxDate={maxDate.toDate()}
                   timeInputLabel="Time:"
                   dateFormat="dd/MM/yyyy h:mm aa"
                   showTimeInput
+                  placeholderText="dd/MM/yyyy h:mm aa"
                 />
               </div>
             </div>

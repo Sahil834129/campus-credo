@@ -10,7 +10,7 @@ import { humanize } from "../../../utils/helper";
 import { getDefaultDateFormat } from "../../../utils/DateUtil";
 
 
-export default function ShowApplications({ setApplicationStatus, applicationId, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId }) {
+export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId }) {
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
@@ -44,10 +44,10 @@ export default function ShowApplications({ setApplicationStatus, applicationId, 
           <a
             href="#"
             onClick={() => {
-              setShowApplication(false);
+              setShowApplication(true);
               setSelectedApplicationId(e.row.original?.applicationId);
             }}>
-            {`${e.row.original?.firstName} ${e.row.original?.lastName}`}
+            <span style={{ color: '#41285F' }}>{`${e.row.original?.firstName} ${e.row.original?.lastName}`}</span>
           </a>
         );
       })
@@ -91,7 +91,9 @@ export default function ShowApplications({ setApplicationStatus, applicationId, 
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
         const applicationId = e.row.original?.applicationId;
-        const stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()];
+        const stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
+          return val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData;
+        });
         return (
           <>
             {stateTransiton.length > 0 && <Dropdown>

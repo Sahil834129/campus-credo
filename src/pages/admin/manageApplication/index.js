@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../layout';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { getClassAdmissionSummary, getClassApplication, getSchoolClassesData } from '../../../utils/services';
+import { getAtPiForClass, getClassAdmissionSummary, getClassApplication, getSchoolClassesData } from '../../../utils/services';
 import ShowApplications from "./showApplications";
 import OpenModal from "./openModal";
 import FilterApp from "./filterApp";
@@ -18,6 +18,7 @@ export const ManageApplication = () => {
   const schoolId = 1;
   const [apiError, setApiError] = useState('');
   const [isBulkOperation, setIsbulkOperation] = useState(false);
+  const [atPiData, setAtPiData] = useState(null);
   const [showApplication, setShowApplication] = useState(false);
   const [selectedApplicationId, setSelectedApplicationId] = useState('');
   const [isLoading, setIsloading] = useState(true);
@@ -85,6 +86,16 @@ export const ManageApplication = () => {
     setIsbulkOperation(true);
   };
 
+  const fetchAtPiForClass = (classId) => {
+    getAtPiForClass(classId)
+      .then(res => {
+        if (Object.keys(res.data).length > 0) {
+          setAtPiData(res.data);
+        } else {
+          setAtPiData(null);
+        }
+      });
+  };
   useEffect(() => {
     fetchSchoolClassesData(schoolId);
   }, [schoolId]);
@@ -93,6 +104,7 @@ export const ManageApplication = () => {
     if (classId) {
       fetchClassAdmissionSummary(classId);
       fetchClassApplication(classId);
+      fetchAtPiForClass(classId);
     }
   }, [classId]);
 
@@ -118,6 +130,7 @@ export const ManageApplication = () => {
             setOpenModal={setOpenModal}
             setIsbulkOperation={setIsbulkOperation}
             selectedRows={selectedRows}
+            isAtPiData={atPiData !== null}
             rowsData={rowsData}
             handleBulkStatusUpdate={handleBulkStatusUpdate}
             setSelectedRows={setSelectedRows}
@@ -136,17 +149,19 @@ export const ManageApplication = () => {
             classId={classId}
             setApplicationId={setApplicationId}
             setApiError={setApiError}
+            isAtPiData={atPiData !== null}
+            atPiData={atPiData}
           />
         </div>
       </div>
       <ToastContainer autoClose={2000} position="top-right" />
-      {/* <ReviewAdmissionDialog
+      <ReviewAdmissionDialog
         show={showApplication}
         handleClose={() => {
           setShowApplication(false);
           setSelectedApplicationId('');
         }}
-        applicationId={selectedApplicationId} /> */}
+        applicationId={selectedApplicationId} />
     </Layout>
   );
 };

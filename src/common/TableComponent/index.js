@@ -59,7 +59,6 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
   );
 
   useMountedLayoutEffect(() => {
-    console.log("SELECTED ROWS CHANGED", selectedRowIds, onSelectedRowsChange);
     onSelectedRowsChange && onSelectedRowsChange(selectedRowIds);
   }, [onSelectedRowsChange, selectedRowIds]);
 
@@ -69,7 +68,7 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
         <Table striped {...getTableProps()}>
           <thead>
             {headerGroups.map(headerGroup => (
-              <tr valign="middle" {...headerGroup.getHeaderGroupProps()} style={{ background: 'rgba(65, 40, 95, 0.06)', height: '60px'}}>
+              <tr valign="middle" {...headerGroup.getHeaderGroupProps()} style={{ background: 'rgba(65, 40, 95, 0.06)', height: '60px' }}>
                 {headerGroup.headers.map(column => (
                   <th {...column.getHeaderProps()}>{column.render('Header')}</th>
                 ))}
@@ -80,7 +79,7 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
             {rows.map((row, i) => {
               prepareRow(row);
               return (
-                <tr valign="middle" {...row.getRowProps()} style={{height: '60px'}}>
+                <tr valign="middle" {...row.getRowProps()} style={{ height: '60px' }}>
                   {row.cells.map(cell => {
                     return <td key={`column${i}`} {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                   })}

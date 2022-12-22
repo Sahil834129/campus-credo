@@ -29,7 +29,7 @@ export const Dashboard = () => {
       .then((response) => {
         const res = response.data;
         setDashBoardData(res);
-        setSchoolSeatsSummary(res?.schoolSeatsSummary || {})
+        setSchoolSeatsSummary(res?.schoolSeatsSummary || {});
       })
       .catch((err) => {
         console.log(err);
@@ -52,18 +52,13 @@ export const Dashboard = () => {
     const declined = [];
     const received = [];
     labels.map(val => {
-      // approved.push(val.approved);
-      // accepted.push(val.accepted);
-      // declined.push(val.declined);
-      // received.push(val.received);
-      approved.push(Math.floor(Math.random() * 11) + 1);
-      accepted.push(Math.floor(Math.random() * 11) + 1);
-      declined.push(Math.floor(Math.random() * 11) + 1);
-      received.push(Math.floor(Math.random() * 11) + 1);
-
+      approved.push(tempData[val]?.approved);
+      accepted.push(tempData[val]?.accepted);
+      declined.push(tempData[val]?.declined);
+      received.push(tempData[val]?.received);
     });
     setReceivedOffer(received);
-    setDeclinedOffer(declined)
+    setDeclinedOffer(declined);
     setLabels(labels);
     setAcceptedOffer(accepted);
     setApplicationApproved(approved);
@@ -94,14 +89,14 @@ export const Dashboard = () => {
           <ApprovedAcceptedGraph acceptedOffer={acceptedOffer} applicationApproved={applicationApproved} labels={labels} />
         </div>
         <div className='chart-wrap'>
-          <ApplicationStatus 
+          <ApplicationStatus
             labels={labels}
-            received={receivedOffer} 
-            approved={applicationApproved} 
-            declined={declinedOffer} 
+            received={receivedOffer}
+            approved={applicationApproved}
+            declined={declinedOffer}
             applicationStatus={dashBoardData?.applicationStatus}
           />
-          <SeatsFeesGraph schoolSeatsSummary={schoolSeatsSummary} applicationStatus={dashBoardData?.applicationStatus} acceptedOffer={dashBoardData?.upperSchoolAdmissionSummary}/>
+          <SeatsFeesGraph schoolSeatsSummary={schoolSeatsSummary} applicationStatus={dashBoardData?.applicationStatus} acceptedOffer={dashBoardData?.upperSchoolAdmissionSummary} />
         </div>
       </div>
     </Layout>
