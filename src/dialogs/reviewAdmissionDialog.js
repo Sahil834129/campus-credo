@@ -239,7 +239,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
               <div className="admin-detail-row">
                 <div className='admin-detail-cell'>
                   <label>Disabilities </label>
-                  <span className="item-entry">{medicalDetail.disabilities && medicalDetail.disabilities !== '' ? medicalDetail.disabilities.join(', ').replaceAll('_', ' ') : "No"}</span>
+                  <span className="item-entry">{medicalDetail.disabilities?.length ? medicalDetail.disabilities.join(', ').replaceAll('_', ' ') : "No"}</span>
                 </div>
               </div>
               <div className="admin-detail-row">
