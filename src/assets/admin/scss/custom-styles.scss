@@ -675,7 +675,39 @@ ul.list-group{
       &.padt8{
         padding-top: 8px;
       }
-      .table-wrapper{}
+      .table-wrapper{
+        table{
+          thead{}
+          tbody{
+            tr{
+              td{
+                a{
+                  text-decoration: underline !important;
+                  text-decoration-line: underline !important;
+                  text-decoration-color: #41285F !important;
+                  text-decoration-thickness: 2px !important;
+                }
+                .dropdown{
+                  &.show{
+                    .dropdown-menu{
+                      a{
+                        color: $primarycolor;
+                        text-decoration: none !important;
+                        .text-info{
+                          color: $primarycolor !important;
+                        }
+                      }
+                    }
+                  }
+                }
+                .under-review{color: #005DB1;}
+                .success{color: $darkgreen;}
+                .rejected{color: $darkred;}
+              }
+            }
+          }
+        }
+      }
       
     }
   }
