@@ -174,7 +174,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                   <span className="item-entry">{studentDetail.identificationMarks}</span>
                 </div>
                 <div className='admin-detail-cell'>
-                  <label>Gender</label>
+                  <label>Religion</label>
                   <span className="item-entry">{studentDetail.religion}</span>
                 </div>
                 <div className='admin-detail-cell'>
@@ -322,7 +322,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                       <div className="admin-detail-cell">
                         <label>Occupation </label>
                         <span className="item-entry">
-                          {parentDetail[0]?.occupation}
+                          {parentDetail[0]?.occupation.replaceAll('_',' ')}
                         </span>
                       </div>
                     </div>
