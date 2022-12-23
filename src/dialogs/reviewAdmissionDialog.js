@@ -3,6 +3,7 @@ import { Accordion, Tab, Tabs } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
@@ -10,7 +11,6 @@ import { humanize } from '../utils/helper';
 import RESTClient from "../utils/RestClient";
 import { downloadApplicationDocument, downloadDocument } from "../utils/services";
 import GenericDialog from "./GenericDialog";
-import PdfIcon from "../assets/img/pdf-icon.png";
 
 const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) => {
   const navigate = useNavigate();

@@ -603,6 +603,7 @@ ul.list-group{
             justify-content: flex-start;
             border-radius: 8px;
             margin-top: 24px;
+            row-gap: 8px;
           }
           .item-list-container{
             .form-check{
@@ -2462,6 +2463,9 @@ ul.list-group{
               column-gap: 16px;
               .tutionfee-wrap{
                 text-align: right;
+                display: flex;
+                align-items: center;
+                column-gap: 8px;
                 label{margin-bottom: 0; font-size: 13px;}
               }
             }
@@ -3409,11 +3413,15 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                         display: grid;
                         grid-template-columns: 1fr 1fr 1fr;
                         align-items: center;
+                        column-gap: 24px;
+                        border-bottom: 1px solid #efefef;
+                        &:last-child{border-bottom: none;}
                         .admin-detail-cell{
                           display: flex;
                           flex-direction: row;
                           padding: 8px 0;
                           gap: 8px;
+                          justify-content: space-between;
                           label{
                             font-size: 15px;
                             color: #2d2d2d;
@@ -3450,7 +3458,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                           border-radius: 0 0 8px 8px;
                           padding: 16px;
                           .admin-detail-row{
-                            grid-template-columns: 1fr 1fr;
+                            // grid-template-columns: 1fr 1fr;
                             .admin-detail-cell{
                               a{
                                 color: $darkgreen;
@@ -3468,7 +3476,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           }
           .btn-wrapper{
             display: flex;
-            padding: 0 26px 24px 16px;
+            padding: 12px 26px 24px 16px;
             justify-content: center;
             &.review-section-btn{
               display: flex;
