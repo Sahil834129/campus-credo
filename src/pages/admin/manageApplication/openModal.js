@@ -40,15 +40,9 @@ export default function OpenModal({
   fetchClassApplication,
   classId,
   setApiError,
-  // atPiData,
+  atPiData,
   isAtPiData
 }) {
-  const atPiData = {
-    "ATScheduleStartDate": "12/12/2022",
-    "ATScheduleEndDate": "17/12/2022",
-    "PIScheduleStartDate": "12/12/2022",
-    "PIScheduleEndDate": "15/12/2022"
-  }
   const [remark, setRemarks] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [errorList, setErrorList] = useState({});
