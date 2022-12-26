@@ -9,6 +9,7 @@ import RestEndPoint from '../redux/constants/RestEndpoints';
 import SchoolStats from '../components/schoolDetails/SchoolStats';
 import SchoolBasicInfo from '../components/schoolDetails/SchoolBasicInfo';
 import SchoolDetailTitle from '../components/schoolDetails/SchoolDetailTitle';
+import SchoolExtracurriculars from '../components/schoolDetails/SchoolExtracurriculars';
 import SchoolFacilities from '../components/schoolDetails/SchoolFacilities';
 import ApplyToSchool from '../components/schoolDetails/ApplyToSchool';
 import Description from '../components/Description';
@@ -22,6 +23,8 @@ const SchoolDetails = () => {
 	const location = useLocation();
 	const [schoolDetails, setSchoolDetails] = useState({});
 	const [schoolCategoryFacilitiesMap, setSchoolCategoryFacilitiesMap] = useState({});
+	const [schoolCategoryExtracurricularMap, setSchoolCategoryExtracurricularMap] = useState({});
+
 	const queryParams = new URLSearchParams(location.search);
 	const schoolId = getSchoolIdFromURL();
 		
@@ -42,13 +45,21 @@ const SchoolDetails = () => {
 			const response = await RESTClient.get(RestEndPoint.SCHOOL_BY_ID + "/" + schoolId);
 			let schoolDetails = response.data;
 			let categoryFaciltiesMap = {};
+			let categoryExtracurricularMap = {};
 			setSchoolDetails(schoolDetails);
 			schoolDetails.facilities.map(facility => {
 				if (!categoryFaciltiesMap.hasOwnProperty(facility.category))
 					categoryFaciltiesMap[facility.category] = [];
 				categoryFaciltiesMap[facility.category].push(facility.facilityName);
 			});
+			schoolDetails.extracurricular.map(extracurricular => {
+				if (!categoryExtracurricularMap.hasOwnProperty(extracurricular.category))
+					categoryExtracurricularMap[extracurricular.category] = [];
+				categoryExtracurricularMap[extracurricular.category].push(extracurricular.activity);
+			});
 			setSchoolCategoryFacilitiesMap(categoryFaciltiesMap);
+			setSchoolCategoryExtracurricularMap(categoryExtracurricularMap);
+
 		} catch (e) {
 			setSchoolDetails({})
 			console.log("error : " + e);
@@ -80,6 +91,9 @@ const SchoolDetails = () => {
 										<SchoolStats schoolDetails={schoolDetails} />
 										<Col className='facilities-list'>
 											<SchoolFacilities schoolCategoryFacilitiesMap={schoolCategoryFacilitiesMap} />
+										</Col>
+										<Col className='facilities-list'>
+											<SchoolExtracurriculars schoolCategoryExtracurricularMap={schoolCategoryExtracurricularMap} />
 										</Col>
 										{/* <Col className='fee-structure-wrap'>
 											<SchoolDetailFeeStructure />
