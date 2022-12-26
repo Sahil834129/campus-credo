@@ -1,24 +1,21 @@
-import React, { useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
-import Layout from '../common/layout'
-import Breadcrumbs from '../common/Breadcrumbs'
-import LeftMenuBar from '../common/LeftMenuBar'
-import PageContent from '../resources/pageContent'
-import { useSelector, useDispatch } from "react-redux";
-import { isLoggedIn } from '../utils/helper'
-import { getChildsList} from '../redux/actions/childAction'
-import AddChildDialog from '../dialogs/addChild'
-import ConfirmDialog from '../common/ConfirmDialog'
-import RESTClient from '../utils/RestClient'
-import { toast } from 'react-toastify'
-import RestEndPoint from '../redux/constants/RestEndpoints'
+import React, { useEffect, useState } from 'react'
 import {
-    Container,
-    Row,
-    Col,
-    Table,
-    Button,
+    Button, Col, Container,
+    Row, Table
 } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import Breadcrumbs from '../common/Breadcrumbs'
+import ConfirmDialog from '../common/ConfirmDialog'
+import Layout from '../common/layout'
+import LeftMenuBar from '../common/LeftMenuBar'
+import AddChildDialog from '../dialogs/addChild'
+import { getChildsList } from '../redux/actions/childAction'
+import RestEndPoint from '../redux/constants/RestEndpoints'
+import PageContent from '../resources/pageContent'
+import { isLoggedIn } from '../utils/helper'
+import RESTClient from '../utils/RestClient'
 
 const ManageChild = () => {
     const dispatch = useDispatch()
@@ -70,8 +67,8 @@ const ManageChild = () => {
                                 <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
                             </Col>
                             <Col className='profile-content right'>
-                                <div className='border-bottom top-btn-wrap'>
-                                   
+                                <div className='top-btn-wrap managechild-title'>
+                                   <h2>All Child</h2>
                                     <Button
                                         className='add-child-btn'
                                         onClick={() => {setShowEditChildDialog(true); setSelectedChild(null)}}
@@ -80,8 +77,8 @@ const ManageChild = () => {
                                     </Button>
                                    
                                 </div>
-                                <div className='mt-3'>
-                                <Table bordered hover className='document-tbl'>
+                                <div className='manage-child-tbl-outer'>
+                                <Table bordered hover className='table-container'>
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -102,9 +99,9 @@ const ManageChild = () => {
                                                     <td>{child.dateOfBirth}</td>
                                                     <td>{child.gender}</td>
                                                     <td>
-                                                        <div className="button-wrapper">
-                                                            <Button className='save comn me-2' onClick={()=> editChild(child)}>Edit</Button>
-                                                            <Button className='btn btn-danger' onClick={()=> deleteChild(child)}>Delete</Button>
+                                                        <div className="btn-wrapper">
+                                                            <Button className='edit' onClick={()=> editChild(child)}>Edit</Button>
+                                                            <Button className='delete' onClick={()=> deleteChild(child)}>Delete</Button>
                                                         </div>
                                                     </td>
                                                 </tr>

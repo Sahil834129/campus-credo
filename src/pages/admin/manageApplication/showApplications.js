@@ -1,13 +1,13 @@
-import Button from 'react-bootstrap/Button';
-import { useState, useEffect, forwardRef } from "react";
-import { Dropdown } from "react-bootstrap";
 import moment from "moment";
+import { forwardRef } from "react";
+import { Dropdown } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
 
+import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
-import Action from "../../../assets/img/actions.png";
-import { humanize } from "../../../utils/helper";
 import { getDefaultDateFormat } from "../../../utils/DateUtil";
+import { humanize } from "../../../utils/helper";
 
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId }) {
@@ -77,11 +77,11 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
         if (SUCCESS_STATUS.includes(applicationStatus.toUpperCase())) {
-          return <span className="text-success">{humanize(e.row.original?.applicationStatus)}</span>;
+          return <span className="success">{humanize(e.row.original?.applicationStatus)}</span>;
         } else if (FAILED_STATUS.includes(applicationStatus.toUpperCase())) {
           return <span className="text-danger">{humanize(e.row.original?.applicationStatus)}</span>;
         } else {
-          return <span className="text-info">{humanize(e.row.original?.applicationStatus)}</span>;
+          return <span className="under-review">{humanize(e.row.original?.applicationStatus)}</span>;
         }
       })
     },
@@ -110,9 +110,9 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                         handleDropdownAction(SCHOOL_APPLICATION_STATUS[val], applicationId);
                       }}
                     >
-                      {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="text-success">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
-                      {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="text-danger">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
-                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="text-info">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
+                      {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="success">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
+                      {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="rejected">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
+                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
                     </Dropdown.Item>
                   );
                 })}

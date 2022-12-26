@@ -2,6 +2,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg"
+import { baseURL } from '../../utils/RestClient';
 
 const AppliedSchools = ({application}) => {
     return (
@@ -10,7 +11,9 @@ const AppliedSchools = ({application}) => {
                 <div className='col-item left'>
                     <div className='school-info-main'>
                         <div className='info-item school-logo-wrap'>
-                            <Card.Img className='school-logo' src={schoolpic01} />
+                            <Card.Img className='school-logo' 
+                                alt={application.schoolName}
+                                src={application.schoolThumbnailImgLink ? baseURL + application.schoolThumbnailImgLink : schoolpic01} />
                         </div>
                         <div className='info-item school-info-exerpts'>
                             <div className='school-name'>

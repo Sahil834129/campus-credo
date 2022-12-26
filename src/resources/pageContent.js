@@ -146,6 +146,19 @@ const PageContent = {
     'Disabled Friendly': 'disabledfriendly-icon',
     Canteen: 'canteen-icon',
     '': 'boarding-icon'
+  },
+  EXTRACURRICULAR_ICON_MAP: {
+    Drama: 'trasport-icon',
+    Music:'default-icon',
+    Cricket: 'default-icon',
+    Soccer:'default-icon',
+    Swimming: 'default-icon',
+    Yoga:'default-icon',
+    Excursions: 'default-icon',
+    TableTennis:'default-icon',
+    HorseRiding: 'default-icon',
+    BasketBall:'default-icon',
+   
   }
 }
 
