@@ -10,12 +10,13 @@ import FilterApp from "./filterApp";
 import { Spinner } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import ReviewAdmissionDialog from "../../../dialogs/reviewAdmissionDialog";
+import { getLocalData } from "../../../utils/helper";
 
 
 export const ManageApplication = () => {
   const [rowsData, setRowsData] = useState([]);
   const [selectedRows, setSelectedRows] = useState({});
-  const schoolId = 1;
+  const schoolId = getLocalData('schoolId');
   const [apiError, setApiError] = useState('');
   const [isBulkOperation, setIsbulkOperation] = useState(false);
   const [atPiData, setAtPiData] = useState(null);
@@ -97,7 +98,8 @@ export const ManageApplication = () => {
       });
   };
   useEffect(() => {
-    fetchSchoolClassesData(schoolId);
+    if (schoolId)
+      fetchSchoolClassesData(schoolId);
   }, [schoolId]);
 
   useEffect(() => {
