@@ -264,7 +264,7 @@ const ReviewAdmissionDialog = ({
                   <label>Need special Care </label>
                   <span className="item-entry">
                     {medicalDetail.specialCare &&
-                      medicalDetail.specialCare !== ""
+                    medicalDetail.specialCare !== ""
                       ? medicalDetail.specialCare
                       : "No"}
                   </span>
@@ -273,7 +273,7 @@ const ReviewAdmissionDialog = ({
                   <label>Medical Conditions </label>
                   <span className="item-entry">
                     {medicalDetail.medicalConditions &&
-                      medicalDetail.medicalConditions !== ""
+                    medicalDetail.medicalConditions !== ""
                       ? medicalDetail.medicalConditions
                       : "No"}
                   </span>
@@ -285,9 +285,9 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {medicalDetail.disabilities?.length
                       ? medicalDetail.disabilities
-                        .join(", ")
-                        .replaceAll("_", " ")
-                        .replaceAll("Other", medicalDetail.otherDisability)
+                          .join(", ")
+                          .replaceAll("_", " ")
+                          .replaceAll("Other", medicalDetail.otherDisability)
                       : "No"}
                   </span>
                 </div>
@@ -480,7 +480,10 @@ const ReviewAdmissionDialog = ({
             <Button
               className="edit"
               onClick={() => {
-                navigate("/userProfile/admissionForm/");
+                navigate(
+                  "/userProfile/admissionForm/?childId=" +
+                    btoa(`#${studentDetail.childId}`)
+                );
               }}
             >
               Edit

@@ -173,15 +173,24 @@ export const StudentDetailsSchema = Yup.object().shape({
   }),
   obtainedMarks: Yup.string().when("isProvidingCurrentSchoolInfo", {
     is: (val) => val && val === "Yes",
-    then: Yup.string().required("Required *"),
+    then: Yup.string().when("unit", {
+      is: (val) => val && (val === "SGPA" || val === "Percentage"),
+      then: Yup.string().required("Required *"),
+    }),
   }),
   grade: Yup.string().when("isProvidingCurrentSchoolInfo", {
     is: (val) => val && val === "Yes",
-    then: Yup.string().required("Required *"),
+    then: Yup.string().when("unit", {
+      is: (val) => val && val === "Grades",
+      then: Yup.string().required("Required *"),
+    }),
   }),
   maxMarks: Yup.string().when("isProvidingCurrentSchoolInfo", {
     is: (val) => val && val === "Yes",
-    then: Yup.string().required("Required *"),
+    then: Yup.string().when("unit", {
+      is: (val) => val && (val === "SGPA" || val === "Percentage"),
+      then: Yup.string().required("Required *"),
+    }),
   }),
   marksInPercentage: Yup.string().when("isProvidingCurrentSchoolInfo", {
     is: (val) => val && val === "Yes",
