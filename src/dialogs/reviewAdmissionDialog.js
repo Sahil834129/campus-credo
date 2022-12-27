@@ -11,7 +11,7 @@ import { humanize } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
-  downloadDocument,
+  downloadDocument
 } from "../utils/services";
 import GenericDialog from "./GenericDialog";
 import ParentGuardianTab from "./parentGuardianTab";
@@ -183,56 +183,57 @@ const ReviewAdmissionDialog = ({
             <Accordion.Header>Candidate Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Name</label>
-                  <span className="item-entry">
-                    {studentDetail.firstName} {studentDetail.lastName}
-                  </span>
+                <div className='admin-detail-cell'>
+                  <label>Name:</label>
+                  <span className="item-entry">{studentDetail.firstName} {studentDetail.lastName}</span>
                 </div>
-                <div className="admin-detail-cell">
-                  <label>Gender</label>
+                <div className='admin-detail-cell'>
+                  <label>Gender:</label>
                   <span className="item-entry">{studentDetail.gender}</span>
                 </div>
-                <div className="admin-detail-cell">
-                  <span>DOB </span>
-                  <span className="item-entry">
-                    {studentDetail.dateOfBirth}
-                  </span>
+                <div className='admin-detail-cell'>
+                  <span>DOB:</span>
+                  <span className="item-entry">{studentDetail.dateOfBirth}</span>
                 </div>
               </div>
               <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Identification Marks</label>
-                  <span className="item-entry">
-                    {studentDetail.identificationMarks}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Religion</label>
+                
+                <div className='admin-detail-cell'>
+                  <label>Religion:</label>
                   <span className="item-entry">{studentDetail.religion}</span>
                 </div>
-                <div className="admin-detail-cell">
-                  <label>Nationality</label>
-                  <span className="item-entry">
-                    {studentDetail.nationality}
-                  </span>
+                <div className='admin-detail-cell'>
+                  <label>Nationality:</label>
+                  <span className="item-entry">{studentDetail.nationality}</span>
+                </div>
+                <div className='admin-detail-cell'>
+                  <label>Require Tranport:</label>
+                  <span className="item-entry">{studentDetail.tranportFacility ? "Yes" : "No"}</span>
                 </div>
               </div>
               <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Require Tranport </label>
-                  <span className="item-entry">
-                    {studentDetail.tranportFacility ? "Yes" : "No"}
-                  </span>
-                </div>
+                
                 <div className="admin-detail-cell">
                   <label>Require Boarding </label>
                   <span className="item-entry">
                     {studentDetail.boardingFacility ? "Yes" : "No"}
                   </span>
                 </div>
-                <div className="admin-detail-cell">
-                  <label>Address </label>
+                <div className='admin-detail-cell'>
+                  <label>Identification Marks:</label>
+                  <span className="item-entry">{studentDetail.identificationMarks}</span>
+                </div>
+                
+              
+                
+              </div>
+              <div className="admin-detail-row onextwo-col">
+                <div className='admin-detail-cell'>
+                  <label>Participated in any competitions.:</label>
+                  <span className="item-entry">{studentDetail.competitionCertificate ? studentDetail.competitionCertificate : "NA"}</span>
+                </div>
+                <div className='admin-detail-cell'>
+                  <label>Address:</label>
                   <span className="item-entry">
                     {studentDetail.addressLine1}, {studentDetail.addressLine2},{" "}
                     {studentDetail.city}, {studentDetail.state} -{" "}
@@ -258,8 +259,6 @@ const ReviewAdmissionDialog = ({
                       : "No"}
                   </span>
                 </div>
-              </div>
-              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Need special Care </label>
                   <span className="item-entry">
@@ -269,6 +268,9 @@ const ReviewAdmissionDialog = ({
                       : "No"}
                   </span>
                 </div>
+              </div>
+              <div className="admin-detail-row onextwo-col">
+                
                 <div className="admin-detail-cell">
                   <label>Medical Conditions </label>
                   <span className="item-entry">
@@ -278,8 +280,6 @@ const ReviewAdmissionDialog = ({
                       : "No"}
                   </span>
                 </div>
-              </div>
-              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Disabilities </label>
                   <span className="item-entry">
@@ -292,6 +292,7 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
               </div>
+             
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
@@ -321,8 +322,11 @@ const ReviewAdmissionDialog = ({
             <Accordion.Header>Background Check</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
+                
+              </div>
+              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour</label>
+                  <label>Any history of violent behaviour:</label>
                   <span className="item-entry">
                     {studentDetail.violenceBehaviour
                       ? studentDetail.violenceBehaviour
@@ -400,72 +404,78 @@ const ReviewAdmissionDialog = ({
                   className="tab-header"
                 >
                   <Tab eventKey="student" title="Student">
+                  <div className="document-container">
                     {studentDocuments.length > 0 ? (
                       studentDocuments.map((document, index) => {
                         return (
                           <div
                             key={"childDoc_" + index}
-                            className="admin-detail-row"
+                            className="tab-outer-wrap"
                           >
-                            <div className="admin-detail-cell">
-                              {humanize(document.documentName)}
+                            <div className="tab-item">
+                              <lable>{humanize(document.documentName)}</lable>
+                              <span className="download-option">
+                                {document.status === "uploaded" && (
+                                  <a
+                                    href="javascript:void(0)"
+                                    onClick={() => {
+                                      downloadDocument(
+                                        childId,
+                                        document.documentName,
+                                        studentDetail?.childId
+                                      );
+                                    }}
+                                  >
+                                    Download <i className="icons link-icon"></i>
+                                  </a>
+                                )}
+                              </span>
                             </div>
-                            <div className="admin-detail-cell">
-                              {document.status === "uploaded" && (
-                                <a
-                                  href="javascript:void(0)"
-                                  onClick={() => {
-                                    downloadDocument(
-                                      childId,
-                                      document.documentName,
-                                      studentDetail?.childId
-                                    );
-                                  }}
-                                >
-                                  Download <i className="icons link-icon"></i>
-                                </a>
-                              )}
-                            </div>
+                          
                           </div>
                         );
                       })
                     ) : (
                       <NoRecordsFound message="No documents uploaded yet." />
                     )}
+                    </div>
                   </Tab>
                   <Tab eventKey="parent1" title="Parent/Guardian">
+                  <div className="document-container">
                     {parentDocuments.length > 0 ? (
                       parentDocuments.map((document, index) => {
                         return (
                           <div
                             key={"parentDoc_" + index}
-                            className="admin-detail-row"
+                            className="tab-outer-wrap"
                           >
-                            <div className="admin-detail-cell">
-                              {humanize(document.documentName)}
+                            <div className="tab-item">
+                              <label>{humanize(document.documentName)}</label>
+                              <span className="download-option">
+                                {document.status === "uploaded" && (
+                                  <a
+                                    href="javascript:void(0)"
+                                    onClick={() => {
+                                      downloadDocument(
+                                        childId,
+                                        document.documentName
+                                      );
+                                    }}
+                                  >
+                                    {" "}
+                                    Download <i className="icons link-icon"></i>
+                                  </a>
+                                )}
+                              </span>
                             </div>
-                            <div className="admin-detail-cell">
-                              {document.status === "uploaded" && (
-                                <a
-                                  href="javascript:void(0)"
-                                  onClick={() => {
-                                    downloadDocument(
-                                      childId,
-                                      document.documentName
-                                    );
-                                  }}
-                                >
-                                  {" "}
-                                  Download <i className="icons link-icon"></i>
-                                </a>
-                              )}
-                            </div>
+                          
                           </div>
                         );
                       })
                     ) : (
                       <NoRecordsFound message="No documents uploaded yet." />
                     )}
+                    </div>
                   </Tab>
                 </Tabs>
               </div>

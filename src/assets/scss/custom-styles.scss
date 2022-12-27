@@ -1159,6 +1159,8 @@ ul.list-group{
                     margin: 0 0 16px 0;
                     padding: 0 0 16px 0;
                     border-bottom: 1px solid #d7d7d7;
+                    flex-wrap: wrap;
+                    row-gap: 16px;
                     li{
                       display: flex;
                       align-items: center;
@@ -1339,8 +1341,10 @@ ul.list-group{
                     align-items: center;
                     justify-content: center;
                     border: 1px solid #efefef;
+                    overflow: hidden;
                     img{
-
+                      width: 224px;
+                      height: auto;
                     }
                   }
                   ul.list-group{
@@ -2531,8 +2535,11 @@ ul.list-group{
             height: 134px;
             border: 1px solid rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             .school-logo{
-              width: 134px;
+              width: 112px;
               height: auto;
             }
           }
@@ -3514,13 +3521,17 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                         column-gap: 24px;
                         border-bottom: 1px solid #efefef;
                         align-items: start;
+                        &.onextwo-col{
+                          grid-template-columns: 1fr 2fr;
+                          column-gap: 10px;
+                        }
                         &:last-child{border-bottom: none;}
                         .admin-detail-cell{
                           display: flex;
-                          flex-direction: row;
+                          flex-direction: column;
                           padding: 8px 0;
                           gap: 8px;
-                          justify-content: space-between;
+                          justify-content: flex-start;
                           align-items: flex-start;
                           label{
                             font-size: 15px;
@@ -3558,6 +3569,59 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                           border-top: none;
                           border-radius: 0 0 8px 8px;
                           padding: 16px;
+                          .tab-pane{
+                          
+                            .document-container{
+                              display: flex;
+                              flex-direction: row;
+                              flex-wrap: wrap;
+                              column-gap: 24px;
+                              row-gap: 24px;
+                              .tab-outer-wrap{
+                              
+                                .tab-item{
+                                  margin: 0;
+                                  display: flex;
+                                  flex-direction: row;
+                                  align-items: center;
+                                  column-gap: 8px;
+                                  padding: 6px 0px 5px 16px;
+                                  border: 1px solid #efefef;
+                                  border-radius: 28px;
+                                  
+                                  label{
+                                    display: flex;
+                                  }
+                                  .download-option{
+                                    a{
+                                      color: $darkgreen;
+                                      font-weight: 500;
+                                      background: #efefef;
+                                      padding: 8px 16px;
+                                      border-radius: 48px;
+                                      border: 1px solid #efefef;
+                                      
+                                      &:hover{
+                                        border: 1px solid #549B43;
+                                        background: #549B43;
+                                        color: #ffffff;
+                                        i.link-icon{
+                                          background-image: url('../img/icons/link-white.svg');
+                                        }
+                                      }
+                                      &.active{
+                                        border: 1px solid #549B43;
+                                        background: rgba(84, 155, 67, 0.10);
+                                        box-shadow: 0px 1px 8px rgba(84, 155, 67, 0.16);
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            
+                          }
+                          
                           .admin-detail-row{
                             // grid-template-columns: 1fr 1fr;
                             .admin-detail-cell{
