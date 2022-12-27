@@ -868,6 +868,7 @@ ul.list-group{
               padding: 16px 24px 24px 24px;
             }
           }
+          
           &.right{
             background: #F3F3F3;
             .content-section{padding: 16px 16px 16px 16px;}
@@ -988,7 +989,43 @@ ul.list-group{
         }
       }
       .inner-page-content{
-        
+        &.allschool-wrap{
+            
+          .page-container{
+            
+            .school-list-container{
+              
+              .school-card{
+                &.card{
+                  
+                  .school-info-main{
+                    &.card-body{
+                      
+                      .info-item{
+                        &.school-info-exerpts{
+                          
+                          .school-name{
+                            
+                            .tutionfee-wrap{
+                              flex-direction: column;
+                              align-items: flex-end;
+                              label{
+                                white-space:nowrap;
+                              }
+                              .fee-to{
+                                align-items: flex-end;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              } 
+            }
+          }
+        }
         .content-section{
           padding: 16px 0px 16px 24px;
           margin: 0;
@@ -2553,7 +2590,10 @@ ul.list-group{
               flex-direction: row;
               padding: 0;
               i.location-icon{
-                
+                display: flex;
+                width: 16px;
+                height: 16px;
+                flex-shrink: inherit;
               }
               .loc-items{
                 display: flex;
