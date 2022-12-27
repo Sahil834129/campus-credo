@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDatePicker from 'react-datepicker';
 import Form from 'react-bootstrap/Form';
+import { DATE_FORMAT } from "../constants/app";
 
 function DateRangePicker({
   dateRanges,
@@ -8,7 +9,8 @@ function DateRangePicker({
   setFieldData,
   handleData,
   dateRangeValue,
-  disabled
+  disabled,
+  required = false
 }) {
   const updateDateRange = updatedValue => {
     fieldName.map((val, index) => {
@@ -24,7 +26,10 @@ function DateRangePicker({
       onChange={update => {
         updateDateRange(update);
       }}
+      required={required}
+      onFocus={e => e.target.blur()}
       disabled={disabled}
+      dateFormat={"dd/MM/yyyy"}
       customInput={
         <Form.Control
           size='sm'
@@ -38,4 +43,4 @@ function DateRangePicker({
   );
 }
 
-export default React.memo(DateRangePicker)
+export default React.memo(DateRangePicker);

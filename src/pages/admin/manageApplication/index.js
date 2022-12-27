@@ -8,7 +8,7 @@ import ShowApplications from "./showApplications";
 import OpenModal from "./openModal";
 import FilterApp from "./filterApp";
 import { Spinner } from "react-bootstrap";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import ReviewAdmissionDialog from "../../../dialogs/reviewAdmissionDialog";
 import { getLocalData } from "../../../utils/helper";
 
@@ -156,7 +156,6 @@ export const ManageApplication = () => {
           />
         </div>
       </div>
-      <ToastContainer autoClose={2000} position="top-right" />
       <ReviewAdmissionDialog
         show={showApplication}
         handleClose={() => {

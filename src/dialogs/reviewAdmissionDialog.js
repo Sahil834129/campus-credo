@@ -306,7 +306,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                             </div>
                             <div className="admin-detail-cell">
                               {document.status === 'uploaded' && (
-                                <a href="javascript:void(0)" onClick={() => { downloadDocument(childId, document.documentName); }}> Download <i className="icons link-icon"></i></a>
+                                <a href="javascript:void(0)" onClick={() => { downloadDocument(childId, document.documentName, studentDetail?.childId); }}> Download <i className="icons link-icon"></i></a>
                               )}
                             </div>
                           </div>;
