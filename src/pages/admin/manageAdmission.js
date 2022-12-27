@@ -79,6 +79,7 @@ export const ManageAdmission = () => {
     }
     return parseDate;
   };
+
   const handleSubmitData = (formData, selectedSession) => {
     let postData = formData.data;
     postData = postData.filter(val => val.isOpen);
@@ -125,12 +126,12 @@ export const ManageAdmission = () => {
     fetchAdmissionSession();
   }, []);
 
- 
+
   return (
     <Layout>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
-          <div className='inner-content-wrap padt8'>
+          <div className='inner-content-wrap padt8'> 
 
             {formData && (
               <Formik
@@ -280,7 +281,8 @@ export const ManageAdmission = () => {
                                           `data[${index}].admissionTestStartDate`,
                                           `data[${index}].admissionTestEndDate`
                                         ]}
-                                        setFieldData={setFieldValue}
+                                        setFieldData={setFieldValue} 
+                                        minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
                                         disabled={!admissionData?.isOpen}
                                       />
@@ -302,6 +304,7 @@ export const ManageAdmission = () => {
                                           `data[${index}].personalInterviewEndDate`
                                         ]}
                                         setFieldData={setFieldValue}
+                                        minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
                                         disabled={!admissionData?.isOpen}
                                       />

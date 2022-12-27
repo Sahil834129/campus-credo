@@ -155,7 +155,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
       <GenericDialog className='review-admission-modal add-child-model' show={show} handleClose={handleClose} modalHeader='Application Details'>
         <Accordion defaultActiveKey="0" flush>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>Candidate Details/Extracurriculars</Accordion.Header>
+            <Accordion.Header>Candidate Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className='admin-detail-cell'>
@@ -171,7 +171,6 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                   <span className="item-entry">{studentDetail.dateOfBirth}</span>
                 </div>
               </div>
-
               <div className="admin-detail-row">
                 <div className='admin-detail-cell'>
                   <label>Identification Marks</label>
@@ -186,7 +185,6 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                   <span className="item-entry">{studentDetail.nationality}</span>
                 </div>
               </div>
-
               <div className="admin-detail-row">
                 <div className='admin-detail-cell'>
                   <label>Require Tranport </label>
@@ -201,20 +199,11 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                   <span className="item-entry">{studentDetail.addressLine1}, {studentDetail.addressLine2}, {studentDetail.city}, {studentDetail.state} - {studentDetail.pincode}</span>
                 </div>
               </div>
-              <div className="admin-detail-row">
-                <div className='admin-detail-cell'>
-                  <label>Participated in any competitions.</label>
-                  <span className="item-entry">{studentDetail.competitionCertificate ? studentDetail.competitionCertificate : "NA"}</span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Having any other interests</label>
-                  <span className="item-entry">{studentDetail.otherInterest ? studentDetail.otherInterest : "No"}</span>
-                </div>
-              </div>
+              
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
-            <Accordion.Header>Medical Detail / Background Check</Accordion.Header>
+            <Accordion.Header>Medical Detail</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className='admin-detail-cell'>
@@ -242,29 +231,49 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
                   <span className="item-entry">{medicalDetail.disabilities?.length ? medicalDetail.disabilities.join(', ').replaceAll('_', ' ') : "No"}</span>
                 </div>
               </div>
-              <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour</label>
-                  <span className="item-entry">
-                    {studentDetail.violenceBehaviour ? studentDetail.violenceBehaviour : "No"}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Involved in any incidents outside of school that involve serious behaviours</label>
-                  <span className="item-entry">
-                    {studentDetail.suspension ? studentDetail.offensiveConduct : "No"}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Ever been suspended or expelled from any previous school</label>
-                  <span className="item-entry">
-                    {studentDetail.suspension ? studentDetail.suspension : "No"}
-                  </span>
-                </div>
-              </div>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
+            <Accordion.Header>Extracurriculars</Accordion.Header>
+            <Accordion.Body>
+              <div className="admin-detail-row">
+                  <div className='admin-detail-cell'>
+                    <label>Participated in any competitions.</label>
+                    <span className="item-entry">{studentDetail.competitionCertificate ? studentDetail.competitionCertificate : "NA"}</span>
+                  </div>
+                  <div className="admin-detail-cell">
+                    <label>Having any other interests</label>
+                    <span className="item-entry">{studentDetail.otherInterest ? studentDetail.otherInterest : "No"}</span>
+                  </div>
+                </div>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="3">
+            <Accordion.Header>Background Check</Accordion.Header>
+            <Accordion.Body>
+              <div className="admin-detail-row">
+                  <div className="admin-detail-cell">
+                    <label>Any history of violent behaviour</label>
+                    <span className="item-entry">
+                      {studentDetail.violenceBehaviour ? studentDetail.violenceBehaviour : "No"}
+                    </span>
+                  </div>
+                  <div className="admin-detail-cell">
+                    <label>Involved in any incidents outside of school that involve serious behaviours</label>
+                    <span className="item-entry">
+                      {studentDetail.suspension ? studentDetail.offensiveConduct : "No"}
+                    </span>
+                  </div>
+                  <div className="admin-detail-cell">
+                    <label>Ever been suspended or expelled from any previous school</label>
+                    <span className="item-entry">
+                      {studentDetail.suspension ? studentDetail.suspension : "No"}
+                    </span>
+                  </div>
+                </div>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="4">
             <Accordion.Header>Parents/Guardian</Accordion.Header>
             <Accordion.Body>
               <div className="tab-wrapper">
@@ -287,7 +296,7 @@ const ReviewAdmissionDialog = ({ show, childId, handleClose, applicationId }) =>
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="3">
+          <Accordion.Item eventKey="5">
             <Accordion.Header>Additional information &amp; Supporting Documents</Accordion.Header>
             <Accordion.Body>
               <div className='tab-wrapper'>
