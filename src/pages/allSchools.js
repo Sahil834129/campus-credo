@@ -59,7 +59,7 @@ const AllSchools = () => {
                     <Col className='inner-page-content left'>
                         <SidebarFilter applyFilters={applyFilters}/>                        
                     </Col>
-                    <Col className='inner-page-content right'>
+                    <Col className='inner-page-content allschool-wrap right'>
                         <Row className='content-section'>
                             <Breadcrumbs/>
                             <Col className='page-container'>

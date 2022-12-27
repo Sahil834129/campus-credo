@@ -8,10 +8,12 @@ function DateRangePicker({
   fieldName,
   setFieldData,
   handleData,
+  minDate,
   dateRangeValue,
   disabled,
   required = false
 }) {
+  
   const updateDateRange = updatedValue => {
     fieldName.map((val, index) => {
       handleData(setFieldData, val, updatedValue[index], dateRangeValue[index]);
@@ -23,6 +25,8 @@ function DateRangePicker({
       selectsRange={true}
       startDate={dateRanges[0]}
       endDate={dateRanges[1]}
+      minDate={minDate || null}
+      excludeDates={[minDate]}
       onChange={update => {
         updateDateRange(update);
       }}
