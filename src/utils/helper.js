@@ -38,6 +38,7 @@ export const resetUserLoginData = () => {
   localStorage.removeItem('refreshToken')
   localStorage.removeItem('name')
   localStorage.removeItem('roles')
+  localStorage.removeItem('schoolId')
 }
 
 export const setUserLoginData = loginData => {
@@ -45,6 +46,7 @@ export const setUserLoginData = loginData => {
   setLocalData('refreshToken', loginData.refreshToken)
   setLocalData('name', loginData?.firstName)
   setLocalData('roles', loginData?.roles)
+  setLocalData('schoolId', loginData?.schoolId)
 }
 
 export const getLocalData = key => {
