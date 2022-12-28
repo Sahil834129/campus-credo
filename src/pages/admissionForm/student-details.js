@@ -380,7 +380,9 @@ export default function StudentDetails({
           </label>
           <textarea
             disabled={selectedChild.hasIdentificationMarks === "No"}
-            className="form-control"
+            className="form-control "
+            style={{ resize: "none" }}
+            rows="1"
             name="identificationMarks"
             rows="2"
             value={selectedChild.identificationMarks}
