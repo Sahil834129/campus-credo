@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../components/form/Button";
 import InputField from "../components/form/InputField";
-import { OPERATORS } from "../constants/app";
 import { getSchoolClasses } from "../redux/actions/masterData";
+import { setSchoolFilter } from "../redux/actions/userAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 
-const SidebarFilter = ({ applyFilters }) => {
+const SidebarFilter = ({ filterFormData, applyFilters }) => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
   const classOptions = useSelector(
@@ -45,9 +45,14 @@ const SidebarFilter = ({ applyFilters }) => {
   const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(20000);
   const [facilities, setFacilities] = useState([]);
   const [extracurriculars, setExtracurriculars] = useState([]);
-  const selectedLocation = useSelector(
-    (state) => state.locationData.selectedLocation
-  );
+  const [initialFilterValues, setInitialFilterValues] = useState({
+    distance: "",
+    class: "",
+    board: "",
+    gender: "",
+    medium: "",
+    status: "",
+  });
 
   useEffect(() => {
     populateSchoolBoardsList();
@@ -71,71 +76,33 @@ const SidebarFilter = ({ applyFilters }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (Object.keys(filterFormData).length > 0) {
+      if (filterFormData.facilities)
+        setFacilities([...filterFormData.facilities]);
+      if (filterFormData.extracurriculars)
+        setExtracurriculars([...filterFormData.extracurriculars]);
+      if (filterFormData.minMonthlyTutionFee)
+        setMinMonthlyTutionFee(filterFormData?.minMonthlyTutionFee);
+      if (filterFormData.maxMonthlyTutionFee)
+        setMaxMonthlyTutionFee(filterFormData?.maxMonthlyTutionFee);
+    }
+  }, []);
+
   const applyFilter = (values) => {
-    applyFilters(prepareSchoolFilter(values));
+    const filterValues = getFilterValues(values);
+    dispatch(setSchoolFilter(filterValues));
+    applyFilters(filterValues);
   };
 
-  function prepareSchoolFilter(filterForm) {
-    const selectedFacilities = facilities.map((v) => v.value);
-    const selectedExtracurriculars = extracurriculars.map((v) => v.value);
-    let filterPayload = {};
-    let filters = [];
-    filters.push({
-      field: "city",
-      operator: OPERATORS.EQUALS,
-      value: selectedLocation,
-    });
-    if (filterForm.class !== null && filterForm.class !== "")
-      filters.push({
-        field: "classes",
-        operator: OPERATORS.IN,
-        values: [filterForm.class],
-      });
-    if (filterForm.board !== null && filterForm.board !== "")
-      filters.push({
-        field: "board",
-        operator: OPERATORS.EQUALS,
-        value: filterForm.board,
-      });
-    if (filterForm.gender !== null && filterForm.gender !== "")
-      filters.push({
-        field: "gender",
-        operator: OPERATORS.LIKE,
-        value: filterForm.gender,
-      });
-    if (filterForm.medium !== null && filterForm.medium !== "")
-      filters.push({
-        field: "mediumOfInstruction",
-        operator: OPERATORS.LIKE,
-        value: filterForm.medium,
-      });
-    if (selectedFacilities && selectedFacilities.length)
-      filters.push({
-        field: "facilities",
-        operator: OPERATORS.IN,
-        values: selectedFacilities,
-      });
-    if (selectedExtracurriculars && selectedExtracurriculars.length)
-      filters.push({
-        field: "extracurriculars",
-        operator: OPERATORS.IN,
-        values: selectedExtracurriculars,
-      });
-    let maxFee = maxMonthlyTutionFee > 0 ? maxMonthlyTutionFee : 100000;
-    filters.push({
-      field: "fee",
-      operator: OPERATORS.BETWEEN,
-      values: [minMonthlyTutionFee, maxFee],
-    });
-    if (filterForm.status != null && filterForm.status !== "")
-      filters.push({
-        field: "status",
-        operator: OPERATORS.LIKE,
-        value: filterForm.status,
-      });
-
-    filterPayload["filters"] = filters;
-    return filterPayload;
+  function getFilterValues(formValues) {
+    return {
+      ...formValues,
+      facilities: facilities,
+      extracurriculars: extracurriculars,
+      minMonthlyTutionFee: minMonthlyTutionFee,
+      maxMonthlyTutionFee: maxMonthlyTutionFee,
+    };
   }
 
   const populateMediumOfInstructionsList = async () => {
@@ -213,24 +180,24 @@ const SidebarFilter = ({ applyFilters }) => {
   };
 
   function handleResetForm(resetForm) {
+    resetForm();
     setMinMonthlyTutionFee(0);
     setMaxMonthlyTutionFee(20000);
     setFacilities([]);
     setExtracurriculars([]);
-    resetForm();
+    dispatch(setSchoolFilter({}));
+    applyFilters({});
   }
 
   return (
     <Row className="filter-panel">
       <Formik
-        initialValues={{
-          distance: "",
-          class: "",
-          board: "",
-          gender: "",
-          medium: "",
-          status: "open",
-        }}
+        initialValues={
+          Object.keys(filterFormData).length > 0
+            ? filterFormData
+            : initialFilterValues
+        }
+        enableReinitialize
         onSubmit={(values) => {
           applyFilter(values);
         }}
