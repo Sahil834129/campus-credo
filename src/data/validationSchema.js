@@ -42,8 +42,8 @@ export const SignUpSchema = Yup.object().shape({
     })
     .max(10)
     .required("Required *"),
-  //state: Yup.string().required('Required'),
-  //city: Yup.string().required('Required'),
+  state: Yup.string().required("Required *"),
+  city: Yup.string().required("Required *"),
 });
 
 export const VerifyPhoneSchema = Yup.object().shape({
@@ -55,7 +55,7 @@ export const VerifyPhoneSchema = Yup.object().shape({
 });
 
 export const ForgotPasswordSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string().email("Invalid email").required("Required *"),
 });
 export const AddChildSchema = Yup.object().shape({
   firstName: Yup.string()
