@@ -58,9 +58,9 @@ export const updateBulkApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_BULK_APPLICATION_STATUS, payload);
 };
 
-export const downloadDocument = async (childId, documentName) => {
+export const downloadDocument = async (childId, documentName, applicationChildId) => {
   try {
-    const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_DOCUMENT + '/' + childId + '/' + documentName);
+    const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_DOCUMENT + '/' + (childId ?? applicationChildId) + '/' + documentName);
     downloadFile(data, documentName);
   } catch (error) {
     toast.error("Error while downloading document." + error);
@@ -75,7 +75,6 @@ export const downloadApplicationDocument = async (applicationId) => {
     toast.error("Error while downloading document." + error);
   }
 
-  
 };
 const downloadFile = (data, documentName) => {
   const contentType = data.headers['content-type'];
@@ -97,7 +96,8 @@ const downloadFile = (data, documentName) => {
     // For Firefox it is necessary to delay
     window.URL.revokeObjectURL(blobURL);
   }, 100);
-}
+};
+
 export const getAgeClassMap = async () => {
   let classAgeMap = {};
   try {

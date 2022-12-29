@@ -13,6 +13,7 @@ import Avatar from 'react-avatar';
 import Navbar from 'react-bootstrap/Navbar';
 import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
 import { logout } from '../../utils/helper';
+import { ToastContainer } from "react-toastify";
 
 export const Layout = ({ admissionSummary, ...props }) => {
   const location = useLocation();
@@ -116,6 +117,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
       <div className='footer-panel'>
         <Link href=''>Terms &amp; Conditions</Link>
       </div>
+      <ToastContainer autoClose={2000} position="top-right" />
     </Container>
   );
 };

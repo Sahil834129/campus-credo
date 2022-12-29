@@ -85,11 +85,11 @@ export default function ParentsGuardianForm({
           })
         })
       } else {
-        await RESTClient.post(RestEndPoint.GET_STUDENT_PARENT, postData);
+      const response=  await RESTClient.post(RestEndPoint.GET_STUDENT_PARENT, postData);
         setAllParentDetail(val => {
           return [
             ...val,
-            {...formData}
+            {...response.data}
           ]
         })
       }

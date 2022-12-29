@@ -1,148 +1,176 @@
-import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { ReactComponent as SignupLogo } from '../assets/img/singup-logo.svg'
-import '../assets/scss/custom-styles.scss'
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { ReactComponent as SignupLogo } from "../assets/img/singup-logo.svg";
+import "../assets/scss/custom-styles.scss";
 
-import { Form, Formik } from 'formik'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast, ToastContainer } from 'react-toastify'
-import Button from '../components/form/Button'
-import InputField from '../components/form/InputField'
-import RegisterInfoGraphic from '../components/user/RegisterInfoGraphic'
-import { SignUpSchema } from '../data/validationSchema'
-import { getStates } from '../redux/actions/masterData'
-import RestEndPoint from '../redux/constants/RestEndpoints'
-import { populateCities } from "../utils/populateOptions"
-import RESTClient from '../utils/RestClient'
+import { Form, Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import Button from "../components/form/Button";
+import InputField from "../components/form/InputField";
+import RegisterInfoGraphic from "../components/user/RegisterInfoGraphic";
+import { SignUpSchema } from "../data/validationSchema";
+import { getStates } from "../redux/actions/masterData";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import { populateCities } from "../utils/populateOptions";
+import RESTClient from "../utils/RestClient";
 
 const SignUp = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [submitting, setSubmitting] = useState(false)
-  const [cityOptions, setCityOptions] = useState([{ text: 'Select City' }])
-  const stateOptions = useSelector(state => state.masterData.states)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [submitting, setSubmitting] = useState(false);
+  const [cityOptions, setCityOptions] = useState([
+    { text: "Select City", value: "" },
+  ]);
+  const stateOptions = useSelector((state) => state.masterData.states);
   useEffect(() => {
-    dispatch(getStates())
-  }, [])
+    dispatch(getStates());
+  }, []);
 
-  const signUp = formData => {
-    setSubmitting(true)
+  const signUp = (formData) => {
+    setSubmitting(true);
     RESTClient.post(RestEndPoint.REGISTER, formData)
-      .then(response => {
-        setSubmitting(false)
-        navigate('/verifyPhone/' + formData.phone)
+      .then((response) => {
+        setSubmitting(false);
+        navigate("/verifyPhone/" + formData.phone);
       })
-      .catch(error => {
-        setSubmitting(false)
-        toast.error(RESTClient.getAPIErrorMessage(error))
-      })
-  }
+      .catch((error) => {
+        setSubmitting(false);
+        toast.error(RESTClient.getAPIErrorMessage(error));
+      });
+  };
 
   return (
-    <Container className='main-container signup-main' fluid>
-      <div className='signup-wrapper'>
-        <div className='signup-col left'>
+    <Container className="main-container signup-main" fluid>
+      <div className="signup-wrapper">
+        <div className="signup-col left">
           <RegisterInfoGraphic />
         </div>
-        <div className='signup-col right'>
+        <div className="signup-col right">
           <SignupLogo />
-          <div className='form-wrapper'>
-            <div className='form-title'>
+          <div className="form-wrapper">
+            <div className="form-title">
               <h4>Create your free account</h4>
             </div>
-            <div className='form-container'>
+            <div className="form-container">
               <Formik
                 initialValues={{
-                  firstName: '',
-                  lastName: '',
-                  email: '',
-                  password: '',
-                  confirmPassword: '',
-                  phone: '',
-                  state: '',
-                  city: '',
-                  receiveEmailUpdates: '',
-                  receiveSMSUpdates: ''
+                  firstName: "",
+                  lastName: "",
+                  email: "",
+                  password: "",
+                  confirmPassword: "",
+                  phone: "",
+                  state: "",
+                  city: "",
+                  receiveEmailUpdates: "",
+                  receiveSMSUpdates: "",
                 }}
                 validationSchema={SignUpSchema}
                 validateOnBlur
-                onSubmit={values => {
-                  signUp(values)
+                onSubmit={(values) => {
+                  signUp(values);
                 }}
               >
                 {({ errors, touched }) => (
-                  <Form className=''>
-                    <div className='frm-cell'>
+                  <Form className="">
+                    <label className="">
+                      First Name <span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='firstName'
-                        fieldType='text'
-                        placeholder='First Name'
+                        fieldName="firstName"
+                        fieldType="text"
+                        //placeholder="First Name"
                         errors={errors}
                         touched={touched}
                       />
                     </div>
-                    <div className='frm-cell'>
+                    <label className="">
+                      Last Name <span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='lastName'
-                        fieldType='text'
-                        placeholder='Last Name'
+                        fieldName="lastName"
+                        fieldType="text"
+                        //placeholder="Last Name"
                         errors={errors}
                         touched={touched}
                       />
                     </div>
-                    <div className='frm-cell'>
+                    <label className="">
+                      Email Address <span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='email'
-                        fieldType='text'
-                        placeholder='Email Address'
+                        fieldName="email"
+                        fieldType="text"
+                        //placeholder="Email Address"
                         errors={errors}
                         touched={touched}
                       />
                     </div>
-                    <div className='frm-cell'>
+                    <label className="">
+                      Password<span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='password'
-                        fieldType='password'
-                        placeholder='Password'
+                        fieldName="password"
+                        fieldType="password"
+                        //placeholder="Password"
                         errors={errors}
                         touched={touched}
                       />
-                    </div>
-                    <div className='frm-cell'>
+                    </div>{" "}
+                    <label className="">
+                      Confirm Password<span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='confirmPassword'
-                        fieldType='password'
-                        placeholder='Confirm Password'
+                        fieldName="confirmPassword"
+                        fieldType="password"
+                        // placeholder="Confirm Password"
                         errors={errors}
                         touched={touched}
                       />
-                    </div>
-                    <div className='frm-cell'>
+                    </div>{" "}
+                    <label className="">
+                      Phone Number<span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='phone'
-                        fieldType='text'
-                        placeholder='Phone Number'
+                        fieldName="phone"
+                        fieldType="text"
+                        //placeholder="Phone Number"
                         errors={errors}
                         touched={touched}
                       />
-                    </div>
-                    <div className='frm-cell'>
+                    </div>{" "}
+                    <label className="">
+                      Select State <span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='state'
-                        fieldType='select'
-                        placeholder=''
+                        fieldName="state"
+                        fieldType="select"
+                        placeholder=""
                         selectOptions={stateOptions}
-                        onBlur={e => populateCities(e.target.value, setCityOptions)}
+                        onBlur={(e) =>
+                          populateCities(e.target.value, setCityOptions)
+                        }
                         errors={errors}
                         touched={touched}
                       />
-                    </div>
-                    <div className='frm-cell'>
+                    </div>{" "}
+                    <label className="">
+                      Select City <span className="text-danger">*</span>
+                    </label>
+                    <div className="frm-cell">
                       <InputField
-                        fieldName='city'
-                        fieldType='select'
-                        placeholder=''
+                        fieldName="city"
+                        fieldType="select"
+                        placeholder=""
                         selectOptions={cityOptions}
                         errors={errors}
                         touched={touched}
@@ -166,17 +194,23 @@ const SignUp = () => {
                       touched={touched}
                     />
                     </div> */}
-                    <div className='frm-cell termslink'>By continuing, you agree to CampusCredo’s <Link to={"/terms"}>Terms of Use</Link> and <Link to={"/disclaimerpolicy"}>Privacy Policy</Link>.</div>
-                    <div className='frm-cell frm-btn-wrap'>
-                    <Button
-                      type='submit'
-                      buttonLabel='Sign Up'
-                      submitting={submitting}
-                    />
+                    <div className="frm-cell termslink">
+                      By continuing, you agree to CampusCredo’s{" "}
+                      <Link to={"/terms"}>Terms of Use</Link> and{" "}
+                      <Link to={"/disclaimerpolicy"}>Privacy Policy</Link>.
                     </div>
-                    <div className='form-group mb-3 linkback-wrap'>
+                    <div className="frm-cell frm-btn-wrap">
+                      <Button
+                        type="submit"
+                        buttonLabel="Sign Up"
+                        submitting={submitting}
+                      />
+                    </div>
+                    <div className="form-group mb-3 linkback-wrap">
                       {/* <div className='linkback-cell left'><Link to={"/disclaimerpolicy"}>* Policy Disclaimer</Link></div> */}
-                      <div className='linkback-cell right'>Have an account?<Link to='/?login=true'>Sign In</Link></div> 
+                      <div className="linkback-cell right">
+                        Have an account?<Link to="/?login=true">Sign In</Link>
+                      </div>
                     </div>
                   </Form>
                 )}
@@ -185,9 +219,9 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <ToastContainer autoClose={2000} position='top-right' />
+      <ToastContainer autoClose={2000} position="top-right" />
     </Container>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

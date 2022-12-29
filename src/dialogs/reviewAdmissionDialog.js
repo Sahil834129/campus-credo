@@ -72,7 +72,7 @@ const ReviewAdmissionDialog = ({
       );
       response.data.length
         ? setParentDetail(response.data)
-        : setParentDetail({});
+        : setParentDetail([]);
     } catch (error) {
       setParentDetail([]);
     }
@@ -112,19 +112,19 @@ const ReviewAdmissionDialog = ({
       if (response.data.applicantGuardian !== "") {
         response.data.applicantGuardian.length
           ? setParentDetail(response.data.applicantGuardian)
-          : setParentDetail({});
+          : setParentDetail([]);
       }
       if (response.data.applicantMedicalDetail !== "") {
         setMedicalDetail(response.data.applicantMedicalDetail);
       }
-      if (response.data?.applicantDocument.studentDocumentDto !== "") {
+      if (response.data?.applicantDocument !== "") {
         setStudentDocuments(
-          (response.data.studentDocumentDto || []).filter(
+          (response.data?.applicantDocument || []).filter(
             (val) => val.category === "student"
           )
         );
         setParentDocuments(
-          (response.data?.applicantDocument.studentDocumentDto || []).filter(
+          (response.data?.applicantDocument || []).filter(
             (val) => val.category === "guardian"
           )
         );
@@ -164,7 +164,7 @@ const ReviewAdmissionDialog = ({
     const isProfileCompleted = studentDetail.profileCompleted ? true : false;
     if (!isProfileCompleted) {
       setAlertMessage(
-        "Admission form is not complete, it must be complete to place order."
+        "Admission form is not complete, it must be complete to checkout."
       );
       setShowAlertDialog(true);
       return;
@@ -176,7 +176,7 @@ const ReviewAdmissionDialog = ({
       );
 
       handleClose();
-      navigate("/paymentCheckout", { state: { data: response.data } });
+      navigate("/userProfile");
     } catch (error) {
       if (
         !isEmpty(error) &&
@@ -220,55 +220,45 @@ const ReviewAdmissionDialog = ({
       >
         <Accordion defaultActiveKey="0" flush>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>
-              Candidate Details/Extracurriculars
-            </Accordion.Header>
+            <Accordion.Header>Candidate Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Name</label>
+                  <label>Name:</label>
                   <span className="item-entry">
                     {studentDetail.firstName} {studentDetail.lastName}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Gender</label>
+                  <label>Gender:</label>
                   <span className="item-entry">{studentDetail.gender}</span>
                 </div>
                 <div className="admin-detail-cell">
-                  <span>DOB </span>
+                  <span>DOB:</span>
                   <span className="item-entry">
                     {studentDetail.dateOfBirth}
                   </span>
                 </div>
               </div>
-
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Identification Marks</label>
-                  <span className="item-entry">
-                    {studentDetail.identificationMarks}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Religion</label>
+                  <label>Religion:</label>
                   <span className="item-entry">{studentDetail.religion}</span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Nationality</label>
+                  <label>Nationality:</label>
                   <span className="item-entry">
                     {studentDetail.nationality}
                   </span>
                 </div>
-              </div>
-
-              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Require Tranport </label>
+                  <label>Require Tranport:</label>
                   <span className="item-entry">
                     {studentDetail.tranportFacility ? "Yes" : "No"}
                   </span>
                 </div>
+              </div>
+              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Require Boarding </label>
                   <span className="item-entry">
@@ -276,7 +266,23 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Address </label>
+                  <label>Identification Marks:</label>
+                  <span className="item-entry">
+                    {studentDetail.identificationMarks}
+                  </span>
+                </div>
+              </div>
+              <div className="admin-detail-row onextwo-col">
+                <div className="admin-detail-cell">
+                  <label>Participated in any competitions.:</label>
+                  <span className="item-entry">
+                    {studentDetail.competitionCertificate
+                      ? studentDetail.competitionCertificate
+                      : "NA"}
+                  </span>
+                </div>
+                <div className="admin-detail-cell">
+                  <label>Address:</label>
                   <span className="item-entry">
                     {studentDetail.addressLine1}, {studentDetail.addressLine2},{" "}
                     {studentDetail.city}, {studentDetail.state} -{" "}
@@ -284,6 +290,61 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
               </div>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Medical Detail</Accordion.Header>
+            <Accordion.Body>
+              <div className="admin-detail-row">
+                <div className="admin-detail-cell">
+                  <label>Blood Group </label>
+                  <span className="item-entry">{medicalDetail.bloodGroup}</span>
+                </div>
+                <div className="admin-detail-cell">
+                  <label>Allergies </label>
+                  <span className="item-entry">
+                    {medicalDetail.allergies && medicalDetail.allergies !== ""
+                      ? medicalDetail.allergies
+                      : "No"}
+                  </span>
+                </div>
+                <div className="admin-detail-cell">
+                  <label>Need special Care </label>
+                  <span className="item-entry">
+                    {medicalDetail.specialCare &&
+                    medicalDetail.specialCare !== ""
+                      ? medicalDetail.specialCare
+                      : "No"}
+                  </span>
+                </div>
+              </div>
+              <div className="admin-detail-row onextwo-col">
+                <div className="admin-detail-cell">
+                  <label>Medical Conditions </label>
+                  <span className="item-entry">
+                    {medicalDetail.medicalConditions &&
+                    medicalDetail.medicalConditions !== ""
+                      ? medicalDetail.medicalConditions
+                      : "No"}
+                  </span>
+                </div>
+                <div className="admin-detail-cell">
+                  <label>Disabilities </label>
+                  <span className="item-entry">
+                    {medicalDetail.disabilities?.length
+                      ? medicalDetail.disabilities
+                          .join(", ")
+                          .replaceAll("_", " ")
+                          .replaceAll("Other", medicalDetail.otherDisability)
+                      : "No"}
+                  </span>
+                </div>
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="2">
+            <Accordion.Header>Extracurriculars</Accordion.Header>
+            <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Participated in any competitions.</label>
@@ -304,60 +365,13 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>
-              Medical Detail / Background Check
-            </Accordion.Header>
+          <Accordion.Item eventKey="3">
+            <Accordion.Header>Background Check</Accordion.Header>
             <Accordion.Body>
+              <div className="admin-detail-row"></div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Blood Group </label>
-                  <span className="item-entry">{medicalDetail.bloodGroup}</span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Allergies </label>
-                  <span className="item-entry">
-                    {medicalDetail.allergies && medicalDetail.allergies !== ""
-                      ? medicalDetail.allergies
-                      : "No"}
-                  </span>
-                </div>
-              </div>
-              <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Need special Care </label>
-                  <span className="item-entry">
-                    {medicalDetail.specialCare &&
-                    medicalDetail.specialCare !== ""
-                      ? medicalDetail.specialCare
-                      : "No"}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>Medical Conditions </label>
-                  <span className="item-entry">
-                    {medicalDetail.medicalConditions &&
-                    medicalDetail.medicalConditions !== ""
-                      ? medicalDetail.medicalConditions
-                      : "No"}
-                  </span>
-                </div>
-              </div>
-              <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Disabilities </label>
-                  <span className="item-entry">
-                    {medicalDetail.disabilities?.length
-                      ? medicalDetail.disabilities
-                          .join(", ")
-                          .replaceAll("_", " ")
-                      : "No"}
-                  </span>
-                </div>
-              </div>
-              <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour</label>
+                  <label>Any history of violent behaviour:</label>
                   <span className="item-entry">
                     {studentDetail.violenceBehaviour
                       ? studentDetail.violenceBehaviour
@@ -386,7 +400,7 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
+          <Accordion.Item eventKey="4">
             <Accordion.Header>Parents/Guardian</Accordion.Header>
             <Accordion.Body>
               <div className="tab-wrapper">
@@ -422,7 +436,7 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="3">
+          <Accordion.Item eventKey="5">
             <Accordion.Header>
               Additional information &amp; Supporting Documents
             </Accordion.Header>
@@ -435,72 +449,78 @@ const ReviewAdmissionDialog = ({
                   className="tab-header"
                 >
                   <Tab eventKey="student" title="Student">
-                    {studentDocuments.length > 0 ? (
-                      studentDocuments.map((document, index) => {
-                        return (
-                          <div
-                            key={"childDoc_" + index}
-                            className="admin-detail-row"
-                          >
-                            <div className="admin-detail-cell">
-                              {humanize(document.documentName)}
+                    <div className="document-container">
+                      {studentDocuments.length > 0 ? (
+                        studentDocuments.map((document, index) => {
+                          return (
+                            <div
+                              key={"childDoc_" + index}
+                              className="tab-outer-wrap"
+                            >
+                              <div className="tab-item">
+                                <lable>{humanize(document.documentName)}</lable>
+                                <span className="download-option">
+                                  {document.status === "uploaded" && (
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadDocument(
+                                          childId,
+                                          document.documentName,
+                                          studentDetail?.childId
+                                        );
+                                      }}
+                                    >
+                                      Download{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                  )}
+                                </span>
+                              </div>
                             </div>
-                            <div className="admin-detail-cell">
-                              {document.status === "uploaded" && (
-                                <a
-                                  href="javascript:void(0)"
-                                  onClick={() => {
-                                    downloadDocument(
-                                      childId,
-                                      document.documentName
-                                    );
-                                  }}
-                                >
-                                  {" "}
-                                  Download <i className="icons link-icon"></i>
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <NoRecordsFound message="No documents uploaded yet." />
-                    )}
+                          );
+                        })
+                      ) : (
+                        <NoRecordsFound message="No documents uploaded yet." />
+                      )}
+                    </div>
                   </Tab>
                   <Tab eventKey="parent1" title="Parent/Guardian">
-                    {parentDocuments.length > 0 ? (
-                      parentDocuments.map((document, index) => {
-                        return (
-                          <div
-                            key={"parentDoc_" + index}
-                            className="admin-detail-row"
-                          >
-                            <div className="admin-detail-cell">
-                              {humanize(document.documentName)}
+                    <div className="document-container">
+                      {parentDocuments.length > 0 ? (
+                        parentDocuments.map((document, index) => {
+                          return (
+                            <div
+                              key={"parentDoc_" + index}
+                              className="tab-outer-wrap"
+                            >
+                              <div className="tab-item">
+                                <label>{humanize(document.documentName)}</label>
+                                <span className="download-option">
+                                  {document.status === "uploaded" && (
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadDocument(
+                                          childId,
+                                          document.documentName
+                                        );
+                                      }}
+                                    >
+                                      {" "}
+                                      Download{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                  )}
+                                </span>
+                              </div>
                             </div>
-                            <div className="admin-detail-cell">
-                              {document.status === "uploaded" && (
-                                <a
-                                  href="javascript:void(0)"
-                                  onClick={() => {
-                                    downloadDocument(
-                                      childId,
-                                      document.documentName
-                                    );
-                                  }}
-                                >
-                                  {" "}
-                                  Download <i className="icons link-icon"></i>
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <NoRecordsFound message="No documents uploaded yet." />
-                    )}
+                          );
+                        })
+                      ) : (
+                        <NoRecordsFound message="No documents uploaded yet." />
+                      )}
+                    </div>
                   </Tab>
                 </Tabs>
               </div>
@@ -509,13 +529,16 @@ const ReviewAdmissionDialog = ({
         </Accordion>
         {childId && (
           <div className="btn-wrapper review-section-btn">
-            <Button className="submit" onClick={() => placeOrder()}>
-              Place Order
+            <Button className="submit" onClick={() => checkOutApplication()}>
+              Checkout
             </Button>
             <Button
               className="edit"
               onClick={() => {
-                navigate("/userProfile/admissionForm");
+                navigate(
+                  "/userProfile/admissionForm/?childId=" +
+                    btoa(`#${studentDetail.childId}`)
+                );
               }}
             >
               Edit

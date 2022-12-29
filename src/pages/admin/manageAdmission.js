@@ -3,6 +3,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { toast } from "react-toastify";
 import DateRangePicker from '../../common/DateRangePicker';
 import {
   getClassAdmissionData, getClassAdmissionSessionData, saveClassAdmissionData
@@ -31,27 +32,28 @@ export const ManageAdmission = () => {
     getClassAdmissionSessionData()
       .then(response => {
         setSessionOption(response.data);
-        setSessionValue(response.data[1])
+        setSessionValue(response.data[1]);
       })
       .catch(error => {
         console.log(error);
       });
   };
+
   const converDate = (currentDate) => {
     if (currentDate) {
       const currentDateArr = currentDate.split("/");
-      return new Date(`${currentDateArr[1]}/${currentDateArr[0]}/${currentDateArr[2]}`)
+      return new Date(`${currentDateArr[1]}/${currentDateArr[0]}/${currentDateArr[2]}`);
     }
-    return null
-  }
+    return null;
+  };
 
   const fetchClassAdmissionData = (session) => {
+    console.log('Admission Year', session);
     getClassAdmissionData(session)
       .then(response => {
         if (response.status === 200) {
           const data = response.data.map(val => {
-            val.isOpen =
-              val.formSubmissionStartDate && val.formSubmissionEndDate;
+            val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
             val.formSubmissionStartDate = converDate(val?.formSubmissionStartDate || null);
             val.formSubmissionEndDate = converDate(val?.formSubmissionEndDate || null);
             val.admissionTestStartDate = converDate(val?.admissionTestStartDate || null);
@@ -63,6 +65,7 @@ export const ManageAdmission = () => {
             val.registrationFee = val?.registrationFee || null;
             return val;
           });
+          console.log(data);
           setFormData(data);
         }
       })
@@ -79,8 +82,9 @@ export const ManageAdmission = () => {
     }
     return parseDate;
   };
+
   const handleSubmitData = (formData, selectedSession) => {
-    let postData = formData.data;
+    let postData = JSON.parse(JSON.stringify(formData.data));
     postData = postData.filter(val => val.isOpen);
     postData = postData.map(val => {
       val.formSubmissionStartDate = convertDateForSave(
@@ -111,9 +115,16 @@ export const ManageAdmission = () => {
 
       return val;
     });
+
     saveClassAdmissionData(postData)
-      .then(response => console.log(response))
-      .catch((error) => console.log(error));
+      .then(() => {
+        setFormData(formData.data);
+        setChangedData(formData.data);
+        toast.success("Admission Details are saved");
+      })
+      .catch((error) => {
+        toast.error("Error: Not able to save data");
+      });
   };
 
   useEffect(() => {
@@ -125,12 +136,11 @@ export const ManageAdmission = () => {
     fetchAdmissionSession();
   }, []);
 
- 
   return (
     <Layout>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
-          <div className='inner-content-wrap padt8'>
+          <div className='inner-content-wrap padt8'> 
 
             {formData && (
               <Formik
@@ -228,8 +238,10 @@ export const ManageAdmission = () => {
                                         size='sm'
                                         type='number'
                                         name={`data[${index}].vacantSeats`}
+                                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         value={admissionData?.vacantSeats || ''}
                                         disabled={!admissionData?.isOpen}
+                                        required
                                         min="0"
                                         max={admissionData.capacity}
                                         onPaste={e => e.preventDefault()}
@@ -245,6 +257,7 @@ export const ManageAdmission = () => {
                                     </td>
                                     <td>
                                       <DateRangePicker
+                                        required
                                         dateRanges={[
                                           admissionData?.formSubmissionStartDate ||
                                           null,
@@ -252,8 +265,8 @@ export const ManageAdmission = () => {
                                           null
                                         ]}
                                         dateRangeValue={[
-                                          admissionData?.formSubmissionStartDate,
-                                          admissionData?.formSubmissionEndDate
+                                          formData[index]?.formSubmissionStartDate,
+                                          formData[index]?.formSubmissionEndDate
                                         ]}
                                         fieldName={[
                                           `data[${index}].formSubmissionStartDate`,
@@ -273,14 +286,15 @@ export const ManageAdmission = () => {
                                           null
                                         ]}
                                         dateRangeValue={[
-                                          admissionData?.admissionTestStartDate,
-                                          admissionData?.admissionTestEndDate
+                                          formData[index]?.admissionTestStartDate,
+                                          formData[index]?.admissionTestEndDate
                                         ]}
                                         fieldName={[
                                           `data[${index}].admissionTestStartDate`,
                                           `data[${index}].admissionTestEndDate`
                                         ]}
-                                        setFieldData={setFieldValue}
+                                        setFieldData={setFieldValue} 
+                                        minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
                                         disabled={!admissionData?.isOpen}
                                       />
@@ -294,14 +308,15 @@ export const ManageAdmission = () => {
                                           null
                                         ]}
                                         dateRangeValue={[
-                                          admissionData?.personalInterviewStartDate,
-                                          admissionData?.personalInterviewEndDate
+                                          formData[index]?.personalInterviewStartDate,
+                                          formData[index]?.personalInterviewEndDate
                                         ]}
                                         fieldName={[
                                           `data[${index}].personalInterviewStartDate`,
                                           `data[${index}].personalInterviewEndDate`
                                         ]}
                                         setFieldData={setFieldValue}
+                                        minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
                                         disabled={!admissionData?.isOpen}
                                       />
@@ -309,8 +324,10 @@ export const ManageAdmission = () => {
                                     <td>
                                       <Form.Control
                                         size='sm'
-                                        type='text'
+                                        type='number'
+                                        required
                                         name={`data[${index}].formFee`}
+                                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         value={admissionData?.formFee || ''}
                                         disabled={!admissionData?.isOpen}
                                         onChange={e => {
@@ -326,10 +343,12 @@ export const ManageAdmission = () => {
                                     <td>
                                       <Form.Control
                                         size='sm'
-                                        type='text'
+                                        type='number'
+                                        required
                                         name={`data[${index}].registrationFee`}
                                         value={admissionData?.registrationFee || ''}
                                         disabled={!admissionData?.isOpen}
+                                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         onChange={e => {
                                           handleData(
                                             setFieldValue,

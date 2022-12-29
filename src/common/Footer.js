@@ -54,13 +54,13 @@ const Footer = () => {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <Link href="">F: Follow us on Facebook</Link>
+              <a href="https://www.facebook.com">F: Follow us on Facebook</a>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <Link href="">T: Follow us on Twitter</Link>
+              <a href="https://www.twitter.com">T: Follow us on Twitter</a>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <Link href="">L: Follow us on Linkedin</Link>
+              <a href="https://www.linkedin.com">L: Follow us on Linkedin</a>
             </ListGroup.Item>
           </ListGroup>
         </div>

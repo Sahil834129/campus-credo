@@ -1,43 +1,43 @@
-import React from 'react'
-import { Field } from 'formik'
+import { Field } from "formik";
+import React from "react";
 
 const FORM_FIELD_TYPE = {
-  TEXT: 'text',
-  PASSWORD: 'password',
-  SELECT: 'select',
-  CHECKBOX: 'checkbox',
-  RADIO: 'radio',
-  FILE: 'file'
-}
+  TEXT: "text",
+  PASSWORD: "password",
+  SELECT: "select",
+  CHECKBOX: "checkbox",
+  RADIO: "radio",
+  FILE: "file",
+};
 
-const getOptionTags = selectOptions => {
+const getOptionTags = (selectOptions) => {
   return (
     <>
       {selectOptions.map((option, index) => (
-        <option key={'option_' + index} value={option.value}>
+        <option key={"option_" + index} value={option.value}>
           {option.text}
         </option>
       ))}
     </>
-  )
-}
+  );
+};
 
-const getFieldTagElement = props => {
+const getFieldTagElement = (props) => {
   switch (props.fieldType) {
     case FORM_FIELD_TYPE.TEXT:
       return (
         <>
           {props.label ? (
             <label>
-              {props.label}{' '}
-              {props.required ? <span className='req'>*</span> : ''}{' '}
+              {props.label}{" "}
+              {props.required ? <span className="req">*</span> : ""}{" "}
             </label>
           ) : (
-            ''
+            ""
           )}
           <Field
-            type='text'
-            className='form-control'
+            type="text"
+            className="form-control"
             name={props.fieldName}
             value={props.value}
             placeholder={props.placeholder}
@@ -46,43 +46,43 @@ const getFieldTagElement = props => {
             {...(props.disabled ? { disabled: props.disabled } : {})}
           />
         </>
-      )
+      );
     case FORM_FIELD_TYPE.PASSWORD:
       return (
         <>
-        {props.label ? (
-          <label>
-            {props.label}{' '}
-            {props.required ? <span className='req'>*</span> : ''}{' '}
-          </label>
-        ) : (
-          ''
-        )}
-        <Field
-          type='password'
-          className='form-control'
-          name={props.fieldName}
-          placeholder={props.placeholder}
-          {...(props.required ? { required: props.required } : {})}
-          onPaste={e => e.preventDefault()}
-          onCopy={e => e.preventDefault()}
-        />
+          {props.label ? (
+            <label>
+              {props.label}{" "}
+              {props.required ? <span className="req">*</span> : ""}{" "}
+            </label>
+          ) : (
+            ""
+          )}
+          <Field
+            type="password"
+            className="form-control"
+            name={props.fieldName}
+            placeholder={props.placeholder}
+            {...(props.required ? { required: props.required } : {})}
+            onPaste={(e) => e.preventDefault()}
+            onCopy={(e) => e.preventDefault()}
+          />
         </>
-      )
+      );
     case FORM_FIELD_TYPE.SELECT:
       return (
         <>
           {props.label ? (
             <label>
-              {props.label}{' '}
-              {props.required ? <span className='req'>*</span> : ''}{' '}
+              {props.label}{" "}
+              {props.required ? <span className="req">*</span> : ""}{" "}
             </label>
           ) : (
-            ''
+            ""
           )}
           <Field
-            as='select'
-            className='form-select'
+            as="select"
+            className="form-select"
             name={props.fieldName}
             {...(props.onBlur ? { onBlur: props.onBlur } : {})}
             {...(props.onChange ? { onBlur: props.onChange } : {})}
@@ -91,12 +91,12 @@ const getFieldTagElement = props => {
             {getOptionTags(props.selectOptions)}
           </Field>
         </>
-      )
+      );
     case FORM_FIELD_TYPE.CHECKBOX:
       return (
-        <label className='d-flex align-items-center'>
+        <label className="d-flex align-items-center">
           <Field
-            type='checkbox'
+            type="checkbox"
             name={props.fieldName}
             value={props.value}
             {...(props.onChange ? { onChange: props.onChange } : {})}
@@ -105,52 +105,54 @@ const getFieldTagElement = props => {
               : {})}
             {...(props.checked ? { checked: props.checked } : {})}
           />
-          <span className='mx-2'>{props.label}</span>
+          <span className="mx-2">{props.label}</span>
         </label>
-      )
+      );
     case FORM_FIELD_TYPE.RADIO:
       return (
-        <label className='d-flex align-items-center'>
+        <label className="d-flex align-items-center">
           <Field
-            type='radio'
+            type="radio"
             name={props.fieldName}
             value={props.value}
             {...(props.checked ? { checked: props.checked } : {})}
             {...(props.onClick ? { onClick: props.onClick } : {})}
             {...(props.required ? { required: props.required } : {})}
           />
-          <span className='mx-2'>
+          <span className="mx-2">
             {props.label}
             {props.onChange}
           </span>
         </label>
-      )
+      );
     case FORM_FIELD_TYPE.FILE:
       return (
         <label>
           <Field
-            type='file'
+            type="file"
             name={props.fieldName}
             value={props.value}
             {...(props.required ? { required: props.required } : {})}
           />
           <span>{props.label}</span>
         </label>
-      )
+      );
     default:
-      return null
+      return null;
   }
-}
+};
 
-const InputField = props => {
+const InputField = (props) => {
   return (
-    <div className='form-group mb-3'>
+    <div className="form-group mb-3">
       {getFieldTagElement(props)}
       {props.errors[props.fieldName] && props.touched[props.fieldName] ? (
-        <div className='error-exception mt-2'>{props.errors[props.fieldName]}</div>
+        <div className="error-exception mt-2">
+          {props.errors[props.fieldName]}
+        </div>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default InputField
+export default InputField;
