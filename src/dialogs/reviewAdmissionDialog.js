@@ -7,7 +7,7 @@ import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { humanize } from "../utils/helper";
+import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
@@ -42,16 +42,6 @@ const ReviewAdmissionDialog = ({
     } catch (error) {
       setStudentDetail({});
     }
-  }
-
-  function isEmpty(obj) {
-    return (
-      obj === null ||
-      obj === "null" ||
-      obj === undefined ||
-      obj === "undefined" ||
-      obj.length === 0
-    );
   }
 
   async function getMedicalProfile(childId) {
@@ -137,7 +127,6 @@ const ReviewAdmissionDialog = ({
       setParentDocuments([]);
     }
   }
-
   useEffect(() => {
     console.log(parentDocuments, studentDocuments);
   }, [studentDocuments, parentDocuments]);
