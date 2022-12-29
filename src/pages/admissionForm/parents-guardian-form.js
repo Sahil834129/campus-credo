@@ -341,7 +341,7 @@ export default function ParentsGuardianForm({
                   onChange={e => {
                     setFieldValue('otherNationality', e.target.value);
                   }}
-                  //required={values.nationality === 'Indian'}
+                  required={values.nationality !== 'Indian'}
                   placeholder='Please add details...'
                   disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
                 />

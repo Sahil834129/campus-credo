@@ -34,6 +34,16 @@ export const CATEGORY_OPTIONS = [
   { value: "SC", text: "SC" },
   { value: "ST", text: "ST" },
 ];
+export const CATEGORY_OPTIONS_CONTACT_FORM = [
+  { value: "", text: "Select Option" },
+  { value: "Admission Related", text: "Admission Related" },
+  { value: "Application Related", text: "Application Related" },
+  { value: "Fee Related", text: "Fee Related" },
+  { value: "Register my School", text: "Register my School" },
+  { value: "General Feedback", text: "General Feedback" },
+  { value: "Complaints", text: "Complaints" },
+  { value: "Others", text: "Others" },
+];
 
 export const BLOOD_OPTIONS = [
   { value: "", text: "Select Option" },

@@ -40,7 +40,7 @@ const SchoolStats = (props) => {
         </div>
         <div className="academic-stats-row">
           <div className="cell">
-            <div className="title">School Medium</div>
+            <div className="title"> Medium of Instruction</div>
             <div className="particular">
               {schoolDetails.mediumOfInstruction || "NA"}
             </div>

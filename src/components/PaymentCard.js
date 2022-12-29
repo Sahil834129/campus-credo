@@ -35,11 +35,14 @@ const PaymentCard = ({ selectedChild }) => {
           </ListGroup.Item>
           <ListGroup.Item>
             <div className="cell left">Platform Fee</div>
-            <div className="cell right"> ₹{convenienceFee}</div>
+            <div className="cell right">
+              {" "}
+              ₹{totalFee ? convenienceFee : "NA"}
+            </div>
           </ListGroup.Item>
           <ListGroup.Item>
             <div className="cell left">GST 18%</div>
-            <div className="cell right"> ₹{gstAmt}</div>
+            <div className="cell right"> ₹{totalFee ? gstAmt : "NA"}</div>
           </ListGroup.Item>
           <ListGroup.Item className="total">
             <div className="cell left">Total Payment</div>
