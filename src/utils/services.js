@@ -26,6 +26,15 @@ export const getApplicationChartStatus = () => {
   return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS);
 };
 
+export const updateUserModulePermissions = (data) => {
+  return RESTClient.put(RestEndPoint.UPDATE_APPLICATION_STATUS, data);
+};
+
+export const changeUserPassword = (data) => {
+  return RESTClient.post(RestEndPoint.CHANGE_USER_PASSWORD, data);
+
+};
+
 export const getClassAdmissionSessionData = () => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SESSION_DATA);
 };
@@ -34,6 +43,17 @@ export const getSchoolAdmissionGradeList = () => {
   return RESTClient.get(RestEndPoint.SCHOOL_GRADE_LIST);
 };
 
+export const getManagePermissionRoles = () => {
+  return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_ROLES);
+};
+
+export const getManagePermissions = () => {
+  return RESTClient.get(RestEndPoint.MANAGE_PERMISSIONS);
+};
+
+export const getManagePermissionModules = () => {
+  return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
+};
 export const getClassAdmissionSummary = (classId) => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}`);
 };

@@ -5,24 +5,24 @@ import { useState, useEffect } from 'react';
 import { getSchoolAdmissionGradeList, applicationfilterData } from '../../../utils/services';
 import { OPERATORS } from '../../../constants/app';
 
-export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData }) => {
-  const intialValue ={
-    grade:'',
+export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi }) => {
+  const intialValue = {
+    grade: '',
     gradeOption: null,
     checkValue: 1,
-    minAge:0,
-    maxAge:30,
-    minIncome:0,
-    maxIncome:2000000,
-    minMarks:0,
-    maxMarks:100,
+    minAge: 0,
+    maxAge: 30,
+    minIncome: 0,
+    maxIncome: 2000000,
+    minMarks: 0,
+    maxMarks: 100,
     minGpa: 0,
     maxGpa: 10,
-    transport:'',
-    boarding:''
-  }
+    transport: '',
+    boarding: ''
+  };
   const [grade, setGrade] = useState(intialValue.grade);
-  const [gradeOption, setGradeOption] = useState(intialValue.gradeOption)
+  const [gradeOption, setGradeOption] = useState(intialValue.gradeOption);
   const [checkValue, setCheckValue] = useState(intialValue.checkValue);
   const [minAge, setMinAge] = useState(intialValue.minAge);
   const [maxAge, setMaxAge] = useState(intialValue.maxAge);
@@ -49,9 +49,10 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
     setCheckValue(intialValue.checkValue);
     setTransport(intialValue.transport);
     setBoarding(intialValue.boarding);
+    callAllApi(1);
   };
 
-  const HandleApply = (checkValue) => {
+  const handleApply = (checkValue) => {
     const filterPyaload = {};
     const filter = [];
     if (classId !== null && classId !== '') {
@@ -116,22 +117,22 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
       .then(response => {
         setRowsData(response?.data);
       })
-      .error(error => console.log(error));
+      .catch(error => console.log(error));
   };
 
-  const fetchSchoolAdmissionGradeList =() =>{
+  const fetchSchoolAdmissionGradeList = () => {
     getSchoolAdmissionGradeList()
-    .then(response => {
-      if (response.status === 200) {
-        setGradeOption(response.data)
-      }
-    })
-    .catch(error => console.log(error));
-  }
-  
-  useEffect(()=>{
-    fetchSchoolAdmissionGradeList()
-  },[])
+      .then(response => {
+        if (response.status === 200) {
+          setGradeOption(response.data);
+        }
+      })
+      .catch(error => console.log(error));
+  };
+
+  useEffect(() => {
+    fetchSchoolAdmissionGradeList();
+  }, []);
 
   return (
     <div className='filterpanel'>
@@ -339,7 +340,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
         </Form.Group>
         <Form.Group>
           <div >
-            <button onClick={HandleApply} style={{
+            <button onClick={handleApply} style={{
               backgroundColor: '#41285F',
               color: 'white',
               width: '100%',

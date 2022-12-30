@@ -100,7 +100,7 @@ const HomePage = () => {
                     </Container>
                 </section>
             </Layout>
-            <LoginDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} />
+            <LoginDialog show={true} handleClose={handleCloseLoginDialog} />
         </>
     );
 };

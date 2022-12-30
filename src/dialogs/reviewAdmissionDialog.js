@@ -422,7 +422,7 @@ const ReviewAdmissionDialog = ({
                                       downloadDocument(
                                         childId,
                                         document.documentName,
-                                        studentDetail?.childId
+                                        applicationId
                                       );
                                     }}
                                   >

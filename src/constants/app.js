@@ -78,3 +78,5 @@ export const OPERATORS = {
   BETWEEN: 'BETWEEN',
   LIKE: 'LIKE'
 };
+
+export const MANAGE_USER_PERMISSION = ['READ', 'NONE', 'WRITE'];
