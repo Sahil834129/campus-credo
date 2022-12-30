@@ -1893,16 +1893,19 @@ ul.list-group{
                 &.content{
                   
                   .row-items{
-                    padding: 0 0 16px 0;
-                    display: grid;
-                    grid-template-columns: 1fr auto;
-                    margin: 24px 0;
-                    border-bottom:1px solid rgba(0, 0, 0, 0.08);
+                    
                     &.header{
                       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
                       padding: 16px 0;
                     }
                     &.application-block{
+                      .application-row{
+                        padding: 0 0 16px 0;
+                        display: grid;
+                        grid-template-columns: 1fr auto;
+                        margin: 24px 0;
+                        border-bottom:1px solid rgba(0, 0, 0, 0.08);
+                      }
                       .col-item{
                         
                         .school-info-main{
@@ -2030,6 +2033,8 @@ ul.list-group{
                       padding: 0;
                       display: flex;
                       flex-direction: column;
+                      box-shadow: 2px 11px 58px 0 rgb(0 0 0 / 11%);
+                      &:last-child{margin-bottom: 24px;}
                       .title-wrap{
                         padding: 16px 24px;
                         display: flex;
@@ -2065,13 +2070,20 @@ ul.list-group{
                         display: flex;
                         width: 100%;
                         padding: 16px 24px;
-                        ul.timeline-info-panel{
-                          li{
+                        .timeline-info-panel{
+                          margin: 0;
+                          padding: 0;
+                          width: 100%;
+                          width: 100%;
+                          display: grid;
+                          grid-template-columns: 1fr;
+                          .timeline-row{
                             display: grid;
-                            grid-template-columns: auto auto auto;
+                            grid-template-columns: auto auto 2fr;
                             column-gap: 24px;
                             justify-content: start;
                             align-items: center;
+                            
                             // height: 48px;
                             .date{
                               font-style: normal;
@@ -2103,11 +2115,16 @@ ul.list-group{
                               font-weight: 400;
                               font-size: 14px;
                               line-height: 24px;
+                              display:flex;
+                              flex-direction: row;
+                              justify-content: space-between;
                               .update-info{
-
+                                display: flex;
+                                flex-direction: column;
                               }
                               .instruction{
                                 display: flex;
+                                flex-direction: column;
                                 .items{
                                   display: flex;
                                   flex-direction: row;
