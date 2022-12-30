@@ -34,6 +34,17 @@ export const getSchoolAdmissionGradeList = () => {
   return RESTClient.get(RestEndPoint.SCHOOL_GRADE_LIST);
 };
 
+export const getManagePermissionRoles = () => {
+  return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_ROLES);
+};
+
+export const getManagePermissions = () => {
+  return RESTClient.get(RestEndPoint.MANAGE_PERMISSIONS);
+};
+
+export const getManagePermissionModules = () => {
+  return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
+};
 export const getClassAdmissionSummary = (classId) => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}`);
 };

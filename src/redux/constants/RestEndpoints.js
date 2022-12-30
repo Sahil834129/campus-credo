@@ -58,6 +58,9 @@ const RestEndPoint = {
   APPLICANT_DETAIL: 'admissionApplications',
   ATPI_FOR_CLASS: 'admissionApplications/ATPIForClass/',
   DOWNLOAD_APPLICANT_DETAIL: 'admissionApplications/zip/downloadApplicantDocument',
+  MANAGE_PERMISSION_ROLES:'managePermissions/roles',
+  MANAGE_PERMISSIONS: 'managePermissions/permissions',
+  MANAGE_PERMISSION_MODULES: 'managePermissions/modules',
   APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined'
 };
 
