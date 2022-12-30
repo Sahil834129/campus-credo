@@ -2,8 +2,52 @@ import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import RESTClient from "../../utils/RestClient";
+import { humanize, isEmpty } from "../../utils/helper";
+import { useNavigate } from "react-router-dom";
 
 const ApplicationTimeline = ({ application }) => {
+  const navigate = useNavigate();
+
+  async function acceptApplication() {
+    try {
+      const response = await RESTClient.post(
+        RestEndPoint.PLACE_REGISTRATION_ORDER +
+          "?applicationDataId=" +
+          `${application.applicationId}`
+      );
+      navigate("/paymentCheckout", { state: { data: response.data } });
+    } catch (error) {
+      if (
+        !isEmpty(error) &&
+        !isEmpty(error.response) &&
+        error.response.status == 400
+      ) {
+        if (
+          !isEmpty(error.response.data) &&
+          !isEmpty(error.response.data.apierror) &&
+          !isEmpty(error.response.data.apierror.errorObject) &&
+          !isEmpty(error.response.data.apierror.errorObject.Child)
+        ) {
+          error.response.data.apierror.errorObject.Child.map((val, index) => {
+            toast.error(val);
+          });
+        }
+        if (
+          !isEmpty(error.response.data) &&
+          !isEmpty(error.response.data.apierror) &&
+          !isEmpty(error.response.data.apierror.errorObject) &&
+          !isEmpty(error.response.data.apierror.errorObject.Cart)
+        ) {
+          error.response.data.apierror.errorObject.Cart.map((val, index) => {
+            toast.error(val);
+          });
+        }
+      } else {
+        toast.error(RESTClient.getAPIErrorMessage(error));
+      }
+    }
+  }
+
   async function rejectApplication() {
     try {
       await RESTClient.post(RestEndPoint.UPDATE_APPLICATION_STATUS, {
@@ -11,9 +55,9 @@ const ApplicationTimeline = ({ application }) => {
         childId: application.childId,
         applicationStatus: "DENIED",
       });
-      toast.success('Application status updated successfully.')
+      toast.success("Application status updated successfully.");
     } catch (error) {
-      toast.error(RESTClient.getAPIErrorMessage(error))
+      toast.error(RESTClient.getAPIErrorMessage(error));
     }
   }
 
@@ -148,6 +192,7 @@ const ApplicationTimeline = ({ application }) => {
                   <Button
                     type="button"
                     className="accept-btn btn btn-primary"
+                    onClick={acceptApplication}
                     //onClick={() => navigate("/userProfile")}
                   >
                     ACCEPT
