@@ -518,8 +518,8 @@ const ReviewAdmissionDialog = ({
         </Accordion>
         {childId && (
           <div className="btn-wrapper review-section-btn">
-            <Button className="submit" onClick={() => checkOutApplication()}>
-              Checkout
+            <Button className="submit" onClick={() => placeOrder()}>
+              Place Order
             </Button>
             <Button
               className="edit"
