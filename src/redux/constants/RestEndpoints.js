@@ -48,6 +48,7 @@ const RestEndPoint = {
   SCHOOL_ADMISSION_FEE_SUMMARY: "dashboard/schoolAdmissionFeeSummary",
   RESET_PASSWORD: "user/resetPassword",
   DOWNLOAD_DOCUMENT: "/student/download/document",
+  DOWNLOAD_ADMIN_DOCUMENT: "/admissionApplications/download/document",
   CLASS_ADMISSION_SESSION_DATA: "admission/classAdmissionSessions",
   CLASS_ADMISSION_SUMMARY: "admissionApplications/classAdmissionSummary",
   CLASS_APPLICATION_CLASS: "admissionApplications/classApplicationsByClass",

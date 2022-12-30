@@ -11,7 +11,7 @@ import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
-  downloadDocument,
+  downloadDocument
 } from "../utils/services";
 import GenericDialog from "./GenericDialog";
 import ParentGuardianTab from "./parentGuardianTab";
@@ -456,7 +456,7 @@ const ReviewAdmissionDialog = ({
                                         downloadDocument(
                                           childId,
                                           document.documentName,
-                                          studentDetail?.childId
+                                          applicationId
                                         );
                                       }}
                                     >
@@ -527,7 +527,8 @@ const ReviewAdmissionDialog = ({
                                       onClick={() => {
                                         downloadDocument(
                                           childId,
-                                          document.documentName
+                                          document.documentName,
+                                          applicationId
                                         );
                                       }}
                                     >

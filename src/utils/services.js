@@ -1,6 +1,6 @@
+import { toast } from 'react-toastify';
 import RestEndPoint from '../redux/constants/RestEndpoints';
 import RESTClient from './RestClient';
-import { toast } from 'react-toastify';
 
 export const getClassAdmissionData = (session) => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_DATA + `/${session}`);
@@ -79,8 +79,9 @@ export const updateBulkApplicationStatus = (payload) => {
 };
 
 export const downloadDocument = async (childId, documentName, applicationChildId) => {
+  const baseDownloadURL = applicationChildId ? RestEndPoint.DOWNLOAD_ADMIN_DOCUMENT : RestEndPoint.DOWNLOAD_DOCUMENT
   try {
-    const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_DOCUMENT + '/' + (childId ?? applicationChildId) + '/' + documentName);
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (childId ?? applicationChildId) + '/' + documentName);
     downloadFile(data, documentName);
   } catch (error) {
     toast.error("Error while downloading document." + error);
