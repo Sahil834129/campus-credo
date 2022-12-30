@@ -1,26 +1,31 @@
-import HomePage from './home'
-import AboutUs from './aboutUs'
-import HowItWorks from './howItWorks'
-import AllSchools from './allSchools'
-import ContactUs from './contactUs'
-import FAQ from './faq'
-import TermsOfUse from './terms'
-import PrivacyPolicy from './privacyPolicy'
-import SignUp from './signUp'
-import SignIn from './signIn'
-import VerifyPhone from './verifyPhone'
-import SchoolDetails from './schoolDetails'
-import ApplicationCart from './cartItems'
-import UserProfile from './userProfile'
-import SchoolAdmission from './admissionForm'
-import AdminDashboard from './admin/dashboard'
-import ManageAdmission from './admin/manageAdmission'
-import ManageApplication from './admin/manageApplication'
-import ManageFees from './admin/manageFees'
-import ManageUsers from './admin/manageUsers'
-import ManageProfile from './manageProfile'
-import ManageChild from './manageChild'
-import NotFound from './notFound'
+import AboutUs from "./aboutUs";
+import AdminDashboard from "./admin/dashboard";
+import ManageAdmission from "./admin/manageAdmission";
+import ManageApplication from "./admin/manageApplication";
+import ManageFees from "./admin/manageFees";
+import ManageUsers from "./admin/manageUsers";
+import SchoolAdmission from "./admissionForm";
+import AllSchools from "./allSchools";
+import ApplicationCart from "./cartItems";
+import ContactUs from "./contactUs";
+import FAQ from "./faq";
+import HomePage from "./home";
+import HowItWorks from "./howItWorks";
+import ManageChild from "./manageChild";
+import ManageProfile from "./manageProfile";
+import NotFound from "./notFound";
+import PaymentCheckout from "./paymentCheckout";
+import PrivacyPolicy from "./privacyPolicy";
+import SchoolDetails from "./schoolDetails";
+import SignIn from "./signIn";
+import SignUp from "./signUp";
+import TermsOfUse from "./terms";
+import UserProfile from "./userProfile";
+import VerifyPhone from "./verifyPhone";
+
+import OrderConfirm from "./orderConfirm";
+
+import PaymentFailed from "./paymentFailed";
 
 export {
   HomePage,
@@ -45,5 +50,8 @@ export {
   ManageApplication,
   ManageFees,
   ManageUsers,
-  ManageChild
-}
+  ManageChild,
+  PaymentCheckout,
+  PaymentFailed,
+  OrderConfirm,
+};

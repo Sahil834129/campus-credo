@@ -7,7 +7,7 @@ import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { humanize } from "../utils/helper";
+import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
@@ -127,7 +127,6 @@ const ReviewAdmissionDialog = ({
       setParentDocuments([]);
     }
   }
-
   useEffect(() => {
     console.log(parentDocuments, studentDocuments);
   }, [studentDocuments, parentDocuments]);
@@ -150,8 +149,7 @@ const ReviewAdmissionDialog = ({
       getApplicationDetail(applicationId);
     }
   }, [applicationId]);
-
-  async function checkOutApplication() {
+  async function placeOrder() {
     const isProfileCompleted = studentDetail.profileCompleted ? true : false;
     if (!isProfileCompleted) {
       setAlertMessage(
@@ -162,11 +160,42 @@ const ReviewAdmissionDialog = ({
     }
 
     try {
-      await RESTClient.get(RestEndPoint.APPLICATION_CHECKOUT + `/${childId}`);
+      const response = await RESTClient.post(
+        RestEndPoint.PLACE_CART_ORDER + "?childId=" + `${childId}`
+      );
+
       handleClose();
-      navigate("/userProfile");
+      navigate("/paymentCheckout", { state: { data: response.data } });
     } catch (error) {
-      toast.error(RESTClient.getAPIErrorMessage(error));
+      if (
+        !isEmpty(error) &&
+        !isEmpty(error.response) &&
+        error.response.status == 400
+      ) {
+        if (
+          !isEmpty(error.response.data) &&
+          !isEmpty(error.response.data.apierror) &&
+          !isEmpty(error.response.data.apierror.errorObject) &&
+          !isEmpty(error.response.data.apierror.errorObject.Child)
+        ) {
+          error.response.data.apierror.errorObject.Child.map((val, index) => {
+            toast.error(val);
+          });
+        }
+        if (
+          !isEmpty(error.response.data) &&
+          !isEmpty(error.response.data.apierror) &&
+          !isEmpty(error.response.data.apierror.errorObject) &&
+          !isEmpty(error.response.data.apierror.errorObject.Cart)
+        ) {
+          error.response.data.apierror.errorObject.Cart.map((val, index) => {
+            toast.error(val);
+          });
+        }
+      } else {
+        toast.error(RESTClient.getAPIErrorMessage(error));
+      }
+      handleClose();
     }
   }
 
@@ -183,56 +212,65 @@ const ReviewAdmissionDialog = ({
             <Accordion.Header>Candidate Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Name:</label>
-                  <span className="item-entry">{studentDetail.firstName} {studentDetail.lastName}</span>
+                  <span className="item-entry">
+                    {studentDetail.firstName} {studentDetail.lastName}
+                  </span>
                 </div>
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Gender:</label>
                   <span className="item-entry">{studentDetail.gender}</span>
                 </div>
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <span>DOB:</span>
-                  <span className="item-entry">{studentDetail.dateOfBirth}</span>
+                  <span className="item-entry">
+                    {studentDetail.dateOfBirth}
+                  </span>
                 </div>
               </div>
               <div className="admin-detail-row">
-                
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Religion:</label>
                   <span className="item-entry">{studentDetail.religion}</span>
                 </div>
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Nationality:</label>
-                  <span className="item-entry">{studentDetail.nationality}</span>
+                  <span className="item-entry">
+                    {studentDetail.nationality}
+                  </span>
                 </div>
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Require Tranport:</label>
-                  <span className="item-entry">{studentDetail.tranportFacility ? "Yes" : "No"}</span>
+                  <span className="item-entry">
+                    {studentDetail.tranportFacility ? "Yes" : "No"}
+                  </span>
                 </div>
               </div>
               <div className="admin-detail-row">
-                
                 <div className="admin-detail-cell">
                   <label>Require Boarding </label>
                   <span className="item-entry">
                     {studentDetail.boardingFacility ? "Yes" : "No"}
                   </span>
                 </div>
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Identification Marks:</label>
-                  <span className="item-entry">{studentDetail.identificationMarks}</span>
+                  <span className="item-entry">
+                    {studentDetail.identificationMarks}
+                  </span>
                 </div>
-                
-              
-                
               </div>
               <div className="admin-detail-row onextwo-col">
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Participated in any competitions.:</label>
-                  <span className="item-entry">{studentDetail.competitionCertificate ? studentDetail.competitionCertificate : "NA"}</span>
+                  <span className="item-entry">
+                    {studentDetail.competitionCertificate
+                      ? studentDetail.competitionCertificate
+                      : "NA"}
+                  </span>
                 </div>
-                <div className='admin-detail-cell'>
+                <div className="admin-detail-cell">
                   <label>Address:</label>
                   <span className="item-entry">
                     {studentDetail.addressLine1}, {studentDetail.addressLine2},{" "}
@@ -270,7 +308,6 @@ const ReviewAdmissionDialog = ({
                 </div>
               </div>
               <div className="admin-detail-row onextwo-col">
-                
                 <div className="admin-detail-cell">
                   <label>Medical Conditions </label>
                   <span className="item-entry">
@@ -292,7 +329,6 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
               </div>
-             
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
@@ -321,9 +357,7 @@ const ReviewAdmissionDialog = ({
           <Accordion.Item eventKey="3">
             <Accordion.Header>Background Check</Accordion.Header>
             <Accordion.Body>
-              <div className="admin-detail-row">
-                
-              </div>
+              <div className="admin-detail-row"></div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Any history of violent behaviour:</label>
@@ -404,77 +438,113 @@ const ReviewAdmissionDialog = ({
                   className="tab-header"
                 >
                   <Tab eventKey="student" title="Student">
-                  <div className="document-container">
-                    {studentDocuments.length > 0 ? (
-                      studentDocuments.map((document, index) => {
-                        return (
-                          <div
-                            key={"childDoc_" + index}
-                            className="tab-outer-wrap"
-                          >
-                            <div className="tab-item">
-                              <lable>{humanize(document.documentName)}</lable>
-                              <span className="download-option">
-                                {document.status === "uploaded" && (
-                                  <a
-                                    href="javascript:void(0)"
-                                    onClick={() => {
-                                      downloadDocument(
-                                        childId,
-                                        document.documentName,
-                                        applicationId
-                                      );
-                                    }}
-                                  >
-                                    Download <i className="icons link-icon"></i>
-                                  </a>
-                                )}
-                              </span>
+                    <div className="document-container">
+                      {studentDocuments.length > 0 ? (
+                        studentDocuments.map((document, index) => {
+                          return (
+                            <div
+                              key={"childDoc_" + index}
+                              className="tab-outer-wrap"
+                            >
+                              <div className="tab-item">
+                                <lable>{humanize(document.documentName)}</lable>
+                                <span className="download-option">
+                                  {document.status === "uploaded" && (
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadDocument(
+                                          childId,
+                                          document.documentName,
+                                          applicationId
+                                        );
+                                      }}
+                                    >
+                                      Download{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                  )}
+                                </span>
+                              </div>
                             </div>
-                          
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <NoRecordsFound message="No documents uploaded yet." />
-                    )}
+                          );
+                        })
+                      ) : (
+                        <NoRecordsFound message="No documents uploaded yet." />
+                      )}
+                    </div>
+                    <div className="document-container">
+                      {studentDocuments.length > 0 ? (
+                        studentDocuments.map((document, index) => {
+                          return (
+                            <div
+                              key={"childDoc_" + index}
+                              className="tab-outer-wrap"
+                            >
+                              <div className="tab-item">
+                                <lable>{humanize(document.documentName)}</lable>
+                                <span className="download-option">
+                                  {document.status === "uploaded" && (
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadDocument(
+                                          childId,
+                                          document.documentName,
+                                          applicationId
+                                        );
+                                      }}
+                                    >
+                                      Download{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                  )}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <NoRecordsFound message="No documents uploaded yet." />
+                      )}
                     </div>
                   </Tab>
                   <Tab eventKey="parent1" title="Parent/Guardian">
-                  <div className="document-container">
-                    {parentDocuments.length > 0 ? (
-                      parentDocuments.map((document, index) => {
-                        return (
-                          <div
-                            key={"parentDoc_" + index}
-                            className="tab-outer-wrap"
-                          >
-                            <div className="tab-item">
-                              <label>{humanize(document.documentName)}</label>
-                              <span className="download-option">
-                                {document.status === "uploaded" && (
-                                  <a
-                                    href="javascript:void(0)"
-                                    onClick={() => {
-                                      downloadDocument(
-                                        childId,
-                                        document.documentName
-                                      );
-                                    }}
-                                  >
-                                    {" "}
-                                    Download <i className="icons link-icon"></i>
-                                  </a>
-                                )}
-                              </span>
+                    <div className="document-container">
+                      {parentDocuments.length > 0 ? (
+                        parentDocuments.map((document, index) => {
+                          return (
+                            <div
+                              key={"parentDoc_" + index}
+                              className="tab-outer-wrap"
+                            >
+                              <div className="tab-item">
+                                <label>{humanize(document.documentName)}</label>
+                                <span className="download-option">
+                                  {document.status === "uploaded" && (
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadDocument(
+                                          childId,
+                                          document.documentName,
+                                          applicationId
+                                        );
+                                      }}
+                                    >
+                                      {" "}
+                                      Download{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                  )}
+                                </span>
+                              </div>
                             </div>
-                          
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <NoRecordsFound message="No documents uploaded yet." />
-                    )}
+                          );
+                        })
+                      ) : (
+                        <NoRecordsFound message="No documents uploaded yet." />
+                      )}
                     </div>
                   </Tab>
                 </Tabs>
@@ -484,8 +554,8 @@ const ReviewAdmissionDialog = ({
         </Accordion>
         {childId && (
           <div className="btn-wrapper review-section-btn">
-            <Button className="submit" onClick={() => checkOutApplication()}>
-              Checkout
+            <Button className="submit" onClick={() => placeOrder()}>
+              Place Order
             </Button>
             <Button
               className="edit"

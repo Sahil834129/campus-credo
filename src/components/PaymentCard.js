@@ -12,8 +12,13 @@ const PaymentCard = ({ selectedChild }) => {
     totalFee += parseFloat(cartItem.admissionFormFee);
   });
   let gstAmt = parseFloat((parseFloat(convenienceFee) * 18) / 100).toFixed(2);
-  totalPay =
-    parseFloat(totalFee) + parseFloat(convenienceFee) + parseFloat(gstAmt);
+  
+  if (parseFloat(totalFee) <= 0) {
+    convenienceFee = 0;
+    gstAmt = 0;
+  }
+  
+  totalPay =  parseFloat(totalFee) + parseFloat(convenienceFee) + parseFloat(gstAmt);
 
   const handleShowReviewApplication = () => setShowReviewApplication(true);
   const handleCloseReviewApplicationDialog = () => {
@@ -37,17 +42,17 @@ const PaymentCard = ({ selectedChild }) => {
             <div className="cell left">Platform Fee</div>
             <div className="cell right">
               {" "}
-              ₹{totalFee ? convenienceFee : "NA"}
+              ₹{parseFloat(convenienceFee).toFixed(2)}
             </div>
           </ListGroup.Item>
           <ListGroup.Item>
             <div className="cell left">GST 18%</div>
-            <div className="cell right"> ₹{totalFee ? gstAmt : "NA"}</div>
+            <div className="cell right"> ₹{parseFloat(gstAmt).toFixed(2)}</div>
           </ListGroup.Item>
           <ListGroup.Item className="total">
             <div className="cell left">Total Payment</div>
             <div className="cell right totalpayment">
-              ₹{totalPay.toFixed(2)}
+              ₹{parseFloat(totalPay).toFixed(2)}
             </div>
           </ListGroup.Item>
         </ListGroup>
