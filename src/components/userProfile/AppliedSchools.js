@@ -12,28 +12,30 @@ const AppliedSchools = ({ application }) => {
   return (
     <Col className="right content">
       <div className="row-items application-block">
-        <div className="col-item left">
-          <div className="school-info-main">
-            <div className="info-item school-logo-wrap">
-              <Card.Img
-                className="school-logo"
-                alt={application.schoolName}
-                src={
-                  application.schoolThumbnailImgLink
-                    ? baseURL + application.schoolThumbnailImgLink
-                    : schoolpic01
-                }
-              />
-            </div>
-            <div className="info-item school-info-exerpts">
-              <div className="school-name">{application.schoolName}</div>
-              <ListGroup className="school-type">
-                <ListGroup.Item>{application.board}</ListGroup.Item>
-                <ListGroup.Item>
-                  {application.mediumOfInstruction}
-                </ListGroup.Item>
-                <ListGroup.Item>{application.gender}</ListGroup.Item>
-              </ListGroup>
+        <div className="application-row">
+
+          <div className="col-item left">
+            <div className="school-info-main">
+              <div className="info-item school-logo-wrap">
+                <Card.Img
+                  className="school-logo"
+                  alt={application.schoolName}
+                  src={
+                    application.schoolThumbnailImgLink
+                      ? baseURL + application.schoolThumbnailImgLink
+                      : schoolpic01
+                  }
+                />
+              </div>
+              <div className="info-item school-info-exerpts">
+                <div className="school-name">{application.schoolName}</div>
+                <ListGroup className="school-type">
+                  <ListGroup.Item>{application.board}</ListGroup.Item>
+                  <ListGroup.Item>
+                    {application.mediumOfInstruction}
+                  </ListGroup.Item>
+                  <ListGroup.Item>{application.gender}</ListGroup.Item>
+                </ListGroup>
 
               <div className="moreinfo-block">
                 <div className="col">
@@ -63,7 +65,7 @@ const AppliedSchools = ({ application }) => {
             </Link>
           </div>
         </div>
-
+</div>
         {showTimeline ? <ApplicationTimeline application={application} /> : ""}
       </div>
     </Col>
