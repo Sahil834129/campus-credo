@@ -30,7 +30,7 @@ const ApplicationTimeline = ({ application }) => {
         </div> */}
       </div>
       <div className="timeline-list">
-        <ul className="timeline-info-panel">
+        <div className="timeline-info-panel">
           {/* <li>
             <div className="date">04 Oct 2022</div>
             <div className="indicator">
@@ -130,7 +130,7 @@ const ApplicationTimeline = ({ application }) => {
               </div>
             </div>
           </li> */}
-          <li>
+          <div className="timeline-row">
             <div className="date">06 Oct 2022</div>
             <div className="indicator">
               <span className="indiShape circle"></span>
@@ -164,8 +164,8 @@ const ApplicationTimeline = ({ application }) => {
                 </div>
               </div>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
