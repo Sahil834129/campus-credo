@@ -65,6 +65,7 @@ const RestEndPoint = {
   APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined',
   UPDATE_APPLICATION_STATUS: 'admission/application/updateApplicationStatus',
   CHANGE_USER_PASSWORD: 'managePermissions/changeUserPassword',
+  CONTACT_US: "/user/contactUs",
 };
 
 export default RestEndPoint;
