@@ -27,7 +27,7 @@ export const getApplicationChartStatus = () => {
 };
 
 export const updateUserModulePermissions = (data) => {
-  return RESTClient.put(RestEndPoint.UPDATE_APPLICATION_STATUS, data);
+  return RESTClient.put(RestEndPoint.UPDATE_USER_MODULE_PERMISSION, data);
 };
 
 export const changeUserPassword = (data) => {

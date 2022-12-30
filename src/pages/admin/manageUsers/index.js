@@ -13,7 +13,7 @@ import { MANAGE_USER_PERMISSION } from "../../../constants/app";
 import { humanize } from '../../../utils/helper';
 import { getManagePermissions, getManagePermissionRoles, getManagePermissionModules } from '../../../utils/services';
 import Layout from '../layout';
-import { PasswordDialog } from './passwordDialog';
+import { PasswordDialog } from './passwordChange';
 
 export const ManageUsers = () => {
   const [managePermissionRole, setManagePermissionRole] = useState({});
