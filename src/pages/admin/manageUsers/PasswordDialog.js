@@ -105,8 +105,15 @@ export const PasswordDialog = ({ show, handleClose, usersData, userId }) => {
                 </Form.Group>
               </div>
               <div className='model-body-col'>
-                <Form.Group className="mb-3 button-wrap" style={{ width: '100px', marginLeft: '630px' }}>
-                  <Button type="submit" variant="primary" className='signup-btn' >Confirm</Button>
+                <Form.Group className="fcol btn-container"
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'end'
+                  }}
+                >
+                  <Button variant="primary" className='signup-btn' style={{ width: '20%', marginRight: '10px' }} onClick={handleClose} >Cancel</Button>
+                  <Button type="submit" variant="primary" className='signup-btn' style={{ width: '20%' }} >Confirm</Button>
                 </Form.Group>
               </div>
             </Form>

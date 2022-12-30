@@ -3,6 +3,7 @@
 import { getByDisplayValue } from '@testing-library/dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Spinner } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useFlexLayout } from 'react-table';
@@ -17,6 +18,7 @@ import { PasswordDialog } from './passwordDialog';
 export const ManageUsers = () => {
   const [managePermissionRole, setManagePermissionRole] = useState({});
   const [managePermissions, setManagePermissions] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
   const [rowsData, setRowsData] = useState([]);
   const [tableRowsData, setTableRowsData] = useState([]);
   const [managePermissionModules, setManagePermissionModules] = useState([]);
@@ -151,6 +153,7 @@ export const ManageUsers = () => {
             <Button
               type='button'
               disabled={(e.row.original?.roleUsers?.length || 0) === 0}
+              style={{ backgroundColor: '#41285F' }}
               onClick={() => {
                 setPasswordWindowOpen(true);
                 setCurrentSelectedRole(e.row.original?.roleUsers || []);
@@ -168,6 +171,7 @@ export const ManageUsers = () => {
   };
 
   useEffect(() => {
+    setIsloading(true);
     fetchManagePermissionModules();
     fetchManagePermissions();
     fetchManagePermissionRoles();
@@ -192,6 +196,10 @@ export const ManageUsers = () => {
       });
       setRowsData(JSON.parse(JSON.stringify(row)));
       setTableRowsData(JSON.parse(JSON.stringify(row)));
+      setIsloading(false);
+    } else {
+      setRowsData([]);
+      setTableRowsData([]);
     }
   }, [managePermissionRole, managePermissions]);
 
@@ -199,7 +207,7 @@ export const ManageUsers = () => {
     <>
       <Layout>
         <div className='content-area-inner inner-page-outer'>
-          <div className='internal-page-wrapper'>
+          {!isLoading && <div className='internal-page-wrapper'>
             <div className='inner-content-wrap padt8'>
               <div className='title-area'>
                 <h2>Manage all user credentials</h2>
@@ -226,7 +234,8 @@ export const ManageUsers = () => {
                 />
               </div>
             </div>
-          </div>
+          </div>}
+          {isLoading && <div style={{ margin: '50px auto', width: '100%', textAlign: 'center' }}><Spinner animation="border" /></div>}
         </div>
       </Layout>
       <PasswordDialog
