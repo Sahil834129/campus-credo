@@ -1,9 +1,9 @@
+import MultiRangeSlider from "multi-range-slider-react";
+import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-import MultiRangeSlider from "multi-range-slider-react";
-import { useState, useEffect } from 'react';
-import { getSchoolAdmissionGradeList, applicationfilterData } from '../../../utils/services';
 import { OPERATORS } from '../../../constants/app';
+import { applicationfilterData, getSchoolAdmissionGradeList } from '../../../utils/services';
 
 export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi }) => {
   const intialValue = {
@@ -115,6 +115,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     filterPyaload['filters'] = filter;
     applicationfilterData(filterPyaload)
       .then(response => {
+        window.scrollTo(0, 0);
         setRowsData(response?.data);
       })
       .catch(error => console.log(error));
@@ -208,9 +209,34 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
           </div>
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
-          <Form.Label className='form-label'>Marks/Grades/GPA</Form.Label>
+          <Form.Label className='form-label'>Marks (%)</Form.Label>
           <div className='inner-container'>
-            <div className='options-wrap'>
+            <div className='range-slider-wrapper'>
+              <MultiRangeSlider className='marks-slider'
+                min={0}
+                max={100}
+                step={1}
+                minValue={minMarks}
+                maxValue={maxMarks}
+                ruler='false'
+                label='false'
+                onInput={(e) => {
+                  setMinMarks(e.minValue);
+                  setMaxMarks(e.maxValue);
+                }}
+              />
+            </div>
+            <div className='input-val-wrapper'>
+              <div className='value-cell'>
+                <Form.Label className=''>Min</Form.Label>
+                <Form.Control type='text' value={minMarks} readOnly />
+              </div>
+              <div className='value-cell'>
+                <Form.Label className=''>Max</Form.Label>
+                <Form.Control type='text' value={maxMarks} readOnly />
+              </div>
+            </div>
+            {/* <div className='options-wrap'>
               <Form.Check
                 type='checkbox'
                 label='Marks'
@@ -313,7 +339,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
                   ))}
                 </Form.Select>
               </div>
-            </div>}
+            </div>} */}
           </div>
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
