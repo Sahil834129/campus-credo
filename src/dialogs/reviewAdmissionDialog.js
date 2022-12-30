@@ -161,11 +161,11 @@ const ReviewAdmissionDialog = ({
 
     try {
       const response = await RESTClient.post(
-        RestEndPoint.PLACE_ORDER + "?childId=" + `${childId}`
+        RestEndPoint.PLACE_CART_ORDER + "?childId=" + `${childId}`
       );
 
       handleClose();
-      navigate("/userProfile");
+      navigate("/paymentCheckout", { state: { data: response.data } });
     } catch (error) {
       if (
         !isEmpty(error) &&
@@ -457,6 +457,41 @@ const ReviewAdmissionDialog = ({
                                           childId,
                                           document.documentName,
                                           studentDetail?.childId
+                                        );
+                                      }}
+                                    >
+                                      Download{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                  )}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <NoRecordsFound message="No documents uploaded yet." />
+                      )}
+                    </div>
+                    <div className="document-container">
+                      {studentDocuments.length > 0 ? (
+                        studentDocuments.map((document, index) => {
+                          return (
+                            <div
+                              key={"childDoc_" + index}
+                              className="tab-outer-wrap"
+                            >
+                              <div className="tab-item">
+                                <lable>{humanize(document.documentName)}</lable>
+                                <span className="download-option">
+                                  {document.status === "uploaded" && (
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadDocument(
+                                          childId,
+                                          document.documentName,
+                                          applicationId
                                         );
                                       }}
                                     >

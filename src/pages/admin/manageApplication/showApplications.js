@@ -119,11 +119,13 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
               </Dropdown.Menu>
             </Dropdown>}
           </>
-        );
+        );  
       })
     }
   ];
 
+ 
+  
   return (
     <div className='inner-content-wrap'>
       <div className='table-wrapper'>

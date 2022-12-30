@@ -1,28 +1,28 @@
+import MultiRangeSlider from "multi-range-slider-react";
+import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
-import MultiRangeSlider from "multi-range-slider-react";
-import { useState, useEffect } from 'react';
-import { getSchoolAdmissionGradeList, applicationfilterData } from '../../../utils/services';
 import { OPERATORS } from '../../../constants/app';
+import { applicationfilterData, getSchoolAdmissionGradeList } from '../../../utils/services';
 
-export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData }) => {
-  const intialValue ={
-    grade:'',
+export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi }) => {
+  const intialValue = {
+    grade: '',
     gradeOption: null,
     checkValue: 1,
-    minAge:0,
-    maxAge:30,
-    minIncome:0,
-    maxIncome:2000000,
-    minMarks:0,
-    maxMarks:100,
+    minAge: 0,
+    maxAge: 30,
+    minIncome: 0,
+    maxIncome: 2000000,
+    minMarks: 0,
+    maxMarks: 100,
     minGpa: 0,
     maxGpa: 10,
-    transport:'',
-    boarding:''
-  }
+    transport: '',
+    boarding: ''
+  };
   const [grade, setGrade] = useState(intialValue.grade);
-  const [gradeOption, setGradeOption] = useState(intialValue.gradeOption)
+  const [gradeOption, setGradeOption] = useState(intialValue.gradeOption);
   const [checkValue, setCheckValue] = useState(intialValue.checkValue);
   const [minAge, setMinAge] = useState(intialValue.minAge);
   const [maxAge, setMaxAge] = useState(intialValue.maxAge);
@@ -49,9 +49,10 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
     setCheckValue(intialValue.checkValue);
     setTransport(intialValue.transport);
     setBoarding(intialValue.boarding);
+    callAllApi(1);
   };
 
-  const HandleApply = (checkValue) => {
+  const handleApply = (checkValue) => {
     const filterPyaload = {};
     const filter = [];
     if (classId !== null && classId !== '') {
@@ -114,24 +115,25 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
     filterPyaload['filters'] = filter;
     applicationfilterData(filterPyaload)
       .then(response => {
+        window.scrollTo(0, 0);
         setRowsData(response?.data);
       })
-      .error(error => console.log(error));
+      .catch(error => console.log(error));
   };
 
-  const fetchSchoolAdmissionGradeList =() =>{
+  const fetchSchoolAdmissionGradeList = () => {
     getSchoolAdmissionGradeList()
-    .then(response => {
-      if (response.status === 200) {
-        setGradeOption(response.data)
-      }
-    })
-    .catch(error => console.log(error));
-  }
-  
-  useEffect(()=>{
-    fetchSchoolAdmissionGradeList()
-  },[])
+      .then(response => {
+        if (response.status === 200) {
+          setGradeOption(response.data);
+        }
+      })
+      .catch(error => console.log(error));
+  };
+
+  useEffect(() => {
+    fetchSchoolAdmissionGradeList();
+  }, []);
 
   return (
     <div className='filterpanel'>
@@ -207,9 +209,34 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
           </div>
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
-          <Form.Label className='form-label'>Marks/Grades/GPA</Form.Label>
+          <Form.Label className='form-label'>Marks (%)</Form.Label>
           <div className='inner-container'>
-            <div className='options-wrap'>
+            <div className='range-slider-wrapper'>
+              <MultiRangeSlider className='marks-slider'
+                min={0}
+                max={100}
+                step={1}
+                minValue={minMarks}
+                maxValue={maxMarks}
+                ruler='false'
+                label='false'
+                onInput={(e) => {
+                  setMinMarks(e.minValue);
+                  setMaxMarks(e.maxValue);
+                }}
+              />
+            </div>
+            <div className='input-val-wrapper'>
+              <div className='value-cell'>
+                <Form.Label className=''>Min</Form.Label>
+                <Form.Control type='text' value={minMarks} readOnly />
+              </div>
+              <div className='value-cell'>
+                <Form.Label className=''>Max</Form.Label>
+                <Form.Control type='text' value={maxMarks} readOnly />
+              </div>
+            </div>
+            {/* <div className='options-wrap'>
               <Form.Check
                 type='checkbox'
                 label='Marks'
@@ -312,7 +339,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
                   ))}
                 </Form.Select>
               </div>
-            </div>}
+            </div>} */}
           </div>
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
@@ -339,7 +366,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData 
         </Form.Group>
         <Form.Group>
           <div >
-            <button onClick={HandleApply} style={{
+            <button onClick={handleApply} style={{
               backgroundColor: '#41285F',
               color: 'white',
               width: '100%',

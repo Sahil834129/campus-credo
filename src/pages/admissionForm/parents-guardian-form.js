@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
-import '../../assets/scss/custom-styles.scss';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import TextField from '../../components/form/TextField';
-import { toast } from 'react-toastify';
-import { GENDER_OPTOPNS } from '../../constants/formContanst';
 import DatePicker from 'react-datepicker';
-import RestEndPoint from '../../redux/constants/RestEndpoints';
-import RESTClient from '../../utils/RestClient';
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import '../../assets/scss/custom-styles.scss';
 import RadioButton from '../../components/form/RadioButton';
 import SelectField from '../../components/form/SelectField';
-import { useDispatch, useSelector } from 'react-redux';
-import { getParentOCcupation } from '../../redux/actions/masterData';
+import TextField from '../../components/form/TextField';
+import { GENDER_OPTOPNS } from '../../constants/formContanst';
 import { StudentParentGuardianSchema } from '../../data/validationSchema';
-import { populateCities } from '../../utils/populateOptions';
+import { getParentOCcupation } from '../../redux/actions/masterData';
+import RestEndPoint from '../../redux/constants/RestEndpoints';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
 import { getAge, getGuadianMaxDateOfBirth, getStudentAge } from '../../utils/helper';
+import { populateCities } from '../../utils/populateOptions';
+import RESTClient from '../../utils/RestClient';
 
 export default function ParentsGuardianForm({
   currentStudent,
@@ -182,7 +181,7 @@ export default function ParentsGuardianForm({
   }
 
   return (
-    <Form className='row g-3' onSubmit={e => saveData(e, values)}>
+    <Form className='row g-3' noValidate onSubmit={e => saveData(e, values)}>
       <div className='tab_btn'>
         <div className='tab-content'>
           <div className='tab-pane active' id='demo1'>
@@ -192,7 +191,7 @@ export default function ParentsGuardianForm({
                   fieldName='firstName'
                   label='First Name'
                   value={values.firstName}
-                  //required
+                  required
                   fieldType='text'
                   placeholder='Please add details...'
                   errors={validationErrors}
@@ -206,7 +205,7 @@ export default function ParentsGuardianForm({
                   fieldName='lastName'
                   label='Last Name'
                   value={values.lastName}
-                  //required
+                  required
                   fieldType='text'
                   placeholder='Please add details...'
                   errors={validationErrors}
@@ -341,7 +340,7 @@ export default function ParentsGuardianForm({
                   onChange={e => {
                     setFieldValue('otherNationality', e.target.value);
                   }}
-                  //required={values.nationality === 'Indian'}
+                  required={values.nationality !== 'Indian'}
                   placeholder='Please add details...'
                   disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
                 />
@@ -450,7 +449,7 @@ export default function ParentsGuardianForm({
                 <SelectField
                   fieldName='qualification'
                   label='Qualitfication'
-                  //required
+                  required
                   selectOptions={Options}
                   value={values.qualification}
                   onChange={e => {
@@ -462,7 +461,7 @@ export default function ParentsGuardianForm({
                 <SelectField
                   fieldName='occupation'
                   label='Occupation'
-                  //required
+                  required
                   selectOptions={occupation}
                   value={values.occupation}
                   onChange={e => {
@@ -485,7 +484,7 @@ export default function ParentsGuardianForm({
                   onChange={e => {
                     setFieldValue('annualFamilyIncome', e.target.value);
                   }}
-                  //required
+                  required
                   placeholder='Please add details...'
                 />
               </div>
@@ -504,11 +503,6 @@ export default function ParentsGuardianForm({
                       fieldName='isAddressSameAsStudent'
                       currentValue={values.isAddressSameAsStudent}
                       onChange={e => {
-                        setFieldValue('addressLine1', currentStudent.addressLine1)
-                        setFieldValue('addressLine2', currentStudent.addressLine2)
-                        setFieldValue('state', currentStudent.state)
-                        setFieldValue('pincode', currentStudent.pincode)
-                        setFieldValue('city', currentStudent.city)
                         setFieldValue('isAddressSameAsStudent', 'Yes');
                       }}
                     />
@@ -534,7 +528,7 @@ export default function ParentsGuardianForm({
                       <div className='col-md-6'>
                         <TextField
                           fieldName='addressLine1'
-                          //required={values.isAddressSameAsStudent === 'No'}
+                          required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           label='House No., Block No.'
                           value={values.addressLine1}
@@ -546,7 +540,7 @@ export default function ParentsGuardianForm({
                       <div className='col-md-6'>
                         <TextField
                           fieldName='addressLine2'
-                          //required={values.isAddressSameAsStudent === 'No'}
+                          required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           label='Area or Locality'
                           value={values.addressLine2}
@@ -559,7 +553,7 @@ export default function ParentsGuardianForm({
                         <TextField
                           fieldName='pincode'
                           label='Pincode'
-                          //required={values.isAddressSameAsStudent === 'No'}
+                          required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           value={values.pincode}
                           maxLength='6'
@@ -572,7 +566,7 @@ export default function ParentsGuardianForm({
                         <SelectField
                           fieldName='state'
                           label='Select State'
-                          //required={values.isAddressSameAsStudent === 'No'}
+                          required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           selectOptions={states}
                           value={values.state}
@@ -586,7 +580,7 @@ export default function ParentsGuardianForm({
                         <SelectField
                           fieldName='city'
                           label='Select City'
-                          //required={values.isAddressSameAsStudent === 'No'}
+                          required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           selectOptions={city}
                           value={values.city}

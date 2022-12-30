@@ -60,9 +60,17 @@ const RestEndPoint = {
   ATPI_FOR_CLASS: "admissionApplications/ATPIForClass/",
   DOWNLOAD_APPLICANT_DETAIL:
     "admissionApplications/zip/downloadApplicantDocument",
+  MANAGE_PERMISSION_ROLES: "managePermissions/roles",
+  MANAGE_PERMISSIONS: "managePermissions/permissions",
+  MANAGE_PERMISSION_MODULES: "managePermissions/modules",
+  UPDATE_USER_MODULE_PERMISSION:
+    "managePermissions/updateUserModulePermissions",
   APPLICATION_CHART_STATUS:
     "admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined",
-  PLACE_ORDER: "payment/placeOrder",
+  UPDATE_APPLICATION_STATUS: "admission/application/updateApplicationStatus",
+  CHANGE_USER_PASSWORD: "managePermissions/changeUserPassword",
+  PLACE_CART_ORDER: "payment/placeOrder",
+  PLACE_REGISTRATION_ORDER: "payment/payRegistrationFee",
 };
 
 export default RestEndPoint;

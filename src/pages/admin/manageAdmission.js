@@ -48,7 +48,6 @@ export const ManageAdmission = () => {
   };
 
   const fetchClassAdmissionData = (session) => {
-    console.log('Admission Year', session);
     getClassAdmissionData(session)
       .then(response => {
         if (response.status === 200) {
@@ -65,7 +64,6 @@ export const ManageAdmission = () => {
             val.registrationFee = val?.registrationFee || null;
             return val;
           });
-          console.log(data);
           setFormData(data);
         }
       })

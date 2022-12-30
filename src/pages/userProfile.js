@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from "react";
-import Breadcrumbs from '../common/Breadcrumbs';
-import Row from 'react-bootstrap/Row';
+import React, { useEffect, useState } from "react";
 import Col from 'react-bootstrap/Col';
-import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Breadcrumbs from '../common/Breadcrumbs';
 import Layout from "../common/layout";
-import AppliedSchools from "../components/userProfile/AppliedSchools";
 import LeftMenuBar from "../common/LeftMenuBar";
-import PageContent from "../resources/pageContent";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import RESTClient from "../utils/RestClient";
-import { useSelector, useDispatch } from "react-redux";
-import { getChildsList } from '../redux/actions/childAction';
-import { isLoggedIn } from '../utils/helper';
 import NoRecordsFound from "../common/NoRecordsFound";
+import AppliedSchools from "../components/userProfile/AppliedSchools";
+import { getChildsList } from '../redux/actions/childAction';
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import PageContent from "../resources/pageContent";
+import { isLoggedIn } from '../utils/helper';
+import RESTClient from "../utils/RestClient";
 
 const UserProfile = () => {
   const dispatch = useDispatch()

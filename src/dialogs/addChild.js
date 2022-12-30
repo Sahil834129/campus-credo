@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form } from 'formik';
-import InputField from '../components/form/InputField';
+import { Form, Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import InputField from '../components/form/InputField';
+import { GENDER_OPTOPNS } from '../constants/formContanst';
 import { AddChildSchema } from '../data/validationSchema';
 import { getChildsList } from '../redux/actions/childAction';
-import { GENDER_OPTOPNS } from '../constants/formContanst';
-import RESTClient from '../utils/RestClient';
 import RestEndPoint from '../redux/constants/RestEndpoints';
-import GenericDialog from './GenericDialog';
-import { getStudentMaxDateOfBirth } from '../utils/helper';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../utils/DateUtil';
+import { getStudentMaxDateOfBirth } from '../utils/helper';
+import RESTClient from '../utils/RestClient';
+import GenericDialog from './GenericDialog';
 
 const AddChildDialog = (props) => {
   const dispatch = useDispatch();
@@ -116,7 +116,7 @@ const AddChildDialog = (props) => {
                       className='form-control'
                       name='dateOfBirth'
                       onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
-                      maxDate={getStudentMaxDateOfBirth()}
+                      //maxDate={getStudentMaxDateOfBirth()}
                       dropdownMode="select"
                       showMonthDropdown
                       showYearDropdown

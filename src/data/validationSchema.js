@@ -11,7 +11,7 @@ export const SignUpSchema = Yup.object().shape({
     .required("Required *"),
   lastName: Yup.string()
     .min(2, "Value is too short.")
-    .max(13, "Value is too long.")
+    .max(30, "Value is too long.")
     .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
     .required("Required *"),
   email: Yup.string().email("Invalid email").required("Required *"),
@@ -218,7 +218,12 @@ export const StudentDetailsSchema = Yup.object().shape({
       }),
   }),
   addressLine1: Yup.string().required("Required *"),
-  familyIncome: Yup.string().required("Required *"),
+  familyIncome: Yup.string()
+    .required("Required *")
+    .matches(/^[0-9]+$/, {
+      message: "Please enter valid income.",
+      excludeEmptyString: false,
+    }),
   //addressLine2: Yup.string().required("Required *"),
   pincode: Yup.string()
     .required("Required *")
@@ -265,7 +270,23 @@ export const StudentBackgroundCheckSchema = Yup.object().shape({
     then: Yup.string().required("Required *"),
   }),
 });
-
+export const ContactInfoSchema = Yup.object().shape({
+  fullName: Yup.string().required("Required *"),
+  email: Yup.string().email("Invalid email").required("Required *"),
+  phone: Yup.string()
+    .matches(/^[6-9]\d{9}$/gi, {
+      message: "Please enter valid number.",
+      excludeEmptyString: false,
+    })
+    .max(10)
+    .required("Required *"),
+  category: Yup.string().required("Required *"),
+  otherCategory: Yup.string().when("category", {
+    is: (val) => val && val === "other",
+    then: Yup.string().required("Required*"),
+  }),
+  message: Yup.string().required("Required *"),
+});
 export const StudentParentGuardianSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, "Value is too short.")
@@ -287,8 +308,11 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   occupation: Yup.string().required("Required *"),
   dateOfBirth: Yup.string().required("Required *"),
   annualFamilyIncome: Yup.string()
-    .matches(/^[0-9]+$/, { message: "Please Enter only numeric value." })
-    .required("Required *"),
+    .required("Required *")
+    .matches(/^[0-9]+$/, {
+      message: "Please enter valid income.",
+      excludeEmptyString: false,
+    }),
   addressLine1: Yup.string().when("isAddressSameAsStudent", {
     is: (val) => val && val === "No",
     then: Yup.string().required("Required *"),

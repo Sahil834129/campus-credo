@@ -102,11 +102,14 @@ export const ManageApplication = () => {
       fetchSchoolClassesData(schoolId);
   }, [schoolId]);
 
+  const callAllApi = (classId) => {
+    fetchClassAdmissionSummary(classId);
+    fetchClassApplication(classId);
+    fetchAtPiForClass(classId);
+  };
   useEffect(() => {
     if (classId) {
-      fetchClassAdmissionSummary(classId);
-      fetchClassApplication(classId);
-      fetchAtPiForClass(classId);
+      callAllApi(classId);
     }
   }, [classId]);
 
@@ -117,7 +120,7 @@ export const ManageApplication = () => {
   }, [apiError]);
 
   return (
-    <Layout admissionSummary={admissionData?.upperSchoolAdmissionSummary}>
+    <Layout admissionSummary={admissionData?.upperClassAdmissionSummary}>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
           <FilterApp
@@ -125,6 +128,7 @@ export const ManageApplication = () => {
             classId={classId}
             setClassId={setClassId}
             setRowsData={setRowsData}
+            callAllApi={callAllApi}
           />
           {!isLoading && <ShowApplications
             setApplicationStatus={setApplicationStatus}
