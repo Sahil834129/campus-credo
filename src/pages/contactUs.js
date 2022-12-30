@@ -29,7 +29,7 @@ const ContactUs = () => {
     setSubmitting(true);
     delete formData.initalValue;
     console.log(formData, "----------");
-    RESTClient.post(RestEndPoint.CONTACT_US, formData)
+    RESTClient.post(RestEndPoint.Contact_US, formData)
       .then((response) => {
         setSubmitting(false);
       })
@@ -161,10 +161,11 @@ const ContactUs = () => {
                       </div>
                     </div>
                     <div className="fld-row button-wrap">
+                      <button type="button" class="reset btn-primary">Reset</button>
                       <Button
                           className="submit-btn"
                           type="submit"
-                          buttonLabel="Submit Response"
+                          buttonLabel="Submit"
                           submitting={submitting}
                         />
                     </div>
