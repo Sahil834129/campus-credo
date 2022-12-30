@@ -54,7 +54,9 @@ const ContactUs = () => {
             </Col>
           </Row>
           <Row className="content-section about-content-main">
-            <section className="section-wrapper ">
+            
+            <section className="contact-section-wrapper">
+            <h6 class="student-heading">Please add your contact details below</h6>
               <Formik
                 initialValues={{ initalValue }}
                 // validationSchema={ContactInfoSchema}
@@ -64,101 +66,109 @@ const ContactUs = () => {
                 }}
               >
                 {({ errors, touched, onBlur }) => (
-                  <Form className="">
-                    <label className="">
-                      First Name <span className="text-danger">*</span>
-                    </label>
-                    <div className="frm-cell">
-                      <InputField
-                        fieldName="fullName"
-                        fieldType="text"
-                        placeholder="Full Name"
-                        errors={errors}
-                        touched={touched}
-                      />
+                  <Form className="application-form-wrap">
+                    <div className="fld-row">
+                      <div className="fld-cell">
+                        <label className="">
+                          Full Name <span className="text-danger">*</span>
+                        </label>
+                        <InputField
+                          fieldName="fullName"
+                          fieldType="text"
+                          placeholder="Full Name"
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>
+                      <div className="fld-cell">
+                        <label className="">
+                          Email Address <span className="text-danger">*</span>
+                        </label>
+                      
+                          <InputField
+                            fieldName="email"
+                            fieldType="text"
+                            placeholder="Email Address"
+                            errors={errors}
+                            touched={touched}
+                          />
+                      </div>
                     </div>
-                    <label className="">
-                      Email Address <span className="text-danger">*</span>
-                    </label>
-                    <div className="frm-cell">
-                      <InputField
-                        fieldName="email"
-                        fieldType="text"
-                        placeholder="Email Address"
-                        errors={errors}
-                        touched={touched}
-                      />
+
+                    <div className="fld-row">
+                      <div className="frm-cell">
+                        <label className="">Phone Number<span className="text-danger">*</span></label>
+                        <InputField
+                          fieldName="phone"
+                          fieldType="text"
+                          placeholder="Phone Number"
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>{" "}
+                      <div className="frm-cell">
+                        <label className="">Select Category <span className="text-danger">*</span></label>
+                        <InputField
+                          fieldName="category"
+                          fieldType="select"
+                          placeholder=""
+                          selectOptions={CATEGORY_OPTIONS_CONTACT_FORM}
+                          errors={errors}
+                          touched={touched}
+                          onChange={(e) => handleOther(e.target.value)}
+                        />
+                      </div>{" "}
                     </div>
-                    <label className="">
-                      Phone Number<span className="text-danger">*</span>
-                    </label>
-                    <div className="frm-cell">
-                      <InputField
-                        fieldName="phone"
-                        fieldType="text"
-                        placeholder="Phone Number"
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>{" "}
-                    <label className="">
-                      Select Category <span className="text-danger">*</span>
-                    </label>
-                    <div className="frm-cell">
-                      <InputField
-                        fieldName="category"
-                        fieldType="select"
-                        placeholder=""
-                        selectOptions={CATEGORY_OPTIONS_CONTACT_FORM}
-                        errors={errors}
-                        touched={touched}
-                        onChange={(e) => handleOther(e.target.value)}
-                      />
-                    </div>{" "}
-                    <div className="fld-cell identification-mark-cell">
-                      <label className="form-label">
-                        If other, please specify
-                        {otherCategoryText === "Others" ? (
-                          <span className="req">*</span>
+
+                    <div className="fld-row">
+                      <div className="fld-cell identification-mark-cell">
+                        <label className="form-label">If other, please specify
+                          {otherCategoryText === "Others" ? (
+                            <span className="req">*</span>
+                          ) : (
+                            ""
+                          )}
+                        </label>
+                        <InputField
+                          fieldName="otherCategory"
+                          fieldType="text"
+                          disabled={otherCategoryText !== "Others"}
+                          placeholder="Please Specify"
+                          errors={errors}
+                          touched={touched}
+                        />
+                        {validationErrors.hasOwnProperty("otherCategory") ? (
+                          <div className="error-exception">
+                            {validationErrors.otherCategory}
+                          </div>
                         ) : (
                           ""
                         )}
-                      </label>
-                      <InputField
-                        fieldName="otherCategory"
-                        fieldType="text"
-                        disabled={otherCategoryText !== "Others"}
-                        placeholder="Please Specify"
-                        errors={errors}
-                        touched={touched}
-                      />
-                      {validationErrors.hasOwnProperty("otherCategory") ? (
-                        <div className="error-exception">
-                          {validationErrors.otherCategory}
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                      </div>
+
                     </div>
-                    <label className="">
-                      Leave a Message<span className="text-danger">*</span>
-                    </label>
-                    <div className="frm-cell">
-                      <InputField
-                        fieldName="message"
-                        fieldType="text"
-                        placeholder="type here"
-                        errors={errors}
-                        touched={touched}
-                      />
+                    <div className="fld-row">
+                      <div className="frm-cell">
+                        <label className="">Leave a Message<span className="text-danger">*</span></label>
+                      
+                        <InputField
+                          fieldName="message"
+                          fieldType="text"
+                          placeholder="type here"
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>
                     </div>
-                    <div className="">
+                    <div className="fld-row button-wrap">
                       <Button
-                        type="submit"
-                        buttonLabel="Submit the Response"
-                        submitting={submitting}
-                      />
+                          className="submit-btn"
+                          type="submit"
+                          buttonLabel="Submit Response"
+                          submitting={submitting}
+                        />
                     </div>
+                 
                   </Form>
                 )}
               </Formik>
