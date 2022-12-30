@@ -789,7 +789,6 @@ export default function StudentDetails({
           onChange={(e) => {
             setFieldValue("familyIncome", e.target.value);
           }}
-          required
           placeholder="Please add details..."
         />
       </div>

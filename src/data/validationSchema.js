@@ -218,7 +218,12 @@ export const StudentDetailsSchema = Yup.object().shape({
       }),
   }),
   addressLine1: Yup.string().required("Required *"),
-  familyIncome: Yup.string().required("Required *"),
+  familyIncome: Yup.string()
+    .required("Required *")
+    .matches(/^[0-9]+$/, {
+      message: "Please enter valid income.",
+      excludeEmptyString: false,
+    }),
   //addressLine2: Yup.string().required("Required *"),
   pincode: Yup.string()
     .required("Required *")
@@ -303,8 +308,11 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   occupation: Yup.string().required("Required *"),
   dateOfBirth: Yup.string().required("Required *"),
   annualFamilyIncome: Yup.string()
-    .matches(/^[0-9]+$/, { message: "Please Enter only numeric value." })
-    .required("Required *"),
+    .required("Required *")
+    .matches(/^[0-9]+$/, {
+      message: "Please enter valid income.",
+      excludeEmptyString: false,
+    }),
   addressLine1: Yup.string().when("isAddressSameAsStudent", {
     is: (val) => val && val === "No",
     then: Yup.string().required("Required *"),

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
 import AlertDialog from "../common/AlertDialog";
 import ApplyToSchoolDialog from "../dialogs/applyToSchoolDialog";
+import LoginDialog from "../dialogs/loginDialog";
+import PageContent from "../resources/pageContent";
 import { isLoggedIn } from "../utils/helper";
 import InfoDropDown from "./InfoDropDown";
-import PageContent from "../resources/pageContent";
 import SchoolCardHeader from "./SchoolCardHeader";
-import LoginDialog from "../dialogs/loginDialog";
 
 const SchoolCard = (props) => {
     const navigate = useNavigate()
@@ -106,7 +106,7 @@ const SchoolCard = (props) => {
                             let fIcon = PageContent.FACILITY_ICON_MAP.hasOwnProperty(item.facilityName) ? PageContent.FACILITY_ICON_MAP[item.facilityName] : null;
                             if (index < 4) {
                                 return (
-                                    <ListGroup.Item key={item.facilityMasterId}><i className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i></ListGroup.Item>
+                                    <ListGroup.Item key={item.facilityMasterId}><i title={item.facilityName} className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i></ListGroup.Item>
                                 )
                             }
                         })
