@@ -59,7 +59,7 @@ const AppliedSchools = ({ application }) => {
           </div>
           <div className="col">
             <Link onClick={() => setShowTimeline((val) => !val)}>
-              View Status timeline <i className="icons arrowdown-icon"></i>
+              View Status timeline <i className={'icons ' +  (showTimeline ? 'arrowdown-icon' : 'arrowright-icon')}></i>
             </Link>
           </div>
         </div>

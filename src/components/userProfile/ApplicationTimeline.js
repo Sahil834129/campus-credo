@@ -1,5 +1,4 @@
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import RESTClient from "../../utils/RestClient";
@@ -24,11 +23,11 @@ const ApplicationTimeline = ({ application }) => {
         <div className="col">
           <h2>Application Status Timeline</h2>
         </div>
-        <div className="col right">
+        {/* <div className="col right">
           <Link>
             View your form details <i className="icons arrowright-icon"></i>
           </Link>
-        </div>
+        </div> */}
       </div>
       <div className="timeline-list">
         <ul className="timeline-info-panel">
