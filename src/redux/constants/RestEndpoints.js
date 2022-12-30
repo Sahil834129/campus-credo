@@ -69,6 +69,7 @@ const RestEndPoint = {
     "admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined",
   UPDATE_APPLICATION_STATUS: "admission/application/updateApplicationStatus",
   CHANGE_USER_PASSWORD: "managePermissions/changeUserPassword",
+  CONTACT_US: "/user/contactUs",
   PLACE_CART_ORDER: "payment/placeOrder",
   PLACE_REGISTRATION_ORDER: "payment/payRegistrationFee",
 };

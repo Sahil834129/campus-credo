@@ -29,7 +29,7 @@ const ContactUs = () => {
     setSubmitting(true);
     delete formData.initalValue;
     console.log(formData, "----------");
-    RESTClient.post(RestEndPoint.Contact_US, formData)
+    RESTClient.post(RestEndPoint.CONTACT_US, formData)
       .then((response) => {
         setSubmitting(false);
       })
