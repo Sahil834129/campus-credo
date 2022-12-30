@@ -58,7 +58,8 @@ const RestEndPoint = {
   APPLICANT_DETAIL: 'admissionApplications',
   ATPI_FOR_CLASS: 'admissionApplications/ATPIForClass/',
   DOWNLOAD_APPLICANT_DETAIL: 'admissionApplications/zip/downloadApplicantDocument',
-  APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined'
+  APPLICATION_CHART_STATUS: 'admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined',
+  UPDATE_APPLICATION_STATUS: 'admission/application/updateApplicationStatus',
 };
 
 export default RestEndPoint;

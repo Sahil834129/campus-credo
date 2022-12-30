@@ -11,7 +11,6 @@ import InputField from "../components/form/InputField";
 import { CATEGORY_OPTIONS_CONTACT_FORM } from "../constants/formContanst";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
-// import { ContactInfoSchema } from "../data/validationSchema";
 
 const initalValue = {
   fullName: "",
