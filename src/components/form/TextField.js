@@ -5,11 +5,11 @@ const TextField = props => {
   const errors = props.errors
   return (
     <>
-      <label htmlFor={props.fieldName} className='form-label'>
+      <label htmlFor={props.fieldName} className='lbl'>
         {props.label}
         {props.required ? <span className='req'>*</span> : ''}
       </label>
-      <Form.Group className='mb-3' controlId=''>
+      <Form.Group className='fld-wrap' controlId=''>
         <Form.Control
           type={props.fieldType || 'text'}
           name={props.fieldName}
@@ -23,7 +23,7 @@ const TextField = props => {
           {...(props.min ? { min: props.min } : {})}
         />
         {
-          errors && errors.hasOwnProperty(props.fieldName) ? <div className='error-exception mt-2'>{errors[props.fieldName]}</div> : ''
+          errors && errors.hasOwnProperty(props.fieldName) ? <div className='error-exception'>{errors[props.fieldName]}</div> : ''
         }
       </Form.Group>
     </>
