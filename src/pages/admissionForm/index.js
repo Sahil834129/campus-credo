@@ -6,7 +6,7 @@ import {
   Col,
   Container,
   Form as BootStrapForm,
-  Row,
+  Row
 } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import Breadcrumbs from "../../common/Breadcrumbs";
@@ -192,13 +192,13 @@ export const AdmissionForms = () => {
               <Breadcrumbs />
               {showStudentList && (
                 <div className="page-container border-bottom d-flex justify-content-between pb-2 pt-2">
-                  <div className="row-wrapper ">
-                    <span className="selectbox">
-                      <label>
+                  <div className="row-wrapper">
+                    <span className="cell-row">
+                      <label className="lbl">
                         Select Child <span className="req">*</span>
                       </label>
                       <div className="frm-cell">
-                        <BootStrapForm.Group className="frm-cell">
+                        <BootStrapForm.Group className="">
                           <BootStrapForm.Select
                             name="selectedChildId"
                             disabled={step > 1}

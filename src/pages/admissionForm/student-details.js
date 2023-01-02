@@ -15,7 +15,7 @@ import {
   GENDER_OPTOPNS,
   MARKING_SCHEME,
   NATIONALITY_OPTIONS,
-  RELIGION_OPTIONS,
+  RELIGION_OPTIONS
 } from "../../constants/formContanst";
 import { StudentDetailsSchema } from "../../data/validationSchema";
 import { getSchoolClasses, getStates } from "../../redux/actions/masterData";
@@ -23,7 +23,7 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 import {
   getClassBasedOnAge,
   getStudentAge,
-  str2bool,
+  str2bool
 } from "../../utils/helper";
 import { populateCities } from "../../utils/populateOptions";
 import RESTClient from "../../utils/RestClient";
@@ -226,23 +226,21 @@ export default function StudentDetails({
     >
       <div className="fld-row">
         <div className="fld-cell">
-          <label>First Name</label>
           <TextField
             fieldName="firstName"
             disabled
             value={selectedChild.firstName}
-            //label='First Name'
+            label='First Name'
             placeholder="First Name"
             errors={validationErrors}
           />
         </div>
         <div className="fld-cell">
-          <label>Last Name</label>
           <TextField
             fieldName="lastName"
             disabled
             value={selectedChild.lastName}
-            //label='Last Name'
+            label='Last Name'
             placeholder="Last Name"
             errors={validationErrors}
           />
@@ -250,12 +248,12 @@ export default function StudentDetails({
       </div>
       <div className="fld-row">
         <div className="fld-cell">
-          <label>Date of Birth</label>
+          {/* <label>Date of Birth</label> */}
           <TextField
             fieldName="dateOfBirth"
             disabled
             value={selectedChild.dateOfBirth}
-            //label='Date of Birth'
+            label='Date of Birth'
             errors={validationErrors}
           />
         </div>
@@ -306,7 +304,7 @@ export default function StudentDetails({
           />
         </div>
       </div>
-      <div className="fld-row mt-3">
+      <div className="fld-row">
         <div className="fld-cell">
           <SelectField
             fieldName="nationality"
@@ -337,7 +335,7 @@ export default function StudentDetails({
       <div className="fld-row check-option">
         <div className="fld-cell">
           <div className="title">
-            <label className="form-label">
+            <label className="lbl">
               Identification Marks?
               <span className="req">*</span>
             </label>
@@ -370,7 +368,7 @@ export default function StudentDetails({
           </div>
         </div>
         <div className="fld-cell identification-mark-cell">
-          <label className="form-label">
+          <label className="lbl">
             If yes, please specify
             {selectedChild.hasIdentificationMarks === "Yes" ? (
               <span className="req">*</span>
@@ -384,7 +382,7 @@ export default function StudentDetails({
             style={{ resize: "none" }}
             rows="1"
             name="identificationMarks"
-            rows="2"
+            //rows="2"
             value={selectedChild.identificationMarks}
             onChange={(e) => {
               setFieldValue("identificationMarks", e.target.value);
@@ -402,7 +400,7 @@ export default function StudentDetails({
 
       <div className="currentschoolinfo-row">
         <div className="currentschoolinfo-cell">
-          <label className="">
+          <label className="lbl">
             Please Provide Your Current School Information(If Applicable)
           </label>
           <div className="form-check">
@@ -429,7 +427,7 @@ export default function StudentDetails({
           </div>
         </div>
         {selectedChild.isProvidingCurrentSchoolInfo === "Yes" && (
-          <div className="row ifschool-block">
+          <div className="ifschool-block">
             <div className="fld-row">
               <div className="fld-cell">
                 <TextField
@@ -707,13 +705,26 @@ export default function StudentDetails({
             }}
           />
         </div>
-        <div className="fld-cell"></div>
+        <div className="fld-cell">
+          <TextField
+            fieldName="familyIncome"
+            fieldType="number"
+            label='Annual Family Income'
+            value={selectedChild.familyIncome}
+            errors={validationErrors}
+            min="0"
+            onChange={(e) => {
+              setFieldValue("familyIncome", e.target.value);
+            }}
+            placeholder="Please add details..."
+          />
+        </div>
       </div>
 
       <div className="fld-row check-option">
         <div className="fld-cell">
           <div className="title">
-            <label htmlFor="validationServer02" className="form-label">
+            <label htmlFor="validationServer02" className="lbl">
               Does the student require Transport facility?{" "}
               <span className="req">*</span>
             </label>
@@ -745,7 +756,7 @@ export default function StudentDetails({
         </div>
         <div className="fld-cell ">
           <div className="title">
-            <label htmlFor="validationServer02" className="form-label">
+            <label htmlFor="validationServer02" className="lbl">
               Does the student require Boarding facility?{" "}
               <span className="req">*</span>
             </label>
@@ -776,22 +787,7 @@ export default function StudentDetails({
           </div>
         </div>
       </div>
-      <div className="col-md-6">
-        <label htmlFor="validationServer02" className="form-label">
-          Annual Family Income
-        </label>
-        <TextField
-          fieldName="familyIncome"
-          fieldType="number"
-          value={selectedChild.familyIncome}
-          errors={validationErrors}
-          min="0"
-          onChange={(e) => {
-            setFieldValue("familyIncome", e.target.value);
-          }}
-          placeholder="Please add details..."
-        />
-      </div>
+  
       <div className="fld-row button-wrap">
         <Button
           type="button"
