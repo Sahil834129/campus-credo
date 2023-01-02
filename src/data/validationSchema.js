@@ -220,7 +220,7 @@ export const StudentDetailsSchema = Yup.object().shape({
   addressLine1: Yup.string().required("Required *"),
   familyIncome: Yup.string()
     .required("Required *")
-    .matches(/^[0-9]+$/, {
+    .matches(/^([1-9][0-9]{0,6}|10000000)$/, {
       message: "Please enter valid income.",
       excludeEmptyString: false,
     }),
@@ -317,10 +317,10 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     is: (val) => val && val === "No",
     then: Yup.string().required("Required *"),
   }),
-  addressLine2: Yup.string().when("isAddressSameAsStudent", {
-    is: (val) => val && val === "No",
-    then: Yup.string().required("Required *"),
-  }),
+  // addressLine2: Yup.string().when("isAddressSameAsStudent", {
+  //   is: (val) => val && val === "No",
+  //   then: Yup.string().required("Required *"),
+  // }),
   city: Yup.string().when("isAddressSameAsStudent", {
     is: (val) => val && val === "No",
     then: Yup.string().required("Required *"),
