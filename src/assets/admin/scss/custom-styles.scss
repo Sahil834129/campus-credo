@@ -846,6 +846,15 @@ ul.list-group{
     line-height: 24px;
     text-align: center;
     color: #FFFFFF;
+    &.signin-btn{
+      background: $primarycolor;
+      border: 1px solid $primarycolor;
+      color: $white;
+      font-weight: 600;
+      &:hover{
+        color: $white;
+      }
+    }
     &.approval-btn{
       background: #005DB1;
       border: 1px solid #005DB1;

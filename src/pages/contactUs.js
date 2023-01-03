@@ -67,24 +67,26 @@ const ContactUs = () => {
                   <Form className="application-form-wrap">
                     <div className="fld-row">
                       <div className="fld-cell">
-                        <label className="">
+                        {/* <label className="">
                           Full Name <span className="text-danger">*</span>
-                        </label>
+                        </label> */}
                         <InputField
                           fieldName="fullName"
                           fieldType="text"
+                          label='Full Name'
                           placeholder="Full Name"
                           errors={errors}
                           touched={touched}
                         />
                       </div>
                       <div className="fld-cell">
-                        <label className="">
+                        {/* <label className="">
                           Email Address <span className="text-danger">*</span>
-                        </label>
+                        </label> */}
                       
                           <InputField
                             fieldName="email"
+                            label='Email Address'
                             fieldType="text"
                             placeholder="Email Address"
                             errors={errors}
@@ -94,21 +96,23 @@ const ContactUs = () => {
                     </div>
 
                     <div className="fld-row">
-                      <div className="frm-cell">
-                        <label className="">Phone Number<span className="text-danger">*</span></label>
+                      <div className="fld-cell">
+                        {/* <label className="">Phone Number<span className="text-danger">*</span></label> */}
                         <InputField
                           fieldName="phone"
                           fieldType="text"
+                          label='Phone Number'
                           placeholder="Phone Number"
                           errors={errors}
                           touched={touched}
                         />
                       </div>{" "}
-                      <div className="frm-cell">
-                        <label className="">Select Category <span className="text-danger">*</span></label>
+                      <div className="fld-cell">
+                        {/* <label className="">Select Category <span className="text-danger">*</span></label> */}
                         <InputField
                           fieldName="category"
                           fieldType="select"
+                          label='Select Category'
                           placeholder=""
                           selectOptions={CATEGORY_OPTIONS_CONTACT_FORM}
                           errors={errors}
@@ -119,7 +123,7 @@ const ContactUs = () => {
                     </div>
 
                     <div className="fld-row">
-                      <div className="fld-cell identification-mark-cell">
+                      <div className="fld-cell">
                         <label className="form-label">If other, please specify
                           {otherCategoryText === "Others" ? (
                             <span className="req">*</span>
@@ -136,20 +140,22 @@ const ContactUs = () => {
                           touched={touched}
                         />
                       </div>
-
-                    </div>
-                    <div className="fld-row">
                       <div className="frm-cell">
-                        <label className="">Leave a Message<span className="text-danger">*</span></label>
+                        {/* <label className="">Leave a Message<span className="text-danger">*</span></label> */}
                       
                         <InputField
                           fieldName="message"
                           fieldType="text"
+                          label='Leave a Message'
                           placeholder="type here"
                           errors={errors}
                           touched={touched}
                         />
                       </div>
+
+                    </div>
+                    <div className="fld-row">
+                      
                     </div>
                     <div className="fld-row button-wrap">
                       <button type="button" class="reset btn-primary">Reset</button>

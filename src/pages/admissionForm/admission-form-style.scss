@@ -186,16 +186,22 @@
                             background: rgba(65, 40, 95, 0.08);
                             color: $primarycolor;
                             font-size: 15px;
+                            &.doc-upload-btn{
+                                text-align: center;
+                            }
                         }
                     }
                 }
                 tbody{
                     tr{
                         td{
+                            vertical-align: middle;
                             &.doc-upload-fld{
                                 display: flex;
                                 flex-direction: column;
                                 position: relative;
+                                border-left: none;
+                                border-right: none;
                                 .error-msg{
                                     color: #FF5767;
                                     font-size: 14px;
@@ -203,6 +209,14 @@
                                     bottom: 12px;
                                     right: 18px;
                                 }
+                                span{
+                                    background: transparent;
+                                }
+                            }
+                            &.doc-upload-btn{
+                                text-align: center;
+                                padding: 2px 4px;
+                                vertical-align: middle;
                             }
                             .btn{
                                 &.upload-btn{
