@@ -241,7 +241,7 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Require Tranport:</label>
+                  <label>Require Transport:</label>
                   <span className="item-entry">
                     {studentDetail.tranportFacility ? "Yes" : "No"}
                   </span>
@@ -263,7 +263,7 @@ const ReviewAdmissionDialog = ({
               </div>
               <div className="admin-detail-row onextwo-col">
                 <div className="admin-detail-cell">
-                  <label>Participated in any competitions.:</label>
+                  <label>Participated in competitions:</label>
                   <span className="item-entry">
                     {studentDetail.competitionCertificate
                       ? studentDetail.competitionCertificate
@@ -282,7 +282,7 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
-            <Accordion.Header>Medical Detail</Accordion.Header>
+            <Accordion.Header>Medical Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
@@ -360,17 +360,16 @@ const ReviewAdmissionDialog = ({
               <div className="admin-detail-row"></div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour:</label>
+                  <label >Any history of violent behaviour </label>
                   <span className="item-entry">
-                    {studentDetail.violenceBehaviour
+                  <br/> {studentDetail.violenceBehaviour
                       ? studentDetail.violenceBehaviour
                       : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
                   <label>
-                    Involved in any incidents outside of school that involve
-                    serious behaviours
+                  Any instances outside of school involving significant behaviours
                   </label>
                   <span className="item-entry">
                     {studentDetail.suspension
@@ -473,41 +472,6 @@ const ReviewAdmissionDialog = ({
                         <NoRecordsFound message="No documents uploaded yet." />
                       )}
                     </div>
-                    <div className="document-container">
-                      {studentDocuments.length > 0 ? (
-                        studentDocuments.map((document, index) => {
-                          return (
-                            <div
-                              key={"childDoc_" + index}
-                              className="tab-outer-wrap"
-                            >
-                              <div className="tab-item">
-                                <lable>{humanize(document.documentName)}</lable>
-                                <span className="download-option">
-                                  {document.status === "uploaded" && (
-                                    <a
-                                      href="javascript:void(0)"
-                                      onClick={() => {
-                                        downloadDocument(
-                                          childId,
-                                          document.documentName,
-                                          applicationId
-                                        );
-                                      }}
-                                    >
-                                      Download{" "}
-                                      <i className="icons link-icon"></i>
-                                    </a>
-                                  )}
-                                </span>
-                              </div>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <NoRecordsFound message="No documents uploaded yet." />
-                      )}
-                    </div>
                   </Tab>
                   <Tab eventKey="parent1" title="Parent/Guardian">
                     <div className="document-container">
@@ -555,7 +519,7 @@ const ReviewAdmissionDialog = ({
         {childId && (
           <div className="btn-wrapper review-section-btn">
             <Button className="submit" onClick={() => placeOrder()}>
-              Place Order
+              Checkout
             </Button>
             <Button
               className="edit"

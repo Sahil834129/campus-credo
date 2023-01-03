@@ -282,7 +282,7 @@ export const ContactInfoSchema = Yup.object().shape({
     .required("Required *"),
   category: Yup.string().required("Required *"),
   otherCategory: Yup.string().when("category", {
-    is: (val) => val && val === "other",
+    is: (val) => val && val === "Others",
     then: Yup.string().required("Required*"),
   }),
   message: Yup.string().required("Required *"),

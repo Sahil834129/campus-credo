@@ -322,9 +322,10 @@ export const ManageAdmission = () => {
                                     <td>
                                       <Form.Control
                                         size='sm'
+                                        min="1"
                                         type='number'
                                         required
-                                        min="1"
+                                        onPaste={e => e.preventDefault()}
                                         name={`data[${index}].formFee`}
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         value={admissionData?.formFee || ''}
@@ -348,6 +349,7 @@ export const ManageAdmission = () => {
                                         name={`data[${index}].registrationFee`}
                                         value={admissionData?.registrationFee || ''}
                                         disabled={!admissionData?.isOpen}
+                                        onPaste={e => e.preventDefault()}
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         onChange={e => {
                                           handleData(

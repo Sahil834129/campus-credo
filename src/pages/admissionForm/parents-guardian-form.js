@@ -231,9 +231,9 @@ export default function ParentsGuardianForm({
                         ? values.otherRelation
                         : ''
                     }
-                    // required={
-                    //   values.relation !== 'Father' && values.relation !== 'Mother'
-                    // }
+                    required={
+                      values.relation !== 'Father' && values.relation !== 'Mother'
+                    }
                     fieldType='text'
                     errors={validationErrors}
                     placeholder='Please add details...'
