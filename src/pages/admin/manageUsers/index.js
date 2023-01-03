@@ -183,12 +183,12 @@ export const ManageUsers = () => {
       return modulePermissions;
     });
     preparedSaveData = preparedSaveData.flat();
-    console.log('preparedSaveData', preparedSaveData);
     updateUserModulePermissions(preparedSaveData)
       .then(response => {
-        if (response.status === 200)
+        if (response.status === 200) {
+          setManagePermissions(preparedSaveData)
           toast("All Roles Permissions are saved");
-        console.log(response);
+        }
       });
   };
 
