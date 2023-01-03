@@ -13,7 +13,8 @@ const AppliedSchools = ({ application }) => {
     <Col className="right content">
       <div className="row-items application-block">
         <div className="application-row">
-
+        
+        <div className="application-inner-wrap">
           <div className="col-item left">
             <div className="school-info-main">
               <div className="info-item school-logo-wrap">
@@ -37,36 +38,38 @@ const AppliedSchools = ({ application }) => {
                   <ListGroup.Item>{application.gender}</ListGroup.Item>
                 </ListGroup>
 
-              <div className="moreinfo-block">
-                <div className="col">
-                  Applying to Class : <strong>{application.className}</strong>
-                </div>
-                <div className="col divider">|</div>
-                <div className="col">
-                  Admission Fee Paid : <strong>{application.formFee}</strong>
+                <div className="moreinfo-block">
+                  <div className="col">
+                    Applying to Class : <strong>{application.className}</strong>
+                  </div>
+                  <div className="col divider">|</div>
+                  <div className="col">
+                    Admission Fee Paid : <strong>{application.formFee}</strong>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="col-item right">
-          <div className="col">
-            <label>Status {application.applicationId}</label>
-          </div>
-          <div className="col">
-            <span className="badge accepted">
-              {application.applicationStatus?.replace("_", " ")}
-            </span>
-          </div>
-          <div className="col">
-            <Link onClick={() => setShowTimeline((val) => !val)}>
-              View Status timeline <i className={'icons ' +  (showTimeline ? 'arrowdown-icon' : 'arrowright-icon')}></i>
-            </Link>
+          <div className="col-item right">
+            <div className="col">
+              <label>Status {application.applicationId}</label>
+            </div>
+            <div className="col">
+              <span className="badge accepted">
+                {application.applicationStatus?.replace("_", " ")}
+              </span>
+            </div>
+            <div className="col">
+              <Link onClick={() => setShowTimeline((val) => !val)}>
+                View Status timeline <i className={'icons ' +  (showTimeline ? 'arrowdown-icon' : 'arrowright-icon')}></i>
+              </Link>
+            </div>
           </div>
         </div>
-</div>
         {showTimeline ? <ApplicationTimeline application={application} /> : ""}
+</div>
+        
       </div>
     </Col>
   );

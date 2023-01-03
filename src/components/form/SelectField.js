@@ -4,12 +4,12 @@ const SelectField = props => {
   const errors = props.errors
   return (
     <span className='selectbox'>
-      <label>
+      <label className='lbl'>
         {props.label}
         {props.required ? <span className='req'>*</span> : ''}
       </label>
-      <div className='frm-cell'>
-        <Form.Group className='frm-cell' name={props.fieldName}>
+      <div className=''>
+        <Form.Group className='fld-wrap' name={props.fieldName}>
           <Form.Select
             disabled={props.disabled}
             required={props.required}

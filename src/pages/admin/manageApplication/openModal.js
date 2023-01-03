@@ -1,32 +1,35 @@
-import Modal from 'react-bootstrap/Modal';
 import Button from '../../../components/form/Button';
 
 import { useState } from "react";
 import { humanize } from "../../../utils/helper";
 
-import { updateApplicationStatus, updateBulkApplicationStatus } from "../../../utils/services";
-import { SCHOOL_APPLICATION_STATUS } from "../../../constants/app";
+import moment from "moment";
 import { Form } from "react-bootstrap";
 import ReactDatePicker from "react-datepicker";
-import moment from "moment";
-import GenericDialog from "../../../dialogs/GenericDialog";
 import AlertDialog from "../../../common/AlertDialog";
+import { SCHOOL_APPLICATION_STATUS } from "../../../constants/app";
+import GenericDialog from "../../../dialogs/GenericDialog";
 import { parseDateWithDefaultFormat } from "../../../utils/DateUtil";
+import { updateApplicationStatus, updateBulkApplicationStatus } from "../../../utils/services";
 
 const ShowWarningMessage = ({ errorList }) => {
   return (
-    <table>
-      <tbody>
+    <div className='status-result-grid'>
+      <div className='result-row header'>
+        <div className='cell'>Application Id</div>
+        <div className='cell'>Application Request Status</div>
+      </div>
+    
         {Object.keys(errorList).map(val => {
           return (
-            <tr>
-              <td style={{ width: '30%' }}>{val}</td>
-              <td>{errorList[val]}</td>
-            </tr>
+            <div className='result-row content-body'>
+              <div className='cell'>{val}</div>
+              <div className='cell'>{errorList[val]}</div>
+            </div>
           );
         })}
-      </tbody>
-    </table>
+     
+    </div>
   );
 };
 export default function OpenModal({
@@ -103,7 +106,7 @@ export default function OpenModal({
 
   return (
     <>
-      <GenericDialog className='signin-model add-child-model' modalHeader={humanize(applicationStaus)} show={show} handleClose={handleClose}>
+      <GenericDialog className='confirmation-modal' modalHeader={humanize(applicationStaus)} show={show} handleClose={handleClose}>
         <div className='model-body-col'>
           <div className="message-content" >
             <Form.Label className='form-label'>Add your remarks below</Form.Label>
@@ -128,11 +131,13 @@ export default function OpenModal({
             </div>
           )}
         </div>
-        <div className="frm-cell button-wrap" style={{ marginTop: '20px', justifyContent: 'end', display: 'flex' }}>
-          <Button class='cancel-btn mx-2' onClick={handleClose} buttonLabel='Cancel' />
+        {/* <div className="button-wrap" style={{ marginTop: '20px', justifyContent: 'end', display: 'flex' }}> */}
+        <div className="button-wrapper">
+          
           <Button class='save-btn' onClick={() => {
             handleSubmit(remark, applicationStaus, applicationId, atPiDate);
           }} buttonLabel='Save' />
+          <Button class='cancel-btn' onClick={handleClose} buttonLabel='Cancel' />
         </div>
       </GenericDialog>
       <AlertDialog

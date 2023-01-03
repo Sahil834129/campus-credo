@@ -110,6 +110,34 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
       .catch(error => console.log(error));
   };
 
+  const handleMinMarks = (e) => {
+    const value = e.target.value;
+    if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxMarks)
+      return;
+    setMinMarks(value);
+  };
+
+  const handleMaxMarks = (e) => {
+    const value = e.target.value;
+    if (isNaN(value) || parseFloat(value) < minMarks || parseFloat(value) > 100)
+      return;
+    setMaxMarks(value);
+  };
+
+  const handleMinIncome = (e) => {
+    const value = e.target.value;
+    if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxIncome)
+      return;
+    setMinIncome(value);
+  };
+
+  const handleMaxIncome = (e) => {
+    const value = e.target.value;
+    if (isNaN(value) || parseFloat(value) < minIncome || parseFloat(value) > 20000000)
+      return;
+    setMaxIncome(value);
+  };
+
   return (
     <div className='filterpanel'>
       <div className='filter-head'>
@@ -159,7 +187,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             <div className='range-slider-wrapper'>
               <MultiRangeSlider className='income-slider'
                 min={0}
-                max={2000000}
+                max={20000000}
                 step={500}
                 minValue={minIncome}
                 maxValue={maxIncome}
@@ -174,11 +202,11 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             <div className='input-val-wrapper'>
               <div className='value-cell'>
                 <Form.Label className=''>Min</Form.Label>
-                <Form.Control type='text' placeholder='0' value={minIncome} readOnly />
+                <Form.Control type='text' placeholder='0' value={minIncome} onChange={handleMinIncome} />
               </div>
               <div className='value-cell'>
                 <Form.Label className=''>Max</Form.Label>
-                <Form.Control type='text' placeholder='20L' value={maxIncome} readOnly />
+                <Form.Control type='text' placeholder='20L' value={maxIncome} onChange={handleMaxIncome} />
               </div>
             </div>
           </div>
@@ -204,11 +232,11 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             <div className='input-val-wrapper'>
               <div className='value-cell'>
                 <Form.Label className=''>Min</Form.Label>
-                <Form.Control type='text' value={minMarks} readOnly />
+                <Form.Control type='text' value={minMarks} onChange={handleMinMarks} />
               </div>
               <div className='value-cell'>
                 <Form.Label className=''>Max</Form.Label>
-                <Form.Control type='text' value={maxMarks} readOnly />
+                <Form.Control type='text' value={maxMarks} onChange={handleMaxMarks} />
               </div>
             </div>
           </div>

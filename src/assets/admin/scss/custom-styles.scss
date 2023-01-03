@@ -723,6 +723,31 @@ ul.list-group{
       display: flex;
       flex-direction: column;
       flex: 1;
+      margin-bottom: 16px;
+      label.lbl{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
+        color: rgba(0, 0, 0, 0.8);
+        margin-bottom: 4px;
+        .req {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 18px;
+          color: #E22445;
+          margin-left: 4px;
+      }
+      }
+      .fld-wrap{
+        .form-control{
+          height: 46px;
+        }
+        .form-select{
+          height: 42px;
+        }
+      }
       &.identification-mark-cell{
         margin-bottom: 0;
       }
@@ -737,8 +762,7 @@ ul.list-group{
       }
     }
     &.check-option{
-      margin-top: 24px;
-      margin-bottom: 16px;
+      
       .fld-cell{
         display: flex;
         flex-direction: column;
@@ -794,7 +818,11 @@ ul.list-group{
       }
     }
     .ifschool-block{
-
+      margin-top: 8px;
+      background: rgba(217, 217, 217, 0.3);
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 8px;
     }
   }
 }
@@ -1189,6 +1217,111 @@ align-items: center;
     margin-bottom: 8px
   }
 }
-
+.modal{
+  &.alert-popup{
+    .modal-dialog{
+      max-width: 580px;
+      .modal-content{
+        .modal-body{
+          margin: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          width: 100%;
+          padding-top: 0;
+          .alert-content-inner{
+            
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 100%;
+            row-gap: 24px;
+            .message-content{
+              padding: 0;
+            }
+            .status-result-grid{
+              display: flex;
+              flex-direction: column;
+              font-size: 14px;
+              font-weight: 400;
+              column-gap: 24px;
+              flex: 1 0 100%;
+              .result-row{
+                display: grid;
+                grid-template-columns: 1fr 3fr;
+                grid-column-gap: 24px;
+                padding: 8px 16px;
+                &.header{
+                  background: rgba(217, 217, 217, 0.4);
+                  font-weight: 600;
+                  color: $primarycolor;
+                }
+                &.content-body{border-bottom: 1px solid rgba(217, 217, 217, 0.4);}
+                .cell{text-align: left;}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.confirmation-modal{
+    .modal-dialog{
+      max-width: 580px;
+    }
+    .modal-content{
+      .modal-header{
+        font-weight: 700;
+        padding: 24px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .modal-body{
+        display: flex;
+        flex-direction: column;
+        padding-top: 16px;
+        .model-body-col{
+          .message-content{
+            label{
+              font-style: normal;
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 18px;
+              text-transform: capitalize;
+              color: rgba(0, 0, 0, 0.8);
+            }
+            textarea{
+              background: rgba(0, 0, 0, 0.02);
+              border: 1px solid rgba(0, 0, 0, 0.08);
+              border-radius: 6px;
+            }
+          }
+        }
+        .button-wrapper{
+          display: flex;
+          flex-direction: row;
+          column-gap: 8px;
+          margin-top: 16px;
+          .btn{
+            background: #41285F;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.14);
+            border-radius: 4px;
+            height: 44px;
+            color: $white;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            padding: 4px 24px;
+            text-transform: uppercase;
+            &.cancel-btn{
+              background: rgba(68, 68, 68, 0.6);
+            }
+            &.save-btn{}
+          }
+        }
+      }
+    }
+  }
+  
+}
 
 @import "../scss/media.scss";

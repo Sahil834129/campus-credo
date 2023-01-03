@@ -43,7 +43,7 @@ const PageContent = {
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
     { ref: 'https://www.instagram.com', type: 'instagram', icon: 'insta-icon' },
     { ref: 'https://twitter.com', type: 'twitter', icon: 'twitter-icon' },
-    { ref: 'https://www.google.com', type: 'google', icon: 'g-icon' }
+    { ref: 'https://www.gmail.com', type: 'google', icon: 'g-icon' }
   ],
   STUDENT_FEATURE_CARDS: [
     {

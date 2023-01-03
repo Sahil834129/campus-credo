@@ -45,6 +45,13 @@ export default function ParentsGuardianForm({
     state => state?.masterData?.parentOccupation || []
   );
 
+  const handleAddressSameAsStudent = () => {
+    setFieldValue("addressLine1", "");
+    setFieldValue("addressLine2", "");
+    setFieldValue("pincode", "");
+    setFieldValue("state", "");
+    setFieldValue("city", "");
+  };
   const saveData = async (e, formData) => {
     e.preventDefault();
     resetValidationErrors()
@@ -470,12 +477,9 @@ export default function ParentsGuardianForm({
                 />
               </div>
               <div className='col-md-6'>
-              <label htmlFor='validationServer02' className='form-label'>
-              Annual Family Income
-                  <span className='req'>*</span>
-                </label>
                 <TextField
                   fieldName='annualFamilyIncome'
+                  label='Annual Family Income'
                   className='frm-cell'
                   fieldType='number'
                   value={values.annualFamilyIncome}
@@ -502,8 +506,9 @@ export default function ParentsGuardianForm({
                       value='Yes'
                       fieldName='isAddressSameAsStudent'
                       currentValue={values.isAddressSameAsStudent}
-                      onChange={e => {
-                        setFieldValue('isAddressSameAsStudent', 'Yes');
+                      onChange={(e) => {
+                        setFieldValue("isAddressSameAsStudent", "Yes");
+                        handleAddressSameAsStudent();
                       }}
                     />
                   </div>
@@ -540,7 +545,7 @@ export default function ParentsGuardianForm({
                       <div className='col-md-6'>
                         <TextField
                           fieldName='addressLine2'
-                          required={values.isAddressSameAsStudent === 'No'}
+                          //required={values.isAddressSameAsStudent === 'No'}
                           errors={validationErrors}
                           label='Area or Locality'
                           value={values.addressLine2}
