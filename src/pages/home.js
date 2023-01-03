@@ -29,7 +29,7 @@ const HomePage = () => {
         const role = getLocalData('roles');
         console.log();
         if (role === DEFAULT_ROLES.SCHOOL_ADMIN) {
-            navigate('/admin-dashboard');
+            navigate('/dashboard');
         } else {
             navigate('/userProfile');
         }

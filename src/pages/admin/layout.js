@@ -14,6 +14,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
 import { logout } from '../../utils/helper';
 import { ToastContainer } from "react-toastify";
+import Breadcrumbs from "../../common/Breadcrumbs";
 
 export const Layout = ({ admissionSummary, ...props }) => {
   const location = useLocation();
@@ -70,10 +71,11 @@ export const Layout = ({ admissionSummary, ...props }) => {
       </Navbar>
       <div className='content-area'>
         <div className='title-kpi-wrapper'>
-          <Breadcrumb className='bc-nav'>
+          <Breadcrumbs />
+          {/* <Breadcrumb className='bc-nav'>
             <Breadcrumb.Item href='#'>Admin</Breadcrumb.Item>
             <Breadcrumb.Item active>{breadcrumbTitle?.title}</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
           {breadcrumbTitle?.showsData && (
             <div className='kpi-wrapper'>
               <ListGroup className='kpi-list-group'>

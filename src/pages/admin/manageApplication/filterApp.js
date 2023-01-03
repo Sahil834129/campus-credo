@@ -245,8 +245,8 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
           <div className='inner-container option-filter'>
             <Form.Label className='form-label'>Transport</Form.Label>
             <div className='radio-choice' >
-              <input type='radio' name='transport' value={transport} checked={transport === 'true'} onChange={() => setTransport('true')} /> YES
-              <input type='radio' name='transport' value={transport} checked={transport === 'false'} onChange={() => setTransport('false')} /> NO
+              <input type='radio' name='transport' value={transport} checked={transport === 'true'} onChange={() => setTransport('true')} /> Yes
+              <input type='radio' name='transport' value={transport} checked={transport === 'false'} onChange={() => setTransport('false')} /> No
               {/* <Form.Check type='radio' label='Yes' />
                     <Form.Check type='radio' label='No' /> */}
             </div>
@@ -256,8 +256,8 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
           <div className='inner-container option-filter'>
             <Form.Label className='form-label'>Boarding</Form.Label>
             <div className='radio-choice'>
-              <input type='radio' name='boarding' value={boarding} checked={boarding === 'true'} onChange={() => setBoarding('true')} /> YES
-              <input type='radio' name='boarding' value={boarding} checked={boarding === 'false'} onChange={() => setBoarding('false')} /> NO
+              <input type='radio' name='boarding' value={boarding} checked={boarding === 'true'} onChange={() => setBoarding('true')} /> Yes
+              <input type='radio' name='boarding' value={boarding} checked={boarding === 'false'} onChange={() => setBoarding('false')} /> No
               {/* <Form.Check type='radio' label='Yes' />
                     <Form.Check type='radio' label='No' /> */}
             </div>

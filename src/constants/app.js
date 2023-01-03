@@ -7,7 +7,7 @@ export const DEFAULT_ROLES = {
 };
 
 export const ADMIN_DASHBOARD_LINK = [
-  { title: 'Dasboard', url: '/admin-dashboard', showsData: true },
+  { title: 'Dashboard', url: '/dashboard', showsData: true },
   { title: 'Manage Application', url: '/manage-application', showsData: true },
   { title: 'Manage Admission', url: '/manage-admission', showsData: false },
   { title: 'Manage Fees', url: '/manage-fees', showsData: false },

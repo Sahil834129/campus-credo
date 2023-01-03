@@ -123,7 +123,7 @@ const LoginDialog = (props) => {
 
       const roles = response.data.roles;
       if (roles.find((val) => val === DEFAULT_ROLES.SCHOOL_ADMIN)) {
-        window.location.href = "/admin-dashboard";
+        window.location.href = "/dashboard";
       } else {
         loadUserData();
       }

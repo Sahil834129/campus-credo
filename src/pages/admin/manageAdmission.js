@@ -190,9 +190,9 @@ export const ManageAdmission = () => {
                           <table>
                             <thead>
                               <tr>
-                                <th>Class (Capacity)</th>
-                                <th>Allocate Seats</th>
-                                <th>Vacant Seats</th>
+                                <th>Class</th>
+                                <th>Admission Open</th>
+                                <th>Total Seats</th>
                                 <th>Application(Start Date - End Date)</th>
                                 <th>Parent Interview</th>
                                 <th>Candidate Screening Test</th>
@@ -205,7 +205,7 @@ export const ManageAdmission = () => {
                                 values.data.length > 0 &&
                                 values.data.map((admissionData, index) => (
                                   <tr key={index}>
-                                    <td>{admissionData.className} ({admissionData.capacity})</td>
+                                    <td>{admissionData.className}</td>
                                     <td>
                                       <div className='switch-wrapper'>
                                         <Form.Label className='no'>

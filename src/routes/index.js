@@ -72,7 +72,7 @@ function AppRoutes() {
         <Route
           element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
         >
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
         </Route>
         <Route
           element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
