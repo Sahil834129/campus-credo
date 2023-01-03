@@ -138,7 +138,7 @@ export const ManageAdmission = () => {
     <Layout>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
-          <div className='inner-content-wrap padt8'> 
+          <div className='inner-content-wrap padt8'>
 
             {formData && (
               <Formik
@@ -240,7 +240,7 @@ export const ManageAdmission = () => {
                                         value={admissionData?.vacantSeats || ''}
                                         disabled={!admissionData?.isOpen}
                                         required
-                                        min="0"
+                                        min="1"
                                         max={admissionData.capacity}
                                         onPaste={e => e.preventDefault()}
                                         onChange={e => {
@@ -291,7 +291,7 @@ export const ManageAdmission = () => {
                                           `data[${index}].admissionTestStartDate`,
                                           `data[${index}].admissionTestEndDate`
                                         ]}
-                                        setFieldData={setFieldValue} 
+                                        setFieldData={setFieldValue}
                                         minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
                                         disabled={!admissionData?.isOpen}
@@ -324,6 +324,7 @@ export const ManageAdmission = () => {
                                         size='sm'
                                         type='number'
                                         required
+                                        min="1"
                                         name={`data[${index}].formFee`}
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         value={admissionData?.formFee || ''}
@@ -343,6 +344,7 @@ export const ManageAdmission = () => {
                                         size='sm'
                                         type='number'
                                         required
+                                        min="1"
                                         name={`data[${index}].registrationFee`}
                                         value={admissionData?.registrationFee || ''}
                                         disabled={!admissionData?.isOpen}
