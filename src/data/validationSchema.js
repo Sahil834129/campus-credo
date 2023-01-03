@@ -49,7 +49,7 @@ export const SignUpSchema = Yup.object().shape({
 export const VerifyPhoneSchema = Yup.object().shape({
   otp: Yup.string()
     .matches(/^[0-9]+$/, { message: "Please Enter only numeric value." })
-    .max(4)
+    .max(4, "OTP Must Be Of 4 Digits")
     .test("len", " OTP Must Be Of 4 Digits", (val) => val.length === 4)
     .required("Required *"),
 });
@@ -220,7 +220,7 @@ export const StudentDetailsSchema = Yup.object().shape({
   addressLine1: Yup.string().required("Required *"),
   familyIncome: Yup.string()
     .required("Required *")
-    .matches(/^([1-9][0-9]{0,6}|10000000)$/, {
+    .matches(/^[0-9]+(\.[0-9][0-9]?)?$/, {
       message: "Please enter valid income.",
       excludeEmptyString: false,
     }),
@@ -309,7 +309,7 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   dateOfBirth: Yup.string().required("Required *"),
   annualFamilyIncome: Yup.string()
     .required("Required *")
-    .matches(/^[0-9]+$/, {
+    .matches(/^[0-9]+(\.[0-9][0-9]?)?$/, {
       message: "Please enter valid income.",
       excludeEmptyString: false,
     }),
