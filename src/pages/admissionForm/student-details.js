@@ -712,6 +712,7 @@ export default function StudentDetails({
             label='Annual Family Income'
             value={selectedChild.familyIncome}
             errors={validationErrors}
+            required
             min="0"
             onChange={(e) => {
               setFieldValue("familyIncome", e.target.value);

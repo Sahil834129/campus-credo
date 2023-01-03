@@ -334,7 +334,7 @@ const LoginDialog = (props) => {
         <div className="model-body-col right">
           <h2>Create an account</h2>
           <h4>
-            Join theEduSmart to find best featured schools, seats available,
+            Join the EduSmart to find best featured schools, seats available,
             their benefits, pay school fees and fill admission form online.
           </h4>
           <ListGroup as="ul" className="benfits-list">

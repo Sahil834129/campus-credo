@@ -125,7 +125,7 @@ export const AdmissionForms = () => {
   useEffect(() => {
     let selectedChildFromList = getSelectedChildFromList();
     setSelectedChild({ ...selectedChildFromList, studentInitialValue });
-
+    setCurrentStudent({...selectedChild});
     // if (childsList.length > 0) {
     // 	setSelectedChild(val => {
     // 		return {

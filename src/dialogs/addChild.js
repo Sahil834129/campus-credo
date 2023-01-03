@@ -62,7 +62,7 @@ const AddChildDialog = (props) => {
       <div className='model-body-col'>
           <h2>Add Child Information</h2>
           <h4>
-            Join theEduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.
+            Join the EduSmart to find best featured schools, seats available, their benefits, pay school fees and fill admission form online.
           </h4>
           <Formik
             initialValues={props.child ? props.child : {
