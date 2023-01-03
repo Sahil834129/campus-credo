@@ -1,11 +1,10 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import GenericDialog from "../../../dialogs/GenericDialog";
 import { changeUserPassword } from "../../../utils/services";
 
-export const PasswordDialog = ({ show, handleClose, usersData, userId }) => {
+export const PasswordDialog = ({ show, handleClose, usersData }) => {
   const [selectedUserId, setSelectedUserId] = useState('0');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,9 +48,6 @@ export const PasswordDialog = ({ show, handleClose, usersData, userId }) => {
     setSelectedUserId(val);
   };
 
-  useEffect(() => {
-    console.log(usersData);
-  }, [usersData]);
   return (
     <GenericDialog className='signin-model add-child-model' show={show} handleClose={handleClose} modalHeader='Change Password'>
       <div>
@@ -64,7 +60,7 @@ export const PasswordDialog = ({ show, handleClose, usersData, userId }) => {
                   <Form.Select value={selectedUserId} onChange={(e) => { handle(e.target.value); setEmptySelectedUserId(false); }}>
                     <option value='0'>Select User</option>
                     {usersData.map((val) => {
-                      return <option key={`selectedUser${userId}:${val.id}`} value={val?.userId}>{`${val?.firstName} ${val?.lastName}`}</option>;
+                      return <option key={`selectedUser:${val.id}`} value={val?.userId}>{`${val?.firstName} ${val?.lastName}`}</option>;
                     })}
                   </Form.Select>
                 </Form.Group >

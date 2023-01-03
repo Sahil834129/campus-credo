@@ -1,15 +1,14 @@
 import MultiRangeSlider from "multi-range-slider-react";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { OPERATORS } from '../../../constants/app';
-import { applicationfilterData, getSchoolAdmissionGradeList } from '../../../utils/services';
+import { applicationfilterData } from '../../../utils/services';
 
 export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi }) => {
   const intialValue = {
     grade: '',
     gradeOption: null,
-    checkValue: 1,
     minAge: 0,
     maxAge: 30,
     minIncome: 0,
@@ -22,8 +21,6 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     boarding: ''
   };
   const [grade, setGrade] = useState(intialValue.grade);
-  const [gradeOption, setGradeOption] = useState(intialValue.gradeOption);
-  const [checkValue, setCheckValue] = useState(intialValue.checkValue);
   const [minAge, setMinAge] = useState(intialValue.minAge);
   const [maxAge, setMaxAge] = useState(intialValue.maxAge);
   const [minIncome, setMinIncome] = useState(intialValue.minIncome);
@@ -46,13 +43,12 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     setMinGpa(intialValue.minGpa);
     setMaxGpa(intialValue.maxGpa);
     setGrade(intialValue.grade);
-    setCheckValue(intialValue.checkValue);
     setTransport(intialValue.transport);
     setBoarding(intialValue.boarding);
     callAllApi(1);
   };
 
-  const handleApply = (checkValue) => {
+  const handleApply = () => {
     const filterPyaload = {};
     const filter = [];
     if (classId !== null && classId !== '') {
@@ -82,13 +78,6 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
         operator: OPERATORS.BETWEEN,
         values: [minMarks, maxMarks]
       });
-    }
-    if (minGpa !== null && minGpa !== '' && maxGpa !== null && maxGpa !== '') {
-      // filter.push({
-      //   field: 'SGPA',
-      //   operator: OPERATORS.BETWEEN,
-      //   values: [minGpa, maxGpa]
-      // });
     }
     if (grade !== null && grade !== '') {
       filter.push({
@@ -120,20 +109,6 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
       })
       .catch(error => console.log(error));
   };
-
-  const fetchSchoolAdmissionGradeList = () => {
-    getSchoolAdmissionGradeList()
-      .then(response => {
-        if (response.status === 200) {
-          setGradeOption(response.data);
-        }
-      })
-      .catch(error => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchSchoolAdmissionGradeList();
-  }, []);
 
   return (
     <div className='filterpanel'>
@@ -236,110 +211,6 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
                 <Form.Control type='text' value={maxMarks} readOnly />
               </div>
             </div>
-            {/* <div className='options-wrap'>
-              <Form.Check
-                type='checkbox'
-                label='Marks'
-                onChange={() => setCheckValue(1)}
-                checked={checkValue === 1}
-              />
-              <Form.Check
-                type='checkbox'
-                onChange={() => setCheckValue(2)}
-                label='GPA'
-                checked={checkValue === 2}
-              />
-              <Form.Check
-                type='checkbox'
-                onChange={() => setCheckValue(3)}
-                label='Grade'
-                checked={checkValue === 3}
-              />
-            </div>
-            {(checkValue === 1) && <div>
-              <div className='slider-block'>
-                <Form.Label className='form-label'>Add Marks</Form.Label>
-              </div>
-              <div className='inner-container'>
-                <div className='range-slider-wrapper'>
-                  <MultiRangeSlider className='marks-slider'
-                    min={0}
-                    max={100}
-                    step={1}
-                    minValue={minMarks}
-                    maxValue={maxMarks}
-                    ruler='false'
-                    label='false'
-                    onInput={(e) => {
-                      setMinMarks(e.minValue);
-                      setMaxMarks(e.maxValue);
-                    }}
-                  />
-                </div>
-                <div className='input-val-wrapper'>
-                  <div className='value-cell'>
-                    <Form.Label className=''>Min</Form.Label>
-                    <Form.Control type='text' value={minMarks} readOnly />
-                  </div>
-                  <div className='value-cell'>
-                    <Form.Label className=''>Max</Form.Label>
-                    <Form.Control type='text' value={maxMarks} readOnly />
-                  </div>
-                </div>
-              </div>
-            </div>}
-            {(checkValue === 2) && <div>
-              <div className='slider-block'>
-                <Form.Label className='form-label'>GPA</Form.Label>
-              </div>
-              <div className='inner-container'>
-                <div className='range-slider-wrapper'>
-                  <MultiRangeSlider className='marks-gpa-slider'
-                    min={0}
-                    max={10}
-                    step={1}
-                    minValue={minGpa}
-                    maxValue={maxGpa}
-                    ruler='false'
-                    label='false'
-                    onInput={(e) => {
-                      setMinGpa(e.minValue);
-                      setMaxGpa(e.maxValue);
-                    }}
-                  />
-                </div>
-                <div className='input-val-wrapper'>
-                  <div className='value-cell'>
-                    <Form.Label className=''>Min GPA</Form.Label>
-                    <Form.Control type='text' value={minGpa} readOnly />
-                  </div>
-                  <div className='value-cell'>
-                    <Form.Label className=''>Max GPA</Form.Label>
-                    <Form.Control type='text' value={maxGpa} readOnly />
-                  </div>
-                </div>
-              </div>
-            </div>}
-            {(checkValue === 3) && <div>
-              <div className='slider-block'>
-                <Form.Label className='form-label'>GRADES</Form.Label>
-              </div>
-              <div>
-                <Form.Select
-                  value={grade}
-                  onChange={(e) => {
-                    setGrade(e.target.value);
-                  }}
-                >
-                  <option value=""> Select</option>
-                  {gradeOption.map((val) => (
-                    <option value={val} >
-                      {val}
-                    </option>
-                  ))}
-                </Form.Select>
-              </div>
-            </div>} */}
           </div>
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>

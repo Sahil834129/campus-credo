@@ -21,9 +21,7 @@ const initalValue = {
   otherCategory: "",
 };
 const ContactUs = () => {
-  const [validationErrors, setValidationErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [values, setValues] = useState("");
   const [otherCategoryText, setOtherCategoryText] = useState("");
   const saveData = (formData) => {
     setSubmitting(true);
@@ -137,13 +135,6 @@ const ContactUs = () => {
                           errors={errors}
                           touched={touched}
                         />
-                        {validationErrors.hasOwnProperty("otherCategory") ? (
-                          <div className="error-exception">
-                            {validationErrors.otherCategory}
-                          </div>
-                        ) : (
-                          ""
-                        )}
                       </div>
 
                     </div>

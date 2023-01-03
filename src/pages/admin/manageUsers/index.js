@@ -1,17 +1,14 @@
-
-// import { response } from 'express';
-import { getByDisplayValue } from '@testing-library/dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
+
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useFlexLayout } from 'react-table';
 import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
 import { humanize } from '../../../utils/helper';
-import { getManagePermissions, getManagePermissionRoles, getManagePermissionModules } from '../../../utils/services';
+import { getManagePermissions, getManagePermissionRoles, getManagePermissionModules, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
 
@@ -21,11 +18,9 @@ export const ManageUsers = () => {
   const [isLoading, setIsloading] = useState(false);
   const [rowsData, setRowsData] = useState([]);
   const [tableRowsData, setTableRowsData] = useState([]);
-  const [managePermissionModules, setManagePermissionModules] = useState([]);
+  const [manageModules, setManageModules] = useState([]);
   const [currentSelectedRole, setCurrentSelectedRole] = useState([]);
-  const [check, setCheck] = useState(false);
   const [passWordWindowOpen, setPasswordWindowOpen] = useState(false);
-  const [userId, setUserId] = useState(null);
 
   const fetchManagePermissionRoles = () => {
     getManagePermissionRoles()
@@ -50,7 +45,7 @@ export const ManageUsers = () => {
   const fetchManagePermissionModules = () => {
     getManagePermissionModules()
       .then(response => {
-        setManagePermissionModules(response.data);
+        setManageModules(response.data);
       })
       .catch(error => console.log(error));
   };
@@ -67,7 +62,7 @@ export const ManageUsers = () => {
 
   const column = [
     {
-      accessor: 'roleName',
+      accessor: 'humanizedroleName',
       Header: 'User/Role Name',
     },
     {
@@ -147,7 +142,6 @@ export const ManageUsers = () => {
       accessor: '',
       Header: ' ',
       Cell: ((e) => {
-        console.log(e.row.original);
         return (
           <div>
             <Button
@@ -157,8 +151,6 @@ export const ManageUsers = () => {
               onClick={() => {
                 setPasswordWindowOpen(true);
                 setCurrentSelectedRole(e.row.original?.roleUsers || []);
-                setUserId(e.row.original.id);
-
               }}>Change Password</Button>
           </div>
         );
@@ -169,6 +161,37 @@ export const ManageUsers = () => {
   const passWordWindowClose = () => {
     setPasswordWindowOpen(false);
   };
+
+  const convertCamelCase = (moduleName) => {
+    return `${moduleName.replace(" ", "").charAt(0).toLowerCase() + moduleName.replace(" ", "").slice(1)}`;
+  };
+
+  const saveModulePermissions = (tableData) => {
+    let preparedSaveData = tableData.map(val => {
+      const data = {
+        roleId: val.roleId,
+        roleName: val.roleName,
+      };
+      const modulePermissions = manageModules.map(value => {
+        return {
+          ...data,
+          moduleName: value,
+          permissionType: val[convertCamelCase(value)] || "NONE",
+          id: val[convertCamelCase(value) + "Id"],
+        };
+      });
+      return modulePermissions;
+    });
+    preparedSaveData = preparedSaveData.flat();
+    console.log('preparedSaveData', preparedSaveData);
+    updateUserModulePermissions(preparedSaveData)
+      .then(response => {
+        if (response.status === 200)
+          toast("All Roles Permissions are saved");
+        console.log(response);
+      });
+  };
+
 
   useEffect(() => {
     setIsloading(true);
@@ -181,15 +204,18 @@ export const ManageUsers = () => {
     const objKeys = Object.keys(managePermissionRole);
     if (objKeys.length > 0) {
       const row = objKeys.map((val) => {
-        const id = val;
+        const id = +val;
         const data = {};
         managePermissions.map((value) => {
-          if (`${value.roleId}` === `${id}`) {
-            data['id'] = value.roleId;
-            data['roleName'] = humanize(value.roleName);
-            data['roleUsers'] = (value.users);
-            //  string.charAt(0).toLowerCase() + string.slice(1)
-            data[`${value.moduleName.replace(" ", "").charAt(0).toLowerCase() + value.moduleName.replace(" ", "").slice(1)}`] = value.permissionType;
+          if (value.roleId === id) {
+            data.roleId = value.roleId;
+            data.roleName = value.roleName;
+            data.humanizedroleName = humanize(value.roleName);
+            data.roleUsers = value.users;
+            data.moduleName = value.moduleName;
+            data.permissionType = value.permissionType;
+            data[convertCamelCase(value.moduleName)] = value.permissionType;
+            data[convertCamelCase(value.moduleName) + "Id"] = value.id;
           }
         });
         return data;
@@ -219,9 +245,7 @@ export const ManageUsers = () => {
                     }}>
                     Reset
                   </Button>
-                  <Button className='save-btn' onClick={() => {
-                    console.log(tableRowsData);
-                  }}>Save</Button>
+                  <Button className='save-btn' onClick={() => saveModulePermissions(tableRowsData)}>Save</Button>
                 </div>
               </div>
               <div className='table-wrapper' >
@@ -242,8 +266,6 @@ export const ManageUsers = () => {
         show={passWordWindowOpen}
         handleClose={passWordWindowClose}
         usersData={currentSelectedRole}
-        userId={userId}
-
       />
     </>
   );

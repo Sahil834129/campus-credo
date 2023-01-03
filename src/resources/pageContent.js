@@ -138,7 +138,7 @@ const PageContent = {
     'Computer Lab': 'computer-lab',
     CCTV: 'security-icon',
     Biometrics: 'biometrics-icon',
-    'Digital Learning': 'elearning-icon',
+    // 'Digital Learning': 'elearning-icon',
     'Security Personnel': 'watchman-icon',
     'AC Class Rooms': 'air-conditioner',
     WiFi: 'wifi-icon',
