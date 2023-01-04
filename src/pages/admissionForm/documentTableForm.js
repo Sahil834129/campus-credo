@@ -95,7 +95,7 @@ export function DocumentTableFormat({
           <th>#</th>
           <th>Document Name</th>
           <th>Select</th>
-          <th>Action</th>
+          <th className="doc-upload-btn">Action</th>
           <th>Download (If Exist)</th>
         </tr>
       </thead>
