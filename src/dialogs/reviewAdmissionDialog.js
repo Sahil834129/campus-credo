@@ -260,6 +260,12 @@ const ReviewAdmissionDialog = ({
                     {studentDetail.identificationMarks}
                   </span>
                 </div>
+                <div className="admin-detail-cell">
+                  <label>Annual Family Income:</label>
+                  <span className="item-entry">
+                    {studentDetail.familyIncome}
+                  </span>
+                </div>
               </div>
               <div className="admin-detail-row onextwo-col">
                 <div className="admin-detail-cell">
