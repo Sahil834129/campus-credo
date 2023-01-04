@@ -271,7 +271,8 @@ export const StudentBackgroundCheckSchema = Yup.object().shape({
   }),
 });
 export const ContactInfoSchema = Yup.object().shape({
-  fullName: Yup.string().required("Required *"),
+  firstName: Yup.string().required("Required *"),
+  lastName: Yup.string().required("Required *"),
   email: Yup.string().email("Invalid email").required("Required *"),
   phone: Yup.string()
     .matches(/^[6-9]\d{9}$/gi, {

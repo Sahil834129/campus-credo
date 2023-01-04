@@ -3,6 +3,7 @@ import React from "react";
 
 const FORM_FIELD_TYPE = {
   TEXT: "text",
+  TEXTAREA:"textarea",
   PASSWORD: "password",
   SELECT: "select",
   CHECKBOX: "checkbox",
@@ -24,6 +25,31 @@ const getOptionTags = (selectOptions) => {
 
 const getFieldTagElement = (props) => {
   switch (props.fieldType) {
+    case FORM_FIELD_TYPE.TEXTAREA:
+      return (
+        <>
+          {props.label ? (
+            <label>
+              {props.label}{" "}
+              {props.required ? <span className="req">*</span> : ""}{" "}
+            </label>
+          ) : (
+            ""
+          )}
+          <Field
+            // type="textarea"
+            component="textarea"
+            rows={props.rows}
+            className="form-control"
+            name={props.fieldName}
+            value={props.value}
+            placeholder={props.placeholder}
+            {...(props.required ? { required: props.required } : {})}
+            {...(props.readOnly ? { readOnly: props.readOnly } : {})}
+            {...(props.disabled ? { disabled: props.disabled } : {})}
+          />
+        </>
+      );
     case FORM_FIELD_TYPE.TEXT:
       return (
         <>
