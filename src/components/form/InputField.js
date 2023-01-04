@@ -144,7 +144,7 @@ const getFieldTagElement = (props) => {
 
 const InputField = (props) => {
   return (
-    <div className="">
+    <div className="fld-cell">
       {getFieldTagElement(props)}
       {props.errors[props.fieldName] && props.touched[props.fieldName] ? (
         <div className="error-exception">

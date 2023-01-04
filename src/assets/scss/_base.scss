@@ -182,8 +182,28 @@ div.noMargin {
 }
 .modal{
   &.alert-popup{
+    &.confirm-mob-change{
+      .modal-dialog{
+        .modal-content{
+          .modal-header{
+            text-align: center;
+            display: flex;
+            color: $darkred;
+            font-size: 20px;
+            justify-content: center;
+            padding-top: 62px;
+            padding-bottom: 0;        
+            .btn-close{
+              display: none;
+            }
+          }
+        }
+      }
+      
+    }
     .modal-dialog{
       .modal-content{
+        
         .modal-header{
           font-size: 16px;
           font-weight: 600;
@@ -201,7 +221,7 @@ div.noMargin {
               font-size: 18px;
               font-weight: 500;
               line-height: 24px;
-              margin-bottom: 24px;
+ 
               padding: 0 42px;
             }
             .button-wrapper{
@@ -209,26 +229,27 @@ div.noMargin {
               width: 100%;
               flex-direction: row;
               align-items: center;
-              justify-content: space-evenly;
+              justify-content: center;
+              margin-bottom: 24px;
               .btn{
                 border-radius: 4px;
-                border: 1px solid $primarycolor;
-                background: $primarycolor;
+                
                 height: 42px;
                 padding: 4px 24px;
                 margin: 0 8px;
-                &.ok-btn{
-                  font-size: 14px;
+                font-size: 16px;
                   font-weight: 400;
                   text-transform: capitalize;
+                &.ok-btn{
+                  border: 1px solid $primarycolor;
+                  background: $primarycolor;
                   color: $white;
                 }
                 &.cancel-btn{
-                  font-size: 18px;
-                  font-weight: 400;
-                  text-transform: capitalize;
+                  
                   background: $white;
-                  color: $primarycolor;
+                  color: $darkred;
+                  border: 1px solid $darkred;
                 }
               }
 

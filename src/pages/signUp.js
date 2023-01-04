@@ -75,10 +75,11 @@ const SignUp = () => {
               >
                 {({ errors, touched }) => (
                   <Form className="">
+                    
+                    <div className="frm-cell">
                     <label className="">
                       First Name <span className="text-danger">*</span>
                     </label>
-                    <div className="frm-cell">
                       <InputField
                         fieldName="firstName"
                         fieldType="text"
@@ -87,10 +88,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>
+                    
+                    <div className="frm-cell">
                     <label className="">
                       Last Name <span className="text-danger">*</span>
                     </label>
-                    <div className="frm-cell">
                       <InputField
                         fieldName="lastName"
                         fieldType="text"
@@ -99,10 +101,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>
+                    
+                    <div className="frm-cell">
                     <label className="">
                       Email Address <span className="text-danger">*</span>
                     </label>
-                    <div className="frm-cell">
                       <InputField
                         fieldName="email"
                         fieldType="text"
@@ -111,10 +114,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>
+                    
+                    <div className="frm-cell">
                     <label className="">
                       Password<span className="text-danger">*</span>
                     </label>
-                    <div className="frm-cell">
                       <InputField
                         fieldName="password"
                         fieldType="password"
@@ -123,10 +127,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>{" "}
-                    <label className="">
-                      Confirm Password<span className="text-danger">*</span>
-                    </label>
+                    
                     <div className="frm-cell">
+                      <label className="">
+                        Confirm Password<span className="text-danger">*</span>
+                      </label>
                       <InputField
                         fieldName="confirmPassword"
                         fieldType="password"
@@ -135,10 +140,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>{" "}
-                    <label className="">
-                      Phone Number<span className="text-danger">*</span>
-                    </label>
+                    
                     <div className="frm-cell">
+                      <label className="">
+                        Phone Number<span className="text-danger">*</span>
+                      </label>
                       <InputField
                         fieldName="phone"
                         fieldType="text"
@@ -147,10 +153,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>{" "}
+                    
+                    <div className="frm-cell">
                     <label className="">
                       Select State <span className="text-danger">*</span>
                     </label>
-                    <div className="frm-cell">
                       <InputField
                         fieldName="state"
                         fieldType="select"
@@ -163,10 +170,11 @@ const SignUp = () => {
                         touched={touched}
                       />
                     </div>{" "}
+                    
+                    <div className="frm-cell">
                     <label className="">
                       Select City <span className="text-danger">*</span>
                     </label>
-                    <div className="frm-cell">
                       <InputField
                         fieldName="city"
                         fieldType="select"
@@ -199,7 +207,7 @@ const SignUp = () => {
                       <Link to={"/terms"}>Terms of Use</Link> and{" "}
                       <Link to={"/disclaimerpolicy"}>Privacy Policy</Link>.
                     </div>
-                    <div className="frm-cell frm-btn-wrap">
+                    <div className="button-wrap">
                       <Button
                         type="submit"
                         buttonLabel="Sign Up"
