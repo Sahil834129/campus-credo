@@ -28,8 +28,8 @@ const ForgotPasswordDialog = (props) => {
                 <Formik initialValues={{ email: '' }}
                     validationSchema={ForgotPasswordSchema} validateOnBlur onSubmit={values => { submitResetPasswordForm(values) }}>
                     {({ errors, touched }) => (
-                        <Form className=''>
-                            <InputField fieldName="email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} />
+                        <Form className='form-container forgot-pwd'>
+                            <div className='frm-cell'><InputField fieldName="email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} /></div>
                             <div className="btn-wrapper">
                                 <Button class="signin-btn" buttonLabel="Reset Password" submitting={submitting} />
                             </div>

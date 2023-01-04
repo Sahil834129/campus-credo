@@ -13,7 +13,7 @@ import InputField from "../components/form/InputField";
 import {
   ChangePasswordSchema,
   UpdatePhoneSchema,
-  UpdateProfileSchema,
+  UpdateProfileSchema
 } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
@@ -395,64 +395,74 @@ export const ManageProfile = () => {
                             errors,
                             touched,
                           }) => (
-                            <Form className="row g-3">
-                              <div className="col-md-6">
-                                <InputField
-                                  fieldName="phone"
-                                  value={values.phone}
-                                  label="Mobile Number"
-                                  fieldType="text"
-                                  placeholder="Enter mobile number"
-                                  errors={errors}
-                                  touched={touched}
-                                />
+                            <Form className="application-form-wrap">
+                              <div className="fld-row">
+                                <div className="fld-cell">
+                                  <InputField
+                                    fieldName="phone"
+                                    value={values.phone}
+                                    label="Mobile Number"
+                                    fieldType="text"
+                                    placeholder="Enter mobile number"
+                                    errors={errors}
+                                    touched={touched}
+                                  />
+                                </div>
+                                <div className="fld-cell">
+                                    {showOTP ? (
+                                    <>
+                                      <div className="otp-block">
+                                        <div className="item-cell label">
+                                          <h2>An OTP is sent to the mobile number.</h2>
+                                          <h4>Please enter the OTP below to verify the mobile number</h4>
+                                        </div>
+                                        <div className="item-cell otpinput-box">
+                                          <OtpInput
+                                            onChange={(otp) =>
+                                              setFieldValue("otp", otp)
+                                            }
+                                            numInputs={4}
+                                            isInputNum={true}
+                                            shouldAutoFocus
+                                            value={values.otp}
+                                            placeholder="----"
+                                            inputStyle={{
+                                              color: "blue",
+                                              width: "2.5rem",
+                                              height: "3rem",
+                                              margin: "0 0.5rem",
+                                              fontSize: "2rem",
+                                              borderRadius: 4,
+                                              caretColor: "blue",
+                                              border: "1px solid rgba(0,0,0,0.3)",
+                                            }}
+                                          />
+                                        </div>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
                               </div>
-                              <div className="col-md-6"></div>
-                              {showOTP ? (
-                                <>
-                                  <div className="col-md-6">
-                                    <label>
-                                      An OTP is sent to the mobile number.
-                                      Please enter the OTP below to verify the
-                                      mobile number
-                                    </label>
-                                    <OtpInput
-                                      onChange={(otp) =>
-                                        setFieldValue("otp", otp)
-                                      }
-                                      numInputs={4}
-                                      isInputNum={true}
-                                      shouldAutoFocus
-                                      value={values.otp}
-                                      placeholder="----"
-                                      inputStyle={{
-                                        color: "blue",
-                                        width: "2.5rem",
-                                        height: "3rem",
-                                        margin: "0 0.5rem",
-                                        fontSize: "2rem",
-                                        borderRadius: 4,
-                                        caretColor: "blue",
-                                        border: "1px solid rgba(0,0,0,0.3)",
-                                      }}
-                                    />
-                                  </div>
-                                </>
-                              ) : (
-                                ""
-                              )}
-                              <div className="form-group mb-3 button-wrap">
-                                <button
-                                  type="button"
-                                  className="cancel comn"
-                                  onClick={() => resetForm()}
-                                >
-                                  Cancel
-                                </button>
-                                <button className="save comn" type="submit">
-                                  {showOTP ? "Verify" : "Update"}
-                                </button>
+                              <div className="fld-row button-wrap">
+                                
+                                  <button
+                                    type="button"
+                                    className="cancel comn"
+                                    onClick={() => resetForm()}
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button className="save comn" type="submit">
+                                    {showOTP ? "Verify" : "Update"}
+                                  </button>
+                                
                               </div>
+                             
+                             
+                              
+                              
                             </Form>
                           )}
                         </Formik>
