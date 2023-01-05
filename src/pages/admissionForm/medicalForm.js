@@ -138,27 +138,31 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
       }}
     >
       {({ values, setFieldValue, errors, touched }) => (
-        <Form className='row g-3'>
-          <div className='col-md-6'>
-            <InputField
-              fieldName='bloodGroup'
-              label='Select Blood Group'
-              value={values.bloodGroup}
-              required
-              fieldType='select'
-              placeholder=''
-              selectOptions={BLOOD_OPTIONS}
-              errors={errors}
-              touched={touched}
-            />
+        <Form className='application-form-wrap'>
+          <div className='fld-row'>
+            <div className='fld-cell'>
+              <InputField
+                fieldName='bloodGroup'
+                label='Select Blood Group'
+                value={values.bloodGroup}
+                required
+                fieldType='select'
+                placeholder=''
+                selectOptions={BLOOD_OPTIONS}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
+            <div className='fld-cell'></div>
           </div>
-          <div className='col-md-6'></div>
-          <div className='col-12 border-bottom'></div>
-          <div className='col-md-6'>
-            <label className="form-label">
-              Does the student have any allergies?
-            </label>
-            <div className="d-flex  align-items-center py-2">
+
+   
+          {/* <div className='col-12 border-bottom'></div> */}
+          
+          <div className='fld-row'>
+            <div className='fld-cell checkbox-cell'>
+              <label className="lbl">Does the student have any allergies? </label>
+              <div className='checkbox-fld'>
               <InputField
                 fieldName='hasAllergies'
                 value={'Yes'}
@@ -180,191 +184,197 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
                 errors={errors}
                 touched={touched}
               />
+              </div>
             </div>
-          </div>
-          <div className='col-md-6'>
-            <InputField
-              fieldName='allergies'
-              value={values.allergies}
-              label='If yes, Please Specify'
-              fieldType='text'
-              placeholder='Please add details...'
-              disabled={values.hasAllergies === 'No'}
-              errors={errors}
-              touched={touched}
-            />
-          </div>
-          
-          <div className='col-md-6 '>
-            <label className="form-label">
-              Is the student being treated for any medical conditions? 
-            </label>
-            <div className="d-flex  align-items-center py-2">
+            <div className='fld-cell'>
               <InputField
-                fieldName='hasMedicalConditions'
-                value={'Yes'}
-                label='Yes'
-                checked={values.hasMedicalConditions === 'Yes'}
-                fieldType='radio'
-                errors={errors}
-                touched={touched}
-              />
-              <InputField
-                fieldName='hasMedicalConditions'
-                value={'No'}
-                label='No'
-                checked={values.hasMedicalConditions === 'No'}
-                fieldType='radio'
-                onClick={e => {
-                  setFieldValue('medicalConditions', '')
-              }}
+                fieldName='allergies'
+                value={values.allergies}
+                label='If yes, Please Specify'
+                fieldType='text'
+                placeholder='Please add details...'
+                disabled={values.hasAllergies === 'No'}
                 errors={errors}
                 touched={touched}
               />
             </div>
           </div>
-          <div className='col-md-6'>
-            <InputField
-              fieldName='medicalConditions'
-              value={values.medicalConditions}
-              label='If yes, Please Specify'
-              fieldType='text'
-              placeholder='Please add details...'
-              disabled={values.hasMedicalConditions === 'No'}
-              errors={errors}
-              touched={touched}
-            />
-          </div>
-          <div className='col-md-6'>
-            <label className="form-label">
-              Does the student need any special care due to any allergies/medical conditions?
-            </label>
-            <div className="d-flex  align-items-center py-2">
-              <InputField
-                fieldName='doesNeedSpecialCare'
-                value={'Yes'}
-                label='Yes'
-                checked={values.doesNeedSpecialCare === 'Yes'}
-                fieldType='radio'
-                errors={errors}
-                touched={touched}
-              />
-              <InputField
-                fieldName='doesNeedSpecialCare'
-                value={'No'}
-                label='No'
-                checked={values.doesNeedSpecialCare === 'No'}
-                fieldType='radio'
-                onClick={e => {
-                  setFieldValue('specialCare', '')
-              }}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-          </div>
-          <div className='col-md-6'>
-            <InputField
-              fieldName='specialCare'
-              value={values.specialCare}
-              label='If Yes, Please Specify'
-              fieldType='text'
-              placeholder='Please add details...'
-              disabled={values.doesNeedSpecialCare === 'No'}
-              errors={errors}
-              touched={touched}
-            />
-          </div>
-          <div className='col-12 border-bottom'></div>
-          <div className='col-md-6'>
-            <label htmlFor='validationServer02' className='form-label'>
-              Does the student have any disability?{' '}
-              <span className='req'>*</span>
-            </label>
-            <div className='d-flex align-items-center py-2'>
-              <div className=''>
+          <div className='fld-row'>
+            <div className='fld-cell checkbox-cell'>
+              <label className="lbl">Is the student being treated for any medical conditions? </label>
+              <div className='checkbox-fld'>
                 <InputField
-                  className='form-check-input'
-                  label='Yes'
-                  fieldName='disability'
-                  fieldType='radio'
+                  fieldName='hasMedicalConditions'
                   value={'Yes'}
-                  checked={values.disability === 'Yes'}
+                  label='Yes'
+                  checked={values.hasMedicalConditions === 'Yes'}
+                  fieldType='radio'
                   errors={errors}
                   touched={touched}
                 />
-              </div>
-              <div className='ms-2'>
                 <InputField
-                  className='form-check-input'
-                  label='No'
+                  fieldName='hasMedicalConditions'
                   value={'No'}
-                  fieldName='disability'
+                  label='No'
+                  checked={values.hasMedicalConditions === 'No'}
                   fieldType='radio'
-                  checked={values.disability === 'No'}
+                  onClick={e => {
+                    setFieldValue('medicalConditions', '')
+                }}
                   errors={errors}
                   touched={touched}
                 />
               </div>
             </div>
+            <div className='fld-cell'>
+              <InputField
+                fieldName='medicalConditions'
+                value={values.medicalConditions}
+                label='If yes, Please Specify'
+                fieldType='text'
+                placeholder='Please add details...'
+                disabled={values.hasMedicalConditions === 'No'}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
           </div>
-          {values.disability === 'Yes' && (
-            <>
-              <div className='disability-list-wrapper'>
-                {disabilitiesOption
-                  .map((it, index) => {
-                    return (
-                      <div
-                        key={'disability_' + index}
-                        className='disability-list'
-                      >
-                        <InputField
-                          fieldName='disabilities'
-                          fieldType='checkbox'
-                          value={it.value}
-                          label={it.text}
-                          checked={
-                            isSelected(values.disabilities, it.value)
-                              ? 'checked'
-                              : ''
-                          }
-                          onChange={e => {
-                            setFieldValue(
-                              getDisabilitesData(
-                                values.disabilities,
-                                e.target.value
-                              )
-                            )
-                          }}
-                          errors={errors}
-                          touched={touched}
-                        />
-                      </div>
-                    )
-                  })}
-              </div>
-              <div className='col-md-6'>
+         
+          <div className='fld-row'>
+            <div className='fld-cell checkbox-cell'>
+              <label className="lbl">Does the student need any special care due to any allergies/medical conditions?</label>
+              <div className='checkbox-fld'>
                 <InputField
-                  fieldName='otherDisability'
-                  label='If Other, Please Specify'
-                  required={values.disabilities.find(val => {
-                    return val === 'Other'
-                  })}
-                  disabled={
-                    !values.disabilities.find(val => {
-                      return val === 'Other'
-                    })
-                  }
-                  value={values.otherDisability}
-                  fieldType='text'
-                  placeholder='Please add details...'
+                  fieldName='doesNeedSpecialCare'
+                  value={'Yes'}
+                  label='Yes'
+                  checked={values.doesNeedSpecialCare === 'Yes'}
+                  fieldType='radio'
+                  errors={errors}
+                  touched={touched}
+                />
+                <InputField
+                  fieldName='doesNeedSpecialCare'
+                  value={'No'}
+                  label='No'
+                  checked={values.doesNeedSpecialCare === 'No'}
+                  fieldType='radio'
+                  onClick={e => {
+                    setFieldValue('specialCare', '')
+                }}
                   errors={errors}
                   touched={touched}
                 />
               </div>
-            </>
-          )}
-          <div className='form-group mb-3 button-wrap'>
+            </div>
+            <div className='fld-cell'>
+              <InputField
+                fieldName='specialCare'
+                value={values.specialCare}
+                label='If Yes, Please Specify'
+                fieldType='text'
+                placeholder='Please add details...'
+                disabled={values.doesNeedSpecialCare === 'No'}
+                errors={errors}
+                touched={touched}
+              />
+            </div>
+          </div>
+          <div className='fld-row expand-block'>
+
+                <div className='expand-block-cell'>
+                  <label className="lbl"> Does the student have any disability?{' '} <span className='req'>*</span></label>
+                  <div className='checkbox-fld'>
+                    <InputField
+                        className='form-check-input'
+                        label='Yes'
+                        fieldName='disability'
+                        fieldType='radio'
+                        value={'Yes'}
+                        checked={values.disability === 'Yes'}
+                        errors={errors}
+                        touched={touched}
+                      />
+                      <InputField
+                        className='form-check-input'
+                        label='No'
+                        value={'No'}
+                        fieldName='disability'
+                        fieldType='radio'
+                        checked={values.disability === 'No'}
+                        errors={errors}
+                        touched={touched}
+                      />
+                  </div>
+                </div>
+
+                
+                      {values.disability === 'Yes' && (
+                        <div className='expanded-block'>
+                      <>
+                        <div className='disability-list-wrapper'>
+                          {disabilitiesOption
+                            .map((it, index) => {
+                              return (
+                                <div
+                                  key={'disability_' + index}
+                                  className='disability-list'
+                                >
+                                  <InputField
+                                    fieldName='disabilities'
+                                    fieldType='checkbox'
+                                    value={it.value}
+                                    label={it.text}
+                                    checked={
+                                      isSelected(values.disabilities, it.value)
+                                        ? 'checked'
+                                        : ''
+                                    }
+                                    onChange={e => {
+                                      setFieldValue(
+                                        getDisabilitesData(
+                                          values.disabilities,
+                                          e.target.value
+                                        )
+                                      )
+                                    }}
+                                    errors={errors}
+                                    touched={touched}
+                                  />
+                                </div>
+                              )
+                            })}
+                        </div>
+                        <div className='fld-row others-cell'>
+                          <InputField
+                            fieldName='otherDisability'
+                            label='If Other, Please Specify'
+                            required={values.disabilities.find(val => {
+                              return val === 'Other'
+                            })}
+                            disabled={
+                              !values.disabilities.find(val => {
+                                return val === 'Other'
+                              })
+                            }
+                            value={values.otherDisability}
+                            fieldType='text'
+                            placeholder='Please add details...'
+                            errors={errors}
+                            touched={touched}
+                          />
+                        </div>
+                      </>
+                      </div>
+                    )}
+                  
+
+          </div>
+        
+    
+
+          
+          <div className='fld-row button-wrap'>
             <button
               type='button'
               className='cancel comn'
