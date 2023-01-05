@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, Tab, Tabs } from "react-bootstrap";
+import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,7 +32,9 @@ const ReviewAdmissionDialog = ({
   const [guardiankey, setGuardianKey] = useState("guardianfather");
   const [showAlertDialog, setShowAlertDialog] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-
+  const [infoDeclarationAccepted, setInfoDeclarationAccepted] = useState(false)
+  const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] = useState(false)
+  
   async function getChildProfile(childId) {
     try {
       const response = await RESTClient.get(
@@ -150,6 +152,13 @@ const ReviewAdmissionDialog = ({
     }
   }, [applicationId]);
   async function placeOrder() {
+    if (!(infoDeclarationAccepted && termsPolicyDeclarationAccepted)) {
+      setAlertMessage(
+        "Please select all terms and conditions."
+      );
+      setShowAlertDialog(true);
+      return
+    }
     const isProfileCompleted = studentDetail.profileCompleted ? true : false;
     if (!isProfileCompleted) {
       setAlertMessage(
@@ -522,9 +531,29 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+        <div className="mx-auto">
+          <Form.Check
+            type='checkbox'
+            label=' I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct'
+            required
+            checked={infoDeclarationAccepted}
+            onChange={(e) => {
+              setInfoDeclarationAccepted(e.target.checked)
+            }} 
+          />
+          <Form.Check
+            type='checkbox'
+            label='I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy'
+            required
+            checked={termsPolicyDeclarationAccepted}
+            onChange={(e) => {
+              setTermsPolicyDeclarationAccepted(e.target.checked)
+            }} 
+          />
+        </div>
         {childId && (
           <div className="btn-wrapper review-section-btn">
-            <Button className="submit" onClick={() => placeOrder()}>
+            <Button className="submit" onClick={() => placeOrder()} disabled={!(infoDeclarationAccepted && termsPolicyDeclarationAccepted)}>
               Checkout
             </Button>
             <Button
