@@ -13,7 +13,7 @@ import { StudentParentGuardianSchema } from '../../data/validationSchema';
 import { getParentOCcupation } from '../../redux/actions/masterData';
 import RestEndPoint from '../../redux/constants/RestEndpoints';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
-import { getAge, getGuadianMaxDateOfBirth, getStudentAge } from '../../utils/helper';
+import { getAge, getStudentAge } from '../../utils/helper';
 import { populateCities } from '../../utils/populateOptions';
 import RESTClient from '../../utils/RestClient';
 
@@ -154,10 +154,16 @@ export default function ParentsGuardianForm({
   function isValidDateOfBirth(dateOfBirth) {
     const guardianAge = getAge(dateOfBirth)
     const childAge = getAge(currentStudent.dateOfBirth)
-    if (guardianAge-childAge < 10) {
-      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age.'})
+    // if (guardianAge-childAge < 10) {
+    //   setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age.'})
+    //   return false
+    // }
+     if((currentParent==="father" && guardianAge<21) || (currentParent==="mother" && guardianAge< 18)  ||
+     (currentParent==="guardian" && guardianAge<18))
+     {
+      setValidationErrors({...validationErrors, dateOfBirth: 'Date of birth does not meet the minimum age requirement. Please review and update.'})
       return false
-    }
+     }
     return true
   }
 
@@ -255,12 +261,12 @@ export default function ParentsGuardianForm({
                 </label>
                 <div className='field-group-wrap'>
                   <DatePicker
-                    selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : getGuadianMaxDateOfBirth()}
+                    selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : ""}
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
                     onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
-                    maxDate={getGuadianMaxDateOfBirth()}
+                    //maxDate={getGuadianMaxDateOfBirth()}
                     dropdownMode="select"
                     showMonthDropdown
                     showYearDropdown
