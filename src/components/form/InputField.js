@@ -120,7 +120,7 @@ const getFieldTagElement = (props) => {
       );
     case FORM_FIELD_TYPE.CHECKBOX:
       return (
-        <label className="d-flex align-items-center">
+        <label className="lbl">
           <Field
             type="checkbox"
             name={props.fieldName}
@@ -136,7 +136,7 @@ const getFieldTagElement = (props) => {
       );
     case FORM_FIELD_TYPE.RADIO:
       return (
-        <label className="d-flex align-items-center">
+        <label className="lbl">
           <Field
             type="radio"
             name={props.fieldName}
@@ -153,7 +153,7 @@ const getFieldTagElement = (props) => {
       );
     case FORM_FIELD_TYPE.FILE:
       return (
-        <label>
+        <label className="lbl">
           <Field
             type="file"
             name={props.fieldName}
@@ -170,7 +170,7 @@ const getFieldTagElement = (props) => {
 
 const InputField = (props) => {
   return (
-    <div className="fld-cell">
+    <div className="fld-wrap">
       {getFieldTagElement(props)}
       {props.errors[props.fieldName] && props.touched[props.fieldName] ? (
         <div className="error-exception">
