@@ -47,11 +47,10 @@ export const SignUpSchema = Yup.object().shape({
 });
 
 export const VerifyPhoneSchema = Yup.object().shape({
-  otp: Yup.string()
+  otp: Yup.string().required("Required *")
     .matches(/^[0-9]+$/, { message: "Please Enter only numeric value." })
     .max(4, "OTP Must Be Of 4 Digits")
-    .test("len", " OTP Must Be Of 4 Digits", (val) => val.length === 4)
-    .required("Required *"),
+    .test("len", " OTP Must Be Of 4 Digits", (val) => val && val.length === 4)
 });
 
 export const ForgotPasswordSchema = Yup.object().shape({
