@@ -193,8 +193,16 @@ export default function ParentsGuardianForm({
     window.scrollTo(0, 0);
   }
 
+  function handleStateChange(stateId) {
+    setCity([{ text: "Select City", value: "" }])
+    if (!stateId)
+      return
+    populateCities(stateId, setCity)
+    
+  }
+
   return (
-    <Form className='row g-3' noValidate onSubmit={e => saveData(e, values)}>
+    <Form className='row g-3 application-form-wrap' noValidate onSubmit={e => saveData(e, values)}>
       <div className='tab_btn'>
         <div className='tab-content'>
           <div className='tab-pane active' id='demo1'>
@@ -282,7 +290,7 @@ export default function ParentsGuardianForm({
                   Select Gender <span className='req'>*</span>
                 </label>
                 <div className='d-flex  align-items-center py-2'>
-                  {GENDER_OPTOPNS.map(val => (
+                  {GENDER_OPTOPNS.filter(v=> v.value !== '').map(val => (
                     <div
                       className='form-check ms-2'
                       key={`gender-parent-${val.value}`}
@@ -583,8 +591,8 @@ export default function ParentsGuardianForm({
                           selectOptions={states}
                           value={values.state}
                           onChange={e => {
-                            populateCities(e.target.value, setCity)
                             setFieldValue('state', e.target.value)
+                            handleStateChange(e.target.value)
                           }}
                         />
                       </div>
