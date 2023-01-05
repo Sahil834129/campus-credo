@@ -139,7 +139,7 @@ export default function StudentDetails({
         toast.error(RESTClient.getAPIErrorMessage(error));
       }
     },
-    [setSelectedChild]
+    [selectedChild]
   );
 
   function getClassFromAge() {
