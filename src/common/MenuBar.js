@@ -12,7 +12,7 @@ const MenuBar = () => {
   const pageRef = "/" + location.pathname.split("/")[1];
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="top-navigation">
+    <Navbar collapseOnSelect expand="lg" className="top-navigation main-site">
       <Container>
         <Nav className="siteNav me-auto">
           {PageContent.HEADER_MENU_ITEMS.map((menuItem, index) => (

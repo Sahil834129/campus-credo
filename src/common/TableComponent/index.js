@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { useState } from "react";
+import React from 'react';
 import { Table } from "react-bootstrap";
-import { useTable, useRowSelect, useMountedLayoutEffect } from 'react-table';
+import { useMountedLayoutEffect, useRowSelect, useTable } from 'react-table';
 
 const CheckboxRender = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -63,8 +62,8 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
   }, [onSelectedRowsChange, selectedRowIds]);
 
   return (
-    <div className='inner-content-wrap'>
-      <div className='table-wrapper'>
+    // <div className='inner-content-wrap'>
+      // <div className='table-wrapper'>
         <Table striped {...getTableProps()}>
           <thead>
             {headerGroups.map(headerGroup => (
@@ -95,8 +94,8 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
             )}
           </tbody>
         </Table>
-      </div>
-    </div>
+      // </div>
+    // </div>
   );
 }
 export default TableComponent;

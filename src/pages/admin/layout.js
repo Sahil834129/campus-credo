@@ -1,20 +1,19 @@
 import React from 'react';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useLocation } from 'react-router-dom';
+import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/footer-logo-campuscredso.svg';
 import '../../assets/admin/scss/custom-styles.scss';
-import { ReactComponent as CampusLogo } from '../../assets/img/campuscredso-logo.svg';
 
 import Nav from 'react-bootstrap/Nav';
 
 import Avatar from 'react-avatar';
 import Navbar from 'react-bootstrap/Navbar';
-import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
-import { logout } from '../../utils/helper';
 import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
+import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
+import { logout } from '../../utils/helper';
 
 export const Layout = ({ admissionSummary, ...props }) => {
   const location = useLocation();
@@ -31,10 +30,13 @@ export const Layout = ({ admissionSummary, ...props }) => {
     <Container className='main-container admin-contianer' fluid>
       <div className='top-navigation'>
         <div className='items-row'>
-          <div className='item-col'>
-            <Link href=''>
-              <CampusLogo />
-            </Link>
+          <div className='item-col brand-logo'>
+            <span className='subscriber-name subscriber-logo'>
+              <Link href=''>
+                School Name
+                {/* <CampusLogo /> */}
+              </Link>
+            </span>
           </div>
           <div className='item-col'>
             <div className='inner-cell profile-info'>
@@ -117,6 +119,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
         {props.children}
       </div>
       <div className='footer-panel'>
+        <Link href=''><FooterCampusLogo /></Link>
         <Link href=''>Terms &amp; Conditions</Link>
       </div>
       <ToastContainer autoClose={2000} position="top-right" />
