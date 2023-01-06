@@ -11,7 +11,7 @@ import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
-  downloadDocument,
+  downloadDocument
 } from "../utils/services";
 import GenericDialog from "./GenericDialog";
 import ParentGuardianTab from "./parentGuardianTab";
@@ -288,7 +288,7 @@ const ReviewAdmissionDialog = ({
                   <label>Address:</label>
                   <span className="item-entry">
                     {studentDetail.addressLine1}, {studentDetail.addressLine2},{" "}
-                    {studentDetail.city}, {studentDetail.state} -{" "}
+                    {studentDetail.cityName}, {studentDetail.stateName} -{" "}
                     {studentDetail.pincode}
                   </span>
                 </div>
@@ -532,6 +532,7 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
+        { applicationId ? '' :
         <div className="declaration-wrapper">
           <Form.Check
             type="checkbox"
@@ -552,6 +553,7 @@ const ReviewAdmissionDialog = ({
             }}
           />
         </div>
+        }
         {childId && (
           <div className="btn-wrapper review-section-btn">
             <Button
