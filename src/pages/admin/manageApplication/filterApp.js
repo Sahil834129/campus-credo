@@ -12,7 +12,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     minAge: 0,
     maxAge: 30,
     minIncome: 0,
-    maxIncome: 2000000,
+    maxIncome: 10000000,
     minMarks: 0,
     maxMarks: 100,
     minGpa: 0,
@@ -133,7 +133,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
 
   const handleMaxIncome = (e) => {
     const value = e.target.value;
-    if (isNaN(value) || parseFloat(value) < minIncome || parseFloat(value) > 20000000)
+    if (isNaN(value) || parseFloat(value) < minIncome || parseFloat(value) > 10000000)
       return;
     setMaxIncome(value);
   };
@@ -187,7 +187,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             <div className='range-slider-wrapper'>
               <MultiRangeSlider className='income-slider'
                 min={0}
-                max={20000000}
+                max={10000000}
                 step={500}
                 minValue={minIncome}
                 maxValue={maxIncome}

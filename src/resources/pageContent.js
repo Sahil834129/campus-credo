@@ -26,7 +26,7 @@ const PageContent = {
     { ref: '/userProfile', icon:'dashboard-icon', class:'dashboard', title: 'Dashboard' },
     { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
     { ref: '/manageChild', icon:'managechild-icon', class:'managechild', title: 'Manage Child' },
-    { ref: '/userProfile/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
+    { ref: '/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [

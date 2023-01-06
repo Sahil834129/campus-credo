@@ -65,7 +65,7 @@ function AppRoutes() {
           <Route path="/selectedSchools" element={<ApplicationCart />} />
           <Route path="/paymentCheckout" element={<PaymentCheckout />} />
           <Route
-            path="/userProfile/admissionForm"
+            path="/admissionForm"
             element={<SchoolAdmission />}
           />
         </Route>

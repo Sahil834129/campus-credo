@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { DoughnutChart } from "../../../common/Chart";
 import { getSchoolAdmissinFeeSummary } from "../../../utils/services";
@@ -57,7 +56,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                             <label>Application Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>₹{totalFeesCollected}</span>
+                            <span className='value'>₹{feesCollected}</span>
                             <label>Fee Collected</label>
                         </ListGroup.Item>
                     </ListGroup>

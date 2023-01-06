@@ -13,7 +13,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
-import { logout } from '../../utils/helper';
+import { getLocalData, logout } from '../../utils/helper';
 
 export const Layout = ({ admissionSummary, ...props }) => {
   const location = useLocation();
@@ -33,7 +33,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
           <div className='item-col brand-logo'>
             <span className='subscriber-name subscriber-logo'>
               <Link href=''>
-                School Name
+                {getLocalData('schoolName')}
                 {/* <CampusLogo /> */}
               </Link>
             </span>

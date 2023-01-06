@@ -47,6 +47,7 @@ export const setUserLoginData = (loginData) => {
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);
+  setLocalData("schoolName", loginData?.schoolName);
 };
 
 export const getLocalData = (key) => {
