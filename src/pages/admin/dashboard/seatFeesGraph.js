@@ -39,7 +39,8 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
     }, [schoolSeatsSummary]);
 
     useEffect(() => {
-        setAcceptedPercentage((((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats));
+        const percentageVal = (((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats);
+        setAcceptedPercentage(isNaN(percentageVal) ? 0 : percentageVal);
     }, [acceptedOffer, totalSeats]);
 
     return (
@@ -56,7 +57,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                             <label>Application Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>₹8500</span>
+                            <span className='value'>₹{totalFeesCollected}</span>
                             <label>Fee Collected</label>
                         </ListGroup.Item>
                     </ListGroup>
