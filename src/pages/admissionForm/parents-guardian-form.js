@@ -198,10 +198,7 @@ export default function ParentsGuardianForm({
       <div className='tab_btn'>
         <div className='tab-content'>
           <div className='tab-pane active' id='demo1'>
-          <div className='fld-row'>
-            <div className='fld-cell'>11</div>
-            <div className='fld-cell'>22</div>
-          </div>
+          
             <div className='row g-3'>
               <div className='col-md-6'>
                 <TextField
