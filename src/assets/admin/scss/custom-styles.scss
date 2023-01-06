@@ -1115,7 +1115,7 @@ ul.list-group{
         font-size: 14px;
         line-height: 24px;
         color: $black;
-        z-index: 99;
+        z-index: 2;
       }
       
       th:last-child {
@@ -1129,6 +1129,9 @@ ul.list-group{
         height: 72px;
         color: $black;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        .react-datepicker-popper{
+          z-index: 4;
+        }
         .switch-wrapper{
           display: flex;
           flex-direction: row;
