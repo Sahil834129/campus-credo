@@ -202,11 +202,11 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             <div className='input-val-wrapper'>
               <div className='value-cell'>
                 <Form.Label className=''>Min</Form.Label>
-                <Form.Control type='text' placeholder='0' value={minIncome} onChange={handleMinIncome} />
+                <Form.Control type='text' value={minIncome} onChange={handleMinIncome} />
               </div>
               <div className='value-cell'>
                 <Form.Label className=''>Max</Form.Label>
-                <Form.Control type='text' placeholder='20L' value={maxIncome} onChange={handleMaxIncome} />
+                <Form.Control type='text' value={maxIncome} onChange={handleMaxIncome} />
               </div>
             </div>
           </div>

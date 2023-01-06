@@ -13,8 +13,8 @@ import { StudentParentGuardianSchema } from '../../data/validationSchema';
 import { getParentOCcupation } from '../../redux/actions/masterData';
 import RestEndPoint from '../../redux/constants/RestEndpoints';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
-import { getAge, getGuadianMaxDateOfBirth, getStudentAge } from '../../utils/helper';
-import { populateCities } from '../../utils/populateOptions';
+import { getAge, getStudentAge } from '../../utils/helper';
+import { handleStateChange, populateCities } from '../../utils/populateOptions';
 import RESTClient from '../../utils/RestClient';
 
 export default function ParentsGuardianForm({
@@ -154,10 +154,16 @@ export default function ParentsGuardianForm({
   function isValidDateOfBirth(dateOfBirth) {
     const guardianAge = getAge(dateOfBirth)
     const childAge = getAge(currentStudent.dateOfBirth)
-    if (guardianAge-childAge < 10) {
-      setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age.'})
+    // if (guardianAge-childAge < 10) {
+    //   setValidationErrors({...validationErrors, dateOfBirth: 'Guardian age should be atleast 10 years greater than student age.'})
+    //   return false
+    // }
+     if((currentParent==="father" && guardianAge<21) || (currentParent==="mother" && guardianAge< 18)  ||
+     (currentParent==="guardian" && guardianAge<18))
+     {
+      setValidationErrors({...validationErrors, dateOfBirth: 'Date of birth does not meet the minimum age requirement. Please review and update.'})
       return false
-    }
+     }
     return true
   }
 
@@ -188,7 +194,7 @@ export default function ParentsGuardianForm({
   }
 
   return (
-    <Form className='row g-3' noValidate onSubmit={e => saveData(e, values)}>
+    <Form className='row g-3 application-form-wrap' noValidate onSubmit={e => saveData(e, values)}>
       <div className='tab_btn'>
         <div className='tab-content'>
           <div className='tab-pane active' id='demo1'>
@@ -255,12 +261,13 @@ export default function ParentsGuardianForm({
                 </label>
                 <div className='field-group-wrap'>
                   <DatePicker
-                    selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : getGuadianMaxDateOfBirth()}
+                    selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : ""}
                     dateFormat='dd/MM/yyyy'
                     className='form-control'
                     name='dateOfBirth'
+                    placeholderText='DD/MM/YYYY'
                     onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
-                    maxDate={getGuadianMaxDateOfBirth()}
+                    //maxDate={getGuadianMaxDateOfBirth()}
                     dropdownMode="select"
                     showMonthDropdown
                     showYearDropdown
@@ -275,7 +282,7 @@ export default function ParentsGuardianForm({
                   Select Gender <span className='req'>*</span>
                 </label>
                 <div className='d-flex  align-items-center py-2'>
-                  {GENDER_OPTOPNS.map(val => (
+                  {GENDER_OPTOPNS.filter(v=> v.value !== '').map(val => (
                     <div
                       className='form-check ms-2'
                       key={`gender-parent-${val.value}`}
@@ -576,8 +583,8 @@ export default function ParentsGuardianForm({
                           selectOptions={states}
                           value={values.state}
                           onChange={e => {
-                            populateCities(e.target.value, setCity)
-                            setFieldValue('state', e.target.value)
+                            populateCities(e.target.value, setCity);
+                            handleStateChange(setValues, values, {state: e.target.value, city:''})
                           }}
                         />
                       </div>

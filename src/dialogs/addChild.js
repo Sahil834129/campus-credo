@@ -20,7 +20,7 @@ const AddChildDialog = (props) => {
   const [selectedChild, setSelectedChild] = useState({
     firstName: '',
     lastName: '',
-    gender: 'Male',
+    gender: '',
     dateOfBirth: formatDateToDDMMYYYY(getStudentMaxDateOfBirth())
   });
 
@@ -68,8 +68,8 @@ const AddChildDialog = (props) => {
             initialValues={props.child ? props.child : {
               firstName: '',
               lastName: '',
-              gender: 'Male',
-              dateOfBirth: formatDateToDDMMYYYY(getStudentMaxDateOfBirth()), 
+              gender: '',
+              dateOfBirth: '' //formatDateToDDMMYYYY(getStudentMaxDateOfBirth()), 
             }}
             validationSchema={AddChildSchema}
             enableReinitialize
@@ -111,10 +111,11 @@ const AddChildDialog = (props) => {
                   </label>
                   <div className='field-group-wrap'>
                     <DatePicker
-                      selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : getStudentMaxDateOfBirth()}
+                      selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : ''}
                       dateFormat='dd/MM/yyyy'
                       className='form-control'
                       name='dateOfBirth'
+                      placeholderText='DD/MM/YYYY'
                       onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
                       //maxDate={getStudentMaxDateOfBirth()}
                       dropdownMode="select"
@@ -130,9 +131,6 @@ const AddChildDialog = (props) => {
                   </div>
                 </div>
                 <div className='frm-cell '>
-                  <label className='sel-gender-lbl'>
-                    Select Gender<span className='req'>*</span>
-                  </label>
                   <div className='field-group-wrap'>
                     <InputField
                       fieldName='gender'
@@ -142,6 +140,8 @@ const AddChildDialog = (props) => {
                       selectOptions={GENDER_OPTOPNS}
                       errors={errors}
                       touched={touched}
+                      label='Select Gender'
+                      required
                     />
                   </div>
                 </div>

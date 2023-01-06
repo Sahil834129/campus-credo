@@ -17,6 +17,7 @@ const AllSchools = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [schoolList, setSchoolList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const selectedLocation = useSelector(
     (state) => state.locationData.selectedLocation
   );
@@ -29,14 +30,17 @@ const AllSchools = () => {
   const applyFilters = async (formFilter) => {
     try {
       showLoader(dispatch);
+      setIsLoading(true)
       const response = await RESTClient.post(
         RestEndPoint.FIND_SCHOOLS,
         prepareSchoolFilter(formFilter)
       );
       setSchoolList(response.data);
       hideLoader(dispatch);
+      setIsLoading(false)
     } catch (error) {
       hideLoader(dispatch);
+      setIsLoading(false)
     }
     window.scrollTo(0, 0);
   };
@@ -61,12 +65,17 @@ const AllSchools = () => {
 
     try {
       showLoader(dispatch);
+      setIsLoading(true)
       const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {
         filters: filters,
       });
       setSchoolList(response.data);
       hideLoader(dispatch);
-    } catch (error) {}
+      setIsLoading(false)
+    } catch (error) {
+      hideLoader(dispatch);
+      setIsLoading(false)
+    }
   };
 
   function prepareSchoolFilter(filterForm) {
@@ -153,7 +162,7 @@ const AllSchools = () => {
             <Row className="content-section">
               <Breadcrumbs />
               <Col className="page-container">
-                <SchoolCardGrid schools={schoolList} />
+                <SchoolCardGrid schools={schoolList} isLoading={isLoading} />
               </Col>
             </Row>
           </Col>

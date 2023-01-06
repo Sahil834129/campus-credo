@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
@@ -9,11 +9,13 @@ import Layout from "../common/layout";
 import Button from "../components/form/Button";
 import InputField from "../components/form/InputField";
 import { CATEGORY_OPTIONS_CONTACT_FORM } from "../constants/formContanst";
+import { ContactInfoSchema } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 
-const initalValue = {
-  fullName: "",
+const initialValue = {
+  firstName: "",
+  lastName: "",
   phone: "",
   email: "",
   category: "",
@@ -22,11 +24,9 @@ const initalValue = {
 };
 const ContactUs = () => {
   const [submitting, setSubmitting] = useState(false);
-  const [otherCategoryText, setOtherCategoryText] = useState("");
+  
   const saveData = (formData) => {
     setSubmitting(true);
-    delete formData.initalValue;
-    console.log(formData, "----------");
     RESTClient.post(RestEndPoint.Contact_US, formData)
       .then((response) => {
         setSubmitting(false);
@@ -36,12 +36,11 @@ const ContactUs = () => {
         toast.error(RESTClient.getAPIErrorMessage(error));
       });
   };
-  const handleOther = (e) => {
-    setOtherCategoryText(e);
-  };
-  useEffect(() => {
-    handleOther();
-  }, []);
+
+  function resetContactFrom(resetForm) {
+    resetForm();
+  }
+  
   return (
     <Layout>
       <section className="content-area about-page">
@@ -56,37 +55,36 @@ const ContactUs = () => {
             <section className="contact-section-wrapper">
             <h6 class="student-heading">Please add your contact details below</h6>
               <Formik
-                initialValues={{ initalValue }}
-                // validationSchema={ContactInfoSchema}
+                initialValues={initialValue}
+                validationSchema={ContactInfoSchema}
                 validateOnBlur
                 onSubmit={(values) => {
                   saveData(values);
                 }}
               >
-                {({ errors, touched, onBlur }) => (
-                  <Form className="application-form-wrap">
+                {({ errors, touched, values, resetForm }) => (
+                  <Form className="application-form-wrap" noValidate>
                     <div className="fld-row">
                       <div className="fld-cell">
-                        <label className="">
-                          Full Name <span className="text-danger">*</span>
-                        </label>
                         <InputField
-                          fieldName="fullName"
+                          fieldName="firstName"
                           fieldType="text"
-                          placeholder="Full Name"
+                          value={values.firstName}
+                          label='First Name'
+                          placeholder='First Name'
+                          required
                           errors={errors}
                           touched={touched}
                         />
                       </div>
                       <div className="fld-cell">
-                        <label className="">
-                          Email Address <span className="text-danger">*</span>
-                        </label>
-                      
                           <InputField
-                            fieldName="email"
+                            fieldName="lastName"
+                            label='Last Name'
+                            value={values.lastName}
+                            placeholder='Last Name'
                             fieldType="text"
-                            placeholder="Email Address"
+                            required
                             errors={errors}
                             touched={touched}
                           />
@@ -94,65 +92,77 @@ const ContactUs = () => {
                     </div>
 
                     <div className="fld-row">
-                      <div className="frm-cell">
-                        <label className="">Phone Number<span className="text-danger">*</span></label>
+                      <div className="fld-cell">
                         <InputField
                           fieldName="phone"
                           fieldType="text"
+                          label='Phone Number'
+                          value={values.phone}
+                          required
                           placeholder="Phone Number"
                           errors={errors}
                           touched={touched}
                         />
-                      </div>{" "}
-                      <div className="frm-cell">
-                        <label className="">Select Category <span className="text-danger">*</span></label>
-                        <InputField
-                          fieldName="category"
-                          fieldType="select"
-                          placeholder=""
-                          selectOptions={CATEGORY_OPTIONS_CONTACT_FORM}
-                          errors={errors}
-                          touched={touched}
-                          onChange={(e) => handleOther(e.target.value)}
-                        />
-                      </div>{" "}
+                      </div>
+                      <div className="fld-cell">
+                          <InputField
+                            fieldName="email"
+                            label='Email Address'
+                            value={values.email}
+                            fieldType="text"
+                            placeholder="Email Address"
+                            required
+                            errors={errors}
+                            touched={touched}
+                          />
+                      </div>
                     </div>
 
                     <div className="fld-row">
-                      <div className="fld-cell identification-mark-cell">
-                        <label className="form-label">If other, please specify
-                          {otherCategoryText === "Others" ? (
-                            <span className="req">*</span>
-                          ) : (
-                            ""
-                          )}
-                        </label>
+                    <div className="fld-cell">
+                        <InputField
+                          fieldName="category"
+                          fieldType="select"
+                          label='Select Category'
+                          value={values.category}
+                          placeholder=""
+                          required
+                          selectOptions={CATEGORY_OPTIONS_CONTACT_FORM}
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>
+                      <div className="fld-cell">
                         <InputField
                           fieldName="otherCategory"
                           fieldType="text"
-                          disabled={otherCategoryText !== "Others"}
+                          value={values.otherCategory}
+                          label= 'If other, please specify'
+                          required={values.category === 'Others'}
+                          disabled={values.category !== "Others"}
                           placeholder="Please Specify"
                           errors={errors}
                           touched={touched}
                         />
                       </div>
-
-                    </div>
+                      </div>
                     <div className="fld-row">
-                      <div className="frm-cell">
-                        <label className="">Leave a Message<span className="text-danger">*</span></label>
-                      
+                    <div className="frm-cell">
                         <InputField
                           fieldName="message"
-                          fieldType="text"
-                          placeholder="type here"
+                          fieldType="textarea"
+                          value={values.message}
+                          rows={3}
+                          label='Leave a Message'
+                          required
+                          placeholder="Type message here"
                           errors={errors}
                           touched={touched}
                         />
                       </div>
                     </div>
                     <div className="fld-row button-wrap">
-                      <button type="button" class="reset btn-primary">Reset</button>
+                      <button type="button" class="reset btn-primary" onClick={() =>  resetForm()} >Reset</button>
                       <Button
                           className="submit-btn"
                           type="submit"

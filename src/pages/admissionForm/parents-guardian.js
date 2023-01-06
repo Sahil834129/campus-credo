@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import '../../assets/scss/custom-styles.scss';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import ParentsGuardianForm from "./parents-guardian-form";
-import RESTClient from "../../utils/RestClient";
-import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { getGuadianMaxDateOfBirth } from '../../utils/helper';
-import { formatDateToDDMMYYYY } from '../../utils/DateUtil';
+import '../../assets/scss/custom-styles.scss';
+import RestEndPoint from "../../redux/constants/RestEndpoints";
+import RESTClient from "../../utils/RestClient";
+import ParentsGuardianForm from "./parents-guardian-form";
 
 const initalValue = {
   relation: 'father',
@@ -28,7 +25,7 @@ const initalValue = {
   annualFamilyIncome: '',
   isAddressSameAsStudent: 'Yes',
   guardianDeceased: 'No',
-  dateOfBirth: formatDateToDDMMYYYY(getGuadianMaxDateOfBirth())
+  dateOfBirth: '' //formatDateToDDMMYYYY(getGuadianMaxDateOfBirth())
 };
 export default function ParentsGuardianComponent({ currentStudent, setStep }) {
   const [key, setKey] = useState('father');

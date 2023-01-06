@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {getChildsList} from '../../redux/actions/childAction';
-import { useSelector, useDispatch } from "react-redux";
-import AddChildDialog from "../../dialogs/addChild";
-import RESTClient from "../../utils/RestClient";
-import RestEndPoint from "../../redux/constants/RestEndpoints";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getItemsInCart } from "../../redux/actions/cartAction";
-import { getClassBasedOnAge, getStudentAge } from "../../utils/helper";
-import { getAgeClassMap } from "../../utils/services";
 import AlertDialog from "../../common/AlertDialog";
+import AddChildDialog from "../../dialogs/addChild";
+import { getItemsInCart } from "../../redux/actions/cartAction";
+import { getChildsList } from '../../redux/actions/childAction';
+import RestEndPoint from "../../redux/constants/RestEndpoints";
+import RESTClient from "../../utils/RestClient";
+import { getAgeClassMap } from "../../utils/services";
 
 const ApplyToSchool = (props) => {
     const dispatch = useDispatch();
@@ -98,18 +97,18 @@ const ApplyToSchool = (props) => {
 			return
 		}
 		let studentProfile
-		let isProfileCompleted = false
+		//let isProfileCompleted = false
 		try {
 			const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${value}`)
 			studentProfile = response.data
-			isProfileCompleted = studentProfile.profileCompleted ? true : false
+			//isProfileCompleted = studentProfile.profileCompleted ? true : false
 		} catch (error) {}
-		if (!isProfileCompleted) {
-			setAlertMessage('Cannot be added to the apply list because the student profile for the selected child is incomplete.')
-			setShowAlertDialog(true)
-			setRowFieldValue(index, field, '')
-			return
-		}
+		// if (!isProfileCompleted) {
+		// 	setAlertMessage('Cannot be added to the apply list because the student profile for the selected child is incomplete.')
+		// 	setShowAlertDialog(true)
+		// 	setRowFieldValue(index, field, '')
+		// 	return
+		// }
 		const stdClass = classOptions.find(it=> it.value === studentProfile.className) ? it.value : ''
 		classOptions.find(it=> it.text === stdClass)
 		setRowFieldValue(index, field, value)

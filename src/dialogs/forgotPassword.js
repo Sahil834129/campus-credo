@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import { Formik, Form } from 'formik';
-import InputField from "../components/form/InputField";
-import Button from "../components/form/Button";
-import { ForgotPasswordSchema } from "../data/validationSchema";
-import RESTClient from "../utils/RestClient";
-import RestEndPoint from "../redux/constants/RestEndpoints";
+import { Form, Formik } from 'formik';
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import Button from "../components/form/Button";
+import InputField from "../components/form/InputField";
+import { ForgotPasswordSchema } from "../data/validationSchema";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import RESTClient from "../utils/RestClient";
 import GenericDialog from "./GenericDialog";
 
 const ForgotPasswordDialog = (props) => {
@@ -28,9 +28,11 @@ const ForgotPasswordDialog = (props) => {
                 <Formik initialValues={{ email: '' }}
                     validationSchema={ForgotPasswordSchema} validateOnBlur onSubmit={values => { submitResetPasswordForm(values) }}>
                     {({ errors, touched }) => (
-                        <Form>
-                            <InputField fieldName="email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} />
-                            <Button class="signin-btn" buttonLabel="Reset Password" submitting={submitting} />
+                        <Form className='form-container forgot-pwd'>
+                            <div className='frm-cell'><InputField fieldName="email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} /></div>
+                            <div className="btn-wrapper">
+                                <Button class="signin-btn" buttonLabel="Reset Password" submitting={submitting} />
+                            </div>
                         </Form>
                     )}
                 </Formik>

@@ -59,7 +59,6 @@ const ApplicationTimeline = ({ application }) => {
         applicationStatus: "DENIED",
       });
       setApplicationStatus("DENIED");
-      window.location.reload();
       toast.success("Application status updated successfully.");
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));

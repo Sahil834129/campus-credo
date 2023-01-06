@@ -1,8 +1,8 @@
 import React from "react";
 
-import SchoolCard from "./SchoolCard";
+import { useSelector } from 'react-redux';
 import NoRecordsFound from "../common/NoRecordsFound";
-import { useSelector } from 'react-redux'
+import SchoolCard from "./SchoolCard";
 
 const SchoolCardGrid = (props) => {
     const selectedLocation = useSelector(
@@ -17,7 +17,7 @@ const SchoolCardGrid = (props) => {
                         props.schools.map((school, index) => (
                             <SchoolCard school={school} key={"school_" + index} />
                         ))
-                        : <NoRecordsFound message={"No schools found on selected criteria."} />
+                        : <NoRecordsFound message={ props.isLoading ? "Loading please wait..." : "No schools found on selected criteria."} />
                 }
             </div>
 

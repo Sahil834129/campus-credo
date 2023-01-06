@@ -25,7 +25,7 @@ import {
   getStudentAge,
   str2bool
 } from "../../utils/helper";
-import { populateCities } from "../../utils/populateOptions";
+import { handleStateChange, populateCities } from "../../utils/populateOptions";
 import RESTClient from "../../utils/RestClient";
 import { getAgeClassMap } from "../../utils/services";
 
@@ -503,7 +503,7 @@ export default function StudentDetails({
                   value={selectedChild.schoolState}
                   onChange={(e) => {
                     populateCities(e.target.value, setSchoolCity);
-                    setFieldValue("schoolState", e.target.value);
+                    handleStateChange(setSelectedChild, selectedChild, {schoolState: e.target.value, schoolCity:''})
                   }}
                 />
               </div>
@@ -685,7 +685,7 @@ export default function StudentDetails({
             value={selectedChild.state}
             onChange={(e) => {
               populateCities(e.target.value, setCity);
-              setFieldValue("state", e.target.value);
+              handleStateChange(setSelectedChild, selectedChild, {state:e.target.value, city:''})
             }}
           />
         </div>
