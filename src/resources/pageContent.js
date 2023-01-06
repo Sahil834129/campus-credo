@@ -164,6 +164,7 @@ const PageContent = {
     Music:'music-icon',
     Cricket: 'cricket-icon',
     Soccer:'soccer-icon',
+    Football:'soccer-icon',
     Swimming: 'swimming-icon',
     Yoga:'yoga-icon',
     Excursions: 'excursions-icon',
