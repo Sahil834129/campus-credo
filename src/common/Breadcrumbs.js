@@ -1,12 +1,14 @@
 import React from "react";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { useLocation, useNavigate } from "react-router-dom";
+import { DEFAULT_ROLES } from "../constants/app";
 import PageContent from "../resources/pageContent";
-import { convertCamelCaseToPresentableText, gotoHome } from "../utils/helper";
+import { convertCamelCaseToPresentableText, getLocalData, gotoHome } from "../utils/helper";
 
 const Breadcrumbs = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const currentRole = getLocalData('roles');
   const pathWithoutQuery = decodeURIComponent(location.pathname.split("?")[0]);
   const pathNestedRoutes = pathWithoutQuery
     .split("/")
@@ -23,8 +25,13 @@ const Breadcrumbs = () => {
       {isHomePage ? (
         ""
       ) : (
-        <Breadcrumb.Item onClick={(e) => gotoHome(e, navigate)}>
-          Home
+        <Breadcrumb.Item
+          onClick={(e) => {
+            if (currentRole !== DEFAULT_ROLES.SCHOOL_ADMIN) {
+              gotoHome(e, navigate);
+            }
+          }}>
+          {(currentRole === DEFAULT_ROLES.SCHOOL_ADMIN) ? "Admin" : "Home"}
         </Breadcrumb.Item>
       )}
       {pathNestedRoutes.map((path, index) => {

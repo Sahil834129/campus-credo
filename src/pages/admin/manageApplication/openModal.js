@@ -40,7 +40,7 @@ export default function OpenModal({
   applicationId,
   setApplicationId,
   setApplicationStatus,
-  fetchClassApplication,
+  callAllApi,
   classId,
   setApiError,
   atPiData,
@@ -87,14 +87,14 @@ export default function OpenModal({
           } else {
             setErrorList({});
             setShowAlert(false);
-            fetchClassApplication(classId);
+            callAllApi(classId);
           }
 
         });
     } else {
       updateApplicationStatus(payloadData)
         .then(response => {
-          fetchClassApplication(classId);
+          callAllApi(classId);
         })
         .catch(res => {
           const messageData = res?.response?.data?.apierror?.message;
@@ -145,7 +145,7 @@ export default function OpenModal({
         message={''}
         handleClose={() => {
           setShowAlert(false);
-          fetchClassApplication(classId);
+          callAllApi(classId);
         }}>
         <ShowWarningMessage errorList={errorList} />
       </AlertDialog>

@@ -22,7 +22,6 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
       if (password === confirmPassword) {
         changePasswordDetails['password'] = password;
         changePasswordDetails['userId'] = selectedUserId;
-        console.log('changePasswordDetails', changePasswordDetails);
         setIsloading(true);
         changeUserPassword(changePasswordDetails)
           .then(res => {

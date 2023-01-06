@@ -151,7 +151,7 @@ export const ManageApplication = () => {
             applicationStaus={applicationStaus}
             setApplicationStatus={setApplicationStatus}
             applicationId={applicationId}
-            fetchClassApplication={fetchClassApplication}
+            callAllApi={callAllApi}
             classId={classId}
             setApplicationId={setApplicationId}
             setApiError={setApiError}

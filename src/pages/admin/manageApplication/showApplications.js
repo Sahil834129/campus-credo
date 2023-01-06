@@ -53,6 +53,16 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       })
     },
     {
+      accessor: '',
+      Header: 'Age',
+      Cell: ((e) => {
+        var years = moment().diff(e.row.original.dateOfBirth, 'years');
+        return (
+          <span>{years}</span>
+        );
+      })
+    },
+    {
       accessor: 'obtainMarks',
       Header: 'Marks'
     },
@@ -106,26 +116,31 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                     <Dropdown.Item
                       key={`school${index}`}
                       onClick={(e) => {
-                        e.preventDefault();
-                        handleDropdownAction(SCHOOL_APPLICATION_STATUS[val], applicationId);
+                        if (SCHOOL_APPLICATION_STATUS[val] === SCHOOL_APPLICATION_STATUS.VIEW_APPLICANT_DETAILS) {
+                          setShowApplication(true);
+                          setSelectedApplicationId(e.row.original?.applicationId);
+                        } else {
+                          e.preventDefault();
+                          handleDropdownAction(SCHOOL_APPLICATION_STATUS[val], applicationId);
+                        }
                       }}
                     >
                       {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="success">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
                       {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="rejected">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
-                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
+                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{val === SCHOOL_APPLICATION_STATUS.AT_PI ? SCHOOL_APPLICATION_STATUS.AT_PI : humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
                     </Dropdown.Item>
                   );
                 })}
               </Dropdown.Menu>
             </Dropdown>}
           </>
-        );  
+        );
       })
     }
   ];
 
- 
-  
+
+
   return (
     <div className='inner-content-wrap'>
       <div className='table-wrapper'>
@@ -141,7 +156,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         <div className='btn-wrapper'>
           <Button
             className='approval-btn'
-            disabled={selectedRows && Object.keys(selectedRows).length === 0}
+            disabled={selectedRows && Object.keys(selectedRows).length !== rowsData.length}
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW, selectedRows, rowsData);
             }}>
@@ -161,7 +176,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.APPROVED, selectedRows, rowsData);
             }}>
-            Approved
+            Approve
           </Button>
         </div>)}
     </div>
