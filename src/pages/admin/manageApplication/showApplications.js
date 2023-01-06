@@ -63,12 +63,44 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       })
     },
     {
-      accessor: 'obtainMarks',
-      Header: 'Marks'
+      accessor: 'annualFamilyIncome',
+      Header: 'Family Income'
     },
     {
-      accessor: 'grade',
-      Header: 'Grade/GPA'
+      accessor: 'obtainMarks',
+      Header: 'Marks/Grade'
+    },
+    {
+      accessor: 'marksInPercentage',
+      Header: 'In %'
+    },
+    {
+      accessor: '',
+      Header: 'Grade/GPA',
+      Cell: ((e) => {
+        let marksUnit = e.row.original.marksUnit?.toUpperCase();
+        return (
+          <span>{ marksUnit === 'GRADES' ? e.row.original.grades : 'NA'}</span>
+        )
+      })
+    },
+    {
+      accessor: '',
+      Header: 'Notes',
+      Cell: ((e) => {
+        let notes;
+        if (e.row.original.anyExtracurriculars)
+          notes = 'success';
+        else if(e.row.original.anyMedicalDetails)
+          notes = 'warning';
+        else if(e.row.original.anyBackgroundCheck)
+          notes = 'danger'
+        return (
+          notes ? 
+          <Button variant={notes}></Button>
+          : 'NA'
+        )
+      })
     },
     {
       accessor: 'mobileNumber',
@@ -118,7 +150,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                       onClick={(e) => {
                         if (SCHOOL_APPLICATION_STATUS[val] === SCHOOL_APPLICATION_STATUS.VIEW_APPLICANT_DETAILS) {
                           setShowApplication(true);
-                          setSelectedApplicationId(e.row.original?.applicationId);
+                          setSelectedApplicationId(applicationId);
                         } else {
                           e.preventDefault();
                           handleDropdownAction(SCHOOL_APPLICATION_STATUS[val], applicationId);
