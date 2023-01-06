@@ -78,7 +78,7 @@ const UserProfile = () => {
                 {
                   applications.length > 0 ?
 				  	applications.map((application, index) => {
-                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} />
+                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
                   	})
 					: <NoRecordsFound message="No applications found for select child."/>
                 }

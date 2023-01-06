@@ -7,7 +7,7 @@ import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
 
-const ApplicationTimeline = ({ application }) => {
+const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) => {
   const navigate = useNavigate();
   const [applicationStatus, setApplicationStatus] = useState(application.applicationStatus)
 
@@ -53,22 +53,28 @@ const ApplicationTimeline = ({ application }) => {
 
   async function rejectApplication() {
     try {
-      await RESTClient.post(RestEndPoint.UPDATE_APPLICATION_STATUS, {
+      const rejectAppRes = await RESTClient.post(RestEndPoint.UPDATE_APPLICATION_STATUS, {
         applicationId: application.applicationId,
         childId: application.childId,
         applicationStatus: "DENIED",
       });
-      setApplicationStatus("DENIED");
+      setApplicationStatus(rejectAppRes.applicationStatus);
+      setShowTimeline(false)
+      const response = await RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`)
+      setApplications(response.data)
+      
       toast.success("Application status updated successfully.");
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
   }
 
+
+
   return (
     <>
     {
-      applicationStatus.toLowerCase() === 'approved' ? (
+      applicationStatus.toUpperCase() === 'APPROVED' ? (
         <div className="row-items timeline-wrapper">
           <div className="title-wrap">
             <div className="col">

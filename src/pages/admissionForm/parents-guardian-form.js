@@ -159,7 +159,7 @@ export default function ParentsGuardianForm({
     //   return false
     // }
      if((currentParent==="father" && guardianAge<21) || (currentParent==="mother" && guardianAge< 18)  ||
-     (currentParent==="guardian" && guardianAge<18))
+     (currentParent==="other" && guardianAge<18))
      {
       setValidationErrors({...validationErrors, dateOfBirth: 'Date of birth does not meet the minimum age requirement. Please review and update.'})
       return false
