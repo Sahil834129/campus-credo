@@ -1,16 +1,13 @@
-import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
-import Layout from '../layout';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { getAtPiForClass, getClassAdmissionSummary, getClassApplication, getSchoolClassesData } from '../../../utils/services';
-import ShowApplications from "./showApplications";
-import OpenModal from "./openModal";
-import FilterApp from "./filterApp";
+import { useEffect, useState } from 'react';
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import ReviewAdmissionDialog from "../../../dialogs/reviewAdmissionDialog";
 import { getLocalData } from "../../../utils/helper";
+import { getAtPiForClass, getClassAdmissionSummary, getClassApplication, getSchoolClassesData } from '../../../utils/services';
+import Layout from '../layout';
+import FilterApp from "./filterApp";
+import OpenModal from "./openModal";
+import ShowApplications from "./showApplications";
 
 
 export const ManageApplication = () => {
@@ -121,7 +118,7 @@ export const ManageApplication = () => {
 
   return (
     <Layout admissionSummary={admissionData?.upperClassAdmissionSummary}>
-      <div className='content-area-inner inner-page-outer'>
+      <div className='content-area-inner manage-application inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
           <FilterApp
             schoolClassesData={schoolClassesData}

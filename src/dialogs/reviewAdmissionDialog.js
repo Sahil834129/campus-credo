@@ -532,7 +532,7 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-        <div className="mx-auto">
+        <div className="declaration-wrapper">
           <Form.Check
             type="checkbox"
             label=" I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct"

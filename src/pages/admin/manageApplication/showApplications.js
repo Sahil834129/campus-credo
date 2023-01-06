@@ -143,7 +143,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
 
   return (
     <div className='inner-content-wrap'>
-      <div className='table-wrapper'>
+      <div className='table-wrapper-outer'>
         <TableComponent
           data={rowsData}
           showSelectedAll={true}
