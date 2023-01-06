@@ -14,7 +14,7 @@ import { getParentOCcupation } from '../../redux/actions/masterData';
 import RestEndPoint from '../../redux/constants/RestEndpoints';
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../../utils/DateUtil';
 import { getAge, getStudentAge } from '../../utils/helper';
-import { populateCities } from '../../utils/populateOptions';
+import { handleStateChange, populateCities } from '../../utils/populateOptions';
 import RESTClient from '../../utils/RestClient';
 
 export default function ParentsGuardianForm({
@@ -191,14 +191,6 @@ export default function ParentsGuardianForm({
       setKey(previousParent)
     }
     window.scrollTo(0, 0);
-  }
-
-  function handleStateChange(stateId) {
-    setCity([{ text: "Select City", value: "" }])
-    if (!stateId)
-      return
-    populateCities(stateId, setCity)
-    
   }
 
   return (
@@ -591,8 +583,8 @@ export default function ParentsGuardianForm({
                           selectOptions={states}
                           value={values.state}
                           onChange={e => {
-                            setFieldValue('state', e.target.value)
-                            handleStateChange(e.target.value)
+                            populateCities(e.target.value, setCity);
+                            handleStateChange(setValues, values, {state: e.target.value, city:''})
                           }}
                         />
                       </div>
