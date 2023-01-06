@@ -193,7 +193,8 @@ export const ManageAdmission = () => {
                                 <th>Class</th>
                                 <th>Admission Open</th>
                                 <th>Total Seats</th>
-                                <th>Application(Start Date - End Date)</th>
+                                {/* <th>Application(Start Date - End Date)</th> */}
+                                <th>Application</th>
                                 <th>Parent Interview</th>
                                 <th>Candidate Screening Test</th>
                                 <th>Application Fee</th>
