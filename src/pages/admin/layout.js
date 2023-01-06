@@ -87,7 +87,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <label className='lbl'>Application Received</label>{' '}
-                  <span className='value'>{admissionSummary?.received || 0}</span>
+                  <span className='value'>{admissionSummary?.totalApplication || 0}</span>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <label className='lbl'>Under Review</label>{' '}

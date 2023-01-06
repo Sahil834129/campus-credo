@@ -27,7 +27,7 @@ const ContactUs = () => {
   
   const saveData = (formData) => {
     setSubmitting(true);
-    RESTClient.post(RestEndPoint.Contact_US, formData)
+    RESTClient.post(RestEndPoint.CONTACT_US, formData)
       .then((response) => {
         setSubmitting(false);
       })

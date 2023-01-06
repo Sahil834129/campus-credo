@@ -171,6 +171,7 @@ const PageContent = {
     TableTennis:'tabletennis-icon',
     HorseRiding: 'horseriding-icon',
     BasketBall:'backetball-icon',
+    Atheletics:'atheletics-icon'
    
   }
 }
