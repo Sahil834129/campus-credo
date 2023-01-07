@@ -91,6 +91,15 @@ export function humanize(str) {
     if (str === SCHOOL_APPLICATION_STATUS.AT_PI) {
       return "Shortlist for AT/PI"
     }
+    if (str === SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW) {
+      return "Send For Final Approval";
+    }
+    if (str === SCHOOL_APPLICATION_STATUS.APPROVED) {
+      return "Approve";
+    }
+    if (str === SCHOOL_APPLICATION_STATUS.DECLINED) {
+      return "Decline";
+    }
     let frags = str.split("_");
     for (i = 0; i < frags.length; i++) {
       frags[i] =

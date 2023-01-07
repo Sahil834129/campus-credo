@@ -205,7 +205,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW, selectedRows, rowsData);
             }}>
-            Send for <strong>FINAL</strong> Approval
+            Send for Final Approval
           </Button>
           <Button
             className='decline-btn'
