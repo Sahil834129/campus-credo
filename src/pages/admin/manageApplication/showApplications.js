@@ -96,7 +96,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         if(e.row.original.anyExtracurriculars)
           notes.push('extracurricular')
         return (
-          <div className="legend">
+          <div className="legend-block">
             {
             notes.length ?
               notes.map((note, index) => {
@@ -104,7 +104,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                   title={note=== 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' :''}
                   >{note.substring(0,1)}</span>
               }) 
-            : <span>NA</span>
+            : <span className="none-found">NA</span>
             }
           </div>
         )
