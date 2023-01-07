@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
-import { getDefaultDateFormat } from "../../../utils/DateUtil";
 import { humanize } from "../../../utils/helper";
 
 
@@ -116,17 +115,17 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         )
       })
     },
-    {
-      accessor: 'mobileNumber',
-      Header: 'Mobile Number'
-    },
-    {
-      accessor: 'submissionDate',
-      Header: 'Application Date',
-      Cell: ((e) => {
-        return moment(e.row.original?.submissionDate).format(getDefaultDateFormat());
-      })
-    },
+    // {
+    //   accessor: 'mobileNumber',
+    //   Header: 'Mobile Number'
+    // },
+    // {
+    //   accessor: 'submissionDate',
+    //   Header: 'Application Date',
+    //   Cell: ((e) => {
+    //     return moment(e.row.original?.submissionDate).format(getDefaultDateFormat());
+    //   })
+    // },
     {
       accessor: 'applicationStatus',
       Header: 'Application Status',
