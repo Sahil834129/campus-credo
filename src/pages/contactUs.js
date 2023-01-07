@@ -27,9 +27,17 @@ const ContactUs = () => {
   
   const saveData = (formData) => {
     setSubmitting(true);
-    RESTClient.post(RestEndPoint.CONTACT_US, formData)
+    let postData = {...formData}
+    let fullName = postData.firstName + postData.lastName
+    delete postData.firstName
+    delete postData.lastName
+
+    postData['fullName'] = fullName
+
+    RESTClient.post(RestEndPoint.CONTACT_US, postData)
       .then((response) => {
         setSubmitting(false);
+        toast.success("Request submitted successfully.")
       })
       .catch((error) => {
         setSubmitting(false);

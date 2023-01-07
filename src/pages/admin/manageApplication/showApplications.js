@@ -67,8 +67,14 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Header: 'Family Income'
     },
     {
-      accessor: 'obtainMarks',
-      Header: 'Marks/Grade'
+      accessor: '',
+      Header: 'Marks/Grade',
+      Cell:((e) => {
+        let marksUnit = e.row.original.marksUnit?.toUpperCase();
+        return (
+          <span>{marksUnit === 'GRADES' ?  e.row.original.grade : e.row.original.obtainMarks}</span>
+        )
+      })
     },
     {
       accessor: 'marksInPercentage',
@@ -80,7 +86,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Cell: ((e) => {
         let marksUnit = e.row.original.marksUnit?.toUpperCase();
         return (
-          <span>{ marksUnit === 'GRADES' ? e.row.original.grades : 'NA'}</span>
+          <span>{ marksUnit === 'GRADES' || marksUnit === 'GPA'? humanize(marksUnit) : 'NA'}</span>
         )
       })
     },

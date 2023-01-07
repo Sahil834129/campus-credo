@@ -32,7 +32,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
         <div className='items-row'>
           <div className='item-col brand-logo'>
             <span className='subscriber-name subscriber-logo'>
-              <Link href=''>
+              <Link to='/dashboard'>
                 {getLocalData('schoolName')}
                 {/* <CampusLogo /> */}
               </Link>
@@ -119,7 +119,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
         {props.children}
       </div>
       <div className='footer-panel'>
-        <Link href=''><FooterCampusLogo /></Link>
+        <Link to='/dashboard'><FooterCampusLogo /></Link>
         <Link href=''>Terms &amp; Conditions</Link>
       </div>
       <ToastContainer autoClose={2000} position="top-right" />
