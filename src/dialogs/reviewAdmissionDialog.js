@@ -569,7 +569,7 @@ const ReviewAdmissionDialog = ({
               className="edit"
               onClick={() => {
                 navigate(
-                  "/userProfile/admissionForm/?childId=" +
+                  "/admissionForm/?childId=" +
                     btoa(`#${studentDetail.childId}`)
                 );
               }}
