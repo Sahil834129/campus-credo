@@ -114,7 +114,7 @@ export default function StudentDetails({
     return data.schoolName ? "Yes" : "No";
   };
   const handleIdentificationMarks = (data) => {
-    return data.identificationMarks !== "" ? "Yes" : "No";
+    return data.identificationMarks ? "Yes" : "No";
   };
   const getCurrentUser = useCallback(
     async (childId) => {

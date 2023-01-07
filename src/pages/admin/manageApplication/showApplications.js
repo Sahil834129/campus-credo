@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
-import { getDefaultDateFormat } from "../../../utils/DateUtil";
 import { humanize } from "../../../utils/helper";
 
 
@@ -63,24 +62,70 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       })
     },
     {
-      accessor: 'obtainMarks',
-      Header: 'Marks'
+      accessor: 'annualFamilyIncome',
+      Header: 'Family Income'
     },
     {
-      accessor: 'grade',
-      Header: 'Grade/GPA'
-    },
-    {
-      accessor: 'mobileNumber',
-      Header: 'Mobile Number'
-    },
-    {
-      accessor: 'submissionDate',
-      Header: 'Application Date',
-      Cell: ((e) => {
-        return moment(e.row.original?.submissionDate).format(getDefaultDateFormat());
+      accessor: '',
+      Header: 'Marks/Grade',
+      Cell:((e) => {
+        let marksUnit = e.row.original.marksUnit?.toUpperCase();
+        return (
+          <span>{marksUnit === 'GRADES' ?  e.row.original.grade : e.row.original.obtainMarks}</span>
+        )
       })
     },
+    {
+      accessor: 'marksInPercentage',
+      Header: 'In %'
+    },
+    {
+      accessor: '',
+      Header: 'Grade/GPA',
+      Cell: ((e) => {
+        let marksUnit = e.row.original.marksUnit?.toUpperCase();
+        return (
+          <span>{ marksUnit === 'GRADES' || marksUnit === 'GPA'? humanize(marksUnit) : 'NA'}</span>
+        )
+      })
+    },
+    {
+      accessor: '',
+      Header: 'Notes',
+      Cell: ((e) => {
+        let notes = []
+        if (e.row.original.anyBackgroundCheck)
+          notes.push('backgroundCheckNegative')
+        if(e.row.original.anyMedicalDetails)
+          notes.push('medicalConditions')
+        if(e.row.original.anyExtracurriculars)
+          notes.push('extracurricular')
+        return (
+          <div className="legend-block">
+            {
+            notes.length ?
+              notes.map((note, index) => {
+                return <span className={note}
+                  title={note=== 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' :''}
+                  >{note.substring(0,1)}</span>
+              }) 
+            : <span className="none-found">NA</span>
+            }
+          </div>
+        )
+      })
+    },
+    // {
+    //   accessor: 'mobileNumber',
+    //   Header: 'Mobile Number'
+    // },
+    // {
+    //   accessor: 'submissionDate',
+    //   Header: 'Application Date',
+    //   Cell: ((e) => {
+    //     return moment(e.row.original?.submissionDate).format(getDefaultDateFormat());
+    //   })
+    // },
     {
       accessor: 'applicationStatus',
       Header: 'Application Status',
@@ -118,7 +163,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                       onClick={(e) => {
                         if (SCHOOL_APPLICATION_STATUS[val] === SCHOOL_APPLICATION_STATUS.VIEW_APPLICANT_DETAILS) {
                           setShowApplication(true);
-                          setSelectedApplicationId(e.row.original?.applicationId);
+                          setSelectedApplicationId(applicationId);
                         } else {
                           e.preventDefault();
                           handleDropdownAction(SCHOOL_APPLICATION_STATUS[val], applicationId);
@@ -143,7 +188,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
 
   return (
     <div className='inner-content-wrap'>
-      <div className='table-wrapper'>
+      <div className='table-wrapper-outer'>
         <TableComponent
           data={rowsData}
           showSelectedAll={true}

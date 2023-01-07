@@ -155,7 +155,8 @@ const getFieldTagElement = (props) => {
       return (
         <label className="lbl">
           <Field
-            type="file"
+            type={"file"}
+            accept=".jpg,.jpeg,.png,.doc,.docx,.pdf"
             name={props.fieldName}
             value={props.value}
             {...(props.required ? { required: props.required } : {})}

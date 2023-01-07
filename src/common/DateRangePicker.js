@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDatePicker from 'react-datepicker';
 import Form from 'react-bootstrap/Form';
-import { DATE_FORMAT } from "../constants/app";
+import ReactDatePicker from 'react-datepicker';
 
 function DateRangePicker({
   dateRanges,
@@ -27,6 +26,7 @@ function DateRangePicker({
       endDate={dateRanges[1]}
       minDate={minDate || null}
       excludeDates={[minDate]}
+      placeholderText={'Select Date Range'} 
       onChange={update => {
         updateDateRange(update);
       }}

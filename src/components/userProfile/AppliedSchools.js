@@ -7,7 +7,7 @@ import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { baseURL } from "../../utils/RestClient";
 import ApplicationTimeline from "./ApplicationTimeline";
 
-const AppliedSchools = ({ application }) => {
+const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
   return (
     <Col className="right content">
@@ -56,7 +56,7 @@ const AppliedSchools = ({ application }) => {
               <label>Status {application.applicationId}</label>
             </div>
             <div className="col">
-              <span className="badge accepted">
+            <span className={(application.applicationStatus === 'APPROVED' || application.applicationStatus === 'SUBMITTED') ? 'badge accepted' : 'badge under-validation'}>
                 {application.applicationStatus?.replace("_", " ")}
               </span>
             </div>
@@ -67,7 +67,7 @@ const AppliedSchools = ({ application }) => {
             </div>
           </div>
         </div>
-        {showTimeline ? <ApplicationTimeline application={application} /> : ""}
+        {showTimeline ? <ApplicationTimeline application={application} setApplications={setApplications} setShowTimeline={setShowTimeline}/> : ""}
 </div>
         
       </div>

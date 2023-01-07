@@ -8,6 +8,7 @@ import AddChildDialog from "../../dialogs/addChild";
 import { getItemsInCart } from "../../redux/actions/cartAction";
 import { getChildsList } from '../../redux/actions/childAction';
 import RestEndPoint from "../../redux/constants/RestEndpoints";
+import { getClassBasedOnAge, getStudentAge } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
 import { getAgeClassMap } from "../../utils/services";
 
@@ -109,10 +110,13 @@ const ApplyToSchool = (props) => {
 		// 	setRowFieldValue(index, field, '')
 		// 	return
 		// }
-		const stdClass = classOptions.find(it=> it.value === studentProfile.className) ? it.value : ''
-		classOptions.find(it=> it.text === stdClass)
+
+		const selectedChild = childsList.find(it => it.childId === parseInt(value))
+		let childAge = getStudentAge(selectedChild.dateOfBirth)
+		let optionText = getClassBasedOnAge(classMapWithAge, classOptions, childAge)
+		const selectedClass = classOptions.find((it) => it.text.toLowerCase() === optionText?.toLowerCase());
 		setRowFieldValue(index, field, value)
-        setRowFieldValue(index, 'class', stdClass)
+        setRowFieldValue(index, 'class', selectedClass ? selectedClass.value.toString() : "")
     }
 
 	const setRowFieldValue = (index, field, value) => {

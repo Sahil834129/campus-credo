@@ -11,7 +11,7 @@ import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
-  downloadDocument,
+  downloadDocument
 } from "../utils/services";
 import GenericDialog from "./GenericDialog";
 import ParentGuardianTab from "./parentGuardianTab";
@@ -288,7 +288,7 @@ const ReviewAdmissionDialog = ({
                   <label>Address:</label>
                   <span className="item-entry">
                     {studentDetail.addressLine1}, {studentDetail.addressLine2},{" "}
-                    {studentDetail.city}, {studentDetail.state} -{" "}
+                    {studentDetail.cityName}, {studentDetail.stateName} -{" "}
                     {studentDetail.pincode}
                   </span>
                 </div>
@@ -532,7 +532,8 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-        <div className="mx-auto">
+        { applicationId ? '' :
+        <div className="declaration-wrapper">
           <Form.Check
             type="checkbox"
             label=" I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct"
@@ -552,6 +553,7 @@ const ReviewAdmissionDialog = ({
             }}
           />
         </div>
+        }
         {childId && (
           <div className="btn-wrapper review-section-btn">
             <Button
@@ -567,7 +569,7 @@ const ReviewAdmissionDialog = ({
               className="edit"
               onClick={() => {
                 navigate(
-                  "/userProfile/admissionForm/?childId=" +
+                  "/admissionForm/?childId=" +
                     btoa(`#${studentDetail.childId}`)
                 );
               }}

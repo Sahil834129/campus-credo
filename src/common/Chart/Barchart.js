@@ -46,7 +46,7 @@ const defaultOptions = {
       },
       title: {
         display: true,
-        text: "classes",
+        text: "Classes",
         color: "000000",
       }
     },

@@ -14,7 +14,8 @@ const SchoolExtracurriculars = ({schoolCategoryExtracurricularMap}) => {
                         <ul>
                             {
                                values.map((value, i) => {
-                                    let fIcon = PageContent.EXTRACURRICULAR_ICON_MAP.hasOwnProperty(value) ? PageContent.EXTRACURRICULAR_ICON_MAP[value] : null;
+                                    let iconKey = value.replace(' ', '')
+                                    let fIcon = PageContent.EXTRACURRICULAR_ICON_MAP.hasOwnProperty(iconKey) ? PageContent.EXTRACURRICULAR_ICON_MAP[iconKey] : null;
                                     return <li key={"featureName_"+i}><i className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i><label>{value}</label></li>
                                })
                             }

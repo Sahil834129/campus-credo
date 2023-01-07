@@ -81,6 +81,7 @@ const LoginDialog = (props) => {
         ButtonText="Send OTP"
         resend={() => {
           sendOTP();
+          setOtp("");
           setOtpSentCounter((val) => (val === 2 ? 1 : val + 1));
         }}
       />

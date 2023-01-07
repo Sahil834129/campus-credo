@@ -26,7 +26,7 @@ const PageContent = {
     { ref: '/userProfile', icon:'dashboard-icon', class:'dashboard', title: 'Dashboard' },
     { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
     { ref: '/manageChild', icon:'managechild-icon', class:'managechild', title: 'Manage Child' },
-    { ref: '/userProfile/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
+    { ref: '/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [
@@ -164,12 +164,14 @@ const PageContent = {
     Music:'music-icon',
     Cricket: 'cricket-icon',
     Soccer:'soccer-icon',
+    Football:'soccer-icon',
     Swimming: 'swimming-icon',
     Yoga:'yoga-icon',
     Excursions: 'excursions-icon',
     TableTennis:'tabletennis-icon',
     HorseRiding: 'horseriding-icon',
     BasketBall:'backetball-icon',
+    Atheletics:'atheletics-icon'
    
   }
 }

@@ -71,8 +71,7 @@ export function DocumentTableFormat({
     const error = {};
     if (fileData[fileType]) {
       if (!validateFile(fileData[fileType])) {
-        error[fileType] =
-          "Please upload a file smaller than 1 MB or JPEG/Jpg/PNG/pdf file";
+        toast.error("Upload file size should be less than 1mb");
       } else {
         callUploadFIleApi(currentStudent.childId, fileType, fileData);
         error[fileType] = "";
@@ -109,10 +108,10 @@ export function DocumentTableFormat({
             </td>
             <td className="doc-upload-fld">
               <input
-                type="file"
+                type={"file"}
+                accept=".jpg,.jpeg,.png,.doc,.docx,.pdf"
                 name={val.documentName}
                 onChange={handleFileChangeInput}
-                accept=".png, .jpg, .jpeg .pdf"
               />
               <span className="error-msg">
                 {fileUploadErrors[val.documentName] !== undefined

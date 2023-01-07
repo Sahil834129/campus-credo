@@ -48,6 +48,7 @@ export const setUserLoginData = (loginData) => {
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);
+  setLocalData("schoolName", loginData?.schoolName);
 };
 
 export const getLocalData = (key) => {
@@ -103,6 +104,16 @@ export function humanize(str) {
 }
 
 export function convertCamelCaseToPresentableText(str) {
+
+  if(str.includes('-'))
+  {
+    let string=str.replace("-"," ");
+  return string
+  .toLowerCase()
+  .split(' ')
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+  .join(' ');
+  }
   return str.replace(/([A-Z])/g, " $1").replace(/^./, function (str) {
     return str.toUpperCase();
   });
