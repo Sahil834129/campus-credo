@@ -127,7 +127,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                     >
                       {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="success">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
                       {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="rejected">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
-                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{val === SCHOOL_APPLICATION_STATUS.AT_PI ? SCHOOL_APPLICATION_STATUS.AT_PI : humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
+                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
                     </Dropdown.Item>
                   );
                 })}

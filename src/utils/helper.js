@@ -1,5 +1,6 @@
 import moment from "moment";
 import * as Yup from "yup";
+import { SCHOOL_APPLICATION_STATUS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { getDefaultDateFormat } from "./DateUtil";
 import RESTClient from "./RestClient";
@@ -86,6 +87,9 @@ export const str2bool = (value) => {
 export function humanize(str) {
   let i;
   try {
+    if (str === SCHOOL_APPLICATION_STATUS.AT_PI) {
+      return "Shortlist for AT/PI"
+    }
     let frags = str.split("_");
     for (i = 0; i < frags.length; i++) {
       frags[i] =
