@@ -88,17 +88,25 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       accessor: '',
       Header: 'Notes',
       Cell: ((e) => {
-        let notes;
-        if (e.row.original.anyExtracurriculars)
-          notes = 'success';
-        else if(e.row.original.anyMedicalDetails)
-          notes = 'warning';
-        else if(e.row.original.anyBackgroundCheck)
-          notes = 'danger'
+        let notes = []
+        if (e.row.original.anyBackgroundCheck)
+          notes.push('backgroundCheckNegative')
+        if(e.row.original.anyMedicalDetails)
+          notes.push('medicalConditions')
+        if(e.row.original.anyExtracurriculars)
+          notes.push('extracurricular')
         return (
-          notes ? 
-          <Button variant={notes}></Button>
-          : 'NA'
+          <div className="legend">
+            {
+            notes.length ?
+              notes.map((note, index) => {
+                return <span className={note}
+                  title={note=== 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' :''}
+                  >{note.substring(0,1)}</span>
+              }) 
+            : <span>NA</span>
+            }
+          </div>
         )
       })
     },
