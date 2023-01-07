@@ -73,76 +73,79 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
 
   return (
     <>
-    {
-      application.applicationDataHistory ? (
-        <div className="row-items timeline-wrapper">
-          <div className="title-wrap">
-            <div className="col">
-              <h2>Application Status Timeline</h2>
-            </div>
-            {/* <div className="col right">
+      <div className="row-items timeline-wrapper">
+        <div className="title-wrap">
+          <div className="col">
+            <h2>Application Status Timeline</h2>
+          </div>
+          {/* <div className="col right">
               <Link>
                 View your form details <i className="icons arrowright-icon"></i>
               </Link>
             </div> */}
-          </div>
+        </div>
+        {application.applicationDataHistory?.length ? (
           <div className="timeline-list">
             <div className="timeline-info-panel">
-              {
-                application.applicationDataHistory.map(history => {
-                  
-                  return <div className="timeline-row">
-                    <div className="date">{formatDateToDDMMYYYY(new Date(history.updatedDate))}</div>
+              {application.applicationDataHistory.map((history) => {
+                return (
+                  <div className="timeline-row">
+                    <div className="date">
+                      {formatDateToDDMMYYYY(new Date(history.updatedDate))}
+                    </div>
                     <div className="indicator">
                       <span className="indiShape circle"></span>
                     </div>
-                    {
-                        application.applicationStatus === 'APPROVED' && history.applicationStatus === 'APPROVED' ?
-                            <div className="particulars-status">
-                              <div className="update-info">
-                                Congratulation!!!
-                                <span className="status submitted">
-                                  Your Application is Approved
-                                </span>
-                              </div>
-                              <div className="instruction">
-                                Do you want to proceed with Admission?
-                                <div className="btn-wrapper">
-                                  <Button
-                                    type="button"
-                                    className="accept-btn btn btn-primary"
-                                    onClick={acceptApplication}
-                                    //onClick={() => navigate("/userProfile")}
-                                  >
-                                    ACCEPT
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    className="decline-btn btn btn-primary"
-                                    onClick={() => {
-                                      rejectApplication();
-                                    }}
-                                  >
-                                    REJECT
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-                          
-                        : <div>{humanize(history.applicationStatus.replaceAll('_', ' '))}</div>
-                      }
-                    </div>
-                })
-              }
+                    {application.applicationStatus === "APPROVED" &&
+                    history.applicationStatus === "APPROVED" ? (
+                      <div className="particulars-status">
+                        <div className="update-info">
+                          Congratulation!!!
+                          <span className="status submitted">
+                            Your Application is Approved
+                          </span>
+                        </div>
+                        <div className="instruction">
+                          Do you want to proceed with Admission?
+                          <div className="btn-wrapper">
+                            <Button
+                              type="button"
+                              className="accept-btn btn btn-primary"
+                              onClick={acceptApplication}
+                              //onClick={() => navigate("/userProfile")}
+                            >
+                              ACCEPT
+                            </Button>
+                            <Button
+                              type="button"
+                              className="decline-btn btn btn-primary"
+                              onClick={() => {
+                                rejectApplication();
+                              }}
+                            >
+                              REJECT
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        {humanize(
+                          history.applicationStatus.replaceAll("_", " ")
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </div>
-      ) : (
-        <div style={{margin: '15px', textAlign: 'center'}}>
-          No Record Found.
-        </div>
-      )
-    }
+        ) : (
+          <div style={{ margin: "15px", textAlign: "center" }}>
+            No Record Found.
+          </div>
+        )}
+      </div>
     </>
   );
 };
