@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { SCHOOL_APPLICATION_STATUS } from "../../constants/app";
+import { APPLICATION_STATUS_MESSAGE } from "../../constants/formContanst";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { humanize, isEmpty } from "../../utils/helper";
@@ -69,7 +71,14 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
     }
   }
 
-
+  function getApplicationStatusMessage(history) {
+    const status = history.applicationStatus
+    let message = APPLICATION_STATUS_MESSAGE[status] ? APPLICATION_STATUS_MESSAGE[status] : humanize(status)
+    if (status.toUpperCase() === SCHOOL_APPLICATION_STATUS.AT_PI){
+      message = message.replace('<AT/PI timeslot>', history.applicantATPITimeSlot)
+    }
+    return message
+  }
 
   return (
     <>
@@ -130,9 +139,9 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
                       </div>
                     ) : (
                       <div>
-                        {humanize(
-                          history.applicationStatus.replaceAll("_", " ")
-                        )}
+                        {
+                          getApplicationStatusMessage(history)
+                        }
                       </div>
                     )}
                   </div>

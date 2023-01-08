@@ -95,10 +95,10 @@ export function humanize(str) {
       return "Send For Final Approval";
     }
     if (str === SCHOOL_APPLICATION_STATUS.APPROVED) {
-      return "Approve";
+      return "Approved";
     }
     if (str === SCHOOL_APPLICATION_STATUS.DECLINED) {
-      return "Decline";
+      return "Declined";
     }
     let frags = str.split("_");
     for (i = 0; i < frags.length; i++) {
