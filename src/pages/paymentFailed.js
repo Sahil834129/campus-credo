@@ -8,12 +8,22 @@ import Layout from "../common/layout";
 const PaymentFailed = () => {
   const search = useLocation().search;
   const orderType = new URLSearchParams(search).get("orderType");
-  const id = new URLSearchParams(search).get("id");
+  const applications = JSON.parse(
+    new URLSearchParams(search).get("applications")
+  );
+
   return (
     <Layout>
       <section className="content-area">
         <Container className="main-container signup-main" fluid>
-          Payment Failed
+          Payment failed for applications :{" "}
+          {applications.map((application, index) => (
+            <span>
+              {application +
+                "" +
+                (!isEmpty(applications[index + 1]) ? ", " : "")}
+            </span>
+          ))}{" "}
         </Container>
       </section>
     </Layout>
