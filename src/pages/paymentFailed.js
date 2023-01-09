@@ -4,6 +4,7 @@ import "../assets/scss/custom-styles.scss";
 import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import Layout from "../common/layout";
+import { isEmpty } from "../utils/helper";
 
 const PaymentFailed = () => {
   const search = useLocation().search;
