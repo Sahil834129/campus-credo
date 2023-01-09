@@ -125,8 +125,11 @@ export default function StudentDetails({
         if (response.data !== "") {
           updateSelectedChild(response.data);
           setIsUserExist(response.data.profileId ? true : false);
-
-          if (response.data.city) populateCities(response.data.state, setCity);
+          
+          setCity([{ text: "Select City", value: "" }])
+          setSchoolCity([{ text: "Select City", value: "" }])
+          if (response.data.city) 
+            populateCities(response.data.state, setCity);
           if (response.data.schoolCity) {
             populateCities(response.data.schoolState, setSchoolCity);
           }
