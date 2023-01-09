@@ -100,7 +100,7 @@ export function humanize(str) {
     if (str === SCHOOL_APPLICATION_STATUS.DECLINED) {
       return "Declined";
     }
-    let frags = str.split("_");
+    let frags = str ? str.split("_") : [];
     for (i = 0; i < frags.length; i++) {
       frags[i] =
         frags[i].charAt(0).toUpperCase() + frags[i].slice(1).toLowerCase();

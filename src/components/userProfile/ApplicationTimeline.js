@@ -96,9 +96,9 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
         {application.applicationDataHistory?.length ? (
           <div className="timeline-list">
             <div className="timeline-info-panel">
-              {application.applicationDataHistory.map((history) => {
+              {application.applicationDataHistory.map((history, index) => {
                 return (
-                  <div className="timeline-row">
+                  <div className="timeline-row" key={'timeline_'+index}>
                     <div className="date">
                       {formatDateToDDMMYYYY(new Date(history.updatedDate))}
                     </div>

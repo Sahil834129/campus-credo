@@ -112,29 +112,31 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
 
   const handleMinMarks = (e) => {
     const value = e.target.value;
-    if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxMarks)
+    if (!value || isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxMarks)
       return;
     setMinMarks(value);
   };
 
   const handleMaxMarks = (e) => {
     const value = e.target.value;
-    if (isNaN(value) || parseFloat(value) < minMarks || parseFloat(value) > 100)
+    if (!value || isNaN(value) || parseFloat(value) < minMarks || parseFloat(value) > 100)
       return;
     setMaxMarks(value);
   };
 
   const handleMinIncome = (e) => {
     const value = e.target.value;
-    if (isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxIncome)
+    if (!value || isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxIncome)
       return;
     setMinIncome(value);
   };
 
   const handleMaxIncome = (e) => {
     const value = e.target.value;
-    if (isNaN(value) || parseFloat(value) < minIncome || parseFloat(value) > 10000000)
+    if (!value || isNaN(value) || parseFloat(value) < minIncome || parseFloat(value) > 10000000){
+      console.log('here values nnn: ' , value)
       return;
+    }
     setMaxIncome(value);
   };
 

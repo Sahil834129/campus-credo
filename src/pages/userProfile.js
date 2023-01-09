@@ -32,13 +32,15 @@ const UserProfile = () => {
   }, [childs]);
 
   const handleChildSelection = async (childId) => {
-	setSelectedChild(childId)
+    if(!childId)
+      return
+    setSelectedChild(childId)
     try {
       const response = await RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`)
       setApplications(response.data)
     } catch (error) {
-		setApplications([])
-	}
+      setApplications([])
+    }
   }
   
   return (
@@ -61,7 +63,7 @@ const UserProfile = () => {
                     <label>Select Child<span className='req'>*</span></label>
                     <Form.Group className='frm-cell'>
                       <Form.Select value={selectedChild} onChange={e=>handleChildSelection(e.target.value)}>
-                        <option>--Select Child--</option>
+                        <option value=''>--Select Child--</option>
                         {
                           childs && childs.map((child, index) => {
                             return <option key={'applicationChild_'+index} value={child.childId}>{child.firstName} {(child.lastName ? ' ' + child.lastName : '')}</option>
