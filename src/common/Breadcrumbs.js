@@ -12,13 +12,13 @@ const Breadcrumbs = () => {
   const pathWithoutQuery = decodeURIComponent(location.pathname.split("?")[0]);
   const pathNestedRoutes = pathWithoutQuery
     .split("/")
-    .filter((v) => v.length > 0 && v !== "userProfile");
+    .filter((v) => v.length > 0 && v !== "userProfile" && v !== "dashboard");
   const getLinkRef = (index) => {
     return "/" + pathNestedRoutes.slice(0, index + 1).join("/");
   };
 
   const isHomePage =
-    pathWithoutQuery === "/" || pathWithoutQuery === "/userProfile";
+    pathWithoutQuery === "/" || pathWithoutQuery === "/userProfile" || pathWithoutQuery === "/dashboard";
 
   return (
     <Breadcrumb className="bc-main-wrap">
@@ -33,14 +33,14 @@ const Breadcrumbs = () => {
               navigate("/dashboard");
             }
           }}>
-            {(currentRole !== DEFAULT_ROLES.PARENT) ? "Admin" : "Home"}
+            {(currentRole && currentRole !== DEFAULT_ROLES.PARENT) ? "Admin" : "Home"}
         </Breadcrumb.Item>
       )}
       {pathNestedRoutes.map((path, index) => {
         return index === pathNestedRoutes.length - 1 ? (
           <Breadcrumb.Item
             key={index}
-            onClick={() => navigate(getLinkRef(index))}
+            //onClick={() => navigate(getLinkRef(index))}
             active
           >
             {PageContent.CUSTOM_LINK_TITLES.hasOwnProperty(path)
