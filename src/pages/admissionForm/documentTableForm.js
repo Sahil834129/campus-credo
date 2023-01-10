@@ -110,6 +110,7 @@ export function DocumentTableFormat({
               <input
                 type={"file"}
                 accept=".jpg,.jpeg,.png,.doc,.docx,.pdf"
+                style={{cursor:'pointer'}}
                 name={val.documentName}
                 onChange={handleFileChangeInput}
               />

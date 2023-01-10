@@ -72,6 +72,7 @@ const RestEndPoint = {
   CONTACT_US: "/user/contactUs",
   PLACE_CART_ORDER: "payment/placeOrder",
   PLACE_REGISTRATION_ORDER: "payment/payRegistrationFee",
+   REQUEST_CALLBACK : "v1/school/callBack"
 };
 
 export default RestEndPoint;

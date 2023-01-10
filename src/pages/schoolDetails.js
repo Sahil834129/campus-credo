@@ -85,6 +85,8 @@ const SchoolDetails = () => {
                     <SchoolDetailTitle
                       schoolName={schoolDetails.schoolName}
                       establishYear={schoolDetails.yearEstablishedIn}
+                      schoolEmail={schoolDetails.email}
+                      schoolId={schoolDetails.schoolId}
                     />
                     <div className="school-details-container">
                       <SchoolBasicInfo schoolDetails={schoolDetails} />

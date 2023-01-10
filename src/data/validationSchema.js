@@ -56,6 +56,15 @@ export const VerifyPhoneSchema = Yup.object().shape({
 export const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required *"),
 });
+export const RequestCallBackSchema = Yup.object().shape({
+  userName: Yup.string().required("Required *"),
+  phoneNumber: Yup.string()
+  .matches(/^[6-9]\d{9}$/gi, {
+    message: "Please enter valid number.",
+    excludeEmptyString: false,
+  })
+  .required("Required *"),
+});
 export const AddChildSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, "Value is too short.")
@@ -223,7 +232,7 @@ export const StudentDetailsSchema = Yup.object().shape({
   addressLine1: Yup.string().required("Required *"),
   familyIncome: Yup.string()
     .required("Required *")
-    .matches(/^[0-9]+(\.[0-9][0-9]?)?$/, {
+    .matches(/^[1-9]+(\.[0-9][0-9]?)?$/, {
       message: "Please enter valid income.",
       excludeEmptyString: false,
     }),
