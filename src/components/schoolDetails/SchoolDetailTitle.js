@@ -21,8 +21,12 @@ const SchoolDetailTitle = (props) => {
                 }
             </div>
             <div className='cell right'>
-                <h4>Got Questions?</h4>
-                <span role="button" onClick={handleShowRequestCallbackDialog}>Request Callback</span>
+                { props.schoolEmail && 
+                    <>
+                    <h4>Got Questions?</h4>
+                    <span role="button" onClick={handleShowRequestCallbackDialog}>Request Callback</span>
+                    </> 
+                }
                 <RequestCallBackDialog show={showRequestCallBackModel} handleClose={handleCloseRequestCallbackDialog} schoolEmail={props.schoolEmail} schoolId={props.schoolId}/>
             </div>
         </div>
