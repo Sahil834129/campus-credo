@@ -316,7 +316,7 @@ ul.list-group{
   flex-direction: column;
   .content-area-inner{
     // padding: 16px 24px;
-    padding: 0;
+    //padding: 0;
     .metrics-wrap{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -802,10 +802,24 @@ ul.list-group{
               border: none;
             }
           }
+          .approved{color: $darkgreen;}
+          .under-review{}
+          .received{color: #005DB1;}
+          .shortlisted{color: #FFBF00;}
+          .denied{color: $darkred;}
+
         }
       }
     }
   }
+
+// Text color legends
+  .blue-label{color: #3e8dd5; font-weight: 600;} // Received
+  .red-label{color: $darkred; font-weight: 600;} //Denied, rejected
+  .green-label{color: $darkgreen; font-weight: 600;} //Approved
+  .orange-label{color: #e1ab0a; font-weight: 600;} //under review
+  .violet-label{color: #a262ef; font-weight: 600;} // AT-PI
+
 
 .application-form-wrap{
   
@@ -1045,6 +1059,9 @@ ul.list-group{
     line-height: 24px;
     text-align: center;
     color: #FFFFFF;
+    &:hover{
+      opacity: 0.8;
+    }
     &.signin-btn{
       background: $primarycolor;
       border: 1px solid $primarycolor;
@@ -1057,6 +1074,7 @@ ul.list-group{
     &.approval-btn{
       background: #005DB1;
       border: 1px solid #005DB1;
+      
     }
     &.decline-btn{
       background: #E22445;
