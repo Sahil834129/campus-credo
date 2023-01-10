@@ -127,6 +127,7 @@ const LoginDialog = (props) => {
         window.location.href = "/dashboard";
       } else {
         loadUserData();
+        navigate('/userProfile');
       }
       resetSignInFormValues();
     } catch (error) {
@@ -136,6 +137,7 @@ const LoginDialog = (props) => {
         setShowMobileNotVerifiedDialog(true);
       } else {
         toast.error(RESTClient.getAPIErrorMessage(error));
+        setOtp("");
       }
       setSubmitting(false);
     }

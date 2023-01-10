@@ -273,7 +273,7 @@ const ReviewAdmissionDialog = ({
               </div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Require Boarding </label>
+                  <label>Require Boarding : </label>
                   <span className="item-entry">
                     {studentDetail.boardingFacility ? "Yes" : "No"}
                   </span>
@@ -281,7 +281,7 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>Identification Marks:</label>
                   <span className="item-entry">
-                    {humanize(studentDetail.identificationMarks)}
+                    {studentDetail.identificationMarks ? humanize(studentDetail.identificationMarks) : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -292,14 +292,6 @@ const ReviewAdmissionDialog = ({
                 </div>
               </div>
               <div className="admin-detail-row onextwo-col">
-                <div className="admin-detail-cell">
-                  <label>Participated in competitions:</label>
-                  <span className="item-entry">
-                    {studentDetail.competitionCertificate
-                      ? studentDetail.competitionCertificate
-                      : "NA"}
-                  </span>
-                </div>
                 <div className="admin-detail-cell">
                   <label>Address:</label>
                   <span className="item-entry">
@@ -314,11 +306,11 @@ const ReviewAdmissionDialog = ({
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Blood Group </label>
+                  <label>Blood Group :</label>
                   <span className="item-entry">{medicalDetail.bloodGroup}</span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Allergies </label>
+                  <label>Allergies : </label>
                   <span className="item-entry">
                     {medicalDetail.allergies && medicalDetail.allergies !== ""
                       ? humanize(medicalDetail.allergies)
@@ -326,7 +318,7 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Need special Care </label>
+                  <label>Need special Care :</label>
                   <span className="item-entry">
                     {medicalDetail.specialCare &&
                     medicalDetail.specialCare !== ""
@@ -337,7 +329,7 @@ const ReviewAdmissionDialog = ({
               </div>
               <div className="admin-detail-row onextwo-col">
                 <div className="admin-detail-cell">
-                  <label>Medical Conditions </label>
+                  <label>Medical Conditions :</label>
                   <span className="item-entry">
                     {medicalDetail.medicalConditions &&
                     medicalDetail.medicalConditions !== ""
@@ -346,7 +338,7 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Disabilities </label>
+                  <label>Disabilities :</label>
                   <span className="item-entry">
                     {medicalDetail.disabilities?.length
                       ? 
@@ -365,7 +357,7 @@ const ReviewAdmissionDialog = ({
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Participated in any competitions.</label>
+                  <label>Participated in any competitions:</label>
                   <span className="item-entry">
                     {studentDetail.competitionCertificate
                       ? humanize(studentDetail.competitionCertificate)
@@ -373,7 +365,7 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Having any other interests</label>
+                  <label>Having any other interests :</label>
                   <span className="item-entry">
                     {studentDetail.otherInterest
                       ? humanize(studentDetail.otherInterest)
@@ -389,7 +381,7 @@ const ReviewAdmissionDialog = ({
               <div className="admin-detail-row"></div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour </label>
+                  <label>Any history of violent behaviour :</label>
                   <span className="item-entry">
                     <br />{" "}
                     {studentDetail.violenceBehaviour
@@ -400,7 +392,7 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>
                     Any instances outside of school involving significant
-                    behaviours
+                    behaviours:
                   </label>
                   <span className="item-entry">
                     {studentDetail.suspension
@@ -410,7 +402,7 @@ const ReviewAdmissionDialog = ({
                 </div>
                 <div className="admin-detail-cell">
                   <label>
-                    Ever been suspended or expelled from any previous school
+                    Ever been suspended or expelled from any previous school:
                   </label>
                   <span className="item-entry">
                     {studentDetail.suspension ? humanize(studentDetail.suspension) : "No"}

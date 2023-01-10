@@ -181,7 +181,11 @@ export const StudentDetailsSchema = Yup.object().shape({
     is: (val) => val && val === "Yes",
     then: Yup.string().when("unit", {
       is: (val) => val && val === "Grades",
-      then: Yup.string().required("Required *"),
+      then: Yup.string().required("Required *")
+      .matches(/[A-F][A-F]|[A-F][+,-]|^[A-F]$/, {
+        message: "Please enter valid grade. Grade can contain character [A-F] and +,- symbol.",
+        excludeEmptyString: false,
+      }),
     }),
   }),
   maxMarks: Yup.string().when("isProvidingCurrentSchoolInfo", {
