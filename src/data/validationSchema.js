@@ -72,7 +72,7 @@ export const AddChildSchema = Yup.object().shape({
       "DOB",
       "Please select a valid date, age should be at least 2 years at 31st March current year.",
       (value) => {
-        return value && value != "" && getStudentAge(value) >= 2;
+        return value && value !== "" && getStudentAge(value) >= 2;
       }
     ),
 });
@@ -301,8 +301,13 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     .max(30, "Value is too long.")
     .required("Required *"),
   otherRelation: Yup.string().when("relation", {
-    is: (val) => val && val !== "father" && val !== "mother",
-    then: Yup.string().required("Required*"),
+    is: (val) => val && val.toLowerCase() !== "father" && val.toLowerCase() !== "mother",
+    then:  Yup.string()
+      .required('Required *')
+      .test("relationCheck", 
+        "Relationship cannot be 'Father' or 'Mother'. Please enter another relationship.",
+        val => !['father','mother'].includes(val.toLowerCase())
+      )
   }),
   otherNationality: Yup.string().when("nationality", {
     is: (val) => val && val === "Other",
