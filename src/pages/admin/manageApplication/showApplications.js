@@ -67,6 +67,10 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Header: 'Family Income'
     },
     {
+      accessor: 'marksInPercentage',
+      Header: 'Marks In %'
+    },
+    {
       accessor: '',
       Header: 'Marks/Grade',
       Cell: ((e) => {
@@ -77,17 +81,10 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       })
     },
     {
-      accessor: 'marksInPercentage',
-      Header: 'In %'
-    },
-    {
       accessor: '',
-      Header: 'Grade/GPA',
+      Header: 'Submission Date',
       Cell: ((e) => {
-        let marksUnit = e.row.original.marksUnit?.toUpperCase();
-        return (
-          <span>{marksUnit === 'GRADES' || marksUnit === 'GPA' ? humanize(marksUnit) : 'NA'}</span>
-        );
+        return <span>{moment(e.row.original.submissionDate).format('DD/MM/YYYY')}</span>;
       })
     },
     {
@@ -174,9 +171,9 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                         }
                       }}
                     >
-                      {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="success">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
-                      {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="rejected">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
-                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{humanize(SCHOOL_APPLICATION_STATUS[val])}</span>}
+                      {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="success">{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
+                      {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="rejected">{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
+                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
                     </Dropdown.Item>
                   );
                 })}

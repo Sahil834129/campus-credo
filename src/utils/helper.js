@@ -87,20 +87,22 @@ export const str2bool = (value) => {
   return value;
 };
 
-export function humanize(str) {
+export function humanize(str, changeStatusVal) {
   let i;
   try {
-    if (str === SCHOOL_APPLICATION_STATUS.AT_PI) {
-      return "Shortlist for AT/PI";
-    }
-    if (str === SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW) {
-      return "Send For Final Approval";
-    }
-    if (str === SCHOOL_APPLICATION_STATUS.APPROVED) {
-      return "Approved";
-    }
-    if (str === SCHOOL_APPLICATION_STATUS.DECLINED) {
-      return "Declined";
+    if (changeStatusVal) {
+      if (str === SCHOOL_APPLICATION_STATUS.AT_PI) {
+        return "Shortlist for AT/PI";
+      }
+      if (str === SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW) {
+        return "Send For Final Approval";
+      }
+      if (str === SCHOOL_APPLICATION_STATUS.APPROVED) {
+        return "Approved";
+      }
+      if (str === SCHOOL_APPLICATION_STATUS.DECLINED) {
+        return "Declined";
+      }
     }
     let frags = str ? str.split("_") : [];
     for (i = 0; i < frags.length; i++) {
