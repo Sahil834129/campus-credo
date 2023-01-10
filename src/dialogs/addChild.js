@@ -1,15 +1,15 @@
 import { Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import DatePickerField from '../components/form/DatePickerField';
 import InputField from '../components/form/InputField';
 import { GENDER_OPTOPNS } from '../constants/formContanst';
 import { AddChildSchema } from '../data/validationSchema';
 import { getChildsList } from '../redux/actions/childAction';
 import RestEndPoint from '../redux/constants/RestEndpoints';
-import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from '../utils/DateUtil';
+import { formatDateToDDMMYYYY } from '../utils/DateUtil';
 import { getStudentMaxDateOfBirth } from '../utils/helper';
 import RESTClient from '../utils/RestClient';
 import GenericDialog from './GenericDialog';
@@ -82,7 +82,7 @@ const AddChildDialog = (props) => {
               <Form className='model-frm'>
                 <div className='frm-cell'>
                   <label>
-                    Child’s Full Name<span className='req'>*</span>
+                    Child’s Full Name<span className='required'>*</span>
                   </label>
                   <div className='field-group-wrap'>
                     <InputField
@@ -107,30 +107,23 @@ const AddChildDialog = (props) => {
                 </div>
                 <div className='frm-cell'>
                   <label>
-                    Date of Birth<span className='req'>*</span>
+                    Date of Birth<span className='required'>*</span>
                   </label>
-                  <div className='field-group-wrap'>
-                    <DatePicker
-                      selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : ''}
-                      dateFormat='dd/MM/yyyy'
-                      className='form-control'
+                    <DatePickerField 
                       name='dateOfBirth'
-                      placeholderText='DD/MM/YYYY'
-                      onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
-                      //maxDate={getStudentMaxDateOfBirth()}
-                      dropdownMode="select"
-                      showMonthDropdown
-                      showYearDropdown
+                      value={values.dateOfBirth}
+                      setFieldValue = {setFieldValue}
+                      errors={errors}
+                      touched={touched}
                     />
-                  </div>
-                  {
-                    errors && errors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mb-2'>{errors['dateOfBirth']}</div> : ''
-                  }
                   <div className='fld-inst'>
                     Editing Date of Birth may remove schools from your shortlisted schools list if age criteria doesn't meet with the applying class
                   </div>
                 </div>
                 <div className='frm-cell '>
+                  <label>
+                  Select Gender<span className='required'>*</span>
+                  </label>
                   <div className='field-group-wrap'>
                     <InputField
                       fieldName='gender'
@@ -140,8 +133,8 @@ const AddChildDialog = (props) => {
                       selectOptions={GENDER_OPTOPNS}
                       errors={errors}
                       touched={touched}
-                      label='Select Gender'
-                      required
+                      //label='Select Gender'
+                      //required
                     />
                   </div>
                 </div>

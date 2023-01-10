@@ -487,7 +487,7 @@ export default function ParentsGuardianForm({
               <div className='col-md-6'>
                 <TextField
                   fieldName='annualFamilyIncome'
-                  label='Annual Family Income'
+                  label='Annual Income'
                   className='frm-cell'
                   fieldType='number'
                   value={values.annualFamilyIncome}

@@ -29,6 +29,8 @@ const Breadcrumbs = () => {
           onClick={(e) => {
             if (currentRole === DEFAULT_ROLES.PARENT) {
               gotoHome(e, navigate);
+            }else{
+              navigate("/dashboard");
             }
           }}>
             {(currentRole !== DEFAULT_ROLES.PARENT) ? "Admin" : "Home"}

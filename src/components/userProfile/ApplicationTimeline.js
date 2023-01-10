@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { SCHOOL_APPLICATION_STATUS } from "../../constants/app";
+import { APPLICATION_STATUS_MESSAGE } from "../../constants/formContanst";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { humanize, isEmpty } from "../../utils/helper";
@@ -69,80 +71,90 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
     }
   }
 
-
+  function getApplicationStatusMessage(history) {
+    const status = history.applicationStatus
+    let message = APPLICATION_STATUS_MESSAGE[status] ? APPLICATION_STATUS_MESSAGE[status] : humanize(status)
+    if (status.toUpperCase() === SCHOOL_APPLICATION_STATUS.AT_PI){
+      message = message.replace('<AT/PI timeslot>', history.applicantATPITimeSlot)
+    }
+    return message
+  }
 
   return (
     <>
-    {
-      application.applicationDataHistory ? (
-        <div className="row-items timeline-wrapper">
-          <div className="title-wrap">
-            <div className="col">
-              <h2>Application Status Timeline</h2>
-            </div>
-            {/* <div className="col right">
+      <div className="row-items timeline-wrapper">
+        <div className="title-wrap">
+          <div className="col">
+            <h2>Application Status Timeline</h2>
+          </div>
+          {/* <div className="col right">
               <Link>
                 View your form details <i className="icons arrowright-icon"></i>
               </Link>
             </div> */}
-          </div>
+        </div>
+        {application.applicationDataHistory?.length ? (
           <div className="timeline-list">
             <div className="timeline-info-panel">
-              {
-                application.applicationDataHistory.map(history => {
-                  
-                  return <div className="timeline-row">
-                    <div className="date">{formatDateToDDMMYYYY(new Date(history.updatedDate))}</div>
+              {application.applicationDataHistory.map((history, index) => {
+                return (
+                  <div className="timeline-row" key={'timeline_'+index}>
+                    <div className="date">
+                      {formatDateToDDMMYYYY(new Date(history.updatedDate))}
+                    </div>
                     <div className="indicator">
                       <span className="indiShape circle"></span>
                     </div>
-                    {
-                        application.applicationStatus === 'APPROVED' && history.applicationStatus === 'APPROVED' ?
-                            <div className="particulars-status">
-                              <div className="update-info">
-                                Congratulation!!!
-                                <span className="status submitted">
-                                  Your Application is Approved
-                                </span>
-                              </div>
-                              <div className="instruction">
-                                Do you want to proceed with Admission?
-                                <div className="btn-wrapper">
-                                  <Button
-                                    type="button"
-                                    className="accept-btn btn btn-primary"
-                                    onClick={acceptApplication}
-                                    //onClick={() => navigate("/userProfile")}
-                                  >
-                                    ACCEPT
-                                  </Button>
-                                  <Button
-                                    type="button"
-                                    className="decline-btn btn btn-primary"
-                                    onClick={() => {
-                                      rejectApplication();
-                                    }}
-                                  >
-                                    REJECT
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-                          
-                        : <div>{humanize(history.applicationStatus.replaceAll('_', ' '))}</div>
-                      }
-                    </div>
-                })
-              }
+                    {application.applicationStatus === "APPROVED" &&
+                    history.applicationStatus === "APPROVED" ? (
+                      <div className="particulars-status">
+                        <div className="update-info">
+                          Congratulation!!!
+                          <span className="status submitted">
+                            Your Application is Approved
+                          </span>
+                        </div>
+                        <div className="instruction">
+                          Do you want to proceed with Admission?
+                          <div className="btn-wrapper">
+                            <Button
+                              type="button"
+                              className="accept-btn btn btn-primary"
+                              onClick={acceptApplication}
+                              //onClick={() => navigate("/userProfile")}
+                            >
+                              ACCEPT
+                            </Button>
+                            <Button
+                              type="button"
+                              className="decline-btn btn btn-primary"
+                              onClick={() => {
+                                rejectApplication();
+                              }}
+                            >
+                              REJECT
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div>
+                        {
+                          getApplicationStatusMessage(history)
+                        }
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </div>
-      ) : (
-        <div style={{margin: '15px', textAlign: 'center'}}>
-          No Record Found.
-        </div>
-      )
-    }
+        ) : (
+          <div style={{ margin: "15px", textAlign: "center" }}>
+            No Record Found.
+          </div>
+        )}
+      </div>
     </>
   );
 };

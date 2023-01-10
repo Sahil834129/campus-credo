@@ -124,7 +124,8 @@ const LoginDialog = (props) => {
 
       const roles = response.data.roles;
       if (roles.find((val) => val === DEFAULT_ROLES.PARENT)) {
-        loadUserData();        
+        loadUserData();
+        navigate('/userProfile');
       } else {
         window.location.href = "/dashboard";
       }
@@ -136,6 +137,7 @@ const LoginDialog = (props) => {
         setShowMobileNotVerifiedDialog(true);
       } else {
         toast.error(RESTClient.getAPIErrorMessage(error));
+        setOtp("");
       }
       setSubmitting(false);
     }

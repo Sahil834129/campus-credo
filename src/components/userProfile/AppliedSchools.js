@@ -53,11 +53,11 @@ const AppliedSchools = ({ application, setApplications }) => {
 
           <div className="col-item right">
             <div className="col">
-              <label>Status {application.applicationId}</label>
+              <label>Application# : {application.applicationId}</label>
             </div>
             <div className="col">
             <span className={(application.applicationStatus === 'APPROVED' || application.applicationStatus === 'SUBMITTED') ? 'badge accepted' : 'badge under-validation'}>
-                {application.applicationStatus?.replace("_", " ")}
+                {application.applicationStatus?.replaceAll("_", " ")}
               </span>
             </div>
             <div className="col">

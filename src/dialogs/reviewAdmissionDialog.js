@@ -13,6 +13,7 @@ import {
   downloadApplicationDocument,
   downloadDocument
 } from "../utils/services";
+import StringUtils from "../utils/StringUtils";
 import GenericDialog from "./GenericDialog";
 import ParentGuardianTab from "./parentGuardianTab";
 
@@ -207,6 +208,21 @@ const ReviewAdmissionDialog = ({
     }
   }
 
+  function getPresentableAddress(parentObject) {
+    let address = ''
+    if (parentObject.addressLine1)
+      address = StringUtils.append(address, parentObject.addressLine1, ',')
+    if (parentObject.addressLine2)
+      address = StringUtils.append(address, parentObject.addressLine2, ',')
+    if (parentObject.cityName)
+      address = StringUtils.append(address, parentObject.cityName, ',')
+    if (parentObject.stateName)
+      address = StringUtils.append(address, parentObject.stateName, ',')
+    if (parentObject.pincode)
+      address = StringUtils.append(address, parentObject.pincode, '-')
+    return address;
+  }
+
   return (
     <>
       <GenericDialog
@@ -257,7 +273,7 @@ const ReviewAdmissionDialog = ({
               </div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Require Boarding </label>
+                  <label>Require Boarding : </label>
                   <span className="item-entry">
                     {studentDetail.boardingFacility ? "Yes" : "No"}
                   </span>
@@ -265,7 +281,7 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>Identification Marks:</label>
                   <span className="item-entry">
-                    {studentDetail.identificationMarks}
+                    {studentDetail.identificationMarks ? humanize(studentDetail.identificationMarks) : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -277,19 +293,9 @@ const ReviewAdmissionDialog = ({
               </div>
               <div className="admin-detail-row onextwo-col">
                 <div className="admin-detail-cell">
-                  <label>Participated in competitions:</label>
-                  <span className="item-entry">
-                    {studentDetail.competitionCertificate
-                      ? studentDetail.competitionCertificate
-                      : "NA"}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
                   <label>Address:</label>
                   <span className="item-entry">
-                    {studentDetail.addressLine1}, {studentDetail.addressLine2},{" "}
-                    {studentDetail.cityName}, {studentDetail.stateName} -{" "}
-                    {studentDetail.pincode}
+                    {getPresentableAddress(studentDetail)}
                   </span>
                 </div>
               </div>
@@ -300,30 +306,30 @@ const ReviewAdmissionDialog = ({
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Blood Group </label>
+                  <label>Blood Group :</label>
                   <span className="item-entry">{medicalDetail.bloodGroup}</span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Allergies </label>
+                  <label>Allergies : </label>
                   <span className="item-entry">
                     {medicalDetail.allergies && medicalDetail.allergies !== ""
-                      ? medicalDetail.allergies
+                      ? humanize(medicalDetail.allergies)
                       : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Need special Care </label>
+                  <label>Need special Care :</label>
                   <span className="item-entry">
                     {medicalDetail.specialCare &&
                     medicalDetail.specialCare !== ""
-                      ? medicalDetail.specialCare
+                      ? humanize(medicalDetail.specialCare)
                       : "No"}
                   </span>
                 </div>
               </div>
               <div className="admin-detail-row onextwo-col">
                 <div className="admin-detail-cell">
-                  <label>Medical Conditions </label>
+                  <label>Medical Conditions :</label>
                   <span className="item-entry">
                     {medicalDetail.medicalConditions &&
                     medicalDetail.medicalConditions !== ""
@@ -332,14 +338,15 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Disabilities </label>
+                  <label>Disabilities :</label>
                   <span className="item-entry">
                     {medicalDetail.disabilities?.length
-                      ? medicalDetail.disabilities
+                      ? 
+                        medicalDetail.disabilities.map(v=> StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(v)))
                           .join(", ")
-                          .replaceAll("_", " ")
-                          .replaceAll("Other", medicalDetail.otherDisability)
-                      : "No"}
+                          .replaceAll("Other", StringUtils.capitalizeFirstLetter(medicalDetail.otherDisability))  
+                      : "No"
+                    }
                   </span>
                 </div>
               </div>
@@ -350,18 +357,18 @@ const ReviewAdmissionDialog = ({
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Participated in any competitions.</label>
+                  <label>Participated in any competitions:</label>
                   <span className="item-entry">
                     {studentDetail.competitionCertificate
-                      ? studentDetail.competitionCertificate
+                      ? humanize(studentDetail.competitionCertificate)
                       : "NA"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Having any other interests</label>
+                  <label>Having any other interests :</label>
                   <span className="item-entry">
                     {studentDetail.otherInterest
-                      ? studentDetail.otherInterest
+                      ? humanize(studentDetail.otherInterest)
                       : "No"}
                   </span>
                 </div>
@@ -374,31 +381,31 @@ const ReviewAdmissionDialog = ({
               <div className="admin-detail-row"></div>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour </label>
+                  <label>Any history of violent behaviour :</label>
                   <span className="item-entry">
                     <br />{" "}
                     {studentDetail.violenceBehaviour
-                      ? studentDetail.violenceBehaviour
+                      ? humanize(studentDetail.violenceBehaviour)
                       : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
                   <label>
                     Any instances outside of school involving significant
-                    behaviours
+                    behaviours:
                   </label>
                   <span className="item-entry">
                     {studentDetail.suspension
-                      ? studentDetail.offensiveConduct
+                      ? humanize(studentDetail.offensiveConduct)
                       : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
                   <label>
-                    Ever been suspended or expelled from any previous school
+                    Ever been suspended or expelled from any previous school:
                   </label>
                   <span className="item-entry">
-                    {studentDetail.suspension ? studentDetail.suspension : "No"}
+                    {studentDetail.suspension ? humanize(studentDetail.suspension) : "No"}
                   </span>
                 </div>
               </div>

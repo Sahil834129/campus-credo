@@ -57,3 +57,12 @@ export const BLOOD_OPTIONS = [
   { value: "O+", text: "O+" },
   { value: "O-", text: "O-" },
 ];
+
+export const APPLICATION_STATUS_MESSAGE = {
+  'SUBMITTED' : 'Application Submitted',
+  'UNDER_REVIEW': 'Application is under review',
+  'AT_PI': 'Application shortlisted for screening process. Kindly report at school on <AT/PI timeslot>',
+  'UNDER_FINAL_REVIEW': 'Application is under final review',
+  //'APPROVED': 'Congratulations your application is Approved. To confirm your seat please click on Accept',
+  'DECLINED': "Unfortunately, you couldn't get through the final selection. Please feel free to apply again in future",
+}

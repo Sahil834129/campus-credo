@@ -26,7 +26,7 @@ const AboutUs = () => {
                         <section className="section-wrapper hero-wrap">
                             <div className="hero-img"><img src={aboutpic1} alt="" /></div>
                             <div className="hero-caption">
-                                <h2>No more waiting at queue for admission forms or filling out online forms for every single school.</h2> <Link to='/schools'><label>Apply Now</label> <i className="icons green-arrow-icon"></i></Link>
+                                <h2>No more waiting at queue for admission forms or filling out online forms for every single school.</h2> <Link to='/schools'><label style={{cursor:"pointer"}}>Apply Now</label> <i className="icons green-arrow-icon"></i></Link>
                             </div>
                         </section>
                         <section className="section-wrapper">

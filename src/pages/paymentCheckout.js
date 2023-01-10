@@ -67,7 +67,7 @@ const PaymentCheckout = () => {
                   </>
                 ) : (
                   <>
-                    <div>Redirecting to Paytm</div>
+                    <div className="">Redirecting to Paytm</div>
                   </>
                 )}
 

@@ -25,7 +25,7 @@ const initialValue = {
 const ContactUs = () => {
   const [submitting, setSubmitting] = useState(false);
   
-  const saveData = (formData) => {
+  const saveData = (formData, resetForm) => {
     setSubmitting(true);
     let postData = {...formData}
     let fullName = postData.firstName + postData.lastName
@@ -38,6 +38,7 @@ const ContactUs = () => {
       .then((response) => {
         setSubmitting(false);
         toast.success("Request submitted successfully.")
+        resetForm()
       })
       .catch((error) => {
         setSubmitting(false);
@@ -45,10 +46,6 @@ const ContactUs = () => {
       });
   };
 
-  function resetContactFrom(resetForm) {
-    resetForm();
-  }
-  
   return (
     <Layout>
       <section className="content-area about-page">
@@ -66,8 +63,8 @@ const ContactUs = () => {
                 initialValues={initialValue}
                 validationSchema={ContactInfoSchema}
                 validateOnBlur
-                onSubmit={(values) => {
-                  saveData(values);
+                onSubmit={async (values, { resetForm }) => {
+                  saveData(values, resetForm)
                 }}
               >
                 {({ errors, touched, values, resetForm }) => (
