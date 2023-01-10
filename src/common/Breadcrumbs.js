@@ -27,11 +27,11 @@ const Breadcrumbs = () => {
       ) : (
         <Breadcrumb.Item
           onClick={(e) => {
-            if (currentRole !== DEFAULT_ROLES.SCHOOL_ADMIN) {
+            if (currentRole === DEFAULT_ROLES.PARENT) {
               gotoHome(e, navigate);
             }
           }}>
-          {(currentRole === DEFAULT_ROLES.SCHOOL_ADMIN) ? "Admin" : "Home"}
+            {(currentRole !== DEFAULT_ROLES.PARENT) ? "Admin" : "Home"}
         </Breadcrumb.Item>
       )}
       {pathNestedRoutes.map((path, index) => {

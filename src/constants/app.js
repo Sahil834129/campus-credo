@@ -3,6 +3,11 @@ export const ACCEPT_MIME_TYPE = ['image/jpeg', 'image/png', 'application/pdf'];
 
 export const DEFAULT_ROLES = {
   SCHOOL_ADMIN: 'ROLE_SCHOOL_ADMIN',
+  ADMISSION_MANAGER: 'ROLE_ADMISSION_MANAGER',
+  PRINCIPAL: "ROLE_PRINCIPAL",
+  SR_ADMISSION_MANAGER: "ROLE_SR_ADMISSION_MANAGER",
+  FEE_MANAGER: "ROLE_FEE_MANAGER",
+  SR_FEE_MANAGER: "ROLE_SR_FEE_MANAGER",
   PARENT: 'ROLE_PARENT'
 };
 
@@ -10,8 +15,8 @@ export const ADMIN_DASHBOARD_LINK = [
   { title: 'Dashboard', url: '/dashboard', showsData: true },
   { title: 'Manage Application', url: '/manage-application', showsData: true },
   { title: 'Manage Admission', url: '/manage-admission', showsData: false },
-  { title: 'Manage Fees', url: '/manage-fees', showsData: false },
-  { title: 'Manage Users', url: '/manage-users', showsData: false }
+  { title: 'Manage Fee', url: '/manage-fee', showsData: false },
+  { title: 'Manage User', url: '/manage-user', showsData: false }
 ];
 
 export const DATE_FORMAT = "DD/MM/yyyy";

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -12,10 +12,13 @@ import Avatar from 'react-avatar';
 import Navbar from 'react-bootstrap/Navbar';
 import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
-import { ADMIN_DASHBOARD_LINK } from '../../constants/app';
+import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
 import { getLocalData, logout } from '../../utils/helper';
+import { useSelector } from "react-redux";
 
 export const Layout = ({ admissionSummary, ...props }) => {
+  const adminHeaderLink = useSelector(state => state?.userData?.modulePermissions);
+  const [adminLink, setAdminLink] = useState([]);
   const location = useLocation();
   const breadcrumbTitle = ADMIN_DASHBOARD_LINK.find(
     val => val.url === location.pathname
@@ -26,6 +29,9 @@ export const Layout = ({ admissionSummary, ...props }) => {
     window.location.reload();
   };
 
+  useEffect(() => {
+    setAdminLink(adminHeaderLink.filter(val => val?.isPermit !== MANAGE_USER_PERMISSION[1]))
+  }, [adminHeaderLink])
   return (
     <Container className='main-container admin-contianer' fluid>
       <div className='top-navigation'>
@@ -57,7 +63,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse>
           <Nav className='menu-items'>
-            {ADMIN_DASHBOARD_LINK.map(val => (
+            {adminLink.map(val => (
               <Nav.Link
                 as={Link}
                 key={`url${val.url}`}

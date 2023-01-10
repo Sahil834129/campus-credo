@@ -28,10 +28,10 @@ const HomePage = () => {
     const redirectToHOmeScreen = () => {
         const role = getLocalData('roles');
         console.log();
-        if (role === DEFAULT_ROLES.SCHOOL_ADMIN) {
-            navigate('/dashboard');
-        } else {
+        if (role === DEFAULT_ROLES.PARENT) {
             navigate('/userProfile');
+        } else {
+            navigate('/dashboard');
         }
 
     };

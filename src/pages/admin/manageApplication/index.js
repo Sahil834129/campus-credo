@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import ReviewAdmissionDialog from "../../../dialogs/reviewAdmissionDialog";
-import { getLocalData } from "../../../utils/helper";
+import { getCurrentModulePermission, getLocalData } from "../../../utils/helper";
 import { getAtPiForClass, getClassAdmissionSummary, getClassApplication, getSchoolClassesData } from '../../../utils/services';
 import Layout from '../layout';
 import FilterApp from "./filterApp";
@@ -11,6 +11,7 @@ import ShowApplications from "./showApplications";
 
 
 export const ManageApplication = () => {
+  const isWritePermission = getCurrentModulePermission("Manage Application");
   const [rowsData, setRowsData] = useState([]);
   const [selectedRows, setSelectedRows] = useState({});
   const schoolId = getLocalData('schoolId');
@@ -139,6 +140,7 @@ export const ManageApplication = () => {
             setSelectedRows={setSelectedRows}
             setShowApplication={setShowApplication}
             setSelectedApplicationId={setSelectedApplicationId}
+            isWritePermission={isWritePermission}
           />}
           {isLoading && <div style={{ margin: '50px auto' }}><Spinner animation="border" /></div>}
           <OpenModal

@@ -70,28 +70,24 @@ function AppRoutes() {
           />
         </Route>
         <Route
-          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
+          element={
+            <ProtectedRoute
+              roles={
+                [
+                  DEFAULT_ROLES.SCHOOL_ADMIN,
+                  DEFAULT_ROLES.ADMISSION_MANAGER,
+                  DEFAULT_ROLES.PRINCIPAL,
+                  DEFAULT_ROLES.SR_ADMISSION_MANAGER,
+                  DEFAULT_ROLES.FEE_MANAGER,
+                  DEFAULT_ROLES.SR_FEE_MANAGER,
+                ]}
+            />
+          }
         >
           <Route path="/dashboard" element={<AdminDashboard />} />
-        </Route>
-        <Route
-          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
-        >
           <Route path="/manage-admission" element={<ManageAdmission />} />
-        </Route>
-        <Route
-          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
-        >
-          <Route path="/manage-fees" element={<ManageFees />} />
-        </Route>
-        <Route
-          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
-        >
-          <Route path="/manage-users" element={<ManageUsers />} />
-        </Route>
-        <Route
-          element={<ProtectedRoute roles={[DEFAULT_ROLES.SCHOOL_ADMIN]} />}
-        >
+          <Route path="/manage-fee" element={<ManageFees />} />
+          <Route path="/manage-user" element={<ManageUsers />} />
           <Route path="/manage-application" element={<ManageApplication />} />
         </Route>
       </Routes>

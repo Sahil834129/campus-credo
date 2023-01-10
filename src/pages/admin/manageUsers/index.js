@@ -7,12 +7,14 @@ import Button from 'react-bootstrap/Button';
 import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
-import { humanize } from '../../../utils/helper';
+import { getCurrentModulePermission, humanize } from '../../../utils/helper';
 import { getManagePermissions, getManagePermissionRoles, getManagePermissionModules, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
 
 export const ManageUsers = () => {
+  const isWritePermission = getCurrentModulePermission("Manage User");
+
   const [managePermissionRole, setManagePermissionRole] = useState({});
   const [managePermissions, setManagePermissions] = useState([]);
   const [isLoading, setIsloading] = useState(false);
@@ -51,13 +53,15 @@ export const ManageUsers = () => {
   };
 
   const handleManagePermisssion = (rData, index, value, field) => {
-    const data = rData.map((val, i) => {
-      if (i === index) {
-        val[field] = value;
-      }
-      return val;
-    });
-    setTableRowsData(data);
+    if (isWritePermission) {
+      const data = rData.map((val, i) => {
+        if (i === index) {
+          val[field] = value;
+        }
+        return val;
+      });
+      setTableRowsData(data);
+    }
   };
 
   const column = [
@@ -79,6 +83,7 @@ export const ManageUsers = () => {
               inputName={"manageAdmission"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageAdmission}
+              disabled={!isWritePermission}
             />
           </div>
         );
@@ -97,6 +102,7 @@ export const ManageUsers = () => {
               inputName={"manageApplication"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageApplication}
+              disabled={!isWritePermission}
             />
           </div>
         );
@@ -115,6 +121,7 @@ export const ManageUsers = () => {
               inputName={"manageUser"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageUser}
+              disabled={!isWritePermission}
             />
           </div>
         );
@@ -133,6 +140,7 @@ export const ManageUsers = () => {
               inputName={"manageFee"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageFee}
+              disabled={!isWritePermission}
             />
           </div>
         );
@@ -146,7 +154,7 @@ export const ManageUsers = () => {
           <div>
             <Button
               type='button'
-              disabled={(e.row.original?.roleUsers?.length || 0) === 0}
+              disabled={!isWritePermission || (e.row.original?.roleUsers?.length || 0) === 0}
               style={{ backgroundColor: '#41285F' }}
               onClick={() => {
                 setPasswordWindowOpen(true);
@@ -186,7 +194,7 @@ export const ManageUsers = () => {
     updateUserModulePermissions(preparedSaveData)
       .then(response => {
         if (response.status === 200) {
-          setManagePermissions(preparedSaveData)
+          setManagePermissions(preparedSaveData);
           toast("All Roles Permissions are saved");
         }
       });
@@ -245,7 +253,7 @@ export const ManageUsers = () => {
                     }}>
                     Reset
                   </Button>
-                  <Button className='save-btn' onClick={() => saveModulePermissions(tableRowsData)}>Save</Button>
+                  <Button className='save-btn' disabled={!isWritePermission} onClick={() => saveModulePermissions(tableRowsData)}>Save</Button>
                 </div>
               </div>
               <div className='table-wrapper' >

@@ -2,6 +2,7 @@ import moment from "moment";
 import { forwardRef } from "react";
 import { Dropdown } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
+import { toast } from "react-toastify";
 
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
@@ -9,7 +10,7 @@ import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, ST
 import { humanize } from "../../../utils/helper";
 
 
-export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId }) {
+export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
 
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
@@ -68,11 +69,11 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
     {
       accessor: '',
       Header: 'Marks/Grade',
-      Cell:((e) => {
+      Cell: ((e) => {
         let marksUnit = e.row.original.marksUnit?.toUpperCase();
         return (
-          <span>{marksUnit === 'GRADES' ?  e.row.original.grade : e.row.original.obtainMarks}</span>
-        )
+          <span>{marksUnit === 'GRADES' ? e.row.original.grade : e.row.original.obtainMarks}</span>
+        );
       })
     },
     {
@@ -85,34 +86,34 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Cell: ((e) => {
         let marksUnit = e.row.original.marksUnit?.toUpperCase();
         return (
-          <span>{ marksUnit === 'GRADES' || marksUnit === 'GPA'? humanize(marksUnit) : 'NA'}</span>
-        )
+          <span>{marksUnit === 'GRADES' || marksUnit === 'GPA' ? humanize(marksUnit) : 'NA'}</span>
+        );
       })
     },
     {
       accessor: '',
       Header: 'Notes',
       Cell: ((e) => {
-        let notes = []
+        let notes = [];
         if (e.row.original.anyBackgroundCheck)
-          notes.push('backgroundCheckNegative')
-        if(e.row.original.anyMedicalDetails)
-          notes.push('medicalConditions')
-        if(e.row.original.anyExtracurriculars)
-          notes.push('extracurricular')
+          notes.push('backgroundCheckNegative');
+        if (e.row.original.anyMedicalDetails)
+          notes.push('medicalConditions');
+        if (e.row.original.anyExtracurriculars)
+          notes.push('extracurricular');
         return (
           <div className="legend-block">
             {
-            notes.length ?
-              notes.map((note, index) => {
-                return <span className={note}
-                  title={note=== 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' :''}
-                  >{note.substring(0,1)}</span>
-              }) 
-            : <span className="none-found">NA</span>
+              notes.length ?
+                notes.map((note, index) => {
+                  return <span className={note}
+                    title={note === 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' : ''}
+                  >{note.substring(0, 1)}</span>;
+                })
+                : <span className="none-found">NA</span>
             }
           </div>
-        )
+        );
       })
     },
     // {
@@ -161,12 +162,15 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                     <Dropdown.Item
                       key={`school${index}`}
                       onClick={(e) => {
+
                         if (SCHOOL_APPLICATION_STATUS[val] === SCHOOL_APPLICATION_STATUS.VIEW_APPLICANT_DETAILS) {
                           setShowApplication(true);
                           setSelectedApplicationId(applicationId);
-                        } else {
+                        } else if (isWritePermission) {
                           e.preventDefault();
                           handleDropdownAction(SCHOOL_APPLICATION_STATUS[val], applicationId);
+                        } else {
+                          toast.error("Dont have Write Permission");
                         }
                       }}
                     >
@@ -184,8 +188,6 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
     }
   ];
 
-
-
   return (
     <div className='inner-content-wrap'>
       <div className='table-wrapper-outer'>
@@ -201,7 +203,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         <div className='btn-wrapper'>
           <Button
             className='approval-btn'
-            disabled={selectedRows && Object.keys(selectedRows).length !== rowsData.length}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length !== rowsData.length)}
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW, selectedRows, rowsData);
             }}>
@@ -209,7 +211,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
           </Button>
           <Button
             className='decline-btn'
-            disabled={selectedRows && Object.keys(selectedRows).length === 0}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
             onClick={() => {
               handleBulkStatusUpdate(PARENT_APPLICATION_STATUS.DECLINED, selectedRows, rowsData);
             }}>
@@ -217,7 +219,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
           </Button>
           <Button
             className='accept-btn'
-            disabled={selectedRows && Object.keys(selectedRows).length === 0}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.APPROVED, selectedRows, rowsData);
             }}>

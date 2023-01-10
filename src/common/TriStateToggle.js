@@ -22,7 +22,6 @@ const switchSelection = {
   left: 0,
   width: '45px',
   height: '26px',
-  background: '#549B43',
   borderRadius: '10px',
   transition: 'left 0.25s ease-out'
 };
@@ -58,19 +57,19 @@ const ConcealedRadio = ({ value, selected }) => {
 
 };
 
-function ToggleSwitch({ selected, values, onChangeHandler, inputName }) {
+function ToggleSwitch({ selected, values, onChangeHandler, inputName, disabled }) {
 
   return (
     <div style={switchCss}>
       {values.map(val => {
         return (
           <span key={`${inputName}-${val}`}>
-            <ConcealedRadio value={val} selected={selected} />
+            <ConcealedRadio value={val} selected={selected} disabled={disabled} />
             <ClickableLabel title={val} onChange={onChangeHandler} selected={selected} />
           </span>
         );
       })}
-      <span style={{ ...switchSelection, left: `${values.indexOf(selected) / 3 * 100}%` }} />
+      <span style={{ ...switchSelection, background: disabled ? 'grey' : '#549B43', left: `${values.indexOf(selected) / 3 * 100}%` }} />
     </div>
   );
 

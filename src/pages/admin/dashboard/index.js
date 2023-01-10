@@ -10,6 +10,7 @@ import SeatsDetail from "./seatsDetail";
 
 
 export const Dashboard = () => {
+  // const isWritePermission = getCurrentModulePermission("Manage Admission");
 
   const [dashBoardData, setDashBoardData] = useState({});
   const [schoolSeatsSummary, setSchoolSeatsSummary] = useState({});

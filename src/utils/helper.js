@@ -1,6 +1,6 @@
 import moment from "moment";
 import * as Yup from "yup";
-import { SCHOOL_APPLICATION_STATUS } from "../constants/app";
+import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION, SCHOOL_APPLICATION_STATUS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { getDefaultDateFormat } from "./DateUtil";
 import RESTClient from "./RestClient";
@@ -37,6 +37,7 @@ export const logout = () => {
 export const resetUserLoginData = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");
+  localStorage.removeItem("modulePermissions");
   localStorage.removeItem("name");
   localStorage.removeItem("roles");
   localStorage.removeItem("schoolId");
@@ -45,6 +46,7 @@ export const resetUserLoginData = () => {
 export const setUserLoginData = (loginData) => {
   setLocalData("token", loginData.token);
   setLocalData("refreshToken", loginData.refreshToken);
+  setLocalData("modulePermissions", JSON.stringify(loginData.modulePermissions || []));
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);
@@ -89,7 +91,7 @@ export function humanize(str) {
   let i;
   try {
     if (str === SCHOOL_APPLICATION_STATUS.AT_PI) {
-      return "Shortlist for AT/PI"
+      return "Shortlist for AT/PI";
     }
     if (str === SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW) {
       return "Send For Final Approval";
@@ -114,14 +116,13 @@ export function humanize(str) {
 
 export function convertCamelCaseToPresentableText(str) {
 
-  if(str.includes('-'))
-  {
-    let string=str.replace("-"," ");
-  return string
-  .toLowerCase()
-  .split(' ')
-  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-  .join(' ');
+  if (str.includes('-')) {
+    let string = str.replace("-", " ");
+    return string
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
   return str.replace(/([A-Z])/g, " $1").replace(/^./, function (str) {
     return str.toUpperCase();
@@ -190,3 +191,34 @@ export function isEmpty(obj) {
     obj.length === 0
   );
 }
+
+export const getHeaderLink = () => {
+  let modulePermissions = getLocalData('modulePermissions');
+  if (modulePermissions !== null) {
+    modulePermissions = JSON.parse(modulePermissions);
+    return ADMIN_DASHBOARD_LINK.map(adminVal => {
+      const filterData = modulePermissions.find(val => val.moduleName === adminVal.title);
+      if (adminVal.title !== "Dashboard") {
+        adminVal.isPermit = filterData?.permissionType || MANAGE_USER_PERMISSION[1];
+        adminVal.canApprove = filterData?.canApprove || false;
+      } else {
+        adminVal.isPermit = MANAGE_USER_PERMISSION[0];
+        adminVal.canApprove = false;
+      }
+      return adminVal;
+    });
+  }
+  return [];
+};
+
+
+export const getCurrentModulePermission = (moduleName) => {
+  let modulePermissions = getLocalData('modulePermissions');
+  let flag = false;
+  if (modulePermissions !== null) {
+    modulePermissions = JSON.parse(modulePermissions);
+    flag = !!modulePermissions.find(val => val.moduleName === moduleName && val.permissionType === MANAGE_USER_PERMISSION[2]);
+  }
+  console.log(flag);
+  return flag;
+};

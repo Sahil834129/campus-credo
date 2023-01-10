@@ -1,8 +1,10 @@
+import { getHeaderLink } from "../../utils/helper";
 import { ActionTypes } from "../constants/action-types";
 
 const initialState = {
   isLoggedInUser: false,
   schoolFilter: [],
+  modulePermissions: getHeaderLink(),
 };
 
 export const UserData = (state = initialState, { type, payload }) => {
@@ -13,6 +15,8 @@ export const UserData = (state = initialState, { type, payload }) => {
       return { ...state, isLoggedInUser: payload };
     case ActionTypes.SET_SCHOOL_FILTER:
       return { ...state, schoolFilter: payload };
+    case ActionTypes.UPDATE_HEADER_LINK:
+      return { ...state, modulePermissions: getHeaderLink() };
     default:
       return state;
   }

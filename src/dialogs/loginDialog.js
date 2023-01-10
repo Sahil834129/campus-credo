@@ -123,10 +123,10 @@ const LoginDialog = (props) => {
       if (props.loginCallbackFunction) props.loginCallbackFunction();
 
       const roles = response.data.roles;
-      if (roles.find((val) => val === DEFAULT_ROLES.SCHOOL_ADMIN)) {
-        window.location.href = "/dashboard";
+      if (roles.find((val) => val === DEFAULT_ROLES.PARENT)) {
+        loadUserData();        
       } else {
-        loadUserData();
+        window.location.href = "/dashboard";
       }
       resetSignInFormValues();
     } catch (error) {
