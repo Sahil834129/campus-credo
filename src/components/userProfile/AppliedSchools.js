@@ -4,11 +4,46 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
+import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
 import { baseURL } from "../../utils/RestClient";
+import StringUtils from "../../utils/StringUtils";
 import ApplicationTimeline from "./ApplicationTimeline";
 
 const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
+
+  const getBadgeClassName = (status) => {
+    switch (status) {
+      case SCHOOL_APPLICATION_STATUS.AT_PI:
+        return "violet-badge";
+      case SCHOOL_APPLICATION_STATUS.RECEIVED:
+      case PARENT_APPLICATION_STATUS.SUBMITTED:
+        return "blue-badge";
+      case SCHOOL_APPLICATION_STATUS.DECLINED:
+      case PARENT_APPLICATION_STATUS.REJECTED:
+      case SCHOOL_APPLICATION_STATUS.REVOKED:
+      case SCHOOL_APPLICATION_STATUS.DENIED:
+        return "red-badge";
+      case SCHOOL_APPLICATION_STATUS.APPROVED:
+      case PARENT_APPLICATION_STATUS.ACCEPTED:
+        return "green-badge";
+      case SCHOOL_APPLICATION_STATUS.UNDER_REVIEW:
+      case SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW:
+        return "orange-badge";
+      default:
+        return "blue-badge";
+    }
+  }
+
+  function getStatusLabel(status) {
+    switch(status) {
+      case SCHOOL_APPLICATION_STATUS.AT_PI:
+        return "AT/PI Scheduled";
+      default:
+        return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status))
+    }
+  }
+
   return (
     <Col className="right content">
       <div className="row-items application-block">
@@ -56,8 +91,8 @@ const AppliedSchools = ({ application, setApplications }) => {
               <label>Application# : {application.applicationId}</label>
             </div>
             <div className="col">
-            <span className={(application.applicationStatus === 'APPROVED' || application.applicationStatus === 'SUBMITTED') ? 'badge accepted' : 'badge under-validation'}>
-                {application.applicationStatus?.replaceAll("_", " ")}
+            <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
+                {getStatusLabel(application.applicationStatus)}
               </span>
             </div>
             <div className="col">
