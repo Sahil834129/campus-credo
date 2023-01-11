@@ -14,7 +14,7 @@ const AppliedSchools = ({ application, setApplications }) => {
 
   const getBadgeClassName = (status) => {
     switch (status) {
-      case SCHOOL_APPLICATION_STATUS.AT_PI:
+      case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
         return "violet-badge";
       case SCHOOL_APPLICATION_STATUS.RECEIVED:
       case PARENT_APPLICATION_STATUS.SUBMITTED:
@@ -37,7 +37,7 @@ const AppliedSchools = ({ application, setApplications }) => {
 
   function getStatusLabel(status) {
     switch(status) {
-      case SCHOOL_APPLICATION_STATUS.AT_PI:
+      case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
         return "AT/PI Scheduled";
       default:
         return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status))
