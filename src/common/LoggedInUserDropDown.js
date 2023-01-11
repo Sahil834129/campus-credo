@@ -70,7 +70,6 @@ const LoggedInUserDropDown = () => {
         logout();
         dispatch(setIsUserLoggedIn(isLoggedIn()));
         navigate("/")
-        //window.location.reload();
     }
     
     return (
