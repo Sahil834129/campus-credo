@@ -149,12 +149,12 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
         const applicationId = e.row.original?.applicationId;
-        const stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
+        const stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()]?.filter(val => {
           return val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData;
         });
         return (
           <>
-            {stateTransiton.length > 0 && <Dropdown>
+            {stateTransiton && stateTransiton.length > 0 && <Dropdown>
               <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                 Dropdown Button
               </Dropdown.Toggle>
