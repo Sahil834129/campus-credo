@@ -6,12 +6,12 @@ import { toast } from "react-toastify";
 
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
-import { FAILED_STATUS, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION, SUCCESS_STATUS } from "../../../constants/app";
-import { humanize } from "../../../utils/helper";
+import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION } from "../../../constants/app";
+import { humanize, userCanNotApprove } from "../../../utils/helper";
 
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
-
+  const canNotApprove = userCanNotApprove();
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
       src={Action}
@@ -29,6 +29,27 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
     setApplicationId(appId);
     setOpenModal(true);
     setIsbulkOperation(false);
+  };
+
+  const getClassName = (status) => {
+    switch (status) {
+      case SCHOOL_APPLICATION_STATUS.AT_PI:
+        return "violet-label";
+      case SCHOOL_APPLICATION_STATUS.RECEIVED:
+        return "blue-label";
+      case SCHOOL_APPLICATION_STATUS.DECLINED:
+      case PARENT_APPLICATION_STATUS.REJECTED:
+      case SCHOOL_APPLICATION_STATUS.REVOKED:
+      case SCHOOL_APPLICATION_STATUS.DENIED:
+        return "red-label";
+      case SCHOOL_APPLICATION_STATUS.APPROVED:
+      case PARENT_APPLICATION_STATUS.ACCEPTED:
+        return "green-label";
+      case SCHOOL_APPLICATION_STATUS.UNDER_REVIEW:
+        return "orange-label";
+      default:
+        return "black-label";
+    }
   };
 
   const columns = [
@@ -113,29 +134,12 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         );
       })
     },
-    // {
-    //   accessor: 'mobileNumber',
-    //   Header: 'Mobile Number'
-    // },
-    // {
-    //   accessor: 'submissionDate',
-    //   Header: 'Application Date',
-    //   Cell: ((e) => {
-    //     return moment(e.row.original?.submissionDate).format(getDefaultDateFormat());
-    //   })
-    // },
     {
       accessor: 'applicationStatus',
       Header: 'Application Status',
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
-        if (SUCCESS_STATUS.includes(applicationStatus.toUpperCase())) {
-          return <span className="success">{humanize(e.row.original?.applicationStatus)}</span>;
-        } else if (FAILED_STATUS.includes(applicationStatus.toUpperCase())) {
-          return <span className="text-danger">{humanize(e.row.original?.applicationStatus)}</span>;
-        } else {
-          return <span className="under-review">{humanize(e.row.original?.applicationStatus)}</span>;
-        }
+        return <span className={getClassName(applicationStatus)}>{humanize(applicationStatus, true)}</span>;
       })
     },
     {
@@ -171,9 +175,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                         }
                       }}
                     >
-                      {(SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="success">{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
-                      {(FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) && <span className="rejected">{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
-                      {(!((SUCCESS_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])) || (FAILED_STATUS.includes(SCHOOL_APPLICATION_STATUS[val])))) && <span className="under-review">{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
+                      {<span className={getClassName(SCHOOL_APPLICATION_STATUS[val])}>{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
                     </Dropdown.Item>
                   );
                 })}
@@ -214,14 +216,14 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
             }}>
             Decline Wtih Remarks
           </Button>
-          <Button
+          {canNotApprove && <Button
             className='accept-btn'
             disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.APPROVED, selectedRows, rowsData);
             }}>
             Approve
-          </Button>
+          </Button>}
         </div>)}
     </div>
   );

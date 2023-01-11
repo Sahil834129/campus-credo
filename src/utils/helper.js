@@ -221,6 +221,16 @@ export const getCurrentModulePermission = (moduleName) => {
     modulePermissions = JSON.parse(modulePermissions);
     flag = !!modulePermissions.find(val => val.moduleName === moduleName && val.permissionType === MANAGE_USER_PERMISSION[2]);
   }
-  console.log(flag);
+  return flag;
+};
+
+
+export const userCanNotApprove = () => {
+  let modulePermissions = getLocalData('modulePermissions');
+  let flag = false;
+  if (modulePermissions !== null) {
+    modulePermissions = JSON.parse(modulePermissions);
+    flag = modulePermissions.find(val => val.moduleName === "Manage Application" && val.canApprove);
+  }
   return flag;
 };
