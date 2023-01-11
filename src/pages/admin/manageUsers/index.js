@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 
@@ -8,7 +7,7 @@ import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
 import { getCurrentModulePermission, humanize } from '../../../utils/helper';
-import { getManagePermissions, getManagePermissionRoles, getManagePermissionModules, updateUserModulePermissions } from '../../../utils/services';
+import { getManagePermissionModules, getManagePermissionRoles, getManagePermissions, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
 
@@ -75,11 +74,13 @@ export const ManageUsers = () => {
       Cell: ((e) => {
 
         return (
-          <div style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }} >
+          <div className='item-cell'>
             <ToggleSwitch
+            
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageAdmission');
               }}
+              
               inputName={"manageAdmission"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageAdmission}
@@ -94,7 +95,7 @@ export const ManageUsers = () => {
       Header: 'Manage Application',
       Cell: ((e) => {
         return (
-          <div style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
+          <div className='item-cell'>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageApplication');
@@ -113,8 +114,9 @@ export const ManageUsers = () => {
       Header: 'Manage User',
       Cell: ((e) => {
         return (
-          <div style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
+          <div className='item-cell'>
             <ToggleSwitch
+            
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageUser');
               }}
@@ -132,7 +134,7 @@ export const ManageUsers = () => {
       Header: 'Manage Fee',
       Cell: ((e) => {
         return (
-          <div style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
+          <div className='item-cell' style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageFee');
@@ -151,7 +153,7 @@ export const ManageUsers = () => {
       Header: ' ',
       Cell: ((e) => {
         return (
-          <div>
+          <div className='btn-wrapper'>
             <Button
               type='button'
               disabled={!isWritePermission || (e.row.original?.roleUsers?.length || 0) === 0}

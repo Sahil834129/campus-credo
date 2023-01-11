@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
 
 const switchCss = {
   position: 'relative',
   height: '26px',
   width: '135px',
   backgroundColor: '#e4e4e4',
-  borderRadius: '10px',
-  boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1)'
+  borderRadius: '4px',
+  boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1)',
+  display: 'flex',
+  alignItems: 'center'
 };
 
 const switchRadioCss = {
@@ -22,8 +23,9 @@ const switchSelection = {
   left: 0,
   width: '45px',
   height: '26px',
-  borderRadius: '10px',
-  transition: 'left 0.25s ease-out'
+  borderRadius: '4px',
+  transition: 'left 0.25s ease-out',
+  boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.16)'
 };
 const switchLabel = {
   position: 'relative',
@@ -31,6 +33,7 @@ const switchLabel = {
   float: 'left',
   width: '45px',
   lineHeight: '26px',
+  fontWeight:'400',
   fontSize: '11px',
   color: 'rgba(0, 0, 0, 0.6)',
   textAlign: 'center',
@@ -60,7 +63,7 @@ const ConcealedRadio = ({ value, selected }) => {
 function ToggleSwitch({ selected, values, onChangeHandler, inputName, disabled }) {
 
   return (
-    <div style={switchCss}>
+    <div className='toggleswitch' style={switchCss}>
       {values.map(val => {
         return (
           <span key={`${inputName}-${val}`}>
