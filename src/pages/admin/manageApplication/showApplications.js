@@ -46,6 +46,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       case PARENT_APPLICATION_STATUS.ACCEPTED:
         return "green-label";
       case SCHOOL_APPLICATION_STATUS.UNDER_REVIEW:
+      case SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW:
         return "orange-label";
       default:
         return "black-label";
