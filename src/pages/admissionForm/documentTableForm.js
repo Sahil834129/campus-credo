@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { ACCEPT_MIME_TYPE, FILE_SIZE } from "../../constants/app";
+import { ACCEPT_MIME_TYPE, FILE_SIZE, FILE_UPLOAD_ERROR } from "../../constants/app";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { humanize } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
@@ -57,11 +57,15 @@ export function DocumentTableFormat({
   };
 
   const validateFile = (uploadFile) => {
-    if (
-      uploadFile.size > FILE_SIZE ||
-      ACCEPT_MIME_TYPE.find((element) => element === uploadFile.type) ===
-        undefined
-    ) {
+    
+    if (uploadFile.size > FILE_SIZE) {
+      toast.error(FILE_UPLOAD_ERROR.FILE_SIZE_ERROR_MSG)
+      return false;
+    }
+    
+    if(ACCEPT_MIME_TYPE.find((element) => element === uploadFile.type) ===undefined)
+    {
+      toast.error(FILE_UPLOAD_ERROR.FILE_TYPE_ERROR_MSG)
       return false;
     }
     return true;
@@ -70,9 +74,7 @@ export function DocumentTableFormat({
   const fileUplaod = (fileType, fileData) => {
     const error = {};
     if (fileData[fileType]) {
-      if (!validateFile(fileData[fileType])) {
-        toast.error("Upload file size should be less than 1mb");
-      } else {
+      if (validateFile(fileData[fileType])) {
         callUploadFIleApi(currentStudent.childId, fileType, fileData);
         error[fileType] = "";
       }
@@ -109,7 +111,7 @@ export function DocumentTableFormat({
             <td className="doc-upload-fld">
               <input
                 type={"file"}
-                accept=".jpg,.jpeg,.png,.doc,.docx,.pdf"
+                accept=".jpg,.jpeg,.png,.pdf"
                 style={{cursor:'pointer'}}
                 name={val.documentName}
                 onChange={handleFileChangeInput}

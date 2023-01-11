@@ -372,7 +372,7 @@ const ReviewAdmissionDialog = ({
             <Accordion.Body>
               <div className="admin-detail-row">
                 <div className="admin-detail-cell">
-                  <label>Participated in any Competitions:</label>
+                  <label>Participated in any competitions:</label>
                   <span className="item-entry">
                     {studentDetail.competitionCertificate
                       ? humanize(studentDetail.competitionCertificate)
@@ -380,7 +380,7 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
-                  <label>Having any Other Interests :</label>
+                  <label>Having any other interests :</label>
                   <span className="item-entry">
                     {studentDetail.otherInterest
                       ? humanize(studentDetail.otherInterest)

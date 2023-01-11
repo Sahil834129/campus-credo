@@ -21,6 +21,11 @@ export const ADMIN_DASHBOARD_LINK = [
 
 export const DATE_FORMAT = "DD/MM/yyyy";
 
+export const FILE_UPLOAD_ERROR={
+  FILE_SIZE_ERROR_MSG: "Upload file size should be less than 1 MB.",
+  FILE_TYPE_ERROR_MSG: "Upload file type is not accpetable "
+}
+
 export const PARENT_APPLICATION_STATUS = {
   SUBMITTED: 'SUBMITTED',
   AT_PI_SCHEDULED: 'AT_PI_SCHEDULED',

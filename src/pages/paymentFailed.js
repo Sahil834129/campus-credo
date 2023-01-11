@@ -32,13 +32,18 @@ const PaymentFailed = () => {
                 <h2>Error!</h2>
                 <h4>
                   Opps, Something went wrong, Payment failed for applications :{" "}
-                  {applications.map((application, index) => (
+                  {/* {applications.map((application, index) => (
                     <span className="reg-num">
                       {application +
                         "" +
                         (!isEmpty(applications[index + 1]) ? " " : "")}
                     </span>
-                  ))}{" "}
+                  ))}{" "} */}
+                 <span className="reg-num">
+                      {applications }
+                      
+                    </span>
+
                 </h4>
               </div>
             </section>
