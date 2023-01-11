@@ -232,7 +232,7 @@ export const StudentDetailsSchema = Yup.object().shape({
   addressLine1: Yup.string().required("Required *"),
   familyIncome: Yup.string()
     .required("Required *")
-    .matches(/^[0-9]+(\.[0-9][0-9]?)?$/, {
+    .matches(/^(?!0+(?:\.0+)?$)[0-9]+(?:\.[0-9]+)?$/gm, {
       message: "Please enter valid income.",
       excludeEmptyString: false,
     }),
