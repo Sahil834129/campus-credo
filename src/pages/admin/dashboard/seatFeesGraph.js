@@ -18,7 +18,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                 setFeesCollected(0);
             } else {
                 setTotalFeesCollected(val?.schoolAdmissionFeeSummary?.projectedFee);
-                setFeesCollected(((parseInt(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseInt(val?.schoolAdmissionFeeSummary?.projectedFee)));
+                setFeesCollected(parseInt((parseInt(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseInt(val?.schoolAdmissionFeeSummary?.projectedFee)));
             }
         }).catch((e) => {
             console.log(e);
@@ -39,7 +39,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
 
     useEffect(() => {
         const percentageVal = (((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats);
-        setAcceptedPercentage(isNaN(percentageVal) ? 0 : percentageVal);
+        setAcceptedPercentage(isNaN(percentageVal) ? 0 : parseFloat(percentageVal).toFixed(2));
     }, [acceptedOffer, totalSeats]);
 
     return (
