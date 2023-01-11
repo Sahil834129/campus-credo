@@ -74,116 +74,120 @@ const SignUp = () => {
                 }}
               >
                 {({ errors, touched }) => (
-                  <Form className="">
-                    
-                    <div className="frm-cell">
-                    <label className="">
-                      First Name <span className="text-danger">*</span>
-                    </label>
-                      <InputField
-                        fieldName="firstName"
-                        fieldType="text"
-                        //placeholder="First Name"
-                        errors={errors}
-                        touched={touched}
-                      />
+                  <Form className="form-wrapper">
+                    <div className="frm-row">
+                      <div className="frm-cell">
+                        <label className="">
+                          First Name <span className="text-danger">*</span>
+                        </label>
+                          <InputField
+                            fieldName="firstName"
+                            fieldType="text"
+                            placeholder="First Name"
+                            errors={errors}
+                            touched={touched}
+                          />
+                      </div>
+                      <div className="frm-cell">
+                        <label className="">
+                          Last Name <span className="text-danger">*</span>
+                        </label>
+                          <InputField
+                            fieldName="lastName"
+                            fieldType="text"
+                            placeholder="Last Name"
+                            errors={errors}
+                            touched={touched}
+                          />
+                      </div>
+                    </div>
+                    <div className="frm-row">
+                      <div className="frm-cell">
+                        <label className="">
+                          Email Address <span className="text-danger">*</span>
+                        </label>
+                          <InputField
+                            fieldName="email"
+                            fieldType="text"
+                            placeholder="Email Address"
+                            errors={errors}
+                            touched={touched}
+                          />
+                      </div>
+                      <div className="frm-cell">
+                        <label className="">
+                          Phone Number<span className="text-danger">*</span>
+                        </label>
+                        <InputField
+                          fieldName="phone"
+                          fieldType="text"
+                          //placeholder="Phone Number"
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>{" "}
+                    </div>
+                    <div className="frm-row">
+                      <div className="frm-cell">
+                        <label className="">
+                          Password<span className="text-danger">*</span>
+                        </label>
+                          <InputField
+                            fieldName="password"
+                            fieldType="password"
+                            placeholder="Password"
+                            errors={errors}
+                            touched={touched}
+                          />
+                      </div>{" "}
+                      
+                      <div className="frm-cell">
+                        <label className="">
+                          Confirm Password<span className="text-danger">*</span>
+                        </label>
+                        <InputField
+                          fieldName="confirmPassword"
+                          fieldType="password"
+                          placeholder="Confirm Password"
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>{" "}
+                    </div>
+                    <div className="frm-row">
+                      <div className="frm-cell">
+                        <label className="">
+                          Select State <span className="text-danger">*</span>
+                        </label>
+                        <InputField
+                          fieldName="state"
+                          fieldType="select"
+                          placeholder=""
+                          selectOptions={stateOptions}
+                          onBlur={(e) =>
+                            populateCities(e.target.value, setCityOptions)
+                          }
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>{" "}
+                      
+                      <div className="frm-cell">
+                        <label className="">
+                          Select City <span className="text-danger">*</span>
+                        </label>
+                        <InputField
+                          fieldName="city"
+                          fieldType="select"
+                          placeholder=""
+                          selectOptions={cityOptions}
+                          errors={errors}
+                          touched={touched}
+                        />
+                      </div>
                     </div>
                     
-                    <div className="frm-cell">
-                    <label className="">
-                      Last Name <span className="text-danger">*</span>
-                    </label>
-                      <InputField
-                        fieldName="lastName"
-                        fieldType="text"
-                        //placeholder="Last Name"
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
                     
-                    <div className="frm-cell">
-                    <label className="">
-                      Email Address <span className="text-danger">*</span>
-                    </label>
-                      <InputField
-                        fieldName="email"
-                        fieldType="text"
-                        //placeholder="Email Address"
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
-                    
-                    <div className="frm-cell">
-                    <label className="">
-                      Password<span className="text-danger">*</span>
-                    </label>
-                      <InputField
-                        fieldName="password"
-                        fieldType="password"
-                        //placeholder="Password"
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>{" "}
-                    
-                    <div className="frm-cell">
-                      <label className="">
-                        Confirm Password<span className="text-danger">*</span>
-                      </label>
-                      <InputField
-                        fieldName="confirmPassword"
-                        fieldType="password"
-                        // placeholder="Confirm Password"
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>{" "}
-                    
-                    <div className="frm-cell">
-                      <label className="">
-                        Phone Number<span className="text-danger">*</span>
-                      </label>
-                      <InputField
-                        fieldName="phone"
-                        fieldType="text"
-                        //placeholder="Phone Number"
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>{" "}
-                    
-                    <div className="frm-cell">
-                    <label className="">
-                      Select State <span className="text-danger">*</span>
-                    </label>
-                      <InputField
-                        fieldName="state"
-                        fieldType="select"
-                        placeholder=""
-                        selectOptions={stateOptions}
-                        onBlur={(e) =>
-                          populateCities(e.target.value, setCityOptions)
-                        }
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>{" "}
-                    
-                    <div className="frm-cell">
-                    <label className="">
-                      Select City <span className="text-danger">*</span>
-                    </label>
-                      <InputField
-                        fieldName="city"
-                        fieldType="select"
-                        placeholder=""
-                        selectOptions={cityOptions}
-                        errors={errors}
-                        touched={touched}
-                      />
-                    </div>
                     {/* <div className='frm-cell frm-lbl-cell'>
                       <InputField
                         fieldName='receiveEmailUpdates'

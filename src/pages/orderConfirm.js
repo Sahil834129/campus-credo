@@ -38,7 +38,7 @@ const OrderConfirm = () => {
                         (!isEmpty(applications[index + 1]) ? " " : "")}
                     </span>
                   ))}{" "} is Successfully Submitted</h4>
-                  <h4> </h4>
+                 
                 </div>
             </section>
            
