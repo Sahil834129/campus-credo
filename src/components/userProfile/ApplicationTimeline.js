@@ -9,18 +9,26 @@ import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { humanize, isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
 
-const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) => {
+const ApplicationTimeline = ({
+  application,
+  setApplications,
+  setShowTimeline,
+}) => {
   const navigate = useNavigate();
-  const [applicationStatus, setApplicationStatus] = useState(application.applicationStatus)
+  const [applicationStatus, setApplicationStatus] = useState(
+    application.applicationStatus
+  );
 
   async function acceptApplication() {
     try {
       const response = await RESTClient.post(
-        RestEndPoint.PLACE_REGISTRATION_ORDER +
+        RestEndPoint.REGISTRATION_CHECKOUT +
           "?applicationDataId=" +
           `${application.applicationId}`
       );
-      navigate("/paymentCheckout", { state: { data: response.data } });
+      toast.success("Your Application has been Accepted");
+      window.location.reload(false);
+      // navigate("/paymentCheckout", { state: { data: response.data } });
     } catch (error) {
       if (
         !isEmpty(error) &&
@@ -55,16 +63,21 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
 
   async function rejectApplication() {
     try {
-      const rejectAppRes = await RESTClient.post(RestEndPoint.UPDATE_APPLICATION_STATUS, {
-        applicationId: application.applicationId,
-        childId: application.childId,
-        applicationStatus: "DENIED",
-      });
+      const rejectAppRes = await RESTClient.post(
+        RestEndPoint.UPDATE_APPLICATION_STATUS,
+        {
+          applicationId: application.applicationId,
+          childId: application.childId,
+          applicationStatus: "DENIED",
+        }
+      );
       setApplicationStatus(rejectAppRes.applicationStatus);
-      setShowTimeline(false)
-      const response = await RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`)
-      setApplications(response.data)
-      
+      setShowTimeline(false);
+      const response = await RESTClient.get(
+        RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`
+      );
+      setApplications(response.data);
+
       toast.success("Application status updated successfully.");
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));
@@ -72,12 +85,17 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
   }
 
   function getApplicationStatusMessage(history) {
-    const status = history.applicationStatus
-    let message = APPLICATION_STATUS_MESSAGE[status] ? APPLICATION_STATUS_MESSAGE[status] : humanize(status)
-    if (status.toUpperCase() === SCHOOL_APPLICATION_STATUS.AT_PI){
-      message = message.replace('<AT/PI timeslot>', history.applicantATPITimeSlot)
+    const status = history.applicationStatus;
+    let message = APPLICATION_STATUS_MESSAGE[status]
+      ? APPLICATION_STATUS_MESSAGE[status]
+      : humanize(status);
+    if (status.toUpperCase() === SCHOOL_APPLICATION_STATUS.AT_PI) {
+      message = message.replace(
+        "<AT/PI timeslot>",
+        history.applicantATPITimeSlot
+      );
     }
-    return message
+    return message;
   }
 
   return (
@@ -98,7 +116,7 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
             <div className="timeline-info-panel">
               {application.applicationDataHistory.map((history, index) => {
                 return (
-                  <div className="timeline-row" key={'timeline_'+index}>
+                  <div className="timeline-row" key={"timeline_" + index}>
                     <div className="date">
                       {formatDateToDDMMYYYY(new Date(history.updatedDate))}
                     </div>
@@ -138,11 +156,7 @@ const ApplicationTimeline = ({ application, setApplications, setShowTimeline }) 
                         </div>
                       </div>
                     ) : (
-                      <div>
-                        {
-                          getApplicationStatusMessage(history)
-                        }
-                      </div>
+                      <div>{getApplicationStatusMessage(history)}</div>
                     )}
                   </div>
                 );

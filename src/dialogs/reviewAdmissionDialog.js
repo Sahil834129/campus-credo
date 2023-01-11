@@ -11,7 +11,7 @@ import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
-  downloadDocument
+  downloadDocument,
 } from "../utils/services";
 import StringUtils from "../utils/StringUtils";
 import GenericDialog from "./GenericDialog";
@@ -169,12 +169,17 @@ const ReviewAdmissionDialog = ({
     }
 
     try {
-      const response = await RESTClient.post(
-        RestEndPoint.PLACE_CART_ORDER + "?childId=" + `${childId}`
+      const response = await RESTClient.get(
+        RestEndPoint.APPLICATION_CHECKOUT + `/${childId}`
       );
+      // const response = await RESTClient.post(
+      //   RestEndPoint.APPLICATION_CHECKOUT + "?childId=" + `${childId}`
+      // );
 
       handleClose();
-      navigate("/paymentCheckout", { state: { data: response.data } });
+      //navigate("/paymentCheckout", { state: { data: response.data } });
+      toast.success("Your Applications are Successfully Submitted");
+      navigate("/userProfile");
     } catch (error) {
       if (
         !isEmpty(error) &&
@@ -209,17 +214,17 @@ const ReviewAdmissionDialog = ({
   }
 
   function getPresentableAddress(parentObject) {
-    let address = ''
+    let address = "";
     if (parentObject.addressLine1)
-      address = StringUtils.append(address, parentObject.addressLine1, ',')
+      address = StringUtils.append(address, parentObject.addressLine1, ",");
     if (parentObject.addressLine2)
-      address = StringUtils.append(address, parentObject.addressLine2, ',')
+      address = StringUtils.append(address, parentObject.addressLine2, ",");
     if (parentObject.cityName)
-      address = StringUtils.append(address, parentObject.cityName, ',')
+      address = StringUtils.append(address, parentObject.cityName, ",");
     if (parentObject.stateName)
-      address = StringUtils.append(address, parentObject.stateName, ',')
+      address = StringUtils.append(address, parentObject.stateName, ",");
     if (parentObject.pincode)
-      address = StringUtils.append(address, parentObject.pincode, '-')
+      address = StringUtils.append(address, parentObject.pincode, "-");
     return address;
   }
 
@@ -281,7 +286,9 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>Identification Marks:</label>
                   <span className="item-entry">
-                    {studentDetail.identificationMarks ? humanize(studentDetail.identificationMarks) : "No"}
+                    {studentDetail.identificationMarks
+                      ? humanize(studentDetail.identificationMarks)
+                      : "No"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -341,12 +348,20 @@ const ReviewAdmissionDialog = ({
                   <label>Disabilities :</label>
                   <span className="item-entry">
                     {medicalDetail.disabilities?.length
-                      ? 
-                        medicalDetail.disabilities.map(v=> StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(v)))
+                      ? medicalDetail.disabilities
+                          .map((v) =>
+                            StringUtils.capitalizeFirstLetter(
+                              StringUtils.replaceUnderScoreWithSpace(v)
+                            )
+                          )
                           .join(", ")
-                          .replaceAll("Other", StringUtils.capitalizeFirstLetter(medicalDetail.otherDisability))  
-                      : "No"
-                    }
+                          .replaceAll(
+                            "Other",
+                            StringUtils.capitalizeFirstLetter(
+                              medicalDetail.otherDisability
+                            )
+                          )
+                      : "No"}
                   </span>
                 </div>
               </div>
@@ -405,7 +420,9 @@ const ReviewAdmissionDialog = ({
                     Ever been suspended or expelled from any previous school:
                   </label>
                   <span className="item-entry">
-                    {studentDetail.suspension ? humanize(studentDetail.suspension) : "No"}
+                    {studentDetail.suspension
+                      ? humanize(studentDetail.suspension)
+                      : "No"}
                   </span>
                 </div>
               </div>
@@ -449,7 +466,7 @@ const ReviewAdmissionDialog = ({
           </Accordion.Item>
           <Accordion.Item eventKey="5">
             <Accordion.Header>
-          Information &amp; Supporting Documents
+              Information &amp; Supporting Documents
             </Accordion.Header>
             <Accordion.Body>
               <div className="tab-wrapper">
@@ -539,28 +556,30 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
-        { applicationId ? '' :
-        <div className="declaration-wrapper">
-          <Form.Check
-            type="checkbox"
-            label=" I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct"
-            required
-            checked={infoDeclarationAccepted}
-            onChange={(e) => {
-              setInfoDeclarationAccepted(e.target.checked);
-            }}
-          />
-          <Form.Check
-            type="checkbox"
-            label="I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy"
-            required
-            checked={termsPolicyDeclarationAccepted}
-            onChange={(e) => {
-              setTermsPolicyDeclarationAccepted(e.target.checked);
-            }}
-          />
-        </div>
-        }
+        {applicationId ? (
+          ""
+        ) : (
+          <div className="declaration-wrapper">
+            <Form.Check
+              type="checkbox"
+              label=" I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct"
+              required
+              checked={infoDeclarationAccepted}
+              onChange={(e) => {
+                setInfoDeclarationAccepted(e.target.checked);
+              }}
+            />
+            <Form.Check
+              type="checkbox"
+              label="I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy"
+              required
+              checked={termsPolicyDeclarationAccepted}
+              onChange={(e) => {
+                setTermsPolicyDeclarationAccepted(e.target.checked);
+              }}
+            />
+          </div>
+        )}
         {childId && (
           <div className="btn-wrapper review-section-btn">
             <Button
@@ -570,14 +589,13 @@ const ReviewAdmissionDialog = ({
                 !(infoDeclarationAccepted && termsPolicyDeclarationAccepted)
               }
             >
-              Pay Now
+              Checkout
             </Button>
             <Button
               className="edit"
               onClick={() => {
                 navigate(
-                  "/admissionForm/?childId=" +
-                    btoa(`#${studentDetail.childId}`)
+                  "/admissionForm/?childId=" + btoa(`#${studentDetail.childId}`)
                 );
               }}
             >
