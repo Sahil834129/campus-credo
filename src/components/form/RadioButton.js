@@ -1,6 +1,7 @@
 const RadioButton = props => {
   return (
     <>
+    
       <input
         className='form-check-input'
         type='radio'
@@ -16,6 +17,7 @@ const RadioButton = props => {
       <label className='form-check-label' htmlFor={props.fieldName}>
         {props.label}
       </label>
+    
     </>
   )
 }
