@@ -195,7 +195,6 @@ export const ManageAdmission = () => {
                                 <th>Class</th>
                                 <th>Admission Open</th>
                                 <th>Total Seats <span className='required'>*</span></th>
-                                {/* <th>Application(Start Date - End Date)</th> */}
                                 <th>Application <span className='required'>*</span></th>
                                 <th>Parent Interview</th>
                                 <th>Candidate Screening Test</th>
@@ -277,7 +276,32 @@ export const ManageAdmission = () => {
                                         setFieldData={setFieldValue}
                                         handleData={handleData}
                                         disabled={!isWritePermission || !admissionData?.isOpen}
-
+                                        clearDependentValue={() => {
+                                          handleData(
+                                            setFieldValue,
+                                            `data[${index}].admissionTestEndDate`,
+                                            '',
+                                            formData[index]?.admissionTestEndDate || ''
+                                          );
+                                          handleData(
+                                            setFieldValue,
+                                            `data[${index}].admissionTestStartDate`,
+                                            '',
+                                            formData[index]?.admissionTestStartDate || ''
+                                          );
+                                          handleData(
+                                            setFieldValue,
+                                            `data[${index}].personalInterviewStartDate`,
+                                            '',
+                                            formData[index]?.personalInterviewStartDate || ''
+                                          );
+                                          handleData(
+                                            setFieldValue,
+                                            `data[${index}].personalInterviewEndDate`,
+                                            '',
+                                            formData[index]?.personalInterviewEndDate || ''
+                                          );
+                                        }}
                                       />
                                     </td>
                                     <td>

@@ -104,7 +104,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
     },
     {
       accessor: '',
-      Header: 'Submission Date',
+      Header: 'Application Date',
       Cell: ((e) => {
         return <span>{moment(e.row.original.submissionDate).format('DD/MM/YYYY')}</span>;
       })
@@ -147,11 +147,14 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       accessor: 'childId',
       Header: '',
       Cell: ((e) => {
+        let stateTransiton = [];
         const applicationStatus = e.row.original?.applicationStatus;
         const applicationId = e.row.original?.applicationId;
-        const stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
-          return val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData;
-        });
+        if (STATE_TRANSITION[applicationStatus.toUpperCase()]) {
+          stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
+            return val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData;
+          });
+        }
         return (
           <>
             {stateTransiton.length > 0 && <Dropdown>

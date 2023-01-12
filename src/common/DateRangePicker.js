@@ -10,6 +10,7 @@ function DateRangePicker({
   minDate,
   dateRangeValue,
   disabled,
+  clearDependentValue,
   required = false
 }) {
   
@@ -17,6 +18,9 @@ function DateRangePicker({
     fieldName.map((val, index) => {
       handleData(setFieldData, val, updatedValue[index], dateRangeValue[index]);
     });
+    if (clearDependentValue) {
+      clearDependentValue()
+    }
   };
 
   return (
