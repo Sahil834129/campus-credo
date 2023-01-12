@@ -6,10 +6,11 @@ import ReviewAdmissionDialog from "../dialogs/reviewAdmissionDialog";
 const PaymentCard = ({ selectedChild }) => {
   const [showReviewApplication, setShowReviewApplication] = useState(false);
   let totalFee = 0;
-  let convenienceFee = 25;
+  let convenienceFee = 0;
   let totalPay = 0;
   selectedChild.cartItems.forEach((cartItem) => {
     totalFee += parseFloat(cartItem.admissionFormFee);
+    convenienceFee=convenienceFee+25;
   });
   let gstAmt = parseFloat((parseFloat(convenienceFee) * 18) / 100).toFixed(2);
   
