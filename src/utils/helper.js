@@ -31,16 +31,10 @@ export const setLocalData = (key, value) => {
 
 export const logout = () => {
   resetUserLoginData();
-  window.location.reload();
 };
 
 export const resetUserLoginData = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("refreshToken");
-  localStorage.removeItem("modulePermissions");
-  localStorage.removeItem("name");
-  localStorage.removeItem("roles");
-  localStorage.removeItem("schoolId");
+  localStorage.clear();
 };
 
 export const setUserLoginData = (loginData) => {

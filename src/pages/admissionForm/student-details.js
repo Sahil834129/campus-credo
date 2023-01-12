@@ -713,7 +713,7 @@ export default function StudentDetails({
             fieldName="familyIncome"
             fieldType="number"
             label='Annual Family Income'
-            value={selectedChild.familyIncome}
+            value={selectedChild.familyIncome === 0? "" : selectedChild.familyIncome}
             errors={validationErrors}
             required
             onChange={(e) => {

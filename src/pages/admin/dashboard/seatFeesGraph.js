@@ -6,6 +6,7 @@ import { getSchoolAdmissinFeeSummary } from "../../../utils/services";
 export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, acceptedOffer }) {
     //dashboard/schoolAdmissionFeeSummary
     const [feesCollected, setFeesCollected] = useState(0);
+    const [feesCollectedPercent, setFeesCollectedPercent] = useState(0);
     const [totalSeats, setTotalSeats] = useState(0);
     const [accepetedPercentsage, setAcceptedPercentage] = useState(0);
     const [totalFeesCollected, setTotalFeesCollected] = useState(0);
@@ -18,7 +19,8 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                 setFeesCollected(0);
             } else {
                 setTotalFeesCollected(val?.schoolAdmissionFeeSummary?.projectedFee);
-                setFeesCollected(((parseInt(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseInt(val?.schoolAdmissionFeeSummary?.projectedFee)));
+                setFeesCollected(val?.schoolAdmissionFeeSummary?.collectedFee);
+                setFeesCollectedPercent(parseFloat((parseFloat(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseFloat(val?.schoolAdmissionFeeSummary?.projectedFee)).toFixed(2));
             }
         }).catch((e) => {
             console.log(e);
@@ -39,7 +41,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
 
     useEffect(() => {
         const percentageVal = (((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats);
-        setAcceptedPercentage(isNaN(percentageVal) ? 0 : percentageVal);
+        setAcceptedPercentage(isNaN(percentageVal) ? 0 : parseFloat(percentageVal).toFixed(2));
     }, [acceptedOffer, totalSeats]);
 
     return (
@@ -78,7 +80,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                                             radius: 80,
                                         }],
                                 } || {}}
-                                midNumberText={accepetedPercentsage}
+                                midNumberText={accepetedPercentsage+'%'}
                                 midTextFirst={'Offer'}
                                 midTextSecond={'Accepted'}
                                 totalRemainng={`${totalSeats} Remaining Seats`}
@@ -89,14 +91,14 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                                 data={{
                                     datasets: [
                                         {
-                                            data: [feesCollected, 100 - feesCollected],
+                                            data: [feesCollectedPercent, 100 - feesCollectedPercent],
                                             backgroundColor: ["#59D04D", "#EEF0F5"],
                                             borderRadius: 30,
                                             cutout: 90,
                                             radius: 80
                                         }],
                                 } || {}}
-                                midNumberText={feesCollected}
+                                midNumberText={feesCollectedPercent+'%'}
                                 midTextFirst={'Fee'}
                                 midTextSecond={'Collected'}
                                 totalRemainng={`${totalFeesCollected} Projected Fee`}

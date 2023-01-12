@@ -157,7 +157,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         }
         return (
           <>
-            {stateTransiton.length > 0 && <Dropdown>
+            {stateTransiton && stateTransiton.length > 0 && <Dropdown>
               <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                 Dropdown Button
               </Dropdown.Toggle>

@@ -60,7 +60,7 @@ const PaymentCard = ({ selectedChild }) => {
       <Card.Body className="button-wrap">
         <Card.Link
           className={
-            "btn checkour" +
+            "btn reviewform-btn" +
             (selectedChild.id === "" || selectedChild.cartItems.length === 0
               ? " disabled"
               : "")
