@@ -30,8 +30,13 @@ export const Layout = ({ admissionSummary, ...props }) => {
   };
 
   useEffect(() => {
-    setAdminLink(adminHeaderLink.filter(val => val?.isPermit !== MANAGE_USER_PERMISSION[1]))
-  }, [adminHeaderLink])
+    setAdminLink(adminHeaderLink.filter(val => val?.isPermit !== MANAGE_USER_PERMISSION[1]));
+    let pathname = window.location.pathname;
+    const data = adminHeaderLink.find(val => val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url == pathname);
+    if (!data) {
+      window.location.href = "/dashboard";
+    }
+  }, [adminHeaderLink]);
   return (
     <Container className='main-container admin-contianer' fluid>
       <div className='top-navigation'>
