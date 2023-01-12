@@ -6,14 +6,14 @@ import Button from 'react-bootstrap/Button';
 import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
-import { getCurrentModulePermission, humanize } from '../../../utils/helper';
+import { getCurrentModulePermission, getLocalData, humanize } from '../../../utils/helper';
 import { getManagePermissionModules, getManagePermissionRoles, getManagePermissions, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
 
 export const ManageUsers = () => {
   const isWritePermission = getCurrentModulePermission("Manage User");
-
+  const currentRole = getLocalData('roles').replace("ROLE_", "");
   const [managePermissionRole, setManagePermissionRole] = useState({});
   const [managePermissions, setManagePermissions] = useState([]);
   const [isLoading, setIsloading] = useState(false);
@@ -76,15 +76,13 @@ export const ManageUsers = () => {
         return (
           <div className='item-cell'>
             <ToggleSwitch
-            
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageAdmission');
               }}
-              
               inputName={"manageAdmission"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageAdmission}
-              disabled={!isWritePermission}
+              disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
           </div>
         );
@@ -103,7 +101,7 @@ export const ManageUsers = () => {
               inputName={"manageApplication"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageApplication}
-              disabled={!isWritePermission}
+              disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
           </div>
         );
@@ -116,14 +114,13 @@ export const ManageUsers = () => {
         return (
           <div className='item-cell'>
             <ToggleSwitch
-            
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageUser');
               }}
               inputName={"manageUser"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageUser}
-              disabled={!isWritePermission}
+              disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
           </div>
         );
@@ -142,7 +139,7 @@ export const ManageUsers = () => {
               inputName={"manageFee"}
               values={MANAGE_USER_PERMISSION}
               selected={e.row.original.manageFee}
-              disabled={!isWritePermission}
+              disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
           </div>
         );
