@@ -1,13 +1,13 @@
-import React, { useState, useEffect, Button } from "react";
-import { getLocalData, isLoggedIn, logout } from "../utils/helper";
+import React, { useEffect, useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
-import {Link, useNavigate} from "react-router-dom";
-import LoginDialog from "../dialogs/loginDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import CartIcon from "../assets/img/icons/cart-icon.png";
-import { useSelector, useDispatch } from "react-redux";
+import LoginDialog from "../dialogs/loginDialog";
 import { getItemsInCart } from "../redux/actions/cartAction";
-import { setIsUserLoggedIn } from "../redux/actions/userAction";
 import { getChildsList } from "../redux/actions/childAction";
+import { setIsUserLoggedIn } from "../redux/actions/userAction";
+import { getLocalData, isLoggedIn, logout } from "../utils/helper";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a href="" ref={ref} onClick={(e) => {
@@ -41,6 +41,7 @@ const LoggedInUserDropDown = () => {
     const itemsInCart = useSelector((state) => state.cartData.itemsInCart);
     const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser)
     const [totalItemsInCart, setTotalItemsInCart] = useState(0);
+    const childsList = useSelector((state) => state.childsData.childs);
     
     useEffect(() => {
         dispatch(setIsUserLoggedIn(isLoggedIn()))
@@ -49,7 +50,8 @@ const LoggedInUserDropDown = () => {
     useEffect(() => { 
         if (isLoggedInUser && isLoggedIn()) {
             dispatch(getItemsInCart());
-            dispatch(getChildsList());
+            if(childsList.length === 0)
+                dispatch(getChildsList());
         }
     }, [dispatch, isLoggedInUser]);
     useEffect(() => {

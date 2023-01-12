@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { ACCEPT_MIME_TYPE, FILE_SIZE, FILE_UPLOAD_ERROR } from "../../constants/app";
@@ -88,6 +88,10 @@ export function DocumentTableFormat({
       };
     });
   };
+
+  useEffect(()=>{
+    setFiles({})
+  },[])
 
   return (
     <Table bordered hover className="document-tbl">

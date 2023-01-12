@@ -272,7 +272,7 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>Require Transport:</label>
                   <span className="item-entry">
-                    {studentDetail.tranportFacility ? "Yes" : "No"}
+                    {studentDetail.transportFacility ? "Yes" : "No"}
                   </span>
                 </div>
               </div>

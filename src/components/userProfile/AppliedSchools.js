@@ -79,7 +79,7 @@ const AppliedSchools = ({ application, setApplications }) => {
                   </div>
                   <div className="col divider">|</div>
                   <div className="col">
-                    Admission Fee Paid : <strong>{application.formFee}</strong>
+                    Application Fee Paid : <strong>{application.formFee}</strong>
                   </div>
                 </div>
               </div>

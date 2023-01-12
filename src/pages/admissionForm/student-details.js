@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getChildsList } from "../../redux/actions/childAction";
 
 import { useCallback } from "react";
 import { Button, Form } from "react-bootstrap";
@@ -36,7 +35,6 @@ export default function StudentDetails({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const childsList = useSelector((state) => state.childsData.childs);
   const classOptions = useSelector((state) => state.masterData.schoolClasses);
   const states = useSelector((state) => state.masterData.states);
   const [validationErrors, setValidationErrors] = useState({});
@@ -46,8 +44,7 @@ export default function StudentDetails({
   const [city, setCity] = useState([{ value: "", text: "Select City" }]);
   const [isUserExist, setIsUserExist] = useState(false);
   const [classMapWithAge, setClassMapWithAge] = useState({});
-  const [markingSchemeValue, setMarkingScheme] = useState({});
-
+  
   const updateSelectedChild = (data) => {
     setSelectedChild((val) => {
       return {
@@ -169,14 +166,13 @@ export default function StudentDetails({
   };
 
   useEffect(() => {
-    if (childsList.length === 0) dispatch(getChildsList());
     if (classOptions.length === 0) {
       dispatch(getSchoolClasses());
     }
     if (states.length === 1) {
       dispatch(getStates());
     }
-  }, [dispatch, childsList]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (selectedChild.childId) getCurrentUser(selectedChild.childId);
@@ -555,7 +551,6 @@ export default function StudentDetails({
                   selectOptions={MARKING_SCHEME}
                   value={selectedChild.unit}
                   onChange={(e) => {
-                    setMarkingScheme(e.target.value);
                     setFieldValue("unit", e.target.value);
                   }}
                 />
