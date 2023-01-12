@@ -12,6 +12,12 @@
         display: flex;
         align-items: center;
         column-gap: 8px;
+        .frm-cell{
+            select.form-select{
+                border-radius: 4px;
+                font-size: 14px;
+            }
+        }
     }
     .selectbox{
         display: flex;
@@ -288,11 +294,12 @@
             border-top: 1px  solid #e6e6e6;
             padding-top: 24px;
             .comn{
+                text-transform: uppercase;
                 font-style: normal;
-                font-weight: 600;
-                font-size: 16px;
-                line-height: 22px;
-                border-radius: 4px; 
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                border-radius: 4px;
                 height: 48px;
                 &.cancel{
                 color: #E22445;  

@@ -61,7 +61,7 @@ const PageContent = {
       image: 'feature-pic3.png',
       title: 'All in one',
       description:
-        'Apply to multiple schools at once & OneAdmissionForm will be attached automatically'
+        'Apply to multiple schools at once and OneAdmissionForm will be attached automatically'
     },
     {
       image: 'feature-pic4.png',
@@ -69,43 +69,43 @@ const PageContent = {
       description:
         'Track, manage applications and accept admission offers to kickstart the journey'
     },
-    // {
-    //   image: 'feature-pic5.png',
-    //   title: 'Free Counselling',
-    //   description:
-    //     'Track, manage applications and accept admission offers to kickstart the journey'
-    // }
+    {
+      image: 'feature-pic5.png',
+      title: 'Free Counselling',
+      description:
+        'Multi-channel support to guide you at every step of the admission'
+    }
   ],
   SCHOOL_FEATURE_CARDS: [
     {
       image: 'feature-pic1.png',
-      title: 'No Queue, No Hassle',
-      description: 'Use our unique OneAdmissionForm to add details only once'
+      title: 'Go Paperless',
+      description: 'Leverage our platform to streamline admission process and go paperless'
     },
     {
       image: 'feature-pic2.png',
       title: 'Smart Filter',
       description:
-        'Explore platform’s powerful smart search tool to shortlist your favourite schools'
+        'Manage dedicated listing to increase engagement , nurture and convert leads'
     },
     {
       image: 'feature-pic3.png',
-      title: 'All in one',
+      title: 'Online Fee Collections',
       description:
-        'Apply to multiple schools at once & OneAdmissionForm will be attached automatically'
+        'Customize online fee collections as required to allow for secured payments'
     },
     {
       image: 'feature-pic4.png',
-      title: 'Track Admission',
+      title: 'Data Protection',
       description:
-        'Track, manage applications and accept admission offers to kickstart the journey'
+        'Advanced data protection and storage to ensure privacy and record keeping for auditing'
     },
-    // {
-    //   image: 'feature-pic5.png',
-    //   title: 'Free Counselling',
-    //   description:
-    //     'Track, manage applications and accept admission offers to kickstart the journey'
-    // }
+    {
+      image: 'feature-pic5.png',
+      title: 'Multi-channel',
+      description:
+        'Multi-channel support to assist you at every step of the way'
+    }
   ],
   SCHOOL_DTL_ABOUT: {
     heading: 'About School',
