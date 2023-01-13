@@ -1,6 +1,6 @@
 import Button from '../../../components/form/Button';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { humanize } from "../../../utils/helper";
 
 import moment from "moment";
@@ -19,16 +19,16 @@ const ShowWarningMessage = ({ errorList }) => {
         <div className='cell'>Application Id</div>
         <div className='cell'>Application Request Status</div>
       </div>
-    
-        {Object.keys(errorList).map(val => {
-          return (
-            <div className='result-row content-body'>
-              <div className='cell'>{val}</div>
-              <div className='cell'>{errorList[val]}</div>
-            </div>
-          );
-        })}
-     
+
+      {Object.keys(errorList).map(val => {
+        return (
+          <div className='result-row content-body'>
+            <div className='cell'>{val}</div>
+            <div className='cell'>{errorList[val]}</div>
+          </div>
+        );
+      })}
+
     </div>
   );
 };
@@ -49,8 +49,8 @@ export default function OpenModal({
   const [remark, setRemarks] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [errorList, setErrorList] = useState({});
-  const minDate = moment.min([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleStartDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleStartDate))]);
-  const maxDate = moment.max([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleEndDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleEndDate))]);
+  const [minDate, setMinDate] = useState(null);
+  const [maxDate, setMaxDate] = useState(null);
   const [atPiDate, setATPIDate] = useState(null);
   const handleClose = () => {
     setRemarks('');
@@ -104,13 +104,18 @@ export default function OpenModal({
     handleClose();
   };
 
+  useEffect(() => {
+    setMinDate(moment.min([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleStartDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleStartDate))]));
+    setMaxDate(moment.max([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleEndDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleEndDate))]));
+  }, [atPiData]);
+
   return (
     <>
-      <GenericDialog className='confirmation-modal' modalHeader={humanize(applicationStaus)} show={show} handleClose={handleClose}>
+      <GenericDialog className='confirmation-modal' modalHeader={humanize(applicationStaus, true)} show={show} handleClose={handleClose}>
         <div className='model-body-col'>
-          <div className="message-content" >
+          <div className="message-content" style={{ marginBottom: '10px' }}>
             <Form.Label className='form-label'>Add your remarks below</Form.Label>
-            <textarea className='form-control' rows={10} value={remark} onChange={e => setRemarks(e.target.value)} />
+            <textarea className='form-control' rows={5} value={remark} onChange={e => setRemarks(e.target.value)} />
           </div>
           {isAtPiData && SCHOOL_APPLICATION_STATUS.AT_PI === applicationStaus && (
             <div className='inner-container option-filter'>
@@ -122,10 +127,16 @@ export default function OpenModal({
                   onChange={(date) => setATPIDate(date)}
                   minDate={minDate.toDate()}
                   maxDate={maxDate.toDate()}
-                  timeInputLabel="Time:"
+                  // timeInputLabel="Time:"
                   dateFormat="dd/MM/yyyy h:mm aa"
                   showTimeInput
-                  placeholderText="dd/MM/yyyy h:mm aa"
+                  customInput={
+                    <Form.Control
+                      size='sm'
+                      type='text'
+                      placeholder='Select Date Range'
+                    />
+                  }
                 />
               </div>
             </div>
@@ -133,7 +144,7 @@ export default function OpenModal({
         </div>
         {/* <div className="button-wrap" style={{ marginTop: '20px', justifyContent: 'end', display: 'flex' }}> */}
         <div className="button-wrapper">
-          
+
           <Button class='save-btn' onClick={() => {
             handleSubmit(remark, applicationStaus, applicationId, atPiDate);
           }} buttonLabel='Save' />

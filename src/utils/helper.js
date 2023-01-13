@@ -1,9 +1,10 @@
 import moment from "moment";
 import * as Yup from "yup";
-import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION, SCHOOL_APPLICATION_STATUS } from "../constants/app";
+import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { getDefaultDateFormat } from "./DateUtil";
 import RESTClient from "./RestClient";
+import StringUtils from "./StringUtils";
 
 export const refreshAccessToken = async () => {
   if (getLocalData("token") == null) return;
@@ -227,4 +228,15 @@ export const userCanNotApprove = () => {
     flag = modulePermissions.find(val => val.moduleName === "Manage Application" && val.canApprove);
   }
   return flag;
+};
+
+export const getStatusLabel = (status) => {
+  switch (status) {
+    case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
+      return "AT/PI Scheduled";
+    case SCHOOL_APPLICATION_STATUS.AT_PI:
+      return "AT/PI";
+    default:
+      return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status));
+  }
 };

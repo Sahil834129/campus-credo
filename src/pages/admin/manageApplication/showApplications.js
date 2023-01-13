@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION } from "../../../constants/app";
-import { humanize, userCanNotApprove } from "../../../utils/helper";
+import { getStatusLabel, humanize, userCanNotApprove } from "../../../utils/helper";
 
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
@@ -140,7 +140,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Header: 'Application Status',
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
-        return <span className={getClassName(applicationStatus)}>{humanize(applicationStatus, true)}</span>;
+        return <span className={getClassName(applicationStatus)}>{getStatusLabel(applicationStatus)}</span>;
       })
     },
     {

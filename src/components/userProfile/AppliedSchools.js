@@ -5,8 +5,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
+import { getStatusLabel } from "../../utils/helper";
 import { baseURL } from "../../utils/RestClient";
-import StringUtils from "../../utils/StringUtils";
 import ApplicationTimeline from "./ApplicationTimeline";
 
 const AppliedSchools = ({ application, setApplications }) => {
@@ -32,15 +32,6 @@ const AppliedSchools = ({ application, setApplications }) => {
         return "orange-badge";
       default:
         return "blue-badge";
-    }
-  }
-
-  function getStatusLabel(status) {
-    switch(status) {
-      case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
-        return "AT/PI Scheduled";
-      default:
-        return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status))
     }
   }
 

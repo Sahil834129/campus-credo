@@ -58,6 +58,10 @@ const defaultOptions = {
         display: true,
         text: "Sum of Applications Received",
         color: "000000",
+      },
+      grace: 1,
+      ticks: {
+        stepSize: 1,
       }
     }
   }

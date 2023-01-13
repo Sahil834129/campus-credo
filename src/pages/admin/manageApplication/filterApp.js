@@ -2,6 +2,7 @@ import MultiRangeSlider from "multi-range-slider-react";
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
+import MultiRangeSliderView from "../../../common/MultiRangeSlider";
 import { OPERATORS } from '../../../constants/app';
 import { applicationfilterData } from '../../../utils/services';
 
@@ -124,22 +125,6 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     setMaxMarks(value);
   };
 
-  const handleMinIncome = (e) => {
-    const value = e.target.value;
-    if (!value || isNaN(value) || parseFloat(value) < 0 || parseFloat(value) > maxIncome)
-      return;
-    setMinIncome(value);
-  };
-
-  const handleMaxIncome = (e) => {
-    const value = e.target.value;
-    if (!value || isNaN(value) || parseFloat(value) < minIncome || parseFloat(value) > 10000000){
-      console.log('here values nnn: ' , value)
-      return;
-    }
-    setMaxIncome(value);
-  };
-
   return (
     <div className='filterpanel'>
       <div className='filter-head'>
@@ -166,82 +151,40 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
           <Form.Label className='form-label'>Age</Form.Label>
-          <div className='range-slider-wrapper'>
-            <MultiRangeSlider className='age-slider'
-              min={0}
-              max={30}
-              step={1}
-              minValue={minAge}
-              maxValue={maxAge}
-              ruler='false'
-              label='false'
-              onInput={(e) => {
-                setMinAge(e.minValue);
-                setMaxAge(e.maxValue);
-              }}
-            />
-          </div>
-          <label className="age-range-value">({minAge + '-' + maxAge}) Years</label>
+          <MultiRangeSliderView
+            minRange={0}
+            maxRange={20}
+            actualMinValue={minAge}
+            actualMaxValue={maxAge}
+            setActualMinValue={setMinAge}
+            setActualMaxValue={setMaxAge}
+            stepVal={1}
+          />
+
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
           <Form.Label className='form-label'>Family Income</Form.Label>
-          <div className='inner-container'>
-            <div className='range-slider-wrapper'>
-              <MultiRangeSlider className='income-slider'
-                min={0}
-                max={10000000}
-                step={500}
-                minValue={minIncome}
-                maxValue={maxIncome}
-                ruler='false'
-                label='false'
-                onInput={(e) => {
-                  setMinIncome(e.minValue);
-                  setMaxIncome(e.maxValue);
-                }}
-              />
-            </div>
-            <div className='input-val-wrapper'>
-              <div className='value-cell'>
-                <Form.Label className=''>Min</Form.Label>
-                <Form.Control type='text' value={minIncome} onChange={handleMinIncome} />
-              </div>
-              <div className='value-cell'>
-                <Form.Label className=''>Max</Form.Label>
-                <Form.Control type='text' value={maxIncome} onChange={handleMaxIncome} />
-              </div>
-            </div>
-          </div>
+          <MultiRangeSliderView
+            minRange={0}
+            maxRange={5000000}
+            actualMinValue={minIncome}
+            actualMaxValue={maxIncome}
+            setActualMinValue={setMinIncome}
+            setActualMaxValue={setMaxIncome}
+            stepVal={500}
+          />
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
           <Form.Label className='form-label'>Marks (%)</Form.Label>
-          <div className='inner-container'>
-            <div className='range-slider-wrapper'>
-              <MultiRangeSlider className='marks-slider'
-                min={0}
-                max={100}
-                step={1}
-                minValue={minMarks}
-                maxValue={maxMarks}
-                ruler='false'
-                label='false'
-                onInput={(e) => {
-                  setMinMarks(e.minValue);
-                  setMaxMarks(e.maxValue);
-                }}
-              />
-            </div>
-            <div className='input-val-wrapper'>
-              <div className='value-cell'>
-                <Form.Label className=''>Min</Form.Label>
-                <Form.Control type='text' value={minMarks} onChange={handleMinMarks} />
-              </div>
-              <div className='value-cell'>
-                <Form.Label className=''>Max</Form.Label>
-                <Form.Control type='text' value={maxMarks} onChange={handleMaxMarks} />
-              </div>
-            </div>
-          </div>
+          <MultiRangeSliderView
+            minRange={0}
+            maxRange={100}
+            actualMinValue={minMarks}
+            actualMaxValue={maxMarks}
+            setActualMinValue={setMinMarks}
+            setActualMaxValue={setMaxMarks}
+            stepVal={1}
+          />
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>
           <div className='inner-container option-filter'>
