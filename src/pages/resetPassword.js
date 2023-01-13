@@ -2,13 +2,13 @@ import { Form, Formik } from 'formik';
 import React, { useState } from "react";
 import { Container } from 'react-bootstrap';
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from 'react-toastify';
 import { ReactComponent as SignupLogo } from "../assets/img/singup-logo.svg";
 import Button from "../components/form/Button";
 import InputField from "../components/form/InputField";
 import { ChangePasswordSchema } from "../data/validationSchema";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import RESTClient from "../utils/RestClient";
+import RestEndPoint from '../redux/constants/RestEndpoints';
+import RESTClient from '../utils/RestClient';
 
 const ResetPassword = () => {
     const navigate = useNavigate()
@@ -29,6 +29,7 @@ const ResetPassword = () => {
     };
 
     return (
+        <>
         <Container className="main-container signup-main" fluid>
             <div className="signup-wrapper reset-pwd-wrapper">
                 <SignupLogo />
@@ -54,6 +55,8 @@ const ResetPassword = () => {
                 </div>
             </div>
         </Container>
+        <ToastContainer autoClose={2000} position="top-right"/>
+        </>
     );
 };
 

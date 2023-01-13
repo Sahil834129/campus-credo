@@ -123,19 +123,11 @@ export const AdmissionForms = () => {
     }
   };
   useEffect(() => {
+    if (selectedChild && selectedChild.childId)
+      return
     let selectedChildFromList = getSelectedChildFromList();
-    setSelectedChild({ ...selectedChildFromList, studentInitialValue });
+    setSelectedChild({ ...studentInitialValue,...selectedChildFromList});
     setCurrentStudent({...selectedChild});
-    // if (childsList.length > 0) {
-    // 	setSelectedChild(val => {
-    // 		return {
-    // 			...val,
-    // 			...selectedChild,
-    // 			hasIdentificationMarks: selectedChild.identificationMarks !== '' ? 'Yes' : 'No'
-    // 		}
-    // 	})
-    // 	setCurrentStudent({ ...selectedChild, hasIdentificationMarks: selectedChild.identificationMarks !== '' ? 'Yes' : 'No' })
-    // }
   }, [childsList]);
 
   useEffect(() => {

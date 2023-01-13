@@ -835,7 +835,12 @@ ul.list-group{
       flex-direction: column;
       flex: 1;
       margin-bottom: 16px;
-      .form-select{height: 42px;}
+      .form-select{
+        height: 42px;
+        border: 1px solid #D9D9D9;
+        border-radius: 4px;
+        font-size: 14px;
+      }
       label.lbl{
         font-style: normal;
         font-weight: 500;
@@ -883,7 +888,13 @@ ul.list-group{
         }
         .form-control{
           height: 46px;
+          font-size: 14px;
+          border-radius: 4px;
+          &:disabled{
+
+          }
         }
+        
         .form-select{
           height: 42px;
         }
@@ -926,6 +937,11 @@ ul.list-group{
           }
         }
       }
+      input[type=text]{
+        height: 46px;
+        font-size: 14px;
+        border-radius: 4px;
+      }
     }
     &.check-option{
       
@@ -937,7 +953,8 @@ ul.list-group{
         }
         .option-fld-cell{
           display: flex;
-          
+          flex-wrap: wrap;
+          row-gap: 8px;
           .input-fld{
             margin-right: 16px;
             display: flex;
@@ -949,7 +966,13 @@ ul.list-group{
         }
         
      
-        
+        textarea.form-control{
+          font-size: 14px;
+          border-radius: 4px;
+          min-height: 46px;
+          display: flex;
+          padding: 10px 12px;
+        }
       }
     }
     &.button-wrap{
@@ -1023,6 +1046,11 @@ ul.list-group{
     margin-top: 16px;
     padding: 8px 0;
     flex-direction: column;
+    &.contined-block{
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
     .currentschoolinfo-cell{
       display: flex;
       align-items: center;
@@ -1244,7 +1272,7 @@ ul.list-group{
 }
 
 .footer-main{
-  background: rgba(0, 0, 0, 0.02);
+  background: #f3f3f3;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   
   .copyright-row{

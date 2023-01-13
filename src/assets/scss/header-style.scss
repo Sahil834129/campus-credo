@@ -13,6 +13,7 @@
             text-align: right;
             text-transform: capitalize;
             color: rgba(255, 255, 255, 0.4);
+            white-space: nowrap;
             &:hover{
               color: $white;
             }
@@ -38,6 +39,7 @@
               text-align: right;
               letter-spacing: 0.01em;
               color: rgba(255, 255, 255, 0.8);
+              white-space: nowrap;
               i.icons{
                 margin-right: 8px;
               }
@@ -138,7 +140,7 @@
                     .location-lbl{
                         margin-right: 8px;
                     }
-                    i.icons{margin: 4px; top: 2px;}
+                    i.icons{}
                  }
             }
           }
@@ -197,7 +199,7 @@
                   font-weight: 500;
                   font-size: 14px;
                   line-height: 18px;
-                  
+                  white-space: nowrap;
                   color: rgba(0, 0, 0, 0.8);
                 .user-name{
                   font-style: normal;

@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
-import SchoolCardHeader from "./SchoolCardHeader";
-import RESTClient from "../utils/RestClient";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { getItemsInCart } from '../redux/actions/cartAction';
-import ConfirmDialog from "../common/ConfirmDialog";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import ConfirmDialog from "../common/ConfirmDialog";
+import { getItemsInCart } from '../redux/actions/cartAction';
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import RESTClient from "../utils/RestClient";
+import SchoolCardHeader from "./SchoolCardHeader";
 
 const CartItemCard = (props) => {
     const cartItem = props.cartItem;
@@ -28,7 +28,6 @@ const CartItemCard = (props) => {
             toast.success("School deleted successfully.");
             setShowConfirmDialog(false);
         } catch (e) {
-            console.log("error is : " + e)
             toast.error("Error while removing from cart. Please try again later.");
         }
     }
@@ -83,7 +82,7 @@ const CartItemCard = (props) => {
                 </ListGroup> */}
                 <div className='card-header-item'>
                     <div className='cell'>
-                        <Card.Link href='javascript:void(0)' onClick={(e)=>viewSchoolDetails(cartItem.schoolDto.schoolId, cartItem.schoolDto.schoolName)}>View Details</Card.Link>
+                        <Card.Link onClick={(e)=>viewSchoolDetails(cartItem.schoolDto.schoolId, cartItem.schoolDto.schoolName)}>View Details</Card.Link>
                     </div>
                     <div className='cell'>
                         <Card.Link onClick={e=>removeFromCart(cartItem.cartId)} className='rem'>Remove</Card.Link>

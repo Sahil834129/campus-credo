@@ -100,7 +100,7 @@ const SchoolCard = (props) => {
                         <div className='partner-item icon'><i className='icons partner-icon'></i></div>
                         <div className='partner-item lbl'><label>Application Partner</label></div>
                     </Row>
-                    <ListGroup className="feature-list-group">
+                    <ListGroup className="feature-list-group allfeatures-wrap">
                     {
                         school.facilities.map((item, index) => {
                             let fIcon = PageContent.FACILITY_ICON_MAP.hasOwnProperty(item.facilityName) ? PageContent.FACILITY_ICON_MAP[item.facilityName] : null;
@@ -111,7 +111,7 @@ const SchoolCard = (props) => {
                             }
                         })
                     }
-                        <ListGroup className="info-list-group">
+                        <ListGroup className="info-list-group additional-features">
                             <ListGroup.Item>
                                 {
                                         school.facilities.length > 4 ?

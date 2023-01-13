@@ -2,7 +2,7 @@ import React from "react";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
-import schoolpic01 from "../assets/img/school-picture/boarding-icon.jpg"
+import schoolpic01 from "../assets/img/school-picture/boarding-icon.jpg";
 import { baseURL } from "../utils/RestClient";
 
 const SchoolCardHeader = (props) => {

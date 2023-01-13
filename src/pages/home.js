@@ -1,22 +1,20 @@
-import React, { useState } from "react";
-import "../assets/scss/custom-styles.scss";
-import HeroGraphic from "../assets/img/slider-graphics.png";
-import Container from "react-bootstrap/Container";
+import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
-import { Link, useNavigate } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
+import Container from "react-bootstrap/Container";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
 import TabContent from 'react-bootstrap/TabContent';
+import Tabs from 'react-bootstrap/Tabs';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import HeroGraphic from "../assets/img/slider-graphics.png";
+import "../assets/scss/custom-styles.scss";
 import Layout from "../common/layout";
-import PageContent from "../resources/pageContent";
 import FeatureCard from "../components/FeatureCard";
-import LoginDialog from "../dialogs/loginDialog";
-import { useLocation } from 'react-router-dom';
-import { getLocalData, isLoggedIn } from "../utils/helper";
-import { useEffect } from "react";
 import { DEFAULT_ROLES } from "../constants/app";
+import LoginDialog from "../dialogs/loginDialog";
+import PageContent from "../resources/pageContent";
+import { getLocalData, isLoggedIn } from "../utils/helper";
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -66,7 +64,7 @@ const HomePage = () => {
                                     <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Common Application Form</span></ListGroup.Item>
                                     <ListGroup.Item as="li"><i className="icons bullet-icon"></i> <span className="list-lbl">Curated School Listing</span></ListGroup.Item>
                                 </ListGroup>
-                                <Button className="" onClick={() => { beginApplication(); }}>Begin Application</Button> <Link className="" to='/aboutUs'>Read more about us</Link>
+                                <div className="btn-wrapper"><Button className="" onClick={() => { beginApplication(); }}>Begin Application</Button> <Link className="" to='/aboutUs'>Read more about us</Link></div>
                             </div>
                             <div className="hero-item right">
                                 <img src={HeroGraphic} alt="" />

@@ -53,7 +53,7 @@ const ApplicationCart = () => {
       });
 
     setCartItemsGroupByChild(cartItemGrouped);
-  }, [itemsInCart]);
+  }, [itemsInCart,selectedChild,setSelectedChild]);
 
   useEffect(() => {
     getSimilarSchools();
