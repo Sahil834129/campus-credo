@@ -134,7 +134,7 @@ const PageContent = {
   },
   FACILITY_ICON_MAP: {
     Bus: 'trasport-icon',
-    'GPS enabled tran':'gpsenabled-icon',
+    'GPS Enabled Transport':'gpsenabled-icon',
     'Computer Lab': 'computer-lab',
     CCTV: 'security-icon',
     Biometrics: 'biometrics-icon',
@@ -144,7 +144,7 @@ const PageContent = {
     WiFi: 'wifi-icon',
     'Science Lab': 'sciencelab-icon',
     'Disabled Friendly': 'disabledfriendly-icon',
-    'MedicalCentre': 'medicalcenter-icon',
+    'Medical Centre': 'medicalcenter-icon',
     'Digital Learning': 'digitallearning-icon',
     'Daycare': 'daycare-icon',
     'Art & Craft': 'artandcraft-icon',
