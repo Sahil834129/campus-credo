@@ -91,7 +91,7 @@ export function DocumentTableFormat({
 
   useEffect(()=>{
     setFiles({})
-  },[])
+  },[files])
 
   return (
     <Table bordered hover className="document-tbl">

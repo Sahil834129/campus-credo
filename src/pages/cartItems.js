@@ -32,8 +32,12 @@ const ApplicationCart = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    childs.length && handleChildSelection(childs[0].childId);
-  }, [childs]);
+    if(childs.length){
+      if(selectedChild && selectedChild.id)
+        return
+      handleChildSelection(childs[0].childId);
+    }
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn()) dispatch(getItemsInCart());
@@ -53,7 +57,7 @@ const ApplicationCart = () => {
       });
 
     setCartItemsGroupByChild(cartItemGrouped);
-  }, [itemsInCart,selectedChild,setSelectedChild]);
+  }, [itemsInCart]);
 
   useEffect(() => {
     getSimilarSchools();
