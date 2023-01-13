@@ -52,19 +52,23 @@ const PaymentCheckout = () => {
                       <div className="form-container info-area">
                         <div className="title-wrap"><h2>Order Summary</h2></div>
                         <div className="cell-row">
-                          <span className="fld-title">Total Amount</span><label>₹{data.orderTotal}</label>
+                          <span className="fld-cell fld-title">Total Amount</span>
+                          <span className="fld-cell"><label>₹{data.orderTotal}</label></span>
                         </div>
                         <div className="cell-row">
-                          <span className="fld-title">Platform Fee</span><label> ₹{data.platformFee}</label>
+                          <span className="fld-cell fld-title">Platform Fee</span>
+                          <span className="fld-cell"><label> ₹{data.platformFee}</label></span>
                         </div>
                         <div className="cell-row">
-                          <span className="fld-title">GST 18%</span><label> ₹{data.gst}</label>
+                          <span className="fld-cell fld-title">GST 18%</span>
+                          <span className="fld-cell"><label> ₹{data.gst}</label></span>
                         </div>
                         <div className="cell-row">
-                          <span className="fld-title">Total Payment</span>
-                          <label className="totalpayment">
+                          <span className="fld-cell fld-title">Total Payment</span>
+                          <span className="fld-cell">
+                            <label className="totalpayment">
                             ₹{data.totalAmount}
-                          </label>
+                          </label></span>
                         </div>
                       </div>
                     </>

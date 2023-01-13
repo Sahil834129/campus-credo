@@ -22,6 +22,8 @@
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: cover;
+    height: max-content;
+    min-height: 100vh;
   }
   header.header{
     position: fixed;
@@ -926,7 +928,7 @@ ul.list-group{
         }
         .cart-content-row{
           display: grid;
-          grid-template-columns: auto 442px;
+          grid-template-columns: auto 404px;
           // column-gap: 24px;
           .cell{
             &.left{
@@ -985,8 +987,8 @@ ul.list-group{
                       .cell{
                         &.left{
                           font-style: normal;
-                          font-weight: 700;
-                          font-size: 15px;
+                          font-weight: 500;
+                          font-size: 14px;
                           line-height: 18px;
                           letter-spacing: 0.01em;
                           color: #000000;
@@ -997,7 +999,7 @@ ul.list-group{
                           padding: 0;
                           font-style: normal;
                           font-weight: 600;
-                          font-size: 18px;
+                          font-size: 16px;
                           line-height: 24px;
                           text-align: right;
                           letter-spacing: 0.01em;
@@ -1026,8 +1028,8 @@ ul.list-group{
                     border-radius: 4px;
                     font-style: normal;
                     font-weight: 600;
-                    font-size: 16px;
-                    line-height: 24px;
+                    font-size: 14px;
+                    line-height: 20px;
                     text-align: center;
                     text-transform: uppercase;
                     color: #FFFFFF;
@@ -2379,6 +2381,7 @@ ul.list-group{
                             justify-content: start;
                             align-items: center;
                             position: relative;
+                            font-size: 14px;
                             
                             // height: 48px;
                             .date{
@@ -3026,6 +3029,12 @@ ul.list-group{
       }
       .info-list-group{
         border: none;
+        &.additional-features{
+          display: flex;
+          .list-group-item{
+            display: flex;
+          }
+        }
         .list-group-item{
           display: grid;
           grid-template-columns: 1fr 1.5fr;
@@ -3117,6 +3126,7 @@ ul.list-group{
             letter-spacing: 0.01em;
             color: #549B43;
           }
+          
         }
       }
       .button-wrap{
@@ -3172,11 +3182,11 @@ ul.list-group{
               padding-left: 8px;
               display: flex;
               align-items: center;
-              padding-top: 8px;
+              // padding-top: 8px;
               label{
                 font-style: normal;
                 font-weight: 400;
-                font-size: 12px;
+                font-size: 13px;
                 line-height: 24px;
                 letter-spacing: 0.01em;
                 color: #000000;
@@ -3194,6 +3204,7 @@ ul.list-group{
           .list-group-item{
             border: none;
             padding: 10px 8px;
+            .session-title{display: none;}
             .session-dd{
               .session-dropdown{
                 top: 0;
@@ -3207,6 +3218,7 @@ ul.list-group{
                   line-height: 18px;
                   letter-spacing: 0.01em;
                   color: rgba(0, 0, 0, 0.6);
+                  box-shadow: none;
                 }
                 .session-dd{
                   font-style: normal;
@@ -4450,7 +4462,6 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           }
         }
         .btn{
-          
           border-radius: 4px;
           display: flex;
           width: 100%;
@@ -4459,13 +4470,13 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           align-content: center;
           flex-direction: row;
           height: 48px;
-          
-            border-radius: 4px;
-            text-align: center;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 24px;
+          border-radius: 4px;
+          text-align: center;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 24px;
+          text-transform: uppercase;
           &.signin-btn{
             background: $primarycolor;
             border: 1px solid $primarycolor;
@@ -4649,6 +4660,10 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           column-gap: 24px;
           border-bottom: 1px solid #e1e1e1;
           padding: 16px 0;
+          .fld-cell{
+            flex-grow: 1;
+            flex-basis: 0;            
+          }
           &:last-child{
             border: none;
           }

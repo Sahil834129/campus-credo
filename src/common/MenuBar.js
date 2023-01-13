@@ -52,14 +52,14 @@ const MenuBar = () => {
           <Navbar.Text className="dot-wrap">
             <i className="icons divide-dot"></i>
           </Navbar.Text>
-          <Navbar.Text>
+          {/* <Navbar.Text>
             <Link href="#">
               <i className="icons phone-icon"></i> {PageContent.PHONE}
             </Link>
           </Navbar.Text>
           <Navbar.Text className="dot-wrap">
             <i className="icons divide-dot"></i>
-          </Navbar.Text>
+          </Navbar.Text> */}
           <Navbar.Text>
             <Link
               onClick={() =>
