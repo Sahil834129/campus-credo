@@ -9,8 +9,8 @@ export const ManageFees = () => {
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
           <div className='filterpanel sidenav'>
-            <Nav defaultActiveKey='/home' className='flex-column'>
-              <Nav.Link href='/home'>Tuition Fees</Nav.Link>
+            <Nav defaultActiveKey='default' className='flex-column'>
+              <Nav.Link eventKey='default'>Tuition Fees</Nav.Link>
               <Nav.Link eventKey='link-1'>Other Fees</Nav.Link>
               <Nav.Link eventKey='link-2'>Offline Payments</Nav.Link>
               <Nav.Link eventKey='link-3'>Reports</Nav.Link>

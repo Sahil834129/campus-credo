@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ConfirmDialog from "../common/ConfirmDialog";
+import { hideLoader, showLoader } from "../common/Loader";
 import { getItemsInCart } from '../redux/actions/cartAction';
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
@@ -21,12 +22,14 @@ const CartItemCard = (props) => {
     }
 
     const handleRemoveFromCartConfirm = async() => {
+        setShowConfirmDialog(false);
         try {
+            showLoader(dispatch)
             await RESTClient.delete(RestEndPoint.APPLICATION_CART_BASE + "/" + showConfirmDialog.cartId);
             dispatch(getItemsInCart());
             props.handleChildSelection(props.childId);
+            hideLoader(dispatch)
             toast.success("School deleted successfully.");
-            setShowConfirmDialog(false);
         } catch (e) {
             toast.error("Error while removing from cart. Please try again later.");
         }

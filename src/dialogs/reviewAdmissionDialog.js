@@ -11,7 +11,7 @@ import { humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
-  downloadDocument,
+  downloadDocument
 } from "../utils/services";
 import StringUtils from "../utils/StringUtils";
 import GenericDialog from "./GenericDialog";
@@ -42,7 +42,16 @@ const ReviewAdmissionDialog = ({
       const response = await RESTClient.get(
         RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`
       );
+      
       setStudentDetail(response.data);
+      if(!(response.data.childId))
+      {
+        setStudentDetail((val)=>{
+        return {
+          ...val,
+          childId
+        }});
+      }
     } catch (error) {
       setStudentDetail({});
     }
