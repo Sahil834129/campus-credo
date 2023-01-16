@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SCHOOL_APPLICATION_STATUS } from "../../constants/app";
@@ -8,6 +7,7 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { humanize, isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
+import AcceptRejectApplication from "./AcceptRejectButtons";
 
 const ApplicationTimeline = ({
   application,
@@ -84,7 +84,7 @@ const ApplicationTimeline = ({
     }
   }
 
-  function getApplicationStatusMessage(history) {
+  function getApplicationStatusMessage(history , index) {
     const status = history.applicationStatus;
     let message = APPLICATION_STATUS_MESSAGE[status]
       ? APPLICATION_STATUS_MESSAGE[status]
@@ -94,6 +94,12 @@ const ApplicationTimeline = ({
         "<AT/PI timeslot>",
         history.applicantATPITimeSlot
       );
+    }
+    if (application.applicationStatus === SCHOOL_APPLICATION_STATUS.APPROVED
+        && history?.applicationStatus?.toUpperCase() === SCHOOL_APPLICATION_STATUS.APPROVED
+        && index === application.applicationDataHistory.length -1)
+    {
+      return  <AcceptRejectApplication rejectApplication={rejectApplication} acceptApplication={acceptApplication} />;
     }
     return message;
   }
@@ -123,41 +129,7 @@ const ApplicationTimeline = ({
                     <div className="indicator">
                       <span className="indiShape circle"></span>
                     </div>
-                    {application.applicationStatus === "APPROVED" &&
-                    history.applicationStatus === "APPROVED" ? (
-                      <div className="particulars-status">
-                        <div className="update-info">
-                          Congratulation!!!
-                          <span className="status submitted">
-                            Your Application is Approved
-                          </span>
-                        </div>
-                        <div className="instruction">
-                          Do you want to proceed with Admission?
-                          <div className="btn-wrapper">
-                            <Button
-                              type="button"
-                              className="accept-btn btn btn-primary"
-                              onClick={acceptApplication}
-                              //onClick={() => navigate("/userProfile")}
-                            >
-                              ACCEPT
-                            </Button>
-                            <Button
-                              type="button"
-                              className="decline-btn btn btn-primary"
-                              onClick={() => {
-                                rejectApplication();
-                              }}
-                            >
-                              REJECT
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div>{getApplicationStatusMessage(history)}</div>
-                    )}
+                      <div>{getApplicationStatusMessage(history , index)}</div>
                   </div>
                 );
               })}

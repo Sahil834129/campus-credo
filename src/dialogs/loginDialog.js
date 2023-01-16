@@ -11,7 +11,7 @@ import { DEFAULT_ROLES } from "../constants/app";
 import {
   ChangePasswordSchema,
   SignInSchema,
-  UpdatePhoneSchema,
+  UpdatePhoneSchema
 } from "../data/validationSchema";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
@@ -21,7 +21,7 @@ import {
   isLoggedIn,
   isValidatePhone,
   resetUserLoginData,
-  setUserLoginData,
+  setUserLoginData
 } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import ForgotPasswordDialog from "./forgotPassword";
@@ -337,7 +337,7 @@ const LoginDialog = (props) => {
         <div className="model-body-col right">
           <h2>Create an account</h2>
           <h4>
-            Join the EduSmart to find best featured schools, seats available,
+            Join the CampusCredo to find best featured schools, seats available,
             their benefits, pay school fees and fill admission form online.
           </h4>
           <ListGroup as="ul" className="benfits-list">
