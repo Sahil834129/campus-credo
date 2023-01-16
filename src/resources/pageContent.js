@@ -1,5 +1,5 @@
 const PageContent = {
-  PHONE: '080-4150 5473',
+  PHONE: '+91-9903096754',
   ENQUIRY_EMAIL: 'support@campuscredo.com',
   INFO_EMAIL: 'support@campuscredo.com',
   UNEXPECTED_ERROR_MSG:
@@ -9,7 +9,7 @@ const PageContent = {
   HEADER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
-    { ref: '/howItWorks', title: 'How It Works' },
+    // { ref: '/howItWorks', title: 'How It Works' },
     { ref: '/schools', title: 'All Schools' },
     { ref: '/faqs', title: "FAQ's" },
     { ref: '/contactUs', title: "Contact Us" }
@@ -33,7 +33,7 @@ const PageContent = {
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/schools', title: 'Schools' },
-    { ref: '/howItWorks', title: 'How It Works' },
+    // { ref: '/howItWorks', title: 'How It Works' },
     { ref: '/FAQs', title: "FAQ's" }
   ],
   CUSTOM_LINK_TITLES: {
@@ -48,7 +48,7 @@ const PageContent = {
   STUDENT_FEATURE_CARDS: [
     {
       image: 'feature-pic1.png',
-      title: 'No Queue, No Hassle',
+      title: 'Common Admission Form',
       description: 'Use our unique OneAdmissionForm to add details only once'
     },
     {
@@ -65,13 +65,13 @@ const PageContent = {
     },
     {
       image: 'feature-pic4.png',
-      title: 'Track Admission',
+      title: 'Track Application Status',
       description:
         'Track, manage applications and accept admission offers to kickstart the journey'
     },
     {
       image: 'feature-pic5.png',
-      title: 'Free Counselling',
+      title: '24X7 support',
       description:
         'Multi-channel support to guide you at every step of the admission'
     }
@@ -79,18 +79,18 @@ const PageContent = {
   SCHOOL_FEATURE_CARDS: [
     {
       image: 'feature-pic1.png',
-      title: 'Go Paperless',
+      title: 'Streamline Processes',
       description: 'Leverage our platform to streamline admission process and go paperless'
     },
     {
       image: 'feature-pic2.png',
-      title: 'Smart Filter',
+      title: 'Manage Listing',
       description:
         'Manage dedicated listing to increase engagement , nurture and convert leads'
     },
     {
       image: 'feature-pic3.png',
-      title: 'Online Fee Collections',
+      title: 'Manage Fees',
       description:
         'Customize online fee collections as required to allow for secured payments'
     },
@@ -102,7 +102,7 @@ const PageContent = {
     },
     {
       image: 'feature-pic5.png',
-      title: 'Multi-channel',
+      title: 'Multi-Channel Support',
       description:
         'Multi-channel support to assist you at every step of the way'
     }

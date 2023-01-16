@@ -40,7 +40,7 @@ const MenuBar = () => {
         </Nav>
         <Navbar.Toggle />
         <Navbar.Collapse className="contact-info justify-content-end">
-          <Navbar.Text className="social-links">
+          {/* <Navbar.Text className="social-links">
             {PageContent.SOCIAL_MEDIA_LIST.map((sm, index) => (
               <Fragment key={"social_" + index}>
                 <Nav.Link href={sm.ref}>
@@ -51,15 +51,15 @@ const MenuBar = () => {
           </Navbar.Text>
           <Navbar.Text className="dot-wrap">
             <i className="icons divide-dot"></i>
-          </Navbar.Text>
-          {/* <Navbar.Text>
+          </Navbar.Text> */}
+          <Navbar.Text>
             <Link href="#">
               <i className="icons phone-icon"></i> {PageContent.PHONE}
             </Link>
           </Navbar.Text>
           <Navbar.Text className="dot-wrap">
             <i className="icons divide-dot"></i>
-          </Navbar.Text> */}
+          </Navbar.Text>
           <Navbar.Text>
             <Link
               onClick={() =>

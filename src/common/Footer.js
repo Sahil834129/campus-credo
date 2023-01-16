@@ -43,7 +43,7 @@ const Footer = () => {
         <div className="fcol">
           <h2>Contact Us @</h2>
           <ListGroup as="ul">
-            <ListGroup.Item as="li">T: +44 (0) 1856 888 666</ListGroup.Item>
+            <ListGroup.Item as="li">T: {PageContent.PHONE}</ListGroup.Item>
             <ListGroup.Item as="li">
               <Link
                 onClick={() =>
@@ -54,14 +54,14 @@ const Footer = () => {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <a href="https://www.facebook.com">F: Follow us on Facebook</a>
+              <a href="https://www.facebook.com" style={{visibility:'hidden'}}>F: Follow us on Facebook</a>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <a href="https://www.twitter.com">T: Follow us on Twitter</a>
+              <a href="https://www.twitter.com" style={{visibility:'hidden'}}>T: Follow us on Twitter</a>
             </ListGroup.Item>
-            <ListGroup.Item as="li">
-              <a href="https://www.linkedin.com">L: Follow us on Linkedin</a>
-            </ListGroup.Item>
+            {/* <ListGroup.Item as="li">
+              <a href="https://www.linkedin.com" >L: Follow us on Linkedin</a>
+            </ListGroup.Item> */}
           </ListGroup>
         </div>
         <div className="fcol btn-container">

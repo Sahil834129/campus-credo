@@ -79,7 +79,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
               </Nav.Link>
             ))}
           </Nav>
-          <Button className='guide-btn'>Guide</Button>
+          {/* <Button className='guide-btn'>Guide</Button> */}
         </Navbar.Collapse>
       </Navbar>
       <div className='content-area'>
