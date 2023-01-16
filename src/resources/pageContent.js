@@ -49,7 +49,7 @@ const PageContent = {
     {
       image: 'feature-pic1.png',
       title: 'Common Admission Form',
-      description: 'Use our unique OneAdmissionForm to add details only once'
+      description: 'Use our unique one admission form to add details only once'
     },
     {
       image: 'feature-pic2.png',
@@ -59,9 +59,9 @@ const PageContent = {
     },
     {
       image: 'feature-pic3.png',
-      title: 'All in one',
+      title: 'All In One',
       description:
-        'Apply to multiple schools at once and OneAdmissionForm will be attached automatically'
+        'Apply to multiple schools at once and one admission form will be attached automatically'
     },
     {
       image: 'feature-pic4.png',
@@ -71,7 +71,7 @@ const PageContent = {
     },
     {
       image: 'feature-pic5.png',
-      title: '24X7 support',
+      title: '24X7 Support',
       description:
         'Multi-channel support to guide you at every step of the admission'
     }
@@ -86,7 +86,7 @@ const PageContent = {
       image: 'feature-pic2.png',
       title: 'Manage Listing',
       description:
-        'Manage dedicated listing to increase engagement , nurture and convert leads'
+        'Manage dedicated listing to increase engagement, nurture and convert leads'
     },
     {
       image: 'feature-pic3.png',
