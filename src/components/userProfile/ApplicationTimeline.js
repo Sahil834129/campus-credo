@@ -7,7 +7,7 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { humanize, isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
-import AcceptRejectApplication from "./AcceptRejectButtons";
+import AcceptRejectApplication from "./AcceptRejectApplication";
 
 const ApplicationTimeline = ({
   application,

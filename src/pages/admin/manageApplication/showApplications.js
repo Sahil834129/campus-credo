@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION } from "../../../constants/app";
-import { getStatusLabel, humanize, userCanNotApprove } from "../../../utils/helper";
+import { getActionButtonLabel, getStatusLabelForSchool, userCanNotApprove } from "../../../utils/helper";
 
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
@@ -30,7 +30,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
     setOpenModal(true);
     setIsbulkOperation(false);
   };
-
+  
   const getClassName = (status) => {
     switch (status) {
       case SCHOOL_APPLICATION_STATUS.AT_PI:
@@ -140,7 +140,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
       Header: 'Application Status',
       Cell: ((e) => {
         const applicationStatus = e.row.original?.applicationStatus;
-        return <span className={getClassName(applicationStatus)}>{getStatusLabel(applicationStatus)}</span>;
+        return <span className={getClassName(applicationStatus)}>{getStatusLabelForSchool(applicationStatus)}</span>;
       })
     },
     {
@@ -179,7 +179,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                         }
                       }}
                     >
-                      {<span className={getClassName(SCHOOL_APPLICATION_STATUS[val])}>{humanize(SCHOOL_APPLICATION_STATUS[val], true)}</span>}
+                      {<span className={getClassName(SCHOOL_APPLICATION_STATUS[val])}>{getActionButtonLabel(SCHOOL_APPLICATION_STATUS[val])}</span>}
                     </Dropdown.Item>
                   );
                 })}

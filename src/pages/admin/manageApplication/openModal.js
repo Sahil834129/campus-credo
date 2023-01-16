@@ -1,7 +1,7 @@
 import Button from '../../../components/form/Button';
 
 import { useEffect, useState } from "react";
-import { humanize } from "../../../utils/helper";
+import { getActionButtonLabel } from "../../../utils/helper";
 
 import moment from "moment";
 import { Form } from "react-bootstrap";
@@ -111,7 +111,7 @@ export default function OpenModal({
 
   return (
     <>
-      <GenericDialog className='confirmation-modal' modalHeader={humanize(applicationStaus, true)} show={show} handleClose={handleClose}>
+      <GenericDialog className='confirmation-modal' modalHeader={getActionButtonLabel(applicationStaus)} show={show} handleClose={handleClose}>
         <div className='model-body-col'>
           <div className="message-content" style={{ marginBottom: '10px' }}>
             <Form.Label className='form-label'>Add your remarks below</Form.Label>

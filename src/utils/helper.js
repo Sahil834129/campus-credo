@@ -229,14 +229,64 @@ export const userCanNotApprove = () => {
   }
   return flag;
 };
-
-export const getStatusLabel = (status) => {
-  switch (status) {
+export const getStatusLabel=(status)=> {
+  switch(status) {
     case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
-      return "AT/PI Scheduled";
+      return "Shortlisted for Personal Interview/Admission Test";
+      case PARENT_APPLICATION_STATUS.SUBMITTED:
+        return "Application Submitted";
+        case PARENT_APPLICATION_STATUS.UNDER_REVIEW:
+          return "Application Under Review";
+          case PARENT_APPLICATION_STATUS.ACCEPTED:
+          return "Offer Accepted"
+          case PARENT_APPLICATION_STATUS.REJECTED:
+            return "Offer Declined";
+            case PARENT_APPLICATION_STATUS.APPROVED:
+              return "Application Approved"
+              case PARENT_APPLICATION_STATUS.DECLINED:
+                return "Application Declined"
+    default:
+      return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status))
+  }
+}
+export const getStatusLabelForSchool=(applicationStatus)=> {
+  switch(applicationStatus) {
     case SCHOOL_APPLICATION_STATUS.AT_PI:
       return "AT/PI";
+      case SCHOOL_APPLICATION_STATUS.RECEIVED:
+        return "Application Received";
+        case SCHOOL_APPLICATION_STATUS.UNDER_REVIEW:
+          return "Under Review";
+          case SCHOOL_APPLICATION_STATUS.ACCEPTED:
+            return "Offer Accepted";
+        case SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW:
+          return "Under Final Review";
+          case SCHOOL_APPLICATION_STATUS.APPROVED:
+            return "Application Approved";
+            case SCHOOL_APPLICATION_STATUS.REVOKED:
+            return "Application Revoked";
+            case SCHOOL_APPLICATION_STATUS.DECLINED:
+              return "Offer Declined";
+
     default:
-      return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status));
+      return humanize(applicationStatus , true);
   }
-};
+}
+export const getActionButtonLabel = (applicationStatus) => {
+  switch(applicationStatus) {
+    case SCHOOL_APPLICATION_STATUS.APPROVED:
+      return "Approve";
+    case SCHOOL_APPLICATION_STATUS.REVOKED:
+      return "Revoke";
+    case SCHOOL_APPLICATION_STATUS.DECLINED:
+      return "Decline";
+    case SCHOOL_APPLICATION_STATUS.UNDER_REVIEW:
+      return "Move to Under Review"
+    case SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW:
+      return "Move to Final Review"
+    case SCHOOL_APPLICATION_STATUS.AT_PI:
+      return "Shortlist for AT/PI"
+    default:
+      return humanize(applicationStatus, true)
+  }
+}
