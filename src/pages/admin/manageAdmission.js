@@ -198,8 +198,8 @@ export const ManageAdmission = () => {
                                 <th>Application <span className='required'>*</span></th>
                                 <th>Parent Interview</th>
                                 <th>Candidate Screening Test</th>
-                                <th>Application Fee <span className='required'>*</span></th>
-                                <th>Registration Fee <span className='required'>*</span></th>
+                                <th>Application Fees <span className='required'>*</span></th>
+                                <th>Registration Fees <span className='required'>*</span></th>
                               </tr>
                             </thead>
                             <tbody>

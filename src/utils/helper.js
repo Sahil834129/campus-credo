@@ -245,6 +245,8 @@ export const getStatusLabel=(status)=> {
         return "Application Approved"
     case PARENT_APPLICATION_STATUS.DECLINED:
         return "Application Declined"
+    case PARENT_APPLICATION_STATUS.DENIED:
+        return "Offer Denied"
     default:
       return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status))
   }

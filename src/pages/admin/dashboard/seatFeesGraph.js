@@ -59,7 +59,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <span className='value'>₹{feesCollected}</span>
-                            <label>Fee Collected</label>
+                            <label>Fees Collected</label>
                         </ListGroup.Item>
                     </ListGroup>
                     <div style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '30px' }}>Application Status</div>
@@ -99,9 +99,9 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                                         }],
                                 } || {}}
                                 midNumberText={feesCollectedPercent+'%'}
-                                midTextFirst={'Fee'}
+                                midTextFirst={'Fees'}
                                 midTextSecond={'Collected'}
-                                totalRemainng={`${totalFeesCollected} Projected Fee`}
+                                totalRemainng={`${totalFeesCollected} Projected Fees`}
 
                             />
                         </td>

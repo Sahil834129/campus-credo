@@ -79,9 +79,9 @@ export const AddChildSchema = Yup.object().shape({
     .required("Required *")
     .test(
       "DOB",
-      "Please select a valid date, age should be at least 2 years at 31st March current year.",
+      "Please select a valid date, age should be at least 2 years at 31st March current year and at most 20 years.",
       (value) => {
-        return value && value !== "" && getStudentAge(value) >= 2;
+        return value && value !== "" && getStudentAge(value) >= 2 &&  getStudentAge(value) <= 20 ;
       }
     ),
 });
@@ -235,7 +235,11 @@ export const StudentDetailsSchema = Yup.object().shape({
     .matches(/^(?!0+(?:\.0+)?$)[0-9]+(?:\.[0-9]+)?$/gm, {
       message: "Please enter valid income.",
       excludeEmptyString: false,
-    }),
+    })
+    .test("maxFamilyIncomeCheck", 
+    "Please enter valid income between 0 to 5000000.",
+    val => (parseInt(val) > 0 && parseInt(val) <= 5000000)
+  ),
   //addressLine2: Yup.string().required("Required *"),
   pincode: Yup.string()
     .required("Required *")

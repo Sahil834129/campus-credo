@@ -1,4 +1,3 @@
-import MultiRangeSlider from "multi-range-slider-react";
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
   const intialValue = {
     grade: '',
     gradeOption: null,
-    minAge: 0,
+    minAge: 1,
     maxAge: 30,
     minIncome: 0,
     maxIncome: 10000000,
@@ -152,7 +151,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
         <Form.Group className='form-element-group' controlId=''>
           <Form.Label className='form-label'>Age</Form.Label>
           <MultiRangeSliderView
-            minRange={0}
+            minRange={1}
             maxRange={20}
             actualMinValue={minAge}
             actualMaxValue={maxAge}
@@ -171,7 +170,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             actualMaxValue={maxIncome}
             setActualMinValue={setMinIncome}
             setActualMaxValue={setMaxIncome}
-            stepVal={500}
+            stepVal={50000}
           />
         </Form.Group>
         <Form.Group className='form-element-group' controlId=''>

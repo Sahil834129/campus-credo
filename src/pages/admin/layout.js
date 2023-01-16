@@ -75,7 +75,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
                 className={location.pathname === val.url ? 'active-page' : ''}
                 to={val.url}
               >
-                {val.title}
+                {val.title.replace("Manage Fee", "Manage Fees")}
               </Nav.Link>
             ))}
           </Nav>
