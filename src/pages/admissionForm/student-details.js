@@ -381,6 +381,7 @@ export default function StudentDetails({
             style={{ resize: "none" }}
             rows="1"
             name="identificationMarks"
+            placeholder="Identification Marks"
             //rows="2"
             value={selectedChild.identificationMarks}
             onChange={(e) => {
@@ -562,7 +563,7 @@ export default function StudentDetails({
                 <div className="fld-cell">
                   <TextField
                     fieldName="obtainedMarks"
-                    value={selectedChild.obtainedMarks}
+                    value={selectedChild.obtainedMarks === 0 ? "": selectedChild.obtainedMarks}
                     label="Obtained Marks"
                     required={
                       selectedChild.isProvidingCurrentSchoolInfo === "Yes"
@@ -584,7 +585,7 @@ export default function StudentDetails({
                       selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                     }
                     errors={validationErrors}
-                    placeholder="Obtained Marks"
+                    placeholder="Maximum Marks"
                     onChange={(e) => {
                       setFieldValue("maxMarks", e.target.value);
                     }}
@@ -593,18 +594,22 @@ export default function StudentDetails({
               </div>
             )}
             {selectedChild.unit === "Grades" && (
-              <TextField
-                fieldName="grade"
-                value={selectedChild.grade}
-                label="School Grades"
-                required={selectedChild.isProvidingCurrentSchoolInfo === "Yes"}
-                errors={validationErrors}
-                placeholder="School Grades"
-                maxLength="2"
-                onChange={(e) => {
-                  setFieldValue("grade", e.target.value);
-                }}
-              />
+              <div className="fld-row">
+                <div className="fld-cell">
+                  <TextField
+                    fieldName="grade"
+                    value={selectedChild.grade}
+                    label="School Grades"
+                    required={selectedChild.isProvidingCurrentSchoolInfo === "Yes"}
+                    errors={validationErrors}
+                    placeholder="School Grades"
+                    maxLength="2"
+                    onChange={(e) => {
+                      setFieldValue("grade", e.target.value);
+                    }}
+                  />
+                  </div>
+               </div>   
             )}
             <div className="fld-row">
               <div className="fld-cell">
@@ -614,7 +619,8 @@ export default function StudentDetails({
                   // disabled={selectedChild.unit!==""}
                   errors={validationErrors}
                   label="Marks In Percentage."
-                  value={selectedChild.marksInPercentage}
+                  placeholder="Marks In Percentage."
+                  value={selectedChild.marksInPercentage === 0 ? "" : selectedChild.marksInPercentage}
                   onChange={(e) => {
                     setFieldValue("marksInPercentage", e.target.value);
                   }}
@@ -640,6 +646,7 @@ export default function StudentDetails({
             required
             errors={validationErrors}
             label="House No., Block No."
+            placeholder="Please Enter House No., Block No."
             value={selectedChild.addressLine1}
             onChange={(e) => {
               setFieldValue("addressLine1", e.target.value);
@@ -652,6 +659,7 @@ export default function StudentDetails({
             //required
             errors={validationErrors}
             label="Area or Locality"
+            placeholder="Please Enter Area or Locality"
             value={selectedChild.addressLine2}
             onChange={(e) => {
               setFieldValue("addressLine2", e.target.value);
@@ -664,6 +672,7 @@ export default function StudentDetails({
           <TextField
             fieldName="pincode"
             label="Pincode"
+            placeholder="Please Enter Pincode"
             required
             errors={validationErrors}
             value={selectedChild.pincode}
