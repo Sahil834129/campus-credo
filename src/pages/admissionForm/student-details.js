@@ -176,6 +176,7 @@ export default function StudentDetails({
 
   useEffect(() => {
     if (selectedChild.childId) getCurrentUser(selectedChild.childId);
+    resetValidationErrors();
   }, [selectedChild.childId, getCurrentUser]);
 
   useEffect(() => {
