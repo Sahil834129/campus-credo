@@ -3769,10 +3769,12 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
         .btn.faq-btn{
           background: #41285F;
           border: 1px solid #41285F;
+          white-space: nowrap;
         }
         .btn.contact-btn{
           background: $secondarycolor;
           border: 1px solid $secondarycolor;
+          white-space: nowrap;
         }
 
         
@@ -3835,6 +3837,104 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               &.forgot-pwd{
                 .frm-cell{
                   margin-bottom: 16px;
+                }
+                .btn-wrapper{
+                  .btn{
+                    font-weight: 600;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.calback-model{
+    .modal-dialog{
+      width: 442px;
+      max-width: 442px;
+      .modal-content{
+        display: flex;
+        .modal-body{
+          display: grid;
+          padding: 0;
+          grid-template-columns: auto;
+          .model-body-col{
+            display: flex;
+            flex-direction: column;
+            h4{
+              font-size: 20px;
+              font-weight: 600;
+              text-align: center;
+              margin-top: 24px;
+              padding: 8px 42px;
+              line-height: 28px;
+            }
+            form{
+              margin: 0 42px 24px 42px;
+              .title{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 16px;
+                h2{
+
+                }
+              }
+              &.forgot-pwd{
+                .frm-cell{
+                  margin-bottom: 16px;
+                  .fld-wrap{
+                    label{
+                      font-style: normal;
+                      font-weight: 400;
+                      font-size: 14px;
+                      line-height: 18px;
+                      color: rgba(0, 0, 0, 0.8);
+                      .req{
+                        color: $darkred;
+                      }
+                    }
+                    input{
+                      border-radius: 4px;
+                      height: 48px;
+                      font-size: 14px;
+                      color: rgba(0, 0, 0, 0.8);
+                      &:focus{
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                        color: $primarycolor;
+                      }
+                      &:active{
+                        color: $primarycolor;
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      }
+                      &::placeholder {
+                        color: rgba(0, 0, 0, 0.25);
+                      }
+                    }
+                    textarea{
+                      border-radius: 4px;
+                      height: auto;
+                      font-size: 14px;
+                      color: rgba(0, 0, 0, 0.8);
+                      &:focus{
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                        color: $primarycolor;
+                      }
+                      &:active{
+                        color: $primarycolor;
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      }
+                      &::placeholder {
+                        color: rgba(0, 0, 0, 0.25);
+                      }
+                    }
+                  }
+                  
                 }
                 .btn-wrapper{
                   .btn{

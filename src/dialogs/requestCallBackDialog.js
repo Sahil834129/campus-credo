@@ -22,12 +22,17 @@ const RequestCallBackDialog = (props) => {
         }
     };
     return (
-        <GenericDialog className="forgotpwd-model" show={props.show} handleClose={props.handleClose}>
+        <GenericDialog className="calback-model" show={props.show} handleClose={props.handleClose}>
            <div className='model-body-col'>
                 <Formik initialValues={{ userName: '' , phoneNumber: "" , message : "" , schoolId: props.schoolId  }}
                     validationSchema={RequestCallBackSchema} validateOnBlur onSubmit={values => { submitRequestCallBack(values) }}>
                     {({ errors, touched }) => (
+                        
                         <Form className='form-container forgot-pwd' noValidate>
+                            <div className='title'>
+                                <h2>Request a Callback?</h2>
+                               
+                            </div>
                             <div className='frm-cell'>
                                 <InputField fieldName="userName" fieldType="text" required placeholder="Name" errors={errors} touched={touched}  label='Full Name' />
                             </div>

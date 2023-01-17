@@ -310,7 +310,8 @@ export default function ParentsGuardianForm({
                     </div>
                   </div>
                 </div>
-                <div className='currentschoolinfo-row contined-block'>
+                <div className='contined-block'>
+
                   <div className='fld-row check-option'>
                     <div className='fld-cell'>
                       <div className='title'>
@@ -369,8 +370,34 @@ export default function ParentsGuardianForm({
                       />
                     </div>
                   </div>
+                  <div className='fld-row'>
+                  <div className='fld-cell'>
+                    <SelectField
+                      fieldName='qualification'
+                      label='Qualitfication'
+                      required
+                      selectOptions={Options}
+                      value={values.qualification}
+                      onChange={e => {
+                        setFieldValue('qualification', e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className='fld-cell'>
+                    <SelectField
+                      fieldName='occupation'
+                      label='Occupation'
+                      required
+                      selectOptions={occupation}
+                      value={values.occupation}
+                      onChange={e => {
+                        setFieldValue('occupation', e.target.value);
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className='currentschoolinfo-row'>
+                </div>
+                <div className=''>
                   <div className='fld-row check-option'>
                     <div className='fld-cell'>
                       <div className='title'>
@@ -441,85 +468,61 @@ export default function ParentsGuardianForm({
                         
                     
                     </div>
-                    <div className='fld-cell'>
-                      <div className='title'>
-                        <label htmlFor='validationServer02' className='form-label'>Deceased?{' '} <span className='req'>*</span> </label>
-                      </div>
-                      <div className='option-fld-cell'>
-                        <div className='input-fld'>
-                          <RadioButton
-                            className='form-check-input'
-                            label='Yes'
-                            value='Yes'
-                            fieldName='guardianDeceased'
-                            currentValue={values.guardianDeceased}
-                            onChange={e => {
-                              setFieldValue('guardianDeceased', 'Yes');
-                            }}
-                          />
-                        </div>
-                        <div className='input-fld'>
-                          <RadioButton
-                            className='form-check-input'
-                            label='No'
-                            value='No'
-                            fieldName='guardianDeceased'
-                            currentValue={values.guardianDeceased}
-                            onChange={e => {
-                              setFieldValue('guardianDeceased', 'No');
-                            }}
-                          />
-                        </div>
-                      </div>
                     </div>
+                    <div className='fld-row check-option'>
+                      <div className='fld-cell'>
+                        <TextField
+                          fieldName='annualFamilyIncome'
+                          label='Annual Income'
+                          className='frm-cell'
+                          fieldType='number'
+                          value={values.annualFamilyIncome}
+                          errors={validationErrors}
+                          min='0'
+                          onChange={e => {
+                            setFieldValue('annualFamilyIncome', e.target.value);
+                          }}
+                          required
+                          placeholder='Please add details...'
+                        />
+                      </div>
+                      <div className='fld-cell'>
+                        <div className='title'>
+                          <label htmlFor='validationServer02' className='form-label'>Deceased?{' '} <span className='req'>*</span> </label>
+                        </div>
+                        <div className='option-fld-cell'>
+                          <div className='input-fld'>
+                            <RadioButton
+                              className='form-check-input'
+                              label='Yes'
+                              value='Yes'
+                              fieldName='guardianDeceased'
+                              currentValue={values.guardianDeceased}
+                              onChange={e => {
+                                setFieldValue('guardianDeceased', 'Yes');
+                              }}
+                            />
+                          </div>
+                          <div className='input-fld'>
+                            <RadioButton
+                              className='form-check-input'
+                              label='No'
+                              value='No'
+                              fieldName='guardianDeceased'
+                              currentValue={values.guardianDeceased}
+                              onChange={e => {
+                                setFieldValue('guardianDeceased', 'No');
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    
                   </div>
                 </div>
 
-                <div className='fld-row'>
-                  <div className='fld-cell'>
-                    <SelectField
-                      fieldName='qualification'
-                      label='Qualitfication'
-                      required
-                      selectOptions={Options}
-                      value={values.qualification}
-                      onChange={e => {
-                        setFieldValue('qualification', e.target.value);
-                      }}
-                    />
-                  </div>
-                  <div className='fld-cell'>
-                    <SelectField
-                      fieldName='occupation'
-                      label='Occupation'
-                      required
-                      selectOptions={occupation}
-                      value={values.occupation}
-                      onChange={e => {
-                        setFieldValue('occupation', e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className='fld-row'>
-                  <div className='fld-cell'>
-                    <TextField
-                      fieldName='annualFamilyIncome'
-                      label='Annual Income'
-                      className='frm-cell'
-                      fieldType='number'
-                      value={values.annualFamilyIncome}
-                      errors={validationErrors}
-                      min='0'
-                      onChange={e => {
-                        setFieldValue('annualFamilyIncome', e.target.value);
-                      }}
-                      required
-                      placeholder='Please add details...'
-                    />
-                  </div>
-                  
-                </div>
+                
+               
                 <div className='fld-row check-option'>
                   
                   <div className='fld-cell'>
@@ -587,6 +590,8 @@ export default function ParentsGuardianForm({
                           }}
                         />
                       </div>
+                    </div>
+                    <div className='fld-row'>
                       <div className='fld-cell'>
                         <TextField
                           fieldName='pincode'
