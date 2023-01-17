@@ -470,54 +470,55 @@ export default function ParentsGuardianForm({
                     </div>
                     </div>
                     <div className='fld-row check-option'>
-                      <div className='fld-cell'>
-                        <TextField
-                          fieldName='annualFamilyIncome'
-                          label='Annual Income'
-                          className='frm-cell'
-                          fieldType='number'
-                          value={values.annualFamilyIncome}
-                          errors={validationErrors}
-                          min='0'
-                          onChange={e => {
-                            setFieldValue('annualFamilyIncome', e.target.value);
-                          }}
-                          required
-                          placeholder='Please add details...'
-                        />
-                      </div>
-                      <div className='fld-cell'>
-                        <div className='title'>
-                          <label htmlFor='validationServer02' className='form-label'>Deceased?{' '} <span className='req'>*</span> </label>
+                      
+                        <div className='fld-cell'>
+                          <TextField
+                            fieldName='annualFamilyIncome'
+                            label='Annual Income'
+                            className='frm-cell'
+                            fieldType='number'
+                            value={values.annualFamilyIncome}
+                            errors={validationErrors}
+                            min='0'
+                            onChange={e => {
+                              setFieldValue('annualFamilyIncome', e.target.value);
+                            }}
+                            required
+                            placeholder='Please add details...'
+                          />
                         </div>
-                        <div className='option-fld-cell'>
-                          <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='Yes'
-                              value='Yes'
-                              fieldName='guardianDeceased'
-                              currentValue={values.guardianDeceased}
-                              onChange={e => {
-                                setFieldValue('guardianDeceased', 'Yes');
-                              }}
-                            />
+                        <div className='fld-cell'>
+                          <div className='title'>
+                            <label htmlFor='validationServer02' className='form-label'>Deceased?{' '} <span className='req'>*</span> </label>
                           </div>
-                          <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='No'
-                              value='No'
-                              fieldName='guardianDeceased'
-                              currentValue={values.guardianDeceased}
-                              onChange={e => {
-                                setFieldValue('guardianDeceased', 'No');
-                              }}
-                            />
+                          <div className='option-fld-cell'>
+                            <div className='input-fld'>
+                              <RadioButton
+                                className='form-check-input'
+                                label='Yes'
+                                value='Yes'
+                                fieldName='guardianDeceased'
+                                currentValue={values.guardianDeceased}
+                                onChange={e => {
+                                  setFieldValue('guardianDeceased', 'Yes');
+                                }}
+                              />
+                            </div>
+                            <div className='input-fld'>
+                              <RadioButton
+                                className='form-check-input'
+                                label='No'
+                                value='No'
+                                fieldName='guardianDeceased'
+                                currentValue={values.guardianDeceased}
+                                onChange={e => {
+                                  setFieldValue('guardianDeceased', 'No');
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    
+                     
                   </div>
                 </div>
 
@@ -564,75 +565,78 @@ export default function ParentsGuardianForm({
               </div>
               {
                 values.isAddressSameAsStudent === 'No' ?
-                  <div className='tab_btn pb-3'>
-                    <div className='fld-row'>
-                      <div className='fld-cell'>
-                        <TextField
-                          fieldName='addressLine1'
-                          required={values.isAddressSameAsStudent === 'No'}
-                          errors={validationErrors}
-                          label='House No., Block No.'
-                          value={values.addressLine1}
-                          onChange={e => {
-                            setFieldValue('addressLine1', e.target.value)
-                          }}
-                        />
+                  <div className='additional-frm-block tab_btn pb-3'>
+                    <div className='form-block-wrapper'>
+                      <div className='fld-row'>
+                        <div className='fld-cell'>
+                          <TextField
+                            fieldName='addressLine1'
+                            required={values.isAddressSameAsStudent === 'No'}
+                            errors={validationErrors}
+                            label='House No., Block No.'
+                            value={values.addressLine1}
+                            onChange={e => {
+                              setFieldValue('addressLine1', e.target.value)
+                            }}
+                          />
+                        </div>
+                        <div className='fld-cell'>
+                          <TextField
+                            fieldName='addressLine2'
+                            //required={values.isAddressSameAsStudent === 'No'}
+                            errors={validationErrors}
+                            label='Area or Locality'
+                            value={values.addressLine2}
+                            onChange={e => {
+                              setFieldValue('addressLine2', e.target.value)
+                            }}
+                          />
+                        </div>
                       </div>
-                      <div className='fld-cell'>
-                        <TextField
-                          fieldName='addressLine2'
-                          //required={values.isAddressSameAsStudent === 'No'}
-                          errors={validationErrors}
-                          label='Area or Locality'
-                          value={values.addressLine2}
-                          onChange={e => {
-                            setFieldValue('addressLine2', e.target.value)
-                          }}
-                        />
+                      <div className='fld-row'>
+                        <div className='fld-cell'>
+                          <TextField
+                            fieldName='pincode'
+                            label='Pincode'
+                            required={values.isAddressSameAsStudent === 'No'}
+                            errors={validationErrors}
+                            value={values.pincode}
+                            maxLength='6'
+                            onChange={e => {
+                              setFieldValue('pincode', e.target.value)
+                            }}
+                          />
+                        </div>
+                        <div className='fld-cell'>
+                          <SelectField
+                            fieldName='state'
+                            label='Select State'
+                            required={values.isAddressSameAsStudent === 'No'}
+                            errors={validationErrors}
+                            selectOptions={states}
+                            value={values.state}
+                            onChange={e => {
+                              populateCities(e.target.value, setCity);
+                              handleStateChange(setValues, values, {state: e.target.value, city:''})
+                            }}
+                          />
+                        </div>
+                        <div className='fld-cell'>
+                          <SelectField
+                            fieldName='city'
+                            label='Select City'
+                            required={values.isAddressSameAsStudent === 'No'}
+                            errors={validationErrors}
+                            selectOptions={city}
+                            value={values.city}
+                            onChange={e => {
+                              setFieldValue('city', e.target.value)
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
-                    <div className='fld-row'>
-                      <div className='fld-cell'>
-                        <TextField
-                          fieldName='pincode'
-                          label='Pincode'
-                          required={values.isAddressSameAsStudent === 'No'}
-                          errors={validationErrors}
-                          value={values.pincode}
-                          maxLength='6'
-                          onChange={e => {
-                            setFieldValue('pincode', e.target.value)
-                          }}
-                        />
-                      </div>
-                      <div className='fld-cell'>
-                        <SelectField
-                          fieldName='state'
-                          label='Select State'
-                          required={values.isAddressSameAsStudent === 'No'}
-                          errors={validationErrors}
-                          selectOptions={states}
-                          value={values.state}
-                          onChange={e => {
-                            populateCities(e.target.value, setCity);
-                            handleStateChange(setValues, values, {state: e.target.value, city:''})
-                          }}
-                        />
-                      </div>
-                      <div className='fld-cell'>
-                        <SelectField
-                          fieldName='city'
-                          label='Select City'
-                          required={values.isAddressSameAsStudent === 'No'}
-                          errors={validationErrors}
-                          selectOptions={city}
-                          value={values.city}
-                          onChange={e => {
-                            setFieldValue('city', e.target.value)
-                          }}
-                        />
-                      </div>
-                    </div>
+
                   </div>
                 : ''
               }

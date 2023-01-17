@@ -228,9 +228,7 @@ const ApplyToSchool = (props) => {
 										}
 										id="validationCustom04"
 										>
-										<option disabled value="">
-											Class
-										</option>
+										<option disabled value="">Class</option>
 										{classOptions.map((option, i) => {
 											return (
 												<option key={"class_" + i} value={option.value}>
