@@ -52,12 +52,14 @@ export default function OpenModal({
   const [minDate, setMinDate] = useState(null);
   const [maxDate, setMaxDate] = useState(null);
   const [atPiDate, setATPIDate] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({})
   const handleClose = () => {
     setRemarks('');
     setApplicationId('');
     setApplicationStatus('');
     setATPIDate(null);
     setShow(false);
+    setValidationErrors({})
   };
 
   const handleSubmit = (note, status, appId, selectDate) => {
@@ -66,13 +68,24 @@ export default function OpenModal({
       applicationStatus: status,
       remarks: note,
     };
-    if (status === SCHOOL_APPLICATION_STATUS.AT_PI && selectDate !== null) {
-      const apiDate = moment(selectDate).format('DD/MM/YYYY H:mm');
-      payloadData = {
-        ...payloadData,
-        applicantATPITimeSlot: apiDate
-      };
+    
+    if (status === SCHOOL_APPLICATION_STATUS.AT_PI) {
+      if (selectDate) {
+        const apiDate = moment(selectDate).format('DD/MM/YYYY H:mm');
+        payloadData = {
+          ...payloadData,
+          applicantATPITimeSlot: apiDate
+        };
+      } else {
+        setValidationErrors( val => {
+            return {...val, 
+              'atPiDate': 'Required *'
+            }
+        })
+        return
+      }
     }
+    
     if (isBulkOperation) {
       payloadData = {
         applicationIdList: appId,
@@ -119,7 +132,7 @@ export default function OpenModal({
           </div>
           {isAtPiData && SCHOOL_APPLICATION_STATUS.AT_PI === applicationStaus && (
             <div className='inner-container option-filter'>
-              <Form.Label className='form-label'>AT/PI Time Slot</Form.Label>
+              <Form.Label className='form-label'>AT/PI Time Slot <span className='required'>*</span></Form.Label>
               <div className='radio-choice'>
                 {/* {JSON.stringify(minDate)}-{JSON.stringify(maxDate)} */}
                 <ReactDatePicker
@@ -138,6 +151,11 @@ export default function OpenModal({
                     />
                   }
                 />
+                {
+                  validationErrors['atPiDate'] ? (
+                    <div className="error-exception">{validationErrors['atPiDate']}</div>
+                  ) : null
+                }
               </div>
             </div>
           )}
