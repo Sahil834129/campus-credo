@@ -161,7 +161,7 @@ const getFieldTagElement = (props) => {
             value={props.value}
             {...(props.required ? { required: props.required } : {})}
           />
-          <span>{props.label}</span>
+          <span className="">{props.label}</span>
         </label>
       );
     default:
