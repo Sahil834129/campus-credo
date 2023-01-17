@@ -10,7 +10,7 @@ import { getChildsList } from '../../redux/actions/childAction';
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { getClassBasedOnAge, getStudentAge } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
-import { getAgeClassMap } from "../../utils/services";
+import { getAgeClassMap, getApplications } from "../../utils/services";
 
 const ApplyToSchool = (props) => {
     const dispatch = useDispatch();
@@ -90,9 +90,27 @@ const ApplyToSchool = (props) => {
 		return (childCartItems.length && childCartItems[0].cartItems.filter(it => it.schoolId === parseInt(schoolId)).length > 0)
 	}
 
+	const isApplicationAlreadySubmittedForSchool = async(childId, schoolId) => {
+		const response = await getApplications(childId);
+		if (response && response.data) {
+			const appliedSchoolIds = response.data.map((application) => { return application.schoolId })
+			if (appliedSchoolIds.includes(parseInt(schoolId))){
+				return true
+			}
+		}
+		return false
+	}
+
     const handleChildSelection = async(index, field, value) => {
 		if (isSchoolAlreadyInApplyList(value)) {
 			setAlertMessage('Schools is already in applied list for the selected child.')
+			setShowAlertDialog(true)
+			setRowFieldValue(index, field, '')
+			return
+		}
+		const isApplicationAlreadySubmitted = await isApplicationAlreadySubmittedForSchool(value, schoolId)
+		if (isApplicationAlreadySubmitted) {
+			setAlertMessage('Application is already submitted to this school for the selected child.')
 			setShowAlertDialog(true)
 			setRowFieldValue(index, field, '')
 			return
@@ -118,6 +136,7 @@ const ApplyToSchool = (props) => {
 		setRowFieldValue(index, field, value)
         setRowFieldValue(index, 'class', selectedClass ? selectedClass.value.toString() : "")
     }
+
 
 	const setRowFieldValue = (index, field, value) => {
         let tempRows = [...rows];

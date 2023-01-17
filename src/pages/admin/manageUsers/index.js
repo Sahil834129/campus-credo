@@ -247,6 +247,7 @@ export const ManageUsers = () => {
                 <div className='btn-wrapper'>
                   <Button
                     className='reset-btn'
+                    disabled={!isWritePermission}
                     onClick={() => {
                       setTableRowsData(JSON.parse(JSON.stringify(rowsData)));
                     }}>

@@ -173,6 +173,7 @@ export const ManageAdmission = () => {
                       <div className='btn-wrapper'>
                         <Button
                           className='reset-btn'
+                          disabled={!isWritePermission}
                           onClick={_ => {
                             Object.keys(changedData).map(val => {
                               setFieldValue(val, changedData[val]);
