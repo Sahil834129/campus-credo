@@ -7,7 +7,6 @@ import { toast, ToastContainer } from "react-toastify";
 import { ReactComponent as SignupLogo } from "../assets/img/singup-logo.svg";
 import Button from "../components/form/Button";
 import InputField from "../components/form/InputField";
-import RegisterInfoGraphic from "../components/user/RegisterInfoGraphic";
 import { VerifyPhoneSchema } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
@@ -31,41 +30,47 @@ const VerifyPhone = () => {
 
     return (
         <Container className="main-container signup-main" fluid>
-            <div className="signup-wrapper">
-                <div className="signup-col left">
-                    <RegisterInfoGraphic/>
-                </div>
-                <div className="signup-col right">
+            <div className="signup-wrapper verify-phone-main">
+               
+                <div className="signup-col">
                     <SignupLogo />
-                    <div className="form-wrapper">
-                        <div className="form-title"><span>Verify your mobile number with the OTP sent to you via SMS.</span></div>
+                    <div className="form-wrapper verify-phone">
+                        
+                        <div className="form-title">
+                            <h2>Verify OTP</h2>
+                            <h4>Verify your mobile number with the OTP sent to you via SMS.</h4>
+                        </div>
                         <div className="form-container">
                             <Formik initialValues={{ phone: {phone}, otp: ''}} validationSchema={VerifyPhoneSchema} validateOnBlur onSubmit={values => { verifyOTP(values)}}>
                                 {({  errors, touched,setFieldValue ,values}) => (
-                                <Form>
+                                <Form className=''>
                                     <InputField fieldName="phone" fieldType="text" value={phone} placeholder="" readOnly={true} errors={errors} touched={touched}/> 
-                                    <OtpInput
-                                      onChange={(otp) =>
-                                        setFieldValue("otp", otp)
-                                      }
-                                      numInputs={4}
-                                      isInputNum={true}
-                                      shouldAutoFocus
-                                      value={values.otp}
-                                      placeholder="----"
-                                      inputStyle={{
-                                        color: "blue",
-                                        width: "2.5rem",
-                                        height: "3rem",
-                                        margin: "15px 0.5rem",
-                                        fontSize: "2rem",
-                                        borderRadius: 4,
-                                        caretColor: "blue",
-                                        marginLeft:"0px",
-                                        border: "1px solid rgba(0,0,0,0.3)",
-                                      }}
-                                    />
-                                    {errors.otp && <span style={{color:"red",fontSize:"10px"}}>{errors.otp}</span>}<br/>
+                                    <div className='otp-wrapper'>
+                                        <OtpInput
+                                        onChange={(otp) =>
+                                            setFieldValue("otp", otp)
+                                        }
+                                        numInputs={4}
+                                        className='otp-fld'
+                                        isInputNum={true}
+                                        shouldAutoFocus
+                                        value={values.otp}
+                                        placeholder="----"
+                                           inputStyle={{
+                                        //     color: "blue",
+                                             width: "52px",
+                                             height: "52px",
+                                        //     margin: "15px 0.5rem",
+                                        //     fontSize: "2rem",
+                                        //     borderRadius: 4,
+                                        //     caretColor: "blue",
+                                        //     marginLeft:"0px",
+                                        //     border: "1px solid rgba(0,0,0,0.3)",
+                                           }}
+                                        />
+                                    </div>
+                                    
+                                    {errors.otp && <span className='error'>{errors.otp}</span>}<br/>
                                         <div className='button-wrap'>
                                             <Button buttonLabel="Verify" submitting={submitting}/>
                                         </div>
