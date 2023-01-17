@@ -830,6 +830,7 @@ ul.list-group{
     display: flex;
     column-gap: 24px;
     flex-basis: 100%;
+    
     .fld-cell{
       display: flex;
       flex-direction: column;
@@ -1031,6 +1032,23 @@ ul.list-group{
         }
       }
     }
+  }
+  select{
+    option{
+      &:disabled{
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+
+  }
+  .additional-frm-block{
+    
+      .form-block-wrapper{
+        border: 1px solid #D9D9D9;
+        border-radius: 4px;
+        padding: 16px;
+        background: rgba(217, 217, 217, 0.3);
+      }
   }
   input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
