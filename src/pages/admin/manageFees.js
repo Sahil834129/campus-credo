@@ -19,7 +19,7 @@ export const ManageFees = () => {
           </div>
           <div className='inner-content-wrap'>
             <div className='title-area'>
-              <h2>Configure Tuition Fee Payment</h2>
+              <h2>Configure Tuition Fees Payment</h2>
               <div className='btn-wrapper'>
                 <Button className='reset-btn'>Reset</Button>
                 <Button className='save-btn'>Save</Button>
@@ -34,7 +34,7 @@ export const ManageFees = () => {
                     <th>Payment Frequency</th>
                     <th>Last Date of Payment</th>
                     <th>Late Fine Per day(₹)</th>
-                    <th>Late Fee Final Date</th>
+                    <th>Late Fees Final Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>

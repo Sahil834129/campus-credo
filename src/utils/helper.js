@@ -111,6 +111,19 @@ export function humanize(str, changeStatusVal) {
   }
 }
 
+export function getPresentableRoleName(roleName) {
+  switch(roleName) {
+    case 'SR_FEE_MANAGER':
+      return 'Sr. Fees Manager';
+    case 'SR_ADMISSION_MANAGER':
+      return 'Sr. Admission Manager';
+    case 'FEE_MANAGER':
+      return 'Fees Manager';
+    default:
+      return humanize(roleName)
+  }
+}
+
 export function convertCamelCaseToPresentableText(str) {
 
   if (str.includes('-')) {

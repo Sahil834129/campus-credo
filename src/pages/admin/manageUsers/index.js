@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
-import { getCurrentModulePermission, getLocalData, humanize } from '../../../utils/helper';
+import { getCurrentModulePermission, getLocalData, getPresentableRoleName } from '../../../utils/helper';
 import { getManagePermissionModules, getManagePermissionRoles, getManagePermissions, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
@@ -128,7 +128,7 @@ export const ManageUsers = () => {
     },
     {
       accessor: '',
-      Header: 'Manage Fee',
+      Header: 'Manage Fees',
       Cell: ((e) => {
         return (
           <div className='item-cell' style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
@@ -217,7 +217,7 @@ export const ManageUsers = () => {
           if (value.roleId === id) {
             data.roleId = value.roleId;
             data.roleName = value.roleName;
-            data.humanizedroleName = humanize(value.roleName);
+            data.humanizedroleName = getPresentableRoleName(value.roleName);
             data.roleUsers = value.users;
             data.moduleName = value.moduleName;
             data.permissionType = value.permissionType;

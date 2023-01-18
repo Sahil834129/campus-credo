@@ -27,7 +27,7 @@ import {
   SignUp,
   TermsOfUse,
   UserProfile,
-  VerifyPhone,
+  VerifyPhone
 } from "../pages";
 import DisclaimerPolicy from "../pages/disclaimer_Policy";
 import ResetPassword from "../pages/resetPassword";
@@ -86,7 +86,7 @@ function AppRoutes() {
         >
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/manage-admission" element={<ManageAdmission />} />
-          <Route path="/manage-fee" element={<ManageFees />} />
+          <Route path="/manage-fees" element={<ManageFees />} />
           <Route path="/manage-user" element={<ManageUsers />} />
           <Route path="/manage-application" element={<ManageApplication />} />
         </Route>

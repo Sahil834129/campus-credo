@@ -15,7 +15,7 @@ export const ADMIN_DASHBOARD_LINK = [
   { title: 'Dashboard', url: '/dashboard', showsData: true },
   { title: 'Manage Application', url: '/manage-application', showsData: true },
   { title: 'Manage Admission', url: '/manage-admission', showsData: false },
-  { title: 'Manage Fee', url: '/manage-fee', showsData: false },
+  { title: 'Manage Fee', url: '/manage-fees', showsData: false },
   { title: 'Manage User', url: '/manage-user', showsData: false }
 ];
 
