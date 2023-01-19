@@ -36,6 +36,7 @@ const ReviewAdmissionDialog = ({
   const [infoDeclarationAccepted, setInfoDeclarationAccepted] = useState(false);
   const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] =
     useState(false);
+    const [remarks, setRemarks] = useState([]);
 
   async function getChildProfile(childId) {
     try {
@@ -109,6 +110,10 @@ const ReviewAdmissionDialog = ({
       const response = await RESTClient.get(
         RestEndPoint.APPLICANT_DETAIL + `/${applicationId}`
       );
+      if(response.data.remarks!=="")
+      {
+        setRemarks(response.data.remarks);
+      }
       if (response.data.applicantProfile !== "") {
         setStudentDetail(response.data?.applicantProfile);
       }
@@ -564,6 +569,39 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
+          {applicationId ? 
+            <Accordion.Item eventKey="6">
+              <Accordion.Header>Remarks</Accordion.Header>
+              <Accordion.Body>
+                { 
+                  remarks.map(  (remark)=>{return (
+                    <>
+                      <div className="admin-detail-row">
+                        <div className="admin-detail-cell">
+                          <label>
+                            {remark.firstName} {remark.lastName}
+                          </label>
+                        </div>
+                        <div className="admin-detail-cell">
+                          <label>{remark.dateTime}</label>
+                        </div>
+                      </div>
+                      <div className="admin-detail-row">
+                        <div className="admin-detail-cell">
+                          <label>{remark.text}</label>
+                          <span className="item-entry"></span>
+                        </div>
+                        <div className="admin-detail-cell">
+                          <span className="item-entry"></span>
+                        </div>
+                      </div>
+                    </>
+                    );}
+                  )}
+              </Accordion.Body>
+            </Accordion.Item> 
+            : "" 
+          }
         </Accordion>
         {applicationId ? (
           ""
