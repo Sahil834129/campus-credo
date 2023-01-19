@@ -12,6 +12,7 @@ import "../assets/scss/custom-styles.scss";
 import Layout from "../common/layout";
 import FeatureCard from "../components/FeatureCard";
 import { DEFAULT_ROLES } from "../constants/app";
+import JoinUsDialogForSchool from "../dialogs/JoinUsDialogForSchool";
 import LoginDialog from "../dialogs/loginDialog";
 import PageContent from "../resources/pageContent";
 import { getLocalData, isLoggedIn } from "../utils/helper";
@@ -22,7 +23,16 @@ const HomePage = () => {
     const queryParams = new URLSearchParams(location.search);
     const showLogin = queryParams.get("login") !== null ? true : false;
     const [showLoginDialog, setShowLoginDialog] = useState(showLogin);
+    const [showJoinUsDialog, setShowJoinUsDialog] = useState(false);
 
+    const handleShowJoinUsDialog=()=>
+    {
+        setShowJoinUsDialog(true);
+    }
+    const handleCloseJoinUsDialog=()=>
+    {
+        setShowJoinUsDialog(false);
+    }
     const redirectToHOmeScreen = () => {
         const role = getLocalData('roles');
         console.log();
@@ -90,7 +100,7 @@ const HomePage = () => {
                                                 <FeatureCard {...card} key={"school_fc" + index} />
                                             ))}
                                         </div>
-                                        <div className="tab-button-wrap"><Button onClick={() => { beginApplication(); }}>Begin Application</Button></div>
+                                        <div className="tab-button-wrap"><Button onClick={() => { handleShowJoinUsDialog(); }}>Join Us</Button></div>
                                     </TabContent>
                                 </Tab>
                             </Tabs>
@@ -99,6 +109,8 @@ const HomePage = () => {
                 </section>
             </Layout>
             <LoginDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} />
+            <JoinUsDialogForSchool show={showJoinUsDialog} handleClose={handleCloseJoinUsDialog} />
+
         </>
     );
 };

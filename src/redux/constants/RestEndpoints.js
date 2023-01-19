@@ -74,6 +74,7 @@ const RestEndPoint = {
   PLACE_REGISTRATION_ORDER: "payment/payRegistrationFee",
   REQUEST_CALLBACK: "v1/school/callBack",
   REGISTRATION_CHECKOUT: "payment/registrationCheckout",
+  JOIN_US : "user/joinUs",
 };
 
 export default RestEndPoint;

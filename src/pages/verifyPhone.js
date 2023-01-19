@@ -31,18 +31,14 @@ const VerifyPhone = () => {
     };
 const resendOtpForPhoneVerify=async()=>
 {
+    setResendOtp(true);
     try {
         await RESTClient.post(RestEndPoint.SEND_OTP, { "phone" : phone });
-        setResendOtp(false);
-      } catch (err) {
+    
+    } catch (err) {
         toast.error(RESTClient.getAPIErrorMessage(err));
-      }
-
+    }
 }
-function handleTimer(){
-    setResendOtp(true);
-}
-
     return (
         <Container className="main-container signup-main" fluid>
             <div className="signup-wrapper verify-phone-main">
@@ -85,21 +81,17 @@ function handleTimer(){
                                         />
                                     </div>
                                     <div className=' mt-3 justify-content-center'>
-                                    {   resendOtp   
-                                        ? <OtpTimer minutes={0}
+                                    {   resendOtp? 
+                                        <OtpTimer minutes={0}
                                             seconds={30}
                                             text="Resend OTP in"
-                                            ButtonText="Resend OTP"
+                                            ButtonText="Send OTP"
                                             resend={() => {
                                                 resendOtpForPhoneVerify();
                                             }}
-                                        /> 
-                                        : <Link onClick={()=>{
-                                                resendOtpForPhoneVerify();
-                                                handleTimer();
-                                            }}>
-                                                Resend OTP
-                                            </Link>
+                                        /> : <Link className="" onClick={()=>{
+                                            resendOtpForPhoneVerify();
+                                            }}>Send OTP Again</Link>
                                     }
                                     </div>
                                     {errors.otp && <span className='error'>{errors.otp}</span>}<br/>

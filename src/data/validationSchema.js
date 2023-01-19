@@ -304,6 +304,20 @@ export const ContactInfoSchema = Yup.object().shape({
   }),
   message: Yup.string().required("Required *"),
 });
+export const JoinUsDialogForSchoolSchema = Yup.object().shape({
+  firstName: Yup.string().required("Required *"),
+  lastName: Yup.string().required("Required *"),
+  email: Yup.string().email("Invalid email").required("Required *"),
+  phone: Yup.string()
+    .matches(/^[6-9]\d{9}$/gi, {
+      message: "Please enter valid number.",
+      excludeEmptyString: false,
+    })
+    .max(10)
+    .required("Required *"),
+    institutionName: Yup.string().required("Required *"),
+  message: Yup.string().required("Required *"),
+});
 export const StudentParentGuardianSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, "Value is too short.")
