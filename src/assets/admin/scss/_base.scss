@@ -3,7 +3,11 @@
 @import '../scss/vars.scss';
 @import '../scss/icons.scss';
 
-
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 1s;
+  --animate-repeat: 1;
+}
 * {
     border: 0;
     padding: 0;
@@ -12,6 +16,7 @@
 *, *::after, *::before {
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -78,6 +83,7 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, ul, li, ol, dl, img, pre, form, fiel
 a, a:visited, a:active {
     color: unset;
     text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
 input, textarea {

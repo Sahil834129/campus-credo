@@ -80,7 +80,7 @@ const resendOtpForPhoneVerify=async()=>
                                            }}
                                         />
                                     </div>
-                                    <div className=' mt-3 justify-content-center'>
+                                    <div className='resend-action-wrapper'>
                                     {   resendOtp? 
                                         <OtpTimer minutes={0}
                                             seconds={30}
@@ -89,7 +89,7 @@ const resendOtpForPhoneVerify=async()=>
                                             resend={() => {
                                                 resendOtpForPhoneVerify();
                                             }}
-                                        /> : <Link className="" onClick={()=>{
+                                        /> : <Link className='resend-otp-btn' onClick={()=>{
                                             resendOtpForPhoneVerify();
                                             }}>Send OTP Again</Link>
                                     }

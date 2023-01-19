@@ -149,11 +149,24 @@
               }
             }
           }
+          .resend-action-wrapper{
+            display: flex;
+            justify-content: center;
+            .resend-otp-btn{
+              background: $darkgreen;
+              color: $white;
+              padding: 4px 8px;
+              border-radius: 4px;
+              font-size: 12px;
+              text-transform: uppercase;
+            }
+          }
           .otp-wrapper{
             display: flex;
             margin-top: 16px;
             width: 100%;
             flex-direction: column;
+            margin-bottom: 24px;
             div{
               display: flex;
               column-gap: 16px;
@@ -2289,14 +2302,18 @@ ul.list-group{
                           align-content: space-around;
                           justify-content: flex-start;
                           .school-logo-wrap{
-                            width: 82px;
-                            height: 82px;
+                            width: 92px;
+                            height: auto;
                             border: 1px solid rgba(0, 0, 0, 0.08);
                             margin-right: 16px;
                             overflow: hidden;
+                            border-radius: 4px;
+                            flex-grow: 1;
+                            display: flex;
                             img{
-                              width: 82px;
+                              width: 100%;
                               height: auto;
+                              display: flex;
                             }
                           }
                           .school-info-exerpts{
@@ -4168,6 +4185,47 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                   &.show{
                     .accordion-body{
                       margin-bottom: 4px;
+                      .remark-block{
+                        display: flex;
+                        column-gap: 24px;
+                        &.item-row{
+                          display: flex;
+                          flex-direction: column;
+                          margin-bottom: 16px;
+                          border-bottom: 1px solid rgba(65, 40, 95, 0.08);
+                          padding-bottom: 16px;
+                          .item-cell{
+                            display: flex;
+                            font-size: 14px;
+                            flex-grow: 1;
+                            align-items: center;
+                            justify-content: flex-start;
+                            &.remark-src{
+                              column-gap: 8px;
+                              margin-bottom: 8px;
+                            }
+                            &.remark-txt{}
+                            label.user-name{
+                              font-weight: 600;
+                              font-size: 14px;
+                              color: $primarycolor;
+                            }
+                            .remark-dt{
+                              font-size: 12px;
+                              background: rgba(65, 40, 95, 0.08);
+                              border: 1px solid rgba(65, 40, 95, 0.08);
+                              border-radius: 2px;
+                              padding: 2px 4px;
+                            }
+                            p{
+                              font-size: 14px;
+                              color: $black;
+                              font-weight: 500;
+                              
+                            }
+                          }
+                        }
+                      }
                       .admin-detail-row{
                         display: grid;
                         grid-template-columns: 1fr 1fr 1fr;
@@ -4309,6 +4367,16 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               justify-content: space-between;
               align-items: center;
             }
+            .master-admin-remarks{
+              font-size: 14px;
+              .status-lbl{
+                border: 1px solid $darkred;
+                color: $darkred;
+                font-size: 12px;
+                border-radius: 4px;
+                padding: 2px 4px;
+              }
+            }
             .btn{
               padding: 4px 24px;
               border-radius: 4px;
@@ -4318,6 +4386,11 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               align-items: center;
               display: flex;
               &.submit{
+                border: none;
+                background: none;
+                color: $white;
+              }
+              &.success{
                 border: 1px solid #549B43;
                 background: #549B43;
                 color: $white;
