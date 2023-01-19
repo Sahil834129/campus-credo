@@ -1,16 +1,16 @@
 export const GENDER_OPTOPNS = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Gender" },
   { value: "Male", text: "Male" },
   { value: "Female", text: "Female" },
 ];
 export const MARKING_SCHEME = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Marking Scheme" },
   { value: "SGPA", text: "SGPA" },
   { value: "Percentage", text: "Percentage" },
   { value: "Grades", text: "Grades" },
 ];
 export const RELIGION_OPTIONS = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Religion" },
   { value: "Hinduism", text: "Hinduism" },
   { value: "Islam", text: "Islam" },
   { value: "Christianity", text: "Christianity" },
@@ -23,13 +23,13 @@ export const RELIGION_OPTIONS = [
 ];
 
 export const NATIONALITY_OPTIONS = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Nationality" },
   { value: "Indian", text: "Indian" },
   { value: "Other", text: "Other" },
 ];
 
 export const CATEGORY_OPTIONS = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Category" },
   { value: "General", text: "General" },
   { value: "OBC", text: "OBC" },
   { value: "SC", text: "SC" },
@@ -47,7 +47,7 @@ export const CATEGORY_OPTIONS_CONTACT_FORM = [
 ];
 
 export const BLOOD_OPTIONS = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Blood Group" },
   { value: "A+", text: "A+" },
   { value: "A-", text: "A-" },
   { value: "B+", text: "B+" },
