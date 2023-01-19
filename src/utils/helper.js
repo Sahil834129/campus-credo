@@ -281,7 +281,9 @@ export const getStatusLabelForSchool=(applicationStatus)=> {
     case SCHOOL_APPLICATION_STATUS.REVOKED:
       return "Application Revoked";
     case SCHOOL_APPLICATION_STATUS.DECLINED:
-      return "Offer Declined";
+      return "Application Declined";
+    case SCHOOL_APPLICATION_STATUS.DENIED:
+        return "Offer Declined";
 
     default:
       return humanize(applicationStatus , true);

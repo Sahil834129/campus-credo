@@ -37,7 +37,7 @@ const ApplicationCart = () => {
         return
       handleChildSelection(childs[0].childId);
     }
-  }, []);
+  }, [childs]);
 
   useEffect(() => {
     if (isLoggedIn()) dispatch(getItemsInCart());
