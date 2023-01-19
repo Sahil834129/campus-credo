@@ -1,8 +1,9 @@
 import { Form, Formik } from 'formik';
+import OtpTimer from "otp-timer";
 import React, { useState } from "react";
 import { Container } from 'react-bootstrap';
 import OtpInput from "react-otp-input";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { ReactComponent as SignupLogo } from "../assets/img/singup-logo.svg";
 import Button from "../components/form/Button";
@@ -15,6 +16,7 @@ const VerifyPhone = () => {
     const navigate = useNavigate();
     let {phone} = useParams();
     const [submitting, setSubmitting] = useState(false);
+    const [resendOtp, setResendOtp] = useState(false);
 
     const verifyOTP = (formData) => {
         setSubmitting(true);
@@ -27,6 +29,19 @@ const VerifyPhone = () => {
             toast.error(RESTClient.getAPIErrorMessage(error));
         });
     };
+const resendOtpForPhoneVerify=async()=>
+{
+    try {
+        await RESTClient.post(RestEndPoint.SEND_OTP, { "phone" : phone });
+        setResendOtp(false);
+      } catch (err) {
+        toast.error(RESTClient.getAPIErrorMessage(err));
+      }
+
+}
+function handleTimer(){
+    setResendOtp(true);
+}
 
     return (
         <Container className="main-container signup-main" fluid>
@@ -69,7 +84,24 @@ const VerifyPhone = () => {
                                            }}
                                         />
                                     </div>
-                                    
+                                    <div className=' mt-3 justify-content-center'>
+                                    {   resendOtp   
+                                        ? <OtpTimer minutes={0}
+                                            seconds={30}
+                                            text="Resend OTP in"
+                                            ButtonText="Resend OTP"
+                                            resend={() => {
+                                                resendOtpForPhoneVerify();
+                                            }}
+                                        /> 
+                                        : <Link onClick={()=>{
+                                                resendOtpForPhoneVerify();
+                                                handleTimer();
+                                            }}>
+                                                Resend OTP
+                                            </Link>
+                                    }
+                                    </div>
                                     {errors.otp && <span className='error'>{errors.otp}</span>}<br/>
                                         <div className='button-wrap'>
                                             <Button buttonLabel="Verify" submitting={submitting}/>
