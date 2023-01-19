@@ -68,8 +68,12 @@ const SchoolCard = (props) => {
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Avg. Monthly Tuition Fees</div>
-                        <div className='right fee-wrap'><span className='fee-to'>₹{school.monthlyFeeMin}</span> to <span className='fee-from'>₹{school.monthlyFeeMax}</span></div>
-                    </ListGroup.Item>
+                        {
+                            (school.monthlyFeeMin && school.monthlyFeeMax) ? 
+                                <div className='right fee-wrap'><span className='fee-to'>₹{school.monthlyFeeMin}</span> to <span className='fee-from'>₹{school.monthlyFeeMax}</span></div>
+                             :"NA" 
+                        }
+                       </ListGroup.Item>
                     <ListGroup.Item>
                         <div className='left'>Classes</div>
                         <div className='right'>{school.classesFromUpto}</div>
@@ -79,11 +83,12 @@ const SchoolCard = (props) => {
                         <div className='right session-wrap'>
                             {
                                 school.admissionInfo != null ?
-                                    <>
-                                    <span className='session-title'>{school.admissionInfo.admissionStatus} for {school.admissionInfo.admissionSession} </span>
-                                    <InfoDropDown header={school.admissionInfo.admissionStatus + " for " + school.admissionInfo.admissionSession} options={school.admissionInfo.admissionOpenForClasses.split(",")}/>
-                                    </>
-                                : 'Closed'}
+                                <>
+                                <span className='session-title'>{school.admissionInfo.admissionStatus} for {school.admissionInfo.admissionSession} </span>
+                                <InfoDropDown header={school.admissionInfo.admissionStatus + " for " + school.admissionInfo.admissionSession} options={school.admissionInfo.admissionOpenForClasses.split(",")}/>
+                                </>
+                                : 'Closed'
+                            }
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -114,13 +119,14 @@ const SchoolCard = (props) => {
                         <ListGroup className="info-list-group additional-features">
                             <ListGroup.Item>
                                 {
-                                        school.facilities.length > 4 ?
-                                            <>
-                                                <span className='session-title'></span>
-                                                <InfoDropDown icon={school.facilities.length - 4}
-                                                    options={school.facilities.filter((it,index) => {return index>3}).map((it) => (it.facilityName))} />
-                                            </>
-                                            : ''}
+                                    school.facilities.length > 4 ?
+                                    <>
+                                    <span className='session-title'></span>
+                                    <InfoDropDown icon={school.facilities.length - 4}
+                                        options={school.facilities.filter((it,index) => {return index>3}).map((it) => (it.facilityName))} />
+                                    </>
+                                    : ''
+                                }
                                 
                             </ListGroup.Item>
                         </ListGroup>
