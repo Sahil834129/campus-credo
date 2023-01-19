@@ -576,7 +576,15 @@ const ReviewAdmissionDialog = ({
                 { 
                   remarks.map(  (remark)=>{return (
                     <>
-                      <div className="admin-detail-row">
+                      <div className="remark-block item-row">
+                        <div className="item-cell remark-src">
+                          <label className="user-name">{remark.firstName} {remark.lastName}</label><span className="remark-dt">{remark.dateTime}</span>
+                        </div>
+                        <div className="item-cell remark-txt">
+                          <p>{remark.text}</p>
+                        </div>
+                      </div>
+                      {/* <div className="admin-detail-row">
                         <div className="admin-detail-cell">
                           <label>
                             {remark.firstName} {remark.lastName}
@@ -585,8 +593,8 @@ const ReviewAdmissionDialog = ({
                         <div className="admin-detail-cell">
                           <label>{remark.dateTime}</label>
                         </div>
-                      </div>
-                      <div className="admin-detail-row">
+                      </div> */}
+                      {/* <div className="admin-detail-row">
                         <div className="admin-detail-cell">
                           <label>{remark.text}</label>
                           <span className="item-entry"></span>
@@ -594,7 +602,7 @@ const ReviewAdmissionDialog = ({
                         <div className="admin-detail-cell">
                           <span className="item-entry"></span>
                         </div>
-                      </div>
+                      </div> */}
                     </>
                     );}
                   )}
@@ -660,9 +668,9 @@ const ReviewAdmissionDialog = ({
               <img src={PdfIcon} alt="" style={{ marginRight: "10px" }} />
               Download Details
             </Button>
-            <div>
+            <div className="master-admin-remarks">
               Master Admission Manager Remarks:{" "}
-              <span className="text-danger">No Remarks</span>
+              <span className="status-lbl text-danger">No Remarks</span>
             </div>
           </div>
         )}

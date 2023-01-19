@@ -12,6 +12,11 @@
 *, *::after, *::before {
   box-sizing: border-box;
 }
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 1s;
+  --animate-repeat: 1;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -76,6 +81,7 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, img, pre, form, fieldset
 a, a:visited, a:active {
     color: unset;
     text-decoration: none !important;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
 input, textarea {
@@ -110,6 +116,7 @@ ul,
 li,
 a {
     font-family: $rubik-slab;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 i{}
 
