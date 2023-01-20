@@ -127,7 +127,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
                   </div>
                   <div className='app-status-cell'>
                     <label className='lbl'>Denied</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.denied || 0}</span>
+                    <span className='value text-danger'>{admissionSummary?.denied || 0}</span>{' | '}
                   </div>
                   <div className='app-status-cell'>
                     <label className='lbl'>Revoked</label>{' '}
