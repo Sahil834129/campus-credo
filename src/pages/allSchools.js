@@ -129,7 +129,7 @@ const AllSchools = () => {
     let maxFee =
       filterForm.maxMonthlyTutionFee > 0
         ? filterForm.maxMonthlyTutionFee
-        : 100000;
+        : 20000;
     let minFee =
       filterForm.minMonthlyTutionFee > 0 ? filterForm.minMonthlyTutionFee : 0;
     filters.push({

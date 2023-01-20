@@ -3,7 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import { DoughnutChart } from "../../../common/Chart";
 import { getSchoolAdmissinFeeSummary } from "../../../utils/services";
 
-export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, acceptedOffer }) {
+export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,admissionSummary }) {
     //dashboard/schoolAdmissionFeeSummary
     const [feesCollected, setFeesCollected] = useState(0);
     const [feesCollectedPercent, setFeesCollectedPercent] = useState(0);
@@ -40,9 +40,9 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
     }, [schoolSeatsSummary]);
 
     useEffect(() => {
-        const percentageVal = (((parseInt(acceptedOffer?.accepted || 0)) * 100) / totalSeats);
+        const percentageVal = (((parseInt(admissionSummary?.accepted || 0)) * 100) / totalSeats);
         setAcceptedPercentage(isNaN(percentageVal) ? 0 : parseFloat(percentageVal).toFixed(2));
-    }, [acceptedOffer, totalSeats]);
+    }, [admissionSummary, totalSeats]);
 
     return (
         <div className='chart-block ch2'>
@@ -54,7 +54,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus, 
                             <label>Total Seats</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>{applicationStatus?.received || 0}</span>
+                            <span className='value'>{admissionSummary?.totalApplication || 0}</span>
                             <label>Application Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>

@@ -97,7 +97,7 @@ export const Dashboard = () => {
             declined={declinedOffer}
             applicationStatus={dashBoardData?.applicationStatus}
           />
-          <SeatsFeesGraph schoolSeatsSummary={schoolSeatsSummary} applicationStatus={dashBoardData?.applicationStatus} acceptedOffer={dashBoardData?.upperSchoolAdmissionSummary} />
+          <SeatsFeesGraph schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} applicationStatus={dashBoardData?.applicationStatus} />
         </div>
       </div>
     </Layout>
