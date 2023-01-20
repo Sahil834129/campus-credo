@@ -109,9 +109,10 @@ const getFieldTagElement = (props) => {
           <Field
             as="select"
             className="form-select"
+            value={props.value}
             name={props.fieldName}
             {...(props.onBlur ? { onBlur: props.onBlur } : {})}
-            {...(props.onChange ? { onBlur: props.onChange } : {})}
+            {...(props.onChange ? { onChange : props.onChange } : {})}
             {...(props.required ? { required: props.required } : {})}
           >
             {getOptionTags(props.selectOptions)}

@@ -73,7 +73,7 @@ const SignUp = () => {
                   signUp(values);
                 }}
               >
-                {({ errors, touched }) => (
+                {({ values, errors, touched, setFieldValue }) => (
                   <Form className="form-wrapper">
                     <div className="frm-row">
                       <div className="frm-cell">
@@ -164,8 +164,12 @@ const SignUp = () => {
                           fieldType="select"
                           placeholder=""
                           selectOptions={stateOptions}
-                          onBlur={(e) =>
-                            populateCities(e.target.value, setCityOptions)
+                          value={values.state}
+                          onChange={(e) => {
+                              setFieldValue('state', e.target.value);
+                              setFieldValue("city" , "");
+                              populateCities(e.target.value, setCityOptions);
+                            }
                           }
                           errors={errors}
                           touched={touched}
@@ -180,6 +184,7 @@ const SignUp = () => {
                           fieldName="city"
                           fieldType="select"
                           placeholder=""
+                          value={values.city}
                           selectOptions={cityOptions}
                           errors={errors}
                           touched={touched}
