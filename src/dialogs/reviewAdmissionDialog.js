@@ -575,7 +575,18 @@ const ReviewAdmissionDialog = ({
            { remarks ?
                  (   remarks.map(  (remark)=>{
                   return ( 
-          <> <div className="admin-detail-row">
+          <> 
+          
+          <div className="remark-block item-row">
+                        <div className="item-cell remark-src">
+                          <label className="user-name">{remark.firstName} {remark.lastName}</label><span className="remark-dt">{remark.dateTime}</span>
+                        </div>
+                        <div className="item-cell remark-txt">
+                          <p>{remark.text}</p>
+                        </div>
+                      </div>
+
+          {/* <div className="admin-detail-row">
           <div className="admin-detail-cell">
             <label>{remark.firstName}  {remark.lastName}</label>
           </div>
@@ -595,9 +606,11 @@ const ReviewAdmissionDialog = ({
             </span>
           </div>
          
-        </div></>
+        </div> */}
+        
+        </>
               )}
-              )) : <div style={{ textAlign: "center" }}>
+              )) : <div className="no-remarks" style={{ textAlign: "center" }}>
               No Record Found.
             </div>
            }

@@ -152,13 +152,35 @@
           .resend-action-wrapper{
             display: flex;
             justify-content: center;
+            div{
+              font-size: 14px !important;
+              span{
+                color: $darkred !important;
+               
+                
+              }
+              button{
+                background: $darkgreen !important;
+                color: $white;
+                padding: 4px 10px;
+                border-radius: 4px;
+                font-size: 12px !important;
+                text-transform: uppercase;
+                box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                span{color: $white !important;}
+                &:hover{
+                  color: $white !important;
+                }
+              }
+            }
             .resend-otp-btn{
               background: $darkgreen;
               color: $white;
-              padding: 4px 8px;
+              padding: 4px 10px;
               border-radius: 4px;
               font-size: 12px;
               text-transform: uppercase;
+              box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
             }
           }
           .otp-wrapper{
@@ -2218,6 +2240,15 @@ ul.list-group{
                 justify-content: space-between;
                 padding: 16px 0;
                 border-bottom:1px solid rgba(0, 0, 0, 0.08);
+                align-items: center;
+                .frm-cell{
+                  select{
+                    font-size: 14px;
+                    border-radius: 4px;
+                    min-height: 42px;
+                  }
+                }
+
                 .select-option{
                   display: flex;
                   flex-direction: row;
@@ -3895,6 +3926,103 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
       }
     }
   }
+  &.joinus-model{
+    .modal-dialog{
+      width: 642px;
+      max-width: 642px;
+      .modal-content{
+        display: flex;
+        .model-body{
+          display: grid;
+          padding: 0;
+          grid-template-columns: auto;
+          .model-body-col{
+            display: flex;
+            flex-direction: column;
+            h4{
+              font-size: 20px;
+              font-weight: 600;
+              text-align: center;
+              margin-top: 24px;
+              padding: 8px 42px;
+              line-height: 28px;
+            }
+            form{
+              margin: 0 24px 24px 24px;
+              .fld-row{
+                display: flex;
+                .fld-cell{
+                  margin-bottom: 16px;
+                  flex-grow: 1;
+                  .fld-wrap{
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    label{
+                      font-style: normal;
+                      font-weight: 400;
+                      font-size: 14px;
+                      line-height: 18px;
+                      color: rgba(0, 0, 0, 0.8);
+                      .req{
+                        color: $darkred;
+                      }
+                    }
+                    input{
+                      border-radius: 4px;
+                      height: 48px;
+                      font-size: 14px;
+                      color: rgba(0, 0, 0, 0.8);
+                      &:focus{
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                        color: $primarycolor;
+                      }
+                      &:active{
+                        color: $primarycolor;
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      }
+                      &::placeholder {
+                        color: rgba(0, 0, 0, 0.25);
+                      }
+                    }
+                    textarea{
+                      border-radius: 4px;
+                      height: auto;
+                      font-size: 14px;
+                      color: rgba(0, 0, 0, 0.8);
+                      &:focus{
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                        color: $primarycolor;
+                      }
+                      &:active{
+                        color: $primarycolor;
+                        border: 1px solid #41285F;
+                        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      }
+                      &::placeholder {
+                        color: rgba(0, 0, 0, 0.25);
+                      }
+                    }
+                  }
+                  
+                }
+                &.btn-wrapper{
+                  .btn{
+                    font-weight: 600;
+                  }
+                }
+              }
+              
+              
+            }
+          }
+        }
+      }
+    }
+  }
   &.calback-model{
     .modal-dialog{
       width: 442px;
@@ -4225,6 +4353,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                             }
                           }
                         }
+                        
                       }
                       .admin-detail-row{
                         display: grid;
@@ -4351,6 +4480,11 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                             }
                           }
                         }
+                      }
+                      .no-remarks{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: $darkred;
                       }
                     }
                   }
@@ -4763,6 +4897,9 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           font-size: 14px;
           line-height: 24px;
           text-transform: uppercase;
+          background: $primarycolor;
+          border: 1px solid $primarycolor;
+          color: $white;
           &.signin-btn{
             background: $primarycolor;
             border: 1px solid $primarycolor;
@@ -4771,8 +4908,11 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
             background: #41285F;
             border: 1px solid #41285F;
             color: #ffffff;
-            
-            
+          }
+          &.reset-btn{
+            background: $white;
+            border: 1px solid $darkred;
+            color: $darkred;
           }
         }
         
@@ -4807,6 +4947,16 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
     }
   }
 } 
+.dropdown{
+  border-radius: 4px;
+  &.show{
+    a.dropdown-item{
+      span{
+        font-size: 14px;
+      }
+    }
+  }
+}
 
 .btn{
   background: rgba(0, 0, 0, 0.2);       
@@ -4828,6 +4978,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
     background: $primarycolor;
     border: 1px solid $primarycolor;
     border-radius: 4px;
+    font-size: 14px;
     &:hover{
       background: $darkred;
       background-color: $primarycolor !important;

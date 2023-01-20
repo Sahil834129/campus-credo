@@ -35,7 +35,7 @@ const JoinUsDialogForSchool =(props)=>
         }
     };
  return (
-    <GenericDialog className="calback-model" show={props.show} handleClose={props.handleClose}>
+    <GenericDialog className="joinus-model" show={props.show} handleClose={props.handleClose}>
     <div className='model-body-col'>
     <Formik
                 initialValues={initialValue}
@@ -105,7 +105,7 @@ const JoinUsDialogForSchool =(props)=>
                     </div>
 
                     <div className="fld-row">
-                    <div className="fld-cell">
+                      <div className="fld-cell">
                         <InputField
                           fieldName="institutionName"
                           fieldType="text"
@@ -120,7 +120,7 @@ const JoinUsDialogForSchool =(props)=>
                       
                       </div>
                     <div className="fld-row">
-                    <div className="frm-cell">
+                      <div className="fld-cell">
                         <InputField
                           fieldName="message"
                           fieldType="textarea"
@@ -135,7 +135,7 @@ const JoinUsDialogForSchool =(props)=>
                       </div>
                     </div>
                     <div className="fld-row button-wrap">
-                    <button type="button" class="reset btn-primary" onClick={() =>  resetForm()} >Reset</button>
+                      <Button type="button" class="reset-btn btn-primary" onClick={() =>  resetForm()} buttonLabel="Reset" />
                       <Button
                           className="submit-btn"
                           type="submit"

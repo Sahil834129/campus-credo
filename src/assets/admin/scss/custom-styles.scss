@@ -817,11 +817,11 @@ ul.list-group{
   }
 
 // Text color legends
-  .blue-label{color: #3e8dd5; font-weight: 600;} // Received
-  .red-label{color: $darkred; font-weight: 600;} //Denied, rejected
-  .green-label{color: $darkgreen; font-weight: 600;} //Approved
-  .orange-label{color: #e1ab0a; font-weight: 600;} //under review
-  .violet-label{color: #a262ef; font-weight: 600;} // AT-PI
+  .blue-label{color: #3e8dd5; font-weight: 400;} // Received
+  .red-label{color: $darkred; font-weight: 400;} //Denied, rejected
+  .green-label{color: $darkgreen; font-weight: 400;} //Approved
+  .orange-label{color: #e1ab0a; font-weight: 400;} //under review
+  .violet-label{color: #54B4D3; font-weight: 400;} // AT-PI
 
 
 .application-form-wrap{
