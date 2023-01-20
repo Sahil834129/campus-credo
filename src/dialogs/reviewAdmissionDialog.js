@@ -572,7 +572,9 @@ const ReviewAdmissionDialog = ({
           {applicationId ? (  <Accordion.Item eventKey="6">
             <Accordion.Header>Remarks</Accordion.Header>
             <Accordion.Body>
-           { remarks && remarks.map(  (remark)=>{return ( 
+           { remarks ?
+                 (   remarks.map(  (remark)=>{
+                  return ( 
           <> <div className="admin-detail-row">
           <div className="admin-detail-cell">
             <label>{remark.firstName}  {remark.lastName}</label>
@@ -595,8 +597,10 @@ const ReviewAdmissionDialog = ({
          
         </div></>
               )}
-              )}
-             
+              )) : <div style={{ textAlign: "center" }}>
+              No Record Found.
+            </div>
+           }
             </Accordion.Body>
           </Accordion.Item>) : ""}
         </Accordion>
