@@ -129,6 +129,10 @@ export const Layout = ({ admissionSummary, ...props }) => {
                     <label className='lbl'>Denied</label>{' '}
                     <span className='value text-danger'>{admissionSummary?.denied || 0}</span>
                   </div>
+                  <div className='app-status-cell'>
+                    <label className='lbl'>Revoked</label>{' '}
+                    <span className='value text-danger'>{admissionSummary?.revoked || 0}</span>
+                  </div>
                 </ListGroup.Item>
               </ListGroup>
             </div>
