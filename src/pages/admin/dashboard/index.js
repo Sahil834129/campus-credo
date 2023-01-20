@@ -96,6 +96,7 @@ export const Dashboard = () => {
             approved={applicationApproved}
             declined={declinedOffer}
             applicationStatus={dashBoardData?.applicationStatus}
+            totalApplication={dashBoardData?.upperSchoolAdmissionSummary?.totalApplication}
           />
           <SeatsFeesGraph schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} applicationStatus={dashBoardData?.applicationStatus} />
         </div>
