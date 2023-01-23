@@ -7,6 +7,7 @@ import LoginDialog from "../dialogs/loginDialog";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
 import { setIsUserLoggedIn } from "../redux/actions/userAction";
+import { ActionTypes } from "../redux/constants/action-types";
 import { getLocalData, isLoggedIn, logout } from "../utils/helper";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -71,6 +72,7 @@ const LoggedInUserDropDown = () => {
     const logoutUser = () => {
         logout();
         dispatch(setIsUserLoggedIn(isLoggedIn()));
+        dispatch({type: ActionTypes.LOGOUT})
         navigate("/")
     }
     
