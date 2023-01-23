@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from "react";
+import OtpTimer from "otp-timer";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import OtpInput from "react-otp-input";
 import { Link, useNavigate } from "react-router-dom";
-import {Form, Button} from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
 import RegisterInfoGraphic from "../components/user/RegisterInfoGraphic";
-import {Container} from 'react-bootstrap';
+import RestEndPoint from "../redux/constants/RestEndpoints";
 import { isValidatePhone, resetUserLoginData, setUserLoginData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import {ToastContainer, toast} from "react-toastify";
-import OtpTimer from "otp-timer";
-import OtpInput from "react-otp-input";
 
 const SignIn = () => {
     const navigate = useNavigate();
@@ -111,19 +110,21 @@ const SignIn = () => {
                                             <OtpInput
                                                 onChange={handleOtpChange}
                                                 numInputs={4}
+                                                
                                                 isInputNum={true}
                                                 shouldAutoFocus
                                                 value={otp}
                                                 placeholder="------"
                                                 inputStyle={{
-                                                    color: "blue",
-                                                    width: "2.5rem",
-                                                    height: "3rem",
-                                                    margin: "0 0.5rem",
-                                                    fontSize: "2rem",
-                                                    borderRadius: 4,
-                                                    caretColor: "blue",
-                                                    border: "1px solid rgba(0,0,0,0.3)",
+                                                    // color: "blue",
+                                                    // width: "2.5rem",
+                                                    // height: "3rem",
+                                                    // margin: "0 0.5rem",
+                                                    // fontSize: "2rem",
+                                                    // borderRadius: 4,
+                                                    // caretColor: "blue",
+                                                    // border: "1px solid rgba(0,0,0,0.3)",
+                                                    
                                                 }}
 
                                             />
