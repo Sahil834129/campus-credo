@@ -1,9 +1,12 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
+import { getCurrentModulePermission } from '../../utils/helper'
 import Layout from './layout'
 
 export const ManageFees = () => {
+  const isWritePermission = getCurrentModulePermission("Manage Admission");
+
   return (
     <Layout>
       <div className='content-area-inner inner-page-outer'>
@@ -21,7 +24,7 @@ export const ManageFees = () => {
             <div className='title-area'>
               <h2>Configure Tuition Fees Payment</h2>
               <div className='btn-wrapper'>
-                <Button className='reset-btn'>Reset</Button>
+                <Button className='reset-btn'   disabled={!isWritePermission}>Reset</Button>
                 <Button className='save-btn'>Save</Button>
               </div>
             </div>
@@ -48,19 +51,19 @@ export const ManageFees = () => {
                       />
                     </td>
                     <td>
-                      <Form.Control type='num' placeholder='₹1000' />
+                      <Form.Control type='num' disabled={!isWritePermission} placeholder='₹1000' />
                     </td>
                     <td>
-                      <Form.Control type='num' placeholder='₹1000' />
+                      <Form.Control type='num' disabled={!isWritePermission} placeholder='₹1000' />
                     </td>
                     <td>
-                      <Form.Control type='num' placeholder='₹1000' />
+                      <Form.Control type='num' disabled={!isWritePermission} placeholder='₹1000' />
                     </td>
                     <td>
-                      <Form.Control type='num' placeholder='₹1000' />
+                      <Form.Control type='num'disabled={!isWritePermission} placeholder='₹1000' />
                     </td>
                     <td>
-                      <Form.Control type='num' placeholder='₹1000' />
+                      <Form.Control type='num' disabled={!isWritePermission} placeholder='₹1000' />
                     </td>
                     <td>
                       <div className='btn-wrapper'>

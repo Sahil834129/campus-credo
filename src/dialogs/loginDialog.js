@@ -44,7 +44,16 @@ const LoginDialog = (props) => {
   const [validationErrors, setValidationErrors] = useState({});
   const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] =
     useState(false);
-
+    const [passwordType, setPasswordType] = useState("password");
+    
+    const togglePassword =()=>{
+      if(passwordType==="password")
+      {
+       setPasswordType("text")
+       return;
+      }
+      setPasswordType("password")
+    }
   useEffect(() => {
     if (otpSentCounter === 4) {
       setOtpMinutes(2);
@@ -216,7 +225,11 @@ const LoginDialog = (props) => {
       toast.error(RESTClient.getAPIErrorMessage(err));
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+    signIn();
+    }
+  };
   return (
     <>
       <GenericDialog
@@ -236,6 +249,7 @@ const LoginDialog = (props) => {
                 <Form.Control
                   type="phone"
                   maxLength="10"
+                  onKeyDown={handleKeyDown}
                   onChange={(e) => setPhone(e.target.value)}
                   onBlur={(e) => handlePhoneBlur(e.target.value)}
                   placeholder="Mobile Number"
@@ -291,14 +305,20 @@ const LoginDialog = (props) => {
                       }}
                     />
                   ) : (
+                    <div>
                     <Form.Control
-                      type="password"
+                    type={passwordType}
                       placeholder={loginWithOTP ? "OTP" : "Password"}
                       onChange={(e) => setOtpOrPassword(e.target.value)}
                       onBlur={(e) => handlePasswordBlur(e.target.value)}
                       onCopy={(e) => e.preventDefault()}
                       onPaste={(e) => e.preventDefault()}
+                      onKeyDown={handleKeyDown}
                     />
+                    <span onClick={togglePassword} >
+                     { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                     </span>
+                     </div>
                   )}
                   {loginWithOTP ? getSendOTPLinkMessage() : ""}
                 </div>
