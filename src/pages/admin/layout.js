@@ -114,16 +114,16 @@ export const Layout = ({ admissionSummary, ...props }) => {
                 </ListGroup.Item>
                 <ListGroup.Item className='application-status'>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Accepted</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.accepted || 0} </span>{' | '}
+                    <label className='lbl'>Approved</label>{' '}
+                    <span className='value text-success'>{admissionSummary?.approved || 0}</span>{' | '}
                   </div>
                   <div className='app-status-cell'>
                     <label className='lbl'>Declined</label>{' '}
                     <span className='value text-danger'>{admissionSummary?.declined || 0}</span>{' | '}
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Approved</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.approved || 0}</span>{' | '}
+                    <label className='lbl'>Accepted</label>{' '}
+                    <span className='value text-success'>{admissionSummary?.accepted || 0} </span>{' | '}
                   </div>
                   <div className='app-status-cell'>
                     <label className='lbl'>Denied</label>{' '}
