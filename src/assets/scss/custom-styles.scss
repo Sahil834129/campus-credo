@@ -4689,6 +4689,8 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           display: flex;
           flex-direction: row;
           align-items: center;
+          font-size: 14px;
+          margin: 16px 0 0 0;
           .loginoption-cell{
             margin-right: 8px;
             display: flex;
@@ -4696,7 +4698,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
             h2{
               font-style: normal;
               font-weight: 500;
-              font-size: 16px;
+              font-size: 14px;
               line-height: 24px;
               color: #000000;
               margin-right: 8px;
@@ -4710,77 +4712,172 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               }
             }
           }
+          
         }
-        .otp-fields-wrapper{
-          background: #FFFFFF;
-          border: 1px solid #D9D9D9;
-          border-radius: 4px;
-          padding: 32px 16px 16px 16px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          &:has(input[type="password"]){
-            border: none;
-            padding: 0;
-          }
-          div{
-            margin-bottom: 8px;
-            div{
-              input[type="tel"]{
+        .otp-fld-outer{
+          .otp-fields-wrapper{
+          
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            &:has(input[type="password"]){
+              border: none;
+              padding: 0;
+            }
+            &.otp-comp{
+              
+              .otp-inner-fld{
                 background: #FFFFFF;
                 border: 1px solid #D9D9D9;
                 border-radius: 4px;
-                font-style: normal;
-                font-weight: 400;
-                font-size: 24px;
-                line-height: auto;
-                margin: 0 8px;
-                &:focus{border: 1px solid $primarycolor;}
+                padding: 32px 16px 16px 16px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                div{
+                  margin-bottom: 8px;
+                  div{
+                    input[type="tel"]{
+                      background: #FFFFFF;
+                      border: 1px solid #D9D9D9;
+                      border-radius: 4px;
+                      font-style: normal;
+                      font-weight: 400;
+                      font-size: 24px;
+                      line-height: auto;
+                      margin: 0 8px;
+                      &:focus{border: 1px solid $primarycolor;}
+                    }
+                  }
+                  button{
+                    background: $secondarycolor;
+                    color: $white;
+                    border-radius: 4px;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px !important;
+                    line-height: 18px;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    height: auto;
+                    justify-content: center;
+                    width: 100%;
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                    padding: 6px 10px;
+                    box-shadow: 0 6px 12px rgb(37 46 72 / 10%);
+                    span{
+                      font-size: 14px !important;
+                    line-height: 18px;
+                    }
+    
+                  }
+                }
               }
-            }
-            button{
-              background: $secondarycolor;
-              color: $white;
-              border-radius: 4px;
-              font-style: normal;
-              font-weight: 400;
-              font-size: 14px !important;
-              line-height: 18px;
-              text-align: center;
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              height: auto;
-              justify-content: center;
-              width: 100%;
-              margin-top: 8px;
-              margin-bottom: 8px;
-              padding: 6px 10px;
-              box-shadow: 0 6px 12px rgb(37 46 72 / 10%);
-              span{
+              div{
+                margin-bottom: 8px;
+                display: flex;
+                width: 100%;
                 font-size: 14px !important;
-              line-height: 18px;
+                text-align: center;
+                justify-content: center;
+                div{
+                  input[type="tel"]{
+                    background: #FFFFFF;
+                    border: 1px solid #D9D9D9;
+                    border-radius: 4px;
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 24px;
+                    line-height: auto;
+                    margin: 0 8px;
+                    &:focus{border: 1px solid $primarycolor;}
+                  }
+                }
+                button{
+                  background: $darkgreen !important;
+                  color: $white;
+                  border-radius: 4px;
+                  font-style: normal;
+                  font-weight: 400;
+                  font-size: 14px !important;
+                  line-height: 18px;
+                  text-align: center;
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  height: auto;
+                  justify-content: center;
+                  width: 100%;
+                  margin-top: 8px;
+                  margin-bottom: 8px;
+                  padding: 6px 10px;
+                  box-shadow: 0 6px 12px rgb(37 46 72 / 10%);
+                  span{
+                    font-size: 14px !important;
+                  line-height: 18px;
+                  }
+  
+                }
               }
-
             }
             
+            a{
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 18px;
+              display: flex;
+              align-items: center;
+              text-align: center;
+              letter-spacing: 0.01em;
+              color: rgba(0, 0, 0, 0.8);
+              justify-content: center;
+              background: #efefef;
+              width: 100%;
+              padding: 2px 4px;
+              border-radius: 0 0 4px 4px;
+              &:hover{
+                color: $white;
+                text-decoration: underline;
+                background: $darkgreen;
+              }
           }
-         a{
-          font-style: normal;
-          font-weight: 400;
-          font-size: 14px;
-          line-height: 18px;
+
+          
+          }
+        }
+        .signin-fld-grp{
           display: flex;
-          align-items: center;
-          text-align: center;
-          letter-spacing: 0.01em;
-          color: rgba(0, 0, 0, 0.8);
-          &:hover{
-            color: $darkgreen;
-            text-decoration: underline;
+          &.pwd-fld-wrap{
+            display: flex;
+            margin-top: 16px;
+            
+            .otp-fields-wrapper{
+              display: flex;
+              width: 100%;
+              align-items: flex-start;
+              background: none;
+              padding: 0;
+              border: none;
+              .pwd-fld-outer{
+                display: flex;
+                width: 100%;
+                position: relative;
+                margin-bottom: 0;
+                .view-pwd-icon{
+                  position: absolute;
+                  right: 12px;
+                  top: 20%;
+                }
+              }
+            }
           }
-         }
         }
       }
     }
