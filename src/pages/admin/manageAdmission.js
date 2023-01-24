@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import DateRangePicker from '../../common/DateRangePicker';
 import { getCurrentModulePermission } from "../../utils/helper";
 import {
-  getClassAdmissionData, getClassAdmissionSessionData, saveClassAdmissionData
+  getClassAdmissionData, getClassAdmissionSessionData, removeClassAdmissionData, saveClassAdmissionData
 } from '../../utils/services';
 import Layout from './layout';
 
@@ -49,6 +49,12 @@ export const ManageAdmission = () => {
     return null;
   };
 
+  const disabledRow = (currentDate) => {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    return currentDate ? (currentDate < now) : false;
+  };
+
   const fetchClassAdmissionData = (session) => {
     getClassAdmissionData(session)
       .then(response => {
@@ -82,6 +88,12 @@ export const ManageAdmission = () => {
     }
     return parseDate;
   };
+  const getYesterdayDate = () => {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    now.setDate(now.getDate() - 1);
+    return now;
+  }
 
   const handleSubmitData = (formData, selectedSession) => {
     let postData = JSON.parse(JSON.stringify(formData.data));
@@ -115,8 +127,13 @@ export const ManageAdmission = () => {
 
       return val;
     });
-
-    saveClassAdmissionData(postData)
+    let apiCall;
+    if (postData.length > 0) {
+      apiCall = saveClassAdmissionData(postData);
+    } else {
+      apiCall = removeClassAdmissionData(selectedSession);
+    }
+    apiCall
       .then(() => {
         setFormData(formData.data);
         setChangedData(formData.data);
@@ -219,7 +236,7 @@ export const ManageAdmission = () => {
                                           type='switch'
                                           name={`data.${index}.isOpen`}
                                           id='custom-switch'
-                                          disabled={!isWritePermission}
+                                          disabled={!isWritePermission || disabledRow(admissionData?.formSubmissionStartDate)}
                                           checked={admissionData.isOpen}
                                           onChange={e => {
                                             handleData(
@@ -242,7 +259,7 @@ export const ManageAdmission = () => {
                                         name={`data[${index}].vacantSeats`}
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         value={admissionData?.vacantSeats || ''}
-                                        disabled={!isWritePermission || !admissionData?.isOpen}
+                                        disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
                                         required
                                         min="1"
                                         max={admissionData.capacity}
@@ -266,6 +283,7 @@ export const ManageAdmission = () => {
                                           admissionData?.formSubmissionEndDate ||
                                           null
                                         ]}
+                                        minDate={getYesterdayDate()}
                                         dateRangeValue={[
                                           formData[index]?.formSubmissionStartDate,
                                           formData[index]?.formSubmissionEndDate
@@ -276,7 +294,7 @@ export const ManageAdmission = () => {
                                         ]}
                                         setFieldData={setFieldValue}
                                         handleData={handleData}
-                                        disabled={!isWritePermission || !admissionData?.isOpen}
+                                        disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
                                         clearDependentValue={() => {
                                           handleData(
                                             setFieldValue,
@@ -324,7 +342,7 @@ export const ManageAdmission = () => {
                                         setFieldData={setFieldValue}
                                         minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
-                                        disabled={!isWritePermission || !admissionData?.isOpen}
+                                        disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
 
                                       />
                                     </td>
@@ -347,7 +365,7 @@ export const ManageAdmission = () => {
                                         setFieldData={setFieldValue}
                                         minDate={admissionData?.formSubmissionEndDate}
                                         handleData={handleData}
-                                        disabled={!isWritePermission || !admissionData?.isOpen}
+                                        disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
 
                                       />
                                     </td>
@@ -361,7 +379,7 @@ export const ManageAdmission = () => {
                                         name={`data[${index}].formFee`}
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                                         value={admissionData?.formFee || ''}
-                                        disabled={!isWritePermission || !admissionData?.isOpen}
+                                        disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
 
                                         onChange={e => {
                                           handleData(
@@ -381,7 +399,7 @@ export const ManageAdmission = () => {
                                         min="1"
                                         name={`data[${index}].registrationFee`}
                                         value={admissionData?.registrationFee || ''}
-                                        disabled={!isWritePermission || !admissionData?.isOpen}
+                                        disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
 
                                         onPaste={e => e.preventDefault()}
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}

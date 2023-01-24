@@ -91,7 +91,7 @@ const SchoolDetails = () => {
                     <div className="school-details-container">
                       <SchoolBasicInfo schoolDetails={schoolDetails} />
                       {isLoggedIn() &&
-                      schoolDetails.hasOwnProperty("admissionInfo") ? (
+                      schoolDetails.hasOwnProperty("admissionInfo")  && schoolDetails.partner? (
                         <ApplyToSchool
                           schoolId={schoolId}
                           schoolDetails={schoolDetails}

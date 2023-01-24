@@ -11,7 +11,7 @@ export default function ApplicationStatus({labels,received, approved, declined, 
                 <div className='right-col'>
                     <ListGroup className='clist-group'>
                         <ListGroup.Item>
-                            <span className='value'>{totalApplication || 0}</span>
+                            <span className='value'>{applicationStatus?.received || 0}</span>
                             <label>Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>

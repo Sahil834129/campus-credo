@@ -46,7 +46,7 @@ function DateRangePicker({
           disabled={disabled}
         />
       }
-      isClearable={true}
+      isClearable={!disabled}
     />
   );
 }
