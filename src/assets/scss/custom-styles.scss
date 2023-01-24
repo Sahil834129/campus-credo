@@ -409,6 +409,17 @@
             flex-direction: column;
             flex: 1 1;
             margin-bottom:10px;
+            &.pwd-cell{
+              position: relative;
+              .fld-wrap{
+                position: relative;
+              }
+              .view-pwd-icon{
+                position: absolute;
+                right: 12px;
+                top: 26%;
+              }
+            }
             label{}
             .fld-wrap{
               input[type=text] {
