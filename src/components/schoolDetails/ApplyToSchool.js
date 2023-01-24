@@ -226,7 +226,7 @@ const ApplyToSchool = (props) => {
 										}
 									>
 									<option defaultValue='' disabled value="">
-										Child
+										--Child--
 									</option>
 									{childsList.map((child, i) => {
 										return (
@@ -247,7 +247,9 @@ const ApplyToSchool = (props) => {
 										}
 										id="validationCustom04"
 										>
-										<option disabled value="">Class</option>
+										<option disabled value="">
+											--Class--
+										</option>
 										{classOptions.map((option, i) => {
 											return (
 												<option key={"class_" + i} value={option.value}>
@@ -271,7 +273,7 @@ const ApplyToSchool = (props) => {
 										id="validationCustom04"
 										>
 										<option disabled value="">
-											Session
+											--Session--
 										</option>
 										{sessionOptions.map((option, i) => {
 											return (

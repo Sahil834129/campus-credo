@@ -31,6 +31,7 @@ const CartItemCard = (props) => {
             hideLoader(dispatch)
             toast.success("School deleted successfully.");
         } catch (e) {
+            hideLoader(dispatch)
             toast.error("Error while removing from cart. Please try again later.");
         }
     }

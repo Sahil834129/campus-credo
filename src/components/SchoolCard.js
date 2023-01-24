@@ -71,7 +71,7 @@ const SchoolCard = (props) => {
                         {
                             (school.monthlyFeeMin && school.monthlyFeeMax) ? 
                                 <div className='right fee-wrap'><span className='fee-to'>₹{school.monthlyFeeMin}</span> to <span className='fee-from'>₹{school.monthlyFeeMax}</span></div>
-                             :"NA" 
+                             :<span className="right seats">NA</span> 
                         }
                        </ListGroup.Item>
                     <ListGroup.Item>
@@ -98,7 +98,9 @@ const SchoolCard = (props) => {
                 </ListGroup>
                 <Card.Body className='button-wrap'>
                     <Card.Link onClick={(e)=>{handleViewDetails(school.schoolId, school.schoolName);e.stopPropagation()}} className='view'>View Details</Card.Link>
-                    <Card.Link className='add' onClick={(e)=> {handleAddToCart(school.schoolId, school.admissionInfo ? true :false);e.stopPropagation()}}>Add to Apply</Card.Link>
+                {school?.partner &&
+                    <Card.Link className="add" onClick={(e)=> {handleAddToCart(school.schoolId, school.admissionInfo ? true :false);e.stopPropagation()}}>Add to Apply</Card.Link>
+                }
                 </Card.Body>
                 <Col className='salient-features'>
                     <Row className='partner-wrap'>

@@ -98,13 +98,13 @@ const SignIn = () => {
                         <div className="form-title"><span>Sign In</span></div>
                         <div className="form-container">
                             <Form>
-                                <Form.Group className="mb-3">
+                                <Form.Group className="signin-fld-grp">
                                     <Form.Control type="phone" onChange={e=> setPhone(e.target.value)} placeholder="Mobile Number" />
                                 </Form.Group>
-                                <div>Sign in using <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)}/>
+                                <div className="singin-options-wrap">Sign in using <Form.Check inline type="radio" name="loginWithOTP" checked={!loginWithOTP} onChange={e => setLoginWithOTP(!e.target.checked)}/>
                                     password <Form.Check inline type="radio" name="loginWithOTP" checked={loginWithOTP} onChange={e => setLoginWithOTP(e.target.checked)} />
                                     Mobile OTP</div>
-                                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                <Form.Group className="signin-fld-grp" controlId="formBasicCheckbox">
                                 <div className="otp-fields-wrapper mt-3 mb-3">
                                         {loginWithOTP === true ? (
                                             <OtpInput

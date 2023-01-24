@@ -85,7 +85,7 @@ const resendOtpForPhoneVerify=async()=>
                                         <OtpTimer minutes={0}
                                             seconds={30}
                                             text="Resend OTP in"
-                                            ButtonText="Send OTP"
+                                            ButtonText="Resend OTP"
                                             resend={() => {
                                                 resendOtpForPhoneVerify();
                                             }}

@@ -223,7 +223,7 @@ export const ManageProfile = () => {
                             updateUserProfile(values);
                           }}
                         >
-                          {({ values, resetForm, errors, touched }) => (
+                          {({ values, resetForm, errors, touched ,setFieldValue }) => (
                             <Form className="row g-3">
                               <div className="col-md-6">
                                 <InputField
@@ -270,6 +270,8 @@ export const ManageProfile = () => {
                                   placeholder=""
                                   selectOptions={stateOptions}
                                   onChange={(e) => {
+                                    setFieldValue('state', e.target.value);
+                                    setFieldValue("city" , "");
                                     populateCities(e.target.value);
                                   }}
                                   errors={errors}

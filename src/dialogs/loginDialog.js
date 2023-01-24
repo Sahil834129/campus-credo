@@ -44,7 +44,16 @@ const LoginDialog = (props) => {
   const [validationErrors, setValidationErrors] = useState({});
   const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] =
     useState(false);
-
+    const [passwordType, setPasswordType] = useState("password");
+    
+    const togglePassword =()=>{
+      if(passwordType==="password")
+      {
+       setPasswordType("text")
+       return;
+      }
+      setPasswordType("password")
+    }
   useEffect(() => {
     if (otpSentCounter === 4) {
       setOtpMinutes(2);
@@ -216,7 +225,11 @@ const LoginDialog = (props) => {
       toast.error(RESTClient.getAPIErrorMessage(err));
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+    signIn();
+    }
+  };
   return (
     <>
       <GenericDialog
@@ -232,10 +245,11 @@ const LoginDialog = (props) => {
           </h4>
           <div className="form-container">
             <Form>
-              <Form.Group className="mb-3">
+              <Form.Group className="signin-fld-grp">
                 <Form.Control
                   type="phone"
                   maxLength="10"
+                  onKeyDown={handleKeyDown}
                   onChange={(e) => setPhone(e.target.value)}
                   onBlur={(e) => handlePhoneBlur(e.target.value)}
                   placeholder="Mobile Number"
@@ -273,9 +287,10 @@ const LoginDialog = (props) => {
                   <label>Mobile OTP</label>
                 </span>
               </div>
-              <Form.Group className="mb-3">
-                <div className="otp-fields-wrapper mt-3 mb-2">
+              <Form.Group className="signin-fld-grp pwd-fld-wrap otp-fld-outer">
+                <div className="otp-fields-wrapper otp-comp">
                   {loginWithOTP === true ? (
+                    <div className="otp-inner-fld">
                     <OtpInput
                       onChange={handleOtpChange}
                       numInputs={4}
@@ -290,15 +305,22 @@ const LoginDialog = (props) => {
                         caretColor: "#000000",
                       }}
                     />
+                    </div>
                   ) : (
-                    <Form.Control
-                      type="password"
-                      placeholder={loginWithOTP ? "OTP" : "Password"}
-                      onChange={(e) => setOtpOrPassword(e.target.value)}
-                      onBlur={(e) => handlePasswordBlur(e.target.value)}
-                      onCopy={(e) => e.preventDefault()}
-                      onPaste={(e) => e.preventDefault()}
-                    />
+                    <div className="pwd-fld-outer">
+                      <Form.Control
+                      type={passwordType}
+                        placeholder={loginWithOTP ? "OTP" : "Password"}
+                        onChange={(e) => setOtpOrPassword(e.target.value)}
+                        onBlur={(e) => handlePasswordBlur(e.target.value)}
+                        onCopy={(e) => e.preventDefault()}
+                        onPaste={(e) => e.preventDefault()}
+                        onKeyDown={handleKeyDown}
+                      />
+                      <span className="view-pwd-icon" onClick={togglePassword} >
+                      { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                      </span>
+                     </div>
                   )}
                   {loginWithOTP ? getSendOTPLinkMessage() : ""}
                 </div>

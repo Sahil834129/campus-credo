@@ -23,6 +23,8 @@ const SignUp = () => {
   const [cityOptions, setCityOptions] = useState([
     { text: "Select City", value: "" },
   ]);
+  const [passwordType, setPasswordType] = useState("password");
+  const [confirmPasswordType, setConfirmPasswordType] = useState("password");
   const stateOptions = useSelector((state) => state.masterData.states);
   useEffect(() => {
     dispatch(getStates());
@@ -40,7 +42,23 @@ const SignUp = () => {
         toast.error(RESTClient.getAPIErrorMessage(error));
       });
   };
-
+  const togglePassword =()=>{
+    if(passwordType==="password")
+    {
+     setPasswordType("text")
+     return;
+    }
+      setPasswordType("password");
+  }
+  const toggleConfirmPassword =()=>{
+    if(confirmPasswordType==="password")
+    {
+      setConfirmPasswordType("text")
+     return;
+    }
+     setConfirmPasswordType("password");
+   
+  }
   return (
     <Container className="main-container signup-main" fluid>
       <div className="signup-wrapper">
@@ -134,11 +152,14 @@ const SignUp = () => {
                         </label>
                           <InputField
                             fieldName="password"
-                            fieldType="password"
+                            fieldType={passwordType}
                             placeholder="Password"
                             errors={errors}
                             touched={touched}
                           />
+                           <span className="view-pwd-icon" onClick={togglePassword} >
+                      { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                      </span>
                       </div>{" "}
                       
                       <div className="frm-cell">
@@ -147,11 +168,14 @@ const SignUp = () => {
                         </label>
                         <InputField
                           fieldName="confirmPassword"
-                          fieldType="password"
+                          fieldType={confirmPasswordType}
                           placeholder="Confirm Password"
                           errors={errors}
                           touched={touched}
                         />
+                        <span className="view-pwd-icon" onClick={toggleConfirmPassword} >
+                      { confirmPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                      </span>
                       </div>{" "}
                     </div>
                     <div className="frm-row">
