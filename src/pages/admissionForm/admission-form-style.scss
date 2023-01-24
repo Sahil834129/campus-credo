@@ -50,6 +50,10 @@
         background: #fff;
         padding: 24px;
         border-radius: 12px;
+        overflow: auto;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 16%;
       .navbar-text{
         padding: 0;
         &:last-child{
