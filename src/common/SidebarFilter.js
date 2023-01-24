@@ -202,7 +202,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
           applyFilter(values);
         }}
       >
-        {({ errors, resetForm, touched }) => (
+        {({ errors, resetForm, touched , values }) => (
           <Form className="filter-components">
             <div className="filter-head">
               <h2>
@@ -216,6 +216,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                 fieldName="status"
                 fieldType="select"
                 placeholder=""
+                value={values.status}
                 label="Admission Status"
                 selectOptions={admissionStatusOptions}
                 errors={errors}
@@ -227,6 +228,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                 fieldName="distance"
                 fieldType="select"
                 placeholder=""
+                value={values.distance}
                 label="Distance from Home"
                 selectOptions={distanceOptions}
                 errors={errors}
@@ -238,6 +240,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                 fieldName="class"
                 fieldType="select"
                 placeholder=""
+                value={values.class}
                 label="Class"
                 selectOptions={classOptions}
                 errors={errors}
@@ -271,6 +274,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                 fieldName="board"
                 fieldType="select"
                 placeholder=""
+                value={values.board}
                 label="School Board"
                 selectOptions={boardOptions}
                 errors={errors}
@@ -281,6 +285,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
               <InputField
                 fieldName="gender"
                 fieldType="select"
+                value={values.gender}
                 placeholder=""
                 label="Gender"
                 selectOptions={genderOptions}
@@ -292,6 +297,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
               <InputField
                 fieldName="medium"
                 fieldType="select"
+                value={values.medium}
                 placeholder=""
                 label="Medium of Instruction"
                 selectOptions={mediumOfInstructionsOtions}

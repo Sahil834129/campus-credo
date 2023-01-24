@@ -71,7 +71,7 @@ const SchoolCard = (props) => {
                         {
                             (school.monthlyFeeMin && school.monthlyFeeMax) ? 
                                 <div className='right fee-wrap'><span className='fee-to'>₹{school.monthlyFeeMin}</span> to <span className='fee-from'>₹{school.monthlyFeeMax}</span></div>
-                             :<div className='right seats'>NA</div>
+                             :<span className="right seats">NA</span> 
                         }
                        </ListGroup.Item>
                     <ListGroup.Item>
