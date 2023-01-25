@@ -17,6 +17,7 @@ import { getAge, getStudentAge } from '../../utils/helper';
 import { handleStateChange, populateCities } from '../../utils/populateOptions';
 import RESTClient from '../../utils/RestClient';
 
+
 export default function ParentsGuardianForm({
   currentStudent,
   setStep,
@@ -206,7 +207,7 @@ export default function ParentsGuardianForm({
                     value={values.firstName}
                     required
                     fieldType='text'
-                    placeholder='Please add details...'
+                    placeholder='First Name'
                     errors={validationErrors}
                     onChange={e => {
                       setFieldValue('firstName', e.target.value);
@@ -220,7 +221,7 @@ export default function ParentsGuardianForm({
                     value={values.lastName}
                     required
                     fieldType='text'
-                    placeholder='Please add details...'
+                    placeholder='Last Name'
                     errors={validationErrors}
                     onChange={e => {
                       setFieldValue('lastName', e.target.value);

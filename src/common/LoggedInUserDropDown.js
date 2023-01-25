@@ -99,7 +99,7 @@ const LoggedInUserDropDown = () => {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div></> 
-                : <div className="profile-login"><Link onClick={handleShowLoginDialog}>Sign in/Join us</Link></div>
+                : <div className="profile-login"><Link onClick={handleShowLoginDialog}>Sign In/Join Us</Link></div>
             }
             </div>
         }

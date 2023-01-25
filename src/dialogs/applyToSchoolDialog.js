@@ -1,8 +1,8 @@
-import React , {useState, useEffect} from "react";
-import RESTClient from "../utils/RestClient";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import ApplyToSchool from "../components/schoolDetails/ApplyToSchool";
+import React, { useEffect, useState } from "react";
 import "../assets/scss/custom-styles.scss";
+import ApplyToSchool from "../components/schoolDetails/ApplyToSchool";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import RESTClient from "../utils/RestClient";
 import GenericDialog from "./GenericDialog";
 
 const ApplyToSchoolDialog = (props) => {
@@ -22,7 +22,7 @@ const ApplyToSchoolDialog = (props) => {
     }
 	
     return (
-        <GenericDialog className='signin-model readytoapply-model' show={props.show} handleClose={props.handleClose} modalHeader='Ready to Apply?'>
+        <GenericDialog className='signin-model readytoapply-model' show={props.show} handleClose={props.handleClose} modalHeader='Ready To Apply?'>
             <ApplyToSchool schoolId={schoolId} schoolDetails={schoolDetails} handleClose={props.handleClose}/>
         </GenericDialog>
     )
