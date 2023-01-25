@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { ACCEPT_MIME_TYPE, FILE_SIZE, FILE_UPLOAD_ERROR } from "../../constants/app";
+import { hideLoader, showLoader } from "../../common/Loader";
+import {
+  ACCEPT_MIME_TYPE,
+  FILE_SIZE,
+  FILE_UPLOAD_ERROR,
+} from "../../constants/app";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { humanize } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
@@ -15,6 +21,7 @@ export function DocumentTableFormat({
 }) {
   const [fileUploadErrors, setFileUploadErrrors] = useState({});
   const [files, setFiles] = useState({});
+  const dispatch = useDispatch();
 
   const handleFileChangeInput = (e) => {
     setFiles((val) => {
@@ -32,6 +39,7 @@ export function DocumentTableFormat({
     formData.append("documentName", documentName);
 
     try {
+      showLoader(dispatch);
       const response = await RESTClient.post(
         RestEndPoint.STUDENT_DOCUMENT_UPLOAD,
         formData
@@ -50,6 +58,7 @@ export function DocumentTableFormat({
         setDocument(data);
         delete fileData[documentName];
         setFiles(fileData);
+        hideLoader(dispatch);
       }
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));
@@ -57,15 +66,16 @@ export function DocumentTableFormat({
   };
 
   const validateFile = (uploadFile) => {
-    
     if (uploadFile.size > FILE_SIZE) {
-      toast.error(FILE_UPLOAD_ERROR.FILE_SIZE_ERROR_MSG)
+      toast.error(FILE_UPLOAD_ERROR.FILE_SIZE_ERROR_MSG);
       return false;
     }
-    
-    if(ACCEPT_MIME_TYPE.find((element) => element === uploadFile.type) ===undefined)
-    {
-      toast.error(FILE_UPLOAD_ERROR.FILE_TYPE_ERROR_MSG)
+
+    if (
+      ACCEPT_MIME_TYPE.find((element) => element === uploadFile.type) ===
+      undefined
+    ) {
+      toast.error(FILE_UPLOAD_ERROR.FILE_TYPE_ERROR_MSG);
       return false;
     }
     return true;
@@ -88,10 +98,10 @@ export function DocumentTableFormat({
       };
     });
   };
-  useEffect(()=>{
-    setFiles({})
+  useEffect(() => {
+    setFiles({});
     setFileUploadErrrors({});
-  },[currentTab])
+  }, [currentTab]);
 
   return (
     <Table bordered hover className="document-tbl">
@@ -116,7 +126,7 @@ export function DocumentTableFormat({
               <input
                 type={"file"}
                 accept=".jpg,.jpeg,.png,.pdf"
-                style={{cursor:'pointer'}}
+                style={{ cursor: "pointer" }}
                 name={val.documentName}
                 onChange={handleFileChangeInput}
               />
