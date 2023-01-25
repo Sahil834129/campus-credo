@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { humanize, isEmpty } from "../utils/helper";
+import { getChildAge, humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
@@ -36,7 +36,8 @@ const ReviewAdmissionDialog = ({
   const [infoDeclarationAccepted, setInfoDeclarationAccepted] = useState(false);
   const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] =
     useState(false);
-    const [remarks, setRemarks] = useState([]);
+  const accordionRef = useRef(null);
+  const childAge = getChildAge(studentDetail.dateOfBirth);
 
   async function getChildProfile(childId) {
     try {
@@ -110,10 +111,6 @@ const ReviewAdmissionDialog = ({
       const response = await RESTClient.get(
         RestEndPoint.APPLICANT_DETAIL + `/${applicationId}`
       );
-      if(response.data.remarks!=="")
-      {
-        setRemarks(response.data.remarks);
-      }
       if (response.data.applicantProfile !== "") {
         setStudentDetail(response.data?.applicantProfile);
       }
@@ -251,7 +248,7 @@ const ReviewAdmissionDialog = ({
         modalHeader="Application Details"
       >
         <Accordion defaultActiveKey="0" flush>
-          <Accordion.Item eventKey="0">
+          <Accordion.Item eventKey="0" ref={accordionRef}>
             <Accordion.Header>Candidate Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
@@ -381,7 +378,8 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
+
+        {childAge >= 11 ? (<Accordion.Item eventKey="2">
             <Accordion.Header>Extracurriculars</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
@@ -398,13 +396,14 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {studentDetail.otherInterest
                       ? humanize(studentDetail.otherInterest)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
               </div>
             </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="3">
+          </Accordion.Item>):""}
+
+          {childAge >= 11 ? (<Accordion.Item eventKey="3">
             <Accordion.Header>Background Check</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row"></div>
@@ -412,10 +411,10 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>Any history of violent behaviour :</label>
                   <span className="item-entry">
-                    <br />{" "}
+                    <br />
                     {studentDetail.violenceBehaviour
                       ? humanize(studentDetail.violenceBehaviour)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -426,7 +425,7 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {studentDetail.suspension
                       ? humanize(studentDetail.offensiveConduct)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -436,12 +435,14 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {studentDetail.suspension
                       ? humanize(studentDetail.suspension)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
               </div>
             </Accordion.Body>
-          </Accordion.Item>
+          </Accordion.Item>):""}
+
+
           <Accordion.Item eventKey="4">
             <Accordion.Header>Parents/Guardian</Accordion.Header>
             <Accordion.Body>
@@ -569,53 +570,6 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          {applicationId ? (  <Accordion.Item eventKey="6">
-            <Accordion.Header>Remarks</Accordion.Header>
-            <Accordion.Body>
-           { remarks ?
-                 (   remarks.map(  (remark)=>{
-                  return ( 
-          <> 
-          
-          <div className="remark-block item-row">
-                        <div className="item-cell remark-src">
-                          <label className="user-name">{remark.firstName} {remark.lastName}</label><span className="remark-dt">{remark.dateTime}</span>
-                        </div>
-                        <div className="item-cell remark-txt">
-                          <p>{remark.text}</p>
-                        </div>
-                      </div>
-
-          {/* <div className="admin-detail-row">
-          <div className="admin-detail-cell">
-            <label>{remark.firstName}  {remark.lastName}</label>
-          </div>
-          <div className="admin-detail-cell">
-          <label>{remark.dateTime}</label>
-          </div>
-        </div>
-        <div className="admin-detail-row">
-        <div className="admin-detail-cell">
-            <label>{remark.text}</label>
-            <span className="item-entry">
-            </span>
-          </div>
-          <div className="admin-detail-cell">
-            
-            <span className="item-entry">
-            </span>
-          </div>
-         
-        </div> */}
-        
-        </>
-              )}
-              )) : <div className="no-remarks" style={{ textAlign: "center" }}>
-              No Record Found.
-            </div>
-           }
-            </Accordion.Body>
-          </Accordion.Item>) : ""}
         </Accordion>
         {applicationId ? (
           ""
@@ -675,8 +629,8 @@ const ReviewAdmissionDialog = ({
               Download Details
             </Button>
             <div>
-              {/* Master Admission Manager Remarks:{" "}
-              <span className="text-danger">No Remarks</span> */}
+              Master Admission Manager Remarks:{" "}
+              <span className="text-danger">No Remarks</span>
             </div>
           </div>
         )}

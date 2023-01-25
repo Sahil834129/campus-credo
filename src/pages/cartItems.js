@@ -43,21 +43,24 @@ const ApplicationCart = () => {
     if (isLoggedIn()) dispatch(getItemsInCart());
   }, [dispatch]);
 
-  useEffect(() => {
-    let cartItemGrouped = {};
-    itemsInCart.childCartItemsList != null &&
-      itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
-        if (childCartItem.childId === selectedChild.id) {
-          setSelectedChild({
-            id: childCartItem.childId,
-            cartItems: childCartItem.cartItems,
-          });
-        }
-        cartItemGrouped[childCartItem.childId] = childCartItem.cartItems;
-      });
-
+useEffect(() => {
+    let cartItemGrouped = {}
+    let childCartItemUpdate = false;
+      itemsInCart.childCartItemsList != null &&
+        itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
+          if (!childCartItemUpdate && (childCartItem.childId === selectedChild.id || (selectedChild.cartItems.length === 0 && childCartItem.cartItems.length > 0))) {
+            setSelectedChild({
+              id: childCartItem.childId,
+              cartItems: childCartItem.cartItems,
+            });
+            childCartItemUpdate=true;
+            handleChildSelection(childCartItem.childId);
+          }
+          cartItemGrouped[childCartItem.childId] = childCartItem.cartItems;
+        });
     setCartItemsGroupByChild(cartItemGrouped);
   }, [itemsInCart]);
+
 
   useEffect(() => {
     getSimilarSchools();
@@ -68,7 +71,7 @@ const ApplicationCart = () => {
     for (let i = 0; i < itemsInCart.childCartItemsList.length; i++) {
       let childCartItem = itemsInCart.childCartItemsList[i];
       if (childCartItem.childId === parseInt(childId)) {
-        setSelectedChild({
+          setSelectedChild({
           id: childCartItem.childId,
           cartItems: childCartItem.cartItems,
         });
@@ -76,6 +79,7 @@ const ApplicationCart = () => {
       }
     }
   };
+
 
   const getSimilarSchools = async () => {
     try {
@@ -94,6 +98,7 @@ const ApplicationCart = () => {
     } catch (e) {}
   };
 
+
   return (
     <Layout>
       <section className="content-area">
@@ -107,44 +112,16 @@ const ApplicationCart = () => {
                     <label>
                       Select Child<span className="req">*</span>
                     </label>
-                    {/* <Form.Group className="item-list-container">
-                      {childs.map((c, i) => {
-                        return (
-                          <Form.Check
-                            type="radio"
-                            key={"cartChildSelect_" + i}
-                            name="selectChild"
-                            value={c.childId}
-                            checked={c.childId === selectedChild.id}
-                            onChange={(e) =>
-                              handleChildSelection(e.target.value)
-                            }
-                            label={
-                              c.firstName +
-                              " " +
-                              c.lastName +
-                              (cartItemsGroupByChild.hasOwnProperty(
-                                c.childId
-                              ) && cartItemsGroupByChild[c.childId].length > 0
-                                ? " (" +
-                                  cartItemsGroupByChild[c.childId].length +
-                                  ")"
-                                : "")
-                            }
-                          />
-                        );
-                      })}
-                    </Form.Group> */}
                     <Form.Select
                       aria-label="Default select example"
                       onChange={(e) => handleChildSelection(e.target.value)}
+                      value={selectedChild.id}
                     >
                       {childs.map((c, i) => (
                         <option
                           key={"cartChildSelect_" + i}
                           name="selectChild"
                           value={c.childId}
-                          onSelect={(e) => handleChildSelection(e.target.value)}
                         >
                           {c.firstName +
                             " " +
@@ -172,7 +149,6 @@ const ApplicationCart = () => {
                   <PaymentCard selectedChild={selectedChild} />
                 </Col>
               </div>
-
               <div className="cart-content-row nearby-title">
                 <h2>
                   You can also apply to following popular school in the same
