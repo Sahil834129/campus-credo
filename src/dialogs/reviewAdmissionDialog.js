@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const ReviewAdmissionDialog = ({
   const [infoDeclarationAccepted, setInfoDeclarationAccepted] = useState(false);
   const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] =
     useState(false);
-  const accordionRef = useRef(null);
+    const [remarks, setRemarks] = useState([]);
   const childAge = getChildAge(studentDetail.dateOfBirth);
 
   async function getChildProfile(childId) {
@@ -111,6 +111,10 @@ const ReviewAdmissionDialog = ({
       const response = await RESTClient.get(
         RestEndPoint.APPLICANT_DETAIL + `/${applicationId}`
       );
+      if(response.data.remarks!=="")
+      {
+        setRemarks(response.data.remarks);
+      }
       if (response.data.applicantProfile !== "") {
         setStudentDetail(response.data?.applicantProfile);
       }
@@ -248,7 +252,7 @@ const ReviewAdmissionDialog = ({
         modalHeader="Application Details"
       >
         <Accordion defaultActiveKey="0" flush>
-          <Accordion.Item eventKey="0" ref={accordionRef}>
+          <Accordion.Item eventKey="0">
             <Accordion.Header>Candidate Details</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
@@ -570,6 +574,53 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
+          {applicationId ? (  <Accordion.Item eventKey="6">
+            <Accordion.Header>Remarks</Accordion.Header>
+            <Accordion.Body>
+           { remarks ?
+                 (   remarks.map(  (remark)=>{
+                  return ( 
+          <> 
+          
+          <div className="remark-block item-row">
+                        <div className="item-cell remark-src">
+                          <label className="user-name">{remark.firstName} {remark.lastName}</label><span className="remark-dt">{remark.dateTime}</span>
+                        </div>
+                        <div className="item-cell remark-txt">
+                          <p>{remark.text}</p>
+                        </div>
+                      </div>
+
+          {/* <div className="admin-detail-row">
+          <div className="admin-detail-cell">
+            <label>{remark.firstName}  {remark.lastName}</label>
+          </div>
+          <div className="admin-detail-cell">
+          <label>{remark.dateTime}</label>
+          </div>
+        </div>
+        <div className="admin-detail-row">
+        <div className="admin-detail-cell">
+            <label>{remark.text}</label>
+            <span className="item-entry">
+            </span>
+          </div>
+          <div className="admin-detail-cell">
+            
+            <span className="item-entry">
+            </span>
+          </div>
+         
+        </div> */}
+        
+        </>
+              )}
+              )) : <div className="no-remarks" style={{ textAlign: "center" }}>
+              No Record Found.
+            </div>
+           }
+            </Accordion.Body>
+          </Accordion.Item>) : ""}
         </Accordion>
         {applicationId ? (
           ""
@@ -629,8 +680,8 @@ const ReviewAdmissionDialog = ({
               Download Details
             </Button>
             <div>
-              Master Admission Manager Remarks:{" "}
-              <span className="text-danger">No Remarks</span>
+              {/* Master Admission Manager Remarks:{" "}
+              <span className="text-danger">No Remarks</span> */}
             </div>
           </div>
         )}

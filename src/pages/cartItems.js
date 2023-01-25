@@ -43,8 +43,8 @@ const ApplicationCart = () => {
     if (isLoggedIn()) dispatch(getItemsInCart());
   }, [dispatch]);
 
-useEffect(() => {
-    let cartItemGrouped = {}
+  useEffect(() => {
+    let cartItemGrouped = {};
     let childCartItemUpdate = false;
       itemsInCart.childCartItemsList != null &&
         itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
@@ -60,7 +60,6 @@ useEffect(() => {
         });
     setCartItemsGroupByChild(cartItemGrouped);
   }, [itemsInCart]);
-
 
   useEffect(() => {
     getSimilarSchools();
@@ -80,7 +79,6 @@ useEffect(() => {
     }
   };
 
-
   const getSimilarSchools = async () => {
     try {
       let payload = {
@@ -98,7 +96,6 @@ useEffect(() => {
     } catch (e) {}
   };
 
-
   return (
     <Layout>
       <section className="content-area">
@@ -112,6 +109,34 @@ useEffect(() => {
                     <label>
                       Select Child<span className="req">*</span>
                     </label>
+                    {/* <Form.Group className="item-list-container">
+                      {childs.map((c, i) => {
+                        return (
+                          <Form.Check
+                            type="radio"
+                            key={"cartChildSelect_" + i}
+                            name="selectChild"
+                            value={c.childId}
+                            checked={c.childId === selectedChild.id}
+                            onChange={(e) =>
+                              handleChildSelection(e.target.value)
+                            }
+                            label={
+                              c.firstName +
+                              " " +
+                              c.lastName +
+                              (cartItemsGroupByChild.hasOwnProperty(
+                                c.childId
+                              ) && cartItemsGroupByChild[c.childId].length > 0
+                                ? " (" +
+                                  cartItemsGroupByChild[c.childId].length +
+                                  ")"
+                                : "")
+                            }
+                          />
+                        );
+                      })}
+                    </Form.Group> */}
                     <Form.Select
                       aria-label="Default select example"
                       onChange={(e) => handleChildSelection(e.target.value)}
