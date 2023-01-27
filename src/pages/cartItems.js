@@ -45,17 +45,19 @@ const ApplicationCart = () => {
 
   useEffect(() => {
     let cartItemGrouped = {};
-    itemsInCart.childCartItemsList != null &&
-      itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
-        if (childCartItem.childId === selectedChild.id) {
-          setSelectedChild({
-            id: childCartItem.childId,
-            cartItems: childCartItem.cartItems,
-          });
-        }
-        cartItemGrouped[childCartItem.childId] = childCartItem.cartItems;
-      });
-
+    let childCartItemUpdate = false;
+      itemsInCart.childCartItemsList != null &&
+        itemsInCart.childCartItemsList.forEach((childCartItem, index) => {
+          if (!childCartItemUpdate && (childCartItem.childId === selectedChild.id || (selectedChild.cartItems.length === 0 && childCartItem.cartItems.length > 0))) {
+            setSelectedChild({
+              id: childCartItem.childId,
+              cartItems: childCartItem.cartItems,
+            });
+            childCartItemUpdate=true;
+            handleChildSelection(childCartItem.childId);
+          }
+          cartItemGrouped[childCartItem.childId] = childCartItem.cartItems;
+        });
     setCartItemsGroupByChild(cartItemGrouped);
   }, [itemsInCart]);
 
@@ -68,7 +70,7 @@ const ApplicationCart = () => {
     for (let i = 0; i < itemsInCart.childCartItemsList.length; i++) {
       let childCartItem = itemsInCart.childCartItemsList[i];
       if (childCartItem.childId === parseInt(childId)) {
-        setSelectedChild({
+          setSelectedChild({
           id: childCartItem.childId,
           cartItems: childCartItem.cartItems,
         });
@@ -138,13 +140,13 @@ const ApplicationCart = () => {
                     <Form.Select
                       aria-label="Default select example"
                       onChange={(e) => handleChildSelection(e.target.value)}
+                      value={selectedChild.id}
                     >
                       {childs.map((c, i) => (
                         <option
                           key={"cartChildSelect_" + i}
                           name="selectChild"
                           value={c.childId}
-                          onSelect={(e) => handleChildSelection(e.target.value)}
                         >
                           {c.firstName +
                             " " +
@@ -172,7 +174,6 @@ const ApplicationCart = () => {
                   <PaymentCard selectedChild={selectedChild} />
                 </Col>
               </div>
-
               <div className="cart-content-row nearby-title">
                 <h2>
                   You can also apply to following popular school in the same

@@ -146,7 +146,7 @@ const SignUp = () => {
                       </div>{" "}
                     </div>
                     <div className="frm-row">
-                      <div className="frm-cell">
+                      <div className="frm-cell pwd-cell">
                         <label className="">
                           Password<span className="text-danger">*</span>
                         </label>
@@ -162,7 +162,7 @@ const SignUp = () => {
                       </span>
                       </div>{" "}
                       
-                      <div className="frm-cell">
+                      <div className="frm-cell pwd-cell">
                         <label className="">
                           Confirm Password<span className="text-danger">*</span>
                         </label>

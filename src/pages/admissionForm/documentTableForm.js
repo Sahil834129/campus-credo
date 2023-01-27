@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { hideLoader, showLoader } from "../../common/Loader";
 import { ACCEPT_MIME_TYPE, FILE_SIZE, FILE_UPLOAD_ERROR } from "../../constants/app";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { humanize } from "../../utils/helper";
@@ -15,6 +17,7 @@ export function DocumentTableFormat({
 }) {
   const [fileUploadErrors, setFileUploadErrrors] = useState({});
   const [files, setFiles] = useState({});
+  const dispatch = useDispatch();
 
   const handleFileChangeInput = (e) => {
     setFiles((val) => {
@@ -32,6 +35,7 @@ export function DocumentTableFormat({
     formData.append("documentName", documentName);
 
     try {
+      showLoader(dispatch)
       const response = await RESTClient.post(
         RestEndPoint.STUDENT_DOCUMENT_UPLOAD,
         formData
@@ -50,6 +54,7 @@ export function DocumentTableFormat({
         setDocument(data);
         delete fileData[documentName];
         setFiles(fileData);
+        hideLoader(dispatch)
       }
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));

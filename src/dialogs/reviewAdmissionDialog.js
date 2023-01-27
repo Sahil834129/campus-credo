@@ -7,7 +7,7 @@ import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { humanize, isEmpty } from "../utils/helper";
+import { getChildAge, humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import {
   downloadApplicationDocument,
@@ -37,6 +37,7 @@ const ReviewAdmissionDialog = ({
   const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] =
     useState(false);
     const [remarks, setRemarks] = useState([]);
+  const childAge = getChildAge(studentDetail.dateOfBirth);
 
   async function getChildProfile(childId) {
     try {
@@ -381,7 +382,8 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
+
+        {childAge >= 11 ? (<Accordion.Item eventKey="2">
             <Accordion.Header>Extracurriculars</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row">
@@ -398,13 +400,14 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {studentDetail.otherInterest
                       ? humanize(studentDetail.otherInterest)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
               </div>
             </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="3">
+          </Accordion.Item>):""}
+
+          {childAge >= 11 ? (<Accordion.Item eventKey="3">
             <Accordion.Header>Background Check</Accordion.Header>
             <Accordion.Body>
               <div className="admin-detail-row"></div>
@@ -412,10 +415,10 @@ const ReviewAdmissionDialog = ({
                 <div className="admin-detail-cell">
                   <label>Any history of violent behaviour :</label>
                   <span className="item-entry">
-                    <br />{" "}
+                    <br />
                     {studentDetail.violenceBehaviour
                       ? humanize(studentDetail.violenceBehaviour)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -426,7 +429,7 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {studentDetail.suspension
                       ? humanize(studentDetail.offensiveConduct)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
                 <div className="admin-detail-cell">
@@ -436,12 +439,14 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {studentDetail.suspension
                       ? humanize(studentDetail.suspension)
-                      : "No"}
+                      : "NA"}
                   </span>
                 </div>
               </div>
             </Accordion.Body>
-          </Accordion.Item>
+          </Accordion.Item>):""}
+
+
           <Accordion.Item eventKey="4">
             <Accordion.Header>Parents/Guardian</Accordion.Header>
             <Accordion.Body>

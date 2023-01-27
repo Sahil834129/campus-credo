@@ -191,6 +191,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
 
   return (
     <Row className="filter-panel">
+
       <Formik
         initialValues={
           Object.keys(filterFormData).length > 0
@@ -210,120 +211,117 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
               </h2>
               <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
             </div>
-
-            <div className="filter-item">
-              <InputField
-                fieldName="status"
-                fieldType="select"
-                placeholder=""
-                value={values.status}
-                label="Admission Status"
-                selectOptions={admissionStatusOptions}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-            <div className="filter-item">
-              <InputField
-                fieldName="distance"
-                fieldType="select"
-                placeholder=""
-                value={values.distance}
-                label="Distance from Home"
-                selectOptions={distanceOptions}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-            <div className="filter-item">
-              <InputField
-                fieldName="class"
-                fieldType="select"
-                placeholder=""
-                value={values.class}
-                label="Class"
-                selectOptions={classOptions}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-            <div className="filter-item">
-              <label>Monthly Tuition Fees</label>
-              <div className="range-slider-wrapper">
-                <MultiRangeSlider
-                  min={0}
-                  max={20000}
-                  step={500}
-                  minValue={minMonthlyTutionFee}
-                  maxValue={maxMonthlyTutionFee}
-                  ruler="false"
-                  label="false"
-                  onInput={(e) => {
-                    setMinMonthlyTutionFee(e.minValue);
-                    setMaxMonthlyTutionFee(e.maxValue);
-                  }}
+            <div className="filter-row">
+              <div className="filter-item">
+                <InputField
+                  fieldName="status"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.status}
+                  label="Admission Status"
+                  selectOptions={admissionStatusOptions}
+                  errors={errors}
+                  touched={touched}
                 />
-
-                <label className="income-range-value">
-                  ₹ ({minMonthlyTutionFee + "-" + maxMonthlyTutionFee})
-                </label>
               </div>
-            </div>
-            <div className="filter-item">
-              <InputField
-                fieldName="board"
-                fieldType="select"
-                placeholder=""
-                value={values.board}
-                label="School Board"
-                selectOptions={boardOptions}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-            <div className="filter-item">
-              <InputField
-                fieldName="gender"
-                fieldType="select"
-                value={values.gender}
-                placeholder=""
-                label="Gender"
-                selectOptions={genderOptions}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-            <div className="filter-item">
-              <InputField
-                fieldName="medium"
-                fieldType="select"
-                value={values.medium}
-                placeholder=""
-                label="Medium of Instruction"
-                selectOptions={mediumOfInstructionsOtions}
-                errors={errors}
-                touched={touched}
-              />
-            </div>
-            <div className="filter-item multiselect-fld">
-              <label>Facilities</label>
-              <MultiSelect
-                options={facilitiesOptions}
-                value={facilities}
-                onChange={setFacilities}
-                labelledBy="Facilities"
-                //isOpen={true}
-              ></MultiSelect>
-            </div>
-            <div className="filter-item multiselect-fld">
-              <label>Extracurriculars</label>
-              <MultiSelect
-                options={extracurricularOptions}
-                value={extracurriculars}
-                onChange={setExtracurriculars}
-                labelledBy="Extracurriculars"
-                //isOpen={true}
-              ></MultiSelect>
+              <div className="filter-item">
+                <InputField
+                  fieldName="distance"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.distance}
+                  label="Distance from Home"
+                  selectOptions={distanceOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="class"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.class}
+                  label="Class"
+                  selectOptions={classOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <label>Monthly Tuition Fees</label>
+                <div className="range-slider-wrapper">
+                  <MultiRangeSlider
+                    min={0}
+                    max={20000}
+                    step={500}
+                    minValue={minMonthlyTutionFee}
+                    maxValue={maxMonthlyTutionFee}
+                    ruler="false"
+                    label="false"
+                    onInput={(e) => {
+                      setMinMonthlyTutionFee(e.minValue);
+                      setMaxMonthlyTutionFee(e.maxValue);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="board"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.board}
+                  label="School Board"
+                  selectOptions={boardOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="gender"
+                  fieldType="select"
+                  value={values.gender}
+                  placeholder=""
+                  label="Gender"
+                  selectOptions={genderOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="medium"
+                  fieldType="select"
+                  value={values.medium}
+                  placeholder=""
+                  label="Medium of Instruction"
+                  selectOptions={mediumOfInstructionsOtions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item multiselect-fld">
+                <label>Facilities</label>
+                <MultiSelect
+                  options={facilitiesOptions}
+                  value={facilities}
+                  onChange={setFacilities}
+                  labelledBy="Facilities"
+                  //isOpen={true}
+                ></MultiSelect>
+              </div>
+              <div className="filter-item multiselect-fld">
+                <label>Extracurriculars</label>
+                <MultiSelect
+                  options={extracurricularOptions}
+                  value={extracurriculars}
+                  onChange={setExtracurriculars}
+                  labelledBy="Extracurriculars"
+                  //isOpen={true}
+                ></MultiSelect>
+              </div>
             </div>
             <div className="filter-item btn-wrap">
               <Button buttonLabel="Apply" class="applyFilter" />
