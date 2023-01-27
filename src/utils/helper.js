@@ -7,9 +7,7 @@ import RESTClient from "./RestClient";
 import StringUtils from "./StringUtils";
 
 export const refreshAccessToken = async () => {
-  if (getLocalData("token") == null) return;
   try {
-    localStorage.removeItem("token");
     const response = await RESTClient.post(RestEndPoint.REFRESH_TOKEN, {
       refreshToken: getLocalData("refreshToken"),
     });
@@ -32,6 +30,7 @@ export const setLocalData = (key, value) => {
 
 export const logout = () => {
   resetUserLoginData();
+  window.location.reload(); 
 };
 
 export const resetUserLoginData = () => {

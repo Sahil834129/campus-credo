@@ -1,4 +1,5 @@
 import axios from "axios";
+import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { getLocalData, refreshAccessToken } from "../utils/helper";
 
@@ -53,7 +54,7 @@ axios.interceptors.request.use(async (config) => {
   // Do something before request is sent
   //config.baseURL = "http://122.176.70.111:8080/api";
 
-   config.baseURL = "http://ec2-65-0-204-110.ap-south-1.compute.amazonaws.com:8080/api/";
+  config.baseURL = "http://ec2-65-0-204-110.ap-south-1.compute.amazonaws.com:8080/api/";
   // config.baseURL = "http://59.144.164.132:8080/api/"; //process.env.BASE_URL;
   const token = await getLocalData("token");
   config.headers.common["Authorization"] = token ? "Bearer " + token : "";
@@ -72,7 +73,7 @@ axios.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     const { response } = error;
-    if (response.status === 401 && !originalRequest._retry) {
+    if (response.status === 401 && !originalRequest._retry && (originalRequest.url !== RestEndPoint.REFRESH_TOKEN)) {
       originalRequest._retry = true;
       const token = await refreshAccessToken();
       originalRequest.headers["Authorization"] = "Bearer " + token;

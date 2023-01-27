@@ -26,7 +26,6 @@ export const Layout = ({ admissionSummary, ...props }) => {
 
   const handleLogout = () => {
     logout();
-    window.location.reload();
   };
 
   useEffect(() => {
