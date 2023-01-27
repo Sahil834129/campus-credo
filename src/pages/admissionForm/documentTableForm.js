@@ -20,6 +20,10 @@ export function DocumentTableFormat({
   const dispatch = useDispatch();
 
   const handleFileChangeInput = (e) => {
+    if(e.target.files[0])
+    {
+      setFileUploadErrrors({});
+    }
     setFiles((val) => {
       return {
         ...val,
