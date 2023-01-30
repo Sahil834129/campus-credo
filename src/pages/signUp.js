@@ -66,7 +66,7 @@ const SignUp = () => {
           <RegisterInfoGraphic />
         </div>
         <div className="signup-col right">
-          <SignupLogo />
+          <div className="logo"><SignupLogo /></div>
           <div className="form-wrapper">
             <div className="form-title">
               <h4>Create your free account</h4>
@@ -92,7 +92,7 @@ const SignUp = () => {
                 }}
               >
                 {({ values, errors, touched, setFieldValue }) => (
-                  <Form className="form-wrapper">
+                  <Form className="form-wrap">
                     <div className="frm-row">
                       <div className="frm-cell">
                         <label className="">
