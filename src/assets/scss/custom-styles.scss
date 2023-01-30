@@ -4871,6 +4871,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
         }
         .signin-fld-grp{
           display: flex;
+          flex-direction: column;
           &.pwd-fld-wrap{
             display: flex;
             margin-top: 16px;
@@ -4890,7 +4891,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                 .view-pwd-icon{
                   position: absolute;
                   right: 12px;
-                  top: 20%;
+                  top: 12px;
                 }
               }
             }
