@@ -1,5 +1,12 @@
 @media screen and (max-width: 650px) { 
     .main-container .form-content-wrapper{}
+    .main-container{
+        .header.header{
+            .common-header{display: none;}
+            .mobile-header{top: 0; display: block;}
+        }
+    }
+    
     .signup-wrapper{
         grid-template-columns: auto;
         width: 100%;
