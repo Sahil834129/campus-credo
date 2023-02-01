@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import Col from 'react-bootstrap/Col';
-import Container from "react-bootstrap/Container";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import logoHeader from "../assets/img/brand-logo-header.svg";
-import { getSelectedLocation, setSelectedLocation } from "../redux/actions/locationAction";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import { gotoHome } from "../utils/helper";
-import RESTClient from "../utils/RestClient";
+import Container from "react-bootstrap/Container";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import RESTClient from "../utils/RestClient";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedLocation, getSelectedLocation} from "../redux/actions/locationAction";
+import { gotoHome } from "../utils/helper";
 
 const SearchBar = () => {
     const navigate = useNavigate();
@@ -54,8 +55,8 @@ const SearchBar = () => {
     }
 
     const LocationDropDownToggle = React.forwardRef(({ children, onClick }, ref) => (
-        <Link
-           
+        <a
+            href=""
             ref={ref}
             onClick={(e) => {
                 e.preventDefault();
@@ -65,7 +66,7 @@ const SearchBar = () => {
            <label className="location-lbl">{children}</label>
             {/* &#x25bc; */}
             <i className="icons arrowdown-icon">&nbsp;</i>
-        </Link>
+        </a>
     ));
     
     const LocationDropDownMenu = React.forwardRef(
