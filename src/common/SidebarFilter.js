@@ -20,9 +20,12 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
   );
   const distanceOptions = [
     { text: "--Select Distance--" },
-    { value: "1", text: "0 - 2km" },
-    { value: "2", text: "2 - 6km" },
-    { value: "3", text: "6 - 10km" },
+    { value: 2, text: "2km" },
+    { value: 5, text: "5km" },
+    { value: 10, text: "10km" },
+    { value: 15, text: "15km" },
+    { value: 20, text: "20km" },
+    { value: 25, text: "25km" },
   ];
 
   const [boardOptions, setBoardOptions] = useState([
@@ -203,7 +206,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
           applyFilter(values);
         }}
       >
-        {({ errors, resetForm, touched , values }) => (
+        {({ errors, resetForm, touched, values }) => (
           <Form className="filter-components">
             <div className="filter-head">
               <h2>
@@ -309,7 +312,6 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                   value={facilities}
                   onChange={setFacilities}
                   labelledBy="Facilities"
-                  //isOpen={true}
                 ></MultiSelect>
               </div>
               <div className="filter-item multiselect-fld">
@@ -319,7 +321,6 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                   value={extracurriculars}
                   onChange={setExtracurriculars}
                   labelledBy="Extracurriculars"
-                  //isOpen={true}
                 ></MultiSelect>
               </div>
             </div>

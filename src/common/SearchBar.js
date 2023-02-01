@@ -11,7 +11,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedLocation, getSelectedLocation} from "../redux/actions/locationAction";
+import { setSelectedLocation, getSelectedLocation, setGeoLocation} from "../redux/actions/locationAction";
 import { gotoHome } from "../utils/helper";
 
 const SearchBar = () => {
@@ -101,6 +101,10 @@ const SearchBar = () => {
         dispatch(setSelectedLocation(location));
         navigate("/schools");
     }
+
+    useEffect(() => {
+        dispatch(setGeoLocation())
+    }, []);
 
     return (
         <>
