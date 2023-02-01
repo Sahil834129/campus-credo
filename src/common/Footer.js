@@ -79,11 +79,12 @@ const Footer = () => {
       </Container>
       <Container className="copyright-row">
         <div className="copyright-col">
-          &copy; 2022 CampusCredo. | All Rights Reserved.
+          &copy; 2023 CampusCredo. | All Rights Reserved.
         </div>
         <div className="copyright-col">
           <Link to={"/terms"}>Terms Of Use</Link>{" "}
           <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+          <Link to={"/disclaimerPolicy"}>Disclaimer Policy</Link>
         </div>
       </Container>
     </footer>

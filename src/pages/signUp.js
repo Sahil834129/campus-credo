@@ -66,7 +66,7 @@ const SignUp = () => {
           <RegisterInfoGraphic />
         </div>
         <div className="signup-col right">
-          <SignupLogo />
+          <div className="logo"><SignupLogo /></div>
           <div className="form-wrapper">
             <div className="form-title">
               <h4>Create your free account</h4>
@@ -92,7 +92,7 @@ const SignUp = () => {
                 }}
               >
                 {({ values, errors, touched, setFieldValue }) => (
-                  <Form className="form-wrapper">
+                  <Form className="form-wrap">
                     <div className="frm-row">
                       <div className="frm-cell">
                         <label className="">
@@ -181,7 +181,7 @@ const SignUp = () => {
                     <div className="frm-row">
                       <div className="frm-cell">
                         <label className="">
-                          Select State <span className="text-danger">*</span>
+                           State <span className="text-danger">*</span>
                         </label>
                         <InputField
                           fieldName="state"
@@ -202,7 +202,7 @@ const SignUp = () => {
                       
                       <div className="frm-cell">
                         <label className="">
-                          Select City <span className="text-danger">*</span>
+                           City <span className="text-danger">*</span>
                         </label>
                         <InputField
                           fieldName="city"
@@ -238,7 +238,7 @@ const SignUp = () => {
                     <div className="frm-cell termslink">
                       By continuing, you agree to CampusCredo’s{" "}
                       <Link to={"/terms"}>Terms of Use</Link> and{" "}
-                      <Link to={"/disclaimerpolicy"}>Privacy Policy</Link>.
+                      <Link to={"/privacyPolicy"}>Privacy Policy</Link>.
                     </div>
                     <div className="button-wrap">
                       <Button

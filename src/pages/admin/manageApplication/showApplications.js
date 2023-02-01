@@ -127,10 +127,13 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                 notes.map((note, index) => {
                   return <span className={note} key={'notes_' + index}
                     title={note === 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' : ''}
-                  >{note.substring(0, 1)}</span>;
+                  >
+                    {/* {note.substring(0, 1)} */}
+                    </span>;
                 })
                 : <span className="none-found">NA</span>
             }
+            
           </div>
         );
       })

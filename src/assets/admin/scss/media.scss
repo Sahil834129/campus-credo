@@ -18,6 +18,35 @@
             }
             &.left{
                 margin: 0;
+                display: none;
+            }
+            &.right{
+                .logo{
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    svg{
+                        width: 60%;
+                    }
+                }
+                .form-wrapper{
+                    margin: 24px;
+                    .form-container{
+                        padding: 0 24px 40px 24px;
+                        .form-wrap{
+                            .frm-row{
+                                flex-direction:column;
+                                .frm-cell{
+                                    &.pwd-cell{
+                                        .view-pwd-icon{
+                                            top: 32px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

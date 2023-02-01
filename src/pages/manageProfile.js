@@ -322,8 +322,9 @@ export const ManageProfile = () => {
                           }}
                           validationSchema={ChangePasswordSchema}
                           validateOnBlur
-                          onSubmit={(values) => {
+                          onSubmit={(values , {resetForm}) => {
                             changePassword(values);
+                            resetForm();
                           }}
                         >
                           {({ values, resetForm, errors, touched }) => (
