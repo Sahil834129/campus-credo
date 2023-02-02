@@ -259,8 +259,8 @@
   #menuToggle {
     display: block;
     position: relative;
-    top: 50px;
-    left: 50px;  
+    top: 32px;
+    left: 32px; 
     z-index: 1;  
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -282,7 +282,7 @@
   
   
   /* The hamburger button hidden inside an input element */
-  #menuToggle input {
+  #menuToggle input[type=checkbox] {
     display: block;
     width: 30px;
     height: 30px;
@@ -350,8 +350,8 @@
    */
   #menu {
     position: absolute;
-    width: 300px;
-    margin: -100px 0 0 -50px;
+    width: 100%;
+    margin: -100px 0 0 -32px;
     padding: 50px;
     padding-top: 125px;
     background: #ededed;

@@ -84,6 +84,13 @@ a, a:visited, a:active {
     color: unset;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    -webkit-transition: all 300ms linear 0ms;
+      -khtml-transition: all 300ms linear 0ms;
+      -moz-transition: all 300ms linear 0ms;
+      -ms-transition: all 300ms linear 0ms;
+      -o-transition: all 300ms linear 0ms;
+      transition: all 300ms linear 0ms;
+      color: #c1282a;
 }
 
 input, textarea {
@@ -170,6 +177,15 @@ div.noMargin {
       line-height: 1.2rem;
       color: rgba(0, 0, 0, 0.8);
       text-decoration: none;
+      -webkit-transition: all 300ms linear 0ms;
+      -khtml-transition: all 300ms linear 0ms;
+      -moz-transition: all 300ms linear 0ms;
+      -ms-transition: all 300ms linear 0ms;
+      -o-transition: all 300ms linear 0ms;
+      transition: all 300ms linear 0ms;
+      color: #c1282a;
+      touch-action: manipulation;
+      
     }
   }
 }
