@@ -1,5 +1,10 @@
 @media screen and (max-width: 650px) { 
     .main-container .form-content-wrapper{}
+    .main-container .content-area { padding-top: 80px; }
+    .header .cart-profile-wrap {
+        justify-content: center;
+        display: flex;
+    }
     .main-container{
         .header.header{
             .common-header{display: none;}
@@ -16,6 +21,7 @@
                     position: relative;
                 }
             }
+            
         }
         .content-area{
             .content-area-inner{
@@ -119,7 +125,29 @@
             }
         }
     }
-    
+    .signin-model{
+        &.modal{
+            .modal-dialog{
+                width: 100%;
+                max-width: 100%;
+                padding: 16px;
+                margin: 0;
+                .modal-content{
+                    .modal-header{}
+                    .model-body{
+                        flex-direction: column;
+                        .model-body-col{
+                            &.left{
+                                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                                border-right: none;
+                                padding: 0 0 16px 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     .signup-wrapper{
         grid-template-columns: auto;
         width: 100%;
@@ -170,6 +198,24 @@
             }
         }
     }
+    .modal.forgotpwd-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
+    .content-area .inner-page-container .content-section.about-content-main .section-wrapper.hero-wrap .hero-caption{bottom: 0;
+        padding: 16px 16px;
+        border-radius: 16px;
+        position: relative;
+    }
+    .content-area .inner-page-container .content-section.bc-section{}
+    .content-area .inner-page-container .content-section.about-content-main .section-wrapper .img-wrap img{width: 100%;}
+    .content-area .inner-page-container .content-section.about-content-main .section-wrapper.hero-wrap .hero-caption h2{font-size: 14px;}
+    .content-area .inner-page-container .content-section.about-content-main .section-wrapper{width: 100%; margin-bottom: 42px; flex-wrap: wrap; gap: 0;}
+    .content-area .inner-page-container .content-section.about-content-main .section-wrapper.full-width{width: 100%; flex-wrap: wrap;}
+    .content-area .inner-page-container .content-section.about-content-main .section-wrapper.infotoschools{width: 100%; flex-wrap: wrap;}
+    .content-area .inner-page-container .content-section.faq-content-main .list-group{width: 100%; flex-wrap: wrap;}
+    .content-area .inner-page-container .content-section.about-content-main{margin: 16px 0;}
+    .content-area .contact-section-wrapper{width: 100%; padding: 0;}
+    .content-area .content-area-inner.internal-page-wrapper{grid-template-columns: 1fr;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left{display: none;}
+    .content-area .school-list-container{ grid-template-columns:1fr; }
 }
 
 
@@ -225,7 +271,10 @@
                             }
                         }
                         &.right{
-                            img{width: 100%;}
+                            img{
+                                width:auto; 
+                                max-width: 100%;
+                            }
                         }
                     }
                 }
@@ -349,6 +398,9 @@
             }
         }
     }
+    .content-area .content-area-inner.internal-page-wrapper{grid-template-columns: 1fr;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left{display: none;}
+    
 }
 
 @media (max-width: 1440px){
