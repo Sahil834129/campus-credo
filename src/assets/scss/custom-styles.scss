@@ -858,6 +858,10 @@ ul.list-group{
         }
         ul.list-group{
           margin-bottom: 24px;
+          display: flex;
+          flex-direction: row;
+          column-gap: 24px;
+          flex-wrap: wrap;
           li.list-group-item{
             background: none;
             border: none;
@@ -2857,6 +2861,7 @@ ul.list-group{
           gap: 42px;
           width: 68%;
           margin-bottom: 42px;
+          
           &.infotoschools{
             width: 74%;
             border: 1px solid #efefef;
@@ -2877,7 +2882,12 @@ ul.list-group{
             flex-direction: column;
             width: 100%;
             position: relative;
-            .hero-img{}
+            .hero-img{
+              img{
+                width: 100%;
+                min-width: 100%;
+              }
+            }
             .hero-caption{
               background: $primarycolor;
               position: absolute;
@@ -2885,6 +2895,7 @@ ul.list-group{
               padding: 20px 62px;
               border-radius: 42px;
               display: flex;
+              flex-wrap: wrap;
               flex-direction: row;
               column-gap: 16px;
               align-items: center;
@@ -3963,8 +3974,9 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
 .modal {
   &.signin-model{
     .modal-dialog{
-      width: 784px;
+      width: 100%;
       max-width: 784px;
+      margin: 8% auto;
     }
   }
   &.forgotpwd-model{
@@ -4773,10 +4785,14 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           align-items: center;
           font-size: 14px;
           margin: 16px 0 0 0;
+          flex-wrap: wrap;
           .loginoption-cell{
             margin-right: 8px;
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            
             h2{
               font-style: normal;
               font-weight: 500;
@@ -4785,6 +4801,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               color: #000000;
               margin-right: 8px;
               margin-bottom: 0;
+              white-space: nowrap;
             }
             .form-check-inline{
               margin-right: 4px;
@@ -4975,11 +4992,18 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
       }
     }
     .modal-body{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      // display: grid;
+      // grid-template-columns: 1fr 1fr;
       margin: 0 24px 24px 24px;
       padding: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 16px;
+      row-gap: 16px;
       .model-body-col{
+        flex-grow: 1;
+        flex-basis: 0;
         h2{
           font-style: normal;
           font-weight: 500;
@@ -4999,7 +5023,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           
         }
         &.left{padding: 0 16px 0 0; border-right: 1px solid rgba(0, 0, 0, 0.08);}
-        &.right{padding: 0 0 0 16px;}
+        &.right{padding: 0 0 0 0;}
         input[type='text']{
           background: #FFFFFF;
           border: 1px solid #D9D9D9;
@@ -5129,7 +5153,10 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           flex-direction: row;
           margin-top: 58px;
           margin-bottom: 55px;
+          column-gap: 16px;
           li{
+            flex-grow: 1;
+            flex-basis: 0;
             i{
               margin-bottom: 9px;
             }
@@ -5614,6 +5641,79 @@ align-items: center;
   top: 45%;
   left: 50%;
   position: fixed;
+}
+
+.wrap-collabsible input[type='checkbox'] {
+	display: none;
+}
+
+.wrap-collabsible {
+	margin: 1.2rem 0;
+}
+.wrap-collabsible label.lbl-toggle{font-size: 14px;
+  line-height: 18px;}
+.lbl-toggle {
+	display: block;
+	font-weight: bold;
+	font-family: monospace;
+	font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 0px;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.25s ease-out;
+}
+
+.lbl-toggle:hover {
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.lbl-toggle::after {
+	content: ' ';
+	display: inline-block;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-left: 5px solid currentColor;
+	vertical-align: middle;
+	margin-left: .7rem;
+	transform: translateY(-2px);
+	transition: transform .2s ease-out;
+}
+
+.toggle:checked+.lbl-toggle::after {
+	transform: rotate(90deg) translateX(-3px);
+}
+
+.collapsible-content {
+	max-height: 0px;
+	overflow: hidden;
+	transition: max-height .25s ease-in-out;
+}
+
+.toggle:checked+.lbl-toggle+.collapsible-content {
+	max-height: 100%;
+}
+
+.toggle:checked+.lbl-toggle {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.collapsible-content .content-inner {
+	// background: rgba(0, 105, 255, .2);
+	// border-bottom: 1px solid rgba(0, 105, 255, .45);
+	// border-bottom-left-radius: 7px;
+	// border-bottom-right-radius: 7px;
+	// padding: .5rem 1rem;
+}
+
+.collapsible-content p {
+	margin-bottom: 0;
 }
 
 @import "../scss/media.scss";

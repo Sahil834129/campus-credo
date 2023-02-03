@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import MultiRangeSlider from "multi-range-slider-react";
 import React, { useEffect, useState } from "react";
+import Accordion from 'react-bootstrap/Accordion';
 import Row from "react-bootstrap/Row";
 import { MultiSelect } from "react-multi-select-component";
 import { useDispatch, useSelector } from "react-redux";
@@ -191,8 +192,25 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
 
   return (
     <Row className="filter-panel">
-
-      <Formik
+      <Accordion defaultActiveKey="0">
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Accordion Item #1</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          
+        </Accordion.Body>
+      </Accordion.Item>
+      
+    </Accordion>
+      <div class="wrap-collabsible">
+        <input id="collapsible" class="toggle" type="checkbox" />
+        <label for="collapsible" class="lbl-toggle">
+          <i className="icons filter-icon"></i> Filters  
+        </label>
+        <div class="collapsible-content">
+          <div class="content-inner">
+          <Formik
         initialValues={
           Object.keys(filterFormData).length > 0
             ? filterFormData
@@ -202,13 +220,13 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
         onSubmit={(values) => {
           applyFilter(values);
         }}
-      >
+        >
         {({ errors, resetForm, touched , values }) => (
           <Form className="filter-components">
             <div className="filter-head">
-              <h2>
+              {/* <h2>
                 <i className="icons filter-icon"></i> Filters
-              </h2>
+              </h2> */}
               <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
             </div>
             <div className="filter-row">
@@ -329,6 +347,10 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
           </Form>
         )}
       </Formik>
+          </div>
+        </div>
+      </div>
+      
     </Row>
   );
 };
