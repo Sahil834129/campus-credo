@@ -3,6 +3,7 @@ import { ActionTypes } from "../constants/action-types";
 
 const initialState = {
   isLoggedInUser: false,
+  havePermission: false,
   schoolFilter: [],
   modulePermissions: getHeaderLink(),
 };
@@ -17,6 +18,8 @@ export const UserData = (state = initialState, { type, payload }) => {
       return { ...state, schoolFilter: payload };
     case ActionTypes.UPDATE_HEADER_LINK:
       return { ...state, modulePermissions: getHeaderLink() };
+    case ActionTypes.SET_PERMISSION_HAVE:
+      return { ...state, havePermission: payload || false };
     default:
       return state;
   }

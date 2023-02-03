@@ -20,3 +20,9 @@ export const setSchoolFilter = (schoolFilter) => {
     dispatch({ type: ActionTypes.SET_SCHOOL_FILTER, payload: schoolFilter });
   };
 };
+
+export const setUserHavePermission = (payload) => {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.SET_PERMISSION_HAVE, payload: payload });
+  };
+};

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import logoHeader from "../assets/img/brand-logo-header.svg";
-import { getSelectedLocation, setSelectedLocation } from "../redux/actions/locationAction";
+import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { gotoHome } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
@@ -100,6 +100,10 @@ const SearchBar = () => {
         dispatch(setSelectedLocation(location));
         navigate("/schools");
     }
+
+    useEffect(() => {
+        dispatch(setGeoLocation())
+    }, []);
 
     return (
         <>
