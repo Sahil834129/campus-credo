@@ -207,7 +207,7 @@ export default function ParentsGuardianForm({
                     value={values.firstName}
                     required
                     fieldType='text'
-                    placeholder='First Name'
+                    placeholder='Enter First Name'
                     errors={validationErrors}
                     onChange={e => {
                       setFieldValue('firstName', e.target.value);
@@ -221,7 +221,7 @@ export default function ParentsGuardianForm({
                     value={values.lastName}
                     required
                     fieldType='text'
-                    placeholder='Last Name'
+                    placeholder='Enter Last Name'
                     errors={validationErrors}
                     onChange={e => {
                       setFieldValue('lastName', e.target.value);
@@ -237,7 +237,7 @@ export default function ParentsGuardianForm({
                     <div className='fld-cell'>
                       <TextField
                         fieldName='otherRelation'
-                        label='Relationship with Student'
+                        label='Enter Relationship with Student'
                         value={
                           values.relation !== 'Father' && values.relation !== 'Mother'
                             ? values.otherRelation
@@ -485,7 +485,7 @@ export default function ParentsGuardianForm({
                               setFieldValue('annualFamilyIncome', e.target.value);
                             }}
                             required
-                            placeholder='Please add details...'
+                            placeholder='Enter Annual Income'
                           />
                         </div>
                         <div className='fld-cell'>
@@ -575,6 +575,7 @@ export default function ParentsGuardianForm({
                             required={values.isAddressSameAsStudent === 'No'}
                             errors={validationErrors}
                             label='House No., Block No.'
+                            placeholder="Enter House No., Block No."
                             value={values.addressLine1}
                             onChange={e => {
                               setFieldValue('addressLine1', e.target.value)
@@ -588,6 +589,7 @@ export default function ParentsGuardianForm({
                             errors={validationErrors}
                             label='Area or Locality'
                             value={values.addressLine2}
+                            placeholder="Enter Area or Locality."
                             onChange={e => {
                               setFieldValue('addressLine2', e.target.value)
                             }}
@@ -602,6 +604,7 @@ export default function ParentsGuardianForm({
                             required={values.isAddressSameAsStudent === 'No'}
                             errors={validationErrors}
                             value={values.pincode}
+                            placeholder="Enter Pincode."
                             maxLength='6'
                             onChange={e => {
                               setFieldValue('pincode', e.target.value)

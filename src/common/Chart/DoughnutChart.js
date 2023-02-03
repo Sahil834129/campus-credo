@@ -38,7 +38,7 @@ export default function DoughnutChart({ data, midNumberText,midTextFirst, midTex
           ctx.restore();
           ctx.textBaseline = "top";
           ctx.font = '600 14px Rubik';
-          ctx.fillText(midNumberText, radius + 30, radius + 20);
+          ctx.fillText(midNumberText, radius + 20, radius + 20);
           ctx.font = '400 14px Rubik';
           ctx.fillstyle = '#00000066';
           ctx.fillText(midTextFirst, radius + 21, radius + 40);
