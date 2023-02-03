@@ -20,6 +20,7 @@ ChartJS.register(
 );
 
 const defaultOptions = {
+  animation : false,
   responsive: true,
   maintainAspectRatio: false,
   padding: 20,

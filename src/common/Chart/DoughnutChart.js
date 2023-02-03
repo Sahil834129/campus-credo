@@ -12,6 +12,7 @@ image.src = "/invoice.png";
 const styling = { height: 215, maxWidth: 230 };
 
 const option = {
+  animation: false,
   responsive: true,
   aspectRatio: 0,
   maintainAspectRatio: false,
@@ -27,7 +28,7 @@ const option = {
   }
 };
 
-export default function DoughnutChart({ data, midNumberText,midTextFirst, midTextSecond, totalRemainng }) {
+export default function DoughnutChart({ data, midNumberText, midTextFirst, midTextSecond, totalRemainng }) {
   return (
     <Doughnut
       data={{ ...data }}
@@ -43,7 +44,7 @@ export default function DoughnutChart({ data, midNumberText,midTextFirst, midTex
           ctx.fillstyle = '#00000066';
           ctx.fillText(midTextFirst, radius + 21, radius + 40);
           ctx.fillText(midTextSecond, radius + 5, radius + 60);
-          ctx.fillText(totalRemainng, radius -15, radius + 120);
+          ctx.fillText(totalRemainng, radius - 15, radius + 120);
           ctx.font = '500 18px Rubik';
           ctx.fillText('50', 100, 265);
           ctx.save();
@@ -57,5 +58,5 @@ export default function DoughnutChart({ data, midNumberText,midTextFirst, midTex
       ]}
       style={styling}
       options={option}
-    />)
+    />);
 }
