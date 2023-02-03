@@ -228,6 +228,7 @@ export const AdmissionForms = () => {
                 </div>
               )}
               <div className="content-area-inner internal-page-wrapper">
+                
                 <LeftMenuBar
                   menuItems={sidebarMenuItems}
                   parentPage="userProfile"

@@ -1,4 +1,4 @@
-import { Barchart } from "../../../common/Chart"
+import { Barchart } from "../../../common/Chart";
 
 export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOffer, labels }) {
     const chartOptionsValue = {
@@ -32,10 +32,13 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
                     display: false,
                     text: "y axis",
                     color: "000000",
+                },
+                ticks: {
+                    callback: function (value) { if (value % 1 === 0) { return value; } }
                 }
             }
         }
-    }
+    };
     return (
         <div className='metrics-block mb3'>
             <div className='title-area'>
@@ -45,7 +48,9 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
                 <Barchart
                     option={chartOptionsValue}
                     labelsdata={{
-                        labels: labels,
+                        labels: 
+                        // labels,
+                        ["TDD", "PG", "Nur", "LKG", "UKG", "1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th"],
                         datasets: [
                             {
                                 label: "Application Approved",
@@ -60,9 +65,9 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
                                 backgroundColor: "#4AB900",
                                 boxWidth: 14,
                             }]
-                    }} 
+                    }}
                     styling={{ height: '120px', width: '100%' }} />
             </div>
         </div>
-    )
+    );
 }

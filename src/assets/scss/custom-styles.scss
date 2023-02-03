@@ -1247,6 +1247,29 @@ ul.list-group{
           
           &.right{
             background: #F3F3F3;
+            .school-nearby-collapsible{
+              &.accordion{
+                .accordion-item{
+                  background: none;
+                  border: none;
+                  h2.accordion-header{
+                    background: none;
+
+                    button.accordion-button{
+                      color: $primarycolor;
+                      font-weight: 600;
+                      background: none;
+                      border-radius: 0;
+                    }
+                  }
+                  .accordion-collapse{
+                    .accordion-body{
+                      padding: 0;
+                    }
+                  }
+                }
+              }
+            }
             .content-section{padding: 16px 16px 16px 16px;}
             .sb-card-holder{
               .school-list-container{
@@ -1918,6 +1941,36 @@ ul.list-group{
         .filter-panel{
           padding: 0;
           margin: 0;
+          .filter-collapsible-panel{
+            &.accordion{
+              margin: 0;
+              padding: 0;
+              .accordion-item{
+                h2.accordion-header{
+                  button.accordion-button{
+                    display: flex;
+                    background: none;
+                    padding: 16px 16px;
+                    column-gap: 8px;
+                    i{}
+                    label.txt-lbl{font-size: 14px; font-weight: 600;}
+                  }
+                }
+                .accordion-collapse{
+
+                  &.show{
+
+                  }
+                  .accordion-body{
+                    padding-top: 8px;
+                    .filter-components{
+                      padding: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
           .filter-head{
             display: flex;
             flex-direction: row;
@@ -2096,7 +2149,35 @@ ul.list-group{
           }
           
         }
-        &.left{border-right: 1px solid #E6E6E6; word-break: break-word; margin: 0; background: #F3F3F3; padding: 16px;}
+        &.left{
+          border-right: 1px solid #E6E6E6; word-break: break-word; margin: 0; background: #F3F3F3; padding: 16px;
+          .school-nearby-collapsible{
+            .admfrm-collapsible-panel{
+              &.accordion-item{
+                border: none;
+                background: none;
+                padding: 0;
+                h2.accordion-header{
+                  button.accordion-button{
+                    background: none;
+                    color: $primarycolor;
+                  }
+                }
+                .accordion-collapse{
+                  .accordion-body{
+                    padding: 0;
+                    .sideNav-indicator{
+                      &.nav{
+
+                      }
+                    } 
+                  }
+                }
+              }
+              
+            }
+          }
+        }
         &.right{}
         
       }
@@ -2300,7 +2381,31 @@ ul.list-group{
                 padding: 0;
                 min-height: 54vh;
                 background: #F3F3F3;
-                
+                .sidebar-collapsible{
+                  &.accordion{
+                    border: none;
+                    background: none;
+                    .accordion-item{
+                      border: none;
+                      background: none;
+                      h2.accordion-header{
+                        button.accordion-button{
+                          background: none;
+                          color: $primarycolor;
+                          &::after{
+                            color: $primarycolor;
+                            background-image: $primarycolor;
+                          }
+                        }
+                      }
+                      .accordion-collapse{
+                        .accordion-body{
+                          padding: 0;
+                        }
+                      }
+                    }
+                  }
+                }
 
                 &.sidebar{
                   .sideNav{
