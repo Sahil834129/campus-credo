@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
 import Container from "react-bootstrap/Container";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
@@ -160,7 +161,16 @@ const SchoolDetails = () => {
             </Row>
           </Col>
           <Col className="inner-page-content right">
-            <NearBySchools />
+            <Accordion className="school-nearby-collapsible" defaultActiveKey={['0']} alwaysOpen>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>Explore these also</Accordion.Header>
+                <Accordion.Body>
+                  <NearBySchools />
+                </Accordion.Body>
+              </Accordion.Item>
+              
+            </Accordion>
+            
           </Col>
         </Container>
       </section>
