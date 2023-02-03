@@ -306,3 +306,15 @@ export const getActionButtonLabel = (applicationStatus) => {
       return humanize(applicationStatus, true)
   }
 }
+
+export const getCurretLocation = async () => {
+  const data = await new Promise((res, rej) => {
+    navigator.geolocation.getCurrentPosition(res, rej);
+  }).then(val => {
+    return {
+      latitude: val.coords.latitude,
+      longitude: val.coords.longitude
+    };
+  });
+  return data;
+};

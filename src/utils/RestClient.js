@@ -2,6 +2,13 @@ import axios from "axios";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { getLocalData, refreshAccessToken } from "../utils/helper";
+import { setUserHavePermission } from "../redux/actions/userAction";
+
+let store;
+
+export const injectStore = _store => {
+  store = _store;
+};
 
 axios.defaults.baseURL = "https://api.escuelajs.co/api/"; //process.env.BASE_URL;
 // export const baseURL = "http://122.176.70.111:70";
@@ -52,7 +59,7 @@ export default class RESTClient {
 
 axios.interceptors.request.use(async (config) => {
   // Do something before request is sent
-  //config.baseURL = "http://122.176.70.111:8080/api";
+  // config.baseURL = "http://122.176.70.111:8080/api";
 
   config.baseURL = "http://ec2-65-0-204-110.ap-south-1.compute.amazonaws.com:8080/api/";
   // config.baseURL = "http://59.144.164.132:8080/api/"; //process.env.BASE_URL;
@@ -79,11 +86,9 @@ axios.interceptors.response.use(
       originalRequest.headers["Authorization"] = "Bearer " + token;
       return axios(originalRequest);
     }
-
-    if (response.status === 401 || response.status === 404) {
-      return Promise.reject(error);
-    } else {
-      return Promise.reject(error);
+    if (response.status === 403) {
+      store.dispatch(setUserHavePermission(true));
     }
+    return Promise.reject(error);
   }
 );

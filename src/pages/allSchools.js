@@ -22,6 +22,7 @@ const AllSchools = () => {
     (state) => state.locationData.selectedLocation
   );
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
+  const geoLocation = useSelector((state) => state.locationData.geolocation);
 
   useEffect(() => {
     getSchoolList();
@@ -33,7 +34,7 @@ const AllSchools = () => {
       setIsLoading(true)
       const response = await RESTClient.post(
         RestEndPoint.FIND_SCHOOLS,
-        prepareSchoolFilter(formFilter)
+        prepareSchoolFilter(formFilter, geoLocation)
       );
       setSchoolList(response.data);
       hideLoader(dispatch);
@@ -51,17 +52,7 @@ const AllSchools = () => {
     let filters = [];
     if (schoolName !== null && schoolName !== "")
       filters.push({ field: "name", operator: "LIKE", value: schoolName });
-    else filters = prepareSchoolFilter(filterFormData).filters;
-
-    // If there is no filter then by default show the schools with admission open for selected city
-    // if (filters.length === 0) {
-    //   filters.push({
-    //     field: "city",
-    //     operator: "EQUALS",
-    //     value: selectedLocation,
-    //   });
-    //   filters.push({ field: "status", operator: "LIKE", value: "open" });
-    // }
+    else filters = prepareSchoolFilter(filterFormData, geoLocation).filters;
 
     try {
       showLoader(dispatch);
@@ -78,7 +69,8 @@ const AllSchools = () => {
     }
   };
 
-  function prepareSchoolFilter(filterForm) {
+  function prepareSchoolFilter(filterForm, geolocation) {
+    console.log(filterForm);
     const selectedFacilities = filterForm.facilities?.map((v) => v.value);
     const selectedExtracurriculars = filterForm.extracurriculars?.map(
       (v) => v.value
@@ -143,7 +135,14 @@ const AllSchools = () => {
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
-
+    if (geoLocation.longitude)
+      filterPayload["location"] = {
+        longitude: geoLocation.longitude,
+        latitude: geoLocation.latitude,
+      }
+    if (filterForm.distance) {
+      filterPayload["radius"] = filterForm.distance;
+    }
     filterPayload["filters"] = filters;
     return filterPayload;
   }
