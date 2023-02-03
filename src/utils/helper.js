@@ -318,3 +318,10 @@ export const getCurretLocation = async () => {
   });
   return data;
 };
+ export const getCurrentSession = ()=>
+ {
+  let currentYear = (new Date()).getFullYear();
+ let startYear= currentYear;
+  let endYear= currentYear+1;
+    return `${startYear}-${endYear}`;
+ }

@@ -170,6 +170,7 @@ const LoginDialog = (props) => {
     setSendingOTP(false);
     setLoginWithOTP(false);
     props.handleClose();
+    setValidationErrors({});
   };
 
   function resetValidationErrors() {

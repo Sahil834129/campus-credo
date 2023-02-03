@@ -14,14 +14,15 @@ export const LocationReducer = (state = initialState, { type, payload }) => {
       return { ...state };
     case ActionTypes.SET_LOCATION:
       return { ...state, selectedLocation: payload };
-    case ActionTypes.SET_GEO_LOCATION: 
+    case ActionTypes.SET_GEO_LOCATION:
       return {
         ...state,
+        selectedLocation: payload.cityName,
         geolocation: {
           longitude: payload.longitude,
           latitude: payload.latitude
-        }  
-      }  
+        }
+      };
     default:
       return state;
   }

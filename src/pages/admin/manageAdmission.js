@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { toast } from "react-toastify";
 import DateRangePicker from '../../common/DateRangePicker';
-import { getCurrentModulePermission } from "../../utils/helper";
+import { getCurrentModulePermission, getCurrentSession } from "../../utils/helper";
 import {
   getClassAdmissionData, getClassAdmissionSessionData, removeClassAdmissionData, saveClassAdmissionData
 } from '../../utils/services';
@@ -199,8 +199,8 @@ export const ManageAdmission = () => {
                         >
                           Reset
                         </Button>
-                        <Button className='save-btn' type='submit' disabled={!isWritePermission}>
-                          Save
+                        <Button className='save-btn' type='submit' disabled={!isWritePermission || sessionValue !== getCurrentSession() }>
+                          Save 
                         </Button>
                       </div>
                     </div>
