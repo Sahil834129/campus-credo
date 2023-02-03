@@ -74,6 +74,7 @@ const LoginDialog = (props) => {
         .catch((error) => {
           toast.error(RESTClient.getAPIErrorMessage(error));
           setSendingOTP(false);
+          setOtpSent(false);
         });
     } else {
       console.log("Invalid mobile number.");
