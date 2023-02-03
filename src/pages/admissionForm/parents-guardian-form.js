@@ -366,7 +366,7 @@ export default function ParentsGuardianForm({
                           setFieldValue('otherNationality', e.target.value);
                         }}
                         required={values.nationality !== 'Indian'}
-                        placeholder='Please add details...'
+                        placeholder='Enter Other Nationality'
                         disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
                       />
                     </div>
