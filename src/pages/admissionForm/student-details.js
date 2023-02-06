@@ -495,7 +495,7 @@ export default function StudentDetails({
               <div className="fld-cell">
                 <SelectField
                   fieldName="schoolState"
-                  label="Select State"
+                  label="State"
                   required={
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
@@ -511,7 +511,7 @@ export default function StudentDetails({
               <div className="fld-cell">
                 <SelectField
                   fieldName="schoolCity"
-                  label="Select City"
+                  label="City"
                   required={
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
@@ -686,7 +686,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="state"
-            label="Select State"
+            label="State"
             required
             errors={validationErrors}
             selectOptions={states}
@@ -703,7 +703,7 @@ export default function StudentDetails({
           {" "}
           <SelectField
             fieldName="city"
-            label="Select City"
+            label="City"
             required
             errors={validationErrors}
             selectOptions={city}
@@ -724,7 +724,7 @@ export default function StudentDetails({
             onChange={(e) => {
               setFieldValue("familyIncome", e.target.value);
             }}
-            placeholder="Please add details..."
+            placeholder="Enter Annual Family Income"
           />
         </div>
       </div>

@@ -56,15 +56,15 @@ const UserProfile = () => {
             </Row>
             <Row className='content-section profile-content-main'>
               <Col className='left profile-sidebar'>
-                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>Main Categories</Accordion.Header>
-                  <Accordion.Body>
-                    <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
-                  </Accordion.Body>
-                </Accordion.Item>
                 
-              </Accordion>
+                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Main Categories</Accordion.Header>
+                    <Accordion.Body>
+                      <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
                 
               </Col>
               <Col className='profile-content right'>

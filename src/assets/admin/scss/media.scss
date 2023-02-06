@@ -209,6 +209,9 @@
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row{display: flex; flex-direction: column-reverse;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.left.cart-content-area{padding-right: 0; border: none;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row.nearby .school-list-container{flex-direction: column;}
+    .modal.joinus-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
+    .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form .fld-row{flex-direction: column;}
+    .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form .fld-row.button-wrap{row-gap: 16px;}
 }
 
 

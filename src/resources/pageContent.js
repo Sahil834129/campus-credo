@@ -78,30 +78,30 @@ const PageContent = {
   ],
   SCHOOL_FEATURE_CARDS: [
     {
-      image: 'feature-pic1.png',
+      image: 'paperless.png',
       title: 'Streamline Processes',
       description: 'Leverage our platform to streamline admission process and go paperless'
     },
     {
-      image: 'feature-pic2.png',
+      image: 'leads.png',
       title: 'Manage Listing',
       description:
         'Manage dedicated listing to increase engagement, nurture and convert leads'
     },
     {
-      image: 'feature-pic3.png',
+      image: 'manage-fee.png',
       title: 'Manage Fees',
       description:
         'Customize online fee collections as required to allow for secured payments'
     },
     {
-      image: 'feature-pic4.png',
+      image: 'data-security.png',
       title: 'Data Protection',
       description:
         'Advanced data protection and storage to ensure privacy and record keeping for auditing'
     },
     {
-      image: 'feature-pic5.png',
+      image: 'omnichannel-support.png',
       title: 'Multi-Channel Support',
       description:
         'Multi-channel support to assist you at every step of the way'
