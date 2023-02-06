@@ -13,7 +13,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
-import { getLocalData, logout } from '../../utils/helper';
+import { getLocalData, logout,getPresentableRoleName } from '../../utils/helper';
 import { useSelector } from "react-redux";
 
 export const Layout = ({ admissionSummary, ...props }) => {
