@@ -50,7 +50,8 @@ export const Layout = ({ admissionSummary, ...props }) => {
           </div>
           <div className='item-col'>
             <div className='inner-cell profile-info'>
-              <Avatar name='Wim Mostmans' size='28' round={true} />
+              {/* <Avatar name='Wim Mostmans' size='28' round={true} /> */}
+           <span className='text-white'>{getPresentableRoleName(getLocalData("roles"))}</span>   
             </div>
             <div
               className='inner-cell'
