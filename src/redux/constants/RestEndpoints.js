@@ -77,6 +77,7 @@ const RestEndPoint = {
   REGISTRATION_CHECKOUT: "payment/registrationCheckout",
   JOIN_US: "user/joinUs",
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
+  GET_PAYMENT_HISTORY: "payment/paymentHistory",
 };
 
 export default RestEndPoint;

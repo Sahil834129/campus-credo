@@ -221,7 +221,8 @@ const ReviewAdmissionDialog = ({
             toast.error(val);
           });
         }
-      } else {
+        toast.error(error.response.data.apierror.message);
+      } else {  
         toast.error(RESTClient.getAPIErrorMessage(error));
       }
       handleClose();

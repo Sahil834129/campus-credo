@@ -20,6 +20,7 @@ import {
   OrderConfirm,
   PaymentCheckout,
   PaymentFailed,
+  PaymentHistory,
   PrivacyPolicy,
   SchoolAdmission,
   SchoolDetails,
@@ -64,6 +65,7 @@ function AppRoutes() {
           <Route path="/manageChild" element={<ManageChild />} />
           <Route path="/selectedSchools" element={<ApplicationCart />} />
           <Route path="/paymentCheckout" element={<PaymentCheckout />} />
+          <Route path="/paymentHistory" element={<PaymentHistory />} />
           <Route
             path="/admissionForm"
             element={<SchoolAdmission />}
