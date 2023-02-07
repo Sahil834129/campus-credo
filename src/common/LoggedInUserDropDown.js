@@ -72,8 +72,8 @@ const LoggedInUserDropDown = () => {
     const logoutUser = () => {
         logout();
         dispatch(setIsUserLoggedIn(isLoggedIn()));
-        dispatch({type: ActionTypes.LOGOUT})
-        navigate("/")
+        dispatch({type: ActionTypes.LOGOUT});
+       
     }
     
     return (
