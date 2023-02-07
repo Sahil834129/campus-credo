@@ -188,6 +188,15 @@
         .supporting-document{
             margin-top: 0px;
             padding-bottom: 10px;
+            .tab-content{
+                .tab-pane{
+                    &.active{
+                        .tab-content{
+                            overflow-x: scroll;
+                        }
+                    }
+                }
+            }
             table.document-tbl{
                 border-radius: 8px;
                 thead{
@@ -207,17 +216,18 @@
                         td{
                             vertical-align: middle;
                             &.doc-upload-fld{
-                                display: flex;
-                                flex-direction: column;
+                                // display: flex;
+                                // flex-direction: column;
                                 position: relative;
                                 border-left: none;
+                                
                                 border-right: none;
                                 .error-msg{
                                     color: #FF5767;
                                     font-size: 14px;
                                     position: absolute;
-                                    bottom: 12px;
-                                    right: 18px;
+                                    bottom: 0px;
+                                    right: 8px;
                                 }
                                 span{
                                     background: transparent;
@@ -297,6 +307,7 @@
             text-align: end;
             border-top: 1px  solid #e6e6e6;
             padding-top: 24px;
+            column-gap: 16px;
             .comn{
                 text-transform: uppercase;
                 font-style: normal;
@@ -310,7 +321,7 @@
                 padding: 12px 40px;
                 background: #FFFFFF;
                 border: 1px solid #E22445;
-                margin-right: 10px;
+                margin: 0;
                 } 
                 &.save{
                     background: #549B43;

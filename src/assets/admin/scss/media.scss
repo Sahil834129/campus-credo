@@ -189,17 +189,25 @@
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.infotoschools{width: 100%; flex-wrap: wrap;}
     .content-area .inner-page-container .content-section.faq-content-main .list-group{width: 100%; flex-wrap: wrap;}
     .content-area .inner-page-container .content-section.about-content-main{margin: 16px 0;}
-
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-bc-section{margin-bottom: 8px;}
     .content-area .contact-section-wrapper{width: 100%; padding: 0;}
     .content-area .content-area-inner.internal-page-wrapper{grid-template-columns: 1fr;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.allschool-wrap.right{}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.allschool-wrap.right .content-section{}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.allschool-wrap.right .content-section .page-container{ flex-direction: column;}
+
     .content-area .contact-section-wrapper .application-form-wrap .fld-row{display: flex; flex-direction: column;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left{}
     .content-area .school-list-container{ grid-template-columns:1fr; }
     .content-area .content-area-inner.internal-page-wrapper.school-details-wrap{grid-template-columns:1fr; }
+    .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.left .content-section .page-container{flex-direction: column;}
+    .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.left .content-section .page-container .school-details-container .school-basic-info .cell.left{display: flex; justify-content: center;}
+    .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.left .content-section .page-container .school-details-container .school-basic-info .cell.left .image-wrapper{}
+
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .school-basic-info{grid-row-gap: 16px; display: flex; flex-direction: column;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .school-basic-info .cell ul.list-group{margin-left: 0;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main{grid-row-gap: 16px; display: flex; flex-direction: column;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.left{min-height: auto;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.left{min-height: auto;  border-radius: 16px; border: none;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .header{flex-direction: column;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left{border-radius: 0 0 16px 16px;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
@@ -212,6 +220,21 @@
     .modal.joinus-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
     .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form .fld-row{flex-direction: column;}
     .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form .fld-row.button-wrap{row-gap: 16px;}
+    .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell{display: flex; flex-direction: column; row-gap: 4px;}
+    .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell label{margin-top: 16px;}
+    .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell .fld-inst{margin: 0;}
+    .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell .field-group-wrap{display: flex; flex-direction: column; row-gap: 16px;}
+    .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell.button-wrap{justify-content: center;}
+    .application-form-wrap .fld-row{flex-direction: column;}
+    .application-form-wrap .fld-row.button-wrap{row-gap: 8px;}
+    .content-area .content-area-inner .page-container{display: flex; flex-direction: row; align-items: center;}
+    .content-area .content-area-inner.inner-page-container.cart-page-wrapper .page-container{flex-direction: column;}
+    .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right{    border-radius: 8px; margin-top: 8px;}
+    .content-area .content-area-inner .inner-page-content .content-section .page-container .row-wrapper .cell-row { display: flex; column-gap: 8px; flex-direction: column; align-items: flex-start;}
+    .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .admin-detail-row:last-child{grid-template-columns:1fr;}
+    .modal.calback-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
+    .modal.alert-popup .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
+    
 }
 
 
@@ -357,7 +380,7 @@
                         padding: 0 24px 40px 24px;
                         .form-wrap{
                             .frm-row{
-                                flex-direction:column;
+                                
                                 .frm-cell{
                                     &.pwd-cell{
                                         .view-pwd-icon{

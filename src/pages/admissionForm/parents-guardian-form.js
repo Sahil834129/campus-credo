@@ -649,25 +649,13 @@ export default function ParentsGuardianForm({
         </div>
       </div>
       <div className='fld-row button-wrap'>
-        <button
-          type='button'
-          className='cancel comn'
-          onClick={() => navigate('/userProfile')}
-        >
+        <button type='button' className='cancel comn' onClick={() => navigate('/userProfile')} >
           Cancel
         </button>
-        <button
-          type='button'
-          className='save comn me-2'
-          onClick={() => { handleGuardianBackClick() }}
-        >
+        <button type='button' className='save comn' onClick={() => { handleGuardianBackClick() }}>
           Back
         </button>
-        <button
-          type='button'
-          className='save comn me-2'
-          onClick={() => { skipAndNext(); window.scrollTo(0, 0); }}
-        >
+        <button type='button' className='save comn' onClick={() => { skipAndNext(); window.scrollTo(0, 0); }} >
           Skip
         </button>
         <button className='save comn' type='submit'>
