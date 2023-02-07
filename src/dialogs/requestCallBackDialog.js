@@ -34,10 +34,10 @@ const RequestCallBackDialog = (props) => {
                                
                             </div>
                             <div className='frm-cell'>
-                                <InputField fieldName="userName" fieldType="text" required placeholder="Please Enter Full Name" errors={errors} touched={touched}  label='Full Name' />
+                                <InputField fieldName="userName" fieldType="text" required placeholder="Enter Full Name" errors={errors} touched={touched}  label='Full Name' />
                             </div>
                             <div className='frm-cell'>
-                                <InputField fieldName="phoneNumber" fieldType="text" required placeholder="Please Enter Phone Number" errors={errors} touched={touched}    label='Phone Number' />
+                                <InputField fieldName="phoneNumber" fieldType="text" required placeholder="Enter Phone Number" errors={errors} touched={touched}    label='Phone Number' />
                             </div>
                             <div className='frm-cell'>
                                 <InputField
