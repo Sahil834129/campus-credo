@@ -2164,6 +2164,7 @@ ul.list-group{
                 background: none;
                 padding: 0;
                 h2.accordion-header{
+                  margin-bottom: 16px;
                   button.accordion-button{
                     background: none;
                     color: $primarycolor;
@@ -3117,15 +3118,11 @@ ul.list-group{
       .fld-row{
         display: flex;
         column-gap: 24px;
-        .frm-cell{
-          display: flex;
-          flex-direction: column;
-          flex: 1 1;
-        }
+        
         &.button-wrap {
           display: flex;
           justify-content: flex-end;
-          column-gap: 8px;
+          column-gap: 16px;
           border-top: 1px solid #e6e6e6;
           padding-top: 24px;
           margin-top: 24px;
@@ -3154,6 +3151,11 @@ ul.list-group{
             height: 48px;
             border-radius: 4px;
           }
+        }
+        .frm-cell{
+          display: flex;
+          flex-direction: column;
+          flex: 1 1;
         }
       }
     }
@@ -3475,6 +3477,12 @@ ul.list-group{
           align-items: center;
           margin: 0 16px 0 0;
           flex-wrap: nowrap;
+          .partner-inner{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+          }
           .partner-item{
             width: auto;
             padding: 0 0 0 16px;
@@ -4948,6 +4956,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                 align-items: center;
                 justify-content: center;
                 width: 100%;
+                margin-bottom: 0;
                 div{
                   margin-bottom: 8px;
                   div{
@@ -5047,11 +5056,11 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               align-items: center;
               text-align: center;
               letter-spacing: 0.01em;
-              color: rgba(0, 0, 0, 0.8);
+              color:$white;
               justify-content: center;
-              background: #efefef;
+              background: $darkgreen;
               width: 100%;
-              padding: 2px 4px;
+              padding: 4px 4px;
               border-radius: 0 0 4px 4px;
               &:hover{
                 color: $white;

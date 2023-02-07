@@ -384,7 +384,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
             </button>
             <button
               type='button'
-              className='save comn me-2'
+              className='save comn'
               onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
               >
                 Back
