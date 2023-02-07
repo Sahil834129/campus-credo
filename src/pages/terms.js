@@ -260,7 +260,82 @@ const TermsOfUse = () => {
                                         <ListGroup.Item>e.	The user is not allowed to make publicly available personal data of persons who have not provided the user with their prior authorisation or consent to share that personal data (e.gThe Educational Institution cannot publish names, contact details, and health-related data of a person if no lawful basis is available) through the Records.</ListGroup.Item>
                                         <ListGroup.Item>f.	The Records include users’ personal views and recommendations. The Records do not reflect our views, recommendations, endorsement, or any commitments related thereto.</ListGroup.Item>
                                 </ListGroup> */}
+                                <ListGroup className="alphabetical-list">
+                                <ListGroup.Item>Notwithstanding other legal remedies that may be available, we may in our sole discretion, limit your access and/or activity by immediately removing your access credentials either temporarily or indefinitely, or suspend/terminate your association with the Website, and/or refuse to the usage of the Website, without being required to provide you with notice or cause:</ListGroup.Item>
+                                <ListGroup.Item>a.	If you are in breach of any of these Terms of Service and Privacy Policy.</ListGroup.Item>
+                                <ListGroup.Item>b.	If you have provided wrong, inaccurate, incomplete or incorrect information.</ListGroup.Item>
+                                <ListGroup.Item>c.	If your actions may cause any harm, damage or loss to the other Users or Us, at our sole discretion.</ListGroup.Item>
+                                </ListGroup>
+                            </section>
 
+                            <section className="section-wrapper">
+                                <h2>INTELLECTUAL PROPERTY RIGHTS</h2>
+                                <ListGroup className="alphabetical-list">
+                                <ListGroup.Item>Unless expressly agreed to in writing, nothing contained herein shall give you a right to use any of the trade names, trademarks, service marks, logos, domain names, information, questions, answers, solutions, reports and other distinctive brand features, save according to the provisions of these Terms of Service that shall be available on the Website. All logos, trademarks, brand names, service marks, domain names, including material, designs, and graphics created by and developed by either the Website or such other third party and other distinctive brand features of the Website are the property of the Website or the respective copyright or trademark owner. Furthermore, concerning the Website, we shall be the exclusive owner of all the designs, graphics and the like, related to the Website.</ListGroup.Item>
+                                <ListGroup.Item>You shall not use any of the intellectual property displayed on the Website in any manner that is likely to cause confusion among existing or prospective users of the Website, or that in any manner disparages or discredits the Website, to be determined in the sole discretion.</ListGroup.Item>
+                                <ListGroup.Item>You are aware of all intellectual property, including but not limited to copyrights, relating to said services resides with the owners, and that at no point does any such intellectual property stand transferred from the aforementioned creators. You are aware that we merely provide the Website through which You can communicate with other users and the Website does not own any of the intellectual property relating to the independent content displayed on the Website, apart from created graphics and specified content.</ListGroup.Item>
+                                <ListGroup.Item>You are further aware that any reproduction or infringement of the intellectual property of the aforementioned owners by You will result in legal action being initiated against You by the respective owners of the intellectual property so reproduced/infringed upon. It is agreed to by You that the contents of this section shall survive even after the termination or expiry of these Terms of Service and/or Privacy Policy.</ListGroup.Item>
+                                </ListGroup>
+                            </section>
+
+                            <section className="section-wrapper">
+                                <h2>REFUNDS AND CANCELLATION POLICY</h2>
+                                <ListGroup className="alphabetical-list">
+                                <ListGroup.Item>We thank you and appreciate your purchase with us. Please read the policy, conditions and process carefully as they will give you important information and guidelines about your rights and obligations as our User, concerning any purchase you make through us. The policy concerning the returns and refund requests, shall be following the clauses as set forth:</ListGroup.Item>
+                                <h4>1. REFUND REQUESTS</h4>
+                                <ListGroup.Item>The Refunds shall be granted only under the following circumstance:</ListGroup.Item>
+                                <ListGroup.Item>c.	In case of payment gateway processing errors.</ListGroup.Item>
+                                <ListGroup.Item>The Refund shall not be granted under the following circumstances:</ListGroup.Item>
+                                <ListGroup.Item>d.	Once the fee is paid or an application has been submitted. </ListGroup.Item>
+                                <ListGroup.Item>e.	In case of wrong data or insufficient data being submitted by the User at the time of paying fees or submitting the applications. Refunds are done usually within 7 to 30 business days.</ListGroup.Item>
+                                <ListGroup.Item>You will be refunded in the currency you were charged in. If this is not your native currency, your bank may charge exchange fees, or a change in the exchange rate may have resulted in a difference in the amount refunded compared to the amount you originally paid (in your native currency). It is solely your responsibility if you have to pay any fees or bear any losses in this process. You shall make all Refund requests by contacting the technical team support available on the Website, which will be the official mode of communication with our Website and the Company. The Company shall waive all other means of communication made. All Refunds shall be made only on the basis and upon investigation by us on following such guidelines.</ListGroup.Item>
+                                <h4>2.	RETURNS</h4>
+                                <ListGroup.Item>Under no circumstance shall returns be initiated for the service opted by the User on the Website.</ListGroup.Item>
+                                <h4>3.	EXCHANGES</h4>
+                                <ListGroup.Item>Under no circumstance shall exchange be initiated for the service opted by the User on the Website.</ListGroup.Item>
+                                <h4>4.	CANCELLATION</h4>
+                                <ListGroup.Item>The Company at its sole discretion may cancel any Service(s):</ListGroup.Item>
+                                <ListGroup.Item>a.	If it suspects a User has undertaken a fraudulent transaction, or</ListGroup.Item>
+                                <ListGroup.Item>b.	If it suspects a User has undertaken a transaction which is not following the Terms of Use, or</ListGroup.Item>
+                                <ListGroup.Item>c.	In case of unavailability of a service, or</ListGroup.Item>
+                                <ListGroup.Item>d.	For any reason outside the control of the Company including causes for delivery related logistical difficulties.</ListGroup.Item>
+                                <ListGroup.Item>e.	If the Company does not want to do business with the User</ListGroup.Item>
+                                <ListGroup.Item>Further, while all measures are taken to ensure accuracy of service specifications and pricing, the details of the service as reflected on the Website may be inaccurate due to technical issues, typographical errors or incorrect service information provided to the Company and in such an event you shall be notified as soon as such error comes to the notice of the Company.</ListGroup.Item>
+                                <ListGroup.Item>The Company maintains a negative list of all fraudulent transactions and non-complying Users and reserves the right to deny access to such Users at any time or cancel any orders placed by them in future.</ListGroup.Item>
+                                </ListGroup>
+                            </section>
+
+                            <section className="section-wrapper">
+                                <h2>DISCLAIMER OF WARRANTIES AND LIABILITIES</h2>
+                                <ListGroup className="alphabetical-list">
+                                <ListGroup.Item>a.	You further agree and undertake that you are accessing the Website at your sole risk and are using the best and prudent judgment before availing of any features on the Website or accessing/using any information displayed thereon.</ListGroup.Item>
+                                <ListGroup.Item>b.	You agree that any kind of information, resources, activities, recommendations obtained/availed from the Website, written or oral, will not create any warranty and we disclaim all liabilities resulting from these.</ListGroup.Item>
+                                <ListGroup.Item>c.	We do not guarantee that the features and content contained in the Website will be uninterrupted or error-free, or that the Website or its server will be free of viruses or other harmful components, and You hereby expressly accept any associated risks involved with your use of the Website.</ListGroup.Item>
+                                <ListGroup.Item>d.	It is further agreed to by You that the contents of this section shall survive even after the termination or expiry of the Terms of Service and Privacy Policy. </ListGroup.Item>
+                                <h2>FORCE MAJEURE</h2>
+                                <ListGroup.Item>We will not be liable for damages for any delay or failure to perform our obligations hereunder if such delay or failure is due to cause beyond our control or without its fault or negligence, due to Force Majeure events including but not limited to acts of war, acts of God, earthquake, riot, fire, festive activities sabotage, labour shortage or dispute, internet interruption, technical failure, breakage of sea cable, hacking, piracy, cheating, illegal or unauthorized.</ListGroup.Item>
+                                </ListGroup>
+                            </section>
+
+                            <section className="section-wrapper">
+                                <h2>DISPUTE RESOLUTION AND JURISDICTION</h2>
+                                <ListGroup className="alphabetical-list">
+                                <ListGroup.Item>In the event of any dispute arising out of or in connection with this agreement, including any dispute relating to the validity of this agreement, the parties shall, at first instance, attempt to resolve the dispute by mediation administered by the Centre for Online Resolution of Disputes (“CORD”) (<u><a href="https://resolveoncord.com/" style={{color:"blue"}}>www.resolveoncord.com</a></u>)  and conducted in accordance with the CORD Rules of Mediation, by a sole mediator to be appointed by CORD.</ListGroup.Item>
+                                <ListGroup.Item>In the event the parties are unable to resolve any such dispute through mediation within 45 days of the initiation of the dispute, subject to a contrary agreement between the parties, the dispute shall be finally resolved by arbitration administered by CORD and conducted in accordance with the Rules of Arbitration of CORD, by a sole arbitrator to be appointed by CORD. The language of arbitration shall be English. The seat of arbitration shall be Kolkata, India.</ListGroup.Item>
+                                <ListGroup.Item>You expressly agree that the Terms of Service, Privacy Policy and any other agreements entered into between the Parties are governed by the laws, rules, and regulations of India.</ListGroup.Item>
+                             </ListGroup>
+                            </section>
+
+                            <section className="section-wrapper">
+                                <h2>DISCLAIMER OF WARRANTIES AND LIABILITIES</h2>
+                                <ListGroup className="alphabetical-list">
+                                <ListGroup.Item><span style={{fontWeight:"bold"}}>a.	Entire Agreement: </span> These Terms of Service, read with the Privacy Policy form the complete and final contract between us with respect to the subject matter hereof and supersedes all other communications, representations, and agreements (whether oral, written or otherwise) relating thereto.</ListGroup.Item>
+                                <ListGroup.Item><span style={{fontWeight:"bold"}}>b.	Waiver: </span>The failure at any time to require performance of any provision of these Terms of Service shall in no manner affect our right at a later time to enforce the same. No waiver by us of any breach of these Terms of Service, whether by conduct or otherwise, in any one or more instances, shall be deemed to be or construed as a further or continuing waiver of any such breach, or a waiver of any other breach of these Terms of Service.</ListGroup.Item>
+                                <ListGroup.Item><span style={{fontWeight:"bold"}}>c.	Severability: </span>If any provision/clause of these Terms of Service is held to be invalid, illegal or unenforceable by any court or authority of competent jurisdiction, the validity, legality, and enforceability of the remaining provisions/clauses of these Terms of Service shall in no way be affected or impaired thereby, and each such provision/clause of these Terms of Service shall be valid and enforceable to the fullest extent permitted by law. In such case, these Terms of Service shall be reformed to the minimum extent necessary to correct any invalidity, illegality or unenforceability, while preserving to the maximum extent the original rights, intentions and commercial expectations of the Parties hereto, as expressed herein.</ListGroup.Item>
+                                <ListGroup.Item><span style={{fontWeight:"bold"}}>d.	Contact Us: </span>If you have any questions about these Terms of Service, the practices of the Website, or your experience, you can contact us by emailing us at <u><a href="mailto:supportdesk@campuscredo.com" style={{color:"blue"}}>"supportdesk@campuscredo.com”</a></u> or by writing to us at  </ListGroup.Item>
+                                <h5 style={{textAlign:"center"}}>M/s. Campuscredo Technologies Private Limited</h5>
+                                <h6 style={{textAlign:"center"}}>“DL 54, Sector 2, Salt lake City, Kolkata-91”</h6>
+                              </ListGroup>
                             </section>
                         </div>
                     </Row>
