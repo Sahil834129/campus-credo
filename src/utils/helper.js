@@ -28,7 +28,7 @@ export const setLocalData = (key, value) => {
   }
 };
 
-export function logout () {
+export const logout = () => {
   resetUserLoginData();
   // window.location.reload(); 
   window.location.href = '/'
