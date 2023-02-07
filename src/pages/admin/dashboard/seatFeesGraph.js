@@ -106,7 +106,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                                 midNumberText={feesCollectedPercent+'%'}
                                 midTextFirst={'Fees'}
                                 midTextSecond={'Collected'}
-                                totalRemainng={`₹${totalFeesCollected} Projected Fees`}
+                                totalRemainng={`₹${totalFeesCollected.toLocaleString('en-IN')} Projected Fees`}
                             />
                         </td>
                     </tr>
