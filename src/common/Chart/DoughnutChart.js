@@ -28,7 +28,7 @@ const option = {
   }
 };
 
-export default function DoughnutChart({ data, midNumberText, midTextFirst, midTextSecond, totalRemainng }) {
+export default function DoughnutChart({ data, midNumberText,midTextFirst, midTextSecond, totalRemainng ,totalRemainngData , projectedFee}) {
   return (
     <Doughnut
       data={{ ...data }}
@@ -44,7 +44,8 @@ export default function DoughnutChart({ data, midNumberText, midTextFirst, midTe
           ctx.fillstyle = '#00000066';
           ctx.fillText(midTextFirst, radius + 21, radius + 40);
           ctx.fillText(midTextSecond, radius + 5, radius + 60);
-          ctx.fillText(totalRemainng, radius - 15, radius + 120);
+          ctx.fillText(totalRemainngData, radius +20, radius + 110);
+         { totalRemainng === "Remaining Seats" ?  ctx.fillText(totalRemainng, radius -18, radius + 125) : ctx.fillText(totalRemainng, radius +6, radius + 125) ;}
           ctx.font = '500 18px Rubik';
           ctx.fillText('50', 100, 265);
           ctx.save();

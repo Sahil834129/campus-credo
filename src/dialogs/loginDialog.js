@@ -252,7 +252,10 @@ const LoginDialog = (props) => {
                   type="phone"
                   maxLength="10"
                   onKeyDown={handleKeyDown}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) =>{
+                    handlePhoneBlur(e.target.value);
+                     setPhone(e.target.value)}
+                    }
                   onBlur={(e) => handlePhoneBlur(e.target.value)}
                   placeholder="Mobile Number"
                 />
