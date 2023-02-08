@@ -87,7 +87,24 @@ export const downloadDocument = async (childId, documentName, applicationChildId
     toast.error("Error while downloading document." + error);
   }
 };
-
+export const downloadApplicationOnParentDashboard = async (applicationId) => {
+  const baseDownloadURL = applicationId ? RestEndPoint.DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD : toast.error("Error while downloading document");
+  try {
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (applicationId));
+    downloadFile(data, 'Application Document');
+  } catch (error) {
+    toast.error("Error while downloading document." + error);
+  }
+};
+export const downloadInvoice = async (invoiceId) => {
+  const baseDownloadURL = invoiceId ? RestEndPoint.DOWNLOAD_PAYMENT_INVOICE : toast.error("Error while downloading document");
+  try {
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (invoiceId));
+    downloadFile(data, 'Payment Invoice' );
+  } catch (error) {
+    toast.error("Error while downloading document." + error);
+  }
+};
 export const downloadApplicationDocument = async (applicationId) => {
   try {
     const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_APPLICANT_DETAIL + '/' + applicationId);

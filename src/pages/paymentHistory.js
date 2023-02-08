@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
@@ -10,6 +11,7 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { humanize } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
+import { downloadInvoice } from "../utils/services";
 
 const PaymentHistory=() =>{
    const [orders, setOrders] = useState([{}])
@@ -31,16 +33,13 @@ const PaymentHistory=() =>{
     hideLoader(dispatch);
     } catch (error) {}
   }
-  const downloadInvoice=(id)=>
-  {
-    console.log(id);
+  async function downloadInvoicePdf(applicationId) {
+    downloadInvoice(applicationId);
   }
   const CountOrderLineItems =(order)=>
   {
     if(!order.orderLineItems) return "0"
-    for(let i=0 ; i < order.orderLineItems.length ; i ++){
-        return (i+1);
-    }
+   return (order.orderLineItems.length);
   }
   useEffect(() => {
     getOrdersDetails();
@@ -88,11 +87,12 @@ const PaymentHistory=() =>{
                                                 return <tr >
                                                     <td>{order.orderId}</td>
                                                     <td>
-                                                        <span className="text-primary" onClick={()=>{
+                                                        <Link className="text-primary" onClick={()=>{
+                                                        setOrderLineItems(order.orderLineItems);
                                                         handleShowLineItems();
                                                     }}>
                                                     {order.billingName}
-                                                    </span>
+                                                    </Link>
                                                     </td>
                                                     <td>{order.orderDate}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
@@ -105,7 +105,8 @@ const PaymentHistory=() =>{
                                                    
                                                     <td>
                                                         <div className="btn-wrapper">
-                                                            <Button className='edit' onClick={()=> downloadInvoice(order.Id)}>Download Invoice</Button>
+                                                            {/*  hardcoded application id (28) because its not clear  */}
+                                                            <Button className='edit' onClick={()=> downloadInvoicePdf(28)}>Download Invoice</Button>
                                                         </div>
                                                     </td>
                                                 </tr>
