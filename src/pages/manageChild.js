@@ -63,7 +63,7 @@ const ManageChild = () => {
                                 <Breadcrumbs />
                             </Col>
                         </Row>
-                        <Row className='content-section profile-content-main'>
+                        <div className='content-section profile-content-main'>
                             <Col className='left profile-sidebar'>
                                 <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
                                     <Accordion.Item eventKey="0">
@@ -121,7 +121,7 @@ const ManageChild = () => {
                                 </Table>
                                 </div>
                             </Col>
-                        </Row>
+                        </div>
                     </Col>
                 </Container>
             </section>

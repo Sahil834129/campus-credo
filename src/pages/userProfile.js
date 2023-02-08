@@ -54,7 +54,7 @@ const UserProfile = () => {
                 <Breadcrumbs />
               </Col>
             </Row>
-            <Row className='content-section profile-content-main'>
+            <div className='content-section profile-content-main'>
               <Col className='left profile-sidebar'>
                 
                 <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
@@ -89,13 +89,13 @@ const UserProfile = () => {
                 </div>
                 {
                   applications.length > 0 ?
-				  	applications.map((application, index) => {
-                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
-                  	})
-					: <NoRecordsFound message="No applications found for select child."/>
-                }
+                  applications.map((application, index) => {
+                            return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
+                          })
+                : <NoRecordsFound message="No applications found for select child."/>
+                      }
               </Col>
-            </Row>
+            </div>
           </Col>
         </Container>
       </section>

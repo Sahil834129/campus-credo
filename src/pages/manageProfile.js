@@ -229,7 +229,7 @@ export const ManageProfile = () => {
                   <Breadcrumbs />
                 </Col>
               </Row>
-              <Row className="content-section profile-content-main">
+              <div className="content-section profile-content-main">
                 <Col className="left profile-sidebar">
                   <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
                     <Accordion.Item eventKey="0">
@@ -375,7 +375,7 @@ export const ManageProfile = () => {
                                   errors={errors}
                                   touched={touched}
                                 />
-                                <span className="" onClick={toggleCurrentPassword} >
+                                <span className="view-pwd-icon" onClick={toggleCurrentPassword} >
                                     {currentPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
                                 </span>
                               </div>
@@ -390,7 +390,7 @@ export const ManageProfile = () => {
                                   errors={errors}
                                   touched={touched}
                                 />
-                                  <span className="" onClick={togglePassword} >
+                                  <span className="view-pwd-icon" onClick={togglePassword} >
                                     {passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
                                   </span>
                              </div>
@@ -405,7 +405,7 @@ export const ManageProfile = () => {
                                   errors={errors}
                                   touched={touched}
                                 />
-                                <span className="" onClick={toggleConfirmPassword} >
+                                <span className="view-pwd-icon" onClick={toggleConfirmPassword} >
                                     {confirmPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
                                   </span>
                               </div>
@@ -518,7 +518,7 @@ export const ManageProfile = () => {
                     </Tabs>
                   </div>
                 </Col>
-              </Row>
+              </div>
             </Col>
           </Container>
         </section>
