@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
@@ -88,7 +87,13 @@ const PaymentHistory=() =>{
                                             orders?.map((order, index) => {
                                                 return <tr >
                                                     <td>{order.orderId}</td>
-                                                    <td><Link onClick={handleShowLineItems}>{order.billingName}</Link></td>
+                                                    <td>
+                                                        <span className="text-primary" onClick={()=>{
+                                                        handleShowLineItems();
+                                                    }}>
+                                                    {order.billingName}
+                                                    </span>
+                                                    </td>
                                                     <td>{order.orderDate}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
@@ -113,7 +118,7 @@ const PaymentHistory=() =>{
                         </Row>
                     </Col>
                 </Container>
-                <OrderLineItems show={handleShowLineItems} handleClose={handleCloseLineItems}  orderLineItems={orderLineItems}/>
+                <OrderLineItems show={showLineItems} handleClose={handleCloseLineItems}  orderLineItems={orderLineItems}/>
             </section>
         </Layout>
     
