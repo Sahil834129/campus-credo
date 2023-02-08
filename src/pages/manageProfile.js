@@ -39,10 +39,39 @@ export const ManageProfile = () => {
     state: "",
   });
   const [showOTP, setShowOTP] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
+  const [confirmPasswordType, setConfirmPasswordType] = useState("password");
+  const [currentPasswordType, setCurrentPasswordType] = useState("password");
   const [updatePhoneObject, setUpdatePhoneObject] = useState({
     phone: "",
     otp: "",
   });
+  const togglePassword =()=>{
+    if(passwordType==="password")
+    {
+     setPasswordType("text")
+     return;
+    }
+      setPasswordType("password");
+  }
+  const toggleConfirmPassword =()=>{
+    if(confirmPasswordType==="password")
+    {
+      setConfirmPasswordType("text")
+     return;
+    }
+     setConfirmPasswordType("password");
+   
+  }
+  const toggleCurrentPassword =()=>{
+    if(currentPasswordType==="password")
+    {
+      setCurrentPasswordType("text")
+     return;
+    }
+    setCurrentPasswordType("password");
+   
+  }
   const confirmMessage =
     "You will not be able to login with the previous mobile number and your current login session will expire once you update the mobile number. Please confirm to continue?";
   const [showUpdatePhoneConfirmDialog, setShowUpdatePhoneConfirmDialog] =
@@ -200,7 +229,7 @@ export const ManageProfile = () => {
                   <Breadcrumbs />
                 </Col>
               </Row>
-              <Row className="content-section profile-content-main">
+              <div className="content-section profile-content-main">
                 <Col className="left profile-sidebar">
                   <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
                     <Accordion.Item eventKey="0">
@@ -341,11 +370,14 @@ export const ManageProfile = () => {
                                   fieldName="currentPassword"
                                   required
                                   label="Current Password"
-                                  fieldType="password"
+                                  fieldType={currentPasswordType}
                                   placeholder="Enter current password"
                                   errors={errors}
                                   touched={touched}
                                 />
+                                <span className="view-pwd-icon" onClick={toggleCurrentPassword} >
+                                    {currentPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                                </span>
                               </div>
                               <div className="col-md-6"></div>
                               <div className="col-md-6 pwd-cell">
@@ -353,23 +385,29 @@ export const ManageProfile = () => {
                                   fieldName="password"
                                   required
                                   label="New Password"
-                                  fieldType="password"
+                                  fieldType={passwordType}
                                   placeholder="Enter new password"
                                   errors={errors}
                                   touched={touched}
                                 />
-                              </div>
+                                  <span className="view-pwd-icon" onClick={togglePassword} >
+                                    {passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                                  </span>
+                             </div>
                               <div className="col-md-6"></div>
                               <div className="col-md-6 pwd-cell">
                                 <InputField
                                   fieldName="confirmPassword"
                                   required
                                   label="Re-enter Password"
-                                  fieldType="password"
+                                  fieldType={confirmPasswordType}
                                   placeholder="Re-enter Password"
                                   errors={errors}
                                   touched={touched}
                                 />
+                                <span className="view-pwd-icon" onClick={toggleConfirmPassword} >
+                                    {confirmPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                                  </span>
                               </div>
                               <div className="col-md-6"></div>
                               <div className="form-group mb-3 button-wrap">
@@ -480,7 +518,7 @@ export const ManageProfile = () => {
                     </Tabs>
                   </div>
                 </Col>
-              </Row>
+              </div>
             </Col>
           </Container>
         </section>

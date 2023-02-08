@@ -706,6 +706,9 @@ ul.list-group{
               i.oneapplicationform-icon{
                 background-image: url('../img/icons/one-applicationform-white.svg');
               }
+              i.paymenthistory-icon{
+                background-image: url('../img/icons/paymenthistory-white.svg');
+              }
               .indicator{
                 background: $white;
                 border: 1px solid #fff;
@@ -5803,8 +5806,9 @@ align-items: center;
   }
   .view-pwd-icon{
     position: absolute;
-    right: 12px;
-    top: 30px;
+    right: 20px;
+    top: 33px;
+    cursor: pointer;
   }
 }
 ._loading_overlay_content {
