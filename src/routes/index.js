@@ -32,8 +32,8 @@ import {
 } from "../pages";
 import DisclaimerPolicy from "../pages/disclaimer_Policy";
 import ResetPassword from "../pages/resetPassword";
-
 import ProtectedRoute from "./ProtectedRoute";
+import TermsAndConditions from "../pages/admin/termsAndConditions";
 
 function AppRoutes() {
   return (
@@ -91,6 +91,7 @@ function AppRoutes() {
           <Route path="/manage-fees" element={<ManageFees />} />
           <Route path="/manage-user" element={<ManageUsers />} />
           <Route path="/manage-application" element={<ManageApplication />} />
+          <Route path="/termsAndConditions" element={<TermsAndConditions />} />
         </Route>
       </Routes>
     </BrowserRouter>

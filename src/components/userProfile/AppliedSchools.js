@@ -7,10 +7,15 @@ import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
 import { getStatusLabel } from "../../utils/helper";
 import { baseURL } from "../../utils/RestClient";
+import { downloadApplicationOnParentDashboard } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
 
 const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
+
+  async function downloadApplicationOnDashboard(applicationId) {
+    downloadApplicationOnParentDashboard(applicationId);
+  }
 
   const getBadgeClassName = (status) => {
     switch (status) {
@@ -92,6 +97,17 @@ const AppliedSchools = ({ application, setApplications }) => {
               </Link>
             </div>
           </div>
+          <span className="download-option">
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() => {
+                                        downloadApplicationOnDashboard(application.applicationId);
+                                      }}
+                                    >
+                                      Download Application{" "}
+                                      <i className="icons link-icon"></i>
+                                    </a>
+                                </span>
         </div>
         {showTimeline ? <ApplicationTimeline application={application} setApplications={setApplications} setShowTimeline={setShowTimeline}/> : ""}
 </div>

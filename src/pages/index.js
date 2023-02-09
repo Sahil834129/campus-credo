@@ -23,10 +23,9 @@ import SignUp from "./signUp";
 import TermsOfUse from "./terms";
 import UserProfile from "./userProfile";
 import VerifyPhone from "./verifyPhone";
-
 import OrderConfirm from "./orderConfirm";
-
 import PaymentFailed from "./paymentFailed";
+import TermsAndConditions from "./admin/termsAndConditions"
 
 export {
   HomePage,
@@ -56,4 +55,5 @@ export {
   PaymentFailed,
   PaymentHistory,
   OrderConfirm,
+  TermsAndConditions,
 };

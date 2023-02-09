@@ -46,31 +46,26 @@ export const ManageProfile = () => {
     phone: "",
     otp: "",
   });
-  const togglePassword =()=>{
-    if(passwordType==="password")
-    {
-     setPasswordType("text")
-     return;
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text")
+      return;
     }
-      setPasswordType("password");
+    setPasswordType("password");
   }
-  const toggleConfirmPassword =()=>{
-    if(confirmPasswordType==="password")
-    {
+  const toggleConfirmPassword = () => {
+    if (confirmPasswordType === "password") {
       setConfirmPasswordType("text")
-     return;
+      return;
     }
-     setConfirmPasswordType("password");
-   
+    setConfirmPasswordType("password");
   }
-  const toggleCurrentPassword =()=>{
-    if(currentPasswordType==="password")
-    {
+  const toggleCurrentPassword = () => {
+    if (currentPasswordType === "password") {
       setCurrentPasswordType("text")
-     return;
+      return;
     }
     setCurrentPasswordType("password");
-   
   }
   const confirmMessage =
     "You will not be able to login with the previous mobile number and your current login session will expire once you update the mobile number. Please confirm to continue?";
@@ -136,7 +131,7 @@ export const ManageProfile = () => {
         city: response.data.city,
         state: response.data.state,
       });
-    } catch (error) {}
+    } catch (error) { }
   }
 
   const updateUserProfile = async (formData) => {
@@ -375,8 +370,12 @@ export const ManageProfile = () => {
                                   errors={errors}
                                   touched={touched}
                                 />
-                                <span className="view-pwd-icon" onClick={toggleCurrentPassword} >
-                                    {currentPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                                <span className="view-pwd-icon" onClick={() => {
+                                  if (values.currentPassword !== "") {
+                                    toggleCurrentPassword()
+                                  }
+                                }}>
+                                  {values.currentPassword !== "" ? currentPasswordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
                                 </span>
                               </div>
                               <div className="col-md-6"></div>
@@ -390,10 +389,14 @@ export const ManageProfile = () => {
                                   errors={errors}
                                   touched={touched}
                                 />
-                                  <span className="view-pwd-icon" onClick={togglePassword} >
-                                    {passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
-                                  </span>
-                             </div>
+                                <span className="view-pwd-icon" onClick={() => {
+                                  if (values.password !== "") {
+                                    togglePassword()
+                                  }
+                                }}>
+                                  {values.password !== "" ? passwordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                                </span>
+                              </div>
                               <div className="col-md-6"></div>
                               <div className="col-md-6 pwd-cell">
                                 <InputField
@@ -405,9 +408,13 @@ export const ManageProfile = () => {
                                   errors={errors}
                                   touched={touched}
                                 />
-                                <span className="view-pwd-icon" onClick={toggleConfirmPassword} >
-                                    {confirmPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
-                                  </span>
+                                <span className="view-pwd-icon" onClick={() => {
+                                  if (values.confirmPassword !== "") {
+                                    toggleConfirmPassword()
+                                  }
+                                }}>
+                                  {values.confirmPassword !== "" ? confirmPasswordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                                </span>
                               </div>
                               <div className="col-md-6"></div>
                               <div className="form-group mb-3 button-wrap">
@@ -494,23 +501,17 @@ export const ManageProfile = () => {
                                 </div>
                               </div>
                               <div className="fld-row button-wrap">
-                                
-                                  <button
-                                    type="button"
-                                    className="cancel comn"
-                                    onClick={() => resetForm()}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button className="save comn" type="submit">
-                                    {showOTP ? "Verify" : "Update"}
-                                  </button>
-                                
+                                <button
+                                  type="button"
+                                  className="cancel comn"
+                                  onClick={() => resetForm()}
+                                >
+                                  Cancel
+                                </button>
+                                <button className="save comn" type="submit">
+                                  {showOTP ? "Verify" : "Update"}
+                                </button>
                               </div>
-                             
-                             
-                              
-                              
                             </Form>
                           )}
                         </Formik>
