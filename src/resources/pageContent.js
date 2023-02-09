@@ -135,7 +135,7 @@ const PageContent = {
   },
   FACILITY_ICON_MAP: {
     Bus: 'trasport-icon',
-    'GPS Enabled Transport':'gpsenabled-icon',
+    'GPS enabled tran':'gpsenabled-icon',
     'Computer Lab': 'computer-lab',
     CCTV: 'security-icon',
     Biometrics: 'biometrics-icon',
@@ -145,7 +145,7 @@ const PageContent = {
     WiFi: 'wifi-icon',
     'Science Lab': 'sciencelab-icon',
     'Disabled Friendly': 'disabledfriendly-icon',
-    'Medical Centre': 'medicalcenter-icon',
+    'MedicalCentre': 'medicalcenter-icon',
     'Digital Learning': 'digitallearning-icon',
     'Daycare': 'daycare-icon',
     'Art & Craft': 'artandcraft-icon',
@@ -171,7 +171,7 @@ const PageContent = {
     Excursions: 'excursions-icon',
     TableTennis:'tabletennis-icon',
     HorseRiding: 'horseriding-icon',
-    BasketBall:'backetball-icon',
+    Basketball:'basketball-icon',
     Atheletics:'atheletics-icon'
    
   }
