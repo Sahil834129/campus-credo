@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/footer-logo-campuscredso.svg';
 import '../../assets/admin/scss/custom-styles.scss';
 
@@ -13,10 +13,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
-import { getLocalData, logout,getPresentableRoleName } from '../../utils/helper';
+import { getLocalData, logout, getPresentableRoleName } from '../../utils/helper';
 import { useSelector } from "react-redux";
 
 export const Layout = ({ admissionSummary, ...props }) => {
+  const navigate = useNavigate();
   const adminHeaderLink = useSelector(state => state?.userData?.modulePermissions);
   const [adminLink, setAdminLink] = useState([]);
   const location = useLocation();
@@ -32,8 +33,8 @@ export const Layout = ({ admissionSummary, ...props }) => {
     setAdminLink(adminHeaderLink.filter(val => val?.isPermit !== MANAGE_USER_PERMISSION[1]));
     let pathname = window.location.pathname;
     const data = adminHeaderLink.find(val => val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url == pathname);
-    if (!data) {
-      window.location.href = "/dashboard";
+    if (!data && pathname !== "/termsAndConditions") {
+      navigate("/dashboard")
     }
   }, [adminHeaderLink]);
   return (
@@ -51,7 +52,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
           <div className='item-col'>
             <div className='inner-cell profile-info'>
               {/* <Avatar name='Wim Mostmans' size='28' round={true} /> */}
-           <span className='text-white'>{getPresentableRoleName(getLocalData("roles"))}</span>   
+              <span className='text-white'>{getPresentableRoleName(getLocalData("roles"))}</span>
             </div>
             <div
               className='inner-cell'
@@ -142,7 +143,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
       </div>
       <div className='footer-panel'>
         <Link to='/dashboard'><FooterCampusLogo /></Link>
-        <Link href=''>Terms &amp; Conditions</Link>
+        <Link to='/termsAndConditions'>Terms &amp; Conditions</Link>
       </div>
       <ToastContainer autoClose={2000} position="top-right" />
     </Container>
