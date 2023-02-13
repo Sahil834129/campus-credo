@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import logoHeader from "../assets/img/brand-logo-header.png";
+import logoHeader from "../assets/img/brand-logo-header.svg";
 import Container from "react-bootstrap/Container";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import RESTClient from "../utils/RestClient";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedLocation, getSelectedLocation} from "../redux/actions/locationAction";
+import { setSelectedLocation, getSelectedLocation, setGeoLocation} from "../redux/actions/locationAction";
+import { gotoHome } from "../utils/helper";
 
 const SearchBar = () => {
     const navigate = useNavigate();
@@ -24,9 +26,15 @@ const SearchBar = () => {
     useEffect(()=>{dispatch(getSelectedLocation())}, [dispatch]);
 
     const getSchoolData = async() => {
+        let filters = []
+        filters.push({
+            field: 'city',
+            operator: 'EQUALS',
+            value: selectedLocation
+        })
         try {
-            const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:[]});
-            setSearchItems(response.data.map(school => ({name:school.name})));
+            const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});
+            setSearchItems(response.data.map(school => ({name:school.schoolName})));
         } catch(e){};
     }
 
@@ -55,8 +63,9 @@ const SearchBar = () => {
                 onClick(e);
             }}
         >
-            {children}
-            &#x25bc;
+           <label className="location-lbl">{children}</label>
+            {/* &#x25bc; */}
+            <i className="icons arrowdown-icon">&nbsp;</i>
         </a>
     ));
     
@@ -90,17 +99,22 @@ const SearchBar = () => {
 
     function handleSelectCity(location) {
         dispatch(setSelectedLocation(location));
+        navigate("/schools");
     }
+
+    useEffect(() => {
+        dispatch(setGeoLocation())
+    }, []);
 
     return (
         <>
         <Col className="navbar-header">
             <Container className="header-container">
-                <div className="header-item brand-logo"><img src={logoHeader} alt="brand logo" /></div>
+                <div className="header-item brand-logo"><Link to='/' onClick={(e)=> gotoHome(e, navigate)}><img src={logoHeader} alt="brand logo" /></Link></div>
                 <div className="header-item search-region-pane">
                     <div className="region-dropdown-wrap">
                         <i className="loc-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" /></svg>
                         </i>
                         <Dropdown>
                             <Dropdown.Toggle as={LocationDropDownToggle} id="dropdown-custom-components">
@@ -110,19 +124,20 @@ const SearchBar = () => {
                             <Dropdown.Menu as={LocationDropDownMenu}>
                                 {
                                     cities.map((city, index) => {
-                                        return <Dropdown.Item key={"city_"+index} eventKey={"city_e_" + index} onClick={ e => handleSelectCity(city)}>{city}</Dropdown.Item>
+                                        return <Dropdown.Item key={"city_"+index} eventKey={"city_e_" + index} onClick={ e => handleSelectCity(city)}>{city ? city : ''}</Dropdown.Item>
                                     })
                                 }
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
                     <div className="search-wrapper">
-                        <div style={{ width: 500, margin: 20 }}>
+                        <div className="search-inner" style={{ width: 500, marginTop: 4, marginBottom:4 }}>
                             <ReactSearchAutocomplete
                                 items={searchItems}
                                 onSelect={handleOnSelect}
                                 onSearch={handleOnSearch}
                                 styling={{ zIndex: 4 }}
+                                placeholder='Search Schools'
                             />
                         </div>
                     </div>

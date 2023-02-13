@@ -1,0 +1,59 @@
+@media screen and (max-width: 650px) { 
+    .main-container .form-content-wrapper{}
+    .signup-wrapper{
+        grid-template-columns: auto;
+        width: 100%;
+        margin: 0 auto;
+        padding: 16px 0;
+        .signup-col{
+            .infobox-pane{
+                margin: 0;
+                svg{height: auto;}
+            }
+            .infobox-inner{
+                margin: 8px 0;
+                padding: 0;
+                h2{font-size: 24px; line-height: 1.8rem; margin-bottom: 16px;}
+                h6{font-size: 16px; line-height: 1.4rem;margin-bottom: 16px;}
+            }
+            &.left{
+                margin: 0;
+                display: none;
+            }
+            &.right{
+                .logo{
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    svg{
+                        width: 60%;
+                    }
+                }
+                .form-wrapper{
+                    margin: 24px;
+                    .form-container{
+                        padding: 0 24px 40px 24px;
+                        .form-wrap{
+                            .frm-row{
+                                flex-direction:column;
+                                .frm-cell{
+                                    &.pwd-cell{
+                                        .view-pwd-icon{
+                                            top: 32px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1440px){
+    .container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}

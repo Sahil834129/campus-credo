@@ -5,14 +5,16 @@ import Col from 'react-bootstrap/Col';
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 import SchoolCard from "./SchoolCard";
+import { useSelector } from "react-redux";
 
 const NearBySchools = () => {
     const [nearBySchools, setNearBySchools] = useState([]);
+    const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
     useEffect(() => { getNearBySchools() }, []);
 
     const getNearBySchools = async () => {
         try {
-            let payload = { filters: [], offset: 1, limit: 1 };
+            let payload = { filters: [{field:"city",operator:"EQUALS", value:selectedLocation}], offset: 1, limit: 1 };
             const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, payload);
             setNearBySchools(response.data);
         } catch (e) {}

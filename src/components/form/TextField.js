@@ -1,16 +1,33 @@
-import React from "react";
-import {Field} from "formik";
+import React from 'react'
+import { Form } from 'react-bootstrap'
 
-const TextField = (props) => {
-    const fieldName = props.fieldName;
-    return (
-        <div className="form-group mb-3">
-            <Field type="text" className="form-control" name={fieldName} placeholder={props.placeholder} />
-            {props.errors[fieldName] && props.touched[fieldName] ? (
-                <div>{props.errors[props.fieldName]}</div>
-            ) : null}
-        </div>
-    );
-};
+const TextField = props => {
+  const errors = props.errors
+  return (
+    <>
+      <label htmlFor={props.fieldName} className='lbl'>
+        {props.label}
+        {props.required ? <span className='req'>*</span> : ''}
+      </label>
+      <Form.Group className='fld-wrap' controlId=''>
+        <Form.Control
+          type={props.fieldType || 'text'}
+          name={props.fieldName}
+          value={props.value}
+          placeholder={props.placeholder}
+          required={props.required}
+          {...(props.onChange ? { onChange: props.onChange } : {})}
+          {...(props.disabled ? { disabled: props.disabled } : {})}
+          {...(props.maxLength ? { maxLength: props.maxLength } : {})}
+          {...(props.minLength ? { minLength: props.minLength } : {})}
+          {...(props.min ? { min: props.min } : {})}
+        />
+        {
+          errors && errors.hasOwnProperty(props.fieldName) ? <div className='error-exception'>{errors[props.fieldName]}</div> : ''
+        }
+      </Form.Group>
+    </>
+  )
+}
 
-export default TextField;
+export default TextField

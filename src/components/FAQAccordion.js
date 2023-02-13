@@ -9,13 +9,13 @@ const FAQAccordion = () => {
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>What is the age criteria for admissions in Your Global School?</Accordion.Header>
                     <Accordion.Body>
-                        FAQ dettails
+                        FAQ details
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
                     <Accordion.Header>Is transportation facility available in Richmond Global School, Begaluru?</Accordion.Header>
                     <Accordion.Body>
-                        gfgfgf
+                        
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>

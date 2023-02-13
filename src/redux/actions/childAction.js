@@ -21,7 +21,19 @@ export const addChild = (reqPayload) => {
             RESTClient.get(RestEndPoint.GET_CHILD_LIST).then((response) => {
                 dispatch({type: ActionTypes.CHILDS_SUCCESS, payload: response.data});
             });
-            console.log(JSON.stringify(response));
+        }).catch((error)=>{
+            console.log(JSON.stringify(error));
+        });
+    }
+}
+
+export const updateChild = (reqPayload) => {
+    return (dispatch) => {
+        RESTClient.put(RestEndPoint.UPDATE_CHILD, reqPayload)
+        .then((response) => {
+            RESTClient.get(RestEndPoint.GET_CHILD_LIST).then((response) => {
+                dispatch({type: ActionTypes.CHILDS_SUCCESS, payload: response.data});
+            });
         }).catch((error)=>{
             console.log(JSON.stringify(error));
         });

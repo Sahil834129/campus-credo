@@ -1,144 +1,337 @@
-import React, {useState, useEffect} from "react";
-import BootStrapForm from 'react-bootstrap/Form';
+import { Form, Formik } from "formik";
+import MultiRangeSlider from "multi-range-slider-react";
+import React, { useEffect, useState } from "react";
+import Row from "react-bootstrap/Row";
+import { MultiSelect } from "react-multi-select-component";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Row from 'react-bootstrap/Row';
-import { Formik, Form } from 'formik';
-import InputField from "../components/form/InputField";
 import Button from "../components/form/Button";
+import InputField from "../components/form/InputField";
+import { getSchoolClasses } from "../redux/actions/masterData";
+import { setSchoolFilter } from "../redux/actions/userAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
-import { useSelector } from "react-redux";
 
-const SidebarFilter = (props) => {
-    const distanceOptions = [{"text":"--Select Distance--"},{"value":"1","text":"0 - 2km"},{"value":"2","text":"2 - 6km"},{"value":"3","text":"6 - 10km"}];
-    const [classOptions, setClassOptions] = useState([{"value":"","text":"Select Class"}]);
-    const [boardOptions, setBoardOptions] = useState([{"value":"","text":"Select Board"}]);
-    const [genderOptions, setGenderOptions] = useState([{"value":"","text":"Select Gender"}]);
-    const [mediumOfInstructionsOtions, setMediumOfInstructionsOtions] = useState([{"value":"","text":"Select Medium"}]);
-    const [facilitiesOptions, setFacilitiesOptions] = useState([{"value":"","text":"Select Facilities"}]);
-    const [extracurricularOptions, setExtracurricularOptions]  = useState([{"value":"","text":"Select Activity"}]);
-    const [minMonthlyTutionFee, setMinMonthlyTutionFee] = React.useState(0);
-    const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(0);
-    const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
-    const OPERATORS = {EQUALS: "EQUALS", IN: "IN", BETWEEN: "BETWEEN", LIKE: "LIKE"};
-    
-    useEffect(() => { populateSchoolBoardsList();}, []);
-    useEffect(() => { populateMediumOfInstructionsList();}, []);
-    useEffect(() => { populateGenderOptions();}, []);
-    useEffect(() => { populateFacilities();}, []);
-    useEffect(() => { popularExtraCurricularActivities();}, []);
-    useEffect(() => { popularSchoolClasses();}, []);
+const SidebarFilter = ({ filterFormData, applyFilters }) => {
+  const dispatch = useDispatch();
+  const [filter, setFilter] = useState("");
+  const classOptions = useSelector(
+    (state) => state?.masterData?.schoolClasses || []
+  );
+  const distanceOptions = [
+    { text: "--Select Distance--" },
+    { value: 2, text: "2km" },
+    { value: 5, text: "5km" },
+    { value: 10, text: "10km" },
+    { value: 15, text: "15km" },
+    { value: 20, text: "20km" },
+    { value: 25, text: "25km" },
+  ];
 
-    const applyFilter = (values) => {
-        props.applyFilters(prepareSchoolFilter(values));
+  const [boardOptions, setBoardOptions] = useState([
+    { value: "", text: "Select Board" },
+  ]);
+  const [genderOptions, setGenderOptions] = useState([
+    { value: "", text: "Select Gender" },
+  ]);
+  const [mediumOfInstructionsOtions, setMediumOfInstructionsOtions] = useState([
+    { value: "", text: "Select Medium" },
+  ]);
+  const [facilitiesOptions, setFacilitiesOptions] = useState([]);
+  const [extracurricularOptions, setExtracurricularOptions] = useState([]);
+  const [admissionStatusOptions, setAdmissionStatusOptions] = useState([
+    { value: "", text: "All" },
+    { value: "open", text: "Open" },
+    { value: "closed", text: "Closed" },
+  ]);
+  const [minMonthlyTutionFee, setMinMonthlyTutionFee] = React.useState(0);
+  const [maxMonthlyTutionFee, setMaxMonthlyTutionFee] = React.useState(20000);
+  const [facilities, setFacilities] = useState([]);
+  const [extracurriculars, setExtracurriculars] = useState([]);
+  const [initialFilterValues, setInitialFilterValues] = useState({
+    distance: "",
+    class: "",
+    board: "",
+    gender: "",
+    medium: "",
+    status: "",
+  });
+
+  useEffect(() => {
+    populateSchoolBoardsList();
+  }, []);
+  useEffect(() => {
+    populateMediumOfInstructionsList();
+  }, []);
+  useEffect(() => {
+    populateGenderOptions();
+  }, []);
+  useEffect(() => {
+    populateFacilities();
+  }, []);
+  useEffect(() => {
+    popularExtraCurricularActivities();
+  }, []);
+
+  useEffect(() => {
+    if (classOptions.length === 0) {
+      dispatch(getSchoolClasses());
     }
-    
-    function prepareSchoolFilter(filterForm) {
-        let filterPayload = {};
-        let filters = [];
-        filters.push({field:"city",operator: OPERATORS.EQUALS, value:selectedLocation})
-        if (filterForm.class !== null && filterForm.class !== '')
-            filters.push({field: 'classes', operator: OPERATORS.IN, values: [filterForm.class]});
-        if (filterForm.board !== null && filterForm.board !== '')
-            filters.push({field: 'board', operator: OPERATORS.EQUALS, value: filterForm.board});
-        if (filterForm.gender !== null && filterForm.gender !== '')
-            filters.push({field: 'gender', operator: OPERATORS.EQUALS, value: filterForm.gender});
-        if (filterForm.medium !== null && filterForm.medium !== '')
-            filters.push({field: 'mediumOfInstruction', operator: OPERATORS.LIKE, value: filterForm.medium});
-        if (filterForm.facilities !== null && filterForm.facilities !== '')
-            filters.push({field: 'facilities', operator: OPERATORS.IN, values: [filterForm.facilities]});
-        if (filterForm.extracurriculars !== null && filterForm.extracurriculars !== '')
-            filters.push({field: 'extracurriculars', operator: OPERATORS.IN, values: [filterForm.extracurriculars.value]});
-        let maxFee = maxMonthlyTutionFee > 0 ? maxMonthlyTutionFee : 100000;
-        filters.push({field: 'fee', operator: OPERATORS.BETWEEN, values: [minMonthlyTutionFee, maxFee]});
-        filterPayload["filters"] = filters;
-        return filterPayload;
-    }
+  }, []);
 
-    const populateMediumOfInstructionsList = async() => {
-        try {
-            const response = await RESTClient.get(RestEndPoint.GET_MEDIUM_OF_INSTRUCTIONS);
-            setMediumOfInstructionsOtions([{"value":"","text":"Select Medium"}].concat(response.data.schoolMediumOfInstructions.map(it=>({value:it, text: it}))));
-        } catch(e) {
-            console.log("Error while getting medium of instructions list" + e);
-        };
+  useEffect(() => {
+    if (Object.keys(filterFormData).length > 0) {
+      if (filterFormData.facilities)
+        setFacilities([...filterFormData.facilities]);
+      if (filterFormData.extracurriculars)
+        setExtracurriculars([...filterFormData.extracurriculars]);
+      if (filterFormData.minMonthlyTutionFee)
+        setMinMonthlyTutionFee(filterFormData?.minMonthlyTutionFee);
+      if (filterFormData.maxMonthlyTutionFee)
+        setMaxMonthlyTutionFee(filterFormData?.maxMonthlyTutionFee);
     }
+  }, []);
 
-    const populateSchoolBoardsList = async() => {
-        try {
-            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_BOARDS);
-            setBoardOptions([{"value":"","text":"Select Board"}].concat(response.data.schoolBoards.map(it=>({value:it, text:it}))));
-        } catch(e) {
-            console.log("Error while getting board list" + e);
+  const applyFilter = (values) => {
+    const filterValues = getFilterValues(values);
+    dispatch(setSchoolFilter(filterValues));
+    applyFilters(filterValues);
+  };
+
+  function getFilterValues(formValues) {
+    return {
+      ...formValues,
+      facilities: facilities,
+      extracurriculars: extracurriculars,
+      minMonthlyTutionFee: minMonthlyTutionFee,
+      maxMonthlyTutionFee: maxMonthlyTutionFee,
+    };
+  }
+
+  const populateMediumOfInstructionsList = async () => {
+    try {
+      const response = await RESTClient.get(
+        RestEndPoint.GET_MEDIUM_OF_INSTRUCTIONS
+      );
+      setMediumOfInstructionsOtions(
+        [{ value: "", text: "Select Medium" }].concat(
+          response.data.schoolMediumOfInstructions.map((it) => ({
+            value: it,
+            text: it,
+          }))
+        )
+      );
+    } catch (e) {
+      console.log("Error while getting medium of instructions list" + e);
+    }
+  };
+
+  const populateSchoolBoardsList = async () => {
+    try {
+      const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_BOARDS);
+      setBoardOptions(
+        [{ value: "", text: "Select Board" }].concat(
+          response.data.schoolBoards.map((it) => ({ value: it, text: it }))
+        )
+      );
+    } catch (e) {
+      console.log("Error while getting board list" + e);
+    }
+  };
+
+  const populateGenderOptions = async () => {
+    try {
+      const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_GENDER);
+      setGenderOptions(
+        [{ value: "", text: "Select Gender" }].concat(
+          response.data.schoolGenders.map((it) => ({ value: it, text: it }))
+        )
+      );
+    } catch (e) {
+      console.log("Error while getting gender list" + e);
+    }
+  };
+
+  const populateFacilities = async () => {
+    try {
+      const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_FACILITIES);
+      setFacilitiesOptions(
+        response.data.schoolFacilities.map((it) => ({
+          value: it.facilityName,
+          label: it.facilityName,
+        }))
+      );
+    } catch (e) {
+      console.log("Error while getting school facilities" + e);
+    }
+  };
+
+  const popularExtraCurricularActivities = async () => {
+    try {
+      const response = await RESTClient.get(
+        RestEndPoint.GET_SCHOOL_EXTRA_CURRICULAR_ACTIVITIES
+      );
+      setExtracurricularOptions(
+        response.data.extracurriculars.map((it) => ({
+          value: it.activity,
+          label: it.activity,
+        }))
+      );
+    } catch (e) {
+      console.log("Error while getting extracurriculars list" + e);
+    }
+  };
+
+  function handleResetForm(resetForm) {
+    resetForm();
+    setMinMonthlyTutionFee(0);
+    setMaxMonthlyTutionFee(20000);
+    setFacilities([]);
+    setExtracurriculars([]);
+    dispatch(setSchoolFilter({}));
+    applyFilters({});
+  }
+
+  return (
+    <Row className="filter-panel">
+
+      <Formik
+        initialValues={
+          Object.keys(filterFormData).length > 0
+            ? filterFormData
+            : initialFilterValues
         }
-    }
-
-    const populateGenderOptions = async() => {
-        try {
-            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_GENDER);
-            setGenderOptions([{"value":"","text":"Select Gender"}].concat(response.data.schoolGenders.map(it=>({value:it, text:it}))));
-        } catch(e) {
-            console.log("Error while getting gender list" + e);
-        }
-    }
-
-    const populateFacilities = async() => {
-        try {
-            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_FACILITIES);
-            setFacilitiesOptions([{"value":"","text":"Select Facilities"}].concat(response.data.schoolFacilities.map(it=>({value:it.facilityName, text:it.facilityName}))));
-        } catch(e) {
-            console.log("Error while getting gender list" + e);
-        }
-    }
-
-    const popularExtraCurricularActivities = async() => {
-        try {
-            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_EXTRA_CURRICULAR_ACTIVITIES);
-            setExtracurricularOptions([{"value":"","text":"Select Activity"}].concat(response.data.extracurriculars.map(it=>({value: it.activity, text: it.activity}))));
-        } catch(e) {
-            console.log("Error while getting extracurriculars list" + e);
-        }
-    }
-
-    const popularSchoolClasses = async() => {
-        try {
-            const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES);
-            setClassOptions([{"value":"","text":"Select Class"}].concat(response.data.classes.map(it => ({value: it, text: it}))));
-        } catch(e) {
-            console.log("Error while getting classes list" + e);
-        }
-    }
-
-    return (
-        <Row className='filter-panel'>
-            <div className='filter-head'>
-                <h2><i className='icons filter-icon'></i> Filters</h2>
-                <Link href="">Reset</Link>
+        enableReinitialize
+        onSubmit={(values) => {
+          applyFilter(values);
+        }}
+      >
+        {({ errors, resetForm, touched, values }) => (
+          <Form className="filter-components">
+            <div className="filter-head">
+              <h2>
+                <i className="icons filter-icon"></i> Filters
+              </h2>
+              <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
             </div>
-            <Formik initialValues={{ distance: '', class: '', board: '', gender: '', medium: '', facilities: '', extracurriculars: ''}}
-                onSubmit={values => { applyFilter(values)}}
-                >
-                {({  errors, touched }) => (
-                    <Form className='filter-components'>
-                        <InputField fieldName="distance" fieldType="select" placeholder="" label="Distance from Home" selectOptions={distanceOptions} errors={errors} touched={touched}/>
-                        <InputField fieldName="class" fieldType="select" placeholder="" label="Class" selectOptions={classOptions} errors={errors} touched={touched}/>
-                        <label>Min. Monthly Tuition Fees ₹</label>
-                        <BootStrapForm.Range id="minTutionFeeRange" value={minMonthlyTutionFee} min={1000} max={50000} onChange={e=>setMinMonthlyTutionFee(e.target.value)}/>
-                        <InputField fieldName="minMonthlyTutionFee" value={minMonthlyTutionFee} fieldType="text" placeholder="" errors={errors} touched={touched}/>
-                        <label>Max. Monthly Tuition Fees ₹</label>
-                        <BootStrapForm.Range id="maxTutionFeeRange" value={maxMonthlyTutionFee} min={1000} max={50000} onChange={e=>setMaxMonthlyTutionFee(e.target.value)}/>
-                        <InputField fieldName="maxMonthlyTutionFee" value={maxMonthlyTutionFee} fieldType="text" placeholder="" errors={errors} touched={touched}/>
-                        <InputField fieldName="board" fieldType="select" placeholder="" label="School Board" selectOptions={boardOptions} errors={errors} touched={touched}/>
-                        <InputField fieldName="gender" fieldType="select" placeholder="" label="Gender" selectOptions={genderOptions} errors={errors} touched={touched}/>
-                        <InputField fieldName="medium" fieldType="select" placeholder="" label="Medium of Instruction" selectOptions={mediumOfInstructionsOtions} errors={errors} touched={touched}/>
-                        <InputField fieldName="facilities" fieldType="select" placeholder="" label="Facilities" selectOptions={facilitiesOptions} errors={errors} touched={touched}/>
-                        <InputField fieldName="extracurriculars" fieldType="select" placeholder="" label="Extracurriculars" selectOptions={extracurricularOptions} errors={errors} touched={touched}/>
-                        <Button buttonLabel="Apply" class="signin-btn"/>
-                    </Form>
-                )}
-            </Formik>
-        </Row>
-    );
+            <div className="filter-row">
+              <div className="filter-item">
+                <InputField
+                  fieldName="status"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.status}
+                  label="Admission Status"
+                  selectOptions={admissionStatusOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="distance"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.distance}
+                  label="Distance from Home"
+                  selectOptions={distanceOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="class"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.class}
+                  label="Class"
+                  selectOptions={classOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <label>Monthly Tuition Fees</label>
+                <div className="range-slider-wrapper">
+                  <MultiRangeSlider
+                    min={0}
+                    max={20000}
+                    step={500}
+                    minValue={minMonthlyTutionFee}
+                    maxValue={maxMonthlyTutionFee}
+                    ruler="false"
+                    label="false"
+                    onInput={(e) => {
+                      setMinMonthlyTutionFee(e.minValue);
+                      setMaxMonthlyTutionFee(e.maxValue);
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="board"
+                  fieldType="select"
+                  placeholder=""
+                  value={values.board}
+                  label="School Board"
+                  selectOptions={boardOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="gender"
+                  fieldType="select"
+                  value={values.gender}
+                  placeholder=""
+                  label="Gender"
+                  selectOptions={genderOptions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item">
+                <InputField
+                  fieldName="medium"
+                  fieldType="select"
+                  value={values.medium}
+                  placeholder=""
+                  label="Medium of Instruction"
+                  selectOptions={mediumOfInstructionsOtions}
+                  errors={errors}
+                  touched={touched}
+                />
+              </div>
+              <div className="filter-item multiselect-fld">
+                <label>Facilities</label>
+                <MultiSelect
+                  options={facilitiesOptions}
+                  value={facilities}
+                  onChange={setFacilities}
+                  labelledBy="Facilities"
+                ></MultiSelect>
+              </div>
+              <div className="filter-item multiselect-fld">
+                <label>Extracurriculars</label>
+                <MultiSelect
+                  options={extracurricularOptions}
+                  value={extracurriculars}
+                  onChange={setExtracurriculars}
+                  labelledBy="Extracurriculars"
+                ></MultiSelect>
+              </div>
+            </div>
+            <div className="filter-item btn-wrap">
+              <Button buttonLabel="Apply" class="applyFilter" />
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </Row>
+  );
 };
 
 export default SidebarFilter;

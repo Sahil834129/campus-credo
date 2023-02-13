@@ -1,48 +1,26 @@
-import React, { useState } from "react";
-import AlertDialog from "../common/AlertDialog";
-import ApplyToSchoolDialog from "../dialogs/applyToSchoolDialog";
-import PageContent from "../resources/pageContent";
-import { isLoggedIn } from "../utils/helper";
-import SchoolCard from "./SchoolCard";
+import React from "react";
+
+import { useSelector } from 'react-redux';
 import NoRecordsFound from "../common/NoRecordsFound";
+import SchoolCard from "./SchoolCard";
 
 const SchoolCardGrid = (props) => {
-    const [selectedSchoolToApply, setSelectedSchoolToApply] = useState('');
-    const [showApplyToSchoolDialog, setShowApplyToSchoolDialog] = useState(false);
-    const [showAlertDialog, setShowAlertDialog] = useState(false);
-    
-    const handleAddToCart = (schoolId) => {
-        console.log("is logged n : " + isLoggedIn())
-        if (!isLoggedIn()) {
-            setShowAlertDialog(true);
-            return;
-        }
-        setSelectedSchoolToApply(schoolId);
-        setShowApplyToSchoolDialog(true);
-    }
-
-    const handleAddToCartDialogClose = () => {
-        setShowApplyToSchoolDialog(false);
-    }
-
-    const handleAlertDialogClose = () => {
-        setShowAlertDialog(false);
-    }
-
+    const selectedLocation = useSelector(
+        state => state.locationData.selectedLocation
+    )
     return (
         <>
-        <div className='title-area'><h2>Schools in Bangalore | Bengaluru</h2></div>
-        <div className='school-list-container'>
-            {
-                props.schools.length ?
-                props.schools.map((school, index) => (
-                    <SchoolCard school={school} key={"school_" + index} handleAddToCart={handleAddToCart}/>
-                ))
-                : <NoRecordsFound message={"No schools found on selected criteria."} />
-            }
-        </div>
-        <ApplyToSchoolDialog show={showApplyToSchoolDialog} schoolId={selectedSchoolToApply} handleClose={handleAddToCartDialogClose}/>
-        <AlertDialog show={showAlertDialog} message={PageContent.MUST_BE_LOGGED_IN_MSG} handleClose={handleAlertDialogClose}/>
+            <div className='title-area'><h2>Schools in {selectedLocation}</h2></div>
+            <div className='school-list-container'>
+                {
+                    props.schools.length ?
+                        props.schools.map((school, index) => (
+                            <SchoolCard school={school} key={"school_" + index} />
+                        ))
+                        : <NoRecordsFound message={ props.isLoading ? "Loading please wait..." : "No schools found on selected criteria."} />
+                }
+            </div>
+
         </>
     );
 };

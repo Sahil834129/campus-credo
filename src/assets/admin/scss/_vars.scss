@@ -1,0 +1,61 @@
+// v10-Font family
+$rubik-slab: 'Rubik', sans-serif !important;
+$roboto-slab: 'Roboto', sans-serif;
+
+// v10-Color Pallet
+$white: #fff;
+$black: #000;
+$global-bg: #F8F8F8;
+$offwhite: #fffefe;
+$orange: #FF8700;
+$yellow: #F7C32E;
+$darkbrown: #373330;
+$darkgreen: #548435;
+$darkred: #E53535;
+$lightred:#EA5C6E;
+$bgcolor:#ffffff;
+$primarycolor:#41285F;
+$secondarycolor:#549B43;
+
+// v10 font-weight
+$font-weight-normal: normal;
+$font-weight-bold: 700;
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-300: 300;
+
+// v10 font-size
+$font-size-h1: 6rem;
+$font-size-h2: 3.75rem;
+$font-size-h3: 3rem;
+$font-size-h4: 2.125rem;
+$font-size-h5: 1.5rem;
+$font-size-h6: 1.25rem;
+$font-size-body1: 1rem;
+$font-size-body2: 0.875rem;
+$font-size-subtitle1: 1rem;
+$font-size-subtitle2: 0.875rem;
+$font-size-caption: 0.75rem;
+$font-size-overline: 0.75rem;
+$font-size-button: 0.875rem;
+
+@function rem($px) {
+    @return #{$px / 16}rem;
+}
+// div.et_pb_section.et_pb_section_0 {
+//     background-size: contain;
+//     background-position: center bottom 0px;
+//     background-image: url(../img/vertical-dotted-triangle.svg),linear-gradient(150deg,#ffba61 0%,#ffe970 100%)!important;
+    
+// }
+// div.et_pb_section.et_pb_section_3 {
+//     background-size: contain;
+//     background-position: center top;
+//     background-image: url(../img/vertical-dotted-triangle.svg),linear-gradient(237deg,#000a0c 0%,#0752fe 100%)!important;
+// }
+
+.greentext{color: $secondarycolor;}
+.redtext{color: $darkred;}
+
+
+

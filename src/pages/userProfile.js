@@ -1,197 +1,96 @@
-import React from "react";
-import Breadcrumbs from '../common/Breadcrumbs';
-import Row from 'react-bootstrap/Row';
+import React, { useEffect, useState } from "react";
 import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Card from 'react-bootstrap/Card';
-import { Link, useNavigate } from "react-router-dom";
-import schoolpic01 from "../assets/img/school-picture/boarding-icon.jpg"
-import Nav from 'react-bootstrap/Nav';
 import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Breadcrumbs from '../common/Breadcrumbs';
 import Layout from "../common/layout";
+import LeftMenuBar from "../common/LeftMenuBar";
+import NoRecordsFound from "../common/NoRecordsFound";
+import AppliedSchools from "../components/userProfile/AppliedSchools";
+import { getChildsList } from '../redux/actions/childAction';
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import PageContent from "../resources/pageContent";
+import { isLoggedIn } from '../utils/helper';
+import RESTClient from "../utils/RestClient";
 
 const UserProfile = () => {
-    return (
-        <Layout>
-        <section className="content-area">
-                <Container className="content-area-inner profile-page-wrap">
-                  <Col className='inner-page-content '>
-                    <Row className='content-section profile-bc-section'>
-                        <Col className='bc-col'>
-                            <Breadcrumbs/>
-                        </Col>
-                        <Col className='datetime-col'>
-                            11 October 2022 - 9:09 PM
-                        </Col>
-                      
-                    </Row>
-                    <Row className='content-section profile-content-main'>
-                        <Col className='left sidebar'>
-                          <Nav defaultActiveKey="/home" className="sideNav">
-                            <Nav.Link href="/home">Dashboard</Nav.Link>
-                            <Nav.Link eventKey="link-1">Manage Profile</Nav.Link>
-                            <Nav.Link eventKey="link-2">Fee Payments</Nav.Link>
-                            <Nav.Link eventKey="link-3">One Admission Form</Nav.Link>
-                            <Nav.Link eventKey="link-4">Logout</Nav.Link>
-                            {/* <Nav.Link eventKey="disabled" disabled>
-                                Disabled
-                            </Nav.Link> */}
-                            </Nav>
-                        </Col>
-                        <Col className='right content'>
-                            <div className='row-items header'>
-                                <div className='col-item select-option left'>
-                                    <label>Select Child<span className='req'>*</span></label> 
-                                    <Form.Group className='frm-cell'>
-                                        <Form.Select aria-label="Default select example">
-                                        <option>--Select Child--</option>
-                                        <option value="1">Child-one</option>
-                                        <option value="2">Child-two</option>
-                                        <option value="3">Child-three</option>
-                                        </Form.Select>
-                                    </Form.Group>
-                                </div>
-                                <div className='col-item application-link right'>
-                                    Your Application<Link to=''>(02)</Link>
-                                </div>
-                              </div>
-                            <div className='row-items application-block'>
-                                <div className='col-item left'>
-                                  <div className='school-info-main'>
-                                      <div className='info-item school-logo-wrap'>
-                                          <Card.Img className='school-logo' src={schoolpic01} /> 
-                                      </div>
-                                      <div className='info-item school-info-exerpts'>
-                                          <div className='school-name'>Orchids - The International School</div>
-                                          <ListGroup className='school-type'>
-                                          <ListGroup.Item>CBSE</ListGroup.Item>
-                                          <ListGroup.Item>English</ListGroup.Item>
-                                          <ListGroup.Item>Co-ed</ListGroup.Item>
-                                          </ListGroup>
-                                          <div className='moreinfo-block'>
-                                              <div className='col'>Applying to Class : <strong>STD I</strong></div>
-                                              <div className='col divider'>|</div>
-                                              <div className='col'>Admission Fee Paid : <strong>₹240</strong></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div className='col-item right'>
-                                  <div className='col'><label>Status</label></div>
-                                  <div className='col'><span className='badge accepted'>Application Accepted</span></div>
-                                  <div className='col'><Link>View Status timeline <i className='icons arrowdown-icon'></i></Link></div>
-                                </div>
-                            </div>
-                            <div className='row-items timeline-wrapper'>
-                                <div className='title-wrap'>
-                                    <div className='col left'><h2>Application Status Timeline</h2></div>
-                                    <div className='col right'><Link>View your form details <i className='icons arrowright-icon'></i></Link></div>
-                                </div>
-                                <div className='timeline-list'>
-                                  <ul className='timeline-info-panel'>
-                                    <li>
-                                      <div className='date'>04 Oct 2022</div>
-                                      <div className='indicator'><span className='indiShape circle'></span></div>
-                                      <div className='particulars-status'>
-                                        <div className='update-info'>Application <span className='status submitted'>Submitted</span></div>
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div className='date'>04 Oct 2022</div>
-                                      <div className='indicator'><span className='indiShape circle'></span></div>
-                                      <div className='particulars-status'>
-                                      <div className='update-info'>
-                                        <strong>Under process</strong> <span className='status submitted'>Validation and review</span>
-                                      </div>
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div className='date'>06 Oct 2022</div>
-                                      <div className='indicator'><span className='indiShape circle'></span></div>
-                                      <div className='particulars-status'>
-                                      <div className='update-info'>Sent for final validation to Principle’s office</div></div>
-                                    </li>
-                                    <li>
-                                      <div className='date'>06 Oct 2022</div>
-                                      <div className='indicator'><span className='indiShape circle'></span></div>
-                                      <div className='particulars-status'>
-                                          <div className='update-info'>Congratulation!!! <span className='status submitted'>Application Accepted for Interview</span></div>
-                                          <div className='instruction'>Please contact school admin  for interview schedule and admission procedures</div>
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div className='date'>06 Oct 2022</div>
-                                      <div className='indicator'><span className='indiShape circle'></span></div>
-                                      <div className='particulars-status'>
-                                        <div className='update-info'>Interview Scheduled </div>
-                                        <div className='instruction inst-block'>
-                                          <div className='items'>
-                                            <div className='item'>Interview Date</div>
-                                            <div className='item'>
-                                                <div className='inner-section'>21 October 2022 <span className='time'>10:00 AM - 6:00 PM</span> </div>
-                                                
-                                            </div>
-                                          </div>
-                                          <div className='items'>
-                                            <div className='item'>Contact Person</div>
-                                            <div className='item'>
-                                              <div className='inner-section'>Mr. Aritro Mondal  </div>
-                                              <div className='inner-section'>P: +91 9456736675 E: admission@orchid.com</div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div className='date'>06 Oct 2022</div>
-                                      <div className='indicator'><span className='indiShape circle'></span></div>
-                                      <div className='particulars-status'>
-                                          <div className='update-info'>Congratulation!!! <span className='status submitted'>Application Accepted for Interview</span></div>
-                                          <div className='instruction'>Please contact school admin  for interview schedule and admission procedures</div>
-                                      </div>
-                                    </li>
-                                  </ul>
-                                </div>
+  const dispatch = useDispatch()
+  const [selectedChild, setSelectedChild] = useState('')
+  const [applications, setApplications] = useState([])
+  const childs = useSelector((state) => state.childsData.childs)
 
-                            </div>
-                            <div className='row-items application-block'>
-                                <div className='col-item left'>
-                                  <div className='school-info-main'>
-                                      <div className='info-item school-logo-wrap'>
-                                          <Card.Img className='school-logo' src={schoolpic01} /> 
-                                      </div>
-                                      <div className='info-item school-info-exerpts'>
-                                          <div className='school-name'>Orchids - The International School</div>
-                                          <ListGroup className='school-type'>
-                                          <ListGroup.Item>CBSE</ListGroup.Item>
-                                          <ListGroup.Item>English</ListGroup.Item>
-                                          <ListGroup.Item>Co-ed</ListGroup.Item>
-                                          </ListGroup>
-                                          <div className='moreinfo-block'>
-                                              <div className='col'>Applying to Class : <strong>STD I</strong></div>
-                                              <div className='col divider'>|</div>
-                                              <div className='col'>Admission Fee Paid : <strong>₹240</strong></div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div className='col-item right'>
-                                  <div className='col'><label>Status</label></div>
-                                  <div className='col'><span className='badge under-validation'>Application Accepted</span></div>
-                                  <div className='col'><Link>View Status timeline <i className='icons arrowdown-icon'></i></Link></div>
-                                </div>
-                            </div>
+  useEffect(() => { 
+    if (isLoggedIn())
+      dispatch(getChildsList());
+  }, [dispatch]);
 
-                        </Col>
-                    </Row>
-                  </Col>
-    
-             
-                </Container>
-                </section>
-                </Layout>
-    )
+  useEffect(()=> {
+    childs.length && handleChildSelection(childs[0].childId);
+  }, [childs]);
+
+  const handleChildSelection = async (childId) => {
+    if(!childId)
+      return
+    setSelectedChild(childId)
+    try {
+      const response = await RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`)
+      setApplications(response.data)
+    } catch (error) {
+      setApplications([])
+    }
+  }
+  
+  return (
+    <Layout>
+      <section className="content-area">
+        <Container className="content-area-inner profile-page-wrap">
+          <Col className='inner-page-content dashboard-page col'>
+            <Row className='content-section profile-bc-section'>
+              <Col className='bc-col'>
+                <Breadcrumbs />
+              </Col>
+            </Row>
+            <Row className='content-section profile-content-main'>
+              <Col className='left profile-sidebar'>
+                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+              </Col>
+              <Col className='profile-content right'>
+                <div className='row-items header'>
+                  <div className='col-item select-option left'>
+                    <label>Select Child<span className='req'>*</span></label>
+                    <Form.Group className='frm-cell'>
+                      <Form.Select value={selectedChild} onChange={e=>handleChildSelection(e.target.value)}>
+                        <option value=''>--Select Child--</option>
+                        {
+                          childs && childs.map((child, index) => {
+                            return <option key={'applicationChild_'+index} value={child.childId}>{child.firstName} {(child.lastName ? ' ' + child.lastName : '')}</option>
+                          })
+                        }
+
+                      </Form.Select>
+                    </Form.Group>
+                  </div>
+                  <div className='col-item application-link right'>
+                    <label>Your Application</label> <Link to=''>({applications.length})</Link>
+                  </div>
+                </div>
+                {
+                  applications.length > 0 ?
+				  	applications.map((application, index) => {
+                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
+                  	})
+					: <NoRecordsFound message="No applications found for select child."/>
+                }
+              </Col>
+            </Row>
+          </Col>
+        </Container>
+      </section>
+    </Layout>
+  )
 }
 
 export default UserProfile;

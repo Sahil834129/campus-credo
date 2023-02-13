@@ -1,37 +1,43 @@
-import React, {useState} from "react";
-import Modal from 'react-bootstrap/Modal';
-import { Formik, Form } from 'formik';
-import InputField from "../components/form/InputField";
+import { Form, Formik } from 'formik';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import Button from "../components/form/Button";
+import InputField from "../components/form/InputField";
 import { ForgotPasswordSchema } from "../data/validationSchema";
+import RestEndPoint from "../redux/constants/RestEndpoints";
+import RESTClient from "../utils/RestClient";
+import GenericDialog from "./GenericDialog";
 
 const ForgotPasswordDialog = (props) => {
     const [submitting, setSubmitting] = useState(false);
-    const submitResetPasswordForm = (values) => {
+    const submitResetPasswordForm = async(values) => {
         setSubmitting(true);
-        setTimeout(() => {
-            alert("here : " + JSON.stringify(values, null, 2));
+        try {
+            const response = await RESTClient.post(RestEndPoint.FORGOT_PASSWORD, values)
             setSubmitting(false);
-        }, 1000);
+            toast.success("Password reset mail sent.")
+        } catch (error) {
+            setSubmitting(false);
+            toast.error(RESTClient.getAPIErrorMessage(error))
+        }
     };
     return (
-        <Modal dialogClassName="signin-model" show={props.show} onHide={props.handleClose}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body dialogClassName="model-body">
-                <div className='model-body-col'>
-                    <h4>An email will be sent with reset password link.</h4>
-                    <Formik initialValues={{ email: '' }}
-                        validationSchema={ForgotPasswordSchema} validateOnBlur onSubmit={values => { submitResetPasswordForm(values) }}>
-                        {({ errors, touched }) => (
-                            <Form>
-                                <InputField fieldName="email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} />
+        <GenericDialog className="forgotpwd-model" show={props.show} handleClose={props.handleClose}>
+            <div className='model-body-col'>
+                <h4>An email will be sent with reset password link.</h4>
+                <Formik initialValues={{ email: '' }}
+                    validationSchema={ForgotPasswordSchema} validateOnBlur onSubmit={values => { submitResetPasswordForm(values) }}>
+                    {({ errors, touched }) => (
+                        <Form className='form-container forgot-pwd'>
+                            <div className='frm-cell'><InputField fieldName="email" fieldType="text" placeholder="Email Address" errors={errors} touched={touched} /></div>
+                            <div className="btn-wrapper">
                                 <Button class="signin-btn" buttonLabel="Reset Password" submitting={submitting} />
-                            </Form>
-                        )}
-                    </Formik>
-                </div>
-            </Modal.Body>
-        </Modal>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
+        </GenericDialog>
     );
 };
 
