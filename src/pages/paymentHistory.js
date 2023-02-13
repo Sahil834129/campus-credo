@@ -113,8 +113,7 @@ const PaymentHistory=() =>{
                                                    
                                                     <td>
                                                         <div className="btn-wrapper">
-                                                            {/*  hardcoded application id (28) because its not clear  */}
-                                                            <Button className='edit' onClick={()=> downloadInvoicePdf(28)}>Download Invoice</Button>
+                                                            <Button className='edit' onClick={() => downloadInvoicePdf(order.orderId)}>Download Invoice</Button>
                                                         </div>
                                                     </td>
                                                 </tr>
