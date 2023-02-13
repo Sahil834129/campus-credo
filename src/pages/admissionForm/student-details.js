@@ -276,7 +276,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="className"
-            label="Select Class"
+            label="Class"
             required={true}
             errors={validationErrors}
             selectOptions={classOptions}
@@ -293,7 +293,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="religion"
-            label="Select Religion"
+            label="Religion"
             required={true}
             errors={validationErrors}
             selectOptions={RELIGION_OPTIONS}
@@ -321,7 +321,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="category"
-            label="Select Category"
+            label="Category"
             required={true}
             errors={validationErrors}
             selectOptions={CATEGORY_OPTIONS}
