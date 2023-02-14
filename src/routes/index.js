@@ -38,26 +38,7 @@ import TermsAndConditions from "../pages/admin/termsAndConditions";
 function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<></>} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/howItWorks" element={<HowItWorks />} />
-        <Route path="/schools" element={<AllSchools />} />
-        <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/faqs" element={<FAQ />} />
-        <Route path="/termsOfService" element={<TermsOfUse />} />
-        <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />
-        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/user/reset/:token" element={<ResetPassword />} />
-        <Route path="/verifyPhone/:phone" element={<VerifyPhone />} />
-        <Route path="/schools/:id" element={<SchoolDetails />} />
-        <Route path="/notFound" element={<NotFound />} />
-        <Route path="/orderConfirm" element={<OrderConfirm />} />
-        <Route path="/paymentFailed" element={<PaymentFailed />} />
-      </Routes>
+      
       <Routes>
         <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path="/userProfile" element={<UserProfile />} />
@@ -93,6 +74,26 @@ function AppRoutes() {
           <Route path="/manage-application" element={<ManageApplication />} />
           <Route path="/termsAndConditions" element={<TermsAndConditions />} />
         </Route>
+      </Routes>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/howItWorks" element={<HowItWorks />} />
+        <Route path="/schools" element={<AllSchools />} />
+        <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/faqs" element={<FAQ />} />
+        <Route path="/termsOfService" element={<TermsOfUse />} />
+        <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/user/reset/:token" element={<ResetPassword />} />
+        <Route path="/verifyPhone/:phone" element={<VerifyPhone />} />
+        <Route path="/schools/:id" element={<SchoolDetails />} />
+        <Route path="/notFound" element={<NotFound />} />
+        <Route path="/orderConfirm" element={<OrderConfirm />} />
+        <Route path="/paymentFailed" element={<PaymentFailed />} />
+        <Route path="*"  element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
