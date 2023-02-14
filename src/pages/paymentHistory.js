@@ -87,11 +87,11 @@ const PaymentHistory=() =>{
                                                 <th>Total Amount</th>
                                                 <th>Download Invoice</th>
                                              </tr>
-                                        </thead>
-      
+                        </thead>
+                             {orders ? (
                                      <tbody>
-                                        {
-                                            orders?.map((order, index) => {
+                                        { 
+                                           ( orders?.map((order, index) => {
                                                 return <tr >
                                                     <td>{order.orderId}</td>
                                                     <td>
@@ -117,9 +117,11 @@ const PaymentHistory=() =>{
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            })
+                                            })) 
                                         }
-                                    </tbody>
+                                    </tbody>) : <tbody className="text-danger col-12 " style={{ textAlign: "center" }}>
+                                            No Record Found.
+                                          </tbody>}
                                     </Table>
                                 </div>
                             </Col>

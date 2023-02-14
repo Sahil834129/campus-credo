@@ -216,109 +216,117 @@ const ApplyToSchool = (props) => {
 					<Form>
 						{rows.map((item, idx) => (
 							<div className="frm-row form-content" key={"addChildRow_" + idx}>
-								<Form.Group className="cell" key={"childSelectorGrmGrp_" + idx}>
-									<Form.Select
-										name={item.childId}
-										value={item.childId}
-										key={"childSelector_" + idx}
-										onChange={(e) =>
-											handleChildSelection(idx, "childId", e.target.value)
-										}
-									>
-									<option defaultValue='' disabled value="">
-										--Child--
-									</option>
-									{childsList.map((child, i) => {
-										return (
-											<option key={"child_" + i} value={child.childId}>
-												{child.firstName + " " + child.lastName}
+								<div className="item-cell-wrap">
+									<Form.Group className="cell" key={"childSelectorGrmGrp_" + idx}>
+										<label className="applytoschool-lbl">Select Child</label>
+										<Form.Select
+											name={item.childId}
+											value={item.childId}
+											key={"childSelector_" + idx}
+											onChange={(e) =>
+												handleChildSelection(idx, "childId", e.target.value)
+											}
+										>
+										<option defaultValue='' disabled value="">
+											--Child--
+										</option>
+										{childsList.map((child, i) => {
+											return (
+												<option key={"child_" + i} value={child.childId}>
+													{child.firstName + " " + child.lastName}
+												</option>
+											);
+										})}
+										</Form.Select>
+									</Form.Group>
+									<Form.Group className="cell" key={"classSelectorFrmGrp_" + idx}>
+										<label className="applytoschool-lbl">Select Class</label>
+										<Form.Select
+											key={"classSelector_" + idx}
+											name={item.class}
+											value={item.class}
+											onChange={(e) =>
+												setRowFieldValue(idx, "class", e.target.value)
+											}
+											id="validationCustom04"
+											>
+											<option disabled value="">
+												--Class--
 											</option>
-										);
-									})}
-									</Form.Select>
-								</Form.Group>
-								<Form.Group className="cell" key={"classSelectorFrmGrp_" + idx}>
-									<Form.Select
-										key={"classSelector_" + idx}
-										name={item.class}
-										value={item.class}
-										onChange={(e) =>
-											setRowFieldValue(idx, "class", e.target.value)
-										}
-										id="validationCustom04"
+											{classOptions.map((option, i) => {
+												return (
+													<option key={"class_" + i} value={option.value}>
+														{option.text}
+													</option>
+												);
+											})}
+										</Form.Select>
+									</Form.Group>
+									<Form.Group
+										className="cell"
+										key={"sessionSelectorFrmGrp_" + idx}
+									>
+										<label className="applytoschool-lbl">Select Session</label>
+										<Form.Select
+											key={"sessionSelector_" + idx}
+											name={item.session}
+											value={item.session}
+											onChange={(e) =>
+												setRowFieldValue(idx, "session", e.target.value)
+											}
+											id="validationCustom04"
+											>
+											<option disabled value="">
+												--Session--
+											</option>
+											{sessionOptions.map((option, i) => {
+												return (
+													<option key={"session_" + i} value={option.value}>
+														{option.text}
+													</option>
+												);
+											})}
+										</Form.Select>
+									</Form.Group>
+									<Form.Group
+										className="cell app-fee-lbl"
+										key={"admissionFeeGrmGrp_" + idx}
+									>
+										<label className="applytoschool-lbl">Application Fee</label>
+										<span
+											className="application-fee-amt"
+											key={"admissionFee_" + idx}
 										>
-										<option disabled value="">
-											--Class--
-										</option>
-										{classOptions.map((option, i) => {
-											return (
-												<option key={"class_" + i} value={option.value}>
-													{option.text}
-												</option>
-											);
-										})}
-									</Form.Select>
-								</Form.Group>
-								<Form.Group
-									className="cell"
-									key={"sessionSelectorFrmGrp_" + idx}
-								>
-									<Form.Select
-										key={"sessionSelector_" + idx}
-										name={item.session}
-										value={item.session}
-										onChange={(e) =>
-											setRowFieldValue(idx, "session", e.target.value)
-										}
-										id="validationCustom04"
+											{classFeeMap[rows[idx].class]
+												? "₹" + classFeeMap[rows[idx].class]
+												: ""}
+										</span>
+									</Form.Group>
+									<Form.Group
+										className="cell button-wrap"
+										key={"actionFrmGrp_" + idx}
+									>
+										<Button
+											className="addnew-btn"
+											key={"actionAddNewIcon_" + idx}
+											onClick={handleAddRow}
 										>
-										<option disabled value="">
-											--Session--
-										</option>
-										{sessionOptions.map((option, i) => {
-											return (
-												<option key={"session_" + i} value={option.value}>
-													{option.text}
-												</option>
-											);
-										})}
-									</Form.Select>
-								</Form.Group>
-								<Form.Group
-									className="cell app-fee-lbl"
-									key={"admissionFeeGrmGrp_" + idx}
-								>
-									<span
-										className="application-fee-amt"
-										key={"admissionFee_" + idx}
-									>
-										{classFeeMap[rows[idx].class]
-											? "₹" + classFeeMap[rows[idx].class]
-											: ""}
-									</span>
-								</Form.Group>
-								<Form.Group
-									className="cell button-wrap"
-									key={"actionFrmGrp_" + idx}
-								>
-									<Button
-										className="addnew-btn"
-										key={"actionAddNewIcon_" + idx}
-										onClick={handleAddRow}
-									>
-										<i className="icons addnew-icon"></i>{" "}
-									</Button>
-									<Button
-										className="delete-btn"
-										key={"actionRemoveIcon_" + idx}
-										onClick={()=>{handleRemoveSpecificRow(idx)}}
-									>
-										<i className="icons delete-icon"></i>
-									</Button>
-								</Form.Group>
-								{
-								validationErrors && validationErrors.hasOwnProperty('row_'+idx) ? <div className='error-exception'>{validationErrors['row_'+idx]} </div>: ''
-								}
+											<i className="icons addnew-icon"></i>{" "}
+										</Button>
+										<Button
+											className="delete-btn"
+											key={"actionRemoveIcon_" + idx}
+											onClick={()=>{handleRemoveSpecificRow(idx)}}
+										>
+											<i className="icons delete-icon"></i>
+										</Button>
+									</Form.Group>
+								</div>
+								<div className="item-cell-wrap">
+									{
+									validationErrors && validationErrors.hasOwnProperty('row_'+idx) ? <div className="error-cell"><div className='error-exception'>{validationErrors['row_'+idx]} </div></div>: ''
+									}
+								</div>
 							</div>
 						))}
 						<div className="form-control-btn">

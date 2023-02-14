@@ -211,7 +211,7 @@
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .header{flex-direction: column;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left{border-radius: 0 0 16px 16px;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: row; align-items: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: column; align-items: center; margin-top: 16px;}
     .manage-child-tbl-outer{overflow-x: auto;}
     .inner-page-content .inner-page-right-container{padding-left: 0;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row{display: flex; flex-direction: column-reverse;}
@@ -234,7 +234,20 @@
     .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .admin-detail-row:last-child{grid-template-columns:1fr;}
     .modal.calback-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
     .modal.alert-popup .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
-    
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .readytoapply-block .applyoform-wrapper .frm-row.form-header{display: none;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .readytoapply-block .applyoform-wrapper .frm-row.form-content{flex-direction: column;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .readytoapply-block .applyoform-wrapper .frm-row .cell label.applytoschool-lbl{display: block;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .readytoapply-block .applyoform-wrapper .frm-row.form-content .item-cell-wrap{flex-direction: column; row-gap: 8px;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .readytoapply-block .applyoform-wrapper .frm-row.form-content .item-cell-wrap .cell.app-fee-lbl{text-align: left; justify-content:flex-start;}
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block{display: flex; flex-direction: column;}
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block .applyoform-wrapper .frm-row.form-header{display: none;}
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block .applyoform-wrapper .frm-row.form-content .cell{width: 100%;}
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block .applyoform-wrapper .frm-row .cell .form-select{width: 100%; }
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block .applyoform-wrapper .frm-row.form-content .cell .applytoschool-lbl{display: block; white-space: nowrap; }
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block .applyoform-wrapper .frm-row.form-content{display: flex; flex-direction: column; align-items: flex-start;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.left .sidebar-collapsible.accordion .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;} 
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .moreinfo-block{display: flex; flex-direction: column;     row-gap: 8px;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .moreinfo-block .col.divider{display: none;}
 }
 
 

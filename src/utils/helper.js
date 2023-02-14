@@ -326,3 +326,36 @@ export const getCurretLocation = async () => {
   let endYear= currentYear+1;
     return `${startYear}-${endYear}`;
  }
+ export const Pathnames =
+ [
+  "/",
+  "/paymentHistory",
+   "/paymentCheckout",
+   "/selectedSchools",
+   "/manageChild",
+   "/userProfile",
+   "/manageProfile",
+   "/admissionForm",
+   "/manage-application" ,
+   "/manage-user",
+   "/manage-fees",
+   "/manage-admission",
+   "/termsAndConditions",
+   "/dashboard",
+   "/schools" ,
+   "/howItWorks",
+   "/aboutUs",
+   "/disclaimerPolicy",
+   "/termsOfService",
+   "/faqs",
+   "/contactUs" ,
+   "/user/reset/:token",
+   "/signIn",
+   "/signup",
+   "/privacyPolicy" ,
+   "/orderConfirm",
+   "/notFound" ,
+   "/schools/:id",
+   "/verifyPhone/:phone",
+   "/paymentFailed" 
+ ]
