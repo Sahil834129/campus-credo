@@ -57,7 +57,7 @@ const JoinUsDialogForSchool =(props)=>
                           fieldType="text"
                           value={values.firstName}
                           label='First Name'
-                          placeholder='First Name'
+                          placeholder='Enter First Name'
                           required
                           errors={errors}
                           touched={touched}
@@ -68,7 +68,7 @@ const JoinUsDialogForSchool =(props)=>
                             fieldName="lastName"
                             label='Last Name'
                             value={values.lastName}
-                            placeholder='Last Name'
+                            placeholder='Enter Last Name'
                             fieldType="text"
                             required
                             errors={errors}
@@ -85,7 +85,7 @@ const JoinUsDialogForSchool =(props)=>
                           label='Phone Number'
                           value={values.phone}
                           required
-                          placeholder="Phone Number"
+                          placeholder="Enter Phone Number"
                           errors={errors}
                           touched={touched}
                         />
@@ -96,7 +96,7 @@ const JoinUsDialogForSchool =(props)=>
                             label='Email Address'
                             value={values.email}
                             fieldType="text"
-                            placeholder="Email Address"
+                            placeholder="Enter Email Address"
                             required
                             errors={errors}
                             touched={touched}
@@ -111,7 +111,7 @@ const JoinUsDialogForSchool =(props)=>
                           fieldType="text"
                           label='Institution Name'
                           value={values.institutionName}
-                          placeholder=""
+                          placeholder="Enter Institution Name"
                           required
                           errors={errors}
                           touched={touched}
@@ -135,7 +135,7 @@ const JoinUsDialogForSchool =(props)=>
                       </div>
                     </div>
                     <div className="fld-row button-wrap">
-                      <Button type="button" class="reset-btn btn-primary" onClick={() =>  resetForm()} buttonLabel="Reset" />
+                      <button type="button" class="reset-btn btn-primary" onClick={() =>  resetForm()}>Reset</button>
                       <Button
                           className="submit-btn"
                           type="submit"
