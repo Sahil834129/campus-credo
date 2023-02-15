@@ -20,7 +20,8 @@ export const LocationReducer = (state = initialState, { type, payload }) => {
         selectedLocation: payload.cityName,
         geolocation: {
           longitude: payload.longitude,
-          latitude: payload.latitude
+          latitude: payload.latitude,
+          cityName : payload.cityName
         }
       };
     default:

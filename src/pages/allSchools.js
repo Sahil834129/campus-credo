@@ -135,11 +135,15 @@ const AllSchools = () => {
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
+
+      if(geoLocation.cityName===selectedLocation)
+     {
     if (geoLocation.longitude)
       filterPayload["location"] = {
         longitude: geoLocation.longitude,
         latitude: geoLocation.latitude,
       }
+    }
     if (filterForm.distance) {
       filterPayload["radius"] = filterForm.distance;
     }
