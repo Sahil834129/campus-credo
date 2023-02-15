@@ -157,10 +157,10 @@ function handleSelectCity(location) {
                                 gotoHome(e, navigate) 
                             }>Home</Link>
                     </li>
-                    <li className="page-link"><a href="/aboutUs">About Us</a></li>
-                    <li className="page-link"><a href="/schools">All Schools</a></li>
-                    <li className="page-link"><a href="/faqs">FAQ's</a></li>
-                    <li className="page-link"><a href="/contactUs">Contact Us</a></li>
+                    <li className="page-link"><Link to="/aboutUs">About Us</Link></li>
+                    <li className="page-link"><Link to="/schools">All Schools</Link></li>
+                    <li className="page-link"><Link to="/faqs">FAQ's</Link></li>
+                    <li className="page-link"><Link to="/contactUs">Contact Us</Link></li>
                 </div>
                 <div className="contact-info-wrap">
                     <li className="contact-info">+91-9903096754 / support@campuscredo.com</li>
