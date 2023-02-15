@@ -1,6 +1,16 @@
 @media screen and (max-width: 650px) { 
     .main-container .form-content-wrapper{}
-    .main-container .content-area { padding-top: 80px; }
+    .main-container .content-area { 
+        padding-top: 80px; 
+        .content-area-inner{
+            padding-left: 8px;
+            padding-right: 8px;
+            &.profile-page-wrap{
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+    }
     .header .cart-profile-wrap {
         justify-content: center;
         display: flex;
@@ -29,6 +39,7 @@
                     flex-direction: column-reverse;
                     column-gap: 24px;
                     padding: 0;
+                    margin-top: 16px;
                     .hero-item{
                         &.left{
                             h2{
@@ -104,15 +115,17 @@
     }
     .signin-model{
         &.modal{
+            padding: 0 !important;
             .modal-dialog{
                 width: 100%;
                 max-width: 100%;
-                padding: 16px;
+                padding: 8px;
                 margin: 0;
                 .modal-content{
                     .modal-header{}
                     .model-body{
                         flex-direction: column;
+                        margin: 0 16px 16px 16px;
                         .model-body-col{
                             &.left{
                                 border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -155,9 +168,12 @@
                     }
                 }
                 .form-wrapper{
-                    margin: 24px;
+                    margin: 8px;
+                    .form-title{
+                        padding: 16px;
+                    }
                     .form-container{
-                        padding: 0 24px 40px 24px;
+                        padding: 0 16px 16px 16px;
                         .form-wrap{
                             .frm-row{
                                 flex-direction:column;
@@ -175,12 +191,15 @@
             }
         }
     }
+    .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form.application-form-wrap{padding: 0; margin: 0;}
     .modal.forgotpwd-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.hero-wrap .hero-caption{bottom: 0;
         padding: 16px 16px;
         border-radius: 16px;
         position: relative;
     }
+    .modal-dialog .modal-body .model-body-col .form-container .otp-fld-outer .otp-fields-wrapper.otp-comp .otp-inner-fld{padding: 16px 0 0 0;}
+    .modal-dialog .modal-body .model-body-col .form-container .otp-fld-outer .otp-fields-wrapper.otp-comp .otp-inner-fld div div input[type=tel]{margin: 0;}
     .content-area .inner-page-container .content-section.bc-section{}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper .img-wrap img{width: 100%;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.hero-wrap .hero-caption h2{font-size: 14px;}
@@ -217,7 +236,7 @@
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row{display: flex; flex-direction: column-reverse;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.left.cart-content-area{padding-right: 0; border: none;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row.nearby .school-list-container{flex-direction: column;}
-    .modal.joinus-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
+    .modal.joinus-model .modal-dialog{width: 100%; max-width: 100%; padding: 8px; margin: 0;}
     .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form .fld-row{flex-direction: column;}
     .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form .fld-row.button-wrap{row-gap: 16px;}
     .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell{display: flex; flex-direction: column; row-gap: 4px;}
@@ -248,6 +267,12 @@
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.left .sidebar-collapsible.accordion .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;} 
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .moreinfo-block{display: flex; flex-direction: column;     row-gap: 8px;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .moreinfo-block .col.divider{display: none;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper ul.nav-tabs li.nav-item button.nav-link{padding: 8px 8px;}
+    .footer-main{display: flex; width: 100%; flex-direction: column;}
+    .footer-main .finner .fcol.btn-container .btn{font-size: 14px;}
+    .footer-main .copyright-row{flex-direction: column; height: auto; padding: 8px 0; row-gap: 8px;}
+    .footer-main .copyright-row .copyright-col{justify-content: center;}
+    .content-area .contact-section-wrapper .application-form-wrap{padding: 0; border: none;}
 }
 
 
@@ -279,9 +304,7 @@
         .content-area{
             .content-area-inner{
                 .hero-info-panel{
-                    flex-direction: column-reverse;
-                    column-gap: 24px;
-                    padding: 0;
+                   
                     .hero-item{
                         &.left{
                             h2{
@@ -387,24 +410,7 @@
                         width: 60%;
                     }
                 }
-                .form-wrapper{
-                    margin: 24px;
-                    .form-container{
-                        padding: 0 24px 40px 24px;
-                        .form-wrap{
-                            .frm-row{
-                                
-                                .frm-cell{
-                                    &.pwd-cell{
-                                        .view-pwd-icon{
-                                            top: 32px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                
             }
         }
     }
