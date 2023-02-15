@@ -111,14 +111,14 @@ const SchoolCard = (props) => {
                     {
                         school.facilities.map((item, index) => {
                             let fIcon = PageContent.FACILITY_ICON_MAP.hasOwnProperty(item.facilityName) ? PageContent.FACILITY_ICON_MAP[item.facilityName] : null;
-                            if (index < 4) {
+                            // if (index < 4) {
                                 return (
                                     <ListGroup.Item key={item.facilityMasterId}><i title={item.facilityName} className={'icons ' + (fIcon !== null ? fIcon : 'boarding-icon')}></i></ListGroup.Item>
                                 )
-                            }
+                            // }
                         })
                     }
-                        <ListGroup className="info-list-group additional-features">
+                        {/* <ListGroup className="info-list-group additional-features">
                             <ListGroup.Item>
                                 {
                                     school.facilities.length > 4 ?
@@ -131,7 +131,7 @@ const SchoolCard = (props) => {
                                 }
                                 
                             </ListGroup.Item>
-                        </ListGroup>
+                        </ListGroup> */}
 
                     </ListGroup>
                 </Col>

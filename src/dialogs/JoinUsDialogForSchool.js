@@ -28,7 +28,7 @@ const JoinUsDialogForSchool =(props)=>
         try {
             const response = await RESTClient.post(RestEndPoint.JOIN_US, values)
             setSubmitting(false);
-            toast.success("Your Data is Saved Successfully")
+            toast.success("We have received your message, our team will contact you soon.")
         } catch (error) {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error))
