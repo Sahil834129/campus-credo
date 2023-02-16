@@ -30,7 +30,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 2;
+      z-index: 99;
       .common-header{}
       .mobile-header{top: 0; display: none;}
       
@@ -960,6 +960,15 @@ ul.list-group{
       }
     }
     &.cart-page-wrapper{
+      .inner-page-content{
+        .profile-bc-section{
+          padding: 16px 0 0 0;
+         
+        }
+        .cart-content-main{
+         
+        }
+      }
       .page-container{
         .row-wrapper{
           display: flex;
@@ -1075,15 +1084,15 @@ ul.list-group{
         .cart-content-row{
           display: grid;
           grid-template-columns: auto 404px;
-          // column-gap: 24px;
+          column-gap: 24px;
           .cell{
             &.left{
-              border-right: 1px solid #E6E6E6;
+              // border-right: 1px solid #E6E6E6;
               .school-list-container{
                 display: flex;
               }
               &.cart-content-area{
-                padding-right: 24px;
+                
               }
             }
             &.right{
@@ -1111,6 +1120,7 @@ ul.list-group{
                     .list-group-item{
                       display: grid;
                       grid-template-columns: 2fr 1.5fr;
+                      align-items: center;
                       padding: 16px 24px;
                       border-left: none;
                       border-right: none;
@@ -2145,6 +2155,7 @@ ul.list-group{
                 position: -webkit-sticky;
                 position: sticky;
                 bottom: 1%;
+                z-index: 1;
               }
             }
             .btn{
@@ -3454,6 +3465,9 @@ ul.list-group{
         display: flex;
         flex-direction: row;
         padding: 8px 16px;
+        column-gap: 8px;
+        row-gap: 8px;
+        flex-wrap: wrap;
         .card-link{
           cursor: pointer;
           border-radius: 4px;
@@ -3474,7 +3488,7 @@ ul.list-group{
             background: #595D69;
           }
           &.add{
-            background: #549B43;
+            background: #549B43; margin: 0;
           }
         }
       }
@@ -4381,18 +4395,29 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
             margin-bottom: 16px;
           }
           .applyoform-wrapper{
+            display: flex;
+            width: 100%;
+            flex-direction: column;
             .frm-row{
-              display: grid;
-              grid-template-columns: 1.4fr 1.4fr 1.4fr 1fr 1fr;
-              column-gap: 16px;
-              padding: 10px 0;
-              align-items: center;
-              align-content: center;
+              display: inline-block;
+              width: 100%;
+              .item-cell-wrap{
+                display: grid;
+                grid-template-columns: 1.4fr 1.4fr 1.4fr 1fr 1fr;
+                column-gap: 16px;
+                padding: 10px 0;
+                align-items: center;
+                align-content: center;
+                .cell{
+                  display: inline-block;
+                }
+              }
               &.form-header{
                 border-bottom: 1px solid rgba(0, 0, 0, 0.2);
               }
               &.form-content{
                 border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+               
                 .cell{
                   .applytoschool-lbl{
                     display: none;
