@@ -205,13 +205,14 @@ const ApplyToSchool = (props) => {
 				{/* <div className='title-bar'><span>Ready to apply?</span> <i className='icons info-icon'></i></div> */}
 				<div className="applyoform-wrapper">
 					<div className="frm-row form-header">
-						<div className="cell">Select Child <span className='error-exception'>*</span></div>
-						<div className="cell">Select Class <span className='error-exception'>*</span></div>
-						<div className="cell">Session <span className='error-exception'>*</span></div>
-						
-						<div className="cell app-fee-lbl">Application Fee</div>
-						<div className="cell">&nbsp;</div>
-						
+						<div className="item-cell-wrap">
+							<div className="cell">Select Child <span className='error-exception'>*</span></div>
+							<div className="cell">Select Class <span className='error-exception'>*</span></div>
+							<div className="cell">Session <span className='error-exception'>*</span></div>
+							
+							<div className="cell app-fee-lbl">Application Fee</div>
+							<div className="cell">&nbsp;</div>
+						</div>
 					</div>
 					<Form>
 						{rows.map((item, idx) => (
