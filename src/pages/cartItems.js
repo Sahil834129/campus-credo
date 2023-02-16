@@ -13,7 +13,7 @@ import SchoolCard from "../components/SchoolCard";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { isLoggedIn } from "../utils/helper";
+import { isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const ApplicationCart = () => {
@@ -121,7 +121,7 @@ const ApplicationCart = () => {
                         onChange={(e) => handleChildSelection(e.target.value)}
                         value={selectedChild.id}
                       >
-                        {childs.map((c, i) => (
+                        {!isEmpty(childs) ? (childs.map((c, i) => (
                           <option
                             key={"cartChildSelect_" + i}
                             name="selectChild"
@@ -137,7 +137,7 @@ const ApplicationCart = () => {
                                   ")"
                                 : "")}
                           </option>
-                        ))}
+                        ))):<option>--Select Child--</option>}
                       </Form.Select>
                     </div>
                     {selectedChild.id !== "" ? (

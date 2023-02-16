@@ -23,7 +23,7 @@ const Breadcrumbs = () => {
   return (
     <Breadcrumb className="bc-main-wrap">
       {isHomePage ? (
-        ""
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
       ) : (
         <Breadcrumb.Item
           onClick={(e) => {

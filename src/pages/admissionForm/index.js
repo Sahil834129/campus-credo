@@ -16,7 +16,7 @@ import PageContent from "../../resources/pageContent";
 
 import { useSelector } from "react-redux";
 import AddChildDialog from "../../dialogs/addChild";
-import { getChildAge } from "../../utils/helper";
+import { getChildAge, isEmpty } from "../../utils/helper";
 import BackgroundCheckForm from "./background-check";
 import ExtracurricularForm from "./extracurriculars";
 import MedicalForm from "./medicalForm";
@@ -199,8 +199,8 @@ export const AdmissionForms = () => {
                             }}
                             value={selectedChild.childId}
                           >
-                            {childsList.length &&
-                              childsList.map((child, i) => {
+                            {!isEmpty(childsList) ?
+                              ( childsList.map((child, i) => {
                                 return (
                                   <option
                                     key={"child_" + i}
@@ -209,7 +209,7 @@ export const AdmissionForms = () => {
                                     {child.firstName + " " + child.lastName}
                                   </option>
                                 );
-                              })}
+                              })) : <option>--Select Child--</option>}
                           </BootStrapForm.Select>
                         </BootStrapForm.Group>
                       </div>
