@@ -323,7 +323,7 @@ const ApplyToSchool = (props) => {
 										</Button>
 									</Form.Group>
 								</div>
-								<div className="item-cell-wrap">
+								<div className="">
 									{
 									validationErrors && validationErrors.hasOwnProperty('row_'+idx) ? <div className="error-cell"><div className='error-exception'>{validationErrors['row_'+idx]} </div></div>: ''
 									}
