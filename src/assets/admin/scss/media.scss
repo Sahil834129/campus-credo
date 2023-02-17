@@ -191,8 +191,10 @@
             }
         }
     }
+    .modal.calback-model .modal-dialog .modal-content .modal-body .model-body-col form{padding: 0;}
+    .content-area .school-list-container .school-card .school-info-main{}
     .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.right{margin-bottom: 16px;}
-    .modal.readytoapply-model .modal-dialog .modal-content .modal-header{padding: 0 16px 16px 16px;}
+    .modal.readytoapply-model .modal-dialog .modal-content .modal-header{padding: 16px 24px;}
     .modal.readytoapply-model .modal-dialog .modal-content .modal-body{margin: 0;}
     .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.right .sb-card-holder .school-list-container .school-card .school-info-main.card-body{display: flex; flex-direction: column;}
     .modal.readytoapply-model .modal-dialog .modal-content .modal-body .readytoapply-block .applyoform-wrapper .frm-row .item-cell-wrap{display: flex; flex-direction: column; width: 100%;}
@@ -422,8 +424,11 @@
         }
     }
     .content-area .content-area-inner.internal-page-wrapper.school-details-wrap{grid-template-columns: 1fr;}
-    .footer-main .copyright-row .copyright-col{padding: 0;}
+    .footer-main .copyright-row .copyright-col{padding: 0;  }
     .footer-main .finner .fcol:first-child{display: none;}
+    .content-area .content-area-inner.internal-page-wrapper {grid-template-columns: 1fr;}
+    .main-container .content-area .content-area-inner{padding-left: 8px; padding-right: 8px;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.inner-page-content.allschool-wrap.right{}
 }
 
 @media (max-width: 1440px){

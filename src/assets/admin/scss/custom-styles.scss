@@ -1303,15 +1303,20 @@ ul.list-group{
     justify-content: space-between;
     flex-wrap: nowrap;
     height: 52px;
+    padding: 0 24px;
     .copyright-col{
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
-      line-height: 17px;
+      line-height: 18px;
+      display: flex;
+      column-gap: 8px;
+      row-gap: 8px;
+    flex-wrap: wrap;
       color: #595D69;
       a{
         color: #595D69;
-        padding: 0 16px;
+       
       }
     }
   }
