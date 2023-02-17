@@ -217,7 +217,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
           </Button>
           <Button
             className='decline-btn'
-            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length !== rowsData.length)}
             onClick={() => {
               handleBulkStatusUpdate(PARENT_APPLICATION_STATUS.DECLINED, selectedRows, rowsData);
             }}>
@@ -225,7 +225,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
           </Button>
           {canNotApprove && <Button
             className='accept-btn'
-            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length !== rowsData.length)}
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.APPROVED, selectedRows, rowsData);
             }}>
