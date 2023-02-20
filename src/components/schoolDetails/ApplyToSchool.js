@@ -204,17 +204,18 @@ const ApplyToSchool = (props) => {
 			<div className="readytoapply-block">
 				{/* <div className='title-bar'><span>Ready to apply?</span> <i className='icons info-icon'></i></div> */}
 				<div className="applyoform-wrapper">
-					<div className="frm-row form-header">
-						<div className="item-cell-wrap">
-							<div className="cell">Select Child <span className='error-exception'>*</span></div>
-							<div className="cell">Select Class <span className='error-exception'>*</span></div>
-							<div className="cell">Session <span className='error-exception'>*</span></div>
-							
-							<div className="cell app-fee-lbl">Application Fee</div>
-							<div className="cell">&nbsp;</div>
-						</div>
-					</div>
+					
 					<Form>
+						<div className="frm-row form-header">
+							<div className="item-cell-wrap">
+								<div className="cell">Select Child <span className='error-exception'>*</span></div>
+								<div className="cell">Select Class <span className='error-exception'>*</span></div>
+								<div className="cell">Session <span className='error-exception'>*</span></div>
+								
+								<div className="cell app-fee-lbl">Application Fee</div>
+								<div className="cell">&nbsp;</div>
+							</div>
+						</div>
 						{rows.map((item, idx) => (
 							<div className="frm-row form-content" key={"addChildRow_" + idx}>
 								<div className="item-cell-wrap">
@@ -300,7 +301,7 @@ const ApplyToSchool = (props) => {
 										>
 											{classFeeMap[rows[idx].class]
 												? "₹" + classFeeMap[rows[idx].class]
-												: ""}
+												: "-"}
 										</span>
 									</Form.Group>
 									<Form.Group

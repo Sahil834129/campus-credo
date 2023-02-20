@@ -1828,6 +1828,17 @@ ul.list-group{
                     column-gap: 8px;
                     &.form-header{
                       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                      .item-cell-wrap{
+                        
+                        display: flex;
+                        column-gap: 8px;
+                        width: 100%;
+                        .cell{
+                          white-space: nowrap;
+                          flex-grow: 1;
+                          flex-basis: 0;
+                        }
+                      }
                     }
                     &.form-content{
                       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -1886,6 +1897,7 @@ ul.list-group{
                         display: flex;
                         justify-content: flex-end;
                         align-items: center;
+                        column-gap: 8px;
                         .application-fee-amt{
                           color: #268214;
                           font-weight: 700;
@@ -1898,6 +1910,7 @@ ul.list-group{
                         align-items: center;
                         align-content: center;
                         justify-content: flex-end;
+                        column-gap: 8px;
                         .btn{
                           background: #549B43;
                           border: 1px solid #D9D9D9;
@@ -1908,7 +1921,7 @@ ul.list-group{
                           display: flex;
                           align-items: center;
                           justify-content: center;
-                          margin-left: 8px;
+                          
                           i{
                             display: flex;
                             background-position: 0px 2px;
@@ -2493,14 +2506,14 @@ ul.list-group{
                           align-content: space-around;
                           justify-content: flex-start;
                           .school-logo-wrap{
-                            width: 100%;
+                            // width: 100%;
                             height: auto;
                             border: 1px solid rgba(0, 0, 0, 0.08);
                             margin-right: 16px;
                             overflow: hidden;
                             border-radius: 4px;
-                            flex-grow: 1;
-                            flex-basis: 0;
+                            // flex-grow: 1;
+                            // flex-basis: 0;
                             display: flex;
                             img{
                               width: 100%;
@@ -3209,9 +3222,9 @@ ul.list-group{
   .school-list-container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-row-gap: 24px;
-    grid-column-gap: 24px;
-    margin-bottom: 24px;
+    grid-row-gap: 16px;
+    grid-column-gap: 16px;
+    margin-bottom: 16px;
     // margin-right: 24px;
    
     .school-card{
@@ -3292,6 +3305,7 @@ ul.list-group{
               flex-direction: row;
               justify-content: space-between;
               column-gap: 16px;
+              flex-wrap: wrap;
               .tutionfee-wrap{
                 text-align: right;
                 display: flex;
@@ -3503,6 +3517,7 @@ ul.list-group{
         justify-content: space-between;
         align-content: center;
         align-items: center;
+        flex-wrap: wrap;
         .partner-wrap{
           display: flex;
           flex-direction: row;
@@ -4848,7 +4863,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                     border-radius: 4px;
                     font-style: normal;
                     font-weight: 600;
-                    font-size: 16px;
+                    font-size: 14px;
                     line-height: 22px;
                     width: auto;
                     padding: 4px 42px;
@@ -4868,6 +4883,19 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                   display: grid;
                   grid-template-columns: 1fr 1fr 1fr;
                   column-gap: 24px;
+                  .fld-wrap{
+                    .form-select{
+                      background: #FFFFFF;
+                      border: 1px solid #D9D9D9;
+                      border-radius: 4px;
+                      font-style: normal;
+                      font-weight: 400;
+                      font-size: 14px;
+                      line-height: 17px;
+                      color: #808080;
+                      height: 42px;
+                    }
+                  }
                 }
                 .fld-inst{
                   display: flex;
