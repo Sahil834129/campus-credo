@@ -38,7 +38,6 @@ function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<></>} />
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/howItWorks" element={<HowItWorks />} />
@@ -56,8 +55,6 @@ function AppRoutes() {
         <Route path="/notFound" element={<NotFound />} />
         <Route path="/orderConfirm" element={<OrderConfirm />} />
         <Route path="/paymentFailed" element={<PaymentFailed />} />
-      </Routes>
-      <Routes>
         <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/manageProfile" element={<ManageProfile />} />
@@ -90,6 +87,7 @@ function AppRoutes() {
           <Route path="/manage-user" element={<ManageUsers />} />
           <Route path="/manage-application" element={<ManageApplication />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
