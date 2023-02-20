@@ -36,7 +36,7 @@ export const CATEGORY_OPTIONS = [
   { value: "ST", text: "ST" },
 ];
 export const CATEGORY_OPTIONS_CONTACT_FORM = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Category" },
   { value: "Admission Related", text: "Admission Related" },
   { value: "Application Related", text: "Application Related" },
   { value: "Fee Related", text: "Fee Related" },
