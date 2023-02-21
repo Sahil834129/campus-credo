@@ -9,15 +9,6 @@ export const setIsUserLoggedIn = (isUserLoggedIn) => {
   };
 };
 
-export const setIsAdmin = (isAdmin) => {
-  return (dispatch) => {
-    dispatch({
-      type: ActionTypes.SET_IS_ADMIN,
-      payload: isAdmin,
-    });
-  };
-};
-
 export const getIsUserLoggedIn = () => {
   return (dispatch) => {
     dispatch({ type: ActionTypes.GET_IS_USER_LOGGED_IN });
