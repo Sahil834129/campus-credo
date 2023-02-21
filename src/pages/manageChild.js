@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
     Button, Col, Container,
     Row, Table
-} from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import Breadcrumbs from '../common/Breadcrumbs'
-import ConfirmDialog from '../common/ConfirmDialog'
-import Layout from '../common/layout'
-import LeftMenuBar from '../common/LeftMenuBar'
-import AddChildDialog from '../dialogs/addChild'
-import { getChildsList } from '../redux/actions/childAction'
-import RestEndPoint from '../redux/constants/RestEndpoints'
-import PageContent from '../resources/pageContent'
-import { isLoggedIn } from '../utils/helper'
-import RESTClient from '../utils/RestClient'
+} from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Breadcrumbs from '../common/Breadcrumbs';
+import ConfirmDialog from '../common/ConfirmDialog';
+import Layout from '../common/layout';
+import LeftMenuBar from '../common/LeftMenuBar';
+import AddChildDialog from '../dialogs/addChild';
+import { getChildsList } from '../redux/actions/childAction';
+import RestEndPoint from '../redux/constants/RestEndpoints';
+import PageContent from '../resources/pageContent';
+import { isLoggedIn } from '../utils/helper';
+import RESTClient from '../utils/RestClient';
 
 const ManageChild = () => {
     const dispatch = useDispatch()
@@ -62,9 +63,18 @@ const ManageChild = () => {
                                 <Breadcrumbs />
                             </Col>
                         </Row>
-                        <Row className='content-section profile-content-main'>
+                        <div className='content-section profile-content-main'>
                             <Col className='left profile-sidebar'>
-                                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                                    <Accordion.Item eventKey="0">
+                                        <Accordion.Header>Main Categories</Accordion.Header>
+                                        <Accordion.Body>
+                                            <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
+                                
+                                
                             </Col>
                             <Col className='profile-content right'>
                                 <div className='top-btn-wrap managechild-title'>
@@ -111,7 +121,7 @@ const ManageChild = () => {
                                 </Table>
                                 </div>
                             </Col>
-                        </Row>
+                        </div>
                     </Col>
                 </Container>
             </section>

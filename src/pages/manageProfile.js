@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
 import OtpInput from "react-otp-input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -223,11 +224,17 @@ export const ManageProfile = () => {
                   <Breadcrumbs />
                 </Col>
               </Row>
-              <Row className="content-section profile-content-main">
+              <div className="content-section profile-content-main">
                 <Col className="left profile-sidebar">
-                  <LeftMenuBar
-                    menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS}
-                  />
+                  <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>Main Categories</Accordion.Header>
+                      <Accordion.Body>
+                        <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                  
                 </Col>
                 <Col className="profile-content right">
                   <div className="tab_btn_wrapper">
@@ -346,14 +353,15 @@ export const ManageProfile = () => {
                           }}
                           validationSchema={ChangePasswordSchema}
                           validateOnBlur
-                          onSubmit={(values , {resetForm}) => {
+                          enableReinitialize
+                          onSubmit={(values, { resetForm }) => {
                             changePassword(values);
                             resetForm();
                           }}
                         >
                           {({ values, resetForm, errors, touched }) => (
                             <Form className="row g-3">
-                              <div className="col-md-6">
+                              <div className="col-md-6 pwd-cell">
                                 <InputField
                                   fieldName="currentPassword"
                                   required
@@ -372,7 +380,7 @@ export const ManageProfile = () => {
                                 </span>
                               </div>
                               <div className="col-md-6"></div>
-                              <div className="col-md-6">
+                              <div className="col-md-6 pwd-cell">
                                 <InputField
                                   fieldName="password"
                                   required
@@ -391,7 +399,7 @@ export const ManageProfile = () => {
                                 </span>
                               </div>
                               <div className="col-md-6"></div>
-                              <div className="col-md-6">
+                              <div className="col-md-6 pwd-cell">
                                 <InputField
                                   fieldName="confirmPassword"
                                   required
@@ -512,7 +520,7 @@ export const ManageProfile = () => {
                     </Tabs>
                   </div>
                 </Col>
-              </Row>
+              </div>
             </Col>
           </Container>
         </section>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Accordion from 'react-bootstrap/Accordion';
 import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
@@ -53,9 +54,18 @@ const UserProfile = () => {
                 <Breadcrumbs />
               </Col>
             </Row>
-            <Row className='content-section profile-content-main'>
+            <div className='content-section profile-content-main'>
               <Col className='left profile-sidebar'>
-                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                
+                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Main Categories</Accordion.Header>
+                    <Accordion.Body>
+                      <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+                
               </Col>
               <Col className='profile-content right'>
                 <div className='row-items header'>
@@ -79,13 +89,13 @@ const UserProfile = () => {
                 </div>
                 {
                   applications.length > 0 ?
-				  	applications.map((application, index) => {
-                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
-                  	})
-					: <NoRecordsFound message="No applications found for select child."/>
-                }
+                  applications.map((application, index) => {
+                            return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
+                          })
+                : <NoRecordsFound message="No applications found for select child."/>
+                      }
               </Col>
-            </Row>
+            </div>
           </Col>
         </Container>
       </section>

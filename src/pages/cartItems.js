@@ -13,7 +13,7 @@ import SchoolCard from "../components/SchoolCard";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { isLoggedIn } from "../utils/helper";
+import { isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const ApplicationCart = () => {
@@ -100,99 +100,81 @@ const ApplicationCart = () => {
     <Layout>
       <section className="content-area">
         <Container className="content-area-inner inner-page-container cart-page-wrapper">
-          <Row className="content-section bc-section">
-            <Breadcrumbs />
-            <Col className="page-container">
-              <div className="cart-content-row">
-                <Col className="cell cart-content-area left">
-                  <div className="row-wrapper select-child-wrapper">
-                    <label>
-                      Select Child<span className="req">*</span>
-                    </label>
-                    {/* <Form.Group className="item-list-container">
-                      {childs.map((c, i) => {
-                        return (
-                          <Form.Check
-                            type="radio"
+          <Col className="inner-page-content">  
+            <Row className="content-section profile-bc-section">
+              <Col className="bc-col">
+                <Breadcrumbs />
+              </Col>
+            </Row>
+            <div className="content-section cart-content-main">
+           
+              <Col className="page-container">
+                <div className="cart-content-row">
+                  <Col className="cell cart-content-area left">
+                    <div className="row-wrapper select-child-wrapper">
+                      <label>
+                        Select Child<span className="req">*</span>
+                      </label>
+                      
+                      <Form.Select
+                        aria-label="Default select example"
+                        onChange={(e) => handleChildSelection(e.target.value)}
+                        value={selectedChild.id}
+                      >
+                        {!isEmpty(childs) ? (childs.map((c, i) => (
+                          <option
                             key={"cartChildSelect_" + i}
                             name="selectChild"
                             value={c.childId}
-                            checked={c.childId === selectedChild.id}
-                            onChange={(e) =>
-                              handleChildSelection(e.target.value)
-                            }
-                            label={
-                              c.firstName +
+                          >
+                            {c.firstName +
                               " " +
                               c.lastName +
-                              (cartItemsGroupByChild.hasOwnProperty(
-                                c.childId
-                              ) && cartItemsGroupByChild[c.childId].length > 0
+                              (cartItemsGroupByChild.hasOwnProperty(c.childId) &&
+                              cartItemsGroupByChild[c.childId].length > 0
                                 ? " (" +
                                   cartItemsGroupByChild[c.childId].length +
                                   ")"
-                                : "")
-                            }
-                          />
-                        );
-                      })}
-                    </Form.Group> */}
-                    <Form.Select
-                      aria-label="Default select example"
-                      onChange={(e) => handleChildSelection(e.target.value)}
-                      value={selectedChild.id}
-                    >
-                      {childs.map((c, i) => (
-                        <option
-                          key={"cartChildSelect_" + i}
-                          name="selectChild"
-                          value={c.childId}
-                        >
-                          {c.firstName +
-                            " " +
-                            c.lastName +
-                            (cartItemsGroupByChild.hasOwnProperty(c.childId) &&
-                            cartItemsGroupByChild[c.childId].length > 0
-                              ? " (" +
-                                cartItemsGroupByChild[c.childId].length +
-                                ")"
-                              : "")}
-                        </option>
-                      ))}
-                    </Form.Select>
-                  </div>
-                  {selectedChild.id !== "" ? (
-                    <CartItemsGrid
-                      selectedChild={selectedChild}
-                      handleChildSelection={handleChildSelection}
-                    />
-                  ) : (
-                    <EmptyCart />
-                  )}
-                </Col>
-                <Col className="cell right">
-                  <PaymentCard selectedChild={selectedChild} />
-                </Col>
-              </div>
-              <div className="cart-content-row nearby-title">
-                <h2>
-                  You can also apply to following popular school in the same
-                  region
-                </h2>
-              </div>
-              <div className="cart-content-row nearby">
-                <div className="school-list-container">
-                  {similarSchools.length &&
-                    similarSchools.map((school, index) => (
-                      <SchoolCard
-                        school={school}
-                        key={"similarSchool_" + index}
+                                : "")}
+                          </option>
+                        ))):<option>--Select Child--</option>}
+                      </Form.Select>
+                    </div>
+                    {selectedChild.id !== "" ? (
+                      <CartItemsGrid
+                        selectedChild={selectedChild}
+                        handleChildSelection={handleChildSelection}
                       />
-                    ))}
+                    ) : (
+                      <EmptyCart />
+                    )}
+                  </Col>
+                  <Col className="cell right">
+                    <PaymentCard selectedChild={selectedChild} />
+                  </Col>
                 </div>
-              </div>
-            </Col>
-          </Row>
+                <div className="cart-content-row nearby-title">
+                  <h2>
+                    You can also apply to following popular school in the same
+                    region
+                  </h2>
+                </div>
+                <div className="cart-content-row nearby">
+                  <div className="school-list-container">
+                    {similarSchools.length &&
+                      similarSchools.map((school, index) => (
+                        <SchoolCard
+                          school={school}
+                          key={"similarSchool_" + index}
+                        />
+                      ))}
+                  </div>
+                </div>
+              </Col>
+
+            </div>
+
+          </Col>
         </Container>
       </section>
     </Layout>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
@@ -55,9 +56,16 @@ const PaymentHistory=() =>{
                                 <Breadcrumbs />
                             </Col>
                         </Row>
-                        <Row className='content-section profile-content-main'>
+                        <div className='content-section profile-content-main'>
                             <Col className='left profile-sidebar'>
-                                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                                    <Accordion.Item eventKey="0">
+                                        <Accordion.Header>Main Categories</Accordion.Header>
+                                        <Accordion.Body>
+                                            <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
                             </Col>
                             <Col className='profile-content right'>
                                 <div className='top-btn-wrap managechild-title'>
@@ -117,7 +125,7 @@ const PaymentHistory=() =>{
                                     </Table>
                                 </div>
                             </Col>
-                        </Row>
+                        </div>
                     </Col>
                 </Container>
                 <OrderLineItems show={showLineItems} handleClose={handleCloseLineItems}  orderLineItems={orderLineItems}/>

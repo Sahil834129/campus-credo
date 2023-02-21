@@ -104,7 +104,7 @@ const SchoolCard = (props) => {
                 </Card.Body>
                 <Col className='salient-features'>
                     <Row className='partner-wrap'>
-                        { school?.partner && <div><div className='partner-item icon'><i className='icons partner-icon'></i></div>
+                        { school?.partner && <div className="partner-inner"><div className='partner-item icon'><i className='icons partner-icon'></i></div>
                         <div className='partner-item lbl'><label>Application Partner</label></div></div> }
                     </Row>
                     <ListGroup className="feature-list-group allfeatures-wrap">
@@ -132,7 +132,6 @@ const SchoolCard = (props) => {
                                 
                             </ListGroup.Item>
                         </ListGroup>
-
                     </ListGroup>
                 </Col>
             </Card>

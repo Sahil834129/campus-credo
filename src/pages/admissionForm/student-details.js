@@ -254,6 +254,7 @@ export default function StudentDetails({
             disabled
             value={selectedChild.dateOfBirth}
             label='Date of Birth'
+            placeholder='DD/MM/YYYY'
             errors={validationErrors}
           />
         </div>

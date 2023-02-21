@@ -84,7 +84,7 @@ const HomePage = () => {
                         <Col className="service-features">
                             <Tabs defaultActiveKey="studentsTab" id="fill-tab-example" className="service-type-tabs" fill>
                                 <Tab eventKey="studentsTab" title={<span> <i className="icons student-icon" /> For Students</span>}>
-                                    <TabContent>
+                                    <TabContent className="inner-tab-content">
                                         <div className="feature-card-main">
                                             {PageContent.STUDENT_FEATURE_CARDS.map((card, index) => (
                                                 <FeatureCard {...card} key={"student_fc" + index} />

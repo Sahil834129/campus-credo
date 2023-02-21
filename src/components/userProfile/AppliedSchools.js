@@ -60,6 +60,9 @@ const AppliedSchools = ({ application, setApplications }) => {
                 />
               </div>
               <div className="info-item school-info-exerpts">
+                <div className="col">
+                  <label>Application# : {application.applicationId}</label>
+                </div>
                 <div className="school-name">{application.schoolName}</div>
                 <ListGroup className="school-type">
                   <ListGroup.Item>{application.board}</ListGroup.Item>
@@ -83,13 +86,23 @@ const AppliedSchools = ({ application, setApplications }) => {
           </div>
 
           <div className="col-item right">
+            
             <div className="col">
-              <label>Application# : {application.applicationId}</label>
-            </div>
-            <div className="col">
-            <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
+              <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
                 {getStatusLabel(application.applicationStatus)}
               </span>
+              
+            </div>
+            <div className="col">
+              <span className="download-option">
+                  <a href="javascript:void(0)" onClick={() => {
+                      downloadApplicationOnDashboard(application.applicationId);
+                    }}
+                  >
+                    Download Application{" "}
+                    <i className="icons link-icon"></i>
+                  </a>
+                </span>
             </div>
             <div className="col">
               <Link onClick={() => setShowTimeline((val) => !val)}>
@@ -97,17 +110,7 @@ const AppliedSchools = ({ application, setApplications }) => {
               </Link>
             </div>
           </div>
-          <span className="download-option">
-                                    <a
-                                      href="javascript:void(0)"
-                                      onClick={() => {
-                                        downloadApplicationOnDashboard(application.applicationId);
-                                      }}
-                                    >
-                                      Download Application{" "}
-                                      <i className="icons link-icon"></i>
-                                    </a>
-                                </span>
+          
         </div>
         {showTimeline ? <ApplicationTimeline application={application} setApplications={setApplications} setShowTimeline={setShowTimeline}/> : ""}
 </div>

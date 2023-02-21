@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import Dropdown from 'react-bootstrap/Dropdown';
+import React, { useEffect, useState } from "react";
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import logoHeader from "../assets/img/brand-logo-header.svg";
 import Container from "react-bootstrap/Container";
-import LoggedInUserDropDown from "./LoggedInUserDropDown";
+import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import RESTClient from "../utils/RestClient";
+import logoHeader from "../assets/img/brand-logo-header.svg";
+import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { useSelector, useDispatch } from "react-redux";
-import { setSelectedLocation, getSelectedLocation, setGeoLocation} from "../redux/actions/locationAction";
 import { gotoHome } from "../utils/helper";
+import RESTClient from "../utils/RestClient";
+import LoggedInUserDropDown from "./LoggedInUserDropDown";
 
 const SearchBar = () => {
     const navigate = useNavigate();
@@ -55,8 +54,8 @@ const SearchBar = () => {
     }
 
     const LocationDropDownToggle = React.forwardRef(({ children, onClick }, ref) => (
-        <a
-            href=""
+        <Link
+           
             ref={ref}
             onClick={(e) => {
                 e.preventDefault();
@@ -66,7 +65,7 @@ const SearchBar = () => {
            <label className="location-lbl">{children}</label>
             {/* &#x25bc; */}
             <i className="icons arrowdown-icon">&nbsp;</i>
-        </a>
+        </Link>
     ));
     
     const LocationDropDownMenu = React.forwardRef(

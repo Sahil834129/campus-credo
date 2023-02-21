@@ -44,7 +44,7 @@ const Footer = () => {
           <h2>Contact Us @</h2>
           <ListGroup as="ul">
             <ListGroup.Item as="li">T: {PageContent.PHONE}</ListGroup.Item>
-            <div>
+            <ListGroup.Item as="li">
               <Link
                 onClick={() =>
                   (window.location = "mailto:support@campuscredo.com")
@@ -52,14 +52,14 @@ const Footer = () => {
               >
                 E: {PageContent.ENQUIRY_EMAIL}
               </Link>
-            </div>
-            <ListGroup.Item as="li">
-              <a href="https://www.facebook.com" style={{visibility:'hidden'}}>F: Follow us on Facebook</a>
-            </ListGroup.Item>
-            <ListGroup.Item as="li">
-              <a href="https://www.twitter.com" style={{visibility:'hidden'}}>T: Follow us on Twitter</a>
             </ListGroup.Item>
             {/* <ListGroup.Item as="li">
+              <a href="https://www.facebook.com">F: Follow us on Facebook</a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <a href="https://www.twitter.com">T: Follow us on Twitter</a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
               <a href="https://www.linkedin.com" >L: Follow us on Linkedin</a>
             </ListGroup.Item> */}
           </ListGroup>

@@ -273,26 +273,28 @@ const LoginDialog = (props) => {
                 <span className="loginoption-cell">
                   <h2>Sign in using</h2>
                 </span>
-                <span className="loginoption-cell">
-                  <Form.Check
-                    inline
-                    type="radio"
-                    name="loginWithOTP"
-                    checked={!loginWithOTP}
-                    onChange={(e) => setLoginWithOTP(!e.target.checked)}
-                  />
-                  <label className="lbl">Password</label>
-                </span>
-                <span className="loginoption-cell">
-                  <Form.Check
-                    inline
-                    type="radio"
-                    name="loginWithOTP"
-                    checked={loginWithOTP}
-                    onChange={(e) => setLoginWithOTP(e.target.checked)}
-                  />
-                  <label>Mobile OTP</label>
-                </span>
+                <div className="inner-item-wrap">
+                  <span className="loginoption-cell">
+                    <Form.Check
+                      inline
+                      type="radio"
+                      name="loginWithOTP"
+                      checked={!loginWithOTP}
+                      onChange={(e) => setLoginWithOTP(!e.target.checked)}
+                    />
+                    <label className="lbl">Password</label>
+                  </span>
+                  <span className="loginoption-cell">
+                    <Form.Check
+                      inline
+                      type="radio"
+                      name="loginWithOTP"
+                      checked={loginWithOTP}
+                      onChange={(e) => setLoginWithOTP(e.target.checked)}
+                    />
+                    <label>Mobile OTP</label>
+                  </span>
+                </div>
               </div>
               <Form.Group className="signin-fld-grp pwd-fld-wrap otp-fld-outer">
                 <div className="otp-fields-wrapper otp-comp">
