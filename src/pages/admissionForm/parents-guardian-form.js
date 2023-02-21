@@ -237,7 +237,7 @@ export default function ParentsGuardianForm({
                     <div className='fld-cell'>
                       <TextField
                         fieldName='otherRelation'
-                        label='Enter Relationship with Student'
+                        label='Relationship with Student'
                         value={
                           values.relation !== 'Father' && values.relation !== 'Mother'
                             ? values.otherRelation
@@ -248,7 +248,7 @@ export default function ParentsGuardianForm({
                         }
                         fieldType='text'
                         errors={validationErrors}
-                        placeholder='Please add details...'
+                        placeholder='Enter Relationship with Student'
                         disabled={
                           !(
                             values.relation !== 'Father' &&
@@ -366,7 +366,7 @@ export default function ParentsGuardianForm({
                           setFieldValue('otherNationality', e.target.value);
                         }}
                         required={values.nationality !== 'Indian'}
-                        placeholder='Please add details...'
+                        placeholder='Enter Other Nationality'
                         disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
                       />
                     </div>
@@ -614,7 +614,7 @@ export default function ParentsGuardianForm({
                         <div className='fld-cell'>
                           <SelectField
                             fieldName='state'
-                            label='Select State'
+                            label='State'
                             required={values.isAddressSameAsStudent === 'No'}
                             errors={validationErrors}
                             selectOptions={states}
@@ -628,7 +628,7 @@ export default function ParentsGuardianForm({
                         <div className='fld-cell'>
                           <SelectField
                             fieldName='city'
-                            label='Select City'
+                            label='City'
                             required={values.isAddressSameAsStudent === 'No'}
                             errors={validationErrors}
                             selectOptions={city}

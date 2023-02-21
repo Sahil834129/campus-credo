@@ -27,6 +27,7 @@ const PageContent = {
     { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
     { ref: '/manageChild', icon:'managechild-icon', class:'managechild', title: 'Manage Child' },
     { ref: '/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
+    { ref: '/paymentHistory', icon: 'paymenthistory-icon', class: 'paymenthistory', title: 'Payment History ' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
   FOOTER_MENU_ITEMS: [
@@ -133,18 +134,18 @@ const PageContent = {
       'All the data provided is to the best of our knowledge and it can change according to school policies.'
   },
   FACILITY_ICON_MAP: {
-    Bus: 'trasport-icon',
-    'GPS Enabled Transport':'gpsenabled-icon',
+    'Bus': 'trasport-icon',
+    'GPS enabled tran': 'gpsenabled-icon',
     'Computer Lab': 'computer-lab',
-    CCTV: 'security-icon',
-    Biometrics: 'biometrics-icon',
+    'CCTV': 'security-icon',
+    'Biometrics': 'biometrics-icon',
     // 'Digital Learning': 'elearning-icon',
     'Security Personnel': 'watchman-icon',
     'AC Class Rooms': 'air-conditioner',
-    WiFi: 'wifi-icon',
+    'WiFi': 'wifi-icon',
     'Science Lab': 'sciencelab-icon',
     'Disabled Friendly': 'disabledfriendly-icon',
-    'Medical Centre': 'medicalcenter-icon',
+    'MedicalCentre': 'medicalcenter-icon',
     'Digital Learning': 'digitallearning-icon',
     'Daycare': 'daycare-icon',
     'Art & Craft': 'artandcraft-icon',
@@ -153,26 +154,26 @@ const PageContent = {
     'Day Boarding': 'dayboarding-icon',
     'Full Boarding': 'fullboarding-icon',
     'Robotics Lab': 'roboticslab-icon',
-    'Smart Classes':'smartclass-icon',
-    'Kids Meal':'kidsmeal-icon',
-    'Aftercare':'aftercare-icon',
-    Canteen: 'canteen-icon',
+    'Smart Classes': 'smartclass-icon',
+    'Kids Meal': 'kidsmeal-icon',
+    'Aftercare': 'aftercare-icon',
+    'Canteen': 'canteen-icon',
     '': 'boarding-icon'
   },
   EXTRACURRICULAR_ICON_MAP: {
-    Drama: 'drama-icon',
-    Music:'music-icon',
-    Cricket: 'cricket-icon',
-    Soccer:'soccer-icon',
-    Football:'soccer-icon',
-    Swimming: 'swimming-icon',
-    Yoga:'yoga-icon',
-    Excursions: 'excursions-icon',
-    TableTennis:'tabletennis-icon',
-    HorseRiding: 'horseriding-icon',
-    BasketBall:'backetball-icon',
-    Atheletics:'atheletics-icon'
-   
+    'Drama': 'drama-icon',
+    'Music': 'music-icon',
+    'Cricket': 'cricket-icon',
+    'Soccer': 'soccer-icon',
+    'Football': 'soccer-icon',
+    'Swimming': 'swimming-icon',
+    'Yoga': 'yoga-icon',
+    'Excursions': 'excursions-icon',
+    'Table Tennis': 'tabletennis-icon',
+    'Horse Riding': 'horseriding-icon',
+    'Basketball': 'basketball-icon',
+    'Atheletics': 'atheletics-icon'
+
   }
 }
 

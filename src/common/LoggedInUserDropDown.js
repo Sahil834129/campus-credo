@@ -75,7 +75,6 @@ const LoggedInUserDropDown = () => {
         dispatch(setIsUserLoggedIn(isLoggedIn()));
         dispatch(setIsAdmin(false));
         dispatch({ type: ActionTypes.LOGOUT });
-        navigate("/");
     };
 
     return (

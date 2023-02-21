@@ -58,8 +58,13 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                             <label>Application Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>₹{feesCollected}</span>
-                            <label>Fees Collected</label>
+                            <span className='value'>{feesCollected.toLocaleString('en-IN', 
+                                        {   maximumFractionDigits: 2,
+                                            style: 'currency',
+                                            currency: 'INR'
+                                        })}
+                            </span>
+                           <label>Fees Collected</label>
                         </ListGroup.Item>
                     </ListGroup>
                     <div style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '30px' }}>Application Status</div>
@@ -83,7 +88,8 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                                 midNumberText={accepetedPercentsage+'%'}
                                 midTextFirst={'Offer'}
                                 midTextSecond={'Accepted'}
-                                totalRemainng={`${totalSeats} Remaining Seats`}
+                                totalRemainngData={`${totalSeats}`}
+                                totalRemainng="Remaining Seats"
                             />
                         </td>
                         <td>
@@ -101,8 +107,8 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                                 midNumberText={feesCollectedPercent+'%'}
                                 midTextFirst={'Fees'}
                                 midTextSecond={'Collected'}
-                                totalRemainng={`${totalFeesCollected} Projected Fees`}
-
+                                totalRemainngData={`₹ ${totalFeesCollected.toLocaleString('en-IN')}`}
+                                totalRemainng="Projected Fees"
                             />
                         </td>
                     </tr>

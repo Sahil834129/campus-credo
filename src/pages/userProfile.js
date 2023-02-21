@@ -47,7 +47,7 @@ const UserProfile = () => {
     <Layout>
       <section className="content-area">
         <Container className="content-area-inner profile-page-wrap">
-          <Col className='inner-page-content '>
+          <Col className='inner-page-content dashboard-page col'>
             <Row className='content-section profile-bc-section'>
               <Col className='bc-col'>
                 <Breadcrumbs />

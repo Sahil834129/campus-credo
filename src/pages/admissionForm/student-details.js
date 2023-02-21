@@ -276,7 +276,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="className"
-            label="Select Class"
+            label="Class"
             required={true}
             errors={validationErrors}
             selectOptions={classOptions}
@@ -293,7 +293,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="religion"
-            label="Select Religion"
+            label="Religion"
             required={true}
             errors={validationErrors}
             selectOptions={RELIGION_OPTIONS}
@@ -321,7 +321,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="category"
-            label="Select Category"
+            label="Category"
             required={true}
             errors={validationErrors}
             selectOptions={CATEGORY_OPTIONS}
@@ -439,7 +439,7 @@ export default function StudentDetails({
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
                   errors={validationErrors}
-                  placeholder="School Name"
+                  placeholder="Enter School Name"
                   onChange={(e) => {
                     setFieldValue("schoolName", e.target.value);
                   }}
@@ -454,7 +454,7 @@ export default function StudentDetails({
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
                   errors={validationErrors}
-                  placeholder="School Board"
+                  placeholder="Enter School Board"
                   onChange={(e) => {
                     setFieldValue("schoolBoard", e.target.value);
                   }}
@@ -471,7 +471,7 @@ export default function StudentDetails({
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
                   errors={validationErrors}
-                  placeholder="School Address Line 1"
+                  placeholder="Enter School Address Line 1"
                   onChange={(e) => {
                     setFieldValue("schoolAddressLine1", e.target.value);
                   }}
@@ -484,7 +484,7 @@ export default function StudentDetails({
                   label="School Address Line 2"
                   //required={selectedChild.isProvidingCurrentSchoolInfo === 'Yes'}
                   errors={validationErrors}
-                  placeholder="School Address Line 2"
+                  placeholder="Enter School Address Line 2"
                   onChange={(e) => {
                     setFieldValue("schoolAddressLine2", e.target.value);
                   }}
@@ -495,7 +495,7 @@ export default function StudentDetails({
               <div className="fld-cell">
                 <SelectField
                   fieldName="schoolState"
-                  label="Select State"
+                  label="State"
                   required={
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
@@ -511,7 +511,7 @@ export default function StudentDetails({
               <div className="fld-cell">
                 <SelectField
                   fieldName="schoolCity"
-                  label="Select City"
+                  label="City"
                   required={
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
@@ -535,7 +535,7 @@ export default function StudentDetails({
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
                   errors={validationErrors}
-                  placeholder="School Pincode"
+                  placeholder="Enter School Pincode"
                   maxLength="6"
                   onChange={(e) => {
                     setFieldValue("schoolPincode", e.target.value);
@@ -545,7 +545,7 @@ export default function StudentDetails({
               <div className="fld-cell">
                 <SelectField
                   fieldName="unit"
-                  label="Select Marking Scheme"
+                  label="Marking Scheme"
                   required={
                     selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                   }
@@ -570,7 +570,7 @@ export default function StudentDetails({
                       selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                     }
                     errors={validationErrors}
-                    placeholder="Obtained Marks"
+                    placeholder="Enter Obtained Marks"
                     onChange={(e) => {
                       setFieldValue("obtainedMarks", e.target.value);
                     }}
@@ -586,7 +586,7 @@ export default function StudentDetails({
                       selectedChild.isProvidingCurrentSchoolInfo === "Yes"
                     }
                     errors={validationErrors}
-                    placeholder="Maximum Marks"
+                    placeholder="Enter Maximum Marks"
                     onChange={(e) => {
                       setFieldValue("maxMarks", e.target.value);
                     }}
@@ -603,7 +603,7 @@ export default function StudentDetails({
                     label="School Grades"
                     required={selectedChild.isProvidingCurrentSchoolInfo === "Yes"}
                     errors={validationErrors}
-                    placeholder="School Grades"
+                    placeholder="Enter School Grades"
                     maxLength="2"
                     onChange={(e) => {
                       setFieldValue("grade", e.target.value);
@@ -620,7 +620,7 @@ export default function StudentDetails({
                   // disabled={selectedChild.unit!==""}
                   errors={validationErrors}
                   label="Marks In Percentage."
-                  placeholder="Marks In Percentage."
+                  placeholder="Enter Marks In Percentage."
                   value={selectedChild.marksInPercentage === 0 ? "" : selectedChild.marksInPercentage}
                   onChange={(e) => {
                     setFieldValue("marksInPercentage", e.target.value);
@@ -647,7 +647,7 @@ export default function StudentDetails({
             required
             errors={validationErrors}
             label="House No., Block No."
-            placeholder="Please Enter House No., Block No."
+            placeholder="Enter House No., Block No."
             value={selectedChild.addressLine1}
             onChange={(e) => {
               setFieldValue("addressLine1", e.target.value);
@@ -660,7 +660,7 @@ export default function StudentDetails({
             //required
             errors={validationErrors}
             label="Area or Locality"
-            placeholder="Please Enter Area or Locality"
+            placeholder="Enter Area or Locality"
             value={selectedChild.addressLine2}
             onChange={(e) => {
               setFieldValue("addressLine2", e.target.value);
@@ -673,7 +673,7 @@ export default function StudentDetails({
           <TextField
             fieldName="pincode"
             label="Pincode"
-            placeholder="Please Enter Pincode"
+            placeholder="Enter Pincode"
             required
             errors={validationErrors}
             value={selectedChild.pincode}
@@ -686,7 +686,7 @@ export default function StudentDetails({
         <div className="fld-cell">
           <SelectField
             fieldName="state"
-            label="Select State"
+            label="State"
             required
             errors={validationErrors}
             selectOptions={states}
@@ -703,7 +703,7 @@ export default function StudentDetails({
           {" "}
           <SelectField
             fieldName="city"
-            label="Select City"
+            label="City"
             required
             errors={validationErrors}
             selectOptions={city}
@@ -724,7 +724,7 @@ export default function StudentDetails({
             onChange={(e) => {
               setFieldValue("familyIncome", e.target.value);
             }}
-            placeholder="Please add details..."
+            placeholder="Enter Annual Family Income"
           />
         </div>
       </div>

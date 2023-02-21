@@ -42,22 +42,20 @@ const SignUp = () => {
         toast.error(RESTClient.getAPIErrorMessage(error));
       });
   };
-  const togglePassword =()=>{
-    if(passwordType==="password")
-    {
-     setPasswordType("text")
-     return;
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text")
+      return;
     }
-      setPasswordType("password");
+    setPasswordType("password");
   }
-  const toggleConfirmPassword =()=>{
-    if(confirmPasswordType==="password")
-    {
+  const toggleConfirmPassword = () => {
+    if (confirmPasswordType === "password") {
       setConfirmPasswordType("text")
-     return;
+      return;
     }
-     setConfirmPasswordType("password");
-   
+    setConfirmPasswordType("password");
+
   }
   return (
     <Container className="main-container signup-main" fluid>
@@ -73,6 +71,7 @@ const SignUp = () => {
             </div>
             <div className="form-container">
               <Formik
+                enableReinitialize={true}
                 initialValues={{
                   firstName: "",
                   lastName: "",
@@ -101,7 +100,7 @@ const SignUp = () => {
                           <InputField
                             fieldName="firstName"
                             fieldType="text"
-                            placeholder="First Name"
+                            placeholder="Enter First Name"
                             errors={errors}
                             touched={touched}
                           />
@@ -113,7 +112,7 @@ const SignUp = () => {
                           <InputField
                             fieldName="lastName"
                             fieldType="text"
-                            placeholder="Last Name"
+                            placeholder="Enter Last Name"
                             errors={errors}
                             touched={touched}
                           />
@@ -127,7 +126,7 @@ const SignUp = () => {
                           <InputField
                             fieldName="email"
                             fieldType="text"
-                            placeholder="Email Address"
+                            placeholder="Enter Email Address"
                             errors={errors}
                             touched={touched}
                           />
@@ -139,29 +138,32 @@ const SignUp = () => {
                         <InputField
                           fieldName="phone"
                           fieldType="text"
-                          //placeholder="Phone Number"
+                            placeholder="Enter Phone Number"
                           errors={errors}
                           touched={touched}
                         />
-                      </div>{" "}
+                      </div>
                     </div>
                     <div className="frm-row">
                       <div className="frm-cell pwd-cell">
                         <label className="">
                           Password<span className="text-danger">*</span>
                         </label>
-                          <InputField
-                            fieldName="password"
-                            fieldType={passwordType}
-                            placeholder="Password"
-                            errors={errors}
-                            touched={touched}
-                          />
-                           <span className="view-pwd-icon" onClick={togglePassword} >
-                      { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
-                      </span>
-                      </div>{" "}
-                      
+                        <InputField
+                          fieldName="password"
+                          fieldType={passwordType}
+                          placeholder="Enter Password"
+                          errors={errors}
+                          touched={touched}
+                        />
+                        <span className="view-pwd-icon" onClick={() => {
+                          if (values.password !== "") {
+                            togglePassword()
+                          }
+                        }}>
+                          {values.password !== "" ? passwordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                        </span>
+                      </div>
                       <div className="frm-cell pwd-cell">
                         <label className="">
                           Confirm Password<span className="text-danger">*</span>
@@ -169,14 +171,18 @@ const SignUp = () => {
                         <InputField
                           fieldName="confirmPassword"
                           fieldType={confirmPasswordType}
-                          placeholder="Confirm Password"
+                          placeholder="Please Confirm Password"
                           errors={errors}
                           touched={touched}
                         />
-                        <span className="view-pwd-icon" onClick={toggleConfirmPassword} >
-                      { confirmPasswordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
-                      </span>
-                      </div>{" "}
+                        <span className="view-pwd-icon" onClick={() => {
+                          if (values.confirmPassword !== "") {
+                            toggleConfirmPassword()
+                          }
+                        }}>
+                          {values.confirmPassword !== "" ? confirmPasswordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                        </span>
+                      </div>
                     </div>
                     <div className="frm-row">
                       <div className="frm-cell">
@@ -198,8 +204,7 @@ const SignUp = () => {
                           errors={errors}
                           touched={touched}
                         />
-                      </div>{" "}
-                      
+                      </div>                      
                       <div className="frm-cell">
                         <label className="">
                            City <span className="text-danger">*</span>
@@ -215,8 +220,6 @@ const SignUp = () => {
                         />
                       </div>
                     </div>
-                    
-                    
                     {/* <div className='frm-cell frm-lbl-cell'>
                       <InputField
                         fieldName='receiveEmailUpdates'
@@ -236,8 +239,8 @@ const SignUp = () => {
                     />
                     </div> */}
                     <div className="frm-cell termslink">
-                      By continuing, you agree to CampusCredo’s{" "}
-                      <Link to={"/terms"}>Terms of Use</Link> and{" "}
+                      By continuing, you agree to CampusCredo’s &nbsp;
+                      <Link to={"/termsOfService"}>Terms of Service</Link>&nbsp; and &nbsp;
                       <Link to={"/privacyPolicy"}>Privacy Policy</Link>.
                     </div>
                     <div className="button-wrap">

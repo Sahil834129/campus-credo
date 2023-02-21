@@ -21,6 +21,7 @@ export const Dashboard = () => {
   const [acceptedOffer, setAcceptedOffer] = useState([]);
   const [receivedOffer, setReceivedOffer] = useState([]);
   const [declinedOffer, setDeclinedOffer] = useState([]);
+  const [totalApplicationReceived, setTotalApplicationReceived] = useState([]);
 
   const [applicationApproved, setApplicationApproved] = useState([]);
 
@@ -52,16 +53,19 @@ export const Dashboard = () => {
     const accepted = [];
     const declined = [];
     const received = [];
+    const totalApplication = [];
     labels.map(val => {
       approved.push(tempData[val]?.approved);
       accepted.push(tempData[val]?.accepted);
       declined.push(tempData[val]?.declined);
       received.push(tempData[val]?.received);
+      totalApplication.push(tempData[val]?.totalApplication)
     });
     setReceivedOffer(received);
     setDeclinedOffer(declined);
     setLabels(labels);
     setAcceptedOffer(accepted);
+    setTotalApplicationReceived(totalApplication);
     setApplicationApproved(approved);
   };
 
@@ -92,7 +96,7 @@ export const Dashboard = () => {
         <div className='chart-wrap'>
           <ApplicationStatus
             labels={labels}
-            received={receivedOffer}
+            received={totalApplicationReceived}
             approved={applicationApproved}
             declined={declinedOffer}
             applicationStatus={dashBoardData?.applicationStatus}

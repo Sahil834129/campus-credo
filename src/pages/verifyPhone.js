@@ -80,6 +80,8 @@ const resendOtpForPhoneVerify=async()=>
                                            }}
                                         />
                                     </div>
+                                    {errors.otp && <span className='error'>{errors.otp}</span>}
+
                                     <div className='resend-action-wrapper'>
                                     {   resendOtp? 
                                         <OtpTimer minutes={0}
@@ -94,7 +96,7 @@ const resendOtpForPhoneVerify=async()=>
                                             }}>Send OTP Again</Link>
                                     }
                                     </div>
-                                    {errors.otp && <span className='error'>{errors.otp}</span>}<br/>
+                                    <br/>
                                         <div className='button-wrap'>
                                             <Button buttonLabel="Verify" submitting={submitting}/>
                                         </div>

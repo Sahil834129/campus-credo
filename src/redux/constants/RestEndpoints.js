@@ -50,6 +50,8 @@ const RestEndPoint = {
   RESET_PASSWORD: "user/resetPassword",
   DOWNLOAD_DOCUMENT: "/student/download/document",
   DOWNLOAD_ADMIN_DOCUMENT: "/admissionApplications/download/document",
+  DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD: "/admission/applicationform/download",
+  DOWNLOAD_PAYMENT_INVOICE :"/admission/download/invoice",
   CLASS_ADMISSION_SESSION_DATA: "admission/classAdmissionSessions",
   CLASS_ADMISSION_SUMMARY: "admissionApplications/classAdmissionSummary",
   CLASS_APPLICATION_CLASS: "admissionApplications/classApplicationsByClass",
@@ -77,6 +79,7 @@ const RestEndPoint = {
   REGISTRATION_CHECKOUT: "payment/registrationCheckout",
   JOIN_US: "user/joinUs",
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
+  GET_PAYMENT_HISTORY: "payment/paymentHistory",
 };
 
 export default RestEndPoint;

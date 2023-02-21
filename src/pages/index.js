@@ -15,6 +15,7 @@ import ManageChild from "./manageChild";
 import ManageProfile from "./manageProfile";
 import NotFound from "./notFound";
 import PaymentCheckout from "./paymentCheckout";
+import PaymentHistory from "./paymentHistory";
 import PrivacyPolicy from "./privacyPolicy";
 import SchoolDetails from "./schoolDetails";
 import SignIn from "./signIn";
@@ -22,10 +23,9 @@ import SignUp from "./signUp";
 import TermsOfUse from "./terms";
 import UserProfile from "./userProfile";
 import VerifyPhone from "./verifyPhone";
-
 import OrderConfirm from "./orderConfirm";
-
 import PaymentFailed from "./paymentFailed";
+import TermsAndConditions from "./admin/termsAndConditions"
 
 export {
   HomePage,
@@ -53,5 +53,7 @@ export {
   ManageChild,
   PaymentCheckout,
   PaymentFailed,
+  PaymentHistory,
   OrderConfirm,
+  TermsAndConditions,
 };

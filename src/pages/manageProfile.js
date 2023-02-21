@@ -38,10 +38,34 @@ export const ManageProfile = () => {
     state: "",
   });
   const [showOTP, setShowOTP] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
+  const [confirmPasswordType, setConfirmPasswordType] = useState("password");
+  const [currentPasswordType, setCurrentPasswordType] = useState("password");
   const [updatePhoneObject, setUpdatePhoneObject] = useState({
     phone: "",
     otp: "",
   });
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text")
+      return;
+    }
+    setPasswordType("password");
+  }
+  const toggleConfirmPassword = () => {
+    if (confirmPasswordType === "password") {
+      setConfirmPasswordType("text")
+      return;
+    }
+    setConfirmPasswordType("password");
+  }
+  const toggleCurrentPassword = () => {
+    if (currentPasswordType === "password") {
+      setCurrentPasswordType("text")
+      return;
+    }
+    setCurrentPasswordType("password");
+  }
   const confirmMessage =
     "You will not be able to login with the previous mobile number and your current login session will expire once you update the mobile number. Please confirm to continue?";
   const [showUpdatePhoneConfirmDialog, setShowUpdatePhoneConfirmDialog] =
@@ -106,7 +130,7 @@ export const ManageProfile = () => {
         city: response.data.city,
         state: response.data.state,
       });
-    } catch (error) {}
+    } catch (error) { }
   }
 
   const updateUserProfile = async (formData) => {
@@ -334,11 +358,18 @@ export const ManageProfile = () => {
                                   fieldName="currentPassword"
                                   required
                                   label="Current Password"
-                                  fieldType="password"
+                                  fieldType={currentPasswordType}
                                   placeholder="Enter current password"
                                   errors={errors}
                                   touched={touched}
                                 />
+                                <span className="view-pwd-icon" onClick={() => {
+                                  if (values.currentPassword !== "") {
+                                    toggleCurrentPassword()
+                                  }
+                                }}>
+                                  {values.currentPassword !== "" ? currentPasswordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                                </span>
                               </div>
                               <div className="col-md-6"></div>
                               <div className="col-md-6">
@@ -346,11 +377,18 @@ export const ManageProfile = () => {
                                   fieldName="password"
                                   required
                                   label="New Password"
-                                  fieldType="password"
+                                  fieldType={passwordType}
                                   placeholder="Enter new password"
                                   errors={errors}
                                   touched={touched}
                                 />
+                                <span className="view-pwd-icon" onClick={() => {
+                                  if (values.password !== "") {
+                                    togglePassword()
+                                  }
+                                }}>
+                                  {values.password !== "" ? passwordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                                </span>
                               </div>
                               <div className="col-md-6"></div>
                               <div className="col-md-6">
@@ -358,11 +396,18 @@ export const ManageProfile = () => {
                                   fieldName="confirmPassword"
                                   required
                                   label="Re-enter Password"
-                                  fieldType="password"
+                                  fieldType={confirmPasswordType}
                                   placeholder="Re-enter Password"
                                   errors={errors}
                                   touched={touched}
                                 />
+                                <span className="view-pwd-icon" onClick={() => {
+                                  if (values.confirmPassword !== "") {
+                                    toggleConfirmPassword()
+                                  }
+                                }}>
+                                  {values.confirmPassword !== "" ? confirmPasswordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
+                                </span>
                               </div>
                               <div className="col-md-6"></div>
                               <div className="form-group mb-3 button-wrap">
@@ -449,23 +494,17 @@ export const ManageProfile = () => {
                                 </div>
                               </div>
                               <div className="fld-row button-wrap">
-                                
-                                  <button
-                                    type="button"
-                                    className="cancel comn"
-                                    onClick={() => resetForm()}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button className="save comn" type="submit">
-                                    {showOTP ? "Verify" : "Update"}
-                                  </button>
-                                
+                                <button
+                                  type="button"
+                                  className="cancel comn"
+                                  onClick={() => resetForm()}
+                                >
+                                  Cancel
+                                </button>
+                                <button className="save comn" type="submit">
+                                  {showOTP ? "Verify" : "Update"}
+                                </button>
                               </div>
-                             
-                             
-                              
-                              
                             </Form>
                           )}
                         </Formik>
