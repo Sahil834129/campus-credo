@@ -6,7 +6,7 @@ import CartIcon from "../assets/img/icons/cart-icon.png";
 import LoginDialog from "../dialogs/loginDialog";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
-import { setIsUserLoggedIn } from "../redux/actions/userAction";
+import { setIsAdmin, setIsUserLoggedIn } from "../redux/actions/userAction";
 import { ActionTypes } from "../redux/constants/action-types";
 import { getLocalData, isLoggedIn, logout } from "../utils/helper";
 
@@ -41,13 +41,14 @@ const LoggedInUserDropDown = () => {
     const [showLoginDialog, setShowLoginDialog] = useState(false);
     const itemsInCart = useSelector((state) => state.cartData.itemsInCart);
     const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser)
+    const isAdmin = useSelector((state) => state.userData.isAdmin);
     const [totalItemsInCart, setTotalItemsInCart] = useState(0);
     const childsList = useSelector((state) => state.childsData.childs);
-    
+
     useEffect(() => {
         dispatch(setIsUserLoggedIn(isLoggedIn()))
     },[dispatch])
-    
+
     useEffect(() => { 
         if (isLoggedInUser && isLoggedIn()) {
             dispatch(getItemsInCart());
@@ -72,40 +73,40 @@ const LoggedInUserDropDown = () => {
     const logoutUser = () => {
         logout();
         dispatch(setIsUserLoggedIn(isLoggedIn()));
+        dispatch(setIsAdmin(false));
         dispatch({type: ActionTypes.LOGOUT});
-       
     }
-    
+
     return (
         <>
-        {
-            <div className="header-item cart-profile-wrap">
-            { isLoggedInUser ?
-                <>
-                <div className="cart-num-comp"><Link to="/selectedSchools"><span className="cart-img"><img src={CartIcon} alt="Selected Schools" /></span><span className="num-badge">{totalItemsInCart}</span> </Link></div>
-                {/* <div className="cart-num-comp">
+            {
+                <div className="header-item cart-profile-wrap">
+                    {isLoggedInUser && !isAdmin ?
+                        <>
+                            <div className="cart-num-comp"><Link to="/selectedSchools"><span className="cart-img"><img src={CartIcon} alt="Selected Schools" /></span><span className="num-badge">{totalItemsInCart}</span> </Link></div>
+                            {/* <div className="cart-num-comp">
                                 
                 <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
                     <Button variant="success"><span className="cart-img"><img src={CartIcon} alt="Cart" /></span><span className="num-badge">9</span></Button>
                 </OverlayTrigger>
                 </div> */}
 
-                    <div className="user-profile">
-                            <Dropdown>
-                                <Dropdown.Toggle as={CustomToggle} id="dropdown-user-profile">Hi <span className='user-name'>{getLocalData("name")}</span></Dropdown.Toggle>
-                                <Dropdown.Menu as={CustomMenu}>
-                                    <Dropdown.Item eventKey="1" href="/userProfile">Dashboard</Dropdown.Item>
-                                    <Dropdown.Item eventKey="2" onClick={logoutUser}>Logout</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div></> 
-                : <div className="profile-login"><Link onClick={handleShowLoginDialog}>Sign In/Join Us</Link></div>
+                            <div className="user-profile">
+                                <Dropdown>
+                                    <Dropdown.Toggle as={CustomToggle} id="dropdown-user-profile">Hi <span className='user-name'>{getLocalData("name")}</span></Dropdown.Toggle>
+                                    <Dropdown.Menu as={CustomMenu}>
+                                        <Dropdown.Item eventKey="1" href="/userProfile">Dashboard</Dropdown.Item>
+                                        <Dropdown.Item eventKey="2" onClick={logoutUser}>Logout</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div></>
+                        : <div className="profile-login"><Link onClick={handleShowLoginDialog}>Sign In/Join Us</Link></div>
+                    }
+                </div>
             }
-            </div>
-        }
-        <LoginDialog show={showLoginDialog} handleClose={handleCloseLoginDialog}/>
+            <LoginDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} />
         </>
-    )
-}
+    );
+};
 
 export default LoggedInUserDropDown;
