@@ -180,7 +180,7 @@
         padding: 0;
         &.btn-success{
         }
-        .cart-img{padding: 24px;}
+        .cart-img{padding: 0 24px 0 0;}
         .num-badge{
           position: absolute;
           top: -10px;
@@ -374,7 +374,7 @@
   #menu li {
     padding: 10px 0;
     font-size: 14px;
-    font-size: 18px;
+   
     &.search{
       position: relative;
       z-index: 2;
@@ -401,6 +401,33 @@
     
     &.page-link{}
     &.contact-info{}
+  }
+  .loc-cartinfo-nav-wrapper{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    li{
+      flex-grow: 1;
+      flex-basis: 0;
+      &.locations{
+
+      }
+      &.signin{
+        .header-item{
+          display: flex;
+          justify-content: center;
+          .cart-num-comp{
+            a{
+              .cart-img{
+                padding: 0 24px 0 0;
+              }
+            }
+          }
+        }
+      }
+
+    }
   }
   .page-link-wrap{
      margin-top: 24px;
