@@ -201,10 +201,8 @@
     .modal.joinus-model .modal-dialog .modal-content .model-body .model-body-col form.application-form-wrap{padding: 0; margin: 0;}
     .modal.forgotpwd-model .modal-dialog{width: 100%; max-width: 100%; padding: 16px; margin: 0;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.hero-wrap .hero-caption{bottom: 0;
-        padding: 16px 16px;
-        border-radius: 16px;
-        position: relative;
-    }
+        padding: 16px 16px; border-radius: 16px; position: relative; }
+        .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper .tab-content{padding: 16px;}
     .modal-dialog .modal-body .model-body-col .form-container .otp-fld-outer .otp-fields-wrapper.otp-comp .otp-inner-fld{padding: 16px 0 0 0;}
     .modal-dialog .modal-body .model-body-col .form-container .otp-fld-outer .otp-fields-wrapper.otp-comp .otp-inner-fld div div input[type=tel]{margin: 0;}
     .content-area .inner-page-container .content-section.bc-section{}
@@ -299,8 +297,31 @@
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main{flex-direction: column;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.timeline-wrapper .timeline-list .timeline-info-panel .timeline-row{display: flex; flex-direction: column;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .readytoapply-block .applyoform-wrapper .frm-row .cell.button-wrap{justify-content: flex-start;}
+    .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .admin-detail-row {grid-template-columns: 1fr;}
+    .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .admin-detail-row .admin-detail-cell{flex-direction: row;}
+    .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right .cart-payment-card .school-info-main .info-list-group .list-group-item{padding: 8px;}
+    .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right .cart-payment-card .school-info-main .info-list-group .list-group-item:first-child{padding: 8px;}
+    .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right .cart-payment-card .card-header-item.title{padding: 8px;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .academic-stat-wrapper .academic-stats-content .academic-stats-row{grid-template-columns: 1fr;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .titlebar{align-items: flex-start; flex-direction: column-reverse;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .titlebar .cell.right{display: flex; align-items: center; column-gap: 8px;}
+    .application-form-wrap .fld-row.expand-block .expand-block-cell{flex-direction: column; align-items: flex-start;}
+    .admmission-sequence-wrap .inner-page-content .inner-page-right-container {padding: 16px 0 0 0;}
 }
-
+@media (min-width:320px)  {
+     /* smartphones, iPhone, portrait 480x320 phones */ 
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    .modal.alert-popup .modal-dialog{width: 400px; max-width: 400px;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
+}
+@media (min-width:961px)  { 
+    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+    .modal.alert-popup .modal-dialog{width: 400px; max-width: 400px;}
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
 
 @media screen and (max-width: 1199px) { 
     .main-container .form-content-wrapper{}
@@ -449,16 +470,16 @@
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.inner-page-content.allschool-wrap.right{}
     .modal.add-child-model.review-admission-modal {padding-left: 0 !important;}
     .modal.add-child-model.review-admission-modal .modal-dialog { min-width: 100%; }
-    .content-area .school-list-container .school-card.cart-block .card-body.school-info-main{display: flex; flex-direction: column;}
+    .content-area .school-list-container .school-card.cart-block .card-body.school-info-main{}
     .content-area .content-area-inner.cart-page-wrapper .page-container .row-wrapper.select-child-wrapper{padding: 16px;}
     .content-area .school-list-container .school-card.cart-active .school-info-main .info-item.school-info-exerpts .school-name{}
-    .content-area .school-list-container .school-card .school-info-main{display: flex; flex-direction: column;}
+    .content-area .school-list-container .school-card .school-info-main{}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row{display: flex; flex-direction: column;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main{grid-row-gap: 16px; display: flex; flex-direction: column; margin-top: 16px;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.left{min-height: auto;  border-radius: 16px; border: none;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .header{flex-direction: column;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .header{flex-direction: column; row-gap: 8px;     align-items: flex-end;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left{border-radius: 0 0 16px 16px; border: none;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: column; align-items: center; margin-top: 16px;}
 
     .content-area .content-area-inner.admmission-sequence-wrap .content-section .bc-main-wrap{padding-right: 16px; padding-left: 16px;}
@@ -468,6 +489,8 @@
     .content-area .content-area-inner.admmission-sequence-wrap .content-section .content-area-inner.internal-page-wrapper .school-nearby-collapsible .admfrm-collapsible-panel .accordion-collapse.collapse.show{margin-top: 16px;}
     .content-area .content-area-inner.admmission-sequence-wrap .content-section .content-area-inner.internal-page-wrapper .school-nearby-collapsible .admfrm-collapsible-panel h2.accordion-header{margin-bottom: 0;}
     .content-area .content-area-inner.admmission-sequence-wrap .content-section .content-area-inner.internal-page-wrapper .school-nearby-collapsible .admfrm-collapsible-panel h2.accordion-header button.accordion-button{padding-left: 0; padding-right: 0;} 
+    .admmission-sequence-wrap .inner-page-content .inner-page-right-container {padding: 16px 0 0 0;}
+    .content-area-inner.admmission-sequence-wrap.container{padding: 16px;}
 }
 
 @media (max-width: 1440px){
