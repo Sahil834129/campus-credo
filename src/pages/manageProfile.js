@@ -352,7 +352,6 @@ export const ManageProfile = () => {
                             confirmPassword: "",
                           }}
                           validationSchema={ChangePasswordSchema}
-                          validateOnBlur
                           enableReinitialize
                           onSubmit={(values, { resetForm }) => {
                             changePassword(values);
