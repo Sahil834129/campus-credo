@@ -8,7 +8,7 @@ import AlertDialog from "../common/AlertDialog";
 import ApplyToSchoolDialog from "../dialogs/applyToSchoolDialog";
 import LoginDialog from "../dialogs/loginDialog";
 import PageContent from "../resources/pageContent";
-import { isLoggedIn } from "../utils/helper";
+import { isEmpty, isLoggedIn } from "../utils/helper";
 import InfoDropDown from "./InfoDropDown";
 import SchoolCardHeader from "./SchoolCardHeader";
 
@@ -82,7 +82,7 @@ const SchoolCard = (props) => {
                         <div className='left'>Admission Status:</div>
                         <div className='right session-wrap'>
                             {
-                                school.admissionInfo != null ?
+                               !isEmpty(school.admissionInfo) && !isEmpty(school.admissionInfo.admissionOpenForClasses)?
                                 <>
                                 <span className='session-title'>{school.admissionInfo.admissionStatus} for {school.admissionInfo.admissionSession} </span>
                                 <InfoDropDown header={school.admissionInfo.admissionStatus + " for " + school.admissionInfo.admissionSession} options={school.admissionInfo.admissionOpenForClasses.split(",")}/>
