@@ -13,6 +13,8 @@ import PageContent from "../resources/pageContent";
 import { humanize } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import { downloadInvoice } from "../utils/services";
+import { ReactComponent as DownloadIcon } from "../assets/img/icons/download.svg";
+import * as moment from 'moment';
 
 const PaymentHistory=() =>{
    const [orders, setOrders] = useState([{}])
@@ -76,14 +78,10 @@ const PaymentHistory=() =>{
                                 <thead>
                                               <tr>
                                                 <th>Order Id</th>
-                                                <th>Billing Name</th>
+                                                <th>Payee Name</th>
                                                  <th>Order Date</th>
                                                  <th>Order Status</th>
                                                 <th>Order Type</th>
-                                                <th>No of Orders</th>
-                                                <th>Order Amount</th>
-                                                <th>Fee</th>
-                                                <th>GST</th>
                                                 <th>Total Amount</th>
                                                 <th>Download Invoice</th>
                                              </tr>
@@ -102,18 +100,14 @@ const PaymentHistory=() =>{
                                                     {order.billingName}
                                                     </Link>
                                                     </td>
-                                                    <td>{order.orderDate}</td>
+                                                    <td>{moment(order.orderDate).format("L")}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
-                                                    <td>{ CountOrderLineItems(order)}</td>
-                                                    <td>{order.orderAmount}</td>
-                                                    <td>{order.platformFee}</td>
-                                                    <td> {order.tax}</td>
                                                     <td>{order.totalAmount}</td>
                                                    
                                                     <td>
                                                         <div className="btn-wrapper">
-                                                            <Button className='edit' onClick={() => downloadInvoicePdf(order.orderId)}>Download Invoice</Button>
+                                                        <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
                                                         </div>
                                                     </td>
                                                 </tr>
