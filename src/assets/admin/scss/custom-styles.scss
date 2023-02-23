@@ -323,6 +323,7 @@ ul.list-group{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       column-gap: 24px;
+      // overflow-x: auto;
       .metrics-block{
         height: 184px;
         background: #FFFFFF;
@@ -431,6 +432,7 @@ ul.list-group{
       grid-template-columns: 2.06fr 1fr;
       column-gap: 24px;
       margin-top: 16px;
+      overflow-x: auto;
       .chart-block{
         height: 434px;
         background: #FFFFFF;

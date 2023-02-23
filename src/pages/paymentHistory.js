@@ -1,8 +1,10 @@
+import * as moment from 'moment';
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { ReactComponent as DownloadIcon } from "../assets/img/icons/download.svg";
 import Breadcrumbs from "../common/Breadcrumbs";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
@@ -13,8 +15,6 @@ import PageContent from "../resources/pageContent";
 import { humanize } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import { downloadInvoice } from "../utils/services";
-import { ReactComponent as DownloadIcon } from "../assets/img/icons/download.svg";
-import * as moment from 'moment';
 
 const PaymentHistory=() =>{
    const [orders, setOrders] = useState([{}])
@@ -73,7 +73,7 @@ const PaymentHistory=() =>{
                                 <div className='top-btn-wrap managechild-title'>
                                 <h2>Complete Payment History</h2>
                                 </div>
-                                <div className='manage-child-tbl-outer'>
+                                <div className='payment-history-tbl'>
                                 <Table striped bordered hover >
                                 <thead>
                                               <tr>
@@ -92,8 +92,8 @@ const PaymentHistory=() =>{
                                            ( orders?.map((order, index) => {
                                                 return <tr >
                                                     <td>{order.orderId}</td>
-                                                    <td>
-                                                        <Link className="text-primary" onClick={()=>{
+                                                    <td className='payeename'>
+                                                        <Link className="payee" onClick={()=>{
                                                         setOrderLineItems(order.orderLineItems);
                                                         handleShowLineItems();
                                                     }}>
@@ -105,8 +105,8 @@ const PaymentHistory=() =>{
                                                     <td>{order? humanize(order.orderType) : ""}</td>
                                                     <td>{order.totalAmount}</td>
                                                    
-                                                    <td>
-                                                        <div className="btn-wrapper">
+                                                    <td className='download-invoice'>
+                                                        <div className="btn-wrap">
                                                         <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
                                                         </div>
                                                     </td>
