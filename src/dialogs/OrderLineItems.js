@@ -5,27 +5,35 @@ const OrderLineItems = (props) => {
  let count=0;
  
     return (
-        <GenericDialog className="readytoapply-model" show={props.show} handleClose={props.handleClose} modalHeader="Order LineItems Details">
+        <GenericDialog className="payeedetails-model" show={props.show} handleClose={props.handleClose} modalHeader="Order LineItems Details">
            <div className='model-body-col'>
-              {props? (<div>
+              {props? (<div className="order-wrapper">
                 {props.orderLineItems?.map((orderLineItem)=>
                 { count=count+1;
                      return (
-                   <div className=" row">{count} |
-                    <div className="col">
-                        <h6>Admission Session :</h6> <span>{orderLineItem.admissionSession}</span>
+                   <ul className="order-list">
+                    <div className="order-num">
+                        <span className="num-txt">{count}</span>
                     </div>
-                    <div className="col">
-                        <h6>Child Name :</h6> <span>{orderLineItem.childName}</span>
+                    <div className="list-items-wrap">
+                        <li className="">
+                            <h6 className="order-item title">Admission Session :</h6> 
+                            <span className="order-item info">{orderLineItem.admissionSession}</span>
+                        </li>
+                        <li className="">
+                            <h6 className="order-item title">Child Name :</h6>
+                            <span className="order-item info">{orderLineItem.childName}</span>
+                        </li>
+                        <li className="">
+                            <h6 className="order-item title">Class Name :</h6>
+                            <span className="order-item info">{orderLineItem.className}</span>
+                        </li>
+                        <li className="">
+                            <h6 className="order-item title">School Name :</h6>
+                            <span className="order-item info">{orderLineItem.schoolName}</span>
+                        </li>
                     </div>
-                    <div className="col">
-                        <h6>Class Name :</h6> <span>{orderLineItem.className}</span>
-                    </div>
-                    <div className="col">
-                        <h6>School Name :</h6> <span>{orderLineItem.schoolName}</span>
-                    </div>
-                    <hr/>
-                   </div>
+                   </ul>
                    );
                 }
             )}
