@@ -7,7 +7,7 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { humanize, isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
-import AcceptRejectApplication from "./AcceptRejectApplication";
+import ApprovedMessage from "./ApprovalMessage";
 
 const ApplicationTimeline = ({
   application,
@@ -19,70 +19,70 @@ const ApplicationTimeline = ({
     application.applicationStatus
   );
 
-  async function acceptApplication() {
-    try {
-      const response = await RESTClient.post(
-        RestEndPoint.REGISTRATION_CHECKOUT +
-          "?applicationDataId=" +
-          `${application.applicationId}`
-      );
-      toast.success("Your Application has been Accepted");
-      window.location.reload(false);
-      // navigate("/paymentCheckout", { state: { data: response.data } });
-    } catch (error) {
-      if (
-        !isEmpty(error) &&
-        !isEmpty(error.response) &&
-        error.response.status == 400
-      ) {
-        if (
-          !isEmpty(error.response.data) &&
-          !isEmpty(error.response.data.apierror) &&
-          !isEmpty(error.response.data.apierror.errorObject) &&
-          !isEmpty(error.response.data.apierror.errorObject.Child)
-        ) {
-          error.response.data.apierror.errorObject.Child.map((val, index) => {
-            toast.error(val);
-          });
-        }
-        if (
-          !isEmpty(error.response.data) &&
-          !isEmpty(error.response.data.apierror) &&
-          !isEmpty(error.response.data.apierror.errorObject) &&
-          !isEmpty(error.response.data.apierror.errorObject.Cart)
-        ) {
-          error.response.data.apierror.errorObject.Cart.map((val, index) => {
-            toast.error(val);
-          });
-        }
-      } else {
-        toast.error(RESTClient.getAPIErrorMessage(error));
-      }
-    }
-  }
+  // async function acceptApplication() {
+  //   try {
+  //     const response = await RESTClient.post(
+  //       RestEndPoint.REGISTRATION_CHECKOUT +
+  //         "?applicationDataId=" +
+  //         `${application.applicationId}`
+  //     );
+  //     toast.success("Your Application has been Accepted");
+  //     window.location.reload(false);
+  //     // navigate("/paymentCheckout", { state: { data: response.data } });
+  //   } catch (error) {
+  //     if (
+  //       !isEmpty(error) &&
+  //       !isEmpty(error.response) &&
+  //       error.response.status == 400
+  //     ) {
+  //       if (
+  //         !isEmpty(error.response.data) &&
+  //         !isEmpty(error.response.data.apierror) &&
+  //         !isEmpty(error.response.data.apierror.errorObject) &&
+  //         !isEmpty(error.response.data.apierror.errorObject.Child)
+  //       ) {
+  //         error.response.data.apierror.errorObject.Child.map((val, index) => {
+  //           toast.error(val);
+  //         });
+  //       }
+  //       if (
+  //         !isEmpty(error.response.data) &&
+  //         !isEmpty(error.response.data.apierror) &&
+  //         !isEmpty(error.response.data.apierror.errorObject) &&
+  //         !isEmpty(error.response.data.apierror.errorObject.Cart)
+  //       ) {
+  //         error.response.data.apierror.errorObject.Cart.map((val, index) => {
+  //           toast.error(val);
+  //         });
+  //       }
+  //     } else {
+  //       toast.error(RESTClient.getAPIErrorMessage(error));
+  //     }
+  //   }
+  // }
 
-  async function rejectApplication() {
-    try {
-      const rejectAppRes = await RESTClient.post(
-        RestEndPoint.UPDATE_APPLICATION_STATUS,
-        {
-          applicationId: application.applicationId,
-          childId: application.childId,
-          applicationStatus: "DENIED",
-        }
-      );
-      setApplicationStatus(rejectAppRes.applicationStatus);
-      setShowTimeline(false);
-      const response = await RESTClient.get(
-        RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`
-      );
-      setApplications(response.data);
+  // async function rejectApplication() {
+  //   try {
+  //     const rejectAppRes = await RESTClient.post(
+  //       RestEndPoint.UPDATE_APPLICATION_STATUS,
+  //       {
+  //         applicationId: application.applicationId,
+  //         childId: application.childId,
+  //         applicationStatus: "DENIED",
+  //       }
+  //     );
+  //     setApplicationStatus(rejectAppRes.applicationStatus);
+  //     setShowTimeline(false);
+  //     const response = await RESTClient.get(
+  //       RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`
+  //     );
+  //     setApplications(response.data);
 
-      toast.success("Application status updated successfully.");
-    } catch (error) {
-      toast.error(RESTClient.getAPIErrorMessage(error));
-    }
-  }
+  //     toast.success("Application status updated successfully.");
+  //   } catch (error) {
+  //     toast.error(RESTClient.getAPIErrorMessage(error));
+  //   }
+  // }
 
   function getApplicationStatusMessage(history , index) {
     const status = history.applicationStatus;
@@ -99,7 +99,7 @@ const ApplicationTimeline = ({
         && history?.applicationStatus?.toUpperCase() === SCHOOL_APPLICATION_STATUS.APPROVED
         && index === application.applicationDataHistory.length -1)
     {
-      return  <AcceptRejectApplication rejectApplication={rejectApplication} acceptApplication={acceptApplication} />;
+      return  <ApprovedMessage/>;
     }
     return message;
   }

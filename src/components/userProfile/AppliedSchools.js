@@ -5,10 +5,18 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
-import { getStatusLabel } from "../../utils/helper";
-import { baseURL } from "../../utils/RestClient";
+import { getStatusLabel, humanize, isEmpty } from "../../utils/helper";
+import RESTClient, { baseURL } from "../../utils/RestClient";
 import { downloadApplicationOnParentDashboard } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
+import { ReactComponent as DownloadIcon } from "../../assets/img/icons/download.svg";
+import RestEndPoint from "../../redux/constants/RestEndpoints";
+import { toast } from "react-toastify";
+import { APPLICATION_STATUS_MESSAGE } from "../../constants/formContanst";
+// import AcceptRejectApplication from "./AcceptRejectApplication";
+import AcceptRejectApplication from "./AcceptRejectApplication";
+
+
 
 const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
@@ -38,6 +46,95 @@ const AppliedSchools = ({ application, setApplications }) => {
       default:
         return "blue-badge";
     }
+  }
+
+  const [applicationStatus, setApplicationStatus] = useState(
+    application.applicationStatus
+  );
+
+  async function acceptApplication() {
+    try {
+      const response = await RESTClient.post(
+        RestEndPoint.REGISTRATION_CHECKOUT +
+          "?applicationDataId=" +
+          `${application.applicationId}`
+      );
+      toast.success("Your Application has been Accepted");
+      window.location.reload(false);
+      // navigate("/paymentCheckout", { state: { data: response.data } });
+    } catch (error) {
+      if (
+        !isEmpty(error) &&
+        !isEmpty(error.response) &&
+        error.response.status == 400
+      ) {
+        if (
+          !isEmpty(error.response.data) &&
+          !isEmpty(error.response.data.apierror) &&
+          !isEmpty(error.response.data.apierror.errorObject) &&
+          !isEmpty(error.response.data.apierror.errorObject.Child)
+        ) {
+          error.response.data.apierror.errorObject.Child.map((val, index) => {
+            toast.error(val);
+          });
+        }
+        if (
+          !isEmpty(error.response.data) &&
+          !isEmpty(error.response.data.apierror) &&
+          !isEmpty(error.response.data.apierror.errorObject) &&
+          !isEmpty(error.response.data.apierror.errorObject.Cart)
+        ) {
+          error.response.data.apierror.errorObject.Cart.map((val, index) => {
+            toast.error(val);
+          });
+        }
+      } else {
+        toast.error(RESTClient.getAPIErrorMessage(error));
+      }
+    }
+  }
+
+  async function rejectApplication() {
+    try {
+      const rejectAppRes = await RESTClient.post(
+        RestEndPoint.UPDATE_APPLICATION_STATUS,
+        {
+          applicationId: application.applicationId,
+          childId: application.childId,
+          applicationStatus: "DENIED",
+        }
+      );
+      setApplicationStatus(rejectAppRes.applicationStatus);
+      setShowTimeline(false);
+      const response = await RESTClient.get(
+        RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`
+      );
+      setApplications(response.data);
+
+      toast.success("Application status updated successfully.");
+    } catch (error) {
+      toast.error(RESTClient.getAPIErrorMessage(error));
+    }
+  }
+
+  function getApplicationStatusMessage(history , index) {
+    // const status = history.applicationStatus;
+    // let message = APPLICATION_STATUS_MESSAGE[status]
+    //   ? APPLICATION_STATUS_MESSAGE[status]
+    //   : humanize(status);
+    // if (status.toUpperCase() === SCHOOL_APPLICATION_STATUS.AT_PI) {
+    //   message = message.replace(
+    //     "<AT/PI timeslot>",
+    //     history.applicantATPITimeSlot
+    //   );
+    // }
+    if (application.applicationStatus === SCHOOL_APPLICATION_STATUS.APPROVED
+        && history?.applicationStatus?.toUpperCase() === SCHOOL_APPLICATION_STATUS.APPROVED
+        && index === application.applicationDataHistory.length -1)
+    {
+      return <AcceptRejectApplication rejectApplication={rejectApplication} acceptApplication={acceptApplication}/>;
+    }
+    // return ;
   }
 
   return (
@@ -99,10 +196,24 @@ const AppliedSchools = ({ application, setApplications }) => {
                       downloadApplicationOnDashboard(application.applicationId);
                     }}
                   >
-                    Download Application{" "}
-                    <i className="icons link-icon"></i>
+                    <DownloadIcon/>
                   </a>
                 </span>
+                {/* <div>{getApplicationStatusMessage(history , index)}</div> */}
+
+                {application.applicationDataHistory?.length ? (
+          <div className="timeline-list">
+            <div className="timeline-info-panel">
+              {application.applicationDataHistory.map((history, index) => {
+                return (
+                  <div className="timeline-row" key={"timeline_" + index}>
+                      <div>{getApplicationStatusMessage(history , index)}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : ""}
             </div>
             <div className="col">
               <Link onClick={() => setShowTimeline((val) => !val)}>
