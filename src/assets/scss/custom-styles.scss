@@ -2576,13 +2576,14 @@ ul.list-group{
                           .app-timeline-control{
                             display: flex;
                             width: 100%;
-                            border-top: 1px solid #F3F3F3;
                             justify-content: flex-end;
-                            padding: 16px 0 0 0;
                             
                           }
                           .app-timeline-stack{
                             display: flex;
+                            border-bottom: 1px solid #F3F3F3;
+                            justify-content: flex-end;
+                            padding: 0 0 16px 0;
                             .timeline-row{
                               .timeline-items{
                                 .particulars-status{
@@ -2618,7 +2619,7 @@ ul.list-group{
                           align-items: flex-start;
                           padding: 8px 12px;
                           gap: 10px;
-                          border-radius: 4px;
+                          border-radius: 2px;
                           &.accepted{
                             background-color: #549B43;
                           }
