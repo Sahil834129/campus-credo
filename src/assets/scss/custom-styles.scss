@@ -2515,8 +2515,121 @@ ul.list-group{
                         margin: 24px 0;
                         border-bottom:1px solid rgba(0, 0, 0, 0.08);
                         .application-inner-wrap{
-                          display: grid;
-                          grid-template-columns: 1fr auto;
+                          display: flex;
+                          flex-direction: row;
+                          .col-item{
+                            flex-grow: 1;
+                            flex-basis: 0;
+                            &.left{}
+                            &.right{
+                              row-gap: 16px;
+                            }
+                            .info-item{
+
+                              .app-id{}
+                              .school-name{}
+                              .school-type{}
+                              .moreinfo-block{
+                                display: flex;
+                                flex-direction: column;
+                                column-gap: 8px;
+                                row-gap: 8px;
+                                margin-top: 16px;
+                                width: 100%;
+                               .row-item{
+                                font-size: 14px;
+                                display: flex;
+                                column-gap: 4px;
+                                .download-option{
+                                  
+                                  display: inline-block;
+                                  a{
+                                    color: $black;
+                                    display: flex;
+                                    align-items: center;
+                                    column-gap: 4px;
+                                    border: 1px solid #ced4da;
+                                    padding: 2px 8px;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    label{
+                                      font-style: normal;
+                                      font-weight: 500;
+                                      font-size: 14px;
+                                      line-height: 24px;
+                                      color: rgba(0, 0, 0, 0.8);
+                                    }
+                                    svg{
+                                      width: 18px;
+                                      height: 18px;
+                                    }
+                                  }
+                                }
+                               }
+                                .col{
+                                  font-size: 14px;
+                                }
+                              }
+                            }
+                            
+                          }
+                          .app-timeline-control{
+                            display: flex;
+                            width: 100%;
+                            border-top: 1px solid #F3F3F3;
+                            justify-content: flex-end;
+                            padding: 16px 0 0 0;
+                            
+                          }
+                          .app-timeline-stack{
+                            display: flex;
+                            .timeline-row{
+                              .timeline-items{
+                                .particulars-status{
+                                  .instruction{
+                                    font-size: 14px;
+                                  }
+                                  .btn-wrapper{
+                                    margin-top: 4px;
+                                    .btn{
+                                      font-size: 13px;
+                                      padding: 4px 16px;
+                                      height: auto;
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            label{font-size: 14px;}
+                          }
+                        }
+                      }
+                      .application-status{
+                        .badge{
+                          font-style: normal;
+                          font-weight: 400;
+                          font-size: 12px;
+                          line-height: 18px;
+                          text-align: center;
+                          letter-spacing: 0.01em;
+                          color: #FFFFFF;
+                          display: flex;
+                          flex-direction: row;
+                          align-items: flex-start;
+                          padding: 8px 12px;
+                          gap: 10px;
+                          border-radius: 4px;
+                          &.accepted{
+                            background-color: #549B43;
+                          }
+                          &.under-validation{
+                            background-color: #EF9F2C;
+                          }
+                          &.blue-badge{background-color: #3e8dd5; font-weight: 400;} // Received
+                          &.red-badge{background-color: $darkred; font-weight: 400;} //Denied, rejected
+                          &.green-badge{background-color: $darkgreen; font-weight: 400;} //Approved
+                          &.orange-badge{background-color: #e1ab0a; font-weight: 400;} //under review
+                          &.violet-badge{background-color: #a262ef; font-weight: 400;} // AT-PI
                         }
                       }
                       .col-item{
@@ -2584,16 +2697,8 @@ ul.list-group{
                                 
                               }
                             }
-                            .moreinfo-block{
-                              display: grid;
-                              grid-template-columns: auto auto auto;
-                              column-gap: 16px;
-                              margin-top: 16px;
-                             // line-height: 14px;
-                              .col{
-                                font-size: 16px;
-                              }
-                            }
+                            
+                            
                           }
                         }
                         &.left{}
@@ -2617,32 +2722,7 @@ ul.list-group{
                               letter-spacing: 0.01em;
                               color: #000000;
                             }
-                            .badge{
-                              font-style: normal;
-                              font-weight: 500;
-                              font-size: 14px;
-                              line-height: 18px;
-                              text-align: center;
-                              letter-spacing: 0.01em;
-                              color: #FFFFFF;
-                              display: flex;
-                              flex-direction: row;
-                              align-items: flex-start;
-                              padding: 8px 12px;
-                              gap: 10px;
-                              border-radius: 4px;
-                              &.accepted{
-                                background-color: #549B43;
-                              }
-                              &.under-validation{
-                                background-color: #EF9F2C;
-                              }
-                              &.blue-badge{background-color: #3e8dd5; font-weight: 600;} // Received
-                              &.red-badge{background-color: $darkred; font-weight: 600;} //Denied, rejected
-                              &.green-badge{background-color: $darkgreen; font-weight: 600;} //Approved
-                              &.orange-badge{background-color: #e1ab0a; font-weight: 600;} //under review
-                              &.violet-badge{background-color: #a262ef; font-weight: 600;} // AT-PI
-                            }
+                            
                             a{
                               font-style: normal;
                               font-weight: 400;
@@ -2688,6 +2768,7 @@ ul.list-group{
                       border: 1px solid rgba(0, 0, 0, 0.16);
                       border-radius: 6px;
                       padding: 0;
+                      margin-top: 16px;
                       display: flex;
                       flex-direction: column;
                       box-shadow: 2px 11px 58px 0 rgb(0 0 0 / 11%);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -8,13 +7,12 @@ import '../../assets/admin/scss/custom-styles.scss';
 
 import Nav from 'react-bootstrap/Nav';
 
-import Avatar from 'react-avatar';
 import Navbar from 'react-bootstrap/Navbar';
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
-import { getLocalData, logout, getPresentableRoleName } from '../../utils/helper';
-import { useSelector } from "react-redux";
+import { getLocalData, getPresentableRoleName, logout } from '../../utils/helper';
 
 export const Layout = ({ admissionSummary, ...props }) => {
   const navigate = useNavigate();
@@ -113,31 +111,51 @@ export const Layout = ({ admissionSummary, ...props }) => {
                   <label className='lbl'>Final Review</label>{' '}
                   <span className='value'>{admissionSummary?.underFinalReview || 0}</span>
                 </ListGroup.Item>
-                <ListGroup.Item className='application-status'>
+                {/* <ListGroup.Item className='application-status'>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Approved</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.approved || 0}</span>{' | '}
+                    <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
+                  
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Declined</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.declined || 0}</span>{' | '}
+                    <label className='lbl'>Declined <span className='value text-danger'>{admissionSummary?.declined || 0}</span></label>{' '}
+                    
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Accepted</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.accepted || 0} </span>{' | '}
+                    <label className='lbl'>Accepted <span className='value text-success'>{admissionSummary?.accepted || 0} </span></label>{' '}
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Denied</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.denied || 0}</span>{' | '}
+                    <label className='lbl'>Denied <span className='value text-danger'>{admissionSummary?.denied || 0}</span></label>{' '}
+                    
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Revoked</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.revoked || 0}</span>
+                    <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
+                    
                   </div>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
               </ListGroup>
             </div>
           )}
+        </div>
+        <div className='application-status status-block'>
+            <div className='app-status-cell'>
+              <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
+              {/* {' | '} */}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Declined <span className='value text-danger'>{admissionSummary?.declined || 0}</span></label>{' '}
+              {/* {' | '} */}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Accepted <span className='value text-success'>{admissionSummary?.accepted || 0} </span></label>{' '}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Denied <span className='value text-danger'>{admissionSummary?.denied || 0}</span></label>{' '}
+              
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
+              
+            </div>
         </div>
         {props.children}
       </div>

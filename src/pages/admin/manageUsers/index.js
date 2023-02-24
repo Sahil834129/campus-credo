@@ -150,7 +150,7 @@ export const ManageUsers = () => {
       Header: ' ',
       Cell: ((e) => {
         return (
-          <div className='btn-wrapper'>
+          <div className='btn-wrapper manageuser-btn'>
             <Button
               type='button'
               disabled={!isWritePermission || (e.row.original?.roleUsers?.length || 0) === 0}

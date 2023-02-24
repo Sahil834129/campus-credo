@@ -191,6 +191,9 @@
             }
         }
     }
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .app-timeline-stack .timeline-row .timeline-items .particulars-status .instruction{display: flex; flex-direction: column; align-items: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item .info-item .moreinfo-block{align-items: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .app-timeline-control{justify-content: center;}
     .modal.calback-model .modal-dialog .modal-content .modal-body .model-body-col form{padding: 0; margin: 0;}
     .content-area .school-list-container .school-card .school-info-main{}
     .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.right{margin-bottom: 16px;}
@@ -331,11 +334,11 @@
 @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
 @media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
     .modal.alert-popup .modal-dialog{width: 400px; max-width: 400px;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .header{flex-direction: row;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items .col-item {justify-content: flex-start;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts {align-items: flex-start;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: row; align-items: center; column-gap: 16px;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items .col-item {justify-content: flex-start;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts {align-items: flex-start;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: row; align-items: center; column-gap: 16px;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper{width: auto; flex-direction: column;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.full-width{width: auto;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.infotoschools{width: auto;}
