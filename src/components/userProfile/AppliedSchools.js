@@ -3,16 +3,15 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ReactComponent as DownloadIcon } from "../../assets/img/icons/download.svg";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
-import { getStatusLabel, humanize, isEmpty } from "../../utils/helper";
+import RestEndPoint from "../../redux/constants/RestEndpoints";
+import { getStatusLabel, isEmpty } from "../../utils/helper";
 import RESTClient, { baseURL } from "../../utils/RestClient";
 import { downloadApplicationOnParentDashboard } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
-import { ReactComponent as DownloadIcon } from "../../assets/img/icons/download.svg";
-import RestEndPoint from "../../redux/constants/RestEndpoints";
-import { toast } from "react-toastify";
-import { APPLICATION_STATUS_MESSAGE } from "../../constants/formContanst";
 // import AcceptRejectApplication from "./AcceptRejectApplication";
 import AcceptRejectApplication from "./AcceptRejectApplication";
 
@@ -155,9 +154,15 @@ const AppliedSchools = ({ application, setApplications }) => {
                       : schoolpic01
                   }
                 />
+                <div className="application-status">
+              <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
+                {getStatusLabel(application.applicationStatus)}
+              </span>
+              
+            </div>
               </div>
               <div className="info-item school-info-exerpts">
-                <div className="col">
+                <div className="app-id">
                   <label>Application# : {application.applicationId}</label>
                 </div>
                 <div className="school-name">{application.schoolName}</div>
@@ -170,13 +175,25 @@ const AppliedSchools = ({ application, setApplications }) => {
                 </ListGroup>
 
                 <div className="moreinfo-block">
-                  <div className="col">
-                    Applying to Class : <strong>{application.className}</strong>
+                  <div className="row-item">
+                    <span className="cell-item">Applying to Class:</span>
+                    <span className="cell-item"><strong>{application.className}</strong></span>
                   </div>
-                  <div className="col divider">|</div>
-                  <div className="col">
-                    Application Fee Paid : <strong>{application.formFee}</strong>
+                  <div className="row-item">
+                    <span className="cell-item">Application Fee Paid:</span>
+                    <span className="cell-item"><strong>{application.formFee}</strong></span>
                   </div>
+                  <div className="row-item">
+                    <span className="download-option">
+                      <a href="javascript:void(0)" onClick={() => {
+                          downloadApplicationOnDashboard(application.applicationId);
+                        }}
+                      >
+                        <label>Download</label> <DownloadIcon/>
+                      </a>
+                    </span>
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -184,42 +201,30 @@ const AppliedSchools = ({ application, setApplications }) => {
 
           <div className="col-item right">
             
-            <div className="col">
-              <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
-                {getStatusLabel(application.applicationStatus)}
-              </span>
-              
-            </div>
-            <div className="col">
-              <span className="download-option">
-                  <a href="javascript:void(0)" onClick={() => {
-                      downloadApplicationOnDashboard(application.applicationId);
-                    }}
-                  >
-                    <DownloadIcon/>
-                  </a>
-                </span>
-                {/* <div>{getApplicationStatusMessage(history , index)}</div> */}
-
-                {application.applicationDataHistory?.length ? (
-          <div className="timeline-list">
-            <div className="timeline-info-panel">
-              {application.applicationDataHistory.map((history, index) => {
-                return (
-                  <div className="timeline-row" key={"timeline_" + index}>
-                      <div>{getApplicationStatusMessage(history , index)}</div>
+            
+            <div className="app-timeline-stack">
+              {application.applicationDataHistory?.length ? (
+                  <div className="timeline-list">
+                    <div className="timeline-info-panel">
+                      {application.applicationDataHistory.map((history, index) => {
+                        return (
+                          <div className="timeline-row" key={"timeline_" + index}>
+                              <div className="timeline-items">{getApplicationStatusMessage(history , index)}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                );
-              })}
+                ) : ""}
+
             </div>
-          </div>
-        ) : ""}
-            </div>
-            <div className="col">
+            <div className="app-timeline-control">
               <Link onClick={() => setShowTimeline((val) => !val)}>
                 <label>View Status timeline</label> <i className={'icons ' +  (showTimeline ? 'arrowdown-icon' : 'arrowright-icon')}></i>
               </Link>
             </div>
+            
+            
           </div>
           
         </div>
