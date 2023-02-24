@@ -25,18 +25,19 @@ const ApplyToSchool = (props) => {
     const [validationErrors, setValidationErrors] = useState({})
 	const [showAlertDialog, setShowAlertDialog] = useState(false)
 	const [alertMessage, setAlertMessage] = useState('')
+	const [sessionValue, setSessionValue] = useState("");
     const schoolId = props.schoolId;
     
 	useEffect(() => { dispatch(getChildsList());}, [dispatch]);
 	useEffect(()=>{populateClassesWithAge()},[])
-    useEffect(()=> {popularSchoolClasses(props)}, [props.schoolDetails]);
+    useEffect(()=> {popularSchoolClasses(props)}, [sessionValue]);
     useEffect(()=>{populateSessionOptions(props)}, [props.schoolDetails]);
     
     const handleAddRow = () => {
         const item = { childId: '', class: '', session: '' };
         setRows([...rows, item]);
     }
-
+   const appliedSchools=[];
     const handleRemoveSpecificRow = (idx) => {
         const tempRows = [...rows];
         if (tempRows.length === 1) {
@@ -51,7 +52,7 @@ const ApplyToSchool = (props) => {
 			let feeMap = {};
 			if (props.schoolDetails && props.schoolDetails.classes) {
 				setClassOptions(
-					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').map((it) => ({
+					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open' && it.admissionSession===sessionValue).map((it) => ({
 						value: it.classId,
 						text: it.className,
 					})),
@@ -70,8 +71,11 @@ const ApplyToSchool = (props) => {
     const populateSessionOptions = (props) => {
       let sessionOptions = [];
       if (props.schoolDetails.hasOwnProperty("admissionInfo")) {
-        let session = props.schoolDetails.admissionInfo.admissionSession;
-        sessionOptions.push({ value: session, text: session });
+        let session = props.schoolDetails.admissionInfo;
+		session.map((sessionList)=>
+		{
+			sessionOptions.push({ value: sessionList.admissionSession, text: sessionList.admissionSession });
+		})
       }
       setSessionOptions(sessionOptions);
     };
@@ -87,18 +91,17 @@ const ApplyToSchool = (props) => {
 	function isSchoolAlreadyInApplyList(childId) {
 		const childCartItemsGroupedOnChild = itemsInCart.childCartItemsList.filter(it=> it.childId === parseInt(childId))
 		const childCartItems = childCartItemsGroupedOnChild.filter(it => it.childId === parseInt(childId))
-		return (childCartItems.length && childCartItems[0].cartItems.filter(it => it.schoolId === parseInt(schoolId)).length > 0)
+		return (childCartItems.length && childCartItems[0].cartItems.filter(it => it.schoolId === parseInt(schoolId) && it.admissionSession === sessionValue).length > 0 )
 	}
 
 	const isApplicationAlreadySubmittedForSchool = async(childId, schoolId) => {
 		const response = await getApplications(childId);
 		if (response && response.data) {
-			const appliedSchoolIds = response.data.map((application) => { return application.schoolId })
-			if (appliedSchoolIds.includes(parseInt(schoolId))){
-				return true
-			}
+			 response.data.map((application) => { appliedSchools.push({ schoolId: application.schoolId, admissionSession: application.admissionSession })});
+			return(appliedSchools && 
+				appliedSchools.filter((it)=> it.schoolId === parseInt(schoolId) && it.admissionSession === sessionValue ).length>0
+			)
 		}
-		return false
 	}
 
     const handleChildSelection = async(index, field, value) => {
@@ -208,9 +211,10 @@ const ApplyToSchool = (props) => {
 					<Form>
 						<div className="frm-row form-header">
 							<div className="item-cell-wrap">
+								<div className="cell">Session <span className='error-exception'>*</span></div>
 								<div className="cell">Select Child <span className='error-exception'>*</span></div>
 								<div className="cell">Select Class <span className='error-exception'>*</span></div>
-								<div className="cell">Session <span className='error-exception'>*</span></div>
+								
 								
 								<div className="cell app-fee-lbl">Application Fee</div>
 								<div className="cell">&nbsp;</div>
@@ -219,6 +223,37 @@ const ApplyToSchool = (props) => {
 						{rows.map((item, idx) => (
 							<div className="frm-row form-content" key={"addChildRow_" + idx}>
 								<div className="item-cell-wrap">
+								<Form.Group
+										className="cell"
+										key={"sessionSelectorFrmGrp_" + idx}
+									>
+										<label className="applytoschool-lbl">Select Session</label>
+										<Form.Select
+											key={"sessionSelector_" + idx}
+											name={item.session}
+											value={item.session}
+											onChange={(e) =>
+												{
+												setRowFieldValue(idx, "session", e.target.value)
+												setSessionValue(e.target.value);
+												setRowFieldValue(idx, "childId",'')
+												setRowFieldValue(idx, "class",'')
+											}
+											}
+											id="validationCustom04"
+											>
+											<option disabled value="">
+												--Session--
+											</option>
+											{sessionOptions.map((option, i) => {
+												return (
+													<option key={"session_" + i} value={option.value}>
+														{option.text}
+													</option>
+												);
+											})}
+										</Form.Select>
+									</Form.Group>
 									<Form.Group className="cell" key={"childSelectorGrmGrp_" + idx}>
 										<label className="applytoschool-lbl">Select Child</label>
 										<Form.Select
@@ -226,7 +261,11 @@ const ApplyToSchool = (props) => {
 											value={item.childId}
 											key={"childSelector_" + idx}
 											onChange={(e) =>
-												handleChildSelection(idx, "childId", e.target.value)
+												{
+													if(sessionValue==="")
+													toast.error("Firstly choose session value")
+													else handleChildSelection(idx, "childId", e.target.value)
+												}
 											}
 										>
 										<option defaultValue='' disabled value="">
@@ -264,32 +303,7 @@ const ApplyToSchool = (props) => {
 											})}
 										</Form.Select>
 									</Form.Group>
-									<Form.Group
-										className="cell"
-										key={"sessionSelectorFrmGrp_" + idx}
-									>
-										<label className="applytoschool-lbl">Select Session</label>
-										<Form.Select
-											key={"sessionSelector_" + idx}
-											name={item.session}
-											value={item.session}
-											onChange={(e) =>
-												setRowFieldValue(idx, "session", e.target.value)
-											}
-											id="validationCustom04"
-											>
-											<option disabled value="">
-												--Session--
-											</option>
-											{sessionOptions.map((option, i) => {
-												return (
-													<option key={"session_" + i} value={option.value}>
-														{option.text}
-													</option>
-												);
-											})}
-										</Form.Select>
-									</Form.Group>
+								
 									<Form.Group
 										className="cell app-fee-lbl"
 										key={"admissionFeeGrmGrp_" + idx}
@@ -355,5 +369,3 @@ const ApplyToSchool = (props) => {
 };
 
 export default ApplyToSchool;
-
-
