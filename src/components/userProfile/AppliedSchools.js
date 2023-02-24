@@ -144,6 +144,7 @@ const AppliedSchools = ({ application, setApplications }) => {
         <div className="application-inner-wrap">
           <div className="col-item left">
             <div className="school-info-main">
+
               <div className="info-item school-logo-wrap">
                 <Card.Img
                   className="school-logo"
@@ -154,13 +155,10 @@ const AppliedSchools = ({ application, setApplications }) => {
                       : schoolpic01
                   }
                 />
-                <div className="application-status">
-              <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
-                {getStatusLabel(application.applicationStatus)}
-              </span>
-              
-            </div>
+                
               </div>
+              
+              
               <div className="info-item school-info-exerpts">
                 <div className="app-id">
                   <label>Application# : {application.applicationId}</label>
@@ -201,7 +199,12 @@ const AppliedSchools = ({ application, setApplications }) => {
 
           <div className="col-item right">
             
-            
+          <div className="application-status">
+                  <span className={'badge ' + getBadgeClassName(application.applicationStatus)}>
+                    {getStatusLabel(application.applicationStatus)}
+                  </span>
+                  
+              </div>
             <div className="app-timeline-stack">
               {application.applicationDataHistory?.length ? (
                   <div className="timeline-list">

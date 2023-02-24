@@ -305,6 +305,7 @@
       }
     }
   }
+  
   .footer-panel{
     display: flex;
     flex-direction: row;
@@ -324,7 +325,123 @@
   }
 }
 .red{background: red;}
-
+.change-pwd-model{
+  .modal-dialog{
+    width: 442px;
+    max-width: 442px;
+    .modal-content{
+      display: flex;
+      .modal-header{
+        font-size: 16px;
+        font-weight: 600;
+        color: $primarycolor;
+        padding: 24px 24px;
+      }
+      .model-body{
+        display: grid;
+        padding: 0;
+        grid-template-columns: auto;
+        .model-body-col{
+          display: flex;
+          flex-direction: column;
+          h4{
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 24px;
+            padding: 8px 42px;
+            line-height: 28px;
+          }
+          form{
+            margin: 0 24px 24px 24px;
+            
+            .fld-row{
+              display: flex;
+              .fld-cell{
+                margin-bottom: 16px;
+                flex-grow: 1;
+                .fld-wrap{
+                  display: flex;
+                  flex-direction: column;
+                  flex-grow: 1;
+                  label{
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: rgba(0, 0, 0, 0.8);
+                    .req{
+                      color: $darkred;
+                    }
+                  }
+                  input{
+                    border-radius: 4px;
+                    height: 48px;
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.8);
+                    &:focus{
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      color: $primarycolor;
+                    }
+                    &:active{
+                      color: $primarycolor;
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                    }
+                    &::placeholder {
+                      color: rgba(0, 0, 0, 0.25);
+                    }
+                  }
+                  textarea{
+                    border-radius: 4px;
+                    height: auto;
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.8);
+                    &:focus{
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      color: $primarycolor;
+                    }
+                    &:active{
+                      color: $primarycolor;
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                    }
+                    &::placeholder {
+                      color: rgba(0, 0, 0, 0.25);
+                    }
+                  }
+                }
+                
+              }
+              
+            }
+            
+            
+          }
+          
+        }
+        .btn-wrapper{
+          
+          .btn{
+            font-weight: 400;
+            &.cancel-btn{
+              background: $white;
+              border: 1px solid $darkred;
+              color: $darkred;
+            }
+            &.confirm-btn{
+              background: $darkgreen;
+              border: 1px solid $darkgreen;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 /*Header*/
 
 ul.list-group{

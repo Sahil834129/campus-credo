@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Spinner } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import GenericDialog from "../../../dialogs/GenericDialog";
 import { changeUserPassword } from "../../../utils/services";
@@ -48,12 +48,11 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
   };
 
   return (
-    <GenericDialog className='signin-model add-child-model' show={show} handleClose={handleClose} modalHeader='Change Password'>
-      <div>
-        <div>
+    <GenericDialog className='change-pwd-model' show={show} handleClose={handleClose} modalHeader='Change Password'>
+      
           {!isLoading && (
             <Form onSubmit={handlePasswordSubmit}>
-              <div>
+              <div className="">
                 <Form.Group style={{ marginBottom: '5px' }}>
                   <label className="form-label"> Select User</label>
                   <Form.Select value={selectedUserId} onChange={(e) => { handle(e.target.value); setEmptySelectedUserId(false); }}>
@@ -65,7 +64,7 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
                 </Form.Group >
                 {emptySelectedUserId && <label style={{ color: 'red', fontSize: '13px' }}> Select User</label>}
               </div>
-              <div>
+              <div className="">
                 <Form.Group style={{ marginBottom: '5px' }}>
                   <label className="form-label"> New Password</label>
                   <Form.Control
@@ -82,7 +81,7 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
                   {isPasswordMatch && <label style={{ fontSize: '12px', color: 'red' }}>Password is not Matched</label>}
                 </Form.Group>
               </div>
-              <div>
+              <div className="">
                 <Form.Group style={{ marginBottom: '15px' }}>
                   <label className="form-label"> Confirm Password</label>
                   <Form.Control
@@ -99,23 +98,17 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
                   {isPasswordMatch && <label style={{ fontSize: '12px', color: 'red' }}>Password is not Matched</label>}
                 </Form.Group>
               </div>
-              <div className='model-body-col'>
-                <Form.Group className="fcol btn-container"
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'end'
-                  }}
-                >
-                  <Button variant="primary" className='signup-btn' style={{ width: '20%', marginRight: '10px' }} onClick={handleClose} >Cancel</Button>
-                  <Button type="submit" variant="primary" className='signup-btn' style={{ width: '20%' }} >Confirm</Button>
-                </Form.Group>
+              <div className='btn-wrapper'>
+              
+                  <Button variant="primary" className='cancel-btn' onClick={handleClose} >Cancel</Button>
+                  <Button type="submit" variant="primary" className='confirm-btn' >Confirm</Button>
+             
               </div>
             </Form>
           )}
           {isLoading && <div style={{ margin: '50px auto' }}><Spinner animation="border" /></div>}
-        </div>
-      </div>
+        
+      
     </GenericDialog>
   );
 }; 
