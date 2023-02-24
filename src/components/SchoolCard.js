@@ -81,14 +81,16 @@ const SchoolCard = (props) => {
                     <ListGroup.Item>
                         <div className='left'>Admission Status:</div>
                         <div className='right session-wrap'>
-                            {
-                               !isEmpty(school.admissionInfo) && !isEmpty(school.admissionInfo.admissionOpenForClasses)?
-                                <>
-                                <span className='session-title'>{school.admissionInfo.admissionStatus} for {school.admissionInfo.admissionSession} </span>
-                                <InfoDropDown header={school.admissionInfo.admissionStatus + " for " + school.admissionInfo.admissionSession} options={school.admissionInfo.admissionOpenForClasses.split(",")}/>
-                                </>
-                                : 'Closed'
-                            }
+                        {
+                              !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
+                              { return (
+                                     <>
+                                     <span className='session-title'>{admissionRow.admissionStatus} for {admissionRow.admissionSession} </span>
+                                     <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
+                                     </>
+                              )
+                              } ) )  : 'Closed'
+                        }                           
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item>
