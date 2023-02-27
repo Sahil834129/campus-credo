@@ -100,10 +100,10 @@ const PaymentHistory=() =>{
                                                     {order.billingName}
                                                     </Link>
                                                     </td>
-                                                    <td>{moment(order.orderDate).format("L")}</td>
+                                                    <td>{moment(order.orderDate).format("DD/MM/YYYY")}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
-                                                    <td>{order.totalAmount}</td>
+                                                    <td>{"₹ "+order.totalAmount}</td>
                                                    
                                                     <td className='download-invoice'>
                                                         <div className="btn-wrap">
