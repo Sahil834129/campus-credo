@@ -319,6 +319,12 @@ export const getCurretLocation = async () => {
   });
   return data;
 };
+
+export const getGeoLocationState = async () => {
+  const permissions = await navigator.permissions.query({ name: 'geolocation' });
+  return permissions;
+};
+
  export const getCurrentSession = ()=>
  {
   let currentYear = (new Date()).getFullYear();
