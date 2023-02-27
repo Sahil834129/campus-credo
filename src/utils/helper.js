@@ -52,6 +52,10 @@ export const getLocalData = (key) => {
   return localStorage.getItem(key);
 };
 
+export const removeLocalDataItem = (key) => {
+   localStorage.removeItem(key);
+};
+
 export const isLoggedIn = () => {
   try {
     return localStorage.getItem("token") !== null;

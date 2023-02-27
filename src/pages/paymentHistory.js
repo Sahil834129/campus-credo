@@ -103,8 +103,12 @@ const PaymentHistory=() =>{
                                                     <td>{moment(order.orderDate).format("DD/MM/YYYY")}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
-                                                    <td>{"₹ "+order.totalAmount}</td>
-                                                   
+                                                    <td>{order.totalAmount.toLocaleString('en-IN', 
+                                                        {   maximumFractionDigits: 2,
+                                                            style: 'currency',
+                                                            currency: 'INR'
+                                                        })
+                                                    }</td>
                                                     <td className='download-invoice'>
                                                         <div className="btn-wrap">
                                                         <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto"}} onClick={() => downloadInvoicePdf(order.orderId)}/>

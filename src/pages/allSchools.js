@@ -11,6 +11,7 @@ import SidebarFilter from "../common/SidebarFilter";
 import SchoolCardGrid from "../components/SchoolCardGrid";
 import { OPERATORS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
+import { getLocalData, removeLocalDataItem } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const AllSchools = () => {
@@ -23,6 +24,9 @@ const AllSchools = () => {
   );
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
   const geoLocation = useSelector((state) => state.locationData.geolocation);
+
+  const schoolDetailsLatitude =   getLocalData("SchoolDetailsLatitude");
+  const schoolDetailsLongitude = getLocalData("SchoolDetailsLongitude");
 
   useEffect(() => {
     getSchoolList();
@@ -59,7 +63,13 @@ const AllSchools = () => {
       setIsLoading(true)
       const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {
         filters: filters,
+        location: {
+          longitude: schoolDetailsLatitude,
+          latitude: schoolDetailsLongitude,
+        }
       });
+      removeLocalDataItem("SchoolDetailsLatitude");
+      removeLocalDataItem("SchoolDetailsLongitude");
       setSchoolList(response.data);
       hideLoader(dispatch);
       setIsLoading(false)
@@ -136,13 +146,12 @@ const AllSchools = () => {
         value: filterForm.status,
       });
 
-      if(geoLocation.cityName===selectedLocation)
-     {
-    if (geoLocation.longitude)
-      filterPayload["location"] = {
-        longitude: geoLocation.longitude,
-        latitude: geoLocation.latitude,
-      }
+    if (geoLocation.cityName === selectedLocation) {
+      if (geoLocation.longitude)
+        filterPayload["location"] = {
+          longitude: geoLocation.longitude,
+          latitude: geoLocation.latitude,
+        }
     }
     if (filterForm.distance) {
       filterPayload["radius"] = filterForm.distance;
