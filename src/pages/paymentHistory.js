@@ -103,7 +103,7 @@ const PaymentHistory=() =>{
                                                     <td>{moment(order.orderDate).format("DD/MM/YYYY")}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
-                                                    <td>{order.totalAmount.toLocaleString('en-IN', 
+                                                    <td>{order?.totalAmount?.toLocaleString('en-IN', 
                                                         {   maximumFractionDigits: 2,
                                                             style: 'currency',
                                                             currency: 'INR'
