@@ -136,6 +136,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
             </div>
           )}
         </div>
+        {breadcrumbTitle.title==="Dashboard" || breadcrumbTitle.title==="Manage Application" ?
         <div className='application-status status-block'>
             <div className='app-status-cell'>
               <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
@@ -154,15 +155,14 @@ export const Layout = ({ admissionSummary, ...props }) => {
             </div>
             <div className='app-status-cell'>
               <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
-              
             </div>
-        </div>
+        </div>:""}
         {props.children}
       </div>
       <div className='footer-panel'>
         <Link to='/dashboard'><FooterCampusLogo /></Link>
-        <Link to='/termsAndConditions'>Terms &amp; Conditions</Link>
-      </div>
+        {breadcrumbTitle ? <Link to='/termsAndConditions'>Terms &amp; Conditions</Link> : ""}
+        </div>
       <ToastContainer autoClose={2000} position="top-right" />
     </Container>
   );
