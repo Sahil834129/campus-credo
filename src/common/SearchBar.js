@@ -9,7 +9,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import logoHeader from "../assets/img/brand-logo-header.svg";
 import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import {getGeoLocationState, getLocalData, gotoHome, isEmpty, setLocalData } from "../utils/helper";
+import {getGeoLocationState, getLocalData, gotoHome, isEmpty, isLoggedIn, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
 import { toast } from "react-toastify";
@@ -20,8 +20,7 @@ const SearchBar = () => {
     const [searchItems, setSearchItems] = useState([]);
     const [cities, setCities] = useState([]);
     const defaultLocation = useSelector((state) => state.locationData.selectedLocation);
-    const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser);
-    const selectedLocation = isLoggedInUser && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
+    const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
 
 
     useEffect(() => { getSchoolData(); }, []);

@@ -11,23 +11,25 @@ import SidebarFilter from "../common/SidebarFilter";
 import SchoolCardGrid from "../components/SchoolCardGrid";
 import { OPERATORS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { getLocalData, removeLocalDataItem } from "../utils/helper";
+import { getLocalData, isEmpty, isLoggedIn, removeLocalDataItem } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const AllSchools = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const  location  = useLocation();
+  const { state } = useLocation();
+  const { data } = state || {};
+
   const [schoolList, setSchoolList] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
-  const selectedLocation = useSelector(
+  const defaultLocation = useSelector(
     (state) => state.locationData.selectedLocation
   );
+
+  const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
   const geoLocation = useSelector((state) => state.locationData.geolocation);
-
-  const schoolDetailsLatitude =   getLocalData("SchoolDetailsLatitude");
-  const schoolDetailsLongitude = getLocalData("SchoolDetailsLongitude");
-
+  
   useEffect(() => {
     getSchoolList();
   }, [location]);
@@ -51,25 +53,27 @@ const AllSchools = () => {
   };
 
   const getSchoolList = async () => {
+    removeLocalDataItem("SchoolDetailsLatitude");
+    removeLocalDataItem("SchoolDetailsLongitude");
     const queryParams = new URLSearchParams(location.search);
     const schoolName = queryParams.get("name");
     let filters = [];
     if (schoolName !== null && schoolName !== "")
       filters.push({ field: "name", operator: "LIKE", value: schoolName });
     else filters = prepareSchoolFilter(filterFormData, geoLocation).filters;
-
     try {
       showLoader(dispatch);
       setIsLoading(true)
-      const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {
-        filters: filters,
-        location: {
-          longitude: schoolDetailsLatitude,
-          latitude: schoolDetailsLongitude,
-        }
-      });
-      removeLocalDataItem("SchoolDetailsLatitude");
-      removeLocalDataItem("SchoolDetailsLongitude");
+      let param={};
+      param.filters=filters;
+
+      if(!isEmpty(data) && !isEmpty(data.schoolDetailsLatitude) && !isEmpty(data.schoolDetailsLongitude)) {
+        let location={};
+        location.latitude=data.schoolDetailsLatitude;
+        location.longitude=data.schoolDetailsLongitude;
+        param.location=location;
+      }
+      const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, param);
       setSchoolList(response.data);
       hideLoader(dispatch);
       setIsLoading(false)
@@ -80,7 +84,6 @@ const AllSchools = () => {
   };
 
   function prepareSchoolFilter(filterForm, geolocation) {
-    console.log(filterForm);
     const selectedFacilities = filterForm.facilities?.map((v) => v.value);
     const selectedExtracurriculars = filterForm.extracurriculars?.map(
       (v) => v.value

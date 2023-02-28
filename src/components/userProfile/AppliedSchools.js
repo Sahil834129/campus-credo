@@ -187,7 +187,7 @@ const AppliedSchools = ({ application, setApplications }) => {
                           downloadApplicationOnDashboard(application.applicationId);
                         }}
                       >
-                        <label>Download</label> <DownloadIcon/>
+                        <label style={{cursor:"pointer"}}>Download</label> <DownloadIcon/>
                       </a>
                     </span>
                   </div>

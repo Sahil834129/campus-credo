@@ -6,6 +6,7 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 import SchoolCard from "./SchoolCard";
 import { useSelector } from "react-redux";
+import { getLocalData } from "../utils/helper";
 
 const NearBySchools = () => {
   const location = useLocation();
@@ -23,7 +24,6 @@ const NearBySchools = () => {
       }
     }
     useEffect(() => { getNearBySchools(schoolId) }, [schoolId]);
-
     // previous code to get nearBy School
 
     // const getNearBySchools = async () => {
@@ -54,7 +54,10 @@ const NearBySchools = () => {
                     <h4>Nearby Schools</h4>
                 </div>
                 <div className='cell right'>
-                    <Link to='/schools'>View All</Link>
+                    <Link to='/schools' state={{data: {
+          schoolDetailsLatitude: getLocalData("SchoolDetailsLatitude"),
+          schoolDetailsLongitude: getLocalData("SchoolDetailsLongitude"),
+        }}}>View All</Link>
                 </div>
             </div>
 

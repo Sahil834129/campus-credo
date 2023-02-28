@@ -2,12 +2,15 @@ import React from "react";
 
 import { useSelector } from 'react-redux';
 import NoRecordsFound from "../common/NoRecordsFound";
+import { getLocalData, isEmpty, isLoggedIn } from "../utils/helper";
 import SchoolCard from "./SchoolCard";
 
 const SchoolCardGrid = (props) => {
-    const selectedLocation = useSelector(
+    const defaultLocation = useSelector(
         state => state.locationData.selectedLocation
     )
+    const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
+
     return (
         <>
             <div className='title-area'><h2>Schools in {selectedLocation}</h2></div>
