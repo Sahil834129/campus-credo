@@ -79,7 +79,7 @@ const PageContent = {
   ],
   SCHOOL_FEATURE_CARDS: [
     {
-      image: 'paperless.png',
+      image: 'streamline-process.png',
       title: 'Streamline Processes',
       description: 'Leverage our platform to streamline admission process and go paperless'
     },

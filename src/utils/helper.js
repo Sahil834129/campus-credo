@@ -52,6 +52,10 @@ export const getLocalData = (key) => {
   return localStorage.getItem(key);
 };
 
+export const removeLocalDataItem = (key) => {
+   localStorage.removeItem(key);
+};
+
 export const isLoggedIn = () => {
   try {
     return localStorage.getItem("token") !== null;
@@ -319,6 +323,12 @@ export const getCurretLocation = async () => {
   });
   return data;
 };
+
+export const getGeoLocationState = async () => {
+  const permissions = await navigator.permissions.query({ name: 'geolocation' });
+  return permissions;
+};
+
  export const getCurrentSession = ()=>
  {
   let currentYear = (new Date()).getFullYear();
