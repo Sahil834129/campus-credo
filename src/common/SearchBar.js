@@ -9,23 +9,26 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import logoHeader from "../assets/img/brand-logo-header.svg";
 import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { gotoHome } from "../utils/helper";
+import {getGeoLocationState, getLocalData, gotoHome, isEmpty, isLoggedIn, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
+import { toast } from "react-toastify";
 
 const SearchBar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [searchItems, setSearchItems] = useState([]);
     const [cities, setCities] = useState([]);
-    const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
-    
-    useEffect(()=>{getSchoolData()},[]);
-    useEffect(()=>{getCities()},[]);
-    useEffect(()=>{dispatch(getSelectedLocation())}, [dispatch]);
+    const defaultLocation = useSelector((state) => state.locationData.selectedLocation);
+    const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
 
-    const getSchoolData = async() => {
-        let filters = []
+
+    useEffect(() => { getSchoolData(); }, []);
+    useEffect(() => { getCities(); }, []);
+    useEffect(() => { dispatch(getSelectedLocation()); }, [dispatch]);
+
+    const getSchoolData = async () => {
+        let filters = [];
         filters.push({
             field: 'city',
             operator: 'EQUALS',
@@ -97,13 +100,20 @@ const SearchBar = () => {
     );
 
     function handleSelectCity(location) {
+        setLocalData("selectedLocation", location);
         dispatch(setSelectedLocation(location));
         navigate("/schools");
     }
 
-    useEffect(() => {
-        dispatch(setGeoLocation())
-    }, []);
+    async function handleGeoLocation() {
+        const geoLocationState = await getGeoLocationState();
+        if (geoLocationState.state === 'denied') {
+            toast.error("You have blocked Campuscredo from tracking your location. To use this, change your location settings in browser.");
+        } else {
+            dispatch(setGeoLocation());
+        }
+    }
+
 
     return (
         <>
@@ -112,7 +122,7 @@ const SearchBar = () => {
                 <div className="header-item brand-logo"><Link to='/' onClick={(e)=> gotoHome(e, navigate)}><img src={logoHeader} alt="brand logo" /></Link></div>
                 <div className="header-item search-region-pane">
                     <div className="region-dropdown-wrap">
-                        <i className="loc-icon">
+                    <i className="loc-icon" title="Click to get current location" onClick={e => handleGeoLocation()}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" /></svg>
                         </i>
                         <Dropdown>

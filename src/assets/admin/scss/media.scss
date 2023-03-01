@@ -191,7 +191,17 @@
             }
         }
     }
-    .modal.calback-model .modal-dialog .modal-content .modal-body .model-body-col form{padding: 0;}
+    .modal.forgotpwd-model .modal-dialog .modal-content .modal-body .model-body-col h4{padding: 8px 0; font-size: 18px;}
+    .modal.forgotpwd-model .modal-dialog .modal-content .modal-body .model-body-col form{    margin: 0 0 24px 0;}
+    .application-form-wrap .fld-row .fld-cell .otp-block .item-cell.label{flex-direction: column; text-align: center;}
+    .application-form-wrap .fld-row .fld-cell .otp-block .item-cell.label h2{font-size: 20px; margin-bottom: 4px;}
+    .application-form-wrap .fld-row .fld-cell .otp-block .item-cell.label h4{font-size: 14px; margin-bottom: 8px;}
+    .application-form-wrap .fld-row .fld-cell .otp-block .item-cell{justify-content: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper .tab-content .tab-pane .button-wrap{justify-content: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .app-timeline-stack .timeline-row .timeline-items .particulars-status .instruction{display: flex; flex-direction: column; align-items: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item .info-item .moreinfo-block{align-items: center;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .app-timeline-control{justify-content: center;}
+    .modal.calback-model .modal-dialog .modal-content .modal-body .model-body-col form{padding: 0; margin: 0;}
     .content-area .school-list-container .school-card .school-info-main{}
     .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.right{margin-bottom: 16px;}
     .modal.readytoapply-model .modal-dialog .modal-content .modal-header{padding: 16px 24px;}
@@ -311,6 +321,19 @@
     .admmission-sequence-wrap .inner-page-content .inner-page-right-container {padding: 16px 0 0 0;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items .col-item{justify-content: center;}
     .header #menu{padding-left:16px; padding-right: 16px;}
+    .main-container.admin-contianer .content-area .content-area-inner.dashboard-wrapper{padding: 8px;}
+    .content-area .content-area-inner .metrics-wrap{  grid-template-columns: 1fr; row-gap: 16px;  overflow-x: auto;}
+    .content-area .content-area-inner .chart-wrap{    grid-template-columns: 1fr; row-gap: 16px;   overflow-x: auto;}
+    .main-container .mainmenu-wrap{padding: 0;}
+    .main-container .title-kpi-wrapper{height: auto; padding: 0; flex-direction: column;}
+    // .main-container .mainmenu-wrap button.navbar-toggler{display: block;}
+    .main-container .mainmenu-wrap .menu-items{flex-direction: column; height: auto;}
+    .main-container .mainmenu-wrap .navbar-collapse{flex-direction: column; }
+    .main-container .mainmenu-wrap .navbar-collapse.collapse.show .menu-items{flex-direction: column;}
+    .main-container .title-kpi-wrapper .kpi-wrapper{height: auto;}
+    .main-container .title-kpi-wrapper .kpi-wrapper .kpi-list-group{flex-direction: column;}
+    .main-container .title-kpi-wrapper .kpi-wrapper .kpi-list-group .list-group-item.application-status{flex-direction: column;}
+    .footer-main .finner .fcol.quicklinks ul.list-group{flex-direction: row; column-gap: 16px; flex-wrap: wrap;}
 }
 @media (min-width:320px)  {
      /* smartphones, iPhone, portrait 480x320 phones */ 
@@ -318,16 +341,18 @@
 @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
 @media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
     .modal.alert-popup .modal-dialog{width: 400px; max-width: 400px;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap{display: flex; flex-direction: column;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .header{flex-direction: row;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items .col-item {justify-content: flex-start;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts {align-items: flex-start;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: row; align-items: center; column-gap: 16px;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items .col-item {justify-content: flex-start;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts {align-items: flex-start;}
+    // .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item.right{flex-direction: row; align-items: center; column-gap: 16px;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper{width: auto; flex-direction: column;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.full-width{width: auto;}
     .content-area .inner-page-container .content-section.about-content-main .section-wrapper.infotoschools{width: auto;}
     .content-area .inner-page-container .content-section.faq-content-main .list-group{width: auto;}
     .header #menu li {padding: 12px 18px; }
+    // .content-area .content-area-inner .metrics-wrap{ display: flex; flex-direction: column; row-gap: 16px;}
+    // .content-area .content-area-inner .chart-wrap{ overflow-x: auto; display: flex; flex-direction: column; row-gap: 16px;}
 }
 @media (min-width:961px)  { 
     /* tablet, landscape iPad, lo-res laptops ands desktops */ 
@@ -338,6 +363,8 @@
 
 @media screen and (max-width: 1199px) { 
     .main-container .form-content-wrapper{}
+        
+    .content-area .content-area-inner .chart-wrap{ grid-template-columns: 2.06fr 1fr;}
     .main-container .content-area {padding-top: 78px;}
     .main-container{
         .header.header{
