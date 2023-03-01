@@ -136,7 +136,7 @@ export const Layout = ({ admissionSummary, ...props }) => {
             </div>
           )}
         </div>
-        {breadcrumbTitle.title==="Dashboard" || breadcrumbTitle.title==="Manage Application" ?
+        {breadcrumbTitle?.title==="Dashboard" || breadcrumbTitle?.title==="Manage Application" ?
         <div className='application-status status-block'>
             <div className='app-status-cell'>
               <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}

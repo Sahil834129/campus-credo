@@ -181,11 +181,20 @@ const AppliedSchools = ({ application, setApplications }) => {
                     <span className="cell-item">Application Fee Paid:</span>
                     <span className="cell-item"><strong>{application.formFee}</strong></span>
                   </div>
-                  <div className="col divider">|</div>
-                  <div className="col">
-                    Application Fee Paid : <strong>{application.formFee}</strong>
-                  </div>
-                  
+                  <div className="row-item">
+                    <span className="cell-item">Applying for Session:</span>
+                    <span className="cell-item"><strong>{application.admissionSession}</strong></span>
+                  </div> 
+                  <div className="row-item">
+                   <span className="download-option">
+                      <a href="javascript:void(0)" onClick={() => {
+                          downloadApplicationOnDashboard(application.applicationId);
+                        }}
+                      >
+                        <label style={{cursor:"pointer"}}>Download</label> <DownloadIcon/>
+                      </a>
+                    </span>
+                  </div>                       
                 </div>
               </div>
             </div>

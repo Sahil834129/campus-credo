@@ -111,7 +111,7 @@ const PaymentHistory=() =>{
                                                     }</td>
                                                     <td className='download-invoice'>
                                                         <div className="btn-wrap">
-                                                        <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
+                                                        <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto",cursor:"pointer"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
                                                         </div>
                                                     </td>
                                                 </tr>
