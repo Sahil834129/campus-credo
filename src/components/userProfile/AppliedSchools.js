@@ -13,6 +13,7 @@ import { downloadApplicationOnParentDashboard } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
 // import AcceptRejectApplication from "./AcceptRejectApplication";
 import AcceptRejectApplication from "./AcceptRejectApplication";
+import RestEndPoint from "../../redux/constants/RestEndpoints";
 
 
 
