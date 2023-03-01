@@ -54,7 +54,10 @@ const CartItemCard = (props) => {
         <>
             <Card className='school-card cart-block cart-active'>
                 
-                <SchoolCardHeader school={schoolCardHeaderObject()}/>
+                <span>Applied for : {cartItem.className}</span>
+                <span>In Session : {cartItem.admissionSession}</span>
+              
+                <SchoolCardHeader school={schoolCardHeaderObject()} cartItem={cartItem}/>
                 {/* <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Applying to Class</div>

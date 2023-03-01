@@ -5,7 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
-import { getStatusLabel, humanize, isEmpty } from "../../utils/helper";
+import { getStatusLabel, isEmpty } from "../../utils/helper";
 import RESTClient, { baseURL } from "../../utils/RestClient";
 import { downloadApplicationOnParentDashboard } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
@@ -172,6 +172,10 @@ const AppliedSchools = ({ application, setApplications }) => {
                 <div className="moreinfo-block">
                   <div className="col">
                     Applying to Class : <strong>{application.className}</strong>
+                  </div>
+                  <div className="col divider">|</div>
+                  <div className="col">
+                  Applying for Session : <strong>{application.admissionSession}</strong>
                   </div>
                   <div className="col divider">|</div>
                   <div className="col">
