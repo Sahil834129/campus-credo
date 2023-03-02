@@ -141,6 +141,9 @@ export default function GetTableRow({
     }
   };
 
+  const deleteRowData = (rowData, index, selectedSession) => {
+    console.log(rowData, index, selectedSession);
+  };
 
   return (
     <tr key={index}>
@@ -379,6 +382,7 @@ export default function GetTableRow({
         <Button
           className='delete-btn'
           disabled={!isWritePermission || sessionValue !== getCurrentSession()}
+          onClick={() => { deleteRowData(admissionData, index, sessionValue); }}
         >
           Delete
         </Button>
