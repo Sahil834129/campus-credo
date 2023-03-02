@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/footer-logo-campuscredso.svg';
-import '../../assets/admin/scss/custom-styles.scss';
-
 import Nav from 'react-bootstrap/Nav';
-
-import Avatar from 'react-avatar';
+import { useSelector } from "react-redux";
+import { Form } from "react-bootstrap";
 import Navbar from 'react-bootstrap/Navbar';
 import { ToastContainer } from "react-toastify";
+
+import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/footer-logo-campuscredso.svg';
+import '../../assets/admin/scss/custom-styles.scss';
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
 import { getLocalData, logout, getPresentableRoleName } from '../../utils/helper';
-import { useSelector } from "react-redux";
 
-export const Layout = ({ admissionSummary, ...props }) => {
+
+export const Layout = ({ admissionSummary, sessionValue, setSessionValue, ...props }) => {
   const navigate = useNavigate();
   const adminHeaderLink = useSelector(state => state?.userData?.modulePermissions);
+  const sessionOption = ((getLocalData('admissionSession') || "").split(','));
   const [adminLink, setAdminLink] = useState([]);
   const location = useLocation();
   const breadcrumbTitle = ADMIN_DASHBOARD_LINK.find(
@@ -32,11 +32,18 @@ export const Layout = ({ admissionSummary, ...props }) => {
   useEffect(() => {
     setAdminLink(adminHeaderLink.filter(val => val?.isPermit !== MANAGE_USER_PERMISSION[1]));
     let pathname = window.location.pathname;
-    const data = adminHeaderLink.find(val => val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url == pathname);
+    const data = adminHeaderLink.find(val => val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url === pathname);
     if (!data && pathname !== "/termsAndConditions") {
-      navigate("/dashboard")
+      navigate("/dashboard");
     }
   }, [adminHeaderLink]);
+
+  useEffect(() => {
+    if (sessionOption.length > 0 && sessionValue === "") {
+      setSessionValue(sessionOption[0]);
+    }
+  }, [sessionOption]);
+
   return (
     <Container className='main-container admin-contianer' fluid>
       <div className='top-navigation'>
@@ -80,7 +87,19 @@ export const Layout = ({ admissionSummary, ...props }) => {
               </Nav.Link>
             ))}
           </Nav>
-          {/* <Button className='guide-btn'>Guide</Button> */}
+          {setSessionValue && <div className="d-flex">
+            <label>Admission Year</label>
+            <Form.Select
+              value={sessionValue}
+              onChange={(e) => {
+                setSessionValue(e.target.value);
+              }}
+              size='sm'>
+              {sessionOption.map((val, index) => (
+                <option value={val} key={`select${index}`}>{val}</option>
+              ))}
+            </Form.Select>
+          </div>}
         </Navbar.Collapse>
       </Navbar>
       <div className='content-area'>

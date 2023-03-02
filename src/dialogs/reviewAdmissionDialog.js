@@ -146,9 +146,7 @@ const ReviewAdmissionDialog = ({
       setParentDocuments([]);
     }
   }
-  useEffect(() => {
-    console.log(parentDocuments, studentDocuments);
-  }, [studentDocuments, parentDocuments]);
+
 
   async function downloadApplication(applicationId) {
     downloadApplicationDocument(applicationId);

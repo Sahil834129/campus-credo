@@ -3,16 +3,15 @@ import { ListGroup } from "react-bootstrap";
 import { DoughnutChart } from "../../../common/Chart";
 import { getSchoolAdmissinFeeSummary } from "../../../utils/services";
 
-export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,admissionSummary }) {
-    //dashboard/schoolAdmissionFeeSummary
+export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admissionSummary }) {
     const [feesCollected, setFeesCollected] = useState(0);
     const [feesCollectedPercent, setFeesCollectedPercent] = useState(0);
     const [totalSeats, setTotalSeats] = useState(0);
     const [accepetedPercentsage, setAcceptedPercentage] = useState(0);
     const [totalFeesCollected, setTotalFeesCollected] = useState(0);
     // const accepetedPercentsage =;
-    const fetchSchoolAdmissinFeesSummary = () => {
-        getSchoolAdmissinFeeSummary().then(res => {
+    const fetchSchoolAdmissinFeesSummary = (currentSession) => {
+        getSchoolAdmissinFeeSummary(currentSession).then(res => {
             const val = res?.data;
             if (val?.schoolAdmissionFeeSummary?.projectedFee === 0) {
                 setTotalFeesCollected(0);
@@ -28,8 +27,10 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
     };
 
     useEffect(() => {
-        fetchSchoolAdmissinFeesSummary();
-    }, []);
+        if (sessionValue !== "") {
+            fetchSchoolAdmissinFeesSummary(sessionValue);
+        }
+    }, [sessionValue]);
 
     useEffect(() => {
         setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant);
@@ -58,13 +59,14 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                             <label>Application Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>{feesCollected.toLocaleString('en-IN', 
-                                        {   maximumFractionDigits: 2,
-                                            style: 'currency',
-                                            currency: 'INR'
-                                        })}
+                            <span className='value'>{feesCollected.toLocaleString('en-IN',
+                                {
+                                    maximumFractionDigits: 2,
+                                    style: 'currency',
+                                    currency: 'INR'
+                                })}
                             </span>
-                           <label>Fees Collected</label>
+                            <label>Fees Collected</label>
                         </ListGroup.Item>
                     </ListGroup>
                     <div style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '30px' }}>Application Status</div>
@@ -85,7 +87,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                                             radius: 80,
                                         }],
                                 } || {}}
-                                midNumberText={accepetedPercentsage+'%'}
+                                midNumberText={accepetedPercentsage + '%'}
                                 midTextFirst={'Offer'}
                                 midTextSecond={'Accepted'}
                                 totalRemainngData={`${totalSeats}`}
@@ -104,7 +106,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, applicationStatus ,
                                             radius: 80
                                         }],
                                 } || {}}
-                                midNumberText={feesCollectedPercent+'%'}
+                                midNumberText={feesCollectedPercent + '%'}
                                 midTextFirst={'Fees'}
                                 midTextSecond={'Collected'}
                                 totalRemainngData={`₹ ${totalFeesCollected.toLocaleString('en-IN')}`}

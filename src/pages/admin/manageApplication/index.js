@@ -13,6 +13,7 @@ import ShowApplications from "./showApplications";
 export const ManageApplication = () => {
   const isWritePermission = getCurrentModulePermission("Manage Application");
   const [rowsData, setRowsData] = useState([]);
+  const [sessionValue, setSessionValue] = useState("");
   const [selectedRows, setSelectedRows] = useState({});
   const schoolId = getLocalData('schoolId');
   const [apiError, setApiError] = useState('');
@@ -42,8 +43,8 @@ export const ManageApplication = () => {
       });
   };
 
-  const fetchClassAdmissionSummary = (classId) => {
-    getClassAdmissionSummary(classId)
+  const fetchClassAdmissionSummary = (classId, currentSession) => {
+    getClassAdmissionSummary(classId, currentSession)
       .then(response => {
         if (response.status === 200) {
           setAdmissionData(response.data);
@@ -54,10 +55,10 @@ export const ManageApplication = () => {
       });
   };
 
-  const fetchClassApplication = (classId) => {
+  const fetchClassApplication = (classId, currentSession) => {
     setIsloading(true);
-    getClassApplication(classId).
-      then(response => {
+    getClassApplication(classId, currentSession)
+      .then(response => {
         let res = response.data;
         res = res.map((val, index) => {
           return {
@@ -68,8 +69,8 @@ export const ManageApplication = () => {
         setIsloading(false);
         setSelectedRows({});
         setRowsData(res);
-      }).
-      catch(() => {
+      })
+      .catch(() => {
         setSelectedRows({});
         setIsloading(false);
       });
@@ -85,8 +86,8 @@ export const ManageApplication = () => {
     setIsbulkOperation(true);
   };
 
-  const fetchAtPiForClass = (classId) => {
-    getAtPiForClass(classId)
+  const fetchAtPiForClass = (classId, currentSession) => {
+    getAtPiForClass(classId, currentSession)
       .then(res => {
         if (Object.keys(res.data).length > 0) {
           setAtPiData(res.data);
@@ -100,16 +101,16 @@ export const ManageApplication = () => {
       fetchSchoolClassesData(schoolId);
   }, [schoolId]);
 
-  const callAllApi = (classId) => {
-    fetchClassAdmissionSummary(classId);
-    fetchClassApplication(classId);
-    fetchAtPiForClass(classId);
+  const callAllApi = (classId, currentSession) => {
+    fetchClassAdmissionSummary(classId, currentSession);
+    fetchClassApplication(classId, currentSession);
+    fetchAtPiForClass(classId, currentSession);
   };
   useEffect(() => {
-    if (classId) {
-      callAllApi(classId);
+    if (classId && sessionValue !== "") {
+      callAllApi(classId, sessionValue);
     }
-  }, [classId]);
+  }, [classId, sessionValue]);
 
   useEffect(() => {
     if (apiError !== '') {
@@ -118,7 +119,7 @@ export const ManageApplication = () => {
   }, [apiError]);
 
   return (
-    <Layout admissionSummary={admissionData?.upperClassAdmissionSummary}>
+    <Layout admissionSummary={admissionData?.upperClassAdmissionSummary} sessionValue={sessionValue} setSessionValue={setSessionValue}>
       <div className='content-area-inner manage-application inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
           <FilterApp

@@ -13,3 +13,11 @@ export function formatDateToDDMMYYYY(date) {
 export function parseDateWithDefaultFormat(dateSTR) {
     return moment(dateSTR, formatDDMMYYYY).toDate()
 }
+
+export const convertDate = (currentDate) => {
+    if (currentDate) {
+        const currentDateArr = currentDate.split("/");
+        return new Date(`${currentDateArr[1]}/${currentDateArr[0]}/${currentDateArr[2]}`);
+    }
+    return null;
+};
