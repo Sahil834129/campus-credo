@@ -42,7 +42,7 @@ export default function GetTableRow({
   const disabledRow = (currentDate) => {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return currentDate ? (currentDate > now) : false;
+    return currentDate ? (currentDate < now) : false;
   };
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
