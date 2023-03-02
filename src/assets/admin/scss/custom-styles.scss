@@ -282,6 +282,30 @@
     }
     
   }
+  .application-status{
+    
+    &.status-block{
+      display: flex;
+      flex-direction: row;
+      column-gap: 8px;
+      background: #efefef;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 4px 24px;
+      .app-status-cell{
+        border-right: 1px solid #bcbdbd;
+        padding: 0 16px 0 8px;
+        &:last-child{
+          border: none;
+          padding-right: 0;
+        }
+        label.lbl{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  
   .footer-panel{
     display: flex;
     flex-direction: row;
@@ -301,7 +325,123 @@
   }
 }
 .red{background: red;}
-
+.change-pwd-model{
+  .modal-dialog{
+    width: 442px;
+    max-width: 442px;
+    .modal-content{
+      display: flex;
+      .modal-header{
+        font-size: 16px;
+        font-weight: 600;
+        color: $primarycolor;
+        padding: 24px 24px;
+      }
+      .model-body{
+        display: grid;
+        padding: 0;
+        grid-template-columns: auto;
+        .model-body-col{
+          display: flex;
+          flex-direction: column;
+          h4{
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 24px;
+            padding: 8px 42px;
+            line-height: 28px;
+          }
+          form{
+            margin: 0 24px 24px 24px;
+            
+            .fld-row{
+              display: flex;
+              .fld-cell{
+                margin-bottom: 16px;
+                flex-grow: 1;
+                .fld-wrap{
+                  display: flex;
+                  flex-direction: column;
+                  flex-grow: 1;
+                  label{
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: rgba(0, 0, 0, 0.8);
+                    .req{
+                      color: $darkred;
+                    }
+                  }
+                  input{
+                    border-radius: 4px;
+                    height: 48px;
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.8);
+                    &:focus{
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      color: $primarycolor;
+                    }
+                    &:active{
+                      color: $primarycolor;
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                    }
+                    &::placeholder {
+                      color: rgba(0, 0, 0, 0.25);
+                    }
+                  }
+                  textarea{
+                    border-radius: 4px;
+                    height: auto;
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.8);
+                    &:focus{
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                      color: $primarycolor;
+                    }
+                    &:active{
+                      color: $primarycolor;
+                      border: 1px solid #41285F;
+                      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+                    }
+                    &::placeholder {
+                      color: rgba(0, 0, 0, 0.25);
+                    }
+                  }
+                }
+                
+              }
+              
+            }
+            
+            
+          }
+          
+        }
+        .btn-wrapper{
+          
+          .btn{
+            font-weight: 400;
+            &.cancel-btn{
+              background: $white;
+              border: 1px solid $darkred;
+              color: $darkred;
+            }
+            &.confirm-btn{
+              background: $darkgreen;
+              border: 1px solid $darkgreen;
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 /*Header*/
 
 ul.list-group{
@@ -323,6 +463,7 @@ ul.list-group{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       column-gap: 24px;
+      // overflow-x: auto;
       .metrics-block{
         height: 184px;
         background: #FFFFFF;
@@ -345,14 +486,15 @@ ul.list-group{
           h2{
             font-style: normal;
             font-weight: 500;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 24px;
-            color: rgba(0, 0, 0, 0.8);
+            color: $primarycolor;
+            // color: rgba(0, 0, 0, 0.8);
           }
           .value{
             font-style: normal;
             font-weight: 500;
-            font-size: 24px;
+            font-size: 18px;
             line-height: 28px;
             text-align: right;
             color: rgba(0, 0, 0, 0.8);
@@ -410,10 +552,10 @@ ul.list-group{
             justify-content: center;
             h2{
               font-style: normal;
-              font-weight: 400;
+              font-weight: 600;
               font-size: 14px;
               line-height: 18px;
-              color: #646464;
+              color: $primarycolor;
             }
           }
           .chart-area{
@@ -431,6 +573,7 @@ ul.list-group{
       grid-template-columns: 2.06fr 1fr;
       column-gap: 24px;
       margin-top: 16px;
+      overflow-x: auto;
       .chart-block{
         height: 434px;
         background: #FFFFFF;
@@ -472,7 +615,7 @@ ul.list-group{
               .value{
                 font-style: normal;
                 font-weight: 500;
-                font-size: 24px;
+                font-size: 18px;
                 line-height: 28px;
                 text-align: right;
                 color: $primarycolor;
@@ -485,7 +628,7 @@ ul.list-group{
             font-weight: 500;
             font-size: 16px;
             line-height: 24px;
-            color: rgba(0, 0, 0, 0.8);
+            color: $primarycolor;
           }
           .value{
             font-style: normal;
@@ -1098,6 +1241,13 @@ ul.list-group{
   flex-direction: row;
   justify-content: flex-end;
   gap: 8px;
+  &.manageuser-btn{
+    .btn{
+      height: auto;
+      padding: 4px 16px;
+      font-size: 13px;
+    }
+  }
   .btn{
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.14);
     border-radius: 4px;
@@ -1173,7 +1323,7 @@ ul.list-group{
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 18px;
     letter-spacing: 0.25px;
     color: $black;
     margin-bottom: 0;
@@ -1238,7 +1388,7 @@ ul.list-group{
         text-align: left;
         font-style: normal;
         font-weight: 600;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 18px;
         color: $black;
         z-index: 2;
@@ -1259,7 +1409,7 @@ ul.list-group{
           z-index: 4;
         }
         input{
-          font-size: 12px;
+          font-size: 14px;
         }
         
         .switch-wrapper{
@@ -1273,8 +1423,8 @@ ul.list-group{
           label.form-label{
             font-style: normal;
             font-weight: 400;
-            font-size: 15px;
-            line-height: 20px;
+            font-size: 14px;
+            line-height: 18px;
             margin: 0;
             &.no{color: rgba(0, 0, 0, 0.4); padding-right: 8px;}
             &.yes{color: #549B43;}

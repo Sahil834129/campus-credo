@@ -21,10 +21,10 @@ const Footer = () => {
   return (
     <footer className="footer-main">
       <Container className="finner">
-        <div className="fcol">
+        <div className="fcol fbrandlogo">
           <img src={FooterGraphic} alt="" />
         </div>
-        <div className="fcol">
+        <div className="fcol quicklinks">
           <h2>Quick Links</h2>
           <ListGroup as="ul">
             {PageContent.FOOTER_MENU_ITEMS.map((fMenuItem, index) => (
@@ -40,7 +40,7 @@ const Footer = () => {
             ))}
           </ListGroup>
         </div>
-        <div className="fcol">
+        <div className="fcol contactus">
           <h2>Contact Us @</h2>
           <ListGroup as="ul">
             <ListGroup.Item as="li">T: {PageContent.PHONE}</ListGroup.Item>

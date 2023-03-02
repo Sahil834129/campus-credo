@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
-import { useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import Navbar from 'react-bootstrap/Navbar';
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/footer-logo-campuscredso.svg';
@@ -132,38 +132,58 @@ export const Layout = ({ admissionSummary, sessionValue, setSessionValue, ...pro
                   <label className='lbl'>Final Review</label>{' '}
                   <span className='value'>{admissionSummary?.underFinalReview || 0}</span>
                 </ListGroup.Item>
-                <ListGroup.Item className='application-status'>
+                {/* <ListGroup.Item className='application-status'>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Approved</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.approved || 0}</span>{' | '}
+                    <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
+                  
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Declined</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.declined || 0}</span>{' | '}
+                    <label className='lbl'>Declined <span className='value text-danger'>{admissionSummary?.declined || 0}</span></label>{' '}
+                    
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Accepted</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.accepted || 0} </span>{' | '}
+                    <label className='lbl'>Accepted <span className='value text-success'>{admissionSummary?.accepted || 0} </span></label>{' '}
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Denied</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.denied || 0}</span>{' | '}
+                    <label className='lbl'>Denied <span className='value text-danger'>{admissionSummary?.denied || 0}</span></label>{' '}
+                    
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Revoked</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.revoked || 0}</span>
+                    <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
+                    
                   </div>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
               </ListGroup>
             </div>
           )}
         </div>
+        {breadcrumbTitle?.title==="Dashboard" || breadcrumbTitle?.title==="Manage Application" ?
+        <div className='application-status status-block'>
+            <div className='app-status-cell'>
+              <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
+              {/* {' | '} */}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Declined <span className='value text-danger'>{admissionSummary?.declined || 0}</span></label>{' '}
+              {/* {' | '} */}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Accepted <span className='value text-success'>{admissionSummary?.accepted || 0} </span></label>{' '}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Denied <span className='value text-danger'>{admissionSummary?.denied || 0}</span></label>{' '}
+              
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
+            </div>
+        </div>:""}
         {props.children}
       </div>
       <div className='footer-panel'>
         <Link to='/dashboard'><FooterCampusLogo /></Link>
-        <Link to='/termsAndConditions'>Terms &amp; Conditions</Link>
-      </div>
+        {breadcrumbTitle ? <Link to='/termsAndConditions'>Terms &amp; Conditions</Link> : ""}
+        </div>
       <ToastContainer autoClose={2000} position="top-right" />
     </Container>
   );

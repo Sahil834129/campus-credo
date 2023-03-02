@@ -69,7 +69,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
                             <label>Fees Collected</label>
                         </ListGroup.Item>
                     </ListGroup>
-                    <div style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '30px' }}>Application Status</div>
+                    <div className="" style={{ textAlign: 'center', paddingTop: '24px', paddingBottom: '24px' }}><h2>Application Status</h2></div>
                 </div>
             </div>
             <table className='chart-area' style={{ padding: 0 }}>

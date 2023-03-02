@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import OtpInput from "react-otp-input";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AlertDialog from "../common/AlertDialog";
@@ -21,6 +21,7 @@ import {
   isLoggedIn,
   isValidatePhone,
   resetUserLoginData,
+  setLocalData,
   setUserLoginData
 } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
@@ -45,6 +46,7 @@ const LoginDialog = (props) => {
   const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] =
     useState(false);
   const [passwordType, setPasswordType] = useState("password");
+  const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -125,6 +127,7 @@ const LoginDialog = (props) => {
     try {
       const response = await RESTClient.post(action, reqPayload);
       setUserLoginData(response.data);
+      setLocalData("selectedLocation", selectedLocation);
       dispatch(setIsUserLoggedIn(isLoggedIn()));
 
 

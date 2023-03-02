@@ -1,8 +1,10 @@
+import * as moment from 'moment';
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { ReactComponent as DownloadIcon } from "../assets/img/icons/download.svg";
 import Breadcrumbs from "../common/Breadcrumbs";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
@@ -71,19 +73,15 @@ const PaymentHistory=() =>{
                                 <div className='top-btn-wrap managechild-title'>
                                 <h2>Complete Payment History</h2>
                                 </div>
-                                <div className='manage-child-tbl-outer'>
+                                <div className='payment-history-tbl'>
                                 <Table striped bordered hover >
                                 <thead>
                                               <tr>
                                                 <th>Order Id</th>
-                                                <th>Billing Name</th>
+                                                <th>Payee Name</th>
                                                  <th>Order Date</th>
                                                  <th>Order Status</th>
                                                 <th>Order Type</th>
-                                                <th>No of Orders</th>
-                                                <th>Order Amount</th>
-                                                <th>Fee</th>
-                                                <th>GST</th>
                                                 <th>Total Amount</th>
                                                 <th>Download Invoice</th>
                                              </tr>
@@ -94,26 +92,26 @@ const PaymentHistory=() =>{
                                            ( orders?.map((order, index) => {
                                                 return <tr >
                                                     <td>{order.orderId}</td>
-                                                    <td>
-                                                        <Link className="text-primary" onClick={()=>{
+                                                    <td className='payeename'>
+                                                        <Link className="payee" onClick={()=>{
                                                         setOrderLineItems(order.orderLineItems);
                                                         handleShowLineItems();
                                                     }}>
                                                     {order.billingName}
                                                     </Link>
                                                     </td>
-                                                    <td>{order.orderDate}</td>
+                                                    <td>{moment(order.orderDate).format("DD/MM/YYYY")}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
-                                                    <td>{ CountOrderLineItems(order)}</td>
-                                                    <td>{order.orderAmount}</td>
-                                                    <td>{order.platformFee}</td>
-                                                    <td> {order.tax}</td>
-                                                    <td>{order.totalAmount}</td>
-                                                   
-                                                    <td>
-                                                        <div className="btn-wrapper">
-                                                            <Button className='edit' onClick={() => downloadInvoicePdf(order.orderId)}>Download Invoice</Button>
+                                                    <td>{order?.totalAmount?.toLocaleString('en-IN', 
+                                                        {   maximumFractionDigits: 2,
+                                                            style: 'currency',
+                                                            currency: 'INR'
+                                                        })
+                                                    }</td>
+                                                    <td className='download-invoice'>
+                                                        <div className="btn-wrap">
+                                                        <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto",cursor:"pointer"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
                                                         </div>
                                                     </td>
                                                 </tr>

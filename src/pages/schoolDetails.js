@@ -17,7 +17,7 @@ import SchoolFacilities from "../components/schoolDetails/SchoolFacilities";
 import SchoolStats from "../components/schoolDetails/SchoolStats";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { isLoggedIn } from "../utils/helper";
+import { isLoggedIn, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const SchoolDetails = () => {
@@ -52,6 +52,8 @@ const SchoolDetails = () => {
       let categoryFaciltiesMap = {};
       let categoryExtracurricularMap = {};
       setSchoolDetails(schoolDetails);
+      setLocalData("SchoolDetailsLatitude",schoolDetails.latitude);
+      setLocalData("SchoolDetailsLongitude",schoolDetails.longitude);
       schoolDetails.facilities.map((facility) => {
         if (!categoryFaciltiesMap.hasOwnProperty(facility.category))
           categoryFaciltiesMap[facility.category] = [];

@@ -15,6 +15,7 @@ import { getChildsList } from "../redux/actions/childAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
+import { useCallback } from "react";
 
 const ApplicationCart = () => {
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const ApplicationCart = () => {
   }, [itemsInCart]);
 
   useEffect(() => {
-    getSimilarSchools();
+    getPopularSchool();
   }, []);
 
   const handleChildSelection = (childId) => {
@@ -79,22 +80,18 @@ const ApplicationCart = () => {
     }
   };
 
-  const getSimilarSchools = async () => {
+  const getPopularSchool = useCallback(async childId => {
     try {
-      let payload = {
-        filters: [
-          { field: "city", operator: "EQUALS", value: selectedLocation },
-        ],
-        offset: 1,
-        limit: 2,
-      };
-      const response = await RESTClient.post(
-        RestEndPoint.FIND_SCHOOLS,
-        payload
-      );
-      setSimilarSchools(response.data);
-    } catch (e) {}
-  };
+      const response = await RESTClient.get(
+        RestEndPoint.POPULAR_SCHOOL + `/${selectedLocation}`
+      )
+      if(response.data!==""){
+        setSimilarSchools(response.data.slice(1,4));
+      }
+    } catch (error) {
+      // toast.error(RESTClient.getAPIErrorMessage(error))
+    }
+  }, [])
 
   return (
     <Layout>
