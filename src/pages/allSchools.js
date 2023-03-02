@@ -32,6 +32,7 @@ const AllSchools = () => {
   
   useEffect(() => {
     getSchoolList();
+     window.scrollTo(0, 0);
   }, [location]);
 
   useEffect(() => {

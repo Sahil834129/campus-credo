@@ -7,13 +7,13 @@ import { toast } from "react-toastify";
 import { ReactComponent as DownloadIcon } from "../../assets/img/icons/download.svg";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
-import RestEndPoint from "../../redux/constants/RestEndpoints";
-import { getStatusLabel, isEmpty } from "../../utils/helper";
+import { getStatusLabel, humanize, isEmpty } from "../../utils/helper";
 import RESTClient, { baseURL } from "../../utils/RestClient";
 import { downloadApplicationOnParentDashboard } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
 // import AcceptRejectApplication from "./AcceptRejectApplication";
 import AcceptRejectApplication from "./AcceptRejectApplication";
+import RestEndPoint from "../../redux/constants/RestEndpoints";
 
 
 
@@ -182,7 +182,11 @@ const AppliedSchools = ({ application, setApplications }) => {
                     <span className="cell-item"><strong>{application.formFee}</strong></span>
                   </div>
                   <div className="row-item">
-                    <span className="download-option">
+                    <span className="cell-item">Applying for Session:</span>
+                    <span className="cell-item"><strong>{application.admissionSession}</strong></span>
+                  </div> 
+                  <div className="row-item">
+                   <span className="download-option">
                       <a href="javascript:void(0)" onClick={() => {
                           downloadApplicationOnDashboard(application.applicationId);
                         }}
@@ -190,8 +194,7 @@ const AppliedSchools = ({ application, setApplications }) => {
                         <label style={{cursor:"pointer"}}>Download</label> <DownloadIcon/>
                       </a>
                     </span>
-                  </div>
-                  
+                  </div>                       
                 </div>
               </div>
             </div>
