@@ -35,6 +35,10 @@ const AllSchools = () => {
      window.scrollTo(0, 0);
   }, [location]);
 
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
+
   const applyFilters = async (formFilter) => {
     try {
       showLoader(dispatch);

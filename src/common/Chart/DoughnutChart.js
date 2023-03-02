@@ -28,7 +28,7 @@ const option = {
   }
 };
 
-export default function DoughnutChart({ data, midNumberText,midTextFirst, midTextSecond, totalRemainng ,totalRemainngData , projectedFee}) {
+export default function DoughnutChart({ data, midNumberText, midTextFirst, midTextSecond, totalRemainng, totalRemainngData, projectedFee }) {
   return (
     <Doughnut
       data={{ ...data }}
@@ -53,7 +53,7 @@ export default function DoughnutChart({ data, midNumberText,midTextFirst, midTex
           if (image.complete) {
             ctx.drawImage(image, 103, 67);
           } else {
-            image.onload = () => chart.draw();
+            // image.onload = () => ctx.draw();
           }
         }
       }
