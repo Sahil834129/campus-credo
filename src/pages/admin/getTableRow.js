@@ -3,7 +3,7 @@ import { getCurrentSession, getLocalData } from "../../utils/helper";
 import { Button, Form } from 'react-bootstrap';
 import DateRangePicker from "../../common/DateRangePicker";
 import { convertDate } from "../../utils/DateUtil";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { saveClassAdmissionData } from "../../utils/services";
@@ -14,10 +14,8 @@ export default function GetTableRow({
   sessionValue,
   isWritePermission,
   setFieldData,
-  fieldData,
-  setChangedData,
-  setFormData,
-  formData
+  formData,
+  setFormData
 }) {
 
   const admissionTypeOptions = ['Rolling', 'Fixed'];
@@ -48,33 +46,19 @@ export default function GetTableRow({
   };
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
-    console.log(fieldData, fieldName, value, initialValue);
     const fields = fieldName.split('.');
     setFieldData(val => {
-      return val.map((val, index) => {
-        console.log(val);
+      return val.map((v, index) => {
         if (index === parseInt(fields[0])) {
-          val[fields[1]] = value;
+          v[fields[1]] = value;
         }
-        return val;
+        return v;
       });
-    });
-
-    setChangedData(val => {
-      console.log(val, {
-        ...val,
-        [fieldName]: initialValue
-      });
-      return {
-        ...val,
-        [fieldName]: initialValue
-      };
     });
   };
 
   const validateField = (data) => {
     let isValid = true;
-    console.log(data);
     const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "" };
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
@@ -131,7 +115,6 @@ export default function GetTableRow({
     delete postData?.schoolName;
     delete postData?.classOrder;
     delete postData?.fee;
-    console.log(postData);
     let apiCall;
     postData = [{ ...postData }];
     apiCall = saveClassAdmissionData(postData);
@@ -142,10 +125,9 @@ export default function GetTableRow({
             return payloadData;
           }
           return val;
-        })
-        setFormData(saveData);
-        setFieldData(saveData);
-        setChangedData(saveData);
+        });
+        setFormData(saveData.map(v => { return { ...v }; }));
+        setFieldData(saveData.map(v => { return { ...v }; }));
         toast.success("Admission Details are saved");
       })
       .catch((error) => {
@@ -158,6 +140,8 @@ export default function GetTableRow({
       handleSubmitData(rowData, index, selectedSession);
     }
   };
+
+
   return (
     <tr key={index}>
       <td>{admissionData.className}</td>

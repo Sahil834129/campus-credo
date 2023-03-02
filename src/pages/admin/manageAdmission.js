@@ -15,7 +15,6 @@ export const ManageAdmission = () => {
   const isWritePermission = getCurrentModulePermission("Manage Admission");
   const [formData, setFormData] = useState(initialFormData);
   const [fieldData, setFieldData] = useState(initialFormData);
-  const [changedData, setChangedData] = useState({});
   const [sessionValue, setSessionValue] = useState(null);
   const [sessionOption, setSessionOption] = useState([]);
 
@@ -52,8 +51,16 @@ export const ManageAdmission = () => {
             val.registrationFee = val?.registrationFee || null;
             return val;
           });
-          setFormData(data);
-          setFieldData(data);
+          setFormData(data.map(v => {
+            return {
+              ...v
+            };
+          }));
+          setFieldData(data.map(v => {
+            return {
+              ...v
+            };
+          }));
         }
       })
       .catch(error => {
@@ -101,9 +108,12 @@ export const ManageAdmission = () => {
                   className='reset-btn'
                   disabled={!isWritePermission}
                   onClick={_ => {
-                    Object.keys(changedData).forEach(val => {
-                      setFieldData(val, changedData[val]);
-                    });
+                    console.log();
+                    setFieldData(formData.map(v => {
+                      return {
+                        ...v,
+                      };
+                    }));
                   }}
                 >
                   Reset
@@ -139,7 +149,6 @@ export const ManageAdmission = () => {
                         formData={formData}
                         setFieldData={setFieldData}
                         fieldData={fieldData}
-                        setChangedData={setChangedData}
                         setFormData={setFormData}
                       />
                     ))}
