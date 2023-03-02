@@ -15,19 +15,18 @@ export const Dashboard = () => {
   const [dashBoardData, setDashBoardData] = useState({});
   const [schoolSeatsSummary, setSchoolSeatsSummary] = useState({});
   const [applicationStatusChartData, setApplicationStatusChartData] = useState({});
-  const [barData, setBarData] = useState({ labels: [], datasets: [] });
   const [labels, setLabels] = useState([]);
+  const [sessionValue, setSessionValue] = useState("");
 
   const [acceptedOffer, setAcceptedOffer] = useState([]);
-  const [receivedOffer, setReceivedOffer] = useState([]);
   const [declinedOffer, setDeclinedOffer] = useState([]);
   const [totalApplicationReceived, setTotalApplicationReceived] = useState([]);
 
   const [applicationApproved, setApplicationApproved] = useState([]);
 
 
-  const fetchSchoolAdmissinSummary = () => {
-    getSchoolAdmissinSummary()
+  const fetchSchoolAdmissinSummary = (currentSession) => {
+    getSchoolAdmissinSummary(currentSession)
       .then((response) => {
         const res = response.data;
         setDashBoardData(res);
@@ -39,8 +38,8 @@ export const Dashboard = () => {
 
   };
 
-  const fetchApplicationChartStatus = () => {
-    getApplicationChartStatus()
+  const fetchApplicationChartStatus = (currentSession) => {
+    getApplicationChartStatus(currentSession)
       .then(response => {
         setApplicationStatusChartData(response.data);
       });
@@ -54,14 +53,13 @@ export const Dashboard = () => {
     const declined = [];
     const received = [];
     const totalApplication = [];
-    labels.map(val => {
+    labels.forEach(val => {
       approved.push(tempData[val]?.approved);
       accepted.push(tempData[val]?.accepted);
       declined.push(tempData[val]?.declined);
       received.push(tempData[val]?.received);
-      totalApplication.push(tempData[val]?.totalApplication)
+      totalApplication.push(tempData[val]?.totalApplication);
     });
-    setReceivedOffer(received);
     setDeclinedOffer(declined);
     setLabels(labels);
     setAcceptedOffer(accepted);
@@ -77,16 +75,14 @@ export const Dashboard = () => {
   }, [applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined]);
 
   useEffect(() => {
-    fetchApplicationChartStatus();
-  }, []);
-
-  useEffect(() => {
-    fetchSchoolAdmissinSummary();
-  }, []);
-
+    if (sessionValue) {
+      fetchApplicationChartStatus(sessionValue);
+      fetchSchoolAdmissinSummary(sessionValue);
+    }
+  }, [sessionValue]);
 
   return (
-    <Layout admissionSummary={dashBoardData?.upperSchoolAdmissionSummary}>
+    <Layout admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} sessionValue={sessionValue} setSessionValue={setSessionValue}>
       <div className='content-area-inner dashboard-wrapper'>
         <div className='metrics-wrap'>
           <ApplicationProcessing applicationProcessing={dashBoardData?.applicationProcessing} />
@@ -102,7 +98,7 @@ export const Dashboard = () => {
             applicationStatus={dashBoardData?.applicationStatus}
             totalApplication={dashBoardData?.upperSchoolAdmissionSummary?.totalApplication}
           />
-          <SeatsFeesGraph schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} applicationStatus={dashBoardData?.applicationStatus} />
+          <SeatsFeesGraph sessionValue={sessionValue} schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} />
         </div>
       </div>
     </Layout>

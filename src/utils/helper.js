@@ -46,6 +46,9 @@ export const setUserLoginData = (loginData) => {
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);
   setLocalData("schoolName", loginData?.schoolName);
+  setLocalData("sessionStartDate", loginData?.sessionStartDate);
+  setLocalData("sessionEndDate", loginData?.sessionEndDate);
+  setLocalData("admissionSession", loginData?.admissionSession);
 };
 
 export const getLocalData = (key) => {
