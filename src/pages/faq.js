@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/esm/Container";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -6,6 +7,11 @@ import Breadcrumbs from '../common/Breadcrumbs';
 import Layout from "../common/layout";
 
 const FAQ = () => {
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+      }, [])
+
     return(
         <Layout>
             <section className="content-area about-page">

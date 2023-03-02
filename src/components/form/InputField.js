@@ -87,6 +87,7 @@ const getFieldTagElement = (props) => {
           <Field
             type="password"
             className="form-control"
+            value={props.value}
             name={props.fieldName}
             placeholder={props.placeholder}
             {...(props.required ? { required: props.required } : {})}
