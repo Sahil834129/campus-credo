@@ -11,8 +11,14 @@ import aboutpic2 from "../assets/img/about-elearning.svg";
 import aboutpic1 from "../assets/img/about-hero-pic.jpg";
 import aboutpic3 from "../assets/img/about-pic3.png";
 import aboutpic4 from "../assets/img/about-pic4.png";
+import { useEffect } from 'react';
 
 const AboutUs = () => {
+
+    useEffect(() => {
+      window.scrollTo(0,0)
+    }, [])
+    
     return(
         <Layout>
             <section className="content-area about-page">

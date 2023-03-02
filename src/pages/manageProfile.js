@@ -364,6 +364,7 @@ export const ManageProfile = () => {
                                 <InputField
                                   fieldName="currentPassword"
                                   required
+                                  value={values.currentPassword}
                                   label="Current Password"
                                   fieldType={currentPasswordType}
                                   placeholder="Enter current password"
@@ -383,6 +384,7 @@ export const ManageProfile = () => {
                                 <InputField
                                   fieldName="password"
                                   required
+                                  value={values.password}
                                   label="New Password"
                                   fieldType={passwordType}
                                   placeholder="Enter new password"
@@ -402,6 +404,7 @@ export const ManageProfile = () => {
                                 <InputField
                                   fieldName="confirmPassword"
                                   required
+                                  value={values.confirmPassword}
                                   label="Re-enter Password"
                                   fieldType={confirmPasswordType}
                                   placeholder="Re-enter Password"

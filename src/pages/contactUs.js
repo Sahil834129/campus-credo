@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
@@ -45,6 +45,10 @@ const ContactUs = () => {
         toast.error(RESTClient.getAPIErrorMessage(error));
       });
   };
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
 
   return (
     <Layout>
