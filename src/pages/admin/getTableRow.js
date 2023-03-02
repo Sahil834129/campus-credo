@@ -4,7 +4,9 @@ import { Button, Form } from 'react-bootstrap';
 import DateRangePicker from "../../common/DateRangePicker";
 import { convertDate } from "../../utils/DateUtil";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import moment from "moment";
+import { saveClassAdmissionData } from "../../utils/services";
 
 export default function GetTableRow({
   index,
@@ -14,6 +16,7 @@ export default function GetTableRow({
   setFieldData,
   fieldData,
   setChangedData,
+  setFormData,
   formData
 }) {
 
@@ -24,7 +27,6 @@ export default function GetTableRow({
 
   const convertDateForSave = formDate => {
     let parseDate = null;
-
     if (formDate !== null) {
       parseDate = moment(formDate).format('DD/MM/YYYY');
     }
@@ -70,7 +72,7 @@ export default function GetTableRow({
     });
   };
 
-  const validateField = (data, index) => {
+  const validateField = (data) => {
     let isValid = true;
     console.log(data);
     const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "" };
@@ -95,8 +97,8 @@ export default function GetTableRow({
       return isValid;
     }
   };
-  const handleSubmitData = (formData, selectedSession) => {
-    let postData = JSON.parse(JSON.stringify(formData));
+  const handleSubmitData = (payloadData, index, selectedSession) => {
+    let postData = JSON.parse(JSON.stringify(payloadData));
     postData = {
       ...postData,
       formSubmissionStartDate: convertDateForSave(
@@ -105,47 +107,55 @@ export default function GetTableRow({
       formSubmissionEndDate: convertDateForSave(
         postData?.formSubmissionEndDate || null
       ),
-      admissionTestStartDate: convertDateForSave(
-        postData?.admissionTestStartDate || null
-      ),
-      admissionTestEndDate: convertDateForSave(
-        postData?.admissionTestEndDate || null
-      ),
-      personalInterviewStartDate: convertDateForSave(
-        postData?.personalInterviewStartDate || null
-      ),
-      personalInterviewEndDate: convertDateForSave(
-        postData?.personalInterviewEndDate || null
-      ),
       admissionSession: selectedSession,
     };
+    if (payloadData.admissionType === "Rolling") {
+      postData = {
+        ...postData,
+        admissionTestStartDate: convertDateForSave(
+          postData?.admissionTestStartDate || null
+        ),
+        admissionTestEndDate: convertDateForSave(
+          postData?.admissionTestEndDate || null
+        ),
+        personalInterviewStartDate: convertDateForSave(
+          postData?.personalInterviewStartDate || null
+        ),
+        personalInterviewEndDate: convertDateForSave(
+          postData?.personalInterviewEndDate || null
+        ),
+      };
+    }
     delete postData?.isOpen;
     delete postData?.className;
     delete postData?.schoolName;
     delete postData?.classOrder;
     delete postData?.fee;
     console.log(postData);
-    // let apiCall;
-    // if (postData.length > 0) {
-    //   apiCall = saveClassAdmissionData(postData);
-    // } else {
-    //   apiCall = removeClassAdmissionData(selectedSession);
-    // }
-    // apiCall
-    //   .then(() => {
-    //     setFormData(formData.data);
-    //     setFieldData(formData.data);
-    //     setChangedData(formData.data);
-    //     toast.success("Admission Details are saved");
-    //   })
-    //   .catch((error) => {
-    //     toast.error("Error: Not able to save data");
-    //   });
+    let apiCall;
+    postData = [{ ...postData }];
+    apiCall = saveClassAdmissionData(postData);
+    apiCall
+      .then((data) => {
+        const saveData = formData.map((val, i) => {
+          if (i === index) {
+            return payloadData;
+          }
+          return val;
+        })
+        setFormData(saveData);
+        setFieldData(saveData);
+        setChangedData(saveData);
+        toast.success("Admission Details are saved");
+      })
+      .catch((error) => {
+        toast.error("Error: Not able to save data");
+      });
   };
 
   const saveRowData = (rowData, index, selectedSession) => {
-    if (validateField(rowData, index)) {
-      handleSubmitData(rowData, selectedSession);
+    if (validateField(rowData)) {
+      handleSubmitData(rowData, index, selectedSession);
     }
   };
   return (

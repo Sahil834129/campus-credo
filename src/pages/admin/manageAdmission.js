@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { toast } from "react-toastify";
 import { convertDate } from "../../utils/DateUtil";
 import { getCurrentModulePermission } from "../../utils/helper";
 import {
@@ -141,6 +140,7 @@ export const ManageAdmission = () => {
                         setFieldData={setFieldData}
                         fieldData={fieldData}
                         setChangedData={setChangedData}
+                        setFormData={setFormData}
                       />
                     ))}
                 </tbody>
