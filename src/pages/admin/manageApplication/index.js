@@ -165,6 +165,8 @@ export const ManageApplication = () => {
         handleClose={() => {
           setShowApplication(false);
           setSelectedApplicationId('');
+          fetchClassAdmissionSummary(classId, sessionValue);
+          fetchClassApplication(classId, sessionValue);
         }}
         applicationId={selectedApplicationId} />
     </Layout>
