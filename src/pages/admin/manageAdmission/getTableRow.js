@@ -74,6 +74,10 @@ export default function GetTableRow({
         isValid = false;
         errorsVal.formFee = "Application Fees required field";
       }
+      if (!data.formSubmissionStartDate || !data.formSubmissionEndDate) {
+        isValid = false;
+        errorsVal.applicationDate = "Application Date is required field";
+      }
       if (!data.registrationFee) {
         isValid = false;
         errorsVal.registrationFee = "Registration Fees required field";
@@ -225,7 +229,7 @@ export default function GetTableRow({
         />
         {errors?.vacantSeats && <span style={{ color: 'red' }}>{errors.vacantSeats}</span>}
       </td>
-      <td>
+      <td style={{ display: 'flex', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
         <DateRangePicker
           required
           dateRanges={[
@@ -271,6 +275,7 @@ export default function GetTableRow({
             );
           }}
         />
+        {errors?.applicationDate && <span style={{ color: 'red' }}>{errors.applicationDate}</span>}
       </td>
       <td>
         {admissionData.admissionType === 'Fixed' ?
