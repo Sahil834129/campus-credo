@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { convertDate } from "../../utils/DateUtil";
-import { getCurrentModulePermission } from "../../utils/helper";
+import { convertDate } from "../../../utils/DateUtil";
+import { getCurrentModulePermission } from "../../../utils/helper";
 import {
-  getClassAdmissionData, getClassAdmissionSessionData, removeClassAdmissionData, saveClassAdmissionData
-} from '../../utils/services';
+  getClassAdmissionData, getClassAdmissionSessionData
+} from '../../../utils/services';
 import GetTableRow from "./getTableRow";
-import Layout from './layout';
+import Layout from '../layout';
 
 const initialFormData = undefined;
 
@@ -30,27 +30,29 @@ export const ManageAdmission = () => {
       });
   };
 
-
+  const convertTableData = (response) => {
+    return response.map(val => {
+      val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
+      val.formSubmissionStartDate = convertDate(val?.formSubmissionStartDate || null);
+      val.admissionType = val?.admissionType || 'Fixed';
+      val.vacantSeats = val?.vacantSeats || '';
+      val.formSubmissionEndDate = convertDate(val?.formSubmissionEndDate || null);
+      val.admissionTestStartDate = convertDate(val?.admissionTestStartDate || null);
+      val.admissionTestEndDate = convertDate(val?.admissionTestEndDate || null);
+      val.personalInterviewStartDate =
+        convertDate(val?.personalInterviewStartDate || null);
+      val.personalInterviewEndDate = convertDate(val?.personalInterviewEndDate || null);
+      val.formFee = val?.formFee || null;
+      val.registrationFee = val?.registrationFee || null;
+      return val;
+    });
+  };
 
   const fetchClassAdmissionData = (session) => {
     getClassAdmissionData(session)
       .then(response => {
         if (response.status === 200) {
-          const data = response.data.map(val => {
-            val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
-            val.formSubmissionStartDate = convertDate(val?.formSubmissionStartDate || null);
-            val.admissionType = val?.admissionType || 'Fixed';
-            val.vacantSeats = val?.vacantSeats || '';
-            val.formSubmissionEndDate = convertDate(val?.formSubmissionEndDate || null);
-            val.admissionTestStartDate = convertDate(val?.admissionTestStartDate || null);
-            val.admissionTestEndDate = convertDate(val?.admissionTestEndDate || null);
-            val.personalInterviewStartDate =
-              convertDate(val?.personalInterviewStartDate || null);
-            val.personalInterviewEndDate = convertDate(val?.personalInterviewEndDate || null);
-            val.formFee = val?.formFee || null;
-            val.registrationFee = val?.registrationFee || null;
-            return val;
-          });
+          const data = convertTableData(response.data);
           setFormData(data.map(v => {
             return {
               ...v
@@ -150,6 +152,7 @@ export const ManageAdmission = () => {
                         setFieldData={setFieldData}
                         fieldData={fieldData}
                         setFormData={setFormData}
+                        convertTableData={convertTableData}
                       />
                     ))}
                 </tbody>
