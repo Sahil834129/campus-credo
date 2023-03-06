@@ -74,7 +74,7 @@ export default function GetTableRow({
         isValid = false;
         errorsVal.formFee = "Application Fees required field";
       }
-      if (!data.formSubmissionStartDate || !data.formSubmissionEndDate) {
+      if (data.admissionType === "Fixed" && (!data.formSubmissionStartDate || !data.formSubmissionEndDate)) {
         isValid = false;
         errorsVal.applicationDate = "Application Date is required field";
       }
@@ -101,6 +101,12 @@ export default function GetTableRow({
     if (payloadData.admissionType === "Rolling") {
       postData = {
         ...postData,
+        formSubmissionStartDate: convertDateForSave(
+          sessionStartDate || null
+        ),
+        formSubmissionEndDate: convertDateForSave(
+          sessionEndDate || null
+        ),
         admissionTestStartDate: convertDateForSave(
           postData?.admissionTestStartDate || null
         ),
