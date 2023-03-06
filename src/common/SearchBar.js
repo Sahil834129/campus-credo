@@ -77,7 +77,7 @@ const SearchBar = () => {
         filters.push({
             field: 'city',
             operator: 'EQUALS',
-            value: getLocalData("selectedLocation"),
+            value: selectedLocation,
         })
         try {
             const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});
