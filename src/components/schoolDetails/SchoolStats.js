@@ -48,7 +48,7 @@ const SchoolStats = (props) => {
           <div className="cell">
             <div className="title">Academic Session</div>
             <div className="particular">
-              {schoolDetails.admissionInfo?.admissionSession || "NA"}
+              {schoolDetails?.admissionInfo?.map((val)=><div>{val.admissionSession}</div>) || "NA"}
             </div>
           </div>
           <div className="cell">
@@ -68,11 +68,11 @@ const SchoolStats = (props) => {
           <div className="cell">
             <div className="title">Admission Status</div>
             <div className="particular">
-              {schoolDetails.admissionInfo
-                ? schoolDetails.admissionInfo.admissionStatus +
+              {schoolDetails.admissionInfo ? schoolDetails.admissionInfo?.map((val)=> <div>{ val.admissionStatus +
                   " For " +
-                  schoolDetails.admissionInfo.admissionSession
-                : "NA"}
+                  val.admissionSession
+               }</div>)  : "NA"
+               }
             </div>
           </div>
           <div className="cell">
