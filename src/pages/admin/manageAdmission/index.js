@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { convertDate } from "../../../utils/DateUtil";
-import { getCurrentModulePermission } from "../../../utils/helper";
+import { getCurrentModulePermission, getLocalData } from "../../../utils/helper";
 import {
   getClassAdmissionData, getClassAdmissionSessionData
 } from '../../../utils/services';
@@ -17,6 +17,8 @@ export const ManageAdmission = () => {
   const [fieldData, setFieldData] = useState(initialFormData);
   const [sessionValue, setSessionValue] = useState(null);
   const [sessionOption, setSessionOption] = useState([]);
+  const [sessionStartDate, setSessionStartDate] = useState(convertDate(getLocalData("sessionStartDate")));
+  const [sessionEndDate, setSessionEndDate] = useState(convertDate(getLocalData("sessionEndDate")));
 
 
   const fetchAdmissionSession = () => {
@@ -72,8 +74,14 @@ export const ManageAdmission = () => {
 
 
   useEffect(() => {
-    if (sessionValue !== null)
+    if (sessionValue !== null) {
       fetchClassAdmissionData(sessionValue);
+      const sesssionYears = sessionValue.split('-');
+      sessionStartDate.setFullYear(sesssionYears[0]);
+      sessionEndDate.setFullYear(sesssionYears[1]);
+      setSessionStartDate(sessionStartDate);
+      setSessionEndDate(sessionEndDate);
+    }
   }, [sessionValue]);
 
   useEffect(() => {
@@ -153,6 +161,8 @@ export const ManageAdmission = () => {
                         fieldData={fieldData}
                         setFormData={setFormData}
                         convertTableData={convertTableData}
+                        sessionStartDate={sessionStartDate}
+                        sessionEndDate={sessionEndDate}
                       />
                     ))}
                 </tbody>

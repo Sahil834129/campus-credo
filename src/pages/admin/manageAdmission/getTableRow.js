@@ -16,13 +16,13 @@ export default function GetTableRow({
   setFieldData,
   formData,
   setFormData,
+  sessionEndDate,
+  sessionStartDate,
   convertTableData
 }) {
 
   const admissionTypeOptions = ['Rolling', 'Fixed'];
   const [errors, setErros] = useState([]);
-  const sessionStartDate = convertDate(getLocalData("sessionStartDate"));
-  const sessionEndDate = convertDate(getLocalData("sessionEndDate"));
 
   const convertDateForSave = formDate => {
     let parseDate = null;
