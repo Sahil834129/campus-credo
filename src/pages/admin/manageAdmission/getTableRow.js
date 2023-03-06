@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import moment from "moment";
 import { Button, Form } from 'react-bootstrap';
 
-import { getCurrentSession, getLocalData } from "../../../utils/helper";
+import { getPastSession, getLocalData } from "../../../utils/helper";
 import DateRangePicker from "../../../common/DateRangePicker";
 import { convertDate } from "../../../utils/DateUtil";
 import { removeClassAdmissionData, saveClassAdmissionData } from "../../../utils/services";
@@ -395,14 +395,14 @@ export default function GetTableRow({
       <td>
         <Button
           className='save-btn'
-          disabled={!isWritePermission || sessionValue !== getCurrentSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          disabled={!isWritePermission || sessionValue === getPastSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { saveRowData(admissionData, index, sessionValue); }}
         >
           Save
         </Button>
         <Button
           className='delete-btn'
-          disabled={!isWritePermission || sessionValue !== getCurrentSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          disabled={!isWritePermission || sessionValue === getPastSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { deleteRowData(admissionData, index, sessionValue); }}
         >
           Delete

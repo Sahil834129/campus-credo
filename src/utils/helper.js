@@ -31,7 +31,7 @@ export const setLocalData = (key, value) => {
 export const logout = () => {
   resetUserLoginData();
   // window.location.reload(); 
-  window.location.href = '/'
+  window.location.href = '/';
 };
 
 export const resetUserLoginData = () => {
@@ -56,7 +56,7 @@ export const getLocalData = (key) => {
 };
 
 export const removeLocalDataItem = (key) => {
-   localStorage.removeItem(key);
+  localStorage.removeItem(key);
 };
 
 export const isLoggedIn = () => {
@@ -119,7 +119,7 @@ export function humanize(str, changeStatusVal) {
 }
 
 export function getPresentableRoleName(roleName) {
-  switch(roleName) {
+  switch (roleName) {
     case 'SR_FEE_MANAGER':
       return 'Sr. Fees Manager';
     case 'SR_ADMISSION_MANAGER':
@@ -127,7 +127,7 @@ export function getPresentableRoleName(roleName) {
     case 'FEE_MANAGER':
       return 'Fees Manager';
     default:
-      return humanize(roleName)
+      return humanize(roleName);
   }
 }
 
@@ -249,30 +249,30 @@ export const userCanNotApprove = () => {
   }
   return flag;
 };
-export const getStatusLabel=(status)=> {
-  switch(status) {
+export const getStatusLabel = (status) => {
+  switch (status) {
     case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
       return "Shortlisted for Personal Interview/Admission Test";
     case PARENT_APPLICATION_STATUS.SUBMITTED:
-        return "Application Submitted";
+      return "Application Submitted";
     case PARENT_APPLICATION_STATUS.UNDER_REVIEW:
-        return "Application Under Review";
+      return "Application Under Review";
     case PARENT_APPLICATION_STATUS.ACCEPTED:
-        return "Offer Accepted"
+      return "Offer Accepted";
     case PARENT_APPLICATION_STATUS.REJECTED:
-        return "Offer Declined";
+      return "Offer Declined";
     case PARENT_APPLICATION_STATUS.APPROVED:
-        return "Application Approved"
+      return "Application Approved";
     case PARENT_APPLICATION_STATUS.DECLINED:
-        return "Application Declined"
+      return "Application Declined";
     case PARENT_APPLICATION_STATUS.DENIED:
-        return "Offer Denied"
+      return "Offer Denied";
     default:
-      return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status))
+      return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status));
   }
-}
-export const getStatusLabelForSchool=(applicationStatus)=> {
-  switch(applicationStatus) {
+};
+export const getStatusLabelForSchool = (applicationStatus) => {
+  switch (applicationStatus) {
     case SCHOOL_APPLICATION_STATUS.AT_PI:
       return "AT/PI";
     case SCHOOL_APPLICATION_STATUS.RECEIVED:
@@ -290,14 +290,14 @@ export const getStatusLabelForSchool=(applicationStatus)=> {
     case SCHOOL_APPLICATION_STATUS.DECLINED:
       return "Application Declined";
     case SCHOOL_APPLICATION_STATUS.DENIED:
-        return "Offer Declined";
+      return "Offer Declined";
 
     default:
-      return humanize(applicationStatus , true);
+      return humanize(applicationStatus, true);
   }
-}
+};
 export const getActionButtonLabel = (applicationStatus) => {
-  switch(applicationStatus) {
+  switch (applicationStatus) {
     case SCHOOL_APPLICATION_STATUS.APPROVED:
       return "Approve";
     case SCHOOL_APPLICATION_STATUS.REVOKED:
@@ -305,15 +305,15 @@ export const getActionButtonLabel = (applicationStatus) => {
     case SCHOOL_APPLICATION_STATUS.DECLINED:
       return "Decline";
     case SCHOOL_APPLICATION_STATUS.UNDER_REVIEW:
-      return "Move to Under Review"
+      return "Move to Under Review";
     case SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW:
-      return "Move to Final Review"
+      return "Move to Final Review";
     case SCHOOL_APPLICATION_STATUS.AT_PI:
-      return "Shortlist for AT/PI"
+      return "Shortlist for AT/PI";
     default:
-      return humanize(applicationStatus, true)
+      return humanize(applicationStatus, true);
   }
-}
+};
 
 export const getCurretLocation = async () => {
   const data = await new Promise((res, rej) => {
@@ -332,43 +332,43 @@ export const getGeoLocationState = async () => {
   return permissions;
 };
 
- export const getCurrentSession = ()=>
- {
+export const getPastSession = () => {
   let currentYear = (new Date()).getFullYear();
- let startYear= currentYear;
-  let endYear= currentYear+1;
-    return `${startYear}-${endYear}`;
- }
- export const Pathnames =
- [
-  "/",
-  "/paymentHistory",
-   "/paymentCheckout",
-   "/selectedSchools",
-   "/manageChild",
-   "/userProfile",
-   "/manageProfile",
-   "/admissionForm",
-   "/manage-application" ,
-   "/manage-user",
-   "/manage-fees",
-   "/manage-admission",
-   "/termsAndConditions",
-   "/dashboard",
-   "/schools" ,
-   "/howItWorks",
-   "/aboutUs",
-   "/disclaimerPolicy",
-   "/termsOfService",
-   "/faqs",
-   "/contactUs" ,
-   "/user/reset/:token",
-   "/signIn",
-   "/signup",
-   "/privacyPolicy" ,
-   "/orderConfirm",
-   "/notFound" ,
-   "/schools/:id",
-   "/verifyPhone/:phone",
-   "/paymentFailed" 
- ]
+  let startYear = currentYear - 1;
+  let endYear = currentYear;
+  return `${startYear}-${endYear}`;
+};
+
+export const Pathnames =
+  [
+    "/",
+    "/paymentHistory",
+    "/paymentCheckout",
+    "/selectedSchools",
+    "/manageChild",
+    "/userProfile",
+    "/manageProfile",
+    "/admissionForm",
+    "/manage-application",
+    "/manage-user",
+    "/manage-fees",
+    "/manage-admission",
+    "/termsAndConditions",
+    "/dashboard",
+    "/schools",
+    "/howItWorks",
+    "/aboutUs",
+    "/disclaimerPolicy",
+    "/termsOfService",
+    "/faqs",
+    "/contactUs",
+    "/user/reset/:token",
+    "/signIn",
+    "/signup",
+    "/privacyPolicy",
+    "/orderConfirm",
+    "/notFound",
+    "/schools/:id",
+    "/verifyPhone/:phone",
+    "/paymentFailed"
+  ];
