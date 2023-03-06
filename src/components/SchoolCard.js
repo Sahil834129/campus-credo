@@ -64,7 +64,7 @@ const SchoolCard = (props) => {
     return (
         <>
             <Card className='school-card' style={{ cursor: "pointer" }} onClick={(e)=>handleViewDetails(school.schoolId, school.schoolName)}>
-                <SchoolCardHeader school={school}/>
+                <SchoolCardHeader school={school} distanceFilter={props.distanceFilter}/>
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Avg. Monthly Tuition Fees</div>

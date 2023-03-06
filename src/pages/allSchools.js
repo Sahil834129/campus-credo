@@ -5,13 +5,14 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
+import ConfirmDialog from "../common/ConfirmDialog";
 import Layout from "../common/layout";
 import { hideLoader, showLoader } from "../common/Loader";
 import SidebarFilter from "../common/SidebarFilter";
 import SchoolCardGrid from "../components/SchoolCardGrid";
 import { OPERATORS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { getLocalData, isEmpty, isLoggedIn, removeLocalDataItem } from "../utils/helper";
+import { getCurretLocation, getGeoLocationState, getLocalData, isEmpty, isLoggedIn, removeLocalDataItem, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const AllSchools = () => {
@@ -22,32 +23,54 @@ const AllSchools = () => {
 
   const [schoolList, setSchoolList] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
+  const [latLong, setLatLong] = useState({})
+  const [ grantLocationPermissionDialog , setGrantLocationPermissionDialog] = useState(false);
   const defaultLocation = useSelector(
     (state) => state.locationData.selectedLocation
   );
-
+const grantlocationMessage= "You have blocked Campuscredo from tracking your location. To use this, enable your location settings in browser.";
   const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
-  const geoLocation = useSelector((state) => state.locationData.geolocation);
+
+
+
+  const getCurrentLatLong= async()=>
+  {
+    const location = await getCurretLocation();
+    setLatLong(location);
+  }
   
   useEffect(() => {
+    getCurrentLatLong();
     getSchoolList();
      window.scrollTo(0, 0);
-  }, [location]);
+    
+  }, [selectedLocation]);
 
-  useEffect(() => {
-    window.scrollTo(0,0)
-  }, [])
+ const closeGrantLocationDialog =()=>
+ {
+  localStorage.removeItem("locationDialogPrompt");    
+  setGrantLocationPermissionDialog(false);
+ }
 
   const applyFilters = async (formFilter) => {
+    let locationPermission = await getGeoLocationState();
+    
+    if(!isEmpty(formFilter.distance) && locationPermission.state=== "denied" ){  
+         setGrantLocationPermissionDialog(true);
+         setLocalData("locationDialogPrompt", true);
+         return;
+      }
+      localStorage.removeItem("locationDialogPrompt");    
     try {
       showLoader(dispatch);
       setIsLoading(true)
       const response = await RESTClient.post(
         RestEndPoint.FIND_SCHOOLS,
-        prepareSchoolFilter(formFilter, geoLocation)
+        prepareSchoolFilter(formFilter)
       );
-      setSchoolList(response.data);
+      
+       setSchoolList(response.data);
       hideLoader(dispatch);
       setIsLoading(false)
     } catch (error) {
@@ -65,7 +88,7 @@ const AllSchools = () => {
     let filters = [];
     if (schoolName !== null && schoolName !== "")
       filters.push({ field: "name", operator: "LIKE", value: schoolName });
-    else filters = prepareSchoolFilter(filterFormData, geoLocation).filters;
+    else filters = prepareSchoolFilter(filterFormData).filters;
     try {
       showLoader(dispatch);
       setIsLoading(true)
@@ -88,7 +111,8 @@ const AllSchools = () => {
     }
   };
 
-  function prepareSchoolFilter(filterForm, geolocation) {
+  function prepareSchoolFilter(filterForm) {
+    console.log(selectedLocation,"ye schhols page per locatio minli h");
     const selectedFacilities = filterForm.facilities?.map((v) => v.value);
     const selectedExtracurriculars = filterForm.extracurriculars?.map(
       (v) => v.value
@@ -98,7 +122,8 @@ const AllSchools = () => {
     filters.push({
       field: "city",
       operator: OPERATORS.EQUALS,
-      value: selectedLocation,
+      // value: getLocalData("selectedLocation"),
+      value : selectedLocation,
     });
     if (filterForm.class)
       filters.push({
@@ -153,14 +178,15 @@ const AllSchools = () => {
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
-
-    if (geoLocation.cityName === selectedLocation) {
-      if (geoLocation.longitude)
+      
+      
+      if (latLong){
+        console.log(latLong);
         filterPayload["location"] = {
-          longitude: geoLocation.longitude,
-          latitude: geoLocation.latitude,
-        }
+          longitude: latLong.longitude,
+          latitude: latLong.latitude,
     }
+  }
     if (filterForm.distance) {
       filterPayload["radius"] = filterForm.distance;
     }
@@ -182,12 +208,18 @@ const AllSchools = () => {
             <Row className="content-section">
               <Breadcrumbs />
               <Col className="page-container">
-                <SchoolCardGrid schools={schoolList} isLoading={isLoading} />
+                <SchoolCardGrid schools={schoolList} isLoading={isLoading} distanceFilter={filterFormData.distance ? filterFormData.distance :""} />
               </Col>
             </Row>
           </Col>
         </Container>
       </section>
+      <ConfirmDialog
+        show={grantLocationPermissionDialog}
+        message={grantlocationMessage}
+        handleConfirm={closeGrantLocationDialog}
+        handleClose={closeGrantLocationDialog}
+      />
     </Layout>
   );
 };
