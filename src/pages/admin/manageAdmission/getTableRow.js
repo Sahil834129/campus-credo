@@ -1,12 +1,12 @@
-import { getCurrentSession, getLocalData } from "../../utils/helper";
-
-import { Button, Form } from 'react-bootstrap';
-import DateRangePicker from "../../common/DateRangePicker";
-import { convertDate } from "../../utils/DateUtil";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import moment from "moment";
-import { saveClassAdmissionData } from "../../utils/services";
+import { Button, Form } from 'react-bootstrap';
+
+import { getCurrentSession, getLocalData } from "../../../utils/helper";
+import DateRangePicker from "../../../common/DateRangePicker";
+import { convertDate } from "../../../utils/DateUtil";
+import { removeClassAdmissionData, saveClassAdmissionData } from "../../../utils/services";
 
 export default function GetTableRow({
   index,
@@ -15,7 +15,8 @@ export default function GetTableRow({
   isWritePermission,
   setFieldData,
   formData,
-  setFormData
+  setFormData,
+  convertTableData
 }) {
 
   const admissionTypeOptions = ['Rolling', 'Fixed'];
@@ -42,7 +43,7 @@ export default function GetTableRow({
   const disabledRow = (currentDate) => {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return currentDate ? (currentDate > now) : false;
+    return currentDate ? (currentDate < now) : false;
   };
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
@@ -72,6 +73,10 @@ export default function GetTableRow({
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Application Fees required field";
+      }
+      if (!data.formSubmissionStartDate || !data.formSubmissionEndDate) {
+        isValid = false;
+        errorsVal.applicationDate = "Application Date is required field";
       }
       if (!data.registrationFee) {
         isValid = false;
@@ -142,7 +147,17 @@ export default function GetTableRow({
   };
 
   const deleteRowData = (rowData, index, selectedSession) => {
-    console.log(rowData, index, selectedSession);
+    console.log(rowData?.classId, index, selectedSession);
+    removeClassAdmissionData(selectedSession, rowData?.classId)
+      .then(data => {
+        const deleteData = convertTableData(data?.data || []);
+        setFormData(deleteData.map(v => { return { ...v }; }));
+        setFieldData(deleteData.map(v => { return { ...v }; }));
+        toast.success("Admission Details is Deleted");
+      })
+      .catch((error) => {
+        toast.error("Error: Not able to delete data");
+      });
   };
 
   return (
@@ -214,7 +229,7 @@ export default function GetTableRow({
         />
         {errors?.vacantSeats && <span style={{ color: 'red' }}>{errors.vacantSeats}</span>}
       </td>
-      <td>
+      <td style={{ display: 'flex', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
         <DateRangePicker
           required
           dateRanges={[
@@ -260,6 +275,7 @@ export default function GetTableRow({
             );
           }}
         />
+        {errors?.applicationDate && <span style={{ color: 'red' }}>{errors.applicationDate}</span>}
       </td>
       <td>
         {admissionData.admissionType === 'Fixed' ?
@@ -357,7 +373,6 @@ export default function GetTableRow({
           name={`${index}.registrationFee`}
           value={admissionData?.registrationFee || ''}
           disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-
           onPaste={e => e.preventDefault()}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
           onChange={e => {
@@ -374,14 +389,14 @@ export default function GetTableRow({
       <td>
         <Button
           className='save-btn'
-          disabled={!isWritePermission || sessionValue !== getCurrentSession()}
+          disabled={!isWritePermission || sessionValue !== getCurrentSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { saveRowData(admissionData, index, sessionValue); }}
         >
           Save
         </Button>
         <Button
           className='delete-btn'
-          disabled={!isWritePermission || sessionValue !== getCurrentSession()}
+          disabled={!isWritePermission || sessionValue !== getCurrentSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { deleteRowData(admissionData, index, sessionValue); }}
         >
           Delete
