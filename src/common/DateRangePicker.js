@@ -30,7 +30,7 @@ function DateRangePicker({
       endDate={dateRanges[1]}
       minDate={minDate || null}
       excludeDates={[minDate]}
-      placeholderText={'Select Date Range'} 
+      // placeholderText={'Select Date Range'} 
       onChange={update => {
         updateDateRange(update);
       }}
