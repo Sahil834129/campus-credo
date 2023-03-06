@@ -1,12 +1,25 @@
-import React from "react";
+import { isEmpty } from "lodash";
+import React, { useEffect, useState } from "react";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import schoolpic01 from "../assets/img/school-picture/boarding-icon.jpg";
+import { getGeoLocationState, getLocalData } from "../utils/helper";
 import { baseURL } from "../utils/RestClient";
 
 const SchoolCardHeader = (props) => {
     const school = props.school;
+const [location, setLocation] = useState();
+    useEffect(() => {
+        gettingLocationStatus();
+    }, [location])
+    
+
+    const gettingLocationStatus = async ()=>{
+        let locationPopupstate = await getGeoLocationState();
+        setLocation(locationPopupstate.state);
+        
+    }
     return (
         <Card.Body className='school-info-main'>
             <Row className='info-item school-logo-wrap'>
@@ -28,7 +41,8 @@ const SchoolCardHeader = (props) => {
                         <div className='loc-item'>
                             <span className='region'>{school.addressLine1},</span><span className='city'>{school.city}</span>
                         </div>
-                        <span className='loc-item distance'>({school.distance} km away)</span>
+                        <span className='loc-item distance'>{!isEmpty(props.distanceFilter) && ! getLocalData("locationDialogPrompt")
+                        && location !== "denied" ? <span> {school.distance } km away </span>: ""} </span>
                     </div>
                 </div>
             </Row>
