@@ -35,13 +35,7 @@ export const logout = () => {
 };
 
 export const resetUserLoginData = () => {
-  if(getLocalData("cityNotFoundpopup"))
- {
-   let cityNotFoundpopup= getLocalData("cityNotFoundpopup");
   localStorage.clear();
-  setLocalData("cityNotFoundpopup",cityNotFoundpopup);
- }
- else localStorage.clear();
 };
 
 export const setUserLoginData = (loginData) => {

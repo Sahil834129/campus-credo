@@ -35,7 +35,7 @@ const PageContent = {
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/schools', title: 'Schools' },
     // { ref: '/howItWorks', title: 'How It Works' },
-    { ref: '/FAQs', title: "FAQ's" }
+    { ref: '/faqs', title: "FAQ's" }
   ],
   CUSTOM_LINK_TITLES: {
     "faqs":"FAQ's",
