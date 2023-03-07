@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link, useLocation} from "react-router-dom";
-import Row from 'react-bootstrap/Row';
+import React, { useCallback, useEffect, useState } from "react";
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import RestEndPoint from "../redux/constants/RestEndpoints";
+import { getLocalData, isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import SchoolCard from "./SchoolCard";
-import { useSelector } from "react-redux";
-import { getLocalData } from "../utils/helper";
 
 const NearBySchools = () => {
   const location = useLocation();
     const [nearBySchools, setNearBySchools] = useState([]);
-    const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
+    // const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
+    const defaultLocation = useSelector((state) => state.locationData.selectedLocation);
+    const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
 
     const queryParams = new URLSearchParams(location.search);
     const schoolId = getSchoolIdFromURL();
@@ -37,7 +39,7 @@ const NearBySchools = () => {
     const getNearBySchools = useCallback(async childId => {
         try {
           const response = await RESTClient.get(
-            RestEndPoint.FIND_NEARBY_SCHOOL + `/${schoolId}`
+            RestEndPoint.POPULAR_SCHOOL + `/${selectedLocation}`
           )
           if(response.data!==""){
             setNearBySchools(response.data.slice(1,4));
@@ -51,7 +53,7 @@ const NearBySchools = () => {
         <Row className='content-section'>
             <div className='sidepanel-title'>
                 <div className='cell left'>
-                    <h4>Nearby Schools</h4>
+                    <h4>Popular Schools</h4>
                 </div>
                 <div className='cell right'>
                     <Link to='/schools' state={{data: {

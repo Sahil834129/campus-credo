@@ -317,12 +317,17 @@ export const getActionButtonLabel = (applicationStatus) => {
 
 export const getCurretLocation = async () => {
   const data = await new Promise((res, rej) => {
-    navigator.geolocation.getCurrentPosition(res, rej);
-  }).then(val => {
-    return {
-      latitude: val.coords.latitude,
-      longitude: val.coords.longitude
-    };
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        res({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (error) => {
+        rej(error);
+      }
+    );
   });
   return data;
 };
