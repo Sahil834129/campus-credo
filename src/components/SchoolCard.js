@@ -85,8 +85,10 @@ const SchoolCard = (props) => {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
                                      <>
-                                     <span className='session-title'>{admissionRow.admissionStatus} for {admissionRow.admissionSession} </span>
-                                     <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
+                                     <div className="session-info-outer">
+                                        <span className='session-title'>{admissionRow.admissionStatus} for {admissionRow.admissionSession} </span>
+                                        <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
+                                     </div>
                                      </>
                               )
                               } ) )  : 'Closed'
