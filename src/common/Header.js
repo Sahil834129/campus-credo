@@ -6,16 +6,16 @@ import SearchBar from "./SearchBar";
 const Header = () => {
     return (
         <header className="header">
-            <div className="common-header">
-                <MenuBar/>
-                <SearchBar/>
-            </div>
-            
-            <div className="mobile-header">
-                <MobileMenuBar/>
-            </div>
+            {window?.innerWidth >= 1199 && <div className="common-header">
+                <MenuBar />
+                <SearchBar />
+            </div>}
+
+            {window?.innerWidth <= 1199 && <div className="mobile-header">
+                <MobileMenuBar />
+            </div>}
         </header>
-        
+
     );
 };
 export default Header;
