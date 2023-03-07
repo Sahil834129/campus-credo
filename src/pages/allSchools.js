@@ -55,8 +55,7 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
 
   const applyFilters = async (formFilter) => {
     let locationPermission = await getGeoLocationState();
-    
-    if(!isEmpty(formFilter.distance) && locationPermission.state=== "denied" ){  
+    if(!isEmpty(formFilter.distance)  && !isNaN(formFilter.distance) && locationPermission.state=== "denied" ){  
          setGrantLocationPermissionDialog(true);
          setLocalData("locationDialogPrompt", true);
          return;
@@ -112,7 +111,6 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
   };
 
   function prepareSchoolFilter(filterForm) {
-    console.log(selectedLocation,"ye schhols page per locatio minli h");
     const selectedFacilities = filterForm.facilities?.map((v) => v.value);
     const selectedExtracurriculars = filterForm.extracurriculars?.map(
       (v) => v.value
@@ -181,7 +179,6 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
       
       
       if (latLong){
-        console.log(latLong);
         filterPayload["location"] = {
           longitude: latLong.longitude,
           latitude: latLong.latitude,
