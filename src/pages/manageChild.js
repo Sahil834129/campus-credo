@@ -15,8 +15,9 @@ import AddChildDialog from '../dialogs/addChild';
 import { getChildsList } from '../redux/actions/childAction';
 import RestEndPoint from '../redux/constants/RestEndpoints';
 import PageContent from '../resources/pageContent';
-import { isLoggedIn } from '../utils/helper';
+import { isEmpty, isLoggedIn } from '../utils/helper';
 import RESTClient from '../utils/RestClient';
+import NoRecordsFound from '../common/NoRecordsFound';
 
 const ManageChild = () => {
     const dispatch = useDispatch()
@@ -99,6 +100,7 @@ const ManageChild = () => {
                                             <th>Action</th>
                                         </tr>
                                     </thead>
+                                    {!isEmpty(childs)?
                                     <tbody>
                                         {
                                             childs.map((child, index) => {
@@ -117,7 +119,7 @@ const ManageChild = () => {
                                                 </tr>
                                             })
                                         }
-                                    </tbody>
+                                    </tbody>:<NoRecordsFound message="No Child Found."/>}
                                 </Table>
                                 </div>
                             </Col>

@@ -17,64 +17,62 @@ import RESTClient from "../utils/RestClient";
 
 const AllSchools = () => {
   const dispatch = useDispatch();
-  const  location  = useLocation();
+  const location = useLocation();
   const { state } = useLocation();
   const { data } = state || {};
 
   const [schoolList, setSchoolList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const [latLong, setLatLong] = useState({})
-  const [ grantLocationPermissionDialog , setGrantLocationPermissionDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [latLong, setLatLong] = useState({});
+  const [grantLocationPermissionDialog, setGrantLocationPermissionDialog] = useState(false);
   const defaultLocation = useSelector(
     (state) => state.locationData.selectedLocation
   );
-const grantlocationMessage= "You have blocked Campuscredo from tracking your location. To use this, enable your location settings in browser.";
+  const grantlocationMessage = "You have blocked Campuscredo from tracking your location. To use this, enable your location settings in browser.";
   const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
 
 
 
-  const getCurrentLatLong= async()=>
-  {
+  const getCurrentLatLong = async () => {
     const location = await getCurretLocation();
     setLatLong(location);
-  }
-  
+  };
+
   useEffect(() => {
     getCurrentLatLong();
     getSchoolList();
-     window.scrollTo(0, 0);
-    
-  }, [selectedLocation]);
+    window.scrollTo(0, 0);
 
- const closeGrantLocationDialog =()=>
- {
-  localStorage.removeItem("locationDialogPrompt");    
-  setGrantLocationPermissionDialog(false);
- }
+  }, [location]);
+
+  const closeGrantLocationDialog = () => {
+    localStorage.removeItem("locationDialogPrompt");
+    setGrantLocationPermissionDialog(false);
+  };
 
   const applyFilters = async (formFilter) => {
     let locationPermission = await getGeoLocationState();
-    if(!isEmpty(formFilter.distance)  && !isNaN(formFilter.distance) && locationPermission.state=== "denied" ){  
-         setGrantLocationPermissionDialog(true);
-         setLocalData("locationDialogPrompt", true);
-         return;
-      }
-      localStorage.removeItem("locationDialogPrompt");    
+    if (!isEmpty(formFilter.distance) && !isNaN(formFilter.distance) && locationPermission.state === "denied") {
+      setGrantLocationPermissionDialog(true);
+      setLocalData("locationDialogPrompt", true);
+      return;
+    }
+    localStorage.removeItem("locationDialogPrompt");
     try {
       showLoader(dispatch);
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await RESTClient.post(
         RestEndPoint.FIND_SCHOOLS,
         prepareSchoolFilter(formFilter)
       );
-      
-       setSchoolList(response.data);
+
+      setSchoolList(response.data);
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     }
     window.scrollTo(0, 0);
   };
@@ -90,23 +88,23 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
     else filters = prepareSchoolFilter(filterFormData).filters;
     try {
       showLoader(dispatch);
-      setIsLoading(true)
-      let param={};
-      param.filters=filters;
+      setIsLoading(true);
+      let param = {};
+      param.filters = filters;
 
-      if(!isEmpty(data) && !isEmpty(data.schoolDetailsLatitude) && !isEmpty(data.schoolDetailsLongitude)) {
-        let location={};
-        location.latitude=data.schoolDetailsLatitude;
-        location.longitude=data.schoolDetailsLongitude;
-        param.location=location;
+      if (!isEmpty(data) && !isEmpty(data.schoolDetailsLatitude) && !isEmpty(data.schoolDetailsLongitude)) {
+        let location = {};
+        location.latitude = data.schoolDetailsLatitude;
+        location.longitude = data.schoolDetailsLongitude;
+        param.location = location;
       }
       const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, param);
       setSchoolList(response.data);
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -121,7 +119,7 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
       field: "city",
       operator: OPERATORS.EQUALS,
       // value: getLocalData("selectedLocation"),
-      value : selectedLocation,
+      value: selectedLocation,
     });
     if (filterForm.class)
       filters.push({
@@ -176,17 +174,19 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
-      
-      
-      if (latLong){
-        filterPayload["location"] = {
-          longitude: latLong.longitude,
-          latitude: latLong.latitude,
-    }
-  }
-    if (filterForm.distance) {
-      filterPayload["radius"] = filterForm.distance;
-    }
+
+      if(getLocalData("cities").includes(getLocalData("currentLocation"))) {
+        if (filterForm.distance) {
+          filterPayload["radius"] = filterForm.distance;
+        }
+        if (!isEmpty(latLong) && !isEmpty(latLong.longitude) && !isEmpty(latLong.latitude)) {
+          filterPayload["location"] = {
+            longitude: latLong.longitude,
+            latitude: latLong.latitude,
+          };
+        } 
+      } 
+
     filterPayload["filters"] = filters;
     return filterPayload;
   }
@@ -205,7 +205,7 @@ const grantlocationMessage= "You have blocked Campuscredo from tracking your loc
             <Row className="content-section">
               <Breadcrumbs />
               <Col className="page-container">
-                <SchoolCardGrid schools={schoolList} isLoading={isLoading} distanceFilter={filterFormData.distance ? filterFormData.distance :""} />
+                <SchoolCardGrid schools={schoolList} isLoading={isLoading} distanceFilter={filterFormData.distance ? filterFormData.distance : ""} />
               </Col>
             </Row>
           </Col>

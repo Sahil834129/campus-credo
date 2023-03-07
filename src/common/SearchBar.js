@@ -38,13 +38,6 @@ const SearchBar = () => {
 
     }, [dispatch]);
 
-    useEffect(() => {
-        return () => {
-            window.addEventListener("beforeunload", function (e) {
-                localStorage.clear();
-            });
-        };
-    });
 
     const catchLocationerror = async () => {
         // let locationPopupstate = await getGeoLocationState();
@@ -52,16 +45,16 @@ const SearchBar = () => {
         try {
             const location = await getCurretLocation();
             const response = await RESTClient.post(RestEndPoint.GET_CITY_NAME, location);
-            const cities = await RESTClient.get(RestEndPoint.GET_CITIES);
-            if (cities.data.listOfCity.includes(response.data.cityName)) {
+           // const cities = await RESTClient.get(RestEndPoint.GET_CITIES);
+            if (cities.includes(response.data.cityName)) {
                 localStorage.removeItem("cityNotFoundPopup");
                 dispatch(setSelectedLocation(response.data.cityName));
                 setLocalData("selectedLocation", response.data.cityName);
             } else {
-                dispatch(setSelectedLocation(cities?.data?.listOfCity[0]));
+                dispatch(setSelectedLocation(cities[0]));
                 setShowCityNotFoundDialog(true);
                 //setLocalData("cityNotFoundPopup", true);
-                setLocalData("selectedLocation", cities?.data?.listOfCity[0]);
+                setLocalData("selectedLocation", cities[0]);
             }
         } catch (error) {
             if (error.code === 1) {
@@ -90,6 +83,7 @@ const SearchBar = () => {
         try {
             const response = await RESTClient.get(RestEndPoint.GET_CITIES);
             setCities(response.data.listOfCity);
+            setLocalData("cities",response.data.listOfCity)
         } catch (e) { }
     };
 

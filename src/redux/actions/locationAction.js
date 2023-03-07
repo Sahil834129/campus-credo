@@ -21,6 +21,7 @@ export const setGeoLocation = () => {
         const cities =await RESTClient.get(RestEndPoint.GET_CITIES); 
         RESTClient.post(RestEndPoint.GET_CITY_NAME, currentLocation)
             .then((response) => {
+                setLocalData("currentLocation",response.data.cityName);
                 if(cities.data.listOfCity.includes(response.data.cityName)){
                 dispatch({ type: ActionTypes.SET_GEO_LOCATION, payload: response.data });
                 setLocalData("selectedLocation",response.data.cityName);
