@@ -15,6 +15,7 @@ export default function GetTableRow({
   isWritePermission,
   setFieldData,
   formData,
+  fieldData,
   setFormData,
   sessionEndDate,
   sessionStartDate,
@@ -86,6 +87,7 @@ export default function GetTableRow({
       return isValid;
     }
   };
+
   const handleSubmitData = (payloadData, index, selectedSession) => {
     let postData = JSON.parse(JSON.stringify(payloadData));
     postData = {
@@ -131,13 +133,18 @@ export default function GetTableRow({
     apiCall = saveClassAdmissionData(postData);
     apiCall
       .then((data) => {
-        const saveData = formData.map((val, i) => {
+        const saveData = fieldData.map((val, i) => {
           if (i === index) {
             return payloadData;
           }
           return val;
         });
-        setFormData(saveData.map(v => { return { ...v }; }));
+        setFormData(formData.map((v, i) => {
+          if (i === index) {
+            return { ...payloadData };
+          }
+          return { ...v };
+        }));
         setFieldData(saveData.map(v => { return { ...v }; }));
         toast.success("Admission Details are saved");
       })
