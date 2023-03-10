@@ -32,21 +32,25 @@ export const ManageAdmission = () => {
       });
   };
 
+  const convertRowData = val => {
+    val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
+    val.formSubmissionStartDate = convertDate(val?.formSubmissionStartDate || null);
+    val.admissionType = val?.admissionType || 'Fixed';
+    val.vacantSeats = val?.vacantSeats || '';
+    val.formSubmissionEndDate = convertDate(val?.formSubmissionEndDate || null);
+    val.admissionTestStartDate = convertDate(val?.admissionTestStartDate || null);
+    val.admissionTestEndDate = convertDate(val?.admissionTestEndDate || null);
+    val.personalInterviewStartDate =
+      convertDate(val?.personalInterviewStartDate || null);
+    val.personalInterviewEndDate = convertDate(val?.personalInterviewEndDate || null);
+    val.formFee = val?.formFee || null;
+    val.registrationFee = val?.registrationFee || null;
+    return val;
+  };
+
   const convertTableData = (response) => {
     return response.map(val => {
-      val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
-      val.formSubmissionStartDate = convertDate(val?.formSubmissionStartDate || null);
-      val.admissionType = val?.admissionType || 'Fixed';
-      val.vacantSeats = val?.vacantSeats || '';
-      val.formSubmissionEndDate = convertDate(val?.formSubmissionEndDate || null);
-      val.admissionTestStartDate = convertDate(val?.admissionTestStartDate || null);
-      val.admissionTestEndDate = convertDate(val?.admissionTestEndDate || null);
-      val.personalInterviewStartDate =
-        convertDate(val?.personalInterviewStartDate || null);
-      val.personalInterviewEndDate = convertDate(val?.personalInterviewEndDate || null);
-      val.formFee = val?.formFee || null;
-      val.registrationFee = val?.registrationFee || null;
-      return val;
+      return convertRowData(val);
     });
   };
 
@@ -160,7 +164,7 @@ export const ManageAdmission = () => {
                         setFieldData={setFieldData}
                         fieldData={fieldData}
                         setFormData={setFormData}
-                        convertTableData={convertTableData}
+                        convertRowData={convertRowData}
                         sessionStartDate={sessionStartDate}
                         sessionEndDate={sessionEndDate}
                       />
