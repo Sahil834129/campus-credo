@@ -127,6 +127,7 @@ export const ManageApplication = () => {
             classId={classId}
             setClassId={setClassId}
             setRowsData={setRowsData}
+            sessionValue={sessionValue}
             callAllApi={callAllApi}
           />
           {!isLoading && <ShowApplications
