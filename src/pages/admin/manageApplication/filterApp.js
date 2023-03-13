@@ -5,7 +5,7 @@ import MultiRangeSliderView from "../../../common/MultiRangeSlider";
 import { OPERATORS } from '../../../constants/app';
 import { applicationfilterData } from '../../../utils/services';
 
-export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi }) => {
+export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi, sessionValue }) => {
   const intialValue = {
     grade: '',
     gradeOption: null,
@@ -45,7 +45,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     setGrade(intialValue.grade);
     setTransport(intialValue.transport);
     setBoarding(intialValue.boarding);
-    callAllApi(1);
+    callAllApi(1, sessionValue);
   };
 
   const handleApply = () => {

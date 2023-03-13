@@ -44,6 +44,7 @@ export default function OpenModal({
   classId,
   setApiError,
   atPiData,
+  sessionValue,
   isAtPiData
 }) {
   const [remark, setRemarks] = useState('');
@@ -52,14 +53,14 @@ export default function OpenModal({
   const [minDate, setMinDate] = useState(null);
   const [maxDate, setMaxDate] = useState(null);
   const [atPiDate, setATPIDate] = useState(null);
-  const [validationErrors, setValidationErrors] = useState({})
+  const [validationErrors, setValidationErrors] = useState({});
   const handleClose = () => {
     setRemarks('');
     setApplicationId('');
     setApplicationStatus('');
     setATPIDate(null);
     setShow(false);
-    setValidationErrors({})
+    setValidationErrors({});
   };
 
   const handleSubmit = (note, status, appId, selectDate) => {
@@ -68,7 +69,7 @@ export default function OpenModal({
       applicationStatus: status,
       remarks: note,
     };
-    
+
     if (status === SCHOOL_APPLICATION_STATUS.AT_PI) {
       if (selectDate) {
         const apiDate = moment(selectDate).format('DD/MM/YYYY H:mm');
@@ -77,15 +78,16 @@ export default function OpenModal({
           applicantATPITimeSlot: apiDate
         };
       } else {
-        setValidationErrors( val => {
-            return {...val, 
-              'atPiDate': 'Required *'
-            }
-        })
-        return
+        setValidationErrors(val => {
+          return {
+            ...val,
+            'atPiDate': 'Required *'
+          };
+        });
+        return;
       }
     }
-    
+
     if (isBulkOperation) {
       payloadData = {
         applicationIdList: appId,
@@ -100,14 +102,14 @@ export default function OpenModal({
           } else {
             setErrorList({});
             setShowAlert(false);
-            callAllApi(classId);
+            callAllApi(classId, sessionValue);
           }
 
         });
     } else {
       updateApplicationStatus(payloadData)
         .then(response => {
-          callAllApi(classId);
+          callAllApi(classId, sessionValue);
         })
         .catch(res => {
           const messageData = res?.response?.data?.apierror?.message;
@@ -174,7 +176,7 @@ export default function OpenModal({
         message={''}
         handleClose={() => {
           setShowAlert(false);
-          callAllApi(classId);
+          callAllApi(classId, sessionValue);
         }}>
         <ShowWarningMessage errorList={errorList} />
       </AlertDialog>

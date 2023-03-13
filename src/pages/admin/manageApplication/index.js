@@ -127,6 +127,7 @@ export const ManageApplication = () => {
             classId={classId}
             setClassId={setClassId}
             setRowsData={setRowsData}
+            sessionValue={sessionValue}
             callAllApi={callAllApi}
           />
           {!isLoading && <ShowApplications
@@ -157,6 +158,7 @@ export const ManageApplication = () => {
             setApiError={setApiError}
             isAtPiData={atPiData !== null}
             atPiData={atPiData}
+            sessionValue={sessionValue}
           />
         </div>
       </div>

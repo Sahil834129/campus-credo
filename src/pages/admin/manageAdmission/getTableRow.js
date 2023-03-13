@@ -65,23 +65,45 @@ export default function GetTableRow({
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
       if (data.vacantSeats === "") {
-        isValid = false;
         errorsVal.vacantSeats = "Total seats required field";
+        isValid = false;
+      } else if (data.vacantSeats == 0) {
+        errorsVal.vacantSeats = "Total seats must be gretaer than 0";
+        isValid = false;
       } else if (vacantSeats > data.capacity) {
         isValid = false;
         errorsVal.vacantSeats = "Total seats must be less than Capacity " + data?.capacity;
       }
+      console.log(data);
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Application Fees required field";
+      } else if (parseInt(data.formFee) <= 0) {
+        isValid = false;
+        errorsVal.formFee = "Application Fees must be greater than 0";
       }
       if (data.admissionType === "Fixed" && (!data.formSubmissionStartDate || !data.formSubmissionEndDate)) {
         isValid = false;
         errorsVal.applicationDate = "Application Date is required field";
       }
+      if (data.personalInterviewStartDate && !data.personalInterviewEndDate) {
+        isValid = false;
+        errorsVal.personalInterview = "End Date is required field";
+      } else {
+        errorsVal.personalInterview = "";
+      }
+      if (data.admissionTestStartDate && !data.admissionTestEndDate) {
+        isValid = false;
+        errorsVal.admissionTest = "End Date is required field";
+      } else {
+        errorsVal.admissionTest = "";
+      }
       if (!data.registrationFee) {
         isValid = false;
         errorsVal.registrationFee = "Registration Fees required field";
+      } else if (parseInt(data.registrationFee) <= 0) {
+        isValid = false;
+        errorsVal.registrationFee = "Registration Fees must be greater than 0";
       }
       setErros(errorsVal);
       return isValid;
@@ -100,15 +122,9 @@ export default function GetTableRow({
       ),
       admissionSession: selectedSession,
     };
-    if (payloadData.admissionType === "Rolling") {
+    if (payloadData.admissionType === "Fixed") {
       postData = {
         ...postData,
-        formSubmissionStartDate: convertDateForSave(
-          sessionStartDate || null
-        ),
-        formSubmissionEndDate: convertDateForSave(
-          sessionEndDate || null
-        ),
         admissionTestStartDate: convertDateForSave(
           postData?.admissionTestStartDate || null
         ),
@@ -122,6 +138,11 @@ export default function GetTableRow({
           postData?.personalInterviewEndDate || null
         ),
       };
+      if (postData?.admissionTestStartDate || postData?.personalInterviewStartDate) {
+        postData.aTPI = true;
+      } else {
+        postData.aTPI = false;
+      }
     }
     delete postData?.isOpen;
     delete postData?.className;
@@ -253,7 +274,7 @@ export default function GetTableRow({
         />
         {errors?.vacantSeats && <span style={{ color: 'red' }}>{errors.vacantSeats}</span>}
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', flexDirection: (errors?.applicationDate ? 'column' : 'row') }}>
         <DateRangePicker
           required
           dateRanges={[
@@ -301,29 +322,32 @@ export default function GetTableRow({
         />
         {errors?.applicationDate && <span style={{ color: 'red' }}>{errors.applicationDate}</span>}
       </td>
-      <td>
+      <td style={{ display: 'flex', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
         {admissionData.admissionType === 'Fixed' ?
-          <DateRangePicker
-            dateRanges={[
-              admissionData?.admissionTestStartDate ||
-              null,
-              admissionData?.admissionTestEndDate ||
-              null
-            ]}
-            dateRangeValue={[
-              formData[index]?.admissionTestStartDate,
-              formData[index]?.admissionTestEndDate
-            ]}
-            fieldName={[
-              `${index}.admissionTestStartDate`,
-              `${index}.admissionTestEndDate`
-            ]}
-            setFieldData={setFieldData}
-            minDate={admissionData?.formSubmissionEndDate}
-            handleData={handleData}
-            disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-
-          /> : (
+          <>
+            <DateRangePicker
+              dateRanges={[
+                admissionData?.personalInterviewStartDate ||
+                null,
+                admissionData?.personalInterviewEndDate ||
+                null
+              ]}
+              dateRangeValue={[
+                formData[index]?.personalInterviewStartDate,
+                formData[index]?.personalInterviewEndDate
+              ]}
+              fieldName={[
+                `${index}.personalInterviewStartDate`,
+                `${index}.personalInterviewEndDate`
+              ]}
+              setFieldData={setFieldData}
+              minDate={admissionData?.formSubmissionEndDate}
+              handleData={handleData}
+              disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+            />
+            {errors?.personalInterview && <span style={{ color: 'red' }}>{errors.personalInterview}</span>}
+          </>
+          : (
             <>
               <Form.Check
                 checked={admissionData?.aTPI}
@@ -331,28 +355,33 @@ export default function GetTableRow({
             </>
           )}
       </td>
-      <td>
+      <td style={{ display: 'flex', flexDirection: (errors?.admissionTest ? 'column' : 'row') }}>
         {admissionData.admissionType === 'Fixed' ?
-          <DateRangePicker
-            dateRanges={[
-              admissionData?.personalInterviewStartDate ||
-              null,
-              admissionData?.personalInterviewEndDate ||
-              null
-            ]}
-            dateRangeValue={[
-              formData[index]?.personalInterviewStartDate,
-              formData[index]?.personalInterviewEndDate
-            ]}
-            fieldName={[
-              `${index}.personalInterviewStartDate`,
-              `${index}.personalInterviewEndDate`
-            ]}
-            setFieldData={setFieldData}
-            minDate={admissionData?.formSubmissionEndDate}
-            handleData={handleData}
-            disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          /> : <>
+          <>
+            <DateRangePicker
+              dateRanges={[
+                admissionData?.admissionTestStartDate ||
+                null,
+                admissionData?.admissionTestEndDate ||
+                null
+              ]}
+              dateRangeValue={[
+                formData[index]?.admissionTestStartDate,
+                formData[index]?.admissionTestEndDate
+              ]}
+              fieldName={[
+                `${index}.admissionTestStartDate`,
+                `${index}.admissionTestEndDate`
+              ]}
+              setFieldData={setFieldData}
+              minDate={admissionData?.formSubmissionEndDate}
+              handleData={handleData}
+              disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+
+            />
+            {errors?.admissionTest && <span style={{ color: 'red' }}>{errors.admissionTest}</span>}
+          </>
+          : <>
             <Form.Check
               checked={admissionData?.aTPI}
               disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
