@@ -19,7 +19,7 @@ export default function GetTableRow({
   setFormData,
   sessionEndDate,
   sessionStartDate,
-  convertTableData
+  convertRowData
 }) {
 
   const admissionTypeOptions = ['Rolling', 'Fixed'];
@@ -159,16 +159,27 @@ export default function GetTableRow({
     }
   };
 
-  const deleteRowData = (rowData, index, selectedSession) => {
-    console.log(rowData?.classId, index, selectedSession);
+  const deleteRowData = (rowData, tableData, selectedSession) => {
     removeClassAdmissionData(selectedSession, rowData?.classId)
       .then(data => {
-        const deleteData = convertTableData(data?.data || []);
-        setFormData(deleteData.map(v => { return { ...v }; }));
-        setFieldData(deleteData.map(v => { return { ...v }; }));
+        const deletedData = (data.data).find(val => val.classId === rowData?.classId);
+        const saveData = tableData.map((val, i) => {
+          if (val.classId === rowData?.classId) {
+            return { ...convertRowData(deletedData) };
+          }
+          return val;
+        });
+        setFormData(formData.map((v, i) => {
+          if (v.classId === rowData?.classId) {
+            return { ...convertRowData(deletedData) };
+          }
+          return { ...v };
+        }));
+        setFieldData(saveData.map(v => { return { ...v }; }));
         toast.success("Admission Details is Deleted");
       })
       .catch((error) => {
+        console.log(error);
         toast.error("Error: Not able to delete data");
       });
   };
@@ -410,7 +421,7 @@ export default function GetTableRow({
         <Button
           className='delete-btn'
           disabled={!isWritePermission || sessionValue === getPastSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          onClick={() => { deleteRowData(admissionData, index, sessionValue); }}
+          onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }}
         >
           Delete
         </Button>
