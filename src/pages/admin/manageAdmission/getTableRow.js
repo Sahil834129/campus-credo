@@ -101,7 +101,7 @@ export default function GetTableRow({
       if (!data.registrationFee) {
         isValid = false;
         errorsVal.registrationFee = "Registration Fees required field";
-      } else if (parseInt(data.registrationFee) >= 0) {
+      } else if (parseInt(data.registrationFee) <= 0) {
         isValid = false;
         errorsVal.registrationFee = "Registration Fees must be greater than 0";
       }
@@ -122,15 +122,9 @@ export default function GetTableRow({
       ),
       admissionSession: selectedSession,
     };
-    if (payloadData.admissionType === "Rolling") {
+    if (payloadData.admissionType === "Fixed") {
       postData = {
         ...postData,
-        formSubmissionStartDate: convertDateForSave(
-          sessionStartDate || null
-        ),
-        formSubmissionEndDate: convertDateForSave(
-          sessionEndDate || null
-        ),
         admissionTestStartDate: convertDateForSave(
           postData?.admissionTestStartDate || null
         ),
@@ -144,6 +138,11 @@ export default function GetTableRow({
           postData?.personalInterviewEndDate || null
         ),
       };
+      if (postData?.admissionTestStartDate || postData?.personalInterviewStartDate) {
+        postData.aTPI = true;
+      } else {
+        postData.aTPI = false;
+      }
     }
     delete postData?.isOpen;
     delete postData?.className;
