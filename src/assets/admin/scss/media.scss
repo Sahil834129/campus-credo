@@ -314,7 +314,8 @@
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right .cart-payment-card .school-info-main .info-list-group .list-group-item{padding: 8px;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right .cart-payment-card .school-info-main .info-list-group .list-group-item:first-child{padding: 8px;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right .cart-payment-card .card-header-item.title{padding: 8px;}
-    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .academic-stat-wrapper .academic-stats-content .academic-stats-row{grid-template-columns: 1fr;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .academic-stat-wrapper .academic-stats-content .academic-stats-row{flex-direction: column;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .school-details-container .academic-stat-wrapper .academic-stats-content .academic-stats-row .cell .particular.adm-status{flex-direction: column;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .titlebar{align-items: flex-start; flex-direction: column-reverse;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content .content-section .page-container .titlebar .cell.right{display: flex; align-items: center; column-gap: 8px;}
     .application-form-wrap .fld-row.expand-block .expand-block-cell{flex-direction: column; align-items: flex-start;}
@@ -334,6 +335,8 @@
     .main-container .title-kpi-wrapper .kpi-wrapper .kpi-list-group{flex-direction: column;}
     .main-container .title-kpi-wrapper .kpi-wrapper .kpi-list-group .list-group-item.application-status{flex-direction: column;}
     .footer-main .finner .fcol.quicklinks ul.list-group{flex-direction: row; column-gap: 16px; flex-wrap: wrap;}
+    .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left .school-nearby-collapsible .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;}
+    .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .tab-wrapper .tab-content{padding: 8px;}
 }
 @media (min-width:320px)  {
      /* smartphones, iPhone, portrait 480x320 phones */ 

@@ -504,7 +504,7 @@ const ReviewAdmissionDialog = ({
                               className="tab-outer-wrap"
                             >
                               <div className="tab-item">
-                                <lable>{humanize(document.documentName)}</lable>
+                                <label>{humanize(document.documentName)}</label>
                                 <span className="download-option">
                                   {document.status === "uploaded" && (
                                     <a
