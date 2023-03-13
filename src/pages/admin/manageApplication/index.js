@@ -158,6 +158,7 @@ export const ManageApplication = () => {
             setApiError={setApiError}
             isAtPiData={atPiData !== null}
             atPiData={atPiData}
+            sessionValue={sessionValue}
           />
         </div>
       </div>
