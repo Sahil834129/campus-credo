@@ -215,7 +215,6 @@ const AllSchools = () => {
         show={grantLocationPermissionDialog}
         message={grantlocationMessage}
         handleConfirm={closeGrantLocationDialog}
-        handleClose={closeGrantLocationDialog}
       />
     </Layout>
   );
