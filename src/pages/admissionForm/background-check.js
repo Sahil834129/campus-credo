@@ -1,13 +1,14 @@
+import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
-import '../../assets/scss/custom-styles.scss'
-import { Formik, Form } from 'formik'
-import InputField from '../../components/form/InputField'
+import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
+import '../../assets/scss/custom-styles.scss'
+import InputField from '../../components/form/InputField'
 
-import RESTClient from '../../utils/RestClient'
-import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
 import { StudentBackgroundCheckSchema } from '../../data/validationSchema'
+import RestEndPoint from '../../redux/constants/RestEndpoints'
+import RESTClient from '../../utils/RestClient'
 
 export default function BackgroundCheckForm ({ selectedChild, setSelectedChild, setStep }) {
   const history = useNavigate()
@@ -188,28 +189,28 @@ export default function BackgroundCheckForm ({ selectedChild, setSelectedChild, 
               touched={touched}
             />
           </div>
-          <div className='form-group mb-3 button-wrap'>
-            <button
+          <div className="fld-row button-wrap">
+            <Button
               type='button'
               className='cancel comn'
               onClick={() => history('/userProfile')}
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type='button'
-              className='save comn me-2'
+              className='save comn'
               onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
               >
                 Back
-            </button>
-            <button
+            </Button>
+            <Button
               className='save comn'
               type='submit'
               disabled={submitting}
             >
               {submitting ? 'Please wait...' : 'Save & Next'}
-            </button>
+            </Button>
           </div>
         </Form>
       )}

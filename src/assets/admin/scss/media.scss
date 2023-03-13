@@ -290,7 +290,10 @@
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.left .sidebar-collapsible.accordion .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;} 
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .moreinfo-block{display: flex; flex-direction: column;     row-gap: 8px;}
     .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .moreinfo-block .col.divider{display: none;}
-    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper ul.nav-tabs li.nav-item button.nav-link{padding: 8px 8px;}
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper ul.nav-tabs li.nav-item button.nav-link{padding: 8px 8px; font-size: 14px;}
+    .header .page-link-wrap{margin: 0;}
+    .header #menu li.search{padding: 0; margin-bottom: 8px;}
+    .header #menu li{padding: 6px 0;}
     .footer-main{display: flex; width: 100%; flex-direction: column;}
     .footer-main .finner .fcol.btn-container .btn{font-size: 14px;}
     .footer-main .copyright-row{flex-direction: column; height: auto; padding: 8px 0; row-gap: 8px;}
@@ -337,6 +340,11 @@
     .footer-main .finner .fcol.quicklinks ul.list-group{flex-direction: row; column-gap: 16px; flex-wrap: wrap;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left .school-nearby-collapsible .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;}
     .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .tab-wrapper .tab-content{padding: 8px;}
+    .search-inner .wrapper .sc-gswNZR.hCpHso{height: 200px; overflow-x: auto;}
+    .payment-history-tbl{overflow-y: auto;}
+    .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap{flex-direction: column;}
+    .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap li .order-item.title{margin-bottom: 0;}
+    .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap li{margin-bottom: 16px;}
 }
 @media (min-width:320px)  {
      /* smartphones, iPhone, portrait 480x320 phones */ 
