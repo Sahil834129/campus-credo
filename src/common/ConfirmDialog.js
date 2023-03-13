@@ -8,8 +8,8 @@ const ConfirmDialog = (props) => {
             <div className='alert-content-inner'>
                 <div className="message-content">{props.message}</div>
                 <div className="button-wrapper">
-                    <Button className="ok-btn" onClick={props.handleConfirm}>OK</Button>
-                    <Button className="cancel-btn" onClick={props.handleClose}>Cancel</Button>
+                   {props.handleConfirm && <Button className="ok-btn" onClick={props.handleConfirm}>OK</Button> } 
+                    { props.handleClose && <Button className="cancel-btn" onClick={props.handleClose}>Cancel</Button>}
                 </div>
             </div>
         </GenericDialog>

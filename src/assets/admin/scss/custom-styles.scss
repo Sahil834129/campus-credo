@@ -140,6 +140,13 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      .d-flex{
+        column-gap: 4px;
+        align-items: center;
+        label{
+          white-space: nowrap;
+        }
+      }
     }
     .menu-items{
       display: flex;
@@ -826,6 +833,28 @@ ul.list-group{
             }
           }
         }
+        .btn-wrap{
+          margin-bottom: 0;
+          overflow: auto;
+          position: -webkit-sticky;
+          position: sticky;
+          bottom: 1%;
+          z-index: 1;
+        }
+        .btn{
+          &.applyFilter{
+            background: $primarycolor;
+            border: 1px solid $primarycolor;
+            color: $white;
+            padding: 14px 24px;
+            border-radius: 4px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+          }
+        }
       }
       &.sidenav{
         padding: 0;
@@ -1145,6 +1174,7 @@ ul.list-group{
           flex-direction: row;
         }
       }
+     
       .expanded-block{
         display: flex;
         flex-direction: column;
