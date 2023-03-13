@@ -8,6 +8,7 @@ import AddChildDialog from "../../dialogs/addChild";
 import { getItemsInCart } from "../../redux/actions/cartAction";
 import { getChildsList } from '../../redux/actions/childAction';
 import RestEndPoint from "../../redux/constants/RestEndpoints";
+import { formatDateToDDMMYYYY } from "../../utils/DateUtil";
 import { getClassBasedOnAge, getStudentAge, isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
 import { getAgeClassMap, getApplications } from "../../utils/services";
@@ -21,6 +22,7 @@ const ApplyToSchool = (props) => {
     const [classFeeMap, setClassFeeMap] = useState({});
     const [sessionOptions, setSessionOptions] = useState([]);
 	const [sessionOptionsMap, setSessionOptionsMap] = useState([]);
+	const ToDate = new Date();
 
     const [rows, setRows] = useState([
 		{
@@ -61,7 +63,7 @@ const ApplyToSchool = (props) => {
 			let feeMap = {};
 			if (props.schoolDetails && props.schoolDetails.classes) {
 				setClassOptions(
-					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open').map((it) => ({
+					props.schoolDetails.classes.filter(it=> it.admissionStatus === 'Admission Open' && it.formSubmissionStartDate <= formatDateToDDMMYYYY(ToDate)).map((it) => ({
 						value: it.classId,
 						text: it.className,
 						session : it.admissionSession

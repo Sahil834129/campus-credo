@@ -64,7 +64,7 @@ const SchoolCard = (props) => {
     return (
         <>
             <Card className='school-card' style={{ cursor: "pointer" }} onClick={(e)=>handleViewDetails(school.schoolId, school.schoolName)}>
-                <SchoolCardHeader school={school}/>
+                <SchoolCardHeader school={school} distanceFilter={props.distanceFilter}/>
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Avg. Monthly Tuition Fees</div>
@@ -85,8 +85,10 @@ const SchoolCard = (props) => {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
                                      <>
-                                     <span className='session-title'>{admissionRow.admissionStatus} for {admissionRow.admissionSession} </span>
-                                     <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
+                                     <div className="session-info-outer">
+                                        <span className='session-title'>{admissionRow.admissionStatus} for {admissionRow.admissionSession} </span>
+                                        <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
+                                     </div>
                                      </>
                               )
                               } ) )  : 'Closed'

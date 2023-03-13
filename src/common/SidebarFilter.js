@@ -95,6 +95,9 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
 
   const applyFilter = (values) => {
     const filterValues = getFilterValues(values);
+    if(isNaN(filterValues.distance)) {
+      filterValues.distance="";
+    }
     dispatch(setSchoolFilter(filterValues));
     applyFilters(filterValues);
   };
