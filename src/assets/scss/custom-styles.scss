@@ -1109,6 +1109,13 @@ ul.list-group{
               // border-right: 1px solid #E6E6E6;
               .school-list-container{
                 display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                column-gap:16px;
+                row-gap: 16px;
+                .school-card{
+                  flex: 40%;
+                }
               }
               &.cart-content-area{
                 
@@ -3336,6 +3343,25 @@ ul.list-group{
    
     .school-card{
       overflow: hidden;
+      .scard-top{
+        display: flex;
+        flex-direction: column;
+        padding: 8px 16px 0 16px;
+        .scardt-item{
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid #efefef;
+          padding: 4px 0;
+          column-gap: 4px;
+          label{
+
+          }
+          .value{
+            color: $primarycolor;
+            font-weight: 600;
+          }
+        }
+      }
       &.cart-active{
         border: 1px solid #549B43;
         box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.11);
@@ -3536,11 +3562,15 @@ ul.list-group{
           }
           .session-wrap{
             display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
+            flex-direction: column;
+            .session-info-outer{
+              display: flex;
+              flex-direction: row;
+              column-gap: 8px;
+              align-items: center;
+            }
             .session-title{
-              margin-right: 8px;
+              margin-right: 0;
             }
             .session-dd{
               .session-dropdown{
@@ -3600,6 +3630,7 @@ ul.list-group{
         column-gap: 8px;
         row-gap: 8px;
         flex-wrap: wrap;
+        align-items: center;
         .card-link{
           cursor: pointer;
           border-radius: 4px;
