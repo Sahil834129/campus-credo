@@ -1,11 +1,12 @@
+import { Form, Formik } from 'formik'
 import React from 'react'
-import '../../assets/scss/custom-styles.scss'
+import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
-import { Formik, Form } from 'formik'
-import InputField from '../../components/form/InputField'
-import RESTClient from '../../utils/RestClient'
-import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { toast } from 'react-toastify'
+import '../../assets/scss/custom-styles.scss'
+import InputField from '../../components/form/InputField'
+import RestEndPoint from '../../redux/constants/RestEndpoints'
+import RESTClient from '../../utils/RestClient'
 
 export default function ExtracurricularForm ({ selectedChild, setSelectedChild, setStep }) {
   const navigate = useNavigate()
@@ -120,24 +121,24 @@ export default function ExtracurricularForm ({ selectedChild, setSelectedChild, 
               touched={touched}
             />{' '}
           </div>
-          <div className='form-group mb-3 button-wrap'>
-            <button
+          <div className="fld-row button-wrap">
+            <Button
               type='button'
               className='cancel comn'
               onClick={() => navigate('/userProfile')}
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type='button'
-              className='save comn me-2'
+              className='save comn'
               onClick={() => {setStep(val => val - 1); window.scrollTo(0, 0)}}
               >
                 Back
-            </button>
-            <button className='save comn' type='submit'>
+            </Button>
+            <Button className='save comn' type='submit'>
               Save &amp; Next
-            </button>
+            </Button>
           </div>
         </Form>
       )}
