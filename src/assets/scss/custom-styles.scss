@@ -1569,8 +1569,9 @@ ul.list-group{
                 .academic-stats-content{
                   margin-bottom: 24px;
                   .academic-stats-row{
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
+                    // display: grid;
+                    // grid-template-columns: 1fr 1fr 1fr;
+                    display: flex;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                     padding: 18px 0;
                     column-gap: 16px;
@@ -1579,6 +1580,8 @@ ul.list-group{
                       display: flex;
                       flex-direction: row;
                       column-gap: 16px;
+                      flex-grow: 1;
+                      flex-basis: 0;
                       
                       .title{
                         font-style: normal;
@@ -1589,6 +1592,7 @@ ul.list-group{
                         align-items: center;
                         text-transform: capitalize;
                         color: rgba(0, 0, 0, 0.8);
+                        white-space: nowrap;
                       }
                       .particular{
                         font-style: normal;
@@ -1599,6 +1603,12 @@ ul.list-group{
                         align-items: center;
                         text-transform: capitalize;
                         color: #41285F;
+                        &.adm-status{
+                          display: flex;
+                          column-gap: 8px;
+                          // flex-direction: column;
+                          .adm-sessions{}
+                        }
                       }
                     }
                   }
@@ -2229,6 +2239,7 @@ ul.list-group{
                 padding: 0;
                 h2.accordion-header{
                   margin-bottom: 16px;
+                  display: none;
                   button.accordion-button{
                     background: none;
                     color: $primarycolor;
@@ -4831,7 +4842,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                                 flex-direction: row;
                                 flex-wrap: wrap;
                                 column-gap: 24px;
-                                row-gap: 24px;
+                                row-gap: 16px;
                                 .tab-outer-wrap{
                                 
                                   .tab-item{
@@ -4846,6 +4857,9 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                                     
                                     label{
                                       display: flex;
+                                      font-size: 13px;
+                                      flex-basis: 0;
+                                      flex-grow: 1;
                                     }
                                     .download-option{
                                       a{
@@ -4855,7 +4869,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                                         padding: 8px 16px;
                                         border-radius: 48px;
                                         border: 1px solid #efefef;
-                                        
+                                        font-size: 14px;
                                         &:hover{
                                           border: 1px solid #549B43;
                                           background: #549B43;

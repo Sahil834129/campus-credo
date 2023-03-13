@@ -207,17 +207,20 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             </div>
           </div>
         </Form.Group>
-        <Form.Group>
-          <div >
-            <button onClick={handleApply} style={{
-              backgroundColor: '#41285F',
-              color: 'white',
-              width: '100%',
-              borderRadius: '4px',
-              padding: '12px',
-              fontWeight: '700',
-              fontSize: '14px'
-            }}>
+        <Form.Group className='filter-item btn-wrap'>
+          <div className=''>
+            <button onClick={handleApply} 
+            style={{
+              // backgroundColor: '#41285F',
+              // color: 'white',
+              // width: '100%',
+              // borderRadius: '4px',
+              // padding: '12px',
+              // fontWeight: '700',
+              // fontSize: '14px'
+            }}
+            className="btn applyFilter"
+            >
               Apply Filter
             </button>
           </div>
