@@ -1283,6 +1283,7 @@ ul.list-group{
      
       &.school-details-wrap{
         grid-template-columns: auto 424px;
+        column-gap: 0;
         .inner-page-content{
           
           &.left{
