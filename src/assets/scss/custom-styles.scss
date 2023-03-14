@@ -140,6 +140,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      .verifyph-logo{
+        width: 100%;
+      }
       .verify-phone{
         width: 364px;
         .form-title{
@@ -2318,6 +2321,7 @@ ul.list-group{
                     thead{
                       tr{
                         th{
+                          white-space: nowrap;
                           &:last-child{
                             text-align: center;
                           }
@@ -4309,7 +4313,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
               font-size: 20px;
               font-weight: 600;
               text-align: center;
-              margin-top: 24px;
+              // margin-top: 24px;
               padding: 8px 42px;
               line-height: 28px;
             }
@@ -5091,6 +5095,13 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
 }
 .payment-history-tbl{
   table.table{
+    thead{
+      tr{
+        th{
+          white-space: nowrap;
+        }
+      }
+    }
     tbody{
       tr{
         td{
@@ -6102,6 +6113,13 @@ align-items: center;
       color: $primarycolor;
       font-size: 42px;
       font-weight: 400;
+    }
+    h4{
+      color: $darkred;
+      font-size: 16px;
+      font-weight: 500;
+      margin: 116px 0;
+      
     }
     button.backtohome{
       margin-top: 42px;
