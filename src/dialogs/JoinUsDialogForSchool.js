@@ -135,13 +135,14 @@ const JoinUsDialogForSchool =(props)=>
                       </div>
                     </div>
                     <div className="fld-row button-wrap">
-                      <button type="button" class="reset-btn btn" onClick={() =>  resetForm()}>Reset</button>
+                      
                       <Button
                           className="submit-btn"
                           type="submit"
                           buttonLabel="Submit"
                           submitting={submitting}
                         />
+                        <button type="button" class="reset-btn btn" onClick={() =>  resetForm()}>Reset</button>
                     </div>
                  
                   </Form>

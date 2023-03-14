@@ -345,6 +345,10 @@
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap{flex-direction: column;}
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap li .order-item.title{margin-bottom: 0;}
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap li{margin-bottom: 16px;}
+    .signup-wrapper.verify-phone-main .signup-col svg.verifyph-logo{width: 70%;}
+    .signup-wrapper.verify-phone-main .signup-col .form-wrapper.verify-phone{    width: auto; margin: 24px;}
+    .signup-wrapper.verify-phone-main .signup-col .form-wrapper.verify-phone .form-title{padding: 16px;}
+    .signup-wrapper .signup-col .form-wrapper.verify-phone .form-container{padding: 0 16px 16px 16px;}
 }
 @media (min-width:320px)  {
      /* smartphones, iPhone, portrait 480x320 phones */ 
