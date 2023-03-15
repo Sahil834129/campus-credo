@@ -12,7 +12,7 @@ import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/foote
 import '../../assets/admin/scss/custom-styles.scss';
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
-import { getLocalData, logout, getPresentableRoleName } from '../../utils/helper';
+import { getLocalData, getPresentableRoleName, logout, setLocalData } from '../../utils/helper';
 
 
 export const Layout = ({ admissionSummary, sessionValue, setSessionValue, ...props }) => {
@@ -39,6 +39,7 @@ export const Layout = ({ admissionSummary, sessionValue, setSessionValue, ...pro
   }, [adminHeaderLink]);
 
   useEffect(() => {
+    setLocalData("sessionValue", sessionValue);
     if (sessionOption.length > 0 && sessionValue === "") {
       setSessionValue(sessionOption[0]);
     }
