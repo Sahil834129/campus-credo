@@ -6,8 +6,8 @@ import { getCurrentModulePermission, getLocalData } from "../../../utils/helper"
 import {
   getClassAdmissionData, getClassAdmissionSessionData
 } from '../../../utils/services';
-import GetTableRow from "./getTableRow";
 import Layout from '../layout';
+import GetTableRow from "./getTableRow";
 
 const initialFormData = undefined;
 
@@ -147,7 +147,7 @@ export const ManageAdmission = () => {
                     <th>Candidate Screening Test</th>
                     <th>Application Fees <span className='required'>*</span></th>
                     <th>Registration Fees <span className='required'>*</span></th>
-                    <th>Action</th>
+                    <th className="action-cell">Action</th>
                   </tr>
                 </thead>
                 <tbody>
