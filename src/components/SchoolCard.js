@@ -81,12 +81,13 @@ const SchoolCard = (props) => {
                     <ListGroup.Item>
                         <div className='left'>Admission Status:</div>
                         <div className='right session-wrap'>
+                        <span className='session-title'>Admission Open for:</span>
                         {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
                                      <>
                                      <div className="session-info-outer">
-                                        <span className='session-title'>{admissionRow.admissionStatus} for {admissionRow.admissionSession} </span>
+                                        <span className='session-title'>{admissionRow.admissionSession}  </span>
                                         <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
                                      </div>
                                      </>
@@ -97,7 +98,19 @@ const SchoolCard = (props) => {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <div className='left'>Seats Available:</div>
-                        <div className='right seats'>{school.admissionInfo ? school.admissionInfo.seatsAvailable :"NA"}</div>
+                         <div className='right seats'>
+                        {
+                              !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
+                              { return (
+                                     <>
+                                     <div className="session-info-outer">
+                                        <span className='session-title'>{admissionRow.admissionSession}: Approx {admissionRow.seatsAvailable}  </span>
+                                     </div>
+                                     </>
+                              )
+                              } ) )  : 'NA'
+                        }                           
+                        </div>
                     </ListGroup.Item>
                 </ListGroup>
                 <Card.Body className='button-wrap'>
