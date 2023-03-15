@@ -16,6 +16,9 @@ export const ManageAdmission = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [fieldData, setFieldData] = useState(initialFormData);
   const [sessionValue, setSessionValue] = useState(null);
+  const [pastSessionValue, setPastSessionValue] = useState(null);
+  const [currentSessionValue, setCurrentSessionValue] = useState(null);
+  const [nextSessionValue, setNextSessionValue] = useState(null);
   const [sessionOption, setSessionOption] = useState([]);
   const [sessionStartDate, setSessionStartDate] = useState(convertDate(getLocalData("sessionStartDate")));
   const [sessionEndDate, setSessionEndDate] = useState(convertDate(getLocalData("sessionEndDate")));
@@ -25,7 +28,10 @@ export const ManageAdmission = () => {
     getClassAdmissionSessionData()
       .then(response => {
         setSessionOption(response.data);
+        setPastSessionValue(response.data[0]);
         setSessionValue(response.data[1]);
+        setCurrentSessionValue(response.data[1]);
+        setNextSessionValue(response.data[2]);
       })
       .catch(error => {
         console.log(error);
@@ -49,7 +55,7 @@ export const ManageAdmission = () => {
   };
 
   const convertTableData = (response) => {
-    return response.map(val => {
+    return response.filter(val => val.classId === 2).map(val => {
       return convertRowData(val);
     });
   };
@@ -97,8 +103,6 @@ export const ManageAdmission = () => {
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
           <div className='inner-content-wrap padt8'>
-
-
             <div className='title-area'>
               <h2>
                 Activate and modify admission status for different
@@ -120,9 +124,8 @@ export const ManageAdmission = () => {
               <div className='btn-wrapper'>
                 <Button
                   className='reset-btn'
-                  disabled={!isWritePermission}
+                  disabled={!isWritePermission || sessionValue === pastSessionValue}
                   onClick={_ => {
-                    console.log();
                     setFieldData(formData.map(v => {
                       return {
                         ...v,
@@ -167,6 +170,9 @@ export const ManageAdmission = () => {
                         convertRowData={convertRowData}
                         sessionStartDate={sessionStartDate}
                         sessionEndDate={sessionEndDate}
+                        currentSessionValue={currentSessionValue}
+                        pastSessionValue={pastSessionValue}
+                        nextSessionValue={nextSessionValue}
                       />
                     ))}
                 </tbody>

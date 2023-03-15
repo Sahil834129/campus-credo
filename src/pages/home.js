@@ -47,7 +47,7 @@ const HomePage = () => {
     useEffect(() => {
         if (isLoggedIn())
             redirectToHOmeScreen();
-    }, [navigate]);
+    }, []);
 
     const handleCloseLoginDialog = () => {
         setShowLoginDialog(false);
