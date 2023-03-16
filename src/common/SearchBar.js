@@ -50,11 +50,15 @@ const SearchBar = () => {
                 localStorage.removeItem("cityNotFoundPopup");
                 dispatch(setSelectedLocation(response.data.cityName));
                 setLocalData("selectedLocation", response.data.cityName);
+                setLocalData("selectedLocationLat", response.data.latitude);
+                setLocalData("selectedLocationLong", response.data.longitude);
             } else {
                 dispatch(setSelectedLocation(cities[0]));
                 setShowCityNotFoundDialog(true);
                 //setLocalData("cityNotFoundPopup", true);
                 setLocalData("selectedLocation", cities[0]);
+                setLocalData("selectedLocationLat", 26.4922);
+                setLocalData("selectedLocationLong", 89.5320 );
             }
         } catch (error) {
             if (error.code === 1) {
@@ -141,6 +145,9 @@ const SearchBar = () => {
 
     function handleSelectCity(location) {
         setLocalData("selectedLocation", location);
+        localStorage.removeItem("selectedLocationLong");  
+        localStorage.removeItem("selectedLocationLat");  
+
         dispatch(setSelectedLocation(location));
         navigate("/schools");
     }
