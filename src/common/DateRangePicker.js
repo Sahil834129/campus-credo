@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import ReactDatePicker from 'react-datepicker';
 
@@ -10,16 +11,21 @@ function DateRangePicker({
   minDate,
   dateRangeValue,
   disabled,
+  maxDate,
   clearDependentValue,
-  required = false
+  required = false,
+  fixedEndDate = false,
 }) {
-  
+
   const updateDateRange = updatedValue => {
+    if (fixedEndDate) {
+      updatedValue[1] = maxDate;
+    }
     fieldName.map((val, index) => {
       handleData(setFieldData, val, updatedValue[index], dateRangeValue[index]);
     });
     if (clearDependentValue) {
-      clearDependentValue()
+      clearDependentValue();
     }
   };
 
@@ -29,6 +35,7 @@ function DateRangePicker({
       startDate={dateRanges[0]}
       endDate={dateRanges[1]}
       minDate={minDate || null}
+      maxDate={maxDate || null}
       excludeDates={[minDate]}
       // placeholderText={'Select Date Range'} 
       onChange={update => {
@@ -46,7 +53,7 @@ function DateRangePicker({
           disabled={disabled}
         />
       }
-      isClearable={!disabled}
+      isClearable={!disabled ? !fixedEndDate : false}
     />
   );
 }

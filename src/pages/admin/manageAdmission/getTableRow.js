@@ -1,4 +1,5 @@
 import moment from "moment";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Form } from 'react-bootstrap';
 import { toast } from "react-toastify";
@@ -19,10 +20,15 @@ export default function GetTableRow({
   setFormData,
   sessionEndDate,
   sessionStartDate,
+  currentSessionValue,
+  pastSessionValue,
+  nextSessionValue,
   convertRowData
 }) {
-
   const admissionTypeOptions = ['Rolling', 'Fixed'];
+  const [minApplicationDate, setMinApplicationDate] = useState(null);
+  const [maxApplicationDate, setMaxApplicationDate] = useState(null);
+
   const [errors, setErros] = useState([]);
 
   const convertDateForSave = formDate => {
@@ -33,6 +39,10 @@ export default function GetTableRow({
     return parseDate;
   };
 
+  const getSessionDate = (currentDate, currentMonth, currentYears) => {
+    let datePreviousYear = new Date(currentYears, currentMonth, currentDate,);
+    return (datePreviousYear);
+  };
 
   const getYesterdayDate = () => {
     let now = new Date();
@@ -74,7 +84,6 @@ export default function GetTableRow({
         isValid = false;
         errorsVal.vacantSeats = "Total seats must be < capacity " + data?.capacity;
       }
-      console.log(data);
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Required";
@@ -205,6 +214,29 @@ export default function GetTableRow({
       });
   };
 
+  useEffect(() => {
+    const sessionYears = sessionValue.split('-');
+    const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
+    let getMinDate = selectedDate > new Date() ? selectedDate : getSessionDate(new Date().getDate() - 1, new Date().getMonth(), new Date().getFullYear());
+    const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
+    setMinApplicationDate(getMinDate);
+    setMaxApplicationDate(getFixedMaxDate);
+    let rollingMinDate = (new Date(getMinDate));
+    rollingMinDate.setDate(rollingMinDate.getDate() + 1);
+    handleData(
+      setFieldData,
+      `${index}.formSubmissionStartDate`,
+      admissionData.admissionType === "Fixed" ? formData[index].formSubmissionStartDate : rollingMinDate,
+      formData[index].admissionType
+    );
+    handleData(
+      setFieldData,
+      `${index}.formSubmissionEndDate`,
+      admissionData.admissionType === "Fixed" ? formData[index].formSubmissionEndDate : getFixedMaxDate,
+      formData[index].admissionType
+    );
+  }, [admissionData, admissionData.admissionType, sessionValue]);
+
   return (
     <tr key={index}>
       <td>{admissionData.className}</td>
@@ -217,7 +249,7 @@ export default function GetTableRow({
             type='switch'
             name={`${index}.isOpen`}
             id='custom-switch'
-            disabled={!isWritePermission || disabledRow(admissionData?.formSubmissionStartDate)}
+            disabled={!isWritePermission || sessionValue === pastSessionValue || disabledRow(admissionData?.formSubmissionStartDate)}
             checked={admissionData.isOpen}
             onChange={e => {
               handleData(
@@ -238,6 +270,7 @@ export default function GetTableRow({
           value={admissionData?.admissionType || ''}
           disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onChange={(e) => {
+            minApplicationDate.setDate(minApplicationDate.getDate() + 1);
             handleData(
               setFieldData,
               `${index}.admissionType`,
@@ -278,13 +311,15 @@ export default function GetTableRow({
         <DateRangePicker
           required
           dateRanges={[
-            admissionData.admissionType === "Fixed" ? (admissionData?.formSubmissionStartDate || null) : sessionStartDate,
-            admissionData.admissionType === "Fixed" ? (admissionData?.formSubmissionEndDate || null) : sessionEndDate,
+            admissionData?.formSubmissionStartDate,
+            admissionData?.formSubmissionEndDate
           ]}
-          minDate={getYesterdayDate()}
+          fixedEndDate={admissionData?.admissionType === "Rolling"}
+          minDate={minApplicationDate}
+          maxDate={maxApplicationDate}
           dateRangeValue={[
-            admissionData.admissionType === "Fixed" ? (formData[index]?.formSubmissionStartDate) : sessionStartDate,
-            admissionData.admissionType === "Fixed" ? (formData[index]?.formSubmissionEndDate) : sessionEndDate
+            formData[index]?.formSubmissionStartDate,
+            formData[index]?.formSubmissionEndDate
           ]}
           fieldName={[
             `${index}.formSubmissionStartDate`,
@@ -292,7 +327,7 @@ export default function GetTableRow({
           ]}
           setFieldData={setFieldData}
           handleData={handleData}
-          disabled={admissionData.admissionType === "Rolling" || !isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           clearDependentValue={() => {
             handleData(
               setFieldData,
@@ -442,14 +477,14 @@ export default function GetTableRow({
       <td className="action-cell">
         <Button
           className='save-btn' variant="success"
-          disabled={!isWritePermission || sessionValue === getPastSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { saveRowData(admissionData, index, sessionValue); }}
         >
           <i className='icons save-icon'></i>
         </Button>
         <Button
           className='delete-btn' variant="danger"
-          disabled={!isWritePermission || sessionValue === getPastSession() || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }}
         >
           <i className='icons delete-icon'></i>
