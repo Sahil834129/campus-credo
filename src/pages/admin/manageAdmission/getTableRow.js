@@ -217,7 +217,7 @@ export default function GetTableRow({
   useEffect(() => {
     const sessionYears = sessionValue.split('-');
     const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
-    let getMinDate = selectedDate > new Date() ? selectedDate : getSessionDate(new Date().getDate() - 1, new Date().getMonth(), new Date().getFullYear());
+    let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
     const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
     setMinApplicationDate(getMinDate);
     setMaxApplicationDate(getFixedMaxDate);
