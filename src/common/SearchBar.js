@@ -204,7 +204,6 @@ const SearchBar = () => {
                 show={showCityNotFoundDialog}
                 message={CityNotFoundMessage}
                 handleConfirm={handleCityNotFoundDialogClose}
-                handleClose={handleCityNotFoundDialogClose}
             />
 
         </>

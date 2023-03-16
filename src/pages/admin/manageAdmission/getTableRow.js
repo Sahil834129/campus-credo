@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import moment from "moment";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Button, Form } from 'react-bootstrap';
+import { toast } from "react-toastify";
 
-import { getPastSession, getLocalData } from "../../../utils/helper";
 import DateRangePicker from "../../../common/DateRangePicker";
-import { convertDate } from "../../../utils/DateUtil";
+import { getPastSession } from "../../../utils/helper";
+
 import { removeClassAdmissionData, saveClassAdmissionData } from "../../../utils/services";
 
 export default function GetTableRow({
@@ -74,44 +75,44 @@ export default function GetTableRow({
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
       if (data.vacantSeats === "") {
-        errorsVal.vacantSeats = "Total seats required field";
+        errorsVal.vacantSeats = "Required";
         isValid = false;
       } else if (data.vacantSeats == 0) {
-        errorsVal.vacantSeats = "Total seats must be gretaer than 0";
+        errorsVal.vacantSeats = "Total seats must be > 0";
         isValid = false;
       } else if (vacantSeats > data.capacity) {
         isValid = false;
-        errorsVal.vacantSeats = "Total seats must be less than Capacity " + data?.capacity;
+        errorsVal.vacantSeats = "Total seats must be < capacity " + data?.capacity;
       }
       if (!data.formFee) {
         isValid = false;
-        errorsVal.formFee = "Application Fees required field";
+        errorsVal.formFee = "Required";
       } else if (parseInt(data.formFee) <= 0) {
         isValid = false;
-        errorsVal.formFee = "Application Fees must be greater than 0";
+        errorsVal.formFee = "Application Fees must be > 0";
       }
       if (data.admissionType === "Fixed" && (!data.formSubmissionStartDate || !data.formSubmissionEndDate)) {
         isValid = false;
-        errorsVal.applicationDate = "Application Date is required field";
+        errorsVal.applicationDate = "Required";
       }
       if (data.personalInterviewStartDate && !data.personalInterviewEndDate) {
         isValid = false;
-        errorsVal.personalInterview = "End Date is required field";
+        errorsVal.personalInterview = "End Date Required";
       } else {
         errorsVal.personalInterview = "";
       }
       if (data.admissionTestStartDate && !data.admissionTestEndDate) {
         isValid = false;
-        errorsVal.admissionTest = "End Date is required field";
+        errorsVal.admissionTest = "End Date Required";
       } else {
         errorsVal.admissionTest = "";
       }
       if (!data.registrationFee) {
         isValid = false;
-        errorsVal.registrationFee = "Registration Fees required field";
+        errorsVal.registrationFee = "Required";
       } else if (parseInt(data.registrationFee) <= 0) {
         isValid = false;
-        errorsVal.registrationFee = "Registration Fees must be greater than 0";
+        errorsVal.registrationFee = "Registration Fees must be > 0";
       }
       setErros(errorsVal);
       return isValid;
@@ -283,7 +284,7 @@ export default function GetTableRow({
           ))}
         </Form.Select>
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
           type='number'
@@ -304,9 +305,9 @@ export default function GetTableRow({
             );
           }}
         />
-        {errors?.vacantSeats && <span style={{ color: 'red' }}>{errors.vacantSeats}</span>}
+        {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.applicationDate ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.applicationDate ? 'column' : 'row') }}>
         <DateRangePicker
           required
           dateRanges={[
@@ -354,9 +355,9 @@ export default function GetTableRow({
             );
           }}
         />
-        {errors?.applicationDate && <span style={{ color: 'red' }}>{errors.applicationDate}</span>}
+        {errors?.applicationDate && <span className="error-exception">{errors.applicationDate}</span>}
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
         {admissionData.admissionType === 'Fixed' ?
           <>
             <DateRangePicker
@@ -379,7 +380,7 @@ export default function GetTableRow({
               handleData={handleData}
               disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
             />
-            {errors?.personalInterview && <span style={{ color: 'red' }}>{errors.personalInterview}</span>}
+            {errors?.personalInterview && <span className="error-exception">{errors.personalInterview}</span>}
           </>
           : (
             <>
@@ -389,7 +390,7 @@ export default function GetTableRow({
             </>
           )}
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.admissionTest ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.admissionTest ? 'column' : 'row') }}>
         {admissionData.admissionType === 'Fixed' ?
           <>
             <DateRangePicker
@@ -413,7 +414,7 @@ export default function GetTableRow({
               disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
 
             />
-            {errors?.admissionTest && <span style={{ color: 'red' }}>{errors.admissionTest}</span>}
+            {errors?.admissionTest && <span className="error-exception">{errors.admissionTest}</span>}
           </>
           : <>
             <Form.Check
@@ -429,7 +430,7 @@ export default function GetTableRow({
               }} />
           </>}
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
           min="1"
@@ -449,9 +450,9 @@ export default function GetTableRow({
             );
           }}
         />
-        {errors?.formFee && <span style={{ color: 'red' }}>{errors.formFee}</span>}
+        {errors?.formFee && <span className="error-exception">{errors.formFee}</span>}
       </td>
-      <td style={{ display: 'flex', flexDirection: (errors?.registrationFee ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.registrationFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
           type='number'
@@ -471,22 +472,22 @@ export default function GetTableRow({
             );
           }}
         />
-        {errors?.registrationFee && <span style={{ color: 'red' }}>{errors.registrationFee}</span>}
+        {errors?.registrationFee && <span className="error-exception">{errors.registrationFee}</span>}
       </td>
-      <td>
+      <td className="action-cell">
         <Button
-          className='save-btn'
+          className='save-btn' variant="success"
           disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { saveRowData(admissionData, index, sessionValue); }}
         >
-          Save
+          <i className='icons save-icon'></i>
         </Button>
         <Button
-          className='delete-btn'
+          className='delete-btn' variant="danger"
           disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }}
         >
-          Delete
+          <i className='icons delete-icon'></i>
         </Button>
       </td>
     </tr>

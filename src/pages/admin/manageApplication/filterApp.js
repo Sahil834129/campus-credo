@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import MultiRangeSliderView from "../../../common/MultiRangeSlider";
 import { OPERATORS } from '../../../constants/app';
+import { getLocalData, isEmpty } from '../../../utils/helper';
 import { applicationfilterData } from '../../../utils/services';
 
 export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData, callAllApi, sessionValue }) => {
@@ -18,7 +19,8 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     minGpa: 0,
     maxGpa: 10,
     transport: '',
-    boarding: ''
+    boarding: '',
+    session: '',
   };
   const [grade, setGrade] = useState(intialValue.grade);
   const [minAge, setMinAge] = useState(intialValue.minAge);
@@ -98,6 +100,13 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
         field: 'boardingFacility',
         operator: OPERATORS.EQUALS,
         value: boarding
+      });
+    }
+    if (!isEmpty(getLocalData("sessionValue"))) {
+      filter.push({
+        field: 'admissionSession',
+        operator: OPERATORS.EQUALS,
+        value: getLocalData("sessionValue"),
       });
     }
 
@@ -207,17 +216,20 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
             </div>
           </div>
         </Form.Group>
-        <Form.Group>
-          <div >
-            <button onClick={handleApply} style={{
-              backgroundColor: '#41285F',
-              color: 'white',
-              width: '100%',
-              borderRadius: '4px',
-              padding: '12px',
-              fontWeight: '700',
-              fontSize: '14px'
-            }}>
+        <Form.Group className='filter-item btn-wrap'>
+          <div className=''>
+            <button onClick={handleApply} 
+            style={{
+              // backgroundColor: '#41285F',
+              // color: 'white',
+              // width: '100%',
+              // borderRadius: '4px',
+              // padding: '12px',
+              // fontWeight: '700',
+              // fontSize: '14px'
+            }}
+            className="btn applyFilter"
+            >
               Apply Filter
             </button>
           </div>

@@ -44,7 +44,7 @@ const resendOtpForPhoneVerify=async()=>
             <div className="signup-wrapper verify-phone-main">
                
                 <div className="signup-col">
-                    <SignupLogo />
+                    <SignupLogo className='verifyph-logo' />
                     <div className="form-wrapper verify-phone">
                         
                         <div className="form-title">

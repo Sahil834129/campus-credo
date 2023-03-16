@@ -117,9 +117,19 @@ const PaymentHistory=() =>{
                                                 </tr>
                                             })) 
                                         }
-                                    </tbody>) : <tbody className="text-danger col-12 " style={{ textAlign: "center" }}>
-                                            No Record Found.
-                                          </tbody>}
+                                    </tbody>) : <tbody className="" style={{ textAlign: "center" }}>
+                                        <tr>
+                                            <td colspan="7">
+                                                <div className='not-found-wrapper'>
+                                                    <div className='title-wrap'>
+                                                        <h4>No Record Found.</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                  
+                                  </tbody>}
                                     </Table>
                                 </div>
                             </Col>

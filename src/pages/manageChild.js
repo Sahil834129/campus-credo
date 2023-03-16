@@ -17,7 +17,6 @@ import RestEndPoint from '../redux/constants/RestEndpoints';
 import PageContent from '../resources/pageContent';
 import { isEmpty, isLoggedIn } from '../utils/helper';
 import RESTClient from '../utils/RestClient';
-import NoRecordsFound from '../common/NoRecordsFound';
 
 const ManageChild = () => {
     const dispatch = useDispatch()
@@ -119,7 +118,19 @@ const ManageChild = () => {
                                                 </tr>
                                             })
                                         }
-                                    </tbody>:<NoRecordsFound message="No Child Found."/>}
+                                    </tbody>: <tbody className="" style={{ textAlign: 'center' }}>
+                                        <tr>
+                                            <td colspan="6">
+                                                <div className='not-found-wrapper'>
+                                                    <div className='title-wrap'>
+                                                        <h4>No Record Found.</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                  
+                                  </tbody>}
                                 </Table>
                                 </div>
                             </Col>

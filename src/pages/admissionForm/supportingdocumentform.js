@@ -1,17 +1,14 @@
-import React, { useState } from 'react'
-import '../../assets/scss/custom-styles.scss'
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
-import Modal from 'react-bootstrap/Modal'
+import React, { useCallback, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import RESTClient from '../../utils/RestClient'
-import RestEndPoint from '../../redux/constants/RestEndpoints'
-import { useEffect } from 'react'
-import { DocumentTableFormat } from './documentTableForm'
-import { toast } from 'react-toastify'
-import { useCallback } from 'react'
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import '../../assets/scss/custom-styles.scss'
+import RestEndPoint from '../../redux/constants/RestEndpoints'
+import RESTClient from '../../utils/RestClient'
+import { DocumentTableFormat } from './documentTableForm'
 
 export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const navigate = useNavigate()
@@ -140,42 +137,42 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
           </Tab>
         </Tabs>
       </div>
-      <div className='form-group mb-3 button-wrap'>
-        <button
+      <div className="fld-row button-wrap">
+        <Button
           type='button'
           className='cancel comn'
           onClick={() => navigate('/userProfile')}
         >
           Cancel
-        </button>
+        </Button>
         {key === 'student' ?
-          <button
+          <Button
             type='button'
-            className='save comn me-2'
+            className='save comn'
             onClick={() => {
               setStep(val => val - 1)
               window.scrollTo(0, 0)
             }}
           >
             Back
-          </button>
+          </Button>
           : ''}
-        <button
-          className='save comn me-2'
+        <Button
+          className='save comn'
           onClick={() =>
             setKey(val => (val === 'student' ? 'parent' : 'student'))
           }
         >
           {key === 'student' ? 'Next' : 'Back'}
-        </button>
+        </Button>
         {key === 'parent' && (
-          <button
+          <Button
             className='save comn'
             onClick={() =>
               validateAllDocumentFilled(studentDocuments, parentDocuments)}
           >
             Submit
-          </button>
+          </Button>
         )}
       
       </div>

@@ -304,10 +304,11 @@
             margin-bottom: 212px;
         }
         .button-wrap{
-            text-align: end;
-            border-top: 1px  solid #e6e6e6;
-            padding-top: 24px;
+            display: flex;
+            justify-content: flex-end;
             column-gap: 16px;
+            border-top: 1px solid #e6e6e6;
+            padding-top: 24px;
             .comn{
                 text-transform: uppercase;
                 font-style: normal;

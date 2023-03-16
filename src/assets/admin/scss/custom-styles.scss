@@ -136,10 +136,19 @@
     align-items: center;
     align-content: center;
     padding: 0 24px;
+    position: relative;
+    
     .navbar-collapse{
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      .d-flex{
+        column-gap: 4px;
+        align-items: center;
+        label{
+          white-space: nowrap;
+        }
+      }
     }
     .menu-items{
       display: flex;
@@ -826,6 +835,28 @@ ul.list-group{
             }
           }
         }
+        .btn-wrap{
+          margin-bottom: 0;
+          overflow: auto;
+          position: -webkit-sticky;
+          position: sticky;
+          bottom: 1%;
+          z-index: 1;
+        }
+        .btn{
+          &.applyFilter{
+            background: $primarycolor;
+            border: 1px solid $primarycolor;
+            color: $white;
+            padding: 14px 24px;
+            border-radius: 4px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+          }
+        }
       }
       &.sidenav{
         padding: 0;
@@ -1123,7 +1154,7 @@ ul.list-group{
     &.button-wrap{
       display: flex;
       justify-content: flex-end;
-      column-gap: 16px;
+      column-gap: 8px;
       border-top: 1px solid #e6e6e6;
       padding-top: 24px;
     }
@@ -1145,6 +1176,7 @@ ul.list-group{
           flex-direction: row;
         }
       }
+     
       .expanded-block{
         display: flex;
         flex-direction: column;
@@ -1392,6 +1424,10 @@ ul.list-group{
         line-height: 18px;
         color: $black;
         z-index: 2;
+        &.action-cell{
+          width: 120px;
+          text-align: center;
+        }
       }
       
       th:last-child {
@@ -1405,6 +1441,15 @@ ul.list-group{
         height: 72px;
         color: $black;
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        column-gap: 4px;
+        //position: relative;
+        .error-exception{
+          font-size: 12px;
+          color: $darkred;
+          
+          margin-top: 0;
+          margin-bottom: -18px;
+        }
         .react-datepicker-popper{
           z-index: 4;
         }
@@ -1428,6 +1473,14 @@ ul.list-group{
             margin: 0;
             &.no{color: rgba(0, 0, 0, 0.4); padding-right: 8px;}
             &.yes{color: #549B43;}
+          }
+        }
+        &.action-cell{
+          width: 120px;
+          .btn{
+            border-radius: 60px;
+            &.save-btn{}
+            &.delete-btn{}
           }
         }
       }
