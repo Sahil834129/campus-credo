@@ -15,7 +15,6 @@ const LeftMenuBar = props => {
     <div className='inner-page-content left sidebar'>
       <Accordion className="school-nearby-collapsible" defaultActiveKey={['0']} alwaysOpen>
         <Accordion.Item className='admfrm-collapsible-panel' eventKey="0">
-          <Accordion.Header>Admission Forms</Accordion.Header>
           <Accordion.Body>
             <Nav defaultActiveKey='/home' className='sideNav-indicator'>
               {props.menuItems.filter(it=> it.show !== false).map((menuItem, index) => {
