@@ -55,7 +55,7 @@ export const ManageAdmission = () => {
   };
 
   const convertTableData = (response) => {
-    return response.filter(val => val.classId === 2).map(val => {
+    return response.map(val => {
       return convertRowData(val);
     });
   };
