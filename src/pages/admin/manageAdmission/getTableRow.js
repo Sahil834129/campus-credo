@@ -179,7 +179,7 @@ export default function GetTableRow({
         toast.success("Admission Details are saved");
       })
       .catch((error) => {
-        toast.error("Error: Not able to save data");
+        toast.error("Application must be submitted after today's date")
       });
   };
 

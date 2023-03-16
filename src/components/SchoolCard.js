@@ -79,9 +79,8 @@ const SchoolCard = (props) => {
                         <div className='right'>{school.classesFromUpto}</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <div className='left'>Admission Status:</div>
+                        <div className='left'>Sessions</div>
                         <div className='right session-wrap'>
-                        <span className='session-title'>Admission Open for:</span>
                         {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
@@ -92,19 +91,19 @@ const SchoolCard = (props) => {
                                      </div>
                                      </>
                               )
-                              } ) )  : 'Closed'
+                              } ) )  : 'Admission Closed'
                         }                           
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <div className='left'>Seats Available:</div>
+                        <div className='left'>Seats Available</div>
                          <div className='right seats'>
                         {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
                                      <>
                                      <div className="session-info-outer">
-                                        <span className='session-title'>{admissionRow.admissionSession}: Approx {admissionRow.seatsAvailable}  </span>
+                                        <span className='session-title'>{admissionRow.admissionSession}: {admissionRow.seatsAvailable} Approx</span>
                                      </div>
                                      </>
                               )
