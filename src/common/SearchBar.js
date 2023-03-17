@@ -96,8 +96,8 @@ const SearchBar = () => {
     };
 
     const handleOnSearch = (item) => {
-        if (item === '')
-            navigate("/schools");
+        // if (item === '')
+        //     navigate("/schools");
     };
 
     const LocationDropDownToggle = React.forwardRef(({ children, onClick }, ref) => (

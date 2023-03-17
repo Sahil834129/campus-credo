@@ -61,6 +61,7 @@ export function DocumentTableFormat({
         hideLoader(dispatch)
       }
     } catch (error) {
+      hideLoader(dispatch)
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
   };
