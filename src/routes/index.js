@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Map from "../components/googleMap";
 import { DEFAULT_ROLES } from "../constants/app";
 import {
   AboutUs,
@@ -30,10 +31,10 @@ import {
   UserProfile,
   VerifyPhone
 } from "../pages";
+import TermsAndConditions from "../pages/admin/termsAndConditions";
 import DisclaimerPolicy from "../pages/disclaimer_Policy";
 import ResetPassword from "../pages/resetPassword";
 import ProtectedRoute from "./ProtectedRoute";
-import TermsAndConditions from "../pages/admin/termsAndConditions";
 
 function AppRoutes() {
   return (
@@ -63,6 +64,10 @@ function AppRoutes() {
           <Route path="/selectedSchools" element={<ApplicationCart />} />
           <Route path="/paymentCheckout" element={<PaymentCheckout />} />
           <Route path="/paymentHistory" element={<PaymentHistory />} />
+          <Route
+            path="/googleMap"
+            element={<Map />}
+          />
           <Route
             path="/admissionForm"
             element={<SchoolAdmission />}
