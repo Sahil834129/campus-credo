@@ -165,7 +165,7 @@ export default function GetTableRow({
       .then((data) => {
         const saveData = fieldData.map((val, i) => {
           if (i === index) {
-            return payloadData;
+            return { ...payloadData };
           }
           return val;
         });
@@ -209,7 +209,6 @@ export default function GetTableRow({
         toast.success("Admission Details is Deleted");
       })
       .catch((error) => {
-        console.log(error);
         toast.error("Error: Not able to delete data");
       });
   };
@@ -226,13 +225,13 @@ export default function GetTableRow({
     handleData(
       setFieldData,
       `${index}.formSubmissionStartDate`,
-      admissionData.admissionType === "Fixed" ? formData[index].formSubmissionStartDate : rollingMinDate,
+      admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionStartDate : rollingMinDate,
       formData[index].admissionType
     );
     handleData(
       setFieldData,
       `${index}.formSubmissionEndDate`,
-      admissionData.admissionType === "Fixed" ? formData[index].formSubmissionEndDate : getFixedMaxDate,
+      admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionEndDate : getFixedMaxDate,
       formData[index].admissionType
     );
   }, [admissionData, admissionData.admissionType, sessionValue]);
