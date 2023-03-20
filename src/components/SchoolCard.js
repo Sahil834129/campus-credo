@@ -79,6 +79,10 @@ const SchoolCard = (props) => {
                         <div className='right'>{school.classesFromUpto}</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
+                        <div className='left'>Admission Status</div>
+                        <div className='right'> {!isEmpty(school.admissionInfo)?"Admission Open":"Admission Closed"} </div>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
                         <div className='left'>Sessions</div>
                         <div className='right session-wrap'>
                         {
@@ -91,7 +95,7 @@ const SchoolCard = (props) => {
                                      </div>
                                      </>
                               )
-                              } ) )  : 'Admission Closed'
+                              } ) )  : <span className="right seats">NA</span>
                         }                           
                         </div>
                     </ListGroup.Item>

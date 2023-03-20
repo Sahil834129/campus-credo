@@ -273,6 +273,19 @@ const ReviewAdmissionDialog = ({
                   </span>
                 </div>
                 <div className="admin-detail-cell">
+                  <label>Email ID:</label>
+                  <span className="item-entry">{studentDetail.email}</span>
+                </div>
+                <div className="admin-detail-cell">
+                  <span>Phone Number</span>
+                  <span className="item-entry">
+                    {studentDetail.phone}
+                  </span>
+                </div>
+              </div>
+              <div className="admin-detail-row">
+
+                <div className="admin-detail-cell">
                   <label>Gender:</label>
                   <span className="item-entry">{studentDetail.gender}</span>
                 </div>
@@ -282,13 +295,13 @@ const ReviewAdmissionDialog = ({
                     {studentDetail.dateOfBirth}
                   </span>
                 </div>
-              </div>
-              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Religion:</label>
                   <span className="item-entry">{studentDetail.religion}</span>
                 </div>
-                <div className="admin-detail-cell">
+              </div>
+              <div className="admin-detail-row">
+              <div className="admin-detail-cell">
                   <label>Nationality:</label>
                   <span className="item-entry">
                     {studentDetail.nationality}
@@ -300,15 +313,15 @@ const ReviewAdmissionDialog = ({
                     {studentDetail.transportFacility ? "Yes" : "No"}
                   </span>
                 </div>
-              </div>
-              <div className="admin-detail-row">
                 <div className="admin-detail-cell">
                   <label>Require Boarding : </label>
                   <span className="item-entry">
                     {studentDetail.boardingFacility ? "Yes" : "No"}
                   </span>
                 </div>
-                <div className="admin-detail-cell">
+              </div>
+              <div className="admin-detail-row onextwo-col">
+              <div className="admin-detail-cell">
                   <label>Identification Marks:</label>
                   <span className="item-entry">
                     {studentDetail.identificationMarks
@@ -322,8 +335,6 @@ const ReviewAdmissionDialog = ({
                     {studentDetail.familyIncome}
                   </span>
                 </div>
-              </div>
-              <div className="admin-detail-row onextwo-col">
                 <div className="admin-detail-cell">
                   <label>Address:</label>
                   <span className="item-entry">
