@@ -75,6 +75,8 @@ export default function StudentDetails({
     delete postData.dateOfBirth;
     delete postData.isProvidingCurrentSchoolInfo;
     delete postData.firstName;
+    delete postData.email;
+    delete postData.phone;
     delete postData.middleName;
     delete postData.lastName;
     delete postData.gender;
@@ -242,6 +244,29 @@ export default function StudentDetails({
             value={selectedChild.lastName}
             label='Last Name'
             placeholder="Last Name"
+            errors={validationErrors}
+          />
+        </div>
+      </div>
+
+      <div className="fld-row">
+        <div className="fld-cell">
+          <TextField
+            fieldName="email"
+            disabled
+            value={selectedChild.email}
+            label='Email ID'
+            placeholder="Email ID"
+            errors={validationErrors}
+          />
+        </div>
+        <div className="fld-cell">
+          <TextField
+            fieldName="phone"
+            disabled
+            value={selectedChild.phone}
+            label='Phone Number'
+            placeholder="Phone Number"
             errors={validationErrors}
           />
         </div>
