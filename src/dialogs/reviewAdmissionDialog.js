@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
+import { hideLoader, showLoader } from "../common/Loader";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { getChildAge, humanize, isEmpty } from "../utils/helper";
@@ -24,6 +26,8 @@ const ReviewAdmissionDialog = ({
   applicationId,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [studentDetail, setStudentDetail] = useState({});
   const [medicalDetail, setMedicalDetail] = useState({});
   const [parentDetail, setParentDetail] = useState([]);
@@ -182,6 +186,8 @@ const ReviewAdmissionDialog = ({
     }
 
     try {
+      handleClose();
+      showLoader(dispatch);
       const response = await RESTClient.get(
         RestEndPoint.APPLICATION_CHECKOUT + `/${childId}`
       );
@@ -193,6 +199,7 @@ const ReviewAdmissionDialog = ({
       //navigate("/paymentCheckout", { state: { data: response.data } });
       toast.success("Your Applications are Successfully Submitted");
       navigate("/userProfile");
+      hideLoader(dispatch);
     } catch (error) {
       if (
         !isEmpty(error) &&
@@ -207,6 +214,7 @@ const ReviewAdmissionDialog = ({
         ) {
           error.response.data.apierror.errorObject.Child.map((val, index) => {
             toast.error(val);
+            hideLoader(dispatch);
           });
         }
         if (
@@ -217,11 +225,14 @@ const ReviewAdmissionDialog = ({
         ) {
           error.response.data.apierror.errorObject.Cart.map((val, index) => {
             toast.error(val);
+            hideLoader(dispatch);
           });
         }
         toast.error(error.response.data.apierror.message);
+        hideLoader(dispatch);
       } else {  
         toast.error(RESTClient.getAPIErrorMessage(error));
+        hideLoader(dispatch);
       }
       handleClose();
     }
