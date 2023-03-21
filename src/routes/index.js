@@ -35,6 +35,7 @@ import TermsAndConditions from "../pages/admin/termsAndConditions";
 import DisclaimerPolicy from "../pages/disclaimer_Policy";
 import ResetPassword from "../pages/resetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import PrintSchedule from "../pages/admin/manageAdmission/printSchedule";
 
 function AppRoutes() {
   return (
@@ -94,6 +95,7 @@ function AppRoutes() {
           <Route path="/manage-user" element={<ManageUsers />} />
           <Route path="/manage-application" element={<ManageApplication />} />
           <Route path="/termsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/print-manage-admission/:session" element={<PrintSchedule />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

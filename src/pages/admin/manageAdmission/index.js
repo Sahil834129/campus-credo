@@ -8,10 +8,12 @@ import {
 } from '../../../utils/services';
 import Layout from '../layout';
 import GetTableRow from "./getTableRow";
+import { useNavigate } from "react-router-dom";
 
 const initialFormData = undefined;
 
 export const ManageAdmission = () => {
+  const navigate = useNavigate();
   const isWritePermission = getCurrentModulePermission("Manage Admission");
   const [formData, setFormData] = useState(initialFormData);
   const [fieldData, setFieldData] = useState(initialFormData);
@@ -100,6 +102,21 @@ export const ManageAdmission = () => {
 
   return (
     <Layout>
+      <Button
+        style={{
+          width: '5%',
+          top: '130px',
+          position: 'absolute',
+          right: '20px'
+        }}
+        className='save-btn'
+        onClick={_ => {
+          window.open(`/print-manage-admission/${sessionValue}`, '_blank')
+          // navigate();
+        }}
+      >
+        Print
+      </Button>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
           <div className='inner-content-wrap padt8'>
@@ -108,6 +125,7 @@ export const ManageAdmission = () => {
                 Activate and modify admission status for different
                 classes
               </h2>
+
               <div className="admission-fld-wrap">
                 <label>Admission Year</label>
                 <Form.Select
