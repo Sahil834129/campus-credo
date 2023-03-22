@@ -11,7 +11,7 @@ export const saveClassAdmissionData = (data) => {
 };
 
 export const removeClassAdmissionData = (session, classId) => {
-  return RESTClient.delete(RestEndPoint.REMOVE_ADMISSION_DATA +  `/${classId}/${session}`);
+  return RESTClient.delete(RestEndPoint.REMOVE_ADMISSION_DATA + `/${classId}/${session}`);
 };
 
 export const applicationfilterData = (data) => {
@@ -64,6 +64,16 @@ export const getAtPiForClass = (classId, sessionValue) => {
 
 export const getSchoolClassesData = (schoolId) => {
   return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
+};
+
+export const zipDownloadApplications = async (applicationIds) => {
+  try {
+    const data = await RESTClient.postBlob(RestEndPoint.ZIP_DOWNLOAD_APPLICATION, applicationIds);
+    console.log(data);
+    downloadFile(data, 'applicatntFirstName_ApplicationId');
+  } catch (error) {
+    toast.error("Error while downloading document." + error);
+  }
 };
 
 export const getClassApplication = (classId, sessionValue) => {

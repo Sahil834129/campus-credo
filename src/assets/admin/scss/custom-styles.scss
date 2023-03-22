@@ -1381,6 +1381,7 @@ ul.list-group{
       minmax(150px, 1fr)
       minmax(150px, 1fr)
       minmax(150px, 1fr)
+      minmax(150px, 1fr)
       minmax(150px, 2.5fr)
       minmax(150px, 2.5fr)
       minmax(150px, 2.5fr)
@@ -1390,6 +1391,7 @@ ul.list-group{
 
       &.user-tbl{
         grid-template-columns: 
+        minmax(150px, 1fr)
         minmax(150px, 1fr)
         minmax(150px, 1fr)
         minmax(150px, 1fr)
