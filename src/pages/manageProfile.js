@@ -31,12 +31,22 @@ export const ManageProfile = () => {
   const [cityOptions, setCityOptions] = useState([
     { text: "Select City", value: "" },
   ]);
+
+  const [addressOptions, setAddressOptions] = useState([
+    { value: "", text: "Select City" },
+    { defaultValue: "Home", text: "HOME" },
+  ]);
+
   const [userDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
     email: "",
     city: "",
     state: "",
+    addressLine1: "",
+    addressLine2: "",
+    pincode: "",
+    addressType: "",
   });
   const [showOTP, setShowOTP] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
@@ -130,6 +140,10 @@ export const ManageProfile = () => {
         email: response.data.email,
         city: response.data.city,
         state: response.data.state,
+        addressLine1: response.data.addressLine1,
+        addressLine2: response.data.addressLine2,
+        pincode: response.data.pincode,
+        addressType: response.data.addressType,
       });
     } catch (error) { }
   }
@@ -139,6 +153,27 @@ export const ManageProfile = () => {
     RESTClient.patch(RestEndPoint.UPDATE_USER, formData)
       .then((response) => {
         toast.success("Profile Updated successfully");
+        setSubmitting(false);
+        navigate("/manageProfile");
+        setUserDetails({
+          ...userDetails,
+        });
+      })
+      .catch((error) => {
+        setSubmitting(false);
+        toast.error(RESTClient.getAPIErrorMessage(error));
+      });
+  };
+
+  const saveUserAddress = async (formData) => {
+    setSubmitting(true);
+    let postData = { ...formData };
+    delete postData.email
+    delete postData.firstName
+    delete postData.lastName
+    RESTClient.post(RestEndPoint.SAVE_USER_ADDRESS, postData)
+      .then((response) => {
+        toast.success("Address Saved Successfully");
         setSubmitting(false);
         navigate("/manageProfile");
         setUserDetails({
@@ -513,6 +548,137 @@ export const ManageProfile = () => {
                                 </button>
                                 <button className="save comn" type="submit">
                                   {showOTP ? "Verify" : "Update"}
+                                </button>
+                              </div>
+                            </Form>
+                          )}
+                        </Formik>
+                      </Tab>
+
+
+
+                      <Tab eventKey="addAdress" title="Add/Update Address">
+                        <Formik
+                          initialValues={userDetails}
+                          validationSchema={UpdateProfileSchema}
+                          validateOnBlur
+                          enableReinitialize={true}
+                          onSubmit={(values) => {
+                            saveUserAddress(values);
+                          }}
+                        >
+                          {({ values, resetForm, errors, touched, setFieldValue }) => (
+                            <Form className="row g-4">
+                              <div className="col-md-6">
+                                <InputField
+                                  fieldName="addressLine1"
+                                  required
+                                  value={values.addressLine1}
+                                  label="House No., Block No."
+                                  fieldType="text"
+                                  placeholder="Enter House No., Block No."
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+                              <div className="col-md-6">
+                                <InputField
+                                  fieldName="addressLine2"
+                                  required
+                                  value={values.addressLine2}
+                                  label="Area or Locality"
+                                  fieldType="text"
+                                  placeholder="Enter Area or Locality"
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+                              <div className="col-md-6">
+                                <InputField
+                                  fieldName="state"
+                                  value={values.state}
+                                  label="State"
+                                  fieldType="select"
+                                  placeholder=""
+                                  selectOptions={stateOptions}
+                                  onChange={(e) => {
+                                    setFieldValue('state', e.target.value);
+                                    setFieldValue("city", "");
+                                    populateCities(e.target.value);
+                                  }}
+                                  errors={errors}
+                                  touched={touched}
+                                  required
+                                />
+                              </div>
+                              <div className="col-md-6">
+                                <InputField
+                                  fieldName="city"
+                                  label="City"
+                                  value={values.city}
+                                  fieldType="select"
+                                  placeholder=""
+                                  required
+                                  selectOptions={cityOptions}
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+
+                              <div className="col-md-6">
+                                <InputField
+                                  fieldName="pincode"
+                                  required
+                                  value={values.pincode}
+                                  label="Pincode"
+                                  fieldType="text"
+                                  maxLength="6"
+                                  onChange={(e) => {
+                                    setFieldValue("pincode", e.target.value);
+                                  }}
+                                  placeholder="Enter Pincode"
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+                              <div className="col-md-6">
+                                <InputField
+                                  fieldName="addressType"
+                                  label="Address Type"
+                                  value={values.addressType}
+                                  fieldType="select"
+                                  placeholder=""
+                                  selectOptions={addressOptions}
+                                  // selectOptions={[
+                                  //   { value: "Home", text: "House" },
+                                  // ]}
+                                  // onChange={(e) => {
+                                  //   setFieldValue("addressType", e.target.value);
+                                  // }}
+                                  // onChange={(val) => {
+                                  //   // setFieldValue("addressType", e.target.value);
+                                  //   console.log(val)
+                                  // }}
+                                  errors={errors}
+                                  touched={touched}
+                                />
+                              </div>
+                              <div className="form-group mb-3 button-wrap">
+                                <button
+                                  type="button"
+                                  className="cancel comn"
+                                  onClick={() =>
+                                    handleProfileFormReset(resetForm)
+                                  }
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  className="save comn"
+                                  type="submit"
+                                  disabled={submitting}
+                                >
+                                  {submitting ? "Please wait" : "Save"}
                                 </button>
                               </div>
                             </Form>
