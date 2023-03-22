@@ -84,6 +84,17 @@ export default function GetTableRow({
         isValid = false;
         errorsVal.vacantSeats = "Total seats must be < capacity " + data?.capacity;
       }
+      const seatsOpen = parseInt(data.seatsOpen);
+      if (seatsOpen === "") {
+        errorsVal.seatsOpen = "Required";
+        isValid = false;
+      } else if (seatsOpen == 0) {
+        errorsVal.seatsOpen = "Total seats must be > 0";
+        isValid = false;
+      } else if (seatsOpen > data.capacity) {
+        isValid = false;
+        errorsVal.seatsOpen = "Total seats must be < capacity " + data?.capacity;
+      }
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Required";
@@ -305,6 +316,29 @@ export default function GetTableRow({
           }}
         />
         {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
+      </td>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.seatsOpen ? 'column' : 'row') }}>
+        <Form.Control
+          size='sm'
+          type='number'
+          name={`${index}.seatsOpen`}
+          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+          value={admissionData?.seatsOpen || ''}
+          disabled={!isWritePermission || formData[index]?.seatsOpen || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          required
+          min="1"
+          max={admissionData.capacity}
+          onPaste={e => e.preventDefault()}
+          onChange={e => {
+            handleData(
+              setFieldData,
+              `${index}.seatsOpen`,
+              e.target.value,
+              formData[index]?.seatsOpen || ''
+            );
+          }}
+        />
+        {errors?.seatsOpen && <span className="error-exception">{errors.seatsOpen}</span>}
       </td>
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.applicationDate ? 'column' : 'row') }}>
         <DateRangePicker

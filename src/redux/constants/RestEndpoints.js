@@ -60,6 +60,7 @@ const RestEndPoint = {
   CHANGE_BULK_APPLICATION_STATUS:
     "admissionApplications/changeBulkApplicationStatus",
   SCHOOL_CLASSES_DATA: "v1/schooldetails",
+  ZIP_DOWNLOAD_APPLICATION: "admissionApplications/zip/downloadApplications",
   APPLICANT_DETAIL: "admissionApplications",
   ATPI_FOR_CLASS: "admissionApplications/ATPIForClass/",
   DOWNLOAD_APPLICANT_DETAIL:
