@@ -7,7 +7,9 @@ export function getDefaultDateFormat() {
 }
 
 export function formatDateToDDMMYYYY(date) {
-    return moment(date).format(formatDDMMYYYY)
+    if (date)
+        return moment(date).format(formatDDMMYYYY)
+    return date
 }
 
 export function parseDateWithDefaultFormat(dateSTR) {
