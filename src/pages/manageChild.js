@@ -12,10 +12,11 @@ import ConfirmDialog from '../common/ConfirmDialog';
 import Layout from '../common/layout';
 import LeftMenuBar from '../common/LeftMenuBar';
 import AddChildDialog from '../dialogs/addChild';
+import UserLocationNotSavedDialog from '../dialogs/userLocationNotSavedDialog';
 import { getChildsList } from '../redux/actions/childAction';
 import RestEndPoint from '../redux/constants/RestEndpoints';
 import PageContent from '../resources/pageContent';
-import { isEmpty, isLoggedIn } from '../utils/helper';
+import { getLocalData, isEmpty, isLoggedIn } from '../utils/helper';
 import RESTClient from '../utils/RestClient';
 
 const ManageChild = () => {
@@ -148,6 +149,7 @@ const ManageChild = () => {
             handleConfirm={handleDeleteChildConfirm}
             handleClose={()=>setShowConfirmDeleteDialog(false)}
         />
+                {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
         </>
     )
 }

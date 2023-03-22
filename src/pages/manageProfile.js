@@ -18,11 +18,14 @@ import {
 } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { resetUserLoginData } from "../utils/helper";
+import { isEmpty, resetUserLoginData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 export const ManageProfile = () => {
   const navigate = useNavigate();
+  const queryParams = new URLSearchParams(window.location.search);
+  const manageAddress = queryParams.get("manageAddress")
+
   const [key, setKey] = useState("userProfile");
   const [submitting, setSubmitting] = useState(false);
   const [stateOptions, setStateOptions] = useState([
@@ -127,8 +130,13 @@ export const ManageProfile = () => {
   }, []);
   useEffect(() => {
     populateStateList();
+    checkHomeAddress();
   }, []);
-
+  
+const checkHomeAddress = ()=>{
+  if(!isEmpty(manageAddress))
+    setKey("updateMobile");
+  }
   async function getUserDetails() {
     try {
       const response = await RESTClient.get(RestEndPoint.GET_USER_DETAILS);
