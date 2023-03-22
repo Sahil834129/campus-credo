@@ -70,7 +70,7 @@ export const zipDownloadApplications = async (applicationIds) => {
   try {
     const data = await RESTClient.postBlob(RestEndPoint.ZIP_DOWNLOAD_APPLICATION, applicationIds);
     console.log(data);
-    downloadFile(data, 'applicationDocument');
+    downloadFile(data, 'applicatntFirstName_ApplicationId');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
