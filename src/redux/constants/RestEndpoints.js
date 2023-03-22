@@ -41,6 +41,8 @@ const RestEndPoint = {
   MARK_PROFILE_COMPLETE: "/student/markProfileComplete",
   GET_USER_DETAILS: "/parent/getProfile",
   UPDATE_USER: "/parent/updateUser",
+  SAVE_USER_ADDRESS: "/parent/save/userLocation",
+  UPDATE_USER_ADDRESS: "/parent/update/userLocation",
   CHANGE_PASSWORD: "/parent/changePassword",
   UPDATE_PHONE: "/parent/updatePhone",
   CLASS_ADMISSION_DATA: "/admission/classAdmissionData",
