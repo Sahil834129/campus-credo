@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import RequestCallBackDialog from "../../dialogs/requestCallBackDialog";
-import { getGeoLocationState, getLocalData, isEmpty, isLoggedIn } from "../../utils/helper";
+import { getLocalData, isEmpty, isLoggedIn } from "../../utils/helper";
 
 const SchoolDetailTitle = (props) => {
 
@@ -23,20 +23,14 @@ const SchoolDetailTitle = (props) => {
     }
     const handleGoogleMap = async()=>
     {    
-        let locationPopupstate = await getGeoLocationState();
-        if(locationPopupstate.state === "denied")
-        {
-            toast.error("You have blocked Campuscredo from tracking your location. To use this, change your location settings in browser.");
-              return;
-        }
-        else{
-        if(!isEmpty(getLocalData("selectedLocationLong"))   && !isEmpty(getLocalData("selectedLocationLat")))
+        
+        if(!isEmpty(getLocalData("userLatitude"))   && !isEmpty(getLocalData("userLongitude")))
         navigate("/googleMap");
         else 
         {
             toast.error("Please Confirm your location by clicking Location Icon");
         }
-    }
+    
     }
     return (
         <div className='titlebar'>
