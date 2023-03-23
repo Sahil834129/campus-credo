@@ -11,10 +11,11 @@ import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
 import NoRecordsFound from "../common/NoRecordsFound";
 import AppliedSchools from "../components/userProfile/AppliedSchools";
+import UserLocationNotSavedDialog from "../dialogs/userLocationNotSavedDialog";
 import { getChildsList } from '../redux/actions/childAction';
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { isLoggedIn } from '../utils/helper';
+import { getLocalData, isEmpty, isLoggedIn } from '../utils/helper';
 import RESTClient from "../utils/RestClient";
 
 const UserProfile = () => {
@@ -102,6 +103,7 @@ const UserProfile = () => {
             </div>
           </Col>
         </Container>
+        {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
       </section>
     </Layout>
   )

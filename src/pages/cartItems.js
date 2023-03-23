@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -13,9 +13,9 @@ import SchoolCard from "../components/SchoolCard";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { isEmpty, isLoggedIn } from "../utils/helper";
+import { getLocalData, isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
-import { useCallback } from "react";
+import UserLocationNotSavedDialog from "../dialogs/userLocationNotSavedDialog";
 
 const ApplicationCart = () => {
   const dispatch = useDispatch();
@@ -173,6 +173,7 @@ const ApplicationCart = () => {
 
           </Col>
         </Container>
+        {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
       </section>
     </Layout>
   );

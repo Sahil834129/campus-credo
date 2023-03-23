@@ -11,11 +11,13 @@ import InputField from "../components/form/InputField";
 import { getSchoolClasses } from "../redux/actions/masterData";
 import { setSchoolFilter } from "../redux/actions/userAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
+import { checkIfCityExists, getLocalData, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const SidebarFilter = ({ filterFormData, applyFilters }) => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
+  const cities = getLocalData("cities");
   const classOptions = useSelector(
     (state) => state?.masterData?.schoolClasses || []
   );
@@ -237,7 +239,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                     />
                   </div>
                   <div className="filter-item">
-                    <InputField
+                    { isLoggedIn()  && checkIfCityExists(cities) && <InputField
                       fieldName="distance"
                       fieldType="select"
                       placeholder=""
@@ -246,7 +248,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                       selectOptions={distanceOptions}
                       errors={errors}
                       touched={touched}
-                    />
+                    />}
                   </div>
                   <div className="filter-item">
                     <InputField

@@ -16,7 +16,8 @@ import PageContent from "../../resources/pageContent";
 
 import { useSelector } from "react-redux";
 import AddChildDialog from "../../dialogs/addChild";
-import { getChildAge, isEmpty } from "../../utils/helper";
+import UserLocationNotSavedDialog from "../../dialogs/userLocationNotSavedDialog";
+import { getChildAge, getLocalData, isEmpty, isLoggedIn } from "../../utils/helper";
 import BackgroundCheckForm from "./background-check";
 import ExtracurricularForm from "./extracurriculars";
 import MedicalForm from "./medicalForm";
@@ -303,6 +304,8 @@ export const AdmissionForms = () => {
             handleClose={() => setShowAddChildDialog(false)}
           />
         </Container>
+        {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
+
       </section>
     </Layout>
   );

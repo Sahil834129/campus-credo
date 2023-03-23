@@ -6,11 +6,10 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import { toast } from "react-toastify";
 import logoHeader from "../assets/img/brand-logo-header.svg";
-import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
+import { getSelectedLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { getCurretLocation, getGeoLocationState, getLocalData, gotoHome, isEmpty, isLoggedIn, setLocalData } from "../utils/helper";
+import { checkIfCityExists, getLocalData, gotoHome, isEmpty, isLoggedIn, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import ConfirmDialog from "./ConfirmDialog";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
@@ -35,40 +34,25 @@ const SearchBar = () => {
     useEffect(() => { getCities(); }, []);
     useEffect(() => {
         dispatch(getSelectedLocation());
-
     }, [dispatch]);
 
 
-    const catchLocationerror = async () => {
-        // let locationPopupstate = await getGeoLocationState();
-        // if(locationPopupstate.state === "prompt")
+    const catchLocationerror =  () => {
+        let resultCityAfterCheck =  checkIfCityExists(cities);
         try {
-            const location = await getCurretLocation();
-            const response = await RESTClient.post(RestEndPoint.GET_CITY_NAME, location);
-           // const cities = await RESTClient.get(RestEndPoint.GET_CITIES);
-            if (cities.includes(response.data.cityName)) {
+            if (resultCityAfterCheck) {
                 localStorage.removeItem("cityNotFoundPopup");
-                dispatch(setSelectedLocation(response.data.cityName));
-                setLocalData("selectedLocation", response.data.cityName);
-                setLocalData("selectedLocationLat", response.data.latitude);
-                setLocalData("selectedLocationLong", response.data.longitude);
+                dispatch(setSelectedLocation(resultCityAfterCheck));
+                setLocalData("selectedLocation", resultCityAfterCheck);
+               
             } else {
                 dispatch(setSelectedLocation(cities[0]));
                 setShowCityNotFoundDialog(true);
-                //setLocalData("cityNotFoundPopup", true);
                 setLocalData("selectedLocation", cities[0]);
-                setLocalData("selectedLocationLat", 26.4922);
-                setLocalData("selectedLocationLong", 89.5320 );
             }
         } catch (error) {
-            if (error.code === 1) {
-                const response = await RESTClient.get(RestEndPoint.GET_CITIES);
-                dispatch(setSelectedLocation(response?.data?.listOfCity[0]));
-                setLocalData("selectedLocation", response?.data?.listOfCity[0]);
-            } else {
-                console.log('Error retrieving location:', error.message);
+                console.error('Error retrieving location:', error.message);
             }
-        }
     };
     const getSchoolData = async () => {
         let filters = [];
@@ -153,13 +137,7 @@ const SearchBar = () => {
     }
 
     async function handleGeoLocation() {
-        const geoLocationState = await getGeoLocationState();
-        if (geoLocationState.state === 'denied') {
-            toast.error("You have blocked Campuscredo from tracking your location. To use this, change your location settings in browser.");
-        } else {
-            catchLocationerror();
-            dispatch(setGeoLocation());
-        }
+        catchLocationerror();
     }
 
 
@@ -170,7 +148,7 @@ const SearchBar = () => {
                     <div className="header-item brand-logo"><Link to='/' onClick={(e) => gotoHome(e, navigate)}><img src={logoHeader} alt="brand logo" /></Link></div>
                     <div className="header-item search-region-pane">
                         <div className="region-dropdown-wrap">
-                            <i className="loc-icon" title="Click to get current location" onClick={e => handleGeoLocation()}>
+                            <i className="loc-icon" title="Click to get current location" onClick={() => handleGeoLocation()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" /></svg>
                             </i>
                             <Dropdown>

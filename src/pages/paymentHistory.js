@@ -10,9 +10,10 @@ import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
 import { hideLoader, showLoader } from "../common/Loader";
 import OrderLineItems from "../dialogs/OrderLineItems";
+import UserLocationNotSavedDialog from '../dialogs/userLocationNotSavedDialog';
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { humanize } from "../utils/helper";
+import { getLocalData, humanize, isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 import { downloadInvoice } from "../utils/services";
 
@@ -137,6 +138,7 @@ const PaymentHistory=() =>{
                     </Col>
                 </Container>
                 <OrderLineItems show={showLineItems} handleClose={handleCloseLineItems}  orderLineItems={orderLineItems}/>
+                {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
             </section>
         </Layout>
     

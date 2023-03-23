@@ -49,7 +49,8 @@ export const setUserLoginData = (loginData) => {
   setLocalData("sessionStartDate", loginData?.sessionStartDate);
   setLocalData("sessionEndDate", loginData?.sessionEndDate);
   setLocalData("admissionSession", loginData?.admissionSession);
-};
+  if(!isEmpty(loginData?.userLocationDtos[0]))
+     setLocalData("userLocation", loginData?.userLocationDtos[0].city);}
 
 export const getLocalData = (key) => {
   return localStorage.getItem(key);
@@ -377,3 +378,17 @@ export const Pathnames =
     "/verifyPhone/:phone",
     "/paymentFailed"
   ];
+
+  export  const checkIfCityExists = (cities) =>
+  {
+    if(!isEmpty(getLocalData("userLocation")))
+    {
+      let userLocation= getLocalData("userLocation");
+        if (cities.includes(userLocation)) 
+         return userLocation;
+    }
+  else 
+        {
+          return false;
+        }
+}
