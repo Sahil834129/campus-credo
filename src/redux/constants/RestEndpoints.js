@@ -40,7 +40,9 @@ const RestEndPoint = {
   GET_PARENT_OCCUPATION: "v1/school/parentOccupation",
   MARK_PROFILE_COMPLETE: "/student/markProfileComplete",
   GET_USER_DETAILS: "/parent/getProfile",
+  GET_USER_LOCATION: "/parent/userLocation",
   UPDATE_USER: "/parent/updateUser",
+  UPDATE_USER_LOCATION: "/parent/update/userLocation",
   SAVE_USER_ADDRESS: "/parent/save/userLocation",
   UPDATE_USER_ADDRESS: "/parent/update/userLocation",
   CHANGE_PASSWORD: "/parent/changePassword",
@@ -62,7 +64,6 @@ const RestEndPoint = {
   CHANGE_BULK_APPLICATION_STATUS:
     "admissionApplications/changeBulkApplicationStatus",
   SCHOOL_CLASSES_DATA: "v1/schooldetails",
-  ZIP_DOWNLOAD_APPLICATION: "admissionApplications/zip/downloadApplications",
   APPLICANT_DETAIL: "admissionApplications",
   ATPI_FOR_CLASS: "admissionApplications/ATPIForClass/",
   DOWNLOAD_APPLICANT_DETAIL:

@@ -11,10 +11,12 @@ import ConfirmDialog from "../common/ConfirmDialog";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
 import InputField from "../components/form/InputField";
+import { ReactComponent as Exclamation } from "../assets/img/icons/exclamation.svg";
 import {
   ChangePasswordSchema,
   UpdatePhoneSchema,
-  UpdateProfileSchema
+  UpdateProfileSchema,
+  userLocationSchema
 } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
@@ -27,6 +29,7 @@ export const ManageProfile = () => {
   const manageAddress = queryParams.get("manageAddress")
 
   const [key, setKey] = useState("userProfile");
+  const [locationResponse, setLoacationResponse] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [stateOptions, setStateOptions] = useState([
     { text: "Select State", value: "" },
@@ -36,8 +39,9 @@ export const ManageProfile = () => {
   ]);
 
   const [addressOptions, setAddressOptions] = useState([
-    { value: "", text: "Select City" },
-    { defaultValue: "Home", text: "HOME" },
+    // { value: "", text: "Select Type" },
+    { value: "Home", text: "HOME" },
+    // { value: "Office", text: "OFFICE" },
   ]);
 
   const [userDetails, setUserDetails] = useState({
@@ -46,10 +50,16 @@ export const ManageProfile = () => {
     email: "",
     city: "",
     state: "",
+  });
+
+  const [userLocation, setUserLocation] = useState({
+    city: "",
+    state: "",
     addressLine1: "",
     addressLine2: "",
     pincode: "",
-    addressType: "",
+    addressType: "Home",
+    userLocationId: ""
   });
   const [showOTP, setShowOTP] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
@@ -140,7 +150,6 @@ const checkHomeAddress = ()=>{
   async function getUserDetails() {
     try {
       const response = await RESTClient.get(RestEndPoint.GET_USER_DETAILS);
-      populateCities(response.data.state);
       setUserDetails({
         ...userDetails,
         firstName: response.data.firstName,
@@ -148,12 +157,26 @@ const checkHomeAddress = ()=>{
         email: response.data.email,
         city: response.data.city,
         state: response.data.state,
-        addressLine1: response.data.addressLine1,
-        addressLine2: response.data.addressLine2,
-        pincode: response.data.pincode,
-        addressType: response.data.addressType,
       });
     } catch (error) { }
+  }
+  async function getUserLocation() {
+    try {
+      const response = await RESTClient.get(RestEndPoint.GET_USER_LOCATION);
+      populateCities(response.data[0].state);
+      setLoacationResponse(response.data)
+      setUserLocation({
+        ...userLocation,
+        city: parseInt(response.data[0].city),
+        state: (response.data[0].state),
+        addressLine1: response.data[0].addressLine1,
+        addressLine2: response.data[0].addressLine2,
+        pincode: response.data[0].pincode,
+        addressType: response.data[0].addressType,
+        userLocationId: response.data[0].userLocationId,
+      })
+    }
+    catch (error) { }
   }
 
   const updateUserProfile = async (formData) => {
@@ -176,25 +199,39 @@ const checkHomeAddress = ()=>{
   const saveUserAddress = async (formData) => {
     setSubmitting(true);
     let postData = { ...formData };
-    delete postData.email
-    delete postData.firstName
-    delete postData.lastName
-    RESTClient.post(RestEndPoint.SAVE_USER_ADDRESS, postData)
-      .then((response) => {
-        toast.success("Address Saved Successfully");
-        setSubmitting(false);
-        navigate("/manageProfile");
-        setLocalData("userLocation",response.data.cityName)
-        setLocalData("userLatitude",response.data.latitude);
-        setLocalData("userLongitude",response.data.longitude);
-        setUserDetails({
-          ...userDetails,
+    if (!locationResponse) {
+    delete postData?.userLocationId;
+      RESTClient.post(RestEndPoint.SAVE_USER_ADDRESS, postData)
+        .then((response) => {
+          toast.success("Address Saved Successfully");
+          setSubmitting(false);
+          navigate("/manageProfile");
+          setLocalData("userLocation",response.data.cityName)
+          setLocalData("userLatitude",response.data.latitude);
+          setLocalData("userLongitude",response.data.longitude);            
+          setUserLocation({
+            ...userLocation,
+          });
+        })
+        .catch((error) => {
+          setSubmitting(false);
+          toast.error(RESTClient.getAPIErrorMessage(error));
         });
-      })
-      .catch((error) => {
-        setSubmitting(false);
-        toast.error(RESTClient.getAPIErrorMessage(error));
-      });
+    } else {
+      RESTClient.put(RestEndPoint.UPDATE_USER_LOCATION, postData)
+        .then((response) => {
+          toast.success("Location Updated Successfully");
+          setSubmitting(false);
+          navigate("/manageProfile");
+          setUserDetails({
+            ...userDetails,
+          });
+        })
+        .catch((error) => {
+          setSubmitting(false);
+          toast.error(RESTClient.getAPIErrorMessage(error));
+        });
+    }
   };
 
   const changePassword = async (formData) => {
@@ -259,6 +296,11 @@ const checkHomeAddress = ()=>{
     resetForm();
   }
 
+
+  useEffect(() => {
+    getUserLocation()
+  }, []);
+
   return (
     <>
       <Layout>
@@ -280,7 +322,7 @@ const checkHomeAddress = ()=>{
                       </Accordion.Body>
                     </Accordion.Item>
                   </Accordion>
-                  
+
                 </Col>
                 <Col className="profile-content right">
                   <div className="tab_btn_wrapper">
@@ -334,36 +376,6 @@ const checkHomeAddress = ()=>{
                                   label="Email"
                                   fieldType="text"
                                   placeholder="Email Address"
-                                  errors={errors}
-                                  touched={touched}
-                                />
-                              </div>
-                              <div className="col-md-6">
-                                <InputField
-                                  fieldName="state"
-                                  value={values.state}
-                                  label="State"
-                                  fieldType="select"
-                                  placeholder=""
-                                  selectOptions={stateOptions}
-                                  onChange={(e) => {
-                                    setFieldValue('state', e.target.value);
-                                    setFieldValue("city" , "");
-                                    populateCities(e.target.value);
-                                  }}
-                                  errors={errors}
-                                  touched={touched}
-                                  required
-                                />
-                              </div>
-                              <div className="col-md-6">
-                                <InputField
-                                  fieldName="city"
-                                  label="City"
-                                  value={values.city}
-                                  fieldType="select"
-                                  placeholder=""
-                                  selectOptions={cityOptions}
                                   errors={errors}
                                   touched={touched}
                                 />
@@ -568,10 +580,10 @@ const checkHomeAddress = ()=>{
 
 
 
-                      <Tab eventKey="addAdress" title="Add/Update Address">
+                      <Tab eventKey="addAdress" title={locationResponse ? <span>Location</span> : <span>Location  <Exclamation /></span>}>
                         <Formik
-                          initialValues={userDetails}
-                          validationSchema={UpdateProfileSchema}
+                          initialValues={userLocation}
+                          validationSchema={userLocationSchema}
                           validateOnBlur
                           enableReinitialize={true}
                           onSubmit={(values) => {
@@ -579,7 +591,23 @@ const checkHomeAddress = ()=>{
                           }}
                         >
                           {({ values, resetForm, errors, touched, setFieldValue }) => (
-                            <Form className="row g-4">
+                            < Form className="row g-4">
+                              <div className="col-md-12">
+                                <div className="col-md-3">
+                                  <InputField
+                                    fieldName="addressType"
+                                    as="select"
+                                    label="Address Type"
+                                    value={values.addressType}
+                                    fieldType="select"
+                                    placeholder=""
+                                    selectOptions={addressOptions}
+                                    // defaultValue={{ value: "Office", text: "OFFICE" }}
+                                    errors={errors}
+                                    touched={touched}
+                                  />
+                                </div>
+                              </div>
                               <div className="col-md-6">
                                 <InputField
                                   fieldName="addressLine1"
@@ -652,28 +680,6 @@ const checkHomeAddress = ()=>{
                                   touched={touched}
                                 />
                               </div>
-                              <div className="col-md-6">
-                                <InputField
-                                  fieldName="addressType"
-                                  label="Address Type"
-                                  value={values.addressType}
-                                  fieldType="select"
-                                  placeholder=""
-                                  selectOptions={addressOptions}
-                                  // selectOptions={[
-                                  //   { value: "Home", text: "House" },
-                                  // ]}
-                                  // onChange={(e) => {
-                                  //   setFieldValue("addressType", e.target.value);
-                                  // }}
-                                  // onChange={(val) => {
-                                  //   // setFieldValue("addressType", e.target.value);
-                                  //   console.log(val)
-                                  // }}
-                                  errors={errors}
-                                  touched={touched}
-                                />
-                              </div>
                               <div className="form-group mb-3 button-wrap">
                                 <button
                                   type="button"
@@ -689,7 +695,7 @@ const checkHomeAddress = ()=>{
                                   type="submit"
                                   disabled={submitting}
                                 >
-                                  {submitting ? "Please wait" : "Save"}
+                                  {submitting ? "Please wait..." : (locationResponse ? 'Update' : 'Save')}
                                 </button>
                               </div>
                             </Form>
