@@ -19,7 +19,11 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
             } else {
                 setTotalFeesCollected(val?.schoolAdmissionFeeSummary?.projectedFee);
                 setFeesCollected(val?.schoolAdmissionFeeSummary?.collectedFee);
-                setFeesCollectedPercent(parseFloat((parseFloat(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseFloat(val?.schoolAdmissionFeeSummary?.projectedFee)).toFixed(2));
+                if (val?.schoolAdmissionFeeSummary?.projectedFee === 0) {
+                    setFeesCollectedPercent(parseFloat((parseFloat(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseFloat(val?.schoolAdmissionFeeSummary?.projectedFee || 0)).toFixed(2));
+                } else {
+                    setFeesCollectedPercent(0)
+                }
             }
         }).catch((e) => {
             console.log(e);
@@ -59,7 +63,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
                             <label>Application Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>{feesCollected.toLocaleString('en-IN',
+                            <span className='value'>{(feesCollected || 0).toLocaleString('en-IN',
                                 {
                                     maximumFractionDigits: 2,
                                     style: 'currency',
@@ -109,7 +113,7 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
                                 midNumberText={feesCollectedPercent + '%'}
                                 midTextFirst={'Fees'}
                                 midTextSecond={'Collected'}
-                                totalRemainngData={`₹ ${totalFeesCollected.toLocaleString('en-IN')}`}
+                                totalRemainngData={`₹ ${(totalFeesCollected || 0).toLocaleString('en-IN')}`}
                                 totalRemainng="Projected Fees"
                             />
                         </td>
