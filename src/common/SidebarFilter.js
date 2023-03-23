@@ -11,7 +11,7 @@ import InputField from "../components/form/InputField";
 import { getSchoolClasses } from "../redux/actions/masterData";
 import { setSchoolFilter } from "../redux/actions/userAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { checkIfCityExists, getLocalData, isLoggedIn } from "../utils/helper";
+import { checkIfCityExists, checkSelectedCityWithUserCity, getLocalData, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const SidebarFilter = ({ filterFormData, applyFilters }) => {
@@ -239,7 +239,7 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
                     />
                   </div>
                   <div className="filter-item">
-                    { isLoggedIn()  && checkIfCityExists(cities) && <InputField
+                    { isLoggedIn()  && checkIfCityExists(cities) && checkSelectedCityWithUserCity() && <InputField
                       fieldName="distance"
                       fieldType="select"
                       placeholder=""

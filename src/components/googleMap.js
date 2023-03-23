@@ -3,8 +3,8 @@ import React from 'react';
 function Map() {
   const schoolLatitude = localStorage.getItem("SchoolDetailsLatitude"); 
   const schoolLongitude = localStorage.getItem("SchoolDetailsLongitude");
-  const userLatitude =localStorage.getItem("selectedLocationLat");
-  const userLongitude =localStorage.getItem("selectedLocationLong");
+  const userLatitude =localStorage.getItem("userLatitude");
+  const userLongitude =localStorage.getItem("userLongitude");
   const url = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyBMP95aNz-7G4CiRf5-6msK1pn7YkQQOsQ&origin=${schoolLatitude},${schoolLongitude}&destination=${userLatitude},${userLongitude}`;
 
   return (

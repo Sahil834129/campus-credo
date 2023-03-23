@@ -18,7 +18,7 @@ import {
 } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { isEmpty, resetUserLoginData } from "../utils/helper";
+import { isEmpty, resetUserLoginData, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 export const ManageProfile = () => {
@@ -135,7 +135,7 @@ export const ManageProfile = () => {
   
 const checkHomeAddress = ()=>{
   if(!isEmpty(manageAddress))
-    setKey("updateMobile");
+    setKey("addAdress");
   }
   async function getUserDetails() {
     try {
@@ -184,6 +184,9 @@ const checkHomeAddress = ()=>{
         toast.success("Address Saved Successfully");
         setSubmitting(false);
         navigate("/manageProfile");
+        setLocalData("userLocation",response.data.cityName)
+        setLocalData("userLatitude",response.data.latitude);
+        setLocalData("userLongitude",response.data.longitude);
         setUserDetails({
           ...userDetails,
         });
