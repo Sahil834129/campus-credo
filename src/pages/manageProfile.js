@@ -16,20 +16,22 @@ import {
   ChangePasswordSchema,
   UpdatePhoneSchema,
   UpdateProfileSchema,
-  userLocationSchema
+  UserLocationSchema
 } from "../data/validationSchema";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { isEmpty, resetUserLoginData, setLocalData } from "../utils/helper";
+import { getLocalData, isEmpty, resetUserLoginData, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
+import { hideLoader, showLoader } from "../common/Loader";
+import { useDispatch } from "react-redux";
 
 export const ManageProfile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const queryParams = new URLSearchParams(window.location.search);
   const manageAddress = queryParams.get("manageAddress")
 
   const [key, setKey] = useState("userProfile");
-  const [locationResponse, setLoacationResponse] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [stateOptions, setStateOptions] = useState([
     { text: "Select State", value: "" },
@@ -162,9 +164,9 @@ const checkHomeAddress = ()=>{
   }
   async function getUserLocation() {
     try {
+      showLoader(dispatch)
       const response = await RESTClient.get(RestEndPoint.GET_USER_LOCATION);
       populateCities(response.data[0].state);
-      setLoacationResponse(response.data)
       setUserLocation({
         ...userLocation,
         city: parseInt(response.data[0].city),
@@ -175,6 +177,7 @@ const checkHomeAddress = ()=>{
         addressType: response.data[0].addressType,
         userLocationId: response.data[0].userLocationId,
       })
+      hideLoader(dispatch)
     }
     catch (error) { }
   }
@@ -199,8 +202,8 @@ const checkHomeAddress = ()=>{
   const saveUserAddress = async (formData) => {
     setSubmitting(true);
     let postData = { ...formData };
-    if (!locationResponse) {
-    delete postData?.userLocationId;
+    if (isEmpty(getLocalData("userLocation"))) {
+      delete postData?.userLocationId;
       RESTClient.post(RestEndPoint.SAVE_USER_ADDRESS, postData)
         .then((response) => {
           toast.success("Address Saved Successfully");
@@ -223,6 +226,9 @@ const checkHomeAddress = ()=>{
           toast.success("Location Updated Successfully");
           setSubmitting(false);
           navigate("/manageProfile");
+          setLocalData("userLocation", response.data.cityName)
+          setLocalData("userLatitude", response.data.latitude);
+          setLocalData("userLongitude", response.data.longitude);
           setUserDetails({
             ...userDetails,
           });
@@ -580,10 +586,10 @@ const checkHomeAddress = ()=>{
 
 
 
-                      <Tab eventKey="addAdress" title={locationResponse ? <span>Location</span> : <span>Location  <Exclamation /></span>}>
+                      <Tab eventKey="addAdress" title={!isEmpty(getLocalData("userLocation")) ? <span>Location</span> : <span>Location  <Exclamation title="Please save your address." /></span>}>
                         <Formik
                           initialValues={userLocation}
-                          validationSchema={userLocationSchema}
+                          validationSchema={UserLocationSchema}
                           validateOnBlur
                           enableReinitialize={true}
                           onSubmit={(values) => {
@@ -695,7 +701,7 @@ const checkHomeAddress = ()=>{
                                   type="submit"
                                   disabled={submitting}
                                 >
-                                  {submitting ? "Please wait..." : (locationResponse ? 'Update' : 'Save')}
+                                  {submitting ? "Please wait..." : (!isEmpty(getLocalData("userLocation")) ? 'Update' : 'Save')}
                                 </button>
                               </div>
                             </Form>

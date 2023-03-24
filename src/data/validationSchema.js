@@ -92,7 +92,7 @@ export const UpdateProfileSchema = Yup.object().shape({
   city: Yup.string().required("Required *"),
 });
 
-export const userLocationSchema = Yup.object().shape({
+export const UserLocationSchema = Yup.object().shape({
   addressLine1: Yup.string().required("Required *"),
   addressLine2: Yup.string().required("Required *"),
   // addressType: Yup.string().required("Required *"),
