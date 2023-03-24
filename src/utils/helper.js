@@ -51,9 +51,13 @@ export const setUserLoginData = (loginData) => {
   setLocalData("schoolEmail", loginData?.schoolEmail);
   setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
-  if(!isEmpty(loginData?.userLocationDtos[0]))
-     setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);}
-
+  if(!isEmpty(loginData?.userLocationDtos[0])){
+     setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
+      setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);
+       setLocalData("userLongitude", loginData?.userLocationDtos[0].longitude);
+      }
+  }
+  
 export const getLocalData = (key) => {
   return localStorage.getItem(key);
 };
@@ -317,6 +321,16 @@ export const getActionButtonLabel = (applicationStatus) => {
       return humanize(applicationStatus, true);
   }
 };
+export const getUserlocation = (defaultLocation)=>
+{
+  if(isLoggedIn() && !isEmpty(getLocalData("userLocation")))
+  {
+    let userLocation =  getLocalData("userLocation");
+ return userLocation;
+}
+else
+return defaultLocation;
+}
 
 export const getCurretLocation = async () => {
   const data = await new Promise((res, rej) => {
@@ -387,7 +401,6 @@ export const Pathnames =
     {
       let userLocation= getLocalData("userLocation");
         if (cities.includes(userLocation)) {
-          console.log(userLocation,"userLocation");
          return userLocation;
         }
     }
