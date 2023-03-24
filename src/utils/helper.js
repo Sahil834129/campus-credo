@@ -52,7 +52,7 @@ export const setUserLoginData = (loginData) => {
   setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
   if(!isEmpty(loginData?.userLocationDtos[0]))
-     setLocalData("userLocation", loginData?.userLocationDtos[0].city);}
+     setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);}
 
 export const getLocalData = (key) => {
   return localStorage.getItem(key);
@@ -386,11 +386,21 @@ export const Pathnames =
     if(!isEmpty(getLocalData("userLocation")))
     {
       let userLocation= getLocalData("userLocation");
-        if (cities.includes(userLocation)) 
+        if (cities.includes(userLocation)) {
+          console.log(userLocation,"userLocation");
          return userLocation;
+        }
     }
   else 
         {
           return false;
         }
+}
+
+export const checkSelectedCityWithUserCity =()=>{
+  let selectedCity = getLocalData("selectedLocation");
+  let userCity = getLocalData("userLocation");
+  if(selectedCity=== userCity)
+  return true;
+  else return false;
 }
