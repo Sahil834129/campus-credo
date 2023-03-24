@@ -54,7 +54,7 @@ export default function GetTableRow({
   const disabledRow = (currentDate) => {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return currentDate ? (currentDate < now) : false;
+    return currentDate ? (currentDate <= now) : false;
   };
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
@@ -88,7 +88,7 @@ export default function GetTableRow({
       if (seatsOpen === "") {
         errorsVal.seatsOpen = "Required";
         isValid = false;
-      } else if (seatsOpen == 0) {
+      } else if (seatsOpen === 0) {
         errorsVal.seatsOpen = "Total seats must be > 0";
         isValid = false;
       } else if (seatsOpen > data.capacity) {
@@ -190,7 +190,7 @@ export default function GetTableRow({
         toast.success("Admission Details are saved");
       })
       .catch((error) => {
-        toast.error("Application must be submitted after today's date")
+        toast.error(error?.response?.data?.apierror?.message || "Application must be submitted after today's date");
       });
   };
 
@@ -294,29 +294,6 @@ export default function GetTableRow({
           ))}
         </Form.Select>
       </td>
-      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
-        <Form.Control
-          size='sm'
-          type='number'
-          name={`${index}.vacantSeats`}
-          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-          value={admissionData?.vacantSeats || ''}
-          disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          required
-          min="1"
-          max={admissionData.capacity}
-          onPaste={e => e.preventDefault()}
-          onChange={e => {
-            handleData(
-              setFieldData,
-              `${index}.vacantSeats`,
-              e.target.value,
-              formData[index]?.vacantSeats || ''
-            );
-          }}
-        />
-        {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
-      </td>
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.seatsOpen ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
@@ -339,6 +316,29 @@ export default function GetTableRow({
           }}
         />
         {errors?.seatsOpen && <span className="error-exception">{errors.seatsOpen}</span>}
+      </td>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.vacantSeats ? 'column' : 'row') }}>
+        <Form.Control
+          size='sm'
+          type='number'
+          name={`${index}.vacantSeats`}
+          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+          value={admissionData?.vacantSeats || ''}
+          disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          required
+          min="1"
+          max={admissionData.capacity}
+          onPaste={e => e.preventDefault()}
+          onChange={e => {
+            handleData(
+              setFieldData,
+              `${index}.vacantSeats`,
+              e.target.value,
+              formData[index]?.vacantSeats || ''
+            );
+          }}
+        />
+        {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
       </td>
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.applicationDate ? 'column' : 'row') }}>
         <DateRangePicker

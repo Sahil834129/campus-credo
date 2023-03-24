@@ -7,7 +7,16 @@
   // align-items: center;
   // justify-items: center;
 }
-
+.print-container {
+  th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+  }
+  .allign-left {
+    text-align: left;
+  }
+}
 .main-container {
   position: relative;
   padding: 0;
