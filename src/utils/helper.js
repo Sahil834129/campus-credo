@@ -50,7 +50,7 @@ export const setUserLoginData = (loginData) => {
   setLocalData("sessionEndDate", loginData?.sessionEndDate);
   setLocalData("admissionSession", loginData?.admissionSession);
   if(!isEmpty(loginData?.userLocationDtos[0]))
-     setLocalData("userLocation", loginData?.userLocationDtos[0].city);}
+     setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);}
 
 export const getLocalData = (key) => {
   return localStorage.getItem(key);
