@@ -5,14 +5,13 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
-import ConfirmDialog from "../common/ConfirmDialog";
 import Layout from "../common/layout";
 import { hideLoader, showLoader } from "../common/Loader";
 import SidebarFilter from "../common/SidebarFilter";
 import SchoolCardGrid from "../components/SchoolCardGrid";
 import { OPERATORS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { getCurretLocation, getGeoLocationState, getLocalData, isEmpty, isLoggedIn, removeLocalDataItem, setLocalData } from "../utils/helper";
+import { getLocalData, isEmpty, isLoggedIn, removeLocalDataItem } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const AllSchools = () => {
@@ -23,42 +22,18 @@ const AllSchools = () => {
 
   const [schoolList, setSchoolList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [latLong, setLatLong] = useState({});
-  const [grantLocationPermissionDialog, setGrantLocationPermissionDialog] = useState(false);
   const defaultLocation = useSelector(
     (state) => state.locationData.selectedLocation
   );
-  const grantlocationMessage = "You have blocked Campuscredo from tracking your location. To use this, enable your location settings in browser.";
   const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
-
-
-
-  const getCurrentLatLong = async () => {
-    const location = await getCurretLocation();
-    setLatLong(location);
-  };
-
   useEffect(() => {
-    getCurrentLatLong();
     getSchoolList();
+    applyFilters();
     window.scrollTo(0, 0);
-
-  }, [location]);
-
-  const closeGrantLocationDialog = () => {
-    localStorage.removeItem("locationDialogPrompt");
-    setGrantLocationPermissionDialog(false);
-  };
+  }, [selectedLocation]);
 
   const applyFilters = async (formFilter) => {
-    let locationPermission = await getGeoLocationState();
-    if (!isEmpty(formFilter.distance) && !isNaN(formFilter.distance) && locationPermission.state === "denied") {
-      setGrantLocationPermissionDialog(true);
-      setLocalData("locationDialogPrompt", true);
-      return;
-    }
-    localStorage.removeItem("locationDialogPrompt");
     try {
       showLoader(dispatch);
       setIsLoading(true);
@@ -118,7 +93,6 @@ const AllSchools = () => {
     filters.push({
       field: "city",
       operator: OPERATORS.EQUALS,
-      // value: getLocalData("selectedLocation"),
       value: selectedLocation,
     });
     if (filterForm.class)
@@ -174,15 +148,13 @@ const AllSchools = () => {
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
-
-      if(getLocalData("cities").includes(getLocalData("currentLocation"))) {
         if (filterForm.distance) {
           filterPayload["radius"] = filterForm.distance;
-        }
-        if (!isEmpty(latLong) && !isEmpty(latLong.longitude) && !isEmpty(latLong.latitude)) {
+
+        if (!isEmpty(getLocalData("userLatitude")) && !isEmpty(getLocalData("userLatitude")) ) {
           filterPayload["location"] = {
-            longitude: latLong.longitude,
-            latitude: latLong.latitude,
+            longitude: getLocalData("userLongitude"),
+            latitude: getLocalData("userLatitude"),
           };
         } 
       } 
@@ -211,11 +183,6 @@ const AllSchools = () => {
           </Col>
         </Container>
       </section>
-      <ConfirmDialog
-        show={grantLocationPermissionDialog}
-        message={grantlocationMessage}
-        handleConfirm={closeGrantLocationDialog}
-      />
     </Layout>
   );
 };

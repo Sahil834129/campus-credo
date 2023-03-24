@@ -28,7 +28,7 @@ const SchoolDetailTitle = (props) => {
         navigate("/googleMap");
         else 
         {
-            toast.error("Please Confirm your location by clicking Location Icon");
+            toast.error("Error in getting your location");
         }
     
     }
