@@ -22,12 +22,9 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { getLocalData, isEmpty, resetUserLoginData, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
-import { hideLoader, showLoader } from "../common/Loader";
-import { useDispatch } from "react-redux";
 
 export const ManageProfile = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const queryParams = new URLSearchParams(window.location.search);
   const manageAddress = queryParams.get("manageAddress")
 
@@ -164,7 +161,6 @@ const checkHomeAddress = ()=>{
   }
   async function getUserLocation() {
     try {
-      showLoader(dispatch)
       const response = await RESTClient.get(RestEndPoint.GET_USER_LOCATION);
       populateCities(response.data[0].state);
       setUserLocation({
@@ -177,7 +173,6 @@ const checkHomeAddress = ()=>{
         addressType: response.data[0].addressType,
         userLocationId: response.data[0].userLocationId,
       })
-      hideLoader(dispatch)
     }
     catch (error) { }
   }
