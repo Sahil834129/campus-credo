@@ -71,7 +71,7 @@ export default function GetTableRow({
 
   const validateField = (data) => {
     let isValid = true;
-    const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "" };
+    const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "", seatsOpen: "" };
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
       if (data.vacantSeats === "") {
@@ -84,8 +84,8 @@ export default function GetTableRow({
         isValid = false;
         errorsVal.vacantSeats = "Total seats must be < capacity " + data?.capacity;
       }
-      const seatsOpen = parseInt(data.seatsOpen);
-      if (seatsOpen === "") {
+      const seatsOpen = parseInt(data?.seatsOpen);
+      if (!data.seatsOpen || data.seatsOpen === "") {
         errorsVal.seatsOpen = "Required";
         isValid = false;
       } else if (seatsOpen === 0) {
