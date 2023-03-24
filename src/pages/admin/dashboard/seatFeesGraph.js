@@ -3,28 +3,15 @@ import { ListGroup } from "react-bootstrap";
 import { DoughnutChart } from "../../../common/Chart";
 import { getSchoolAdmissinFeeSummary } from "../../../utils/services";
 
-export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admissionSummary }) {
-    const [feesCollected, setFeesCollected] = useState(0);
+export default function SeatsFeesGraph({ sessionValue }) {
+    const [feesSummary, setFeesSummary] = useState({});
     const [feesCollectedPercent, setFeesCollectedPercent] = useState(0);
-    const [totalSeats, setTotalSeats] = useState(0);
     const [accepetedPercentsage, setAcceptedPercentage] = useState(0);
-    const [totalFeesCollected, setTotalFeesCollected] = useState(0);
-    // const accepetedPercentsage =;
+
     const fetchSchoolAdmissinFeesSummary = (currentSession) => {
         getSchoolAdmissinFeeSummary(currentSession).then(res => {
             const val = res?.data;
-            if (val?.schoolAdmissionFeeSummary?.projectedFee === 0) {
-                setTotalFeesCollected(0);
-                setFeesCollected(0);
-            } else {
-                setTotalFeesCollected(val?.schoolAdmissionFeeSummary?.projectedFee);
-                setFeesCollected(val?.schoolAdmissionFeeSummary?.collectedFee);
-                if (val?.schoolAdmissionFeeSummary?.projectedFee === 0) {
-                    setFeesCollectedPercent(parseFloat((parseFloat(val?.schoolAdmissionFeeSummary?.collectedFee || 0) * 100) / parseFloat(val?.schoolAdmissionFeeSummary?.projectedFee || 0)).toFixed(2));
-                } else {
-                    setFeesCollectedPercent(0)
-                }
-            }
+            setFeesSummary(val?.schoolAdmissionFeeSummary);
         }).catch((e) => {
             console.log(e);
         });
@@ -37,17 +24,16 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
     }, [sessionValue]);
 
     useEffect(() => {
-        setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant);
-    }, [schoolSeatsSummary]);
-
-    useEffect(() => {
-        setTotalSeats(schoolSeatsSummary?.filled + schoolSeatsSummary?.vacant);
-    }, [schoolSeatsSummary]);
-
-    useEffect(() => {
-        const percentageVal = (((parseInt(admissionSummary?.accepted || 0)) * 100) / totalSeats);
+        const percentageVal = (((parseInt(feesSummary?.collectedApplicationFee || 0)) * 100) / feesSummary?.projectedApplicationFee);
+        let fesCollectedPercent = 0;
         setAcceptedPercentage(isNaN(percentageVal) ? 0 : parseFloat(percentageVal).toFixed(2));
-    }, [admissionSummary, totalSeats]);
+        if (feesSummary?.projectedRegistrationFee !== 0) {
+            fesCollectedPercent = (parseFloat((parseInt(feesSummary?.collectedRegistrationFee || 0) * 100) / parseInt(feesSummary?.projectedRegistrationFee || 0)));
+            fesCollectedPercent = isNaN(fesCollectedPercent) ? 0 : parseFloat(fesCollectedPercent).toFixed(2);
+        }
+        setFeesCollectedPercent(fesCollectedPercent);
+    }, [feesSummary]);
+
 
     return (
         <div className='chart-block ch2'>
@@ -55,25 +41,23 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
                 <div className='right-col'>
                     <ListGroup className='clist-group'>
                         <ListGroup.Item>
-                            <span className='value'>{(totalSeats) || 0}</span>
-                            <label>Total Seats</label>
+                            <span>{feesSummary?.collectedApplicationFee}</span>
+                            <label>Application Fees</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>{admissionSummary?.totalApplication || 0}</span>
-                            <label>Application Received</label>
+                            <span>{feesSummary?.projectedApplicationFee}</span>
+                            <label>Projected Application Fees</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>{(feesCollected || 0).toLocaleString('en-IN',
-                                {
-                                    maximumFractionDigits: 2,
-                                    style: 'currency',
-                                    currency: 'INR'
-                                })}
-                            </span>
-                            <label>Fees Collected</label>
+                            <span>{feesSummary?.collectedRegistrationFee}</span>
+                            <label>Registration Fees</label>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <span>{feesSummary?.projectedRegistrationFee}</span>
+                            <label>Projected Registration Fees</label>
                         </ListGroup.Item>
                     </ListGroup>
-                    <div className="" style={{ textAlign: 'center', paddingTop: '24px', paddingBottom: '24px' }}><h2>Application Status</h2></div>
+                    <div className="" style={{ textAlign: 'center', paddingTop: '24px', paddingBottom: '24px' }}><h2>Fees Status</h2></div>
                 </div>
             </div>
             <table className='chart-area' style={{ padding: 0 }}>
@@ -92,10 +76,10 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
                                         }],
                                 } || {}}
                                 midNumberText={accepetedPercentsage + '%'}
-                                midTextFirst={'Offer'}
-                                midTextSecond={'Accepted'}
-                                totalRemainngData={`${totalSeats}`}
-                                totalRemainng="Remaining Seats"
+                                midTextFirst={'Application'}
+                                midTextSecond={'Fees'}
+                                totalRemainngData={`${feesSummary?.projectedApplicationFee || 0}`}
+                                totalRemainng="Projected Application Fees"
                             />
                         </td>
                         <td>
@@ -111,10 +95,10 @@ export default function SeatsFeesGraph({ schoolSeatsSummary, sessionValue, admis
                                         }],
                                 } || {}}
                                 midNumberText={feesCollectedPercent + '%'}
-                                midTextFirst={'Fees'}
-                                midTextSecond={'Collected'}
-                                totalRemainngData={`₹ ${(totalFeesCollected || 0).toLocaleString('en-IN')}`}
-                                totalRemainng="Projected Fees"
+                                midTextFirst={'Registration'}
+                                midTextSecond={'Fees'}
+                                totalRemainngData={`₹ ${(feesSummary?.projectedRegistrationFee || 0).toLocaleString('en-IN')}`}
+                                totalRemainng="Projected Registration Fees"
                             />
                         </td>
                     </tr>

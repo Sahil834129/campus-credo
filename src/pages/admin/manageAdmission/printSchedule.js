@@ -8,6 +8,9 @@ import { convertDate, formatDateToDDMMYYYY } from "../../../utils/DateUtil";
 
 export default function PrintSchedule() {
   let { session } = useParams();
+  const schoolEmail = getLocalData("schoolEmail");
+  const schoolContactNumber = getLocalData("schoolContactNumber");
+
   const [printData, setPrintData] = useState([]);
   const convertTableData = (response) => {
     return response.map(val => {
@@ -41,7 +44,7 @@ export default function PrintSchedule() {
   }, []);
 
   return (
-    <Container className='main-container admin-contianer' fluid>
+    <Container className='main-container admin-contianer print-container' fluid>
       <div style={{ display: 'flex', margin: '20px', justifyContent: 'space-between', fontSize: 30, fontWeight: 'bold', color: 'black' }}>
         <div></div>
         <div style={{}}>{getLocalData('schoolName')}</div>
@@ -61,7 +64,7 @@ export default function PrintSchedule() {
         <table style={{ width: '100%' }}>
           <thead>
             <tr>
-              <th>Class</th>
+              <th className="allign-left">Class</th>
               <th>Admission Open</th>
               <th>Total Seats</th>
               <th>Application </th>
@@ -74,20 +77,31 @@ export default function PrintSchedule() {
           <tbody>
             {printData.map((admissionData, index) =>
               <tr key={`print${index}`}>
-                <td>{admissionData.className}</td>
+                <td className="allign-left">{admissionData.className}</td>
                 <td>{admissionData.isOpen ? 'Yes' : 'No'}</td>
-                <td>{admissionData.vacantSeats}</td>
+                <td>{admissionData.seatsOpen || '-'}</td>
                 <td>{formatDateToDDMMYYYY(admissionData.formSubmissionStartDate)} - {formatDateToDDMMYYYY(admissionData.formSubmissionEndDate)}</td>
                 <td>{formatDateToDDMMYYYY(admissionData.admissionTestStartDate)} - {formatDateToDDMMYYYY(admissionData.admissionTestEndDate)}</td>
                 <td>{formatDateToDDMMYYYY(admissionData.personalInterviewStartDate)} - {formatDateToDDMMYYYY(admissionData.personalInterviewStartDate)}</td>
-                <td>₹ {admissionData.formFee}</td>
-                <td>₹ {admissionData.registrationFee}</td>
+                <td>{admissionData.formFee ? '₹ ' + admissionData.formFee : "-"}</td>
+                <td>{admissionData.registrationFee ? '₹ ' + admissionData.formFee : "-"}</td>
               </tr>
             )}
           </tbody>
         </table>
-      </div>
 
+      </div>
+      <div style={{ margin: 20 }}>
+        <div style={{ fontWeight: 'bold' }}>
+          Contact us:
+        </div>
+        <div>
+          {schoolEmail}
+        </div>
+        <div>
+          {schoolContactNumber}
+        </div>
+      </div>
     </Container>
   );
 } 

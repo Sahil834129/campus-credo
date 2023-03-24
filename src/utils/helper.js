@@ -48,6 +48,8 @@ export const setUserLoginData = (loginData) => {
   setLocalData("schoolName", loginData?.schoolName);
   setLocalData("sessionStartDate", loginData?.sessionStartDate);
   setLocalData("sessionEndDate", loginData?.sessionEndDate);
+  setLocalData("schoolEmail", loginData?.schoolEmail);
+  setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
   if(!isEmpty(loginData?.userLocationDtos[0]))
      setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);}

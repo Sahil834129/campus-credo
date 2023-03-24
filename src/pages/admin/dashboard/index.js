@@ -98,7 +98,7 @@ export const Dashboard = () => {
             applicationStatus={dashBoardData?.applicationStatus}
             totalApplication={dashBoardData?.upperSchoolAdmissionSummary?.totalApplication}
           />
-          <SeatsFeesGraph sessionValue={sessionValue} schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} />
+          <SeatsFeesGraph sessionValue={sessionValue} />
         </div>
       </div>
     </Layout>
