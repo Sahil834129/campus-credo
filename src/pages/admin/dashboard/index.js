@@ -7,6 +7,7 @@ import ApplicationStatus from "./applicationStatus";
 import ApprovedAcceptedGraph from "./approvedAcceptedGraph";
 import SeatsFeesGraph from "./seatFeesGraph";
 import SeatsDetail from "./seatsDetail";
+import ChartModal from "../../../dialogs/chartModal";
 
 
 export const Dashboard = () => {
@@ -20,11 +21,14 @@ export const Dashboard = () => {
 
   const [acceptedOffer, setAcceptedOffer] = useState([]);
   const [declinedOffer, setDeclinedOffer] = useState([]);
+  const [showChart, setShowChart] = useState(false);
   const [totalApplicationReceived, setTotalApplicationReceived] = useState([]);
 
   const [applicationApproved, setApplicationApproved] = useState([]);
 
-
+  const clickModal = () => {
+    setShowChart(true)
+  }
   const fetchSchoolAdmissinSummary = (currentSession) => {
     getSchoolAdmissinSummary(currentSession)
       .then((response) => {
@@ -67,6 +71,10 @@ export const Dashboard = () => {
     setApplicationApproved(approved);
   };
 
+  const handleChartClose = () => {
+    setShowChart(false);
+  };
+
   useEffect(() => {
     if (applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined) {
       const tempData = applicationStatusChartData?.applicationReceivedAcceptedApprovedDeclined;
@@ -87,7 +95,9 @@ export const Dashboard = () => {
         <div className='metrics-wrap'>
           <ApplicationProcessing applicationProcessing={dashBoardData?.applicationProcessing} />
           <SeatsDetail schoolSeatsSummary={schoolSeatsSummary} />
-          <ApprovedAcceptedGraph acceptedOffer={acceptedOffer} applicationApproved={applicationApproved} labels={labels} />
+          <div onClick={clickModal} style={{ cursor: "pointer" }} title="Click to Expand">
+            <ApprovedAcceptedGraph acceptedOffer={acceptedOffer} applicationApproved={applicationApproved} labels={labels} hideLabel={false} />
+          </div>
         </div>
         <div className='chart-wrap'>
           <ApplicationStatus
@@ -98,9 +108,16 @@ export const Dashboard = () => {
             applicationStatus={dashBoardData?.applicationStatus}
             totalApplication={dashBoardData?.upperSchoolAdmissionSummary?.totalApplication}
           />
-          <SeatsFeesGraph sessionValue={sessionValue} />
+          <SeatsFeesGraph sessionValue={sessionValue} schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} />
         </div>
       </div>
+      <ChartModal
+        show={showChart}
+        handleClose={() => handleChartClose()}
+        acceptedOffer={acceptedOffer}
+        applicationApproved={applicationApproved}
+        labels={labels}
+      />
     </Layout>
   );
 };
