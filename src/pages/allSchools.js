@@ -148,16 +148,17 @@ const AllSchools = () => {
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
-        if (filterForm.distance) {
-          filterPayload["radius"] = filterForm.distance;
+    if (filterForm.distance) {
+      filterPayload["radius"] = filterForm.distance;
+      filterPayload["userId"] = getLocalData("userId");
 
         if (!isEmpty(getLocalData("userLatitude")) && !isEmpty(getLocalData("userLatitude")) ) {
-          filterPayload["location"] = {
-            longitude: getLocalData("userLongitude"),
-            latitude: getLocalData("userLatitude"),
-          };
-        } 
-      } 
+        filterPayload["location"] = {
+          longitude: getLocalData("userLongitude"),
+          latitude: getLocalData("userLatitude"),
+        };
+      }
+    }
 
     filterPayload["filters"] = filters;
     return filterPayload;

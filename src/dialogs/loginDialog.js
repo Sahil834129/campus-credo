@@ -46,7 +46,7 @@ const LoginDialog = (props) => {
   const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] =
     useState(false);
   const [passwordType, setPasswordType] = useState("password");
-  const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
+  // const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -127,7 +127,7 @@ const LoginDialog = (props) => {
     try {
       const response = await RESTClient.post(action, reqPayload);
       setUserLoginData(response.data);
-      setLocalData("selectedLocation", selectedLocation);
+      // setLocalData("selectedLocation", selectedLocation);
       dispatch(setIsUserLoggedIn(isLoggedIn()));
 
 
@@ -138,7 +138,7 @@ const LoginDialog = (props) => {
       dispatch(setIsAdmin(!isParent));
       if (isParent) {
         loadUserData();
-        navigate('/userProfile');
+        navigate("/userProfile");
       } else {
         window.location.href = "/dashboard";
       }
