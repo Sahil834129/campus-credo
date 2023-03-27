@@ -45,6 +45,7 @@ export const setUserLoginData = (loginData) => {
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);
+  setLocalData("userId", loginData?.userId);
   setLocalData("schoolName", loginData?.schoolName);
   setLocalData("sessionStartDate", loginData?.sessionStartDate);
   setLocalData("sessionEndDate", loginData?.sessionEndDate);
@@ -52,10 +53,11 @@ export const setUserLoginData = (loginData) => {
   setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
   if(!isEmpty(loginData?.userLocationDtos[0])){
-     setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
-      setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);
-       setLocalData("userLongitude", loginData?.userLocationDtos[0].longitude);
-      }
+    setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
+    setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);
+    setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);
+    setLocalData("userLongitude", loginData?.userLocationDtos[0].longitude);
+  }
   }
   
 export const getLocalData = (key) => {
