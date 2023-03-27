@@ -5,35 +5,30 @@ import ConfirmDialog from "../common/ConfirmDialog";
 import { getLocalData, isEmpty } from "../utils/helper";
 
 const UserLocationNotSavedDialog = () => {
-    const navigate = useNavigate();
-
-    const [showYourHomePopup, showSetYourHomePopup] = useState(false)
-    const  setYourHomeAddress=
-  "Please save your Home Address to proceed further.";
-  const loginHasLocation = ()=>
-  {
-     if(isEmpty( getLocalData("userLocation")))
-     {
+  const navigate = useNavigate();
+  const [showYourHomePopup, showSetYourHomePopup] = useState(false);
+  const setYourHomeAddress = "Please save your Home Address to proceed further.";
+  const loginHasLocation = () => {
+    if (isEmpty(getLocalData("userLocation")) && !isEmpty(getLocalData("token"))) {
       showSetYourHomePopup(true);
-     }
-  }
+    }
+  };
 
-const handleConfirmHomePopup = ()=>
-{
-  showSetYourHomePopup(false);
-  navigate("/manageProfile/?manageAddress=true")
-}
-useEffect(() => { 
-      loginHasLocation(); 
+  const handleConfirmHomePopup = () => {
+    showSetYourHomePopup(false);
+    navigate("/manageProfile/?manageAddress=true");
+  };
+  useEffect(() => {
+    loginHasLocation();
   }, []);
-    return (
-        <ConfirmDialog
-        show={showYourHomePopup}
-        message={setYourHomeAddress}
-        handleConfirm={handleConfirmHomePopup}
+  return (
+    <ConfirmDialog
+      show={showYourHomePopup}
+      message={setYourHomeAddress}
+      handleConfirm={handleConfirmHomePopup}
     />
 
-    )
-}
+  );
+};
 
 export default UserLocationNotSavedDialog;
