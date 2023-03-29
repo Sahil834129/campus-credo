@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 import { convertDate } from "../../../utils/DateUtil";
 import { getCurrentModulePermission, getLocalData } from "../../../utils/helper";
 import {
@@ -8,7 +9,6 @@ import {
 } from '../../../utils/services';
 import Layout from '../layout';
 import GetTableRow from "./getTableRow";
-import { useNavigate } from "react-router-dom";
 
 const initialFormData = undefined;
 
@@ -102,21 +102,7 @@ export const ManageAdmission = () => {
 
   return (
     <Layout>
-      <Button
-        style={{
-          width: '5%',
-          top: '130px',
-          position: 'absolute',
-          right: '20px'
-        }}
-        className='save-btn'
-        onClick={_ => {
-          window.open(`/print-manage-admission/${sessionValue}`, '_blank')
-          // navigate();
-        }}
-      >
-        Print
-      </Button>
+      
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper'>
           <div className='inner-content-wrap padt8'>
@@ -140,6 +126,21 @@ export const ManageAdmission = () => {
                 </Form.Select>
               </div>
               <div className='btn-wrapper'>
+              <Button
+                // style={{
+                //   width: '5%',
+                //   top: '130px',
+                //   position: 'absolute',
+                //   right: '20px'
+                // }}
+                className='save-btn'
+                onClick={_ => {
+                  window.open(`/print-manage-admission/${sessionValue}`, '_blank')
+                  // navigate();
+                }}
+              >
+                Print
+              </Button>
                 <Button
                   className='reset-btn'
                   disabled={!isWritePermission || sessionValue === pastSessionValue}
