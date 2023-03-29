@@ -48,8 +48,9 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
     };
     return (
         <div className='metrics-block mb3'>
+            <div className="expand-kta-wrap"> {!hideLabel ? <Expand /> : ""}</div>
             <div className='title-area'>
-                <h2>Applications Approved Vs Offers Accepted {!hideLabel ? <Expand /> : ""}</h2>
+                {!hideLabel ? <h2>Applications Approved Vs Offers Accepted </h2> : ""}
             </div>
             <div className='chart-area'>
                 <Barchart
