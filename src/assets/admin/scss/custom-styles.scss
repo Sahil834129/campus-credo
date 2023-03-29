@@ -1708,6 +1708,8 @@ align-items: center;
   .multi-range-slider {
     box-shadow: none;
     border: none;
+    position: relative;
+    z-index: 0;
     .bar{}
     .bar-inner{
       .bar-inner-left{}
