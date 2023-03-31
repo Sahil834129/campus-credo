@@ -220,6 +220,7 @@ const checkHomeAddress = ()=>{
         .then((response) => {
           toast.success("Location Updated Successfully");
           setSubmitting(false);
+          setLocalData("selectedLocation", response.data.cityName)
           setLocalData("userLocation",response.data.cityName)
           setLocalData("userLatitude",response.data.latitude);
           setLocalData("userLongitude",response.data.longitude);       
