@@ -106,7 +106,7 @@ async function handleGeoLocation() {
         })
         try {
             const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {filters:filters});
-            setSearchItems(response.data.map(school => ({name:school.schoolName})));
+            setSearchItems(response.data.map((school, index) => ({name:school.schoolName, id: index})));
         } catch(e){};
     }
   return (

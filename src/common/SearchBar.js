@@ -37,22 +37,22 @@ const SearchBar = () => {
     }, [dispatch]);
 
 
-    const catchLocationerror =  () => {
-        let resultCityAfterCheck =  checkIfCityExists(cities);
+    const catchLocationerror = () => {
+        let resultCityAfterCheck = checkIfCityExists(cities);
         try {
             if (resultCityAfterCheck) {
                 localStorage.removeItem("cityNotFoundPopup");
                 dispatch(setSelectedLocation(resultCityAfterCheck));
                 setLocalData("selectedLocation", resultCityAfterCheck);
-               
+
             } else {
                 dispatch(setSelectedLocation(cities[0]));
                 setShowCityNotFoundDialog(true);
                 setLocalData("selectedLocation", cities[0]);
             }
         } catch (error) {
-                console.error('Error retrieving location:', error.message);
-            }
+            console.error('Error retrieving location:', error.message);
+        }
     };
     const getSchoolData = async () => {
         let filters = [];
@@ -63,7 +63,7 @@ const SearchBar = () => {
         });
         try {
             const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, { filters: filters });
-            setSearchItems(response.data.map(school => ({ name: school.schoolName })));
+            setSearchItems(response.data.map((school, index) => ({ name: school.schoolName, id: index })));
         } catch (e) { };
     };
 
@@ -71,12 +71,12 @@ const SearchBar = () => {
         try {
             const response = await RESTClient.get(RestEndPoint.GET_CITIES);
             setCities(response.data.listOfCity);
-            setLocalData("cities",response.data.listOfCity)
+            setLocalData("cities", response.data.listOfCity);
         } catch (e) { }
     };
 
     const handleOnSelect = (item) => {
-        navigate("/schools?name=" + item.name);
+        window.location.replace("/schools?name=" + item.name);
     };
 
     const handleOnSearch = (item) => {
@@ -129,8 +129,8 @@ const SearchBar = () => {
 
     function handleSelectCity(location) {
         setLocalData("selectedLocation", location);
-        localStorage.removeItem("selectedLocationLong");  
-        localStorage.removeItem("selectedLocationLat");  
+        localStorage.removeItem("selectedLocationLong");
+        localStorage.removeItem("selectedLocationLat");
 
         dispatch(setSelectedLocation(location));
         navigate("/schools");
