@@ -210,12 +210,14 @@ const checkHomeAddress = ()=>{
           setUserLocation({
             ...userLocation,
           });
+          getUserLocation()
         })
         .catch((error) => {
           setSubmitting(false);
           toast.error(RESTClient.getAPIErrorMessage(error));
         });
     } else {
+      postData = { ...formData };
       RESTClient.put(RestEndPoint.UPDATE_USER_LOCATION, postData)
         .then((response) => {
           toast.success("Location Updated Successfully");
