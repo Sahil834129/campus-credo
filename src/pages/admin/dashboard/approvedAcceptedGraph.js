@@ -17,7 +17,8 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
         scales: {
             x: {
                 grid: {
-                    display: false
+                    display: true,
+                    borderDash: [2, 2],
                 },
                 title: {
                     display: false,
@@ -31,13 +32,16 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
             },
             y: {
                 grid: {
-                    display: false
+                    display: true
                 },
                 title: {
                     display: false,
                     text: "y axis",
                     color: "000000",
                 },
+                suggestedMin: 10,
+                suggestedMax: 50,
+                min: 0,
                 ticks: {
                     callback: function (value) { if (value % 1 === 0) { return value; } },
                     autoSkip: false,
@@ -48,30 +52,51 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
     };
     return (
         <div className='metrics-block mb3'>
+            <div className="expand-kta-wrap"> {!hideLabel ? <Expand /> : ""}</div>
             <div className='title-area'>
-                <h2>Applications Approved Vs Offers Accepted {!hideLabel ? <Expand /> : ""}</h2>
+                {!hideLabel ? <h2>Applications Approved Vs Offers Accepted </h2> : ""}
             </div>
             <div className='chart-area'>
-                <Barchart
-                    option={chartOptionsValue}
-                    labelsdata={{
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: "Application Approved",
-                                data: applicationApproved,
-                                backgroundColor: "#F7C32E",
-                                boxWidth: 14,
+                {!hideLabel ?
+                    <Barchart
+                        option={chartOptionsValue}
+                        labelsdata={{
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Application Approved",
+                                    data: applicationApproved,
+                                    backgroundColor: "#F7C32E",
+                                    boxWidth: 14,
 
-                            },
-                            {
-                                label: "Offers Accepted",
-                                data: acceptedOffer,
-                                backgroundColor: "#4AB900",
-                                boxWidth: 14,
-                            }]
-                    }}
-                    styling={{ height: '120px', width: '100%' }} />
+                                },
+                                {
+                                    label: "Offers Accepted",
+                                    data: acceptedOffer,
+                                    backgroundColor: "#4AB900",
+                                    boxWidth: 14,
+                                }]
+                        }}
+                        styling={{ height: '120px', width: '100%' }} /> : <Barchart
+                        option={chartOptionsValue}
+                        labelsdata={{
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Application Approved",
+                                    data: applicationApproved,
+                                    backgroundColor: "#F7C32E",
+                                    boxWidth: 14,
+
+                                },
+                                {
+                                    label: "Offers Accepted",
+                                    data: acceptedOffer,
+                                    backgroundColor: "#4AB900",
+                                    boxWidth: 14,
+                                }]
+                        }}
+                        styling={{ height: '400px', width: '100%' }} />}
             </div>
         </div>
     );

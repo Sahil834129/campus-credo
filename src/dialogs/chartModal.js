@@ -3,10 +3,9 @@ import GenericDialog from "./GenericDialog";
 
 
 export const ChartModal = (props) => {
-    console.log("chart modal prop", props);
 
     return (
-        <GenericDialog className='confirmation-modal' show={props.show} handleClose={props.handleClose}>
+        <GenericDialog className='confirmation-modal chart-modal' show={props.show} handleClose={props.handleClose} modalHeader="Applications Approved Vs Offers Accepted">
             <div className='modal-body-col'>
                 <div>
                     <ApprovedAcceptedGraph acceptedOffer={props.acceptedOffer} applicationApproved={props.applicationApproved} labels={props.labels} hideLabel={true} />

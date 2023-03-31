@@ -86,6 +86,7 @@ const RestEndPoint = {
   JOIN_US: "user/joinUs",
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
   GET_PAYMENT_HISTORY: "payment/paymentHistory",
+  ZIP_DOWNLOAD_APPLICATION:"/admissionApplications/zip/downloadApplications"
 };
 
 export default RestEndPoint;

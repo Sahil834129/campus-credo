@@ -29,8 +29,8 @@ const SchoolCardHeader = (props) => {
                         <div className='loc-item'>
                             <span className='region'>{school.addressLine1},</span><span className='city'>{school.city}</span>
                         </div>
-                        <span className='loc-item distance'>{!isEmpty(getLocalData("userLocation"))
-                        ? <span> {school.distance } km away </span>:""} </span>
+                        <span className='loc-item distance'>{!isEmpty(getLocalData("userLocation")) && !isEmpty(school.distance)
+                            ? <span> {school.distance} km away </span> : ""} </span>
                     </div>
                 </div>
             </Row>

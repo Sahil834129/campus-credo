@@ -5,13 +5,13 @@ import Accordion from 'react-bootstrap/Accordion';
 import OtpInput from "react-otp-input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ReactComponent as Exclamation } from "../assets/img/icons/exclamation.svg";
 import AlertDialog from "../common/AlertDialog";
 import Breadcrumbs from "../common/Breadcrumbs";
 import ConfirmDialog from "../common/ConfirmDialog";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
 import InputField from "../components/form/InputField";
-import { ReactComponent as Exclamation } from "../assets/img/icons/exclamation.svg";
 import {
   ChangePasswordSchema,
   UpdatePhoneSchema,
@@ -593,9 +593,9 @@ const checkHomeAddress = ()=>{
                         >
                           {({ values, resetForm, errors, touched, setFieldValue }) => (
                             < Form className="row g-4">
-                              <div className="col-md-12">
-                                <div className="col-md-3">
-                                  <InputField
+                              
+                              <div className="col-md-6">
+                                <InputField
                                     fieldName="addressType"
                                     as="select"
                                     label="Address Type"
@@ -607,7 +607,6 @@ const checkHomeAddress = ()=>{
                                     errors={errors}
                                     touched={touched}
                                   />
-                                </div>
                               </div>
                               <div className="col-md-6">
                                 <InputField
