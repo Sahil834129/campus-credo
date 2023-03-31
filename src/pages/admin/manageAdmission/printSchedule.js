@@ -84,7 +84,7 @@ export default function PrintSchedule() {
                 <td>{formatDateToDDMMYYYY(admissionData.admissionTestStartDate)} - {formatDateToDDMMYYYY(admissionData.admissionTestEndDate)}</td>
                 <td>{formatDateToDDMMYYYY(admissionData.personalInterviewStartDate)} - {formatDateToDDMMYYYY(admissionData.personalInterviewStartDate)}</td>
                 <td>{admissionData.formFee ? '₹ ' + admissionData.formFee : "-"}</td>
-                <td>{admissionData.registrationFee ? '₹ ' + admissionData.formFee : "-"}</td>
+                <td>{admissionData.registrationFee ? '₹ ' + admissionData.registrationFee : "-"}</td>
               </tr>
             )}
           </tbody>
