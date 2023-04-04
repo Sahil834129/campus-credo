@@ -1517,8 +1517,13 @@ table {
         margin-top: 0;
         margin-bottom: -18px;
       }
-      .react-datepicker-popper {
-        z-index: 4;
+      
+      th,
+      td {
+        padding: 15px 9px;
+        overflow: hidden;
+        //text-overflow: ellipsis;
+        //white-space: nowrap;
       }
       input {
         font-size: 14px;
