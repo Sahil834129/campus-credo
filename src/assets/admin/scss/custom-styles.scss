@@ -1392,17 +1392,17 @@ ul.list-group{
     border-collapse: collapse;
     min-width: 100%;
     grid-template-columns: 
-      minmax(100px, 1fr)
-      minmax(150px, 1fr)
-      minmax(150px, 1fr)
-      minmax(150px, 1fr)
-      minmax(150px, 1fr)
-      minmax(150px, 2.5fr)
-      minmax(150px, 2.5fr)
-      minmax(150px, 2.5fr)
-      minmax(150px, 1fr)
-      minmax(150px, 1fr)
-      minmax(100px, 1fr);
+      minmax(100px,1fr)
+      minmax(150px,1fr)
+      minmax(150px,1fr)
+      minmax(150px,1fr)
+      minmax(150px,1fr)
+      minmax(213px,2.5fr)
+      minmax(213px,2.5fr)
+      minmax(213px,2.5fr)
+      minmax(150px,1fr)
+      minmax(150px,1fr)
+      minmax(100px,1fr);
 
       &.user-tbl{
         grid-template-columns: 
@@ -1423,10 +1423,10 @@ ul.list-group{
       
       th,
       td {
-        padding: 15px;
+        padding: 15px 9px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        //text-overflow: ellipsis;
+        //white-space: nowrap;
       }
       
       th {

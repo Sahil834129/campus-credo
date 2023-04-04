@@ -252,8 +252,8 @@ export default function GetTableRow({
       <td>{admissionData.className}</td>
       <td>
         <div className='switch-wrapper'>
-          <Form.Label className='no'>
-            No
+          <Form.Label className='no' style={{ visibility: "hidden" }}>
+            Hide
           </Form.Label>
           <Form.Check
             type='switch'
@@ -270,9 +270,9 @@ export default function GetTableRow({
               );
             }}
           />
-          <Form.Label className='yes'>
+          {/* <Form.Label className='yes'>
             Yes
-          </Form.Label>
+          </Form.Label> */}
         </div>
       </td>
       <td>

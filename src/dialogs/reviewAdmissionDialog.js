@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import { hideLoader, showLoader } from "../common/Loader";
 import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { getChildAge, humanize, isEmpty } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
+import StringUtils from "../utils/StringUtils";
+import { getChildAge, humanize, isEmpty } from "../utils/helper";
 import {
   downloadApplicationDocument,
-  downloadDocument
+  downloadDocument,
 } from "../utils/services";
-import StringUtils from "../utils/StringUtils";
 import GenericDialog from "./GenericDialog";
 import ParentGuardianTab from "./parentGuardianTab";
 
@@ -40,7 +40,7 @@ const ReviewAdmissionDialog = ({
   const [infoDeclarationAccepted, setInfoDeclarationAccepted] = useState(false);
   const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] =
     useState(false);
-    const [remarks, setRemarks] = useState([]);
+  const [remarks, setRemarks] = useState([]);
   const childAge = getChildAge(studentDetail.dateOfBirth);
 
   async function getChildProfile(childId) {
@@ -48,15 +48,15 @@ const ReviewAdmissionDialog = ({
       const response = await RESTClient.get(
         RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`
       );
-      
+
       setStudentDetail(response.data);
-      if(!(response.data.childId))
-      {
-        setStudentDetail((val)=>{
-        return {
-          ...val,
-          childId
-        }});
+      if (!response.data.childId) {
+        setStudentDetail((val) => {
+          return {
+            ...val,
+            childId,
+          };
+        });
       }
     } catch (error) {
       setStudentDetail({});
@@ -115,8 +115,7 @@ const ReviewAdmissionDialog = ({
       const response = await RESTClient.get(
         RestEndPoint.APPLICANT_DETAIL + `/${applicationId}`
       );
-      if(response.data.remarks!=="")
-      {
+      if (response.data.remarks !== "") {
         setRemarks(response.data.remarks);
       }
       if (response.data.applicantProfile !== "") {
@@ -151,7 +150,6 @@ const ReviewAdmissionDialog = ({
     }
   }
 
-
   async function downloadApplication(applicationId) {
     downloadApplicationDocument(applicationId);
   }
@@ -184,7 +182,6 @@ const ReviewAdmissionDialog = ({
       setShowAlertDialog(true);
       return;
     }
-
     try {
       handleClose();
       showLoader(dispatch);
@@ -230,7 +227,7 @@ const ReviewAdmissionDialog = ({
         }
         toast.error(error.response.data.apierror.message);
         hideLoader(dispatch);
-      } else {  
+      } else {
         toast.error(RESTClient.getAPIErrorMessage(error));
         hideLoader(dispatch);
       }
@@ -278,13 +275,10 @@ const ReviewAdmissionDialog = ({
                 </div>
                 <div className="admin-detail-cell">
                   <span>Phone Number</span>
-                  <span className="item-entry">
-                    {studentDetail.phone}
-                  </span>
+                  <span className="item-entry">{studentDetail.phone}</span>
                 </div>
               </div>
               <div className="admin-detail-row">
-
                 <div className="admin-detail-cell">
                   <label>Gender:</label>
                   <span className="item-entry">{studentDetail.gender}</span>
@@ -301,7 +295,7 @@ const ReviewAdmissionDialog = ({
                 </div>
               </div>
               <div className="admin-detail-row">
-              <div className="admin-detail-cell">
+                <div className="admin-detail-cell">
                   <label>Nationality:</label>
                   <span className="item-entry">
                     {studentDetail.nationality}
@@ -321,7 +315,7 @@ const ReviewAdmissionDialog = ({
                 </div>
               </div>
               <div className="admin-detail-row onextwo-col">
-              <div className="admin-detail-cell">
+                <div className="admin-detail-cell">
                   <label>Identification Marks:</label>
                   <span className="item-entry">
                     {studentDetail.identificationMarks
@@ -404,69 +398,76 @@ const ReviewAdmissionDialog = ({
             </Accordion.Body>
           </Accordion.Item>
 
-        {childAge >= 11 ? (<Accordion.Item eventKey="2">
-            <Accordion.Header>Extracurriculars</Accordion.Header>
-            <Accordion.Body>
-              <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Participated in any competitions:</label>
-                  <span className="item-entry">
-                    {studentDetail.competitionCertificate
-                      ? humanize(studentDetail.competitionCertificate)
-                      : "NA"}
-                  </span>
+          {childAge >= 11 ? (
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>Extracurriculars</Accordion.Header>
+              <Accordion.Body>
+                <div className="admin-detail-row">
+                  <div className="admin-detail-cell">
+                    <label>Participated in any competitions:</label>
+                    <span className="item-entry">
+                      {studentDetail.competitionCertificate
+                        ? humanize(studentDetail.competitionCertificate)
+                        : "NA"}
+                    </span>
+                  </div>
+                  <div className="admin-detail-cell">
+                    <label>Having any other interests :</label>
+                    <span className="item-entry">
+                      {studentDetail.otherInterest
+                        ? humanize(studentDetail.otherInterest)
+                        : "NA"}
+                    </span>
+                  </div>
                 </div>
-                <div className="admin-detail-cell">
-                  <label>Having any other interests :</label>
-                  <span className="item-entry">
-                    {studentDetail.otherInterest
-                      ? humanize(studentDetail.otherInterest)
-                      : "NA"}
-                  </span>
-                </div>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>):""}
+              </Accordion.Body>
+            </Accordion.Item>
+          ) : (
+            ""
+          )}
 
-          {childAge >= 11 ? (<Accordion.Item eventKey="3">
-            <Accordion.Header>Background Check</Accordion.Header>
-            <Accordion.Body>
-              <div className="admin-detail-row"></div>
-              <div className="admin-detail-row">
-                <div className="admin-detail-cell">
-                  <label>Any history of violent behaviour :</label>
-                  <span className="item-entry">
-                    <br />
-                    {studentDetail.violenceBehaviour
-                      ? humanize(studentDetail.violenceBehaviour)
-                      : "NA"}
-                  </span>
+          {childAge >= 11 ? (
+            <Accordion.Item eventKey="3">
+              <Accordion.Header>Background Check</Accordion.Header>
+              <Accordion.Body>
+                <div className="admin-detail-row"></div>
+                <div className="admin-detail-row">
+                  <div className="admin-detail-cell">
+                    <label>Any history of violent behaviour :</label>
+                    <span className="item-entry">
+                      <br />
+                      {studentDetail.violenceBehaviour
+                        ? humanize(studentDetail.violenceBehaviour)
+                        : "NA"}
+                    </span>
+                  </div>
+                  <div className="admin-detail-cell">
+                    <label>
+                      Any instances outside of school involving significant
+                      behaviours:
+                    </label>
+                    <span className="item-entry">
+                      {studentDetail.suspension
+                        ? humanize(studentDetail.offensiveConduct)
+                        : "NA"}
+                    </span>
+                  </div>
+                  <div className="admin-detail-cell">
+                    <label>
+                      Ever been suspended or expelled from any previous school:
+                    </label>
+                    <span className="item-entry">
+                      {studentDetail.suspension
+                        ? humanize(studentDetail.suspension)
+                        : "NA"}
+                    </span>
+                  </div>
                 </div>
-                <div className="admin-detail-cell">
-                  <label>
-                    Any instances outside of school involving significant
-                    behaviours:
-                  </label>
-                  <span className="item-entry">
-                    {studentDetail.suspension
-                      ? humanize(studentDetail.offensiveConduct)
-                      : "NA"}
-                  </span>
-                </div>
-                <div className="admin-detail-cell">
-                  <label>
-                    Ever been suspended or expelled from any previous school:
-                  </label>
-                  <span className="item-entry">
-                    {studentDetail.suspension
-                      ? humanize(studentDetail.suspension)
-                      : "NA"}
-                  </span>
-                </div>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>):""}
-
+              </Accordion.Body>
+            </Accordion.Item>
+          ) : (
+            ""
+          )}
 
           <Accordion.Item eventKey="4">
             <Accordion.Header>Parents/Guardian</Accordion.Header>
@@ -595,24 +596,27 @@ const ReviewAdmissionDialog = ({
               </div>
             </Accordion.Body>
           </Accordion.Item>
-          {applicationId ? (  <Accordion.Item eventKey="6">
-            <Accordion.Header>Remarks</Accordion.Header>
-            <Accordion.Body>
-           { remarks ?
-                 (   remarks.map(  (remark)=>{
-                  return ( 
-          <> 
-          
-          <div className="remark-block item-row">
-                        <div className="item-cell remark-src">
-                          <label className="user-name">{remark.firstName} {remark.lastName}</label><span className="remark-dt">{remark.dateTime}</span>
+          {applicationId ? (
+            <Accordion.Item eventKey="6">
+              <Accordion.Header>Remarks</Accordion.Header>
+              <Accordion.Body>
+                {remarks ? (
+                  remarks.map((remark) => {
+                    return (
+                      <>
+                        <div className="remark-block item-row">
+                          <div className="item-cell remark-src">
+                            <label className="user-name">
+                              {remark.firstName} {remark.lastName}
+                            </label>
+                            <span className="remark-dt">{remark.dateTime}</span>
+                          </div>
+                          <div className="item-cell remark-txt">
+                            <p>{remark.text}</p>
+                          </div>
                         </div>
-                        <div className="item-cell remark-txt">
-                          <p>{remark.text}</p>
-                        </div>
-                      </div>
 
-          {/* <div className="admin-detail-row">
+                        {/* <div className="admin-detail-row">
           <div className="admin-detail-cell">
             <label>{remark.firstName}  {remark.lastName}</label>
           </div>
@@ -633,15 +637,19 @@ const ReviewAdmissionDialog = ({
           </div>
          
         </div> */}
-        
-        </>
-              )}
-              )) : <div className="no-remarks" style={{ textAlign: "center" }}>
-              No Record Found.
-            </div>
-           }
-            </Accordion.Body>
-          </Accordion.Item>) : ""}
+                      </>
+                    );
+                  })
+                ) : (
+                  <div className="no-remarks" style={{ textAlign: "center" }}>
+                    No Record Found.
+                  </div>
+                )}
+              </Accordion.Body>
+            </Accordion.Item>
+          ) : (
+            ""
+          )}
         </Accordion>
         {applicationId ? (
           ""
@@ -678,6 +686,11 @@ const ReviewAdmissionDialog = ({
             >
               Checkout
             </Button>
+            <div className="copyright-col">
+              <Link to={"/termsOfService"}>Terms of Use</Link>{" "}
+              <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+              <Link to={"/refundPolicy"}>Refund Policy</Link>
+            </div>
             <Button
               className="edit"
               onClick={() => {
