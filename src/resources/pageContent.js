@@ -9,7 +9,7 @@ const PageContent = {
   HEADER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
-    // { ref: '/howItWorks', title: 'How It Works' },
+    { ref: "/blog", title: "Blog" },
     { ref: '/schools', title: 'All Schools' },
     { ref: '/faqs', title: "FAQ's" },
     { ref: '/contactUs', title: "Contact Us" }
