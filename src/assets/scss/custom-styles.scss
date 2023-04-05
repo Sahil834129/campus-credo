@@ -199,6 +199,7 @@
               background: $darkgreen;
               color: $white;
               padding: 4px 10px;
+              margin-top: 15px;
               border-radius: 4px;
               font-size: 12px;
               text-transform: uppercase;
@@ -210,7 +211,7 @@
             margin-top: 16px;
             width: 100%;
             flex-direction: column;
-            margin-bottom: 24px;
+            // margin-bottom: 24px;
             div{
               display: flex;
               column-gap: 16px;
@@ -6106,7 +6107,7 @@ align-items: center;
     }
   }
 }
-.search-inner .wrapper .sc-gswNZR.hCpHso{height: 280px; overflow-x: auto;}
+.search-inner .wrapper .sc-gswNZR.hCpHso{height: 280px; overflow-y: auto;}
 .not-found-wrapper{
   display: flex;
   flex-direction: column;

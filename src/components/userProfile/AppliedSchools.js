@@ -174,7 +174,7 @@ const AppliedSchools = ({ application, setApplications }) => {
 
                 <div className="moreinfo-block">
                   <div className="row-item">
-                    <span className="cell-item">Applying to Class:</span>
+                    <span className="cell-item">Applied To Class:</span>
                     <span className="cell-item"><strong>{application.className}</strong></span>
                   </div>
                   <div className="row-item">
