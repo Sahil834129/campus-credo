@@ -1587,51 +1587,32 @@ ul.list-group{
                       flex-grow: 1;
                       flex-basis: 0;
                       
-                      .item-cell{
-                        flex-grow: 1;
-                        flex-basis: 0;
-                      }
-                      
-                      
-                    }
-                    .single-row{
-                      display: flex;
-                      flex-direction: row;
-                      column-gap: 16px;
-                      flex-grow: 1;
-                        flex-basis: 0;
-                      .item-cell{
-                        flex-grow: 1;
-                        flex-basis: 0;
-                      }
-                      .title{}
-                      .particular{}
-                    }
-                    .title{
-                      font-style: normal;
-                      font-weight: 400;
-                      font-size: 14px;
-                      line-height: 18px;
-                      display: flex;
-                      align-items: center;
-                      text-transform: capitalize;
-                      color: rgba(0, 0, 0, 0.8);
-                      white-space: nowrap;
-                    }
-                    .particular{
-                      font-style: normal;
-                      font-weight: 700;
-                      font-size: 14px;
-                      line-height: 18px;
-                      display: flex;
-                      align-items: center;
-                      text-transform: capitalize;
-                      color: #41285F;
-                      &.adm-status{
+                      .title{
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 18px;
                         display: flex;
-                        column-gap: 8px;
-                        // flex-direction: column;
-                        .adm-sessions{}
+                        align-items: center;
+                        text-transform: capitalize;
+                        color: rgba(0, 0, 0, 0.8);
+                        white-space: nowrap;
+                      }
+                      .particular{
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 14px;
+                        line-height: 18px;
+                        display: flex;
+                        align-items: center;
+                        text-transform: capitalize;
+                        color: #41285F;
+                        &.adm-status{
+                          display: flex;
+                          column-gap: 8px;
+                          // flex-direction: column;
+                          .adm-sessions{}
+                        }
                       }
                     }
                   }
@@ -2232,7 +2213,7 @@ ul.list-group{
                 position: -webkit-sticky;
                 position: sticky;
                 bottom: 1%;
-                z-index: 0;
+                z-index: 1;
               }
             }
             .btn{
@@ -4994,6 +4975,18 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                 &:hover{
                   opacity: 0.8;
                 }
+              }
+              .copyright-col{
+                color: #595d69;
+                -webkit-column-gap: 8px;
+                column-gap: 8px;
+                display: flex;
+                flex-wrap: wrap;
+                font-size: 14px;
+                font-style: normal;
+               font-weight: 400;
+               line-height: 18px;
+               row-gap: 8px;
               }
             }
           }

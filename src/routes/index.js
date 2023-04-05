@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Blog from "../common/Blog/blog";
 import Map from "../components/googleMap";
 import { DEFAULT_ROLES } from "../constants/app";
 import {
@@ -29,7 +30,7 @@ import {
   SignUp,
   TermsOfUse,
   UserProfile,
-  VerifyPhone
+  VerifyPhone,
 } from "../pages";
 import PrintSchedule from "../pages/admin/manageAdmission/printSchedule";
 import TermsAndConditions from "../pages/admin/termsAndConditions";
@@ -47,6 +48,7 @@ function AppRoutes() {
         <Route path="/howItWorks" element={<HowItWorks />} />
         <Route path="/schools" element={<AllSchools />} />
         <Route path="/contactUs" element={<ContactUs />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/termsOfService" element={<TermsOfUse />} />
         <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />

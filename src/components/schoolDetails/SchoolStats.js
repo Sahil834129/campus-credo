@@ -12,8 +12,8 @@ const SchoolStats = (props) => {
             <div className="item-cell particular">{schoolDetails.board || "NA"}</div>
           </div>
           <div className="cell">
-            <div className="item-cell title">Ownership</div>
-            <div className="item-cell particular">{schoolDetails.ownership || "NA"}</div>
+            <div className="item-cell title">Parent Group</div>
+            <div className="item-cell particular">{schoolDetails.parentGroup || "NA"}</div>          
           </div>
           
         </div>
