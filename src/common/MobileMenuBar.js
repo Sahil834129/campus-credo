@@ -30,6 +30,7 @@ const getCities = async() => {
     try {
         const response = await RESTClient.get(RestEndPoint.GET_CITIES);
         setCities(response.data.listOfCity);
+        setLocalData("cities", response.data.listOfCity);
     } catch (e) {}
 }
 const handleOnSearch = (item) => {

@@ -402,7 +402,7 @@ export const Pathnames =
     if(!isEmpty(getLocalData("userLocation")))
     {
       let userLocation= getLocalData("userLocation");
-        if (cities.includes(userLocation)) {
+      if (cities && cities.includes(userLocation)) {
          return userLocation;
         }
     }
