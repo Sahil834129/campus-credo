@@ -340,7 +340,7 @@
     .footer-main .finner .fcol.quicklinks ul.list-group{flex-direction: row; column-gap: 16px; flex-wrap: wrap;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left .school-nearby-collapsible .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;}
     .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .tab-wrapper .tab-content{padding: 8px;}
-    .search-inner .wrapper .sc-gswNZR.hCpHso{height: 200px; overflow-x: auto;}
+    .search-inner .wrapper .sc-gswNZR.iLjAXM{height: 200px; overflow-x: auto;}
     .payment-history-tbl{overflow-y: auto;}
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap{flex-direction: column;}
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap li .order-item.title{margin-bottom: 0;}
@@ -374,7 +374,37 @@
     .modal.alert-popup .modal-dialog{width: 400px; max-width: 400px;}
 }
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
-@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+    .tbl-grid-wrapper table td input {
+        font-size: 13px;
+    }
+    .form-select-sm {
+        font-size: 13px;
+    }
+    table tbody tr td, table thead tr th {
+        font-size: 13px;
+    }
+    .tbl-grid-wrapper table th {
+        font-size: 13px;
+    }
+    .tbl-grid-wrapper table td, .tbl-grid-wrapper table th {
+        padding: 15px 7px;
+    }
+
+    .tbl-grid-wrapper table {
+        border-collapse: collapse;
+        display: grid;
+        grid-template-columns: minmax(80px,1fr) minmax(80px,1fr) minmax(120px,1fr) minmax(85px,1fr) minmax(85px,1fr) minmax(200px,3.5fr) minmax(200px,3.5fr) minmax(200px,3.5fr) minmax(85px,1fr) minmax(80px,1fr) minmax(102px,1fr);
+        min-width: 100%;
+    }
+}
+
+@media (max-width:1281px) { /* hi-res laptops and desktops */ 
+    .tbl-grid-wrapper table {
+       overflow-x: scroll;
+       grid-template-columns: minmax(100px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) minmax(90px, 1fr) minmax(90px, 1fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr);
+    }
+}
 
 @media screen and (max-width: 1199px) { 
     .main-container .form-content-wrapper{}

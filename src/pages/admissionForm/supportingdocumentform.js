@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import '../../assets/scss/custom-styles.scss'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
@@ -19,7 +19,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const [check2, setCheck2] = useState(false)
 
   const [condition, setCondition] = useState(false)
-  const finalSubmit = async() => {
+  const finalSubmit = async () => {
     if (check1 && check2) {
       try {
         await RESTClient.get(
@@ -28,8 +28,8 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         setCondition(false)
         toast.success('Student profile submitted successfully.')
         setTimeout(() => {
-        navigate('/userProfile')
-     }, 1000);
+          navigate('/userProfile')
+        }, 1000);
       } catch (error) {
         toast.error(RESTClient.getAPIErrorMessage(error))
       }
@@ -121,16 +121,25 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
                 onChange={(e) => {
                   setCheck1(e.target.checked)
                   setCondition(!e.target.checked)
-                }} 
+                }}
               />
               <Form.Check
                 type='checkbox'
-                label='I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy'
+                label={
+                  <div>
+                    <span>I have read, understood and accept the </span>
+                    <Link to={"/termsOfService"}> Terms of Use, </Link>
+                    <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+                    <span> and </span>
+                    <Link to={"/refundPolicy"}> Refund Policy</Link>
+                    <span>.</span>
+                  </div>
+                }
                 required
                 onChange={(e) => {
                   setCheck2(e.target.checked)
                   setCondition(!e.target.checked)
-                }} 
+                }}
               />
               {condition && <label style={{ display: 'flex', color: 'Red' }}>Please accept all T&C  </label>}
             </div>
