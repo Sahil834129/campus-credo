@@ -358,7 +358,7 @@ const ReviewAdmissionDialog = ({
                   <label>Need Special Care :</label>
                   <span className="item-entry">
                     {medicalDetail.specialCare &&
-                    medicalDetail.specialCare !== ""
+                      medicalDetail.specialCare !== ""
                       ? humanize(medicalDetail.specialCare)
                       : "No"}
                   </span>
@@ -369,7 +369,7 @@ const ReviewAdmissionDialog = ({
                   <label>Medical Conditions :</label>
                   <span className="item-entry">
                     {medicalDetail.medicalConditions &&
-                    medicalDetail.medicalConditions !== ""
+                      medicalDetail.medicalConditions !== ""
                       ? medicalDetail.medicalConditions
                       : "No"}
                   </span>
@@ -379,18 +379,18 @@ const ReviewAdmissionDialog = ({
                   <span className="item-entry">
                     {medicalDetail.disabilities?.length
                       ? medicalDetail.disabilities
-                          .map((v) =>
-                            StringUtils.capitalizeFirstLetter(
-                              StringUtils.replaceUnderScoreWithSpace(v)
-                            )
+                        .map((v) =>
+                          StringUtils.capitalizeFirstLetter(
+                            StringUtils.replaceUnderScoreWithSpace(v)
                           )
-                          .join(", ")
-                          .replaceAll(
-                            "Other",
-                            StringUtils.capitalizeFirstLetter(
-                              medicalDetail.otherDisability
-                            )
+                        )
+                        .join(", ")
+                        .replaceAll(
+                          "Other",
+                          StringUtils.capitalizeFirstLetter(
+                            medicalDetail.otherDisability
                           )
+                        )
                       : "No"}
                   </span>
                 </div>
@@ -657,7 +657,7 @@ const ReviewAdmissionDialog = ({
           <div className="declaration-wrapper">
             <Form.Check
               type="checkbox"
-              label=" I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct"
+              label=" I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct."
               required
               checked={infoDeclarationAccepted}
               onChange={(e) => {
@@ -666,7 +666,16 @@ const ReviewAdmissionDialog = ({
             />
             <Form.Check
               type="checkbox"
-              label="I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy"
+              label={
+                <div>
+                  <span>I have read, understood and accept the </span>
+                  <Link to={"/termsOfService"}> Terms of Use, </Link>
+                  <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+                  <span> and </span>
+                  <Link to={"/refundPolicy"}> Refund Policy</Link>
+                  <span>.</span>
+                </div>
+              }
               required
               checked={termsPolicyDeclarationAccepted}
               onChange={(e) => {
@@ -687,9 +696,7 @@ const ReviewAdmissionDialog = ({
               Checkout
             </Button>
             <div className="copyright-col">
-              <Link to={"/termsOfService"}>Terms of Use</Link>{" "}
-              <Link to={"/privacyPolicy"}>Privacy Policy</Link>
-              <Link to={"/refundPolicy"}>Refund Policy</Link>
+
             </div>
             <Button
               className="edit"
@@ -719,7 +726,7 @@ const ReviewAdmissionDialog = ({
             </div>
           </div>
         )}
-      </GenericDialog>
+      </GenericDialog >
       <AlertDialog
         show={showAlertDialog}
         message={alertMessage}
