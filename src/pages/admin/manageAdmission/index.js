@@ -154,13 +154,13 @@ export const ManageAdmission = () => {
                     <th>Class</th>
                     <th>Admission Open</th>
                     <th>Admission Type</th>
-                    <th>Total Seats <span className='required'>*</span></th>
-                    <th>Vacant Seats <span className='required'>*</span></th>
+                    <th>Total Seats<span className='required'>*</span></th>
+                    <th>Vacant Seats<span className='required'>*</span></th>
                     <th>Application Form Dates<span className='required'>*</span></th>
                     <th>Parent Interview Dates</th>
                     <th>Candidate Screening Dates</th>
-                    <th>Application Fees <span className='required'>*</span></th>
-                    <th>Registration Fees <span className='required'>*</span></th>
+                    <th>Application Fees<span className='required'>*</span></th>
+                    <th>Registration Fees<span className='required'>*</span></th>
                     <th className="action-cell">Action</th>
                   </tr>
                 </thead>

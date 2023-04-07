@@ -25,7 +25,7 @@ const SchoolDetailTitle = (props) => {
     {    
         
         if(!isEmpty(getLocalData("userLatitude"))   && !isEmpty(getLocalData("userLongitude")))
-        navigate("/googleMap");
+        window.open("/googleMap");
         else 
         {
             toast.error("Error in getting your location");
