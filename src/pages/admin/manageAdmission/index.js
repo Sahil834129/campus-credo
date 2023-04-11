@@ -155,8 +155,8 @@ export const ManageAdmission = () => {
                     <th>Admission Open</th>
                     <th>Admission Type</th>
                     <th>Total Seats<span className='required'>*</span></th>
-                    <th>Vacant Seats<span className='required'>*</span></th>
-                    <th>Application Form Dates<span className='required'>*</span></th>
+                    <th>Seats Available<span className='required'>*</span></th>
+                    <th>Application Window<span className='required'>*</span></th>
                     <th>Parent Interview Dates</th>
                     <th>Candidate Screening Dates</th>
                     <th>Application Fees<span className='required'>*</span></th>

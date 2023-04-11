@@ -160,9 +160,6 @@ const AppliedSchools = ({ application, setApplications }) => {
               
               
               <div className="info-item school-info-exerpts">
-                <div className="app-id">
-                  <label>Application# : {application.applicationId}</label>
-                </div>
                 <div className="school-name">{application.schoolName}</div>
                 <ListGroup className="school-type">
                   <ListGroup.Item>{application.board}</ListGroup.Item>
@@ -173,6 +170,9 @@ const AppliedSchools = ({ application, setApplications }) => {
                 </ListGroup>
 
                 <div className="moreinfo-block">
+                  <div className="app-id">
+                  <label>Application ID : {application.applicationId}</label>
+                </div>
                   <div className="row-item">
                     <span className="cell-item">Applied To Class:</span>
                     <span className="cell-item"><strong>{application.className}</strong></span>
@@ -182,7 +182,7 @@ const AppliedSchools = ({ application, setApplications }) => {
                     <span className="cell-item"><strong>{application.formFee}</strong></span>
                   </div>
                   <div className="row-item">
-                    <span className="cell-item">Applying for Session:</span>
+                    <span className="cell-item">Applied for Session:</span>
                     <span className="cell-item"><strong>{application.admissionSession}</strong></span>
                   </div> 
                   <div className="row-item">
