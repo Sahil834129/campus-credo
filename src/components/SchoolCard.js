@@ -11,6 +11,8 @@ import PageContent from "../resources/pageContent";
 import { isEmpty, isLoggedIn } from "../utils/helper";
 import InfoDropDown from "./InfoDropDown";
 import SchoolCardHeader from "./SchoolCardHeader";
+import { ReactComponent as ApplicationPartner } from "../assets/admin/img/application-partner.svg";
+
 
 const SchoolCard = (props) => {
     const navigate = useNavigate()
@@ -124,7 +126,7 @@ const SchoolCard = (props) => {
                 </Card.Body>
                 <Col className='salient-features'>
                     <Row className='partner-wrap'>
-                        { school?.partner && <div className="partner-inner"><div className='partner-item icon'><i className='icons partner-icon'></i></div>
+                        { school?.partner && <div className="partner-inner"><div className='partner-item icon'><ApplicationPartner/></div>
                         <div className='partner-item lbl'><label>Application Partner</label></div></div> }
                     </Row>
                     <ListGroup className="feature-list-group allfeatures-wrap">

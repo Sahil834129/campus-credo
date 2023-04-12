@@ -25,7 +25,10 @@ const NearBySchools = () => {
         return 0;
       }
     }
-    useEffect(() => { getNearBySchools(schoolId) }, [schoolId]);
+    useEffect(() => { 
+      getNearBySchools(schoolId);
+      window.scrollTo(0, 0);
+    }, [schoolId]);
     // previous code to get nearBy School
 
     // const getNearBySchools = async () => {
