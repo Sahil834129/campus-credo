@@ -90,7 +90,7 @@ export const ManageApplication = () => {
     getAtPiForClass(classId, currentSession)
       .then(res => {
         if (Object.keys(res.data).length > 0) {
-          setAtPiData(res.data);
+          setAtPiData(res.data?.isAtPiSchedule === "true" ? res.data : null);
         } else {
           setAtPiData(null);
         }
