@@ -775,7 +775,7 @@ ul.list-group{
         font-style: normal;
         font-weight: 400;
         font-size: 14px;
-        line-height: 22px;
+        line-height: 18px;
         display: flex;
         align-items: center;
         color: rgba(0, 0, 0, 0.85);
@@ -3359,7 +3359,7 @@ ul.list-group{
     // margin-right: 24px;
    
     .school-card{
-      overflow: hidden;
+      // overflow: hidden;
       .scard-top{
         display: flex;
         flex-direction: column;
@@ -3579,7 +3579,7 @@ ul.list-group{
           }
           .session-wrap{
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             .session-info-outer{
               display: flex;
               flex-direction: row;
@@ -3605,6 +3605,7 @@ ul.list-group{
                   line-height: 24px;
                   letter-spacing: 0.018em;
                   padding: 0;
+                  z-index: 83;
                   .header-dd{
                     background: #F2F2F2;
                     border-radius: 6px 6px 0px 0px;

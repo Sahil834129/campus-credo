@@ -369,8 +369,8 @@ const LoginDialog = (props) => {
         <div className="model-body-col right">
           <h2>Create an account</h2>
           <h4>
-            Join the CampusCredo to find best featured schools, seats available,
-            their benefits, pay school fees and fill admission form online.
+          Join CampusCredo to find premier institutes near you that meet your requirements 
+          and apply to them from anywhere, anytime.
           </h4>
           <ListGroup as="ul" className="benfits-list">
             <ListGroup.Item as="li">
