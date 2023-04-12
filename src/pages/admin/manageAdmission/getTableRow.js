@@ -58,7 +58,7 @@ export default function GetTableRow({
     });
   };
 
-  const validateField = (data) => {
+  const validateField = (data, minApplicationDate, maxApplicationDate) => {
     let isValid = true;
     const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "", seatsOpen: "" };
     if (data.isOpen) {
@@ -94,6 +94,11 @@ export default function GetTableRow({
       if (data.admissionType === "Fixed" && (!data.formSubmissionStartDate || !data.formSubmissionEndDate)) {
         isValid = false;
         errorsVal.applicationDate = "Required";
+      } else if (data.admissionType === "Fixed") {
+        if (data.formSubmissionStartDate < minApplicationDate || data.formSubmissionEndDate > maxApplicationDate) {
+          isValid = false;
+          errorsVal.applicationDate = "Invalid date";
+        }
       }
       if (data.personalInterviewStartDate && !data.personalInterviewEndDate) {
         isValid = false;
@@ -183,8 +188,8 @@ export default function GetTableRow({
       });
   };
 
-  const saveRowData = (rowData, index, selectedSession) => {
-    if (validateField(rowData)) {
+  const saveRowData = (rowData, index, selectedSession, minApplicationDate, maxApplicationDate) => {
+    if (validateField(rowData, minApplicationDate, maxApplicationDate)) {
       handleSubmitData(rowData, index, selectedSession);
     }
   };
@@ -491,7 +496,7 @@ export default function GetTableRow({
       </td>
       <td className="action-cell">
         <Save disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          onClick={() => { saveRowData(admissionData, index, sessionValue); }} style={{ cursor: "pointer" }}
+          onClick={() => { saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); }} style={{ cursor: "pointer" }}
         />
         <Delete disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }} style={{ cursor: "pointer" }} />
