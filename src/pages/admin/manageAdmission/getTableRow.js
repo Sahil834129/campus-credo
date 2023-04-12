@@ -1,9 +1,10 @@
 import moment from "moment";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { toast } from "react-toastify";
-
+import { ReactComponent as Save } from "../../../assets/admin/img/save.svg";
+import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg";
 import DateRangePicker from "../../../common/DateRangePicker";
 import { getPastSession } from "../../../utils/helper";
 
@@ -501,20 +502,11 @@ export default function GetTableRow({
         {errors?.registrationFee && <span className="error-exception">{errors.registrationFee}</span>}
       </td>
       <td className="action-cell">
-        <Button
-          className='save-btn' variant="success"
-          disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          onClick={() => { saveRowData(admissionData, index, sessionValue); }}
-        >
-          <i className='icons save-icon'></i>
-        </Button>
-        <Button
-          className='delete-btn' variant="danger"
-          disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }}
-        >
-          <i className='icons delete-icon'></i>
-        </Button>
+        <Save disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          onClick={() => { saveRowData(admissionData, index, sessionValue); }} style={{ cursor: "pointer" }}
+        />
+        <Delete disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }} style={{ cursor: "pointer" }} />
       </td>
     </tr>
   );

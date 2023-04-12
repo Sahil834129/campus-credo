@@ -268,7 +268,7 @@
     .modal.add-child-model .modal-dialog .modal-content .modal-body .model-body-col .model-frm .frm-cell.button-wrap{justify-content: center;}
     .application-form-wrap .fld-row{flex-direction: column;}
     .application-form-wrap .fld-row.button-wrap{row-gap: 8px;}
-    .content-area .content-area-inner .page-container{display: flex; flex-direction: row; align-items: center;}
+    .content-area .content-area-inner .page-container{display: flex; flex-direction: row;}
     .content-area .content-area-inner.admmission-sequence-wrap .content-section .page-container{flex-direction: column; row-gap: 8px;}
     .content-area .content-area-inner.inner-page-container.cart-page-wrapper .page-container{flex-direction: column;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .cart-content-row .cell.right{ padding:0; border-radius:0 0 8px 8px; margin: 0;}
@@ -299,7 +299,7 @@
     .footer-main .copyright-row{flex-direction: column; height: auto; padding: 8px 0; row-gap: 8px;}
     .footer-main .copyright-row .copyright-col{justify-content: center;}
     .content-area .contact-section-wrapper .application-form-wrap{padding: 0; border: none;}
-    .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.left .content-section{padding: 0;}
+    .content-area .content-area-inner.internal-page-wrapper.school-details-wrap .inner-page-content.left .content-section{padding: 16px 24px 24px; }
     .content-area .inner-page-container .content-section.faq-content-main{margin: 0;}
     .content-area .school-list-container .school-card.cart-block .card-body.school-info-main{display: flex; flex-direction: column;}
     .content-area .content-area-inner.cart-page-wrapper .page-container .row-wrapper.select-child-wrapper{padding: 16px;}
@@ -340,7 +340,7 @@
     .footer-main .finner .fcol.quicklinks ul.list-group{flex-direction: row; column-gap: 16px; flex-wrap: wrap;}
     .content-area .content-area-inner.internal-page-wrapper .inner-page-content.left .school-nearby-collapsible .admfrm-collapsible-panel.accordion-item h2.accordion-header{display: block;}
     .modal.add-child-model.review-admission-modal .modal-dialog .modal-content .modal-body .accordion.accordion-flush .accordion-item .accordion-collapse.show .accordion-body .tab-wrapper .tab-content{padding: 8px;}
-    .search-inner .wrapper .sc-gswNZR.hCpHso{height: 200px; overflow-x: auto;}
+    .search-inner .wrapper .sc-gswNZR.iLjAXM{height: 200px; overflow-x: auto;}
     .payment-history-tbl{overflow-y: auto;}
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap{flex-direction: column;}
     .payeedetails-model .modal-dialog .modal-content .modal-body .order-wrapper ul.order-list .list-items-wrap li .order-item.title{margin-bottom: 0;}
@@ -374,7 +374,37 @@
     .modal.alert-popup .modal-dialog{width: 400px; max-width: 400px;}
 }
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
-@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ 
+    .tbl-grid-wrapper table td input {
+        font-size: 13px;
+    }
+    .form-select-sm {
+        font-size: 13px;
+    }
+    table tbody tr td, table thead tr th {
+        font-size: 13px;
+    }
+    .tbl-grid-wrapper table th {
+        font-size: 13px;
+    }
+    .tbl-grid-wrapper table td, .tbl-grid-wrapper table th {
+        padding: 15px 7px;
+    }
+
+    .tbl-grid-wrapper table {
+        border-collapse: collapse;
+        display: grid;
+        grid-template-columns: minmax(80px,1fr) minmax(80px,1fr) minmax(120px,1fr) minmax(85px,1fr) minmax(85px,1fr) minmax(195px,3.5fr) minmax(195px,3.5fr) minmax(195px,3.5fr) minmax(81px,1fr) minmax(90px,1fr) minmax(102px,1fr);
+        min-width: 100%;
+    }
+}
+
+@media (max-width:1281px) { /* hi-res laptops and desktops */ 
+    .tbl-grid-wrapper table {
+       overflow-x: scroll;
+       grid-template-columns: minmax(100px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) minmax(90px, 1fr) minmax(90px, 1fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr);
+    }
+}
 
 @media screen and (max-width: 1199px) { 
     .main-container .form-content-wrapper{}
