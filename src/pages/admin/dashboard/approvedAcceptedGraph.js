@@ -17,7 +17,7 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
         scales: {
             x: {
                 grid: {
-                    display: true,
+                    display: false,
                     borderDash: [2, 2],
                 },
                 title: {
@@ -32,7 +32,7 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
             },
             y: {
                 grid: {
-                    display: true
+                    display: false
                 },
                 title: {
                     display: false,
