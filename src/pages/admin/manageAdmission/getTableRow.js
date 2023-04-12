@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { ReactComponent as Save } from "../../../assets/admin/img/save.svg";
 import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg";
 import DateRangePicker from "../../../common/DateRangePicker";
-import { getPastSession } from "../../../utils/helper";
 
 import { removeClassAdmissionData, saveClassAdmissionData } from "../../../utils/services";
 
@@ -19,11 +18,7 @@ export default function GetTableRow({
   formData,
   fieldData,
   setFormData,
-  sessionEndDate,
-  sessionStartDate,
-  currentSessionValue,
   pastSessionValue,
-  nextSessionValue,
   convertRowData
 }) {
   const admissionTypeOptions = ['Rolling', 'Fixed'];
@@ -43,13 +38,6 @@ export default function GetTableRow({
   const getSessionDate = (currentDate, currentMonth, currentYears) => {
     let datePreviousYear = new Date(currentYears, currentMonth, currentDate,);
     return (datePreviousYear);
-  };
-
-  const getYesterdayDate = () => {
-    let now = new Date();
-    now.setHours(0, 0, 0, 0);
-    now.setDate(now.getDate() - 1);
-    return now;
   };
 
   const disabledRow = (currentDate) => {
@@ -78,7 +66,7 @@ export default function GetTableRow({
       if (data.vacantSeats === "") {
         errorsVal.vacantSeats = "Required";
         isValid = false;
-      } else if (data.vacantSeats == 0) {
+      } else if (data.vacantSeats === 0) {
         errorsVal.vacantSeats = "Total seats must be > 0";
         isValid = false;
       } else if (vacantSeats > data.capacity) {

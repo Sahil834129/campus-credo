@@ -35,6 +35,7 @@ function DateRangePicker({
     <>
       <div
         title={showText ? `${formatDateToDDMMYYYY(dateRanges[0])}- ${formatDateToDDMMYYYY(dateRanges[1])}` : ""}
+        style={{ width: '100%' }}
       >
         <ReactDatePicker
           selectsRange={true}
