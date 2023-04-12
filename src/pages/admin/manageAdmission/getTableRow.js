@@ -439,7 +439,6 @@ export default function GetTableRow({
               minDate={admissionData?.formSubmissionEndDate}
               handleData={handleData}
               disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-
             />
             {errors?.admissionTest && <span className="error-exception">{errors.admissionTest}</span>}
           </>

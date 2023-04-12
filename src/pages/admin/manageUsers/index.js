@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Spinner } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 import Button from 'react-bootstrap/Button';
@@ -72,7 +72,6 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Admission',
       Cell: ((e) => {
-
         return (
           <div className='item-cell'>
             <ToggleSwitch
@@ -92,17 +91,33 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Application',
       Cell: ((e) => {
+        const values = e.row.original.manageApplication.split(',');
         return (
-          <div className='item-cell'>
+          <div className='item-cell' style={{ display: 'flex', justifyContent: 'space-between', padding: '0 10px' }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
-                handleManagePermisssion(tableRowsData, e.row.index, val, 'manageApplication');
+                const valJoin = [val, values[1]].join(',');
+                handleManagePermisssion(tableRowsData, e.row.index, valJoin, 'manageApplication');
               }}
               inputName={"manageApplication"}
               values={MANAGE_USER_PERMISSION}
-              selected={e.row.original.manageApplication}
+              selected={values[0]}
               disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
+            <div>
+              <Form.Check
+                inline
+                type="checkbox"
+                name="loginWithOTP"
+                checked={values[1] === "APPROVE-Y"}
+                onChange={(ev) => {
+                  console.log(ev.target.checked);
+                  const valJoin = [values[0], ev.target.checked ? "APPROVE-Y" : "APPROVE-N"].join(',');
+                  handleManagePermisssion(tableRowsData, e.row.index, valJoin, 'manageApplication');
+                }}
+              />
+              <label className="lbl">Approved</label>
+            </div>
           </div>
         );
       })
