@@ -243,8 +243,9 @@ export const getCurrentModulePermission = (moduleName) => {
   let flag = false;
   if (modulePermissions !== null) {
     modulePermissions = JSON.parse(modulePermissions);
-    flag = !!modulePermissions.find(val => val.moduleName === moduleName && val.permissionType === MANAGE_USER_PERMISSION[2]);
+    flag = !!modulePermissions.find(val => val.moduleName === moduleName && val.permissionType.indexOf(MANAGE_USER_PERMISSION[2]) !== -1);
   }
+  console.log(flag)
   return flag;
 };
 
