@@ -57,6 +57,7 @@ const RestEndPoint = {
   DOWNLOAD_ADMIN_DOCUMENT: "/admissionApplications/download/document",
   DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD: "/admission/applicationform/download",
   DOWNLOAD_PAYMENT_INVOICE :"/admission/download/invoice",
+  DOWNLOAD_MONEY_RECEIPT_INVOICE :"/admission/download/moneyReceipt",
   CLASS_ADMISSION_SESSION_DATA: "admission/classAdmissionSessions",
   CLASS_ADMISSION_SUMMARY: "admissionApplications/classAdmissionSummary",
   CLASS_APPLICATION_CLASS: "admissionApplications/classApplicationsByClass",

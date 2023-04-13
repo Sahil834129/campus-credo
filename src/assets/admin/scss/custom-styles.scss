@@ -1484,7 +1484,7 @@ table {
       top: 0;
       // background: rgba(65, 40, 95, 0.06);
       background: #efefef;
-      text-align: left;
+      text-align: center;
       font-style: normal;
       font-weight: 600;
       font-size: 14px;
@@ -1505,6 +1505,7 @@ table {
       padding-top: 4px;
       padding-bottom: 4px;
       align-items: center;
+      justify-content: center;
       height: 72px;
       color: $black;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);

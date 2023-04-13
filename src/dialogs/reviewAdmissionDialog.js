@@ -669,10 +669,12 @@ const ReviewAdmissionDialog = ({
               label={
                 <div>
                   <span>I have read, understood and accept the </span>
-                  <Link to={"/termsOfService"}> Terms of Use, </Link>
-                  <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+                  <Link to={"/termsOfService"}><u> Terms of Use </u></Link>
+                  <span> , </span>
+                  <Link to={"/privacyPolicy"}><u>Privacy Policy</u></Link>
+                  <span> , </span>
                   <span> and </span>
-                  <Link to={"/refundPolicy"}> Refund Policy</Link>
+                  <Link to={"/refundPolicy"}><u> Refund Policy</u></Link>
                   <span>.</span>
                 </div>
               }

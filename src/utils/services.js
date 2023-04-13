@@ -115,6 +115,15 @@ export const downloadInvoice = async (invoiceId) => {
     toast.error("Error while downloading document." + error);
   }
 };
+export const moneyReceiptInvoice = async (invoiceId) => {
+  const baseDownloadURL = invoiceId ? RestEndPoint.DOWNLOAD_MONEY_RECEIPT_INVOICE : toast.error("Error while downloading document");
+  try {
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (invoiceId));
+    downloadFile(data, 'Payment Receipt');
+  } catch (error) {
+    toast.error("Error while downloading document." + error);
+  }
+};
 export const downloadApplicationDocument = async (applicationId) => {
   try {
     const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_APPLICANT_DETAIL + '/' + applicationId);

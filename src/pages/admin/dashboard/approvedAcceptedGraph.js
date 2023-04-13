@@ -32,7 +32,7 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
             },
             y: {
                 grid: {
-                    display: false
+                    display: hideLabel
                 },
                 title: {
                     display: false,
