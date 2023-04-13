@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Blog from "../common/Blog/blog";
+import BlogArticle from "../common/Blog/blog-article";
 import Map from "../components/googleMap";
 import { DEFAULT_ROLES } from "../constants/app";
 import {
@@ -49,6 +50,7 @@ function AppRoutes() {
         <Route path="/schools" element={<AllSchools />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blogArticle" element={<BlogArticle />} />
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/termsOfService" element={<TermsOfUse />} />
         <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />
