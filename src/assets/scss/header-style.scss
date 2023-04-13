@@ -247,12 +247,14 @@
       }
     }
     .profile-login{
-      a{font-style: normal;
+      div{font-style: normal;
         font-weight: 500;
         font-size: 14px;
         line-height: 18px;
         text-align: right;
-        color: rgba(0, 0, 0, 0.8);}
+        color: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+      }
     }
     .user-profile{
 
@@ -388,10 +390,11 @@
       background: #fff;
       line-height: 24px;
       .profile-login{
-        a{
+        div{
           color: $primarycolor;
           font-weight: 700;
           white-space: nowrap;
+          cursor: pointer;
         }
       }
       

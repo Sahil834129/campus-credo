@@ -62,6 +62,7 @@ function AppRoutes() {
         <Route path="/notFound" element={<NotFound />} />
         <Route path="/orderConfirm" element={<OrderConfirm />} />
         <Route path="/paymentFailed" element={<PaymentFailed />} />
+        <Route path="/googleMap" element={<Map />} />
         <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/manageProfile" element={<ManageProfile />} />
@@ -69,7 +70,6 @@ function AppRoutes() {
           <Route path="/selectedSchools" element={<ApplicationCart />} />
           <Route path="/paymentCheckout" element={<PaymentCheckout />} />
           <Route path="/paymentHistory" element={<PaymentHistory />} />
-          <Route path="/googleMap" element={<Map />} />
           <Route path="/admissionForm" element={<SchoolAdmission />} />
         </Route>
         <Route

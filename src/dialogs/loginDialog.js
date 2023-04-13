@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import OtpInput from "react-otp-input";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AlertDialog from "../common/AlertDialog";
@@ -21,7 +21,6 @@ import {
   isLoggedIn,
   isValidatePhone,
   resetUserLoginData,
-  setLocalData,
   setUserLoginData
 } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
@@ -46,7 +45,6 @@ const LoginDialog = (props) => {
   const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] =
     useState(false);
   const [passwordType, setPasswordType] = useState("password");
-  // const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -121,17 +119,22 @@ const LoginDialog = (props) => {
       : RestEndPoint.LOGIN_WITH_PASSWORD;
 
     if (!isValidSignInPayload(reqPayload)) return;
-
+    const SchoolDetailsLatitude = localStorage.getItem('SchoolDetailsLatitude');
+    const SchoolDetailsLongitude = localStorage.getItem('SchoolDetailsLongitude');
     setSubmitting(true);
     resetUserLoginData();
     try {
       const response = await RESTClient.post(action, reqPayload);
-      setUserLoginData(response.data);
-      // setLocalData("selectedLocation", selectedLocation);
+      setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude);
       dispatch(setIsUserLoggedIn(isLoggedIn()));
 
 
       if (props.loginCallbackFunction) props.loginCallbackFunction();
+      if (props.isRedirectUrl) {
+        setSubmitting(false);
+        props.handleClose();
+        return;
+      };
 
       const roles = response.data.roles;
       const isParent = roles.find((val) => val === DEFAULT_ROLES.PARENT);
@@ -159,7 +162,11 @@ const LoginDialog = (props) => {
   };
 
   const redirectSignUp = () => {
-    navigate("/signUp");
+    if (window.location.search) {
+      navigate(`/signUp?redirectUrl=${btoa(window.location.pathname +window.location.search)}`);
+    } else {
+      navigate(`/signUp`);
+    }
   };
 
   const loadUserData = () => {
@@ -257,10 +264,11 @@ const LoginDialog = (props) => {
                   type="phone"
                   maxLength="10"
                   onKeyDown={handleKeyDown}
-                  onChange={(e) =>{
+                  onChange={(e) => {
                     handlePhoneBlur(e.target.value);
-                     setPhone(e.target.value)}
-                    }
+                    setPhone(e.target.value);
+                  }
+                  }
                   onBlur={(e) => handlePhoneBlur(e.target.value)}
                   placeholder="Mobile Number"
                 />
@@ -369,8 +377,8 @@ const LoginDialog = (props) => {
         <div className="model-body-col right">
           <h2>Create an account</h2>
           <h4>
-          Join CampusCredo to find premier institutes near you that meet your requirements 
-          and apply to them from anywhere, anytime.
+            Join CampusCredo to find premier institutes near you that meet your requirements
+            and apply to them from anywhere, anytime.
           </h4>
           <ListGroup as="ul" className="benfits-list">
             <ListGroup.Item as="li">

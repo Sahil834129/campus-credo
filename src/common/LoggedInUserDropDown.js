@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CartIcon from "../assets/img/icons/cart-icon.png";
 import LoginDialog from "../dialogs/loginDialog";
 import { getItemsInCart } from "../redux/actions/cartAction";
@@ -11,7 +11,7 @@ import { ActionTypes } from "../redux/constants/action-types";
 import { getLocalData, isLoggedIn, logout } from "../utils/helper";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a href="" ref={ref} onClick={(e) => {
+    <a href="#" ref={ref} onClick={(e) => {
         e.preventDefault();
         onClick(e);
     }}>
@@ -36,23 +36,25 @@ const CustomMenu = React.forwardRef(
 );
 
 const LoggedInUserDropDown = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showLoginDialog, setShowLoginDialog] = useState(false);
     const itemsInCart = useSelector((state) => state.cartData.itemsInCart);
-    const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser)
+    const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser);
     const isAdmin = useSelector((state) => state.userData.isAdmin);
     const [totalItemsInCart, setTotalItemsInCart] = useState(0);
     const childsList = useSelector((state) => state.childsData.childs);
 
     useEffect(() => {
-        dispatch(setIsUserLoggedIn(isLoggedIn()))
-    },[dispatch])
+        dispatch(setIsUserLoggedIn(isLoggedIn()));
+    }, [dispatch]);
 
-    useEffect(() => { 
+    useEffect(() => {
         if (isLoggedInUser && isLoggedIn() && !isAdmin) {
             dispatch(getItemsInCart());
-            if(childsList.length === 0)
+            if (childsList.length === 0)
                 dispatch(getChildsList());
         }
     }, [dispatch, isLoggedInUser]);
@@ -64,23 +66,36 @@ const LoggedInUserDropDown = () => {
         setTotalItemsInCart(total);
     }, [itemsInCart]);
 
-    const handleShowLoginDialog = () => setShowLoginDialog(true);
+    const handleShowLoginDialog = () => {
+        setShowLoginDialog(true);
+    };
     const handleCloseLoginDialog = () => {
         dispatch(setIsUserLoggedIn(isLoggedIn()));
         setShowLoginDialog(false);
-    }
+    };
 
     const logoutUser = () => {
         logout();
         dispatch(setIsUserLoggedIn(isLoggedIn()));
         dispatch(setIsAdmin(false));
-        dispatch({type: ActionTypes.LOGOUT});
-    }
+        dispatch({ type: ActionTypes.LOGOUT });
+    };
 
     function handleClick() {
         navigate("/userProfile");
-      }
-
+    }
+    function isRedirectUrl() {
+        try {
+            return (queryParams.get("redirect"));
+        } catch (error) {
+            return 0;
+        }
+    }
+    useEffect(() => {
+        if (isRedirectUrl() && !isLoggedIn()) {
+            handleShowLoginDialog();
+        }
+    }, []);
     return (
         <>
             {
@@ -104,11 +119,15 @@ const LoggedInUserDropDown = () => {
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div></>
-                        : <div className="profile-login"><Link onClick={handleShowLoginDialog}>Sign In/Join Us</Link></div>
+                        : <div className="profile-login"><div to="#" onClick={handleShowLoginDialog}>Sign In/Join Us</div></div>
                     }
                 </div>
             }
-            <LoginDialog show={showLoginDialog} handleClose={handleCloseLoginDialog} />
+            <LoginDialog
+                show={showLoginDialog}
+                handleClose={handleCloseLoginDialog}
+                isRedirectUrl={isRedirectUrl()}
+            />
         </>
     );
 };

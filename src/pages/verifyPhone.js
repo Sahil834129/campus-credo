@@ -3,7 +3,7 @@ import OtpTimer from "otp-timer";
 import React, { useState } from "react";
 import { Container } from 'react-bootstrap';
 import OtpInput from "react-otp-input";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { ReactComponent as SignupLogo } from "../assets/img/singup-logo.svg";
 import Button from "../components/form/Button";
@@ -13,6 +13,9 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 
 const VerifyPhone = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+
     const navigate = useNavigate();
     let {phone} = useParams();
     const [submitting, setSubmitting] = useState(false);
@@ -23,7 +26,7 @@ const VerifyPhone = () => {
         let reqPayload = {phone: phone, otp: formData.otp};
         RESTClient.post(RestEndPoint.VERIFY_PHONE, reqPayload).then((response) => {
             setSubmitting(false);
-            navigate("/?login=true");
+            navigate(`${queryParams.get("redirectUrl") ? atob(queryParams.get("redirectUrl")) : "/?login=true"}`);
         }).catch((error) => {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error));

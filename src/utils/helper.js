@@ -38,7 +38,7 @@ export const resetUserLoginData = () => {
   localStorage.clear();
 };
 
-export const setUserLoginData = (loginData) => {
+export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetailsLongitude) => {
   setLocalData("token", loginData.token);
   setLocalData("refreshToken", loginData.refreshToken);
   setLocalData("modulePermissions", JSON.stringify(loginData.modulePermissions || []));
@@ -52,14 +52,18 @@ export const setUserLoginData = (loginData) => {
   setLocalData("schoolEmail", loginData?.schoolEmail);
   setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
-  if(!isEmpty(loginData?.userLocationDtos[0])){
+  if (!isEmpty(loginData?.userLocationDtos[0])) {
     setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
     setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);
     setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);
     setLocalData("userLongitude", loginData?.userLocationDtos[0].longitude);
   }
+  if (SchoolDetailsLatitude || SchoolDetailsLongitude) {
+    setLocalData("SchoolDetailsLatitude", SchoolDetailsLatitude);
+    setLocalData("SchoolDetailsLongitude", SchoolDetailsLongitude);
   }
-  
+};
+
 export const getLocalData = (key) => {
   return localStorage.getItem(key);
 };
@@ -245,7 +249,6 @@ export const getCurrentModulePermission = (moduleName) => {
     modulePermissions = JSON.parse(modulePermissions);
     flag = !!modulePermissions.find(val => val.moduleName === moduleName && val.permissionType.indexOf(MANAGE_USER_PERMISSION[2]) !== -1);
   }
-  console.log(flag)
   return flag;
 };
 
@@ -324,16 +327,14 @@ export const getActionButtonLabel = (applicationStatus) => {
       return humanize(applicationStatus, true);
   }
 };
-export const getUserlocation = (defaultLocation)=>
-{
-  if(isLoggedIn() && !isEmpty(getLocalData("userLocation")))
-  {
-    let userLocation =  getLocalData("userLocation");
- return userLocation;
-}
-else
-return defaultLocation;
-}
+export const getUserlocation = (defaultLocation) => {
+  if (isLoggedIn() && !isEmpty(getLocalData("userLocation"))) {
+    let userLocation = getLocalData("userLocation");
+    return userLocation;
+  }
+  else
+    return defaultLocation;
+};
 
 export const getCurretLocation = async () => {
   const data = await new Promise((res, rej) => {
@@ -398,25 +399,22 @@ export const Pathnames =
     "/paymentFailed"
   ];
 
-  export  const checkIfCityExists = (cities) =>
-  {
-    if(!isEmpty(getLocalData("userLocation")))
-    {
-      let userLocation= getLocalData("userLocation");
-      if (cities && cities.includes(userLocation)) {
-         return userLocation;
-        }
+export const checkIfCityExists = (cities) => {
+  if (!isEmpty(getLocalData("userLocation"))) {
+    let userLocation = getLocalData("userLocation");
+    if (cities && cities.includes(userLocation)) {
+      return userLocation;
     }
-  else 
-        {
-          return false;
-        }
-}
+  }
+  else {
+    return false;
+  }
+};
 
-export const checkSelectedCityWithUserCity =()=>{
+export const checkSelectedCityWithUserCity = () => {
   let selectedCity = getLocalData("selectedLocation");
   let userCity = getLocalData("userLocation");
-  if(selectedCity=== userCity)
-  return true;
+  if (selectedCity === userCity)
+    return true;
   else return false;
-}
+};

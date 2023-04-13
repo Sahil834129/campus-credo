@@ -19,11 +19,13 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { isLoggedIn, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
+import { useSelector } from "react-redux";
 
 const SchoolDetails = () => {
   const location = useLocation();
   const [schoolDetails, setSchoolDetails] = useState({});
-  const [
+  const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser);
+    const [
     schoolCategoryExtracurricularMap,
     setSchoolCategoryExtracurricularMap,
   ] = useState({});
@@ -53,7 +55,8 @@ const SchoolDetails = () => {
       let categoryExtracurricularMap = {};
       setSchoolDetails(schoolDetails);
       setLocalData("SchoolDetailsLatitude",schoolDetails.latitude);
-      setLocalData("SchoolDetailsLongitude",schoolDetails.longitude);
+      setLocalData("SchoolDetailsLongitude", schoolDetails.longitude);
+      console.log(schoolDetails);
       schoolDetails.facilities.map((facility) => {
         if (!categoryFaciltiesMap.hasOwnProperty(facility.category))
           categoryFaciltiesMap[facility.category] = [];
@@ -75,6 +78,9 @@ const SchoolDetails = () => {
       //navigate("/notFound")
     }
   };
+  useEffect(() => {
+    console.log(isLoggedIn());
+  }, [isLoggedInUser])
   return (
     <Layout>
       <section className="content-area">
@@ -93,7 +99,7 @@ const SchoolDetails = () => {
                     />
                     <div className="school-details-container">
                       <SchoolBasicInfo schoolDetails={schoolDetails} />
-                      {isLoggedIn() &&
+                      {(isLoggedIn() || isLoggedInUser) &&
                       schoolDetails.hasOwnProperty("admissionInfo")  && schoolDetails.partner? (
                         <ApplyToSchool
                           schoolId={schoolId}
