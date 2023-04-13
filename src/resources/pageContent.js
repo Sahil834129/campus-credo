@@ -33,6 +33,7 @@ const PageContent = {
   FOOTER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
+    { ref: '/blog', title: 'Blog' },
     { ref: '/schools', title: 'Schools' },
     // { ref: '/howItWorks', title: 'How It Works' },
     { ref: '/faqs', title: "FAQ's" }

@@ -15,7 +15,7 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { getLocalData, humanize, isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
-import { downloadInvoice } from "../utils/services";
+import { downloadInvoice, moneyReceiptInvoice } from "../utils/services";
 
 const PaymentHistory=() =>{
    const [orders, setOrders] = useState([{}])
@@ -85,6 +85,7 @@ const PaymentHistory=() =>{
                                                 <th>Order Type</th>
                                                 <th>Total Amount</th>
                                                 <th>Download Invoice</th>
+                                                <th>Money Receipt</th>
                                              </tr>
                         </thead>
                              {orders ? (
@@ -114,6 +115,11 @@ const PaymentHistory=() =>{
                                                         <div className="btn-wrap">
                                                         <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto",cursor:"pointer"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
                                                         </div>
+                                                    </td>
+                                                    <td className='download-invoice'>
+                                                                <div className="btn-wrap">
+                                                                    <DownloadIcon className='' style={{ marginLeft: "auto", marginRight: "auto", cursor: "pointer" }} onClick={() => moneyReceiptInvoice(order.orderId)} />
+                                                                </div>
                                                     </td>
                                                 </tr>
                                             })) 

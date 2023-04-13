@@ -73,7 +73,7 @@ export const ManageUsers = () => {
       Header: 'Manage Admission',
       Cell: ((e) => {
         return (
-          <div className='item-cell'>
+          <div className='item-cell' style={{ justifyContent: "center", display: "flex" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageAdmission');
@@ -91,9 +91,11 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Application',
       Cell: ((e) => {
-        const values = e.row.original.manageApplication.split(',');
+        console.log("manageeeeeappp", e)
+        const values = e?.row?.original?.manageApplication?.split(',');
+        console.log("values", values)
         return (
-          <div className='item-cell' style={{ display: 'flex', justifyContent: 'space-between', padding: '0 10px' }}>
+          <div className='item-cell' style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 const valJoin = [val, values[1]].join(',');
@@ -104,7 +106,7 @@ export const ManageUsers = () => {
               selected={values[0]}
               disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
-            <div>
+            <div style={{ marginLeft: "10px" }}>
               <Form.Check
                 inline
                 type="checkbox"
@@ -127,7 +129,7 @@ export const ManageUsers = () => {
       Header: 'Manage User',
       Cell: ((e) => {
         return (
-          <div className='item-cell'>
+          <div className='item-cell' style={{ justifyContent: "center", display: "flex" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageUser');
@@ -146,7 +148,7 @@ export const ManageUsers = () => {
       Header: 'Manage Fees',
       Cell: ((e) => {
         return (
-          <div className='item-cell' style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
+          <div className='item-cell' style={{ display: "flex", textAlign: "center", justifyContent: "center", paddingLeft: "10px" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageFee');
@@ -169,7 +171,7 @@ export const ManageUsers = () => {
             <Button
               type='button'
               disabled={!isWritePermission || (e.row.original?.roleUsers?.length || 0) === 0}
-              style={{ backgroundColor: '#41285F' }}
+              style={{ backgroundColor: '#549b43' }}
               onClick={() => {
                 setPasswordWindowOpen(true);
                 setCurrentSelectedRole(e.row.original?.roleUsers || []);

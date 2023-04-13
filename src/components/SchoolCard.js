@@ -93,7 +93,6 @@ const SchoolCard = (props) => {
                                      <>
                                      <div className="session-info-outer">
                                         <span className='session-title'>{admissionRow.admissionSession}  </span>
-                                        <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
                                      </div>
                                      </>
                               )
@@ -103,13 +102,14 @@ const SchoolCard = (props) => {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <div className='left'>Seats Available</div>
-                         <div className='right seats'>
+                         <div className='right seats session-wrap'>
                         {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
                                      <>
                                      <div className="session-info-outer">
                                         <span className='session-title'>{admissionRow.admissionSession}: {admissionRow.seatsAvailable} Approx</span>
+                                        <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
                                      </div>
                                      </>
                               )
