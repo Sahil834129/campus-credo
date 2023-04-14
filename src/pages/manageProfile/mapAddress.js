@@ -1,11 +1,11 @@
 import React from "react";
-import { compose, withProps, lifecycle } from "recompose";
 import {
-  withScriptjs,
-  withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
+  withGoogleMap,
+  withScriptjs
 } from "react-google-maps";
+import { compose, lifecycle, withProps } from "recompose";
 
 import {
   StandaloneSearchBox
@@ -47,7 +47,7 @@ const MapAddress = compose(
   withGoogleMap
 )(props => (
   <>
-    <div data-standalone-searchbox="">
+    <div className="map-search-txtfld" data-standalone-searchbox="">
       <StandaloneSearchBox
         ref={props.onSearchBoxMounted}
         bounds={props.bounds}
@@ -56,11 +56,12 @@ const MapAddress = compose(
         <input
           type="text"
           placeholder="Customized your placeholder"
+          className="map-placeholder"
           style={{
             boxSizing: `border-box`,
-            border: `1px solid transparent`,
+            border: `1px solid `,
             width: `240px`,
-            height: `32px`,
+            height: `42px`,
             padding: `0 12px`,
             borderRadius: `3px`,
             boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
@@ -71,7 +72,7 @@ const MapAddress = compose(
         />
       </StandaloneSearchBox>
     </div>
-    <div>
+    <div className="map-wrapper1">
       <GoogleMap
         defaultZoom={14}
         center={{ lat: props.lat, lng: props.lng }}

@@ -1,14 +1,14 @@
 import { Form, Formik } from "formik";
 import { useState } from "react";
 
-import { UserLocationSchema } from "../../data/validationSchema";
-import InputField from "../../components/form/InputField";
 import { useEffect } from "react";
-import { getLocalData, isEmpty, setLocalData } from "../../utils/helper";
-import RESTClient from "../../utils/RestClient";
-import RestEndPoint from "../../redux/constants/RestEndpoints";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import InputField from "../../components/form/InputField";
+import { UserLocationSchema } from "../../data/validationSchema";
+import RestEndPoint from "../../redux/constants/RestEndpoints";
+import RESTClient from "../../utils/RestClient";
+import { getLocalData, isEmpty, setLocalData } from "../../utils/helper";
 import MapAddress from "./mapAddress";
 
 export default function AddAddress({ setKey, cityOptions, cities, userDetails, setUserDetails, populateCities }) {
@@ -146,8 +146,8 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
         }}
       >
         {({ values, resetForm, errors, touched, setFieldValue }) => (
-          < Form className="row g-4">
-            <div className="col-md-6">
+          < Form className="location-frm row g-4 mb-3">
+            <div className="col-md-5">
               <InputField
                 fieldName="state"
                 value={values.state}
@@ -165,7 +165,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
                 required
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-5">
               <InputField
                 fieldName="city"
                 label="City"
@@ -178,7 +178,8 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
                 touched={touched}
               />
             </div>
-            <div className="form-group mb-3 button-wrap">
+
+            <div className="form-group col-md-2 button-wrap">
               <button
                 className="save comn"
                 type="submit"
@@ -192,6 +193,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
         )}
       </Formik>
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (<>
+      <div className="map-wrapper">
         <MapAddress
           isMarkerShown
           setDefaultLatLng={setDefaultLatLng}
@@ -199,7 +201,8 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
           lng={defaultLatLng.lng}
           drag={drag}
         />
-        <div className="form-group mb-3 button-wrap" style={{ marginTop: 100 }}>
+        </div>
+        <div className="form-group mb-3 button-wrap" style={{ marginTop: 42 }}>
           <button
             className="save comn"
             type="button"
