@@ -118,7 +118,7 @@ export const ManageUsers = () => {
                   handleManagePermisssion(tableRowsData, e.row.index, valJoin, 'manageApplication');
                 }}
               />
-              <label className="lbl">Approved</label>
+              <label className="lbl">Approve</label>
             </div>
           </div>
         );

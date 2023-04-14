@@ -4,6 +4,13 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useNavigate } from "react-router-dom";
 import FooterGraphic from "../assets/img/footer-graphic.png";
 import PageContent from "../resources/pageContent";
+import { ReactComponent as Instagram } from "../assets/img/icons/instagram.svg";
+import { ReactComponent as Twitter } from "../assets/img/icons/twitter.svg";
+import { ReactComponent as Facebook } from "../assets/img/icons/facebook.svg";
+import { ReactComponent as Linkedin } from "../assets/img/icons/linkedIn.svg";
+import { ReactComponent as Pinterest } from "../assets/img/icons/pinterest.svg";
+import { ReactComponent as Mail } from "../assets/img/icons/email.svg";
+import { ReactComponent as Telephone } from "../assets/img/icons/telephone.svg";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -24,6 +31,41 @@ const Footer = () => {
         <div className="fcol fbrandlogo">
           <img src={FooterGraphic} alt="" />
         </div>
+        <div className="fcol contactus">
+          <h2>Follow Us</h2>
+          <ListGroup as="ul">
+            <ListGroup.Item as="li">
+              <a href="https://www.instagram.com/campus_credo/"><Instagram /> Instagram</a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <a href="https://twitter.com/CampusCredo"><Twitter /> Twitter</a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <a href="https://www.facebook.com/CampusCredo/"><Facebook /> Facebook</a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <a href="https://www.linkedin.com/company/campuscredo/"><Linkedin /> Linkedin</a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <a href="https://in.pinterest.com/campus_credo"><Pinterest /> Pinterest</a>
+            </ListGroup.Item>
+          </ListGroup>
+        </div>
+        <div className="fcol contactus">
+          <h2>Contact Us @</h2>
+          <ListGroup as="ul">
+            <ListGroup.Item as="li"><Telephone /> {PageContent.PHONE}</ListGroup.Item>
+            <ListGroup.Item as="li">
+              <Link
+                onClick={() =>
+                  (window.location = "mailto:support@campuscredo.com")
+                }
+              >
+                <Mail /> {PageContent.ENQUIRY_EMAIL}
+              </Link>
+            </ListGroup.Item>
+          </ListGroup>
+        </div>
         <div className="fcol quicklinks">
           <h2>Quick Links</h2>
           <ListGroup as="ul">
@@ -31,37 +73,13 @@ const Footer = () => {
               <ListGroup.Item as="li" key={"footer_" + index}>
                 <Link
                   href="javascript:void(0);"
-		              to={fMenuItem.ref}
+                  to={fMenuItem.ref}
                   onClick={(e) => navigateToRef(fMenuItem.ref)}
                 >
                   {fMenuItem.title}
                 </Link>
               </ListGroup.Item>
             ))}
-          </ListGroup>
-        </div>
-        <div className="fcol contactus">
-          <h2>Contact Us @</h2>
-          <ListGroup as="ul">
-            <ListGroup.Item as="li">T: {PageContent.PHONE}</ListGroup.Item>
-            <ListGroup.Item as="li">
-              <Link
-                onClick={() =>
-                  (window.location = "mailto:support@campuscredo.com")
-                }
-              >
-                E: {PageContent.ENQUIRY_EMAIL}
-              </Link>
-            </ListGroup.Item>
-            {/* <ListGroup.Item as="li">
-              <a href="https://www.facebook.com">F: Follow us on Facebook</a>
-            </ListGroup.Item>
-            <ListGroup.Item as="li">
-              <a href="https://www.twitter.com">T: Follow us on Twitter</a>
-            </ListGroup.Item>
-            <ListGroup.Item as="li">
-              <a href="https://www.linkedin.com" >L: Follow us on Linkedin</a>
-            </ListGroup.Item> */}
           </ListGroup>
         </div>
         <div className="fcol btn-container">
