@@ -57,7 +57,7 @@ export default function SeatsFeesGraph({ sessionValue }) {
                             <label>Projected Registration Fees</label>
                         </ListGroup.Item>
                     </ListGroup>
-                    <div className="" style={{ textAlign: 'center', paddingTop: '24px', paddingBottom: '24px' }}><h2>Fees Status</h2></div>
+                    <div className="" style={{ textAlign: 'center', paddingTop: '5px', paddingBottom: '0px' }}><h2>Fees Status</h2></div>
                 </div>
             </div>
             <table className='chart-area' style={{ padding: 0 }}>

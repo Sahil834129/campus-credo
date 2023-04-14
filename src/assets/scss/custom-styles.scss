@@ -1579,13 +1579,14 @@ ul.list-group{
                     display: flex;
                     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
                     padding: 18px 0;
-                    column-gap: 16px;
+                    column-gap: 60px;
                     row-gap: 8px;
                     .cell{
                       display: flex;
                       flex-direction: row;
                       column-gap: 16px;
                       flex-grow: 1;
+                      justify-content: space-between;
                       flex-basis: 0;
                       
                       .title{
@@ -1606,6 +1607,7 @@ ul.list-group{
                         line-height: 18px;
                         display: flex;
                         align-items: center;
+                        text-align: right;
                         text-transform: capitalize;
                         color: #41285F;
                         &.adm-status{
@@ -1615,6 +1617,26 @@ ul.list-group{
                           .adm-sessions{}
                         }
                       }
+                    }
+                    .single-row{
+                      .item-cell{
+                        &.title{
+                          color: #41285f;
+                          font-size: 16px;
+                          font-style: normal;
+                          font-weight: 500;
+                          line-height: 24px;
+                          margin-bottom: 8px;
+                          text-transform: capitalize;
+                        }
+                        &.particular{
+                          font-weight: 400;
+                          font-size: 14px;
+                          line-height: 22px;
+                          color: rgba(0, 0, 0, 0.8);
+                        }
+                      }
+                      
                     }
                   }
                 }
@@ -2850,6 +2872,7 @@ ul.list-group{
                             align-items: center;
                             position: relative;
                             font-size: 14px;
+                            margin-bottom: 8px;
                             
                             // height: 48px;
                             .date{
@@ -4170,6 +4193,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
         li{
           background: none;
           border: none;
+          margin-bottom: 5px;
           font-style: normal;
           font-weight: 500;
           font-size: 14px;
