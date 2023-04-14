@@ -93,17 +93,8 @@ export const UpdateProfileSchema = Yup.object().shape({
 });
 
 export const UserLocationSchema = Yup.object().shape({
-  addressLine1: Yup.string().required("Required *"),
-  addressLine2: Yup.string().required("Required *"),
-  // addressType: Yup.string().required("Required *"),
   state: Yup.string().required("Required *"),
   city: Yup.string().required("Required *"),
-  pincode: Yup.string()
-    .required("Required *")
-    .matches(/\d{6}$/gi, {
-      message: "Please enter valid 6 digit number.",
-      excludeEmptyString: false,
-    }),
 });
 
 export const ChangePasswordSchema = Yup.object().shape({
