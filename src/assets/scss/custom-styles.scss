@@ -6262,6 +6262,22 @@ align-items: center;
 	margin-bottom: 0;
 }
 
+.content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper .tab-content .tab-pane .location-frm .button-wrap{
+  align-items: flex-end;
+}
+.content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper .tab-content .tab-pane .location-frm .button-wrap button.save.comn{}
+.map-wrapper{position: relative;
+  .map-search-txtfld{
+    position: absolute;
+    top: 10px;
+    left: 220px;
+    input{
+      height: 42px;
+    }
+  }
+}
+
+
 .blog-main-wrapper{
   .blog-content-wrap{
     margin-bottom: 42px;
