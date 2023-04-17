@@ -12,11 +12,13 @@ const FeatureCard = (card) => {
     const images = importAll(require.context('../assets/img/imagesLoadedByDynamicUrl', false, /\.png$/));
       
     return (
-        <div className="feature-card-item">
-            <div className="img-wrap"><img src={images[card.image]} alt="feature-pic" /></div>
-            <h2>{card.title}</h2>
-            <h4>{card.description}</h4>
+      <div className="feature-card-item">
+        <div className="img-wrap">
+          <img src={images[card.image]} alt="feature-pic" />
         </div>
+        <h3>{card.title}</h3>
+        <h4>{card.description}</h4>
+      </div>
     );
 };
 export default FeatureCard;

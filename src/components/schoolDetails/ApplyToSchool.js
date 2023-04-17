@@ -9,15 +9,15 @@ import { getItemsInCart } from "../../redux/actions/cartAction";
 import { getChildsList } from '../../redux/actions/childAction';
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import { parseDateWithDefaultFormat } from "../../utils/DateUtil";
-import { getClassBasedOnAge, getStudentAge, isEmpty } from "../../utils/helper";
 import RESTClient from "../../utils/RestClient";
+import { getClassBasedOnAge, getStudentAge, isEmpty } from "../../utils/helper";
 import { getAgeClassMap, getApplications } from "../../utils/services";
 const initialRowsState = [
   {
-		childId: '',
-		classId: '',
+    childId: "",
+    classId: "",
     session: "",
-	}
+  },
 ];
 const ApplyToSchool = (props) => {
   const dispatch = useDispatch();
@@ -30,23 +30,30 @@ const ApplyToSchool = (props) => {
   const [sessionOptionsMap, setSessionOptionsMap] = useState([]);
   const ToDate = new Date();
 
-	const [rows, setRows] = useState(JSON.parse(JSON.stringify(initialRowsState)));
+  const [rows, setRows] = useState(
+    JSON.parse(JSON.stringify(initialRowsState))
+  );
   const [classMapWithAge, setClassMapWithAge] = useState({});
   const [validationErrors, setValidationErrors] = useState({});
   const [showAlertDialog, setShowAlertDialog] = useState(false);
-	const [alertMessage, setAlertMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState("");
   const schoolId = props.schoolId;
 
-	useEffect(() => { dispatch(getChildsList()); }, [dispatch]);
-	useEffect(() => { populateClassesWithAge(); }, []);
+  useEffect(() => {
+    dispatch(getChildsList());
+  }, [dispatch]);
+  useEffect(() => {
+    populateClassesWithAge();
+  }, []);
   useEffect(() => {
     popularSchoolClasses(props);
-	},
-		[props.schoolDetails]);
-	useEffect(() => { populateSessionOptions(props); }, [props.schoolDetails]);
+  }, [props.schoolDetails]);
+  useEffect(() => {
+    populateSessionOptions(props);
+  }, [props.schoolDetails]);
 
   const handleAddRow = () => {
-		const item = { childId: '', classId: '', session: "" };
+    const item = { childId: "", classId: "", session: "" };
     setRows([...rows, item]);
   };
   const appliedSchools = [];
@@ -74,8 +81,8 @@ const ApplyToSchool = (props) => {
             .map((it) => ({
               value: it.classId,
               text: it.className,
-						session: it.admissionSession
-					})),
+              session: it.admissionSession,
+            }))
         );
         let sessionOptionsMap = {};
         classOptions.map((classList) => {
@@ -84,13 +91,18 @@ const ApplyToSchool = (props) => {
           sessionOptionsMap[classList.session].push(classList.text);
         });
 
-				const sessionArray = Object.entries(sessionOptionsMap).map(([session, classes]) => ({
+        const sessionArray = Object.entries(sessionOptionsMap).map(
+          ([session, classes]) => ({
             session,
-					classes
-				}));
+            classes,
+          })
+        );
         setSessionOptionsMap(sessionArray);
-				props.schoolDetails.classes.filter(it => it.admissionStatus === 'Admission Open').forEach((element) => {
-					feeMap[element.classId + ":" + element.admissionSession] = element.formFee;
+        props.schoolDetails.classes
+          .filter((it) => it.admissionStatus === "Admission Open")
+          .forEach((element) => {
+            feeMap[element.classId + ":" + element.admissionSession] =
+              element.formFee;
           });
       }
       setClassFeeMap(feeMap);
@@ -100,7 +112,7 @@ const ApplyToSchool = (props) => {
   };
   const populateSessionOptions = (props) => {
     let sessionOptions = [];
-    if (props.schoolDetails.hasOwnProperty("admissionInfo")) {
+    if (props.schoolDetails.hasOwnProperty("classes")) {
       let session = props.schoolDetails.classes;
       session
         .filter(
@@ -108,13 +120,17 @@ const ApplyToSchool = (props) => {
             it.admissionStatus === "Admission Open" &&
             parseDateWithDefaultFormat(it.formSubmissionStartDate) <= new Date()
         )
-        .map((sessionList) => {
-          if (!sessionOptions.hasOwnProperty(sessionList.text))
-            sessionOptions = [];
-          sessionOptions.push({
-            value: sessionList.admissionSession,
-            text: sessionList.admissionSession,
-          });
+        .forEach((sessionList) => {
+          if (
+            !sessionOptions.some(
+              (option) => option.value === sessionList.admissionSession
+            )
+          ) {
+            sessionOptions.push({
+              value: sessionList.admissionSession,
+              text: sessionList.admissionSession,
+            });
+          }
         });
     }
     setSessionOptions(sessionOptions);
@@ -129,46 +145,91 @@ const ApplyToSchool = (props) => {
   }
 
   function isSchoolAlreadyInApplyList(childId, session, classId) {
-		const childCartItemsGroupedOnChild = itemsInCart.childCartItemsList.filter(it => it.childId === parseInt(childId));
-		const childCartItems = childCartItemsGroupedOnChild.filter(it => it.childId === parseInt(childId));
-		return (childCartItems.length && childCartItems[0].cartItems.filter(it => it.schoolId === parseInt(schoolId) &&
-			it.admissionSession === session && it.className === classId).length > 0);
+    const childCartItemsGroupedOnChild = itemsInCart.childCartItemsList.filter(
+      (it) => it.childId === parseInt(childId)
+    );
+    const childCartItems = childCartItemsGroupedOnChild.filter(
+      (it) => it.childId === parseInt(childId)
+    );
+    return (
+      childCartItems.length &&
+      childCartItems[0].cartItems.filter(
+        (it) =>
+          it.schoolId === parseInt(schoolId) &&
+          it.admissionSession === session &&
+          it.className === classId
+      ).length > 0
+    );
   }
 
-	const isApplicationAlreadySubmittedForSchool = async (childId, schoolId, session, classId) => {
+  const isApplicationAlreadySubmittedForSchool = async (
+    childId,
+    schoolId,
+    session,
+    classId
+  ) => {
     const response = await getApplications(childId);
     if (response && response.data) {
-			response.data.map((application) => { appliedSchools.push({ schoolId: application.schoolId, admissionSession: application.admissionSession }); });
-			return (appliedSchools &&
-				appliedSchools.filter((it) => it.schoolId === parseInt(schoolId) && it.admissionSession === session && it.className === classId).length > 0
+      response.data.map((application) => {
+        appliedSchools.push({
+          schoolId: application.schoolId,
+          admissionSession: application.admissionSession,
+        });
+      });
+      return (
+        appliedSchools &&
+        appliedSchools.filter(
+          (it) =>
+            it.schoolId === parseInt(schoolId) &&
+            it.admissionSession === session &&
+            it.className === classId
+        ).length > 0
       );
     }
   };
 
-	const handleChildSelection = async (index, field, childId, session, classId) => {
+  const handleChildSelection = async (
+    index,
+    field,
+    childId,
+    session,
+    classId
+  ) => {
     if (isSchoolAlreadyInApplyList(childId, session, classId)) {
-			setAlertMessage('Schools is already in applied list for the selected child.');
+      setAlertMessage(
+        "Schools is already in applied list for the selected child."
+      );
       setShowAlertDialog(true);
-			setRowFieldValue(index, field, '');
-			setRowFieldValue(index, "classId", '');
+      setRowFieldValue(index, field, "");
+      setRowFieldValue(index, "classId", "");
       return;
     }
-		const isApplicationAlreadySubmitted = await isApplicationAlreadySubmittedForSchool(childId, schoolId, session, classId);
+    const isApplicationAlreadySubmitted =
+      await isApplicationAlreadySubmittedForSchool(
+        childId,
+        schoolId,
+        session,
+        classId
+      );
     if (isApplicationAlreadySubmitted) {
-			setAlertMessage('Application is already submitted to this school for the selected child.');
+      setAlertMessage(
+        "Application is already submitted to this school for the selected child."
+      );
       setShowAlertDialog(true);
-			setRowFieldValue(index, field, '');
-			setRowFieldValue(index, "classId", '');
+      setRowFieldValue(index, field, "");
+      setRowFieldValue(index, "classId", "");
       return;
     }
     let studentProfile;
     //let isProfileCompleted = false
     console.log(childId, "child id");
     try {
-			const response = await RESTClient.get(RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`);
+      const response = await RESTClient.get(
+        RestEndPoint.GET_STUDENT_PROFILE + `/${childId}`
+      );
       studentProfile = response.data;
       //isProfileCompleted = studentProfile.profileCompleted ? true : false
-		} catch (error) { }
+    } catch (error) {}
     // if (!isProfileCompleted) {
     // 	setAlertMessage('Cannot be added to the apply list because the student profile for the selected child is incomplete.')
     // 	setShowAlertDialog(true)
@@ -176,56 +237,68 @@ const ApplyToSchool = (props) => {
     // 	return
     // }
 
-		const selectedChild = childsList.find(it => it.childId === parseInt(childId));
+    const selectedChild = childsList.find(
+      (it) => it.childId === parseInt(childId)
+    );
     let childAge = getStudentAge(selectedChild?.dateOfBirth);
-		let optionText = getClassBasedOnAge(classMapWithAge, classOptions, childAge);
-		const selectedClass = classOptions.find((it) => it.text.toLowerCase() === optionText?.toLowerCase());
+    let optionText = getClassBasedOnAge(
+      classMapWithAge,
+      classOptions,
+      childAge
+    );
+    const selectedClass = classOptions.find(
+      (it) => it.text.toLowerCase() === optionText?.toLowerCase()
+    );
     setRowFieldValue(index, field, childId);
-		setRowFieldValue(index, 'class', selectedClass ? selectedClass.childId.toString() : "");
+    setRowFieldValue(
+      index,
+      "class",
+      selectedClass ? selectedClass.childId.toString() : ""
+    );
   };
-
 
   const setRowFieldValue = (index, field, value) => {
     let tempRows = [...rows];
-		if (!(index < tempRows.length))
-			return;
+    if (!(index < tempRows.length)) return;
 
     let row = tempRows[index];
-		if (!row.hasOwnProperty(field))
-			return;
+    if (!row.hasOwnProperty(field)) return;
 
     row[field] = value;
     setRows(tempRows);
   };
   const handleClassId = (classId, session) => {
     if (!isEmpty(props.schoolDetails.classes) && classId) {
-			let classItem = props.schoolDetails.classes.filter((item) => item.className === classId && item.admissionSession === session);
-			return (!isEmpty(classItem) ? classItem[0].classId : null);
-		}
-		else return "";
+      let classItem = props.schoolDetails.classes.filter(
+        (item) =>
+          item.className === classId && item.admissionSession === session
+      );
+      return !isEmpty(classItem) ? classItem[0].classId : null;
+    } else return "";
   };
   const addToCart = async () => {
-		if (!isValidApplications())
-			return;
+    if (!isValidApplications()) return;
     let applications = [];
     const childObjList = JSON.parse(JSON.stringify(childsList));
     rows.forEach((row) => {
       let appObj = {};
-			let childObj = childObjList.find(e => e.childId === row.childId);
+      let childObj = childObjList.find((e) => e.childId === row.childId);
       appObj["schoolId"] = schoolId;
       appObj["childId"] = row.childId;
       appObj["classId"] = handleClassId(row.classId, row.session);
       appObj["parentId"] = childObj?.parentId;
       appObj["admissionSession"] = row.session;
-			appObj["fee"] = classFeeMap[handleClassId(row.classId, row.session) + ":" + row.session];
+      appObj["fee"] =
+        classFeeMap[
+          handleClassId(row.classId, row.session) + ":" + row.session
+        ];
       applications.push(appObj);
     });
     try {
       await RESTClient.post(RestEndPoint.ADD_TO_CART, applications);
       dispatch(getItemsInCart());
       toast.success("School added to apply list.");
-			if (props.handleClose)
-				props.handleClose();
+      if (props.handleClose) props.handleClose();
       setRows(JSON.parse(JSON.stringify(initialRowsState)));
     } catch (e) {
       toast.error(RESTClient.getAPIErrorMessage(e));
@@ -236,11 +309,11 @@ const ApplyToSchool = (props) => {
     resetValidationErrors();
     let errors = {};
     rows.forEach((row, index) => {
-			if (row.childId === '' || row.classId === '' || row.session === '')
-				errors['row_' + index] = 'All fields are mandatory*';
+      if (row.childId === "" || row.classId === "" || row.session === "")
+        errors["row_" + index] = "All fields are mandatory*";
     });
     setValidationErrors(errors);
-		return (Object.keys(errors).length > 0 ? false : true);
+    return Object.keys(errors).length > 0 ? false : true;
   }
 
   function resetValidationErrors() {
@@ -255,14 +328,18 @@ const ApplyToSchool = (props) => {
       <div className="readytoapply-block">
         {/* <div className='title-bar'><span>Ready to apply?</span> <i className='icons info-icon'></i></div> */}
         <div className="applyoform-wrapper">
-
           <Form>
             <div className="frm-row form-header">
               <div className="item-cell-wrap">
-								<div className="cell">Session <span className='error-exception'>*</span></div>
-								<div className="cell">Select Child <span className='error-exception'>*</span></div>
-								<div className="cell">Select Class <span className='error-exception'>*</span></div>
-
+                <div className="cell">
+                  Session <span className="error-exception">*</span>
+                </div>
+                <div className="cell">
+                  Select Child <span className="error-exception">*</span>
+                </div>
+                <div className="cell">
+                  Select Class <span className="error-exception">*</span>
+                </div>
 
                 <div className="cell app-fee-lbl">Application Fee</div>
                 <div className="cell">&nbsp;</div>
@@ -282,29 +359,35 @@ const ApplyToSchool = (props) => {
                       value={item.session}
                       onChange={(e) => {
                         setRowFieldValue(idx, "session", e.target.value);
-												setRowFieldValue(idx, "childId", '');
-												setRowFieldValue(idx, "class", '');
+                        setRowFieldValue(idx, "childId", "");
+                        setRowFieldValue(idx, "class", "");
                         popularSchoolClasses(props);
-											}
-											}
+                      }}
                       id="validationCustom04"
                     >
                       <option disabled value="">
                         --Session--
                       </option>
                       {sessionOptions
-                        ? sessionOptions.map((option, i) => {
-                            console.log(sessionOptions, "session optins");
-                            return (
-                              <option key={"session_" + i} value={option.value}>
-                                {option.text}
-                              </option>
-                            );
-                          })
+                        ? sessionOptions
+                            .sort((a, b) => a.text.localeCompare(b.text))
+                            .map((option, i) => {
+                              return (
+                                <option
+                                  key={"session_" + i}
+                                  value={option.value}
+                                >
+                                  {option.text}
+                                </option>
+                              );
+                            })
                         : ""}
                     </Form.Select>
                   </Form.Group>
-									<Form.Group className="cell" key={"childSelectorGrmGrp_" + idx}>
+                  <Form.Group
+                    className="cell"
+                    key={"childSelectorGrmGrp_" + idx}
+                  >
                     <label className="applytoschool-lbl">Select Child</label>
                     <Form.Select
                       name={item.childId}
@@ -314,7 +397,7 @@ const ApplyToSchool = (props) => {
                         setRowFieldValue(idx, "childId", e.target.value)
                       }
                     >
-											<option defaultValue='' disabled value="">
+                      <option defaultValue="" disabled value="">
                         --Child--
                       </option>
                       {childsList.map((child, i) => {
@@ -326,7 +409,10 @@ const ApplyToSchool = (props) => {
                       })}
                     </Form.Select>
                   </Form.Group>
-									<Form.Group className="cell" key={"classSelectorFrmGrp_" + idx}>
+                  <Form.Group
+                    className="cell"
+                    key={"classSelectorFrmGrp_" + idx}
+                  >
                     <label className="applytoschool-lbl">Select Class</label>
                     <Form.Select
                       key={"classSelector_" + idx}
@@ -334,24 +420,32 @@ const ApplyToSchool = (props) => {
                       value={item.classId}
                       onChange={(e) => {
                         setRowFieldValue(idx, "classId", e.target.value);
-												handleChildSelection(idx, "childId", item.childId, item.session, item.classId);
-											}
-
-											}
+                        handleChildSelection(
+                          idx,
+                          "childId",
+                          item.childId,
+                          item.session,
+                          item.classId
+                        );
+                      }}
                       id="validationCustom04"
                     >
                       <option disabled value="">
                         --Class--
                       </option>
-											{sessionOptionsMap?.filter((sessionList) => sessionList.session === item.session).map((selectedSession, i) => {
+                      {sessionOptionsMap
+                        ?.filter(
+                          (sessionList) => sessionList.session === item.session
+                        )
+                        .map((selectedSession, i) => {
+                          return selectedSession.classes.map((element, i) => {
                             return (
-													selectedSession.classes.map((element, i) => {
-														return <option key={"class_" + i} value={element}>
+                              <option key={"class_" + i} value={element}>
                                 {element}
-														</option>;
-													}));
-											})
-											}
+                              </option>
+                            );
+                          });
+                        })}
                     </Form.Select>
                   </Form.Group>
 
@@ -364,8 +458,20 @@ const ApplyToSchool = (props) => {
                       className="application-fee-amt"
                       key={"admissionFee_" + idx}
                     >
-											{classFeeMap[handleClassId(rows[idx].classId, rows[idx].session) + ":" + rows[idx].session]
-												? "₹" + classFeeMap[handleClassId(rows[idx].classId, rows[idx].session) + ":" + rows[idx].session]
+                      {classFeeMap[
+                        handleClassId(rows[idx].classId, rows[idx].session) +
+                          ":" +
+                          rows[idx].session
+                      ]
+                        ? "₹" +
+                          classFeeMap[
+                            handleClassId(
+                              rows[idx].classId,
+                              rows[idx].session
+                            ) +
+                              ":" +
+                              rows[idx].session
+                          ]
                         : "-"}
                     </span>
                   </Form.Group>
@@ -383,16 +489,25 @@ const ApplyToSchool = (props) => {
                     <Button
                       className="delete-btn"
                       key={"actionRemoveIcon_" + idx}
-											onClick={() => { handleRemoveSpecificRow(idx); }}
+                      onClick={() => {
+                        handleRemoveSpecificRow(idx);
+                      }}
                     >
                       <i className="icons delete-icon"></i>
                     </Button>
                   </Form.Group>
                 </div>
                 <div className="">
-									{
-										validationErrors && validationErrors.hasOwnProperty('row_' + idx) ? <div className="error-cell"><div className='error-exception'>{validationErrors['row_' + idx]} </div></div> : ''
-									}
+                  {validationErrors &&
+                  validationErrors.hasOwnProperty("row_" + idx) ? (
+                    <div className="error-cell">
+                      <div className="error-exception">
+                        {validationErrors["row_" + idx]}{" "}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             ))}
@@ -400,10 +515,7 @@ const ApplyToSchool = (props) => {
               <Button className="add-child-btn" onClick={openAddChildDialog}>
                 Add Child
               </Button>
-							<Button
-								className="addtoapply-btn"
-								onClick={addToCart}
-							>
+              <Button className="addtoapply-btn" onClick={addToCart}>
                 Add To Apply
               </Button>
             </div>
@@ -414,7 +526,11 @@ const ApplyToSchool = (props) => {
         show={showAddChildDialog}
         handleClose={() => setShowAddChildDialog(false)}
       />
-			<AlertDialog show={showAlertDialog} handleClose={handleAlertDialogClose} message={alertMessage} />
+      <AlertDialog
+        show={showAlertDialog}
+        handleClose={handleAlertDialogClose}
+        message={alertMessage}
+      />
     </>
   );
 };
