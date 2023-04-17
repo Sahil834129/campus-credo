@@ -26,8 +26,8 @@
       padding: 0;
       .content-area-inner {
         &.dashboard-wrapper {
-          padding: 24px;
-          padding-top: 24px;
+          padding: 6px 24px 0px; 
+          // padding-top: 24px;
         }
       }
       .title-kpi-wrapper {
@@ -208,7 +208,7 @@
 
   .title-kpi-wrapper {
     // background: rgba(65, 40, 95, 0.12);
-    height: 54px;
+    height: 42px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -236,7 +236,7 @@
     }
     .kpi-wrapper {
       background: rgba(65, 40, 95, 0.84);
-      height: 54px;
+      height: 42px;
       display: flex;
       flex-direction: row;
       color: $white;
@@ -249,7 +249,7 @@
         position: absolute;
         width: 0;
         height: 0;
-        border-bottom: 54px solid rgba(65, 40, 95, 0.84);
+        border-bottom: 42px solid rgba(65, 40, 95, 0.84);
         border-left: 24px solid transparent;
         top: 0;
         left: -24px;
@@ -478,7 +478,7 @@ ul.list-group {
       column-gap: 24px;
       // overflow-x: auto;
       .metrics-block {
-        height: 184px;
+        height: 150px;
         background: #ffffff;
         border: 1px solid #f0f0f0;
         box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.06);
@@ -500,7 +500,7 @@ ul.list-group {
           justify-content: space-between;
           align-items: center;
           align-content: center;
-          padding: 16px 16px 0;
+          padding: 8px 16px 0;
           margin-bottom: 16px;
           h2 {
             font-style: normal;
@@ -580,7 +580,7 @@ ul.list-group {
             }
           }
           .chart-area {
-            padding: 16px 24px;
+            padding: 0px 24px;
             text-align: center;
             display: flex;
             flex-direction: row;
@@ -593,10 +593,10 @@ ul.list-group {
       display: grid;
       grid-template-columns: 2.06fr 1fr;
       column-gap: 24px;
-      margin-top: 16px;
+      margin-top: 6px;
       overflow-x: auto;
       .chart-block {
-        height: 434px;
+        height: 355px;
         background: #ffffff;
         border: 1px solid #f0f0f0;
         box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.06);
@@ -606,8 +606,7 @@ ul.list-group {
           flex-direction: row;
           justify-content: space-between;
           align-items: flex-start;
-          padding: 16px 16px;
-          margin-bottom: 16px;
+          padding: 6px 16px 0px;
           &.left-col {
           }
           &.right-col {
@@ -689,7 +688,7 @@ ul.list-group {
           }
         }
         .chart-area {
-          padding: 16px 24px;
+          padding: 0px 24px;
           text-align: center;
           display: flex;
           flex-direction: row;
