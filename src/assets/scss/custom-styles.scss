@@ -1610,6 +1610,12 @@ ul.list-group{
                         text-align: right;
                         text-transform: capitalize;
                         color: #41285F;
+                        .session_year{
+                          margin-right: 5px;
+                          &:last-child {
+                            margin-right: 0px;
+                        }
+                        }
                         &.adm-status{
                           display: flex;
                           column-gap: 8px;
@@ -3617,12 +3623,13 @@ ul.list-group{
           }
           .session-wrap{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             .session-info-outer{
               display: flex;
               flex-direction: row;
               column-gap: 8px;
               align-items: center;
+              margin-bottom: 5px;
             }
             .session-title{
               margin-right: 0;
