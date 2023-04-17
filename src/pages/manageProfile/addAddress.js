@@ -23,6 +23,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
   const [userLocation, setUserLocation] = useState({
     city: "",
     state: "",
+    userLocationId: ""
   });
 
   const [stateOptions, setStateOptions] = useState([
@@ -34,7 +35,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
       setKey("addAdress");
   };
 
-  const saveUserAddress = async (formData) => {
+  const saveUserAddress = async (formData, data) => {
     setSubmitting(true);
     let postData = {
       latitude: formData?.lat,
@@ -59,6 +60,10 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
           toast.error(RESTClient.getAPIErrorMessage(error));
         });
     } else {
+      postData = {
+        ...postData,
+        userLocationId: data.userLocationId
+      }
       RESTClient.put(RestEndPoint.UPDATE_USER_LOCATION, postData)
         .then((response) => {
           toast.success("Location Updated Successfully");
@@ -106,12 +111,10 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
         ...userLocation,
         city: parseInt(response.data[0].city),
         state: (response.data[0].state),
-        addressLine1: response.data[0].addressLine1,
-        addressLine2: response.data[0].addressLine2,
-        pincode: response.data[0].pincode,
-        addressType: response.data[0].addressType,
         userLocationId: response.data[0].userLocationId,
       });
+      setShowMap(true)
+      setDefaultLatLng({ lat: parseFloat(response.data[0].latitude), lng: parseFloat(response.data[0].longitude) });
     }
     catch (error) { }
   }
@@ -207,7 +210,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
             className="save comn"
             type="button"
             disabled={submitting}
-            onClick={ _ => saveUserAddress(defaultLatLng)}
+            onClick={ _ => saveUserAddress(defaultLatLng, userLocation)}
           >
             Save
           </button>
