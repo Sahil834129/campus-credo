@@ -6,11 +6,9 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import logoHeader from "../assets/img/brand-logo-header.svg";
 import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
-import { getGeoLocationState, gotoHome, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
+import { checkIfCityExists, gotoHome, setLocalData } from "../utils/helper";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
-import { toast } from "react-toastify";
-
 
 const MenuBar = () => {
   const location = useLocation();
@@ -19,7 +17,7 @@ const MenuBar = () => {
   const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
 
   const pageRef = "/" + location.pathname.split("/")[1];
-  
+
   const [searchItems, setSearchItems] = useState([]);
   const [cities, setCities] = useState([]);
 
@@ -82,17 +80,26 @@ function handleSelectCity(location) {
     setLocalData("selectedLocation", location);
     dispatch(setSelectedLocation(location));
     navigate("/schools");
-}
+  }
 
-async function handleGeoLocation() {
-    const geoLocationState = await getGeoLocationState();
-    if (geoLocationState.state === 'denied') {
-        toast.error("You have blocked Campuscredo from tracking your location. To use this, change your location settings in browser.");
-    } else {
-        dispatch(setGeoLocation());
+  const catchLocationerror = () => {
+    let resultCityAfterCheck = checkIfCityExists(cities);
+    try {
+      if (resultCityAfterCheck) {
+        localStorage.removeItem("cityNotFoundPopup");
+        dispatch(setSelectedLocation(resultCityAfterCheck));
+        setLocalData("selectedLocation", resultCityAfterCheck);
+      } else {
+        dispatch(setSelectedLocation(cities[0]));
+        setLocalData("selectedLocation", cities[0]);
+      }
+    } catch (error) {
+      console.error("Error retrieving location:", error.message);
     }
-}
-
+  };
+  async function handleGeoLocation() {
+    catchLocationerror();
+  }
 
     useEffect(()=>{getSchoolData()},[]);
     useEffect(()=>{getCities()},[]);
