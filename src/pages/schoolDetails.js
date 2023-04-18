@@ -56,7 +56,6 @@ const SchoolDetails = () => {
       setSchoolDetails(schoolDetails);
       setLocalData("SchoolDetailsLatitude",schoolDetails.latitude);
       setLocalData("SchoolDetailsLongitude", schoolDetails.longitude);
-      console.log(schoolDetails);
       schoolDetails.facilities.map((facility) => {
         if (!categoryFaciltiesMap.hasOwnProperty(facility.category))
           categoryFaciltiesMap[facility.category] = [];
@@ -78,9 +77,7 @@ const SchoolDetails = () => {
       //navigate("/notFound")
     }
   };
-  useEffect(() => {
-    console.log(isLoggedIn());
-  }, [isLoggedInUser])
+  useEffect(() => {}, [isLoggedInUser]);
   return (
     <Layout>
       <section className="content-area">
@@ -96,6 +93,7 @@ const SchoolDetails = () => {
                       establishYear={schoolDetails.yearEstablishedIn}
                       schoolEmail={schoolDetails.email}
                       schoolId={schoolDetails.schoolId}
+                      schoolAddress={schoolDetails.addressLine1}
                     />
                     <div className="school-details-container">
                       <SchoolBasicInfo schoolDetails={schoolDetails} />
@@ -176,9 +174,7 @@ const SchoolDetails = () => {
                   <NearBySchools />
                 </Accordion.Body>
               </Accordion.Item>
-              
             </Accordion>
-            
           </Col>
         </Container>
       </section>

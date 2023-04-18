@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Blog from "../common/Blog/blog";
 import BlogArticle from "../common/Blog/blog-article";
-import Map from "../components/googleMap";
 import { DEFAULT_ROLES } from "../constants/app";
 import {
   AboutUs,
@@ -64,7 +63,6 @@ function AppRoutes() {
         <Route path="/notFound" element={<NotFound />} />
         <Route path="/orderConfirm" element={<OrderConfirm />} />
         <Route path="/paymentFailed" element={<PaymentFailed />} />
-        <Route path="/googleMap" element={<Map />} />
         <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.PARENT]} />}>
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/manageProfile" element={<ManageProfile />} />

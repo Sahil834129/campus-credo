@@ -1,4 +1,5 @@
 import moment from "moment";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
@@ -270,7 +271,6 @@ export const userCanNotApprove = (isApproveY) => {
   }
   return flag;
 };
-
 export const getStatusLabel = (status) => {
   switch (status) {
     case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:
@@ -345,21 +345,13 @@ export const getUserlocation = (defaultLocation) => {
     return defaultLocation;
 };
 
-export const getCurretLocation = async () => {
-  const data = await new Promise((res, rej) => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        res({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      (error) => {
-        rej(error);
-      }
-    );
-  });
-  return data;
+export const getUserLocation = async () => {
+  try {
+    const response = await RESTClient.get(RestEndPoint.GET_USER_LOCATION);
+    return response.data[0];
+  } catch (err) {
+    toast.error(RESTClient.getAPIErrorMessage(err));
+  }
 };
 
 export const getGeoLocationState = async () => {
