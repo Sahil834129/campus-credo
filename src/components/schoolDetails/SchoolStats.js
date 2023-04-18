@@ -52,7 +52,7 @@ const SchoolStats = (props) => {
           <div className="cell">
             <div className="item-cell title">Academic Session</div>
             <div className="item-cell particular">
-              {schoolDetails?.admissionInfo?.map((val)=><div style={{ marginRight: "5px" }}>{val.admissionSession}</div>) || "NA"}
+              {schoolDetails?.admissionInfo?.map((val)=><div className="session_year">{val.admissionSession}</div>) || "NA"}
             </div>
           </div>
           
