@@ -121,11 +121,13 @@ const LoginDialog = (props) => {
     if (!isValidSignInPayload(reqPayload)) return;
     const SchoolDetailsLatitude = localStorage.getItem('SchoolDetailsLatitude');
     const SchoolDetailsLongitude = localStorage.getItem('SchoolDetailsLongitude');
+    const cities = localStorage.getItem('cities');
+
     setSubmitting(true);
     resetUserLoginData();
     try {
       const response = await RESTClient.post(action, reqPayload);
-      setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude);
+      setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude, cities);
       dispatch(setIsUserLoggedIn(isLoggedIn()));
 
 
@@ -149,6 +151,7 @@ const LoginDialog = (props) => {
       props.handleClose();
       resetSignInFormValues();
     } catch (error) {
+      console.log(error);
       let errorMsg = RESTClient.getAPIErrorMessage(error);
       if (errorMsg.toUpperCase() === "MOBILE NOT VERIFIED") {
         props.handleClose();

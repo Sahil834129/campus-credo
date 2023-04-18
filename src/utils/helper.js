@@ -38,7 +38,7 @@ export const resetUserLoginData = () => {
   localStorage.clear();
 };
 
-export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetailsLongitude) => {
+export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetailsLongitude, cities) => {
   setLocalData("token", loginData.token);
   setLocalData("refreshToken", loginData.refreshToken);
   setLocalData("modulePermissions", JSON.stringify(loginData.modulePermissions || []));
@@ -53,9 +53,15 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
   setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
   if (!isEmpty(loginData?.userLocationDtos[0])) {
-    setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
+    const isCityExist = cities.split(',').find(val => val.toLowerCase() === loginData?.userLocationDtos[0].cityName.toLowerCase())
+    if(isCityExist !== undefined) {
+      setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
+      setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);
+    } else {
+      setLocalData("userLocation", 'Kolkata');
+      setLocalData("selectedLocation", 'Kolkata');
+    }
     setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);
-    setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);
     setLocalData("userLongitude", loginData?.userLocationDtos[0].longitude);
   }
   if (SchoolDetailsLatitude || SchoolDetailsLongitude) {
@@ -252,16 +258,19 @@ export const getCurrentModulePermission = (moduleName) => {
   return flag;
 };
 
-
-export const userCanNotApprove = () => {
+export const userCanNotApprove = (isApproveY) => {
   let modulePermissions = getLocalData('modulePermissions');
   let flag = false;
   if (modulePermissions !== null) {
     modulePermissions = JSON.parse(modulePermissions);
-    flag = modulePermissions.find(val => val.moduleName === "Manage Application" && val.canApprove);
+    flag = modulePermissions.find(val => { 
+      let isApproveYValid = isApproveY ? (val.permissionType.indexOf('APPROVE-Y') !== -1) : val.canApprove
+      return val.moduleName === "Manage Application" && isApproveYValid;
+    });
   }
   return flag;
 };
+
 export const getStatusLabel = (status) => {
   switch (status) {
     case PARENT_APPLICATION_STATUS.AT_PI_SCHEDULED:

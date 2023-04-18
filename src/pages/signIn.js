@@ -74,9 +74,10 @@ const SignIn = () => {
         setSubmitting(true);
         const SchoolDetailsLatitude = localStorage.getItem('SchoolDetailsLatitude');
         const SchoolDetailsLongitude = localStorage.getItem('SchoolDetailsLongitude');
+        const cities = localStorage.getItem('cities');
         resetUserLoginData();
         RESTClient.post(action, reqPayload).then((response) => {
-            setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude);
+            setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude, cities);
             setSubmitting(false);
             navigate("/");
         }).catch((error) => {

@@ -66,10 +66,18 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
       }
       RESTClient.put(RestEndPoint.UPDATE_USER_LOCATION, postData)
         .then((response) => {
+          const cities = getLocalData('cities').split(',');
+          const isCityExist = cities.find(val => val.toLowerCase() === response.data.cityName.toLowerCase())
+          if(isCityExist === undefined) {
+            setLocalData("selectedLocation", 'Kolkata');
+            setLocalData("userLocation", 'Kolkata');
+          } else {
+            setLocalData("selectedLocation", response.data.cityName);
+            setLocalData("userLocation", response.data.cityName);
+          }
           toast.success("Location Updated Successfully");
           setSubmitting(false);
-          setLocalData("selectedLocation", response.data.cityName);
-          setLocalData("userLocation", response.data.cityName);
+          
           setLocalData("userLatitude", response.data.latitude);
           setLocalData("userLongitude", response.data.longitude);
           navigate("/manageProfile");

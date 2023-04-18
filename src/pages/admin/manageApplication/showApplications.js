@@ -7,12 +7,13 @@ import { toast } from "react-toastify";
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION } from "../../../constants/app";
-import { getActionButtonLabel, getStatusLabelForSchool, userCanNotApprove } from "../../../utils/helper";
+import { getActionButtonLabel, getStatusLabelForSchool, userCanNotApprove, userApprovalTab } from "../../../utils/helper";
 import { zipDownloadApplications } from "../../../utils/services";
 
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
   const canNotApprove = userCanNotApprove();
+  const approvalTab = userCanNotApprove(true)
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
       src={Action}
@@ -156,7 +157,10 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         const applicationId = e.row.original?.applicationId;
         if (STATE_TRANSITION[applicationStatus.toUpperCase()]) {
           stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
-            return val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData;
+            if(val === "APPROVED") {
+              return approvalTab;
+            }
+            return (val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData);
           });
         }
         return (
@@ -243,7 +247,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
             }}>
             Decline Wtih Remarks
           </Button>
-          {canNotApprove && <Button
+          {approvalTab && canNotApprove && <Button
             className='accept-btn'
             disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length !== rowsData.length)}
             onClick={() => {
