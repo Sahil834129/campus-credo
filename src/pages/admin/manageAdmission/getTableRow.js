@@ -505,11 +505,21 @@ export default function GetTableRow({
         {errors?.registrationFee && <span className="error-exception">{errors.registrationFee}</span>}
       </td>
       <td className="action-cell">
-        <Save disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          onClick={() => { saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); }} style={{ cursor: "pointer" }}
+        <Save 
+          onClick={() => {
+            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
+              saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); 
+          }} 
+          style={{ cursor: "pointer" }}
         />
-        <Delete disabled={!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
-          onClick={() => { deleteRowData(admissionData, fieldData, sessionValue); }} style={{ cursor: "pointer" }} />
+        <Delete 
+          onClick={() => { 
+            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))){
+              deleteRowData(admissionData, fieldData, sessionValue); 
+            } 
+          }}
+          style={{ cursor: "pointer" }} 
+        />
       </td>
     </tr>
   );
