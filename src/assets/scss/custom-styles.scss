@@ -1447,6 +1447,26 @@ ul.list-group{
             .school-list-container{
               
               .school-card{
+                position: relative;
+                
+                &.admission-partner-tag{
+                  &:after {
+                    background-color: $primarycolor;
+                    color: $white;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 14px;
+                    letter-spacing: 0.018em;
+                    top: 0px;
+                    left: 0;
+                    padding: 6px 16px 6px 8px;
+                    content: 'Admission Partner';
+                    display: inline-block;
+                    position: absolute;
+                    transition: width .3s ease-out;
+                    border-radius: 0 0 24px 0px;
+                  }                
+                }
                 &.card{
                   
                   .school-info-main{
