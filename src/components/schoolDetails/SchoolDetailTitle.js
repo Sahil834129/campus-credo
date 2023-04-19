@@ -28,7 +28,7 @@ const SchoolDetailTitle = (props) => {
       const schoolName = props.schoolName;
       const schoolAddress = `${schoolName}, ${props.schoolAddress}`;
       const destAddress = encodeURIComponent(schoolAddress);
-      const url = `https://www.google.com/maps?ll=${lat},${lng}&z=7&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
+      const url = `https://www.google.com/maps?ll=${lat},${lng}&z=7&t=m&hl=en-US&gl=US&mapclient=embed&daddr=${address1}+${address2},+${city},+${state}+${zipCode}&saddr=${destAddress}&dirflg=d`;
 
       window.open(url, "_blank");
     } else {

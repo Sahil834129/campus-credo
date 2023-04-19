@@ -65,7 +65,13 @@ const SchoolCard = (props) => {
 
     return (
         <>
-            <Card className='school-card' style={{ cursor: "pointer" }} onClick={(e)=>handleViewDetails(school.schoolId, school.schoolName)}>
+      <Card
+        className={`school-card ${
+          school?.partner ? "admission-partner-tag" : ""
+        }`}
+        style={{ cursor: "pointer" }}
+        onClick={(e) => handleViewDetails(school.schoolId, school.schoolName)}
+      >
                 <SchoolCardHeader school={school} distanceFilter={props.distanceFilter}/>
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
@@ -125,10 +131,10 @@ const SchoolCard = (props) => {
                 }
                 </Card.Body>
                 <Col className='salient-features'>
-                    <Row className='partner-wrap'>
-                        { school?.partner && <div className="partner-inner"><div className='partner-item icon'><ApplicationPartner/></div>
-                        <div className='partner-item lbl'><label>Application Partner</label></div></div> }
-                    </Row>
+                  <Row className='partner-wrap'>
+                         {/* { school?.partner && <div className="partner-inner"><div className='partner-item icon'><ApplicationPartner/></div>
+                        <div className='partner-item lbl'><label>Application Partner</label></div></div> }*/}
+                    </Row> 
                     <ListGroup className="feature-list-group allfeatures-wrap">
                     {
                         school.facilities.map((item, index) => {

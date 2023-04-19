@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
-import { getCurrentModulePermission, getLocalData, getPresentableRoleName } from '../../../utils/helper';
+import { getCurrentModulePermission, getLocalData, getPresentableRoleName ,isEmpty } from '../../../utils/helper';
 import { getManagePermissionModules, getManagePermissionRoles, getManagePermissions, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
@@ -103,7 +103,7 @@ export const ManageUsers = () => {
               }}
               inputName={"manageApplication"}
               values={MANAGE_USER_PERMISSION}
-              selected={values[0]}
+              selected={!isEmpty(values) ? values[0] : null}
               disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
             <div style={{ marginLeft: "10px" }}>
@@ -111,7 +111,11 @@ export const ManageUsers = () => {
                 inline
                 type="checkbox"
                 name="loginWithOTP"
-                checked={values[1] === "APPROVE-Y"}
+                checked={
+                  !isEmpty(values) && values.length >= 2
+                    ? values[1] === "APPROVE-Y"
+                    : null
+                }
                 onChange={(ev) => {
                   console.log(ev.target.checked);
                   const valJoin = [values[0], ev.target.checked ? "APPROVE-Y" : "APPROVE-N"].join(',');
