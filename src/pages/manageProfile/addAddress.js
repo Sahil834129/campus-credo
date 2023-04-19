@@ -220,7 +220,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
             disabled={submitting}
             onClick={ _ => saveUserAddress(defaultLatLng, userLocation)}
           >
-            Save
+            {(userLocation?.userLocationId && userLocation?.userLocationId !== "")  ? 'Update': 'Save'}
           </button>
         </div>
       </>)

@@ -136,6 +136,7 @@ export default function GetTableRow({
       ),
       admissionSession: selectedSession,
     };
+    postData.aTPI = false;
     if (payloadData.admissionType === "Fixed") {
       postData = {
         ...postData,
@@ -154,9 +155,9 @@ export default function GetTableRow({
       };
       if (postData?.admissionTestStartDate || postData?.personalInterviewStartDate) {
         postData.aTPI = true;
-      } else {
-        postData.aTPI = false;
       }
+    } else if(postData?.at || postData?.pi) {
+      postData.aTPI = true;
     }
     delete postData?.isOpen;
     delete postData?.className;
@@ -406,8 +407,17 @@ export default function GetTableRow({
           : (
             <>
               <Form.Check
-                checked={admissionData?.aTPI}
-                disabled />
+                checked={admissionData?.at}
+                disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+                onChange={e => {
+                  handleData(
+                    setFieldData,
+                    `${index}.at`,
+                    e.target.checked,
+                    formData[index]?.at || ''
+                  );
+                }}
+              />
             </>
           )}
       </td>
@@ -438,14 +448,14 @@ export default function GetTableRow({
           </>
           : <>
             <Form.Check
-              checked={admissionData?.aTPI}
+              checked={admissionData?.pi}
               disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
               onChange={e => {
                 handleData(
                   setFieldData,
-                  `${index}.aTPI`,
+                  `${index}.pi`,
                   e.target.checked,
-                  formData[index]?.aTPI || ''
+                  formData[index]?.pi || ''
                 );
               }} />
           </>}

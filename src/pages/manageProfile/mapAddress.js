@@ -55,7 +55,7 @@ const MapAddress = compose(
       >
         <input
           type="text"
-          placeholder="Customized your placeholder"
+          placeholder="Enter location or PIN code"
           className="map-placeholder"
           style={{
             boxSizing: `border-box`,
