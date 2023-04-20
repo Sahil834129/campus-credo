@@ -16,6 +16,7 @@ const RequestCallBackDialog = (props) => {
             const response = await RESTClient.post(RestEndPoint.REQUEST_CALLBACK, values)
             setSubmitting(false);
             toast.success("Request for callback sent.")
+            props.handleClose();
         } catch (error) {
             setSubmitting(false);
             toast.error(RESTClient.getAPIErrorMessage(error))
