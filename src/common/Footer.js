@@ -3,14 +3,14 @@ import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useNavigate } from "react-router-dom";
 import FooterGraphic from "../assets/img/footer-graphic.png";
-import PageContent from "../resources/pageContent";
-import { ReactComponent as Instagram } from "../assets/img/icons/instagram.svg";
-import { ReactComponent as Twitter } from "../assets/img/icons/twitter.svg";
+import { ReactComponent as Mail } from "../assets/img/icons/email.svg";
 import { ReactComponent as Facebook } from "../assets/img/icons/facebook.svg";
+import { ReactComponent as Instagram } from "../assets/img/icons/instagram.svg";
 import { ReactComponent as Linkedin } from "../assets/img/icons/linkedIn.svg";
 import { ReactComponent as Pinterest } from "../assets/img/icons/pinterest.svg";
-import { ReactComponent as Mail } from "../assets/img/icons/email.svg";
 import { ReactComponent as Telephone } from "../assets/img/icons/telephone.svg";
+import { ReactComponent as Twitter } from "../assets/img/icons/twitter.svg";
+import PageContent from "../resources/pageContent";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -34,34 +34,37 @@ const Footer = () => {
         <div className="fcol contactus">
           <h2>Follow Us</h2>
           <ListGroup as="ul">
-            <ListGroup.Item as="li">
-              <a href="https://www.instagram.com/campus_credo/"><Instagram /> Instagram</a>
+          <ListGroup.Item as="li">
+              <a href="https://www.facebook.com/CampusCredo/"><Facebook /> <span className="nav-lbl">Facebook</span></a>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <a href="https://twitter.com/CampusCredo"><Twitter /> Twitter</a>
+              <a href="https://twitter.com/CampusCredo"><Twitter /> <span className="nav-lbl">Twitter</span></a>
             </ListGroup.Item>
+            
             <ListGroup.Item as="li">
-              <a href="https://www.facebook.com/CampusCredo/"><Facebook /> Facebook</a>
+              <a href="https://www.instagram.com/campus_credo/"><Instagram />  <span className="nav-lbl">Instagram</span></a>
             </ListGroup.Item>
+            
             <ListGroup.Item as="li">
-              <a href="https://www.linkedin.com/company/campuscredo/"><Linkedin /> Linkedin</a>
+              <a href="https://www.linkedin.com/company/campuscredo/"><Linkedin />  <span className="nav-lbl">Linkedin</span></a>
             </ListGroup.Item>
+            
             <ListGroup.Item as="li">
-              <a href="https://in.pinterest.com/campus_credo"><Pinterest /> Pinterest</a>
+              <a href="https://in.pinterest.com/campus_credo"><Pinterest />  <span className="nav-lbl">Pinterest</span></a>
             </ListGroup.Item>
           </ListGroup>
         </div>
         <div className="fcol contactus">
           <h2>Contact Us @</h2>
           <ListGroup as="ul">
-            <ListGroup.Item as="li"><Telephone /> {PageContent.PHONE}</ListGroup.Item>
+            <ListGroup.Item as="li"><Telephone /> <span className="nav-lbl">{PageContent.PHONE}</span></ListGroup.Item>
             <ListGroup.Item as="li">
               <Link
                 onClick={() =>
                   (window.location = "mailto:support@campuscredo.com")
                 }
               >
-                <Mail /> {PageContent.ENQUIRY_EMAIL}
+                <Mail /> <span className="nav-lbl">{PageContent.ENQUIRY_EMAIL}</span>
               </Link>
             </ListGroup.Item>
           </ListGroup>
