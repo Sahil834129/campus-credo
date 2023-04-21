@@ -80,6 +80,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
             setLocalData("userLocation", response.data.cityName);
             dispatch(setSelectedLocation(response.data.cityName));
           }
+          setLocalData("userLocation", response.data.cityName);
           toast.success("Location Updated Successfully");
           setSubmitting(false);
           

@@ -111,6 +111,7 @@ export default function ParentsGuardianForm({
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
+    window.scrollTo(0, 0);
   };
 
   const skipAndNext = () => {
