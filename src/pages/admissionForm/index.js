@@ -132,6 +132,7 @@ export const AdmissionForms = () => {
   }, [childsList]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getCurrentComponent(step);
   }, [step]);
 
