@@ -54,7 +54,7 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
   setLocalData("schoolContactNumber", loginData?.schoolContactNumber);
   setLocalData("admissionSession", loginData?.admissionSession);
   if (!isEmpty(loginData?.userLocationDtos[0])) {
-    const isCityExist = cities.split(',').find(val => val.toLowerCase() === loginData?.userLocationDtos[0].cityName.toLowerCase())
+    const isCityExist = (cities || "").split(',').find(val => val.toLowerCase() === loginData?.userLocationDtos[0].cityName.toLowerCase())
     if(isCityExist !== undefined) {
       setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
       setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);

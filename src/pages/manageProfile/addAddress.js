@@ -10,9 +10,12 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 import RESTClient from "../../utils/RestClient";
 import { getLocalData, isEmpty, setLocalData } from "../../utils/helper";
 import MapAddress from "./mapAddress";
+import { useDispatch } from "react-redux";
+import { setSelectedLocation } from "../../redux/actions/locationAction";
 
 export default function AddAddress({ setKey, cityOptions, cities, userDetails, setUserDetails, populateCities }) {
   const queryParams = new URLSearchParams(window.location.search);
+  const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const [defaultLatLng, setDefaultLatLng] = useState({ lat: '', lng: '' });
@@ -71,9 +74,11 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
           if(isCityExist === undefined) {
             setLocalData("selectedLocation", 'Kolkata');
             setLocalData("userLocation", 'Kolkata');
+            dispatch(setSelectedLocation('Kolkata'));
           } else {
             setLocalData("selectedLocation", response.data.cityName);
             setLocalData("userLocation", response.data.cityName);
+            dispatch(setSelectedLocation(response.data.cityName));
           }
           toast.success("Location Updated Successfully");
           setSubmitting(false);

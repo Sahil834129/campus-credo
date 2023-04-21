@@ -22,7 +22,7 @@ import Button from "react-bootstrap/esm/Button";
               rejectApplication();
             }}
           >
-            REJECT
+            DECLINE
           </Button>
         </div>
       </div>

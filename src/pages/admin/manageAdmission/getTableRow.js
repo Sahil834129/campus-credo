@@ -276,6 +276,7 @@ export default function GetTableRow({
               e.target.value,
               formData[index].admissionType
             );
+            
           }}
           size='sm'>
           {admissionTypeOptions.map((val, index) => (
@@ -313,7 +314,7 @@ export default function GetTableRow({
           name={`${index}.vacantSeats`}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
           value={admissionData?.vacantSeats || ''}
-          disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
+          disabled={!isWritePermission || !admissionData?.isOpen }
           required
           min="1"
           max={admissionData.capacity}
@@ -407,14 +408,14 @@ export default function GetTableRow({
           : (
             <>
               <Form.Check
-                checked={admissionData?.at}
+                checked={admissionData?.pi}
                 disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
                 onChange={e => {
                   handleData(
                     setFieldData,
-                    `${index}.at`,
+                    `${index}.pi`,
                     e.target.checked,
-                    formData[index]?.at || ''
+                    formData[index]?.pi || ''
                   );
                 }}
               />
@@ -448,14 +449,14 @@ export default function GetTableRow({
           </>
           : <>
             <Form.Check
-              checked={admissionData?.pi}
+              checked={admissionData?.at}
               disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
               onChange={e => {
                 handleData(
                   setFieldData,
-                  `${index}.pi`,
+                  `${index}.at`,
                   e.target.checked,
-                  formData[index]?.pi || ''
+                  formData[index]?.at || ''
                 );
               }} />
           </>}
@@ -507,7 +508,7 @@ export default function GetTableRow({
       <td className="action-cell">
         <Save 
           onClick={() => {
-            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
+            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen))
               saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); 
           }} 
           style={{ cursor: "pointer" }}

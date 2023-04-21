@@ -187,11 +187,11 @@ const AppliedSchools = ({ application, setApplications }) => {
                   </div> 
                   <div className="row-item">
                    <span className="download-option">
-                      <a href="javascript:void(0)" onClick={() => {
+                      <a href="javascript:void(0)" style={{alignItems: 'baseline'}} onClick={() => {
                           downloadApplicationOnDashboard(application.applicationId);
                         }}
                       >
-                        <label style={{cursor:"pointer"}}>Download</label> <DownloadIcon/>
+                        <label style={{cursor:"pointer"}}>Download Application Form</label> <DownloadIcon/>
                       </a>
                     </span>
                   </div>                       
