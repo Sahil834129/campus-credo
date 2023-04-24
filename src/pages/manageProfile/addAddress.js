@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import InputField from "../../components/form/InputField";
 import { UserLocationSchema } from "../../data/validationSchema";
+import { ReactComponent as Exclamation } from "../../assets/img/icons/info.svg";
+
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import RESTClient from "../../utils/RestClient";
 import { getLocalData, isEmpty, setLocalData } from "../../utils/helper";
@@ -206,6 +208,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
           </Form>
         )}
       </Formik>
+      <p> <Exclamation title="" />  Drag and drop items to easily select your location. Simply click and hold on to the pointer, and move it to the desired location.</p>
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (<>
       <div className="map-wrapper">
         <MapAddress

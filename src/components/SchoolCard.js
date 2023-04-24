@@ -43,11 +43,11 @@ const SchoolCard = (props) => {
     }
 
     const handleViewDetails = (schoolId, schoolName) => {
-        if (!isLoggedIn()){
-            setShowLoginDialog(true)
-            setEventLoginCBTarget("ViewDetails")
-            return
-        }
+        // if (!isLoggedIn()){
+        //     setShowLoginDialog(true)
+        //     setEventLoginCBTarget("ViewDetails")
+        //     return
+        // }
         viewSchoolDetails(schoolId, schoolName)
     }
 
