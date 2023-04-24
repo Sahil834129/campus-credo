@@ -146,9 +146,6 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
     getUserLocation();
   }, []);
 
-  useEffect(() => {
-    console.log(defaultLatLng);
-  }, [defaultLatLng]);
   return (
     <>
       <Formik

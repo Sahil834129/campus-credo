@@ -76,6 +76,7 @@ const MapAddress = compose(
       <GoogleMap
         defaultZoom={14}
         center={{ lat: props.lat, lng: props.lng }}
+        onClick={e => props.drag(e)}
       >
         {props.isMarkerShown && (
           <Marker
