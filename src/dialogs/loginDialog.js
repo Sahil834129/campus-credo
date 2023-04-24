@@ -15,7 +15,7 @@ import {
 } from "../data/validationSchema";
 import { getItemsInCart } from "../redux/actions/cartAction";
 import { getChildsList } from "../redux/actions/childAction";
-import { setIsUserLoggedIn } from "../redux/actions/userAction";
+import { setIsAdmin, setIsUserLoggedIn } from "../redux/actions/userAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import {
   isLoggedIn,
@@ -44,16 +44,15 @@ const LoginDialog = (props) => {
   const [validationErrors, setValidationErrors] = useState({});
   const [showMobileNotVerifiedDialog, setShowMobileNotVerifiedDialog] =
     useState(false);
-    const [passwordType, setPasswordType] = useState("password");
-    
-    const togglePassword =()=>{
-      if(passwordType==="password")
-      {
-       setPasswordType("text")
-       return;
-      }
-      setPasswordType("password")
+  const [passwordType, setPasswordType] = useState("password");
+
+  const togglePassword = () => {
+    if (passwordType === "password") {
+      setPasswordType("text");
+      return;
     }
+    setPasswordType("password");
+  };
   useEffect(() => {
     if (otpSentCounter === 4) {
       setOtpMinutes(2);
@@ -120,27 +119,39 @@ const LoginDialog = (props) => {
       : RestEndPoint.LOGIN_WITH_PASSWORD;
 
     if (!isValidSignInPayload(reqPayload)) return;
+    const SchoolDetailsLatitude = localStorage.getItem('SchoolDetailsLatitude');
+    const SchoolDetailsLongitude = localStorage.getItem('SchoolDetailsLongitude');
+    const cities = localStorage.getItem('cities');
 
     setSubmitting(true);
     resetUserLoginData();
     try {
       const response = await RESTClient.post(action, reqPayload);
-      setUserLoginData(response.data);
+      setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude, cities);
       dispatch(setIsUserLoggedIn(isLoggedIn()));
-      setSubmitting(false);
-      props.handleClose();
+
 
       if (props.loginCallbackFunction) props.loginCallbackFunction();
+      if (props.isRedirectUrl) {
+        setSubmitting(false);
+        props.handleClose();
+        return;
+      };
 
       const roles = response.data.roles;
-      if (roles.find((val) => val === DEFAULT_ROLES.PARENT)) {
+      const isParent = roles.find((val) => val === DEFAULT_ROLES.PARENT);
+      dispatch(setIsAdmin(!isParent));
+      if (isParent) {
         loadUserData();
-        navigate('/userProfile');
+        navigate("/userProfile");
       } else {
         window.location.href = "/dashboard";
       }
+      setSubmitting(false);
+      props.handleClose();
       resetSignInFormValues();
     } catch (error) {
+      console.log(error);
       let errorMsg = RESTClient.getAPIErrorMessage(error);
       if (errorMsg.toUpperCase() === "MOBILE NOT VERIFIED") {
         props.handleClose();
@@ -154,7 +165,11 @@ const LoginDialog = (props) => {
   };
 
   const redirectSignUp = () => {
-    navigate("/signUp");
+    if (window.location.search) {
+      navigate(`/signUp?redirectUrl=${btoa(window.location.pathname +window.location.search)}`);
+    } else {
+      navigate(`/signUp`);
+    }
   };
 
   const loadUserData = () => {
@@ -229,7 +244,7 @@ const LoginDialog = (props) => {
   };
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-    signIn();
+      signIn();
     }
   };
   return (
@@ -252,10 +267,11 @@ const LoginDialog = (props) => {
                   type="phone"
                   maxLength="10"
                   onKeyDown={handleKeyDown}
-                  onChange={(e) =>{
+                  onChange={(e) => {
                     handlePhoneBlur(e.target.value);
-                     setPhone(e.target.value)}
-                    }
+                    setPhone(e.target.value);
+                  }
+                  }
                   onBlur={(e) => handlePhoneBlur(e.target.value)}
                   placeholder="Mobile Number"
                 />
@@ -296,25 +312,25 @@ const LoginDialog = (props) => {
                 <div className="otp-fields-wrapper otp-comp">
                   {loginWithOTP === true ? (
                     <div className="otp-inner-fld">
-                    <OtpInput
-                      onChange={handleOtpChange}
-                      numInputs={4}
-                      isInputNum={true}
-                      shouldAutoFocus
-                      value={otp}
-                      className="otpfield"
-                      placeholder="----"
-                      inputStyle={{
-                        width: "52px",
-                        height: "52px",
-                        caretColor: "#000000",
-                      }}
-                    />
+                      <OtpInput
+                        onChange={handleOtpChange}
+                        numInputs={4}
+                        isInputNum={true}
+                        shouldAutoFocus
+                        value={otp}
+                        className="otpfield"
+                        placeholder="----"
+                        inputStyle={{
+                          width: "52px",
+                          height: "52px",
+                          caretColor: "#000000",
+                        }}
+                      />
                     </div>
                   ) : (
                     <div className="pwd-fld-outer">
                       <Form.Control
-                      type={passwordType}
+                        type={passwordType}
                         placeholder={loginWithOTP ? "OTP" : "Password"}
                         onChange={(e) => setOtpOrPassword(e.target.value)}
                         onBlur={(e) => handlePasswordBlur(e.target.value)}
@@ -323,9 +339,9 @@ const LoginDialog = (props) => {
                         onKeyDown={handleKeyDown}
                       />
                       <span className="view-pwd-icon" onClick={togglePassword} >
-                      { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
+                        {passwordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i>}
                       </span>
-                     </div>
+                    </div>
                   )}
                   {loginWithOTP ? getSendOTPLinkMessage() : ""}
                 </div>
@@ -364,8 +380,8 @@ const LoginDialog = (props) => {
         <div className="model-body-col right">
           <h2>Create an account</h2>
           <h4>
-            Join the CampusCredo to find best featured schools, seats available,
-            their benefits, pay school fees and fill admission form online.
+            Join CampusCredo to find premier institutes near you that meet your requirements
+            and apply to them from anywhere, anytime.
           </h4>
           <ListGroup as="ul" className="benfits-list">
             <ListGroup.Item as="li">

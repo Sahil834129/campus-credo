@@ -4,12 +4,6 @@ import Button from "react-bootstrap/esm/Button";
  const AcceptRejectApplication = ({acceptApplication,rejectApplication,}) => { 
   return (
     <div className="particulars-status">
-      <div className="update-info">
-        Congratulations!!!
-        <span className="status submitted">
-          Your Application is Approved
-        </span>
-      </div>
       <div className="instruction">
         Do you want to proceed with Admission?
         <div className="btn-wrapper">
@@ -28,7 +22,7 @@ import Button from "react-bootstrap/esm/Button";
               rejectApplication();
             }}
           >
-            REJECT
+            DECLINE
           </Button>
         </div>
       </div>

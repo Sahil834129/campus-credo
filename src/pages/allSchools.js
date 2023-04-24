@@ -11,66 +11,79 @@ import SidebarFilter from "../common/SidebarFilter";
 import SchoolCardGrid from "../components/SchoolCardGrid";
 import { OPERATORS } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
+import { getLocalData, isEmpty, isLoggedIn, removeLocalDataItem } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const AllSchools = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { state } = useLocation();
+  const { data } = state || {};
+
   const [schoolList, setSchoolList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const selectedLocation = useSelector(
+  const [isLoading, setIsLoading] = useState(false);
+  const defaultLocation = useSelector(
     (state) => state.locationData.selectedLocation
   );
+  const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
-  const geoLocation = useSelector((state) => state.locationData.geolocation);
-
   useEffect(() => {
     getSchoolList();
-  }, [location]);
+    applyFilters();
+    window.scrollTo(0, 0);
+  }, [selectedLocation]);
 
   const applyFilters = async (formFilter) => {
     try {
       showLoader(dispatch);
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await RESTClient.post(
         RestEndPoint.FIND_SCHOOLS,
-        prepareSchoolFilter(formFilter, geoLocation)
+        prepareSchoolFilter(formFilter)
       );
+
       setSchoolList(response.data);
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     }
     window.scrollTo(0, 0);
   };
 
   const getSchoolList = async () => {
+    removeLocalDataItem("SchoolDetailsLatitude");
+    removeLocalDataItem("SchoolDetailsLongitude");
     const queryParams = new URLSearchParams(location.search);
     const schoolName = queryParams.get("name");
     let filters = [];
     if (schoolName !== null && schoolName !== "")
       filters.push({ field: "name", operator: "LIKE", value: schoolName });
-    else filters = prepareSchoolFilter(filterFormData, geoLocation).filters;
-
+    else filters = prepareSchoolFilter(filterFormData).filters;
     try {
       showLoader(dispatch);
-      setIsLoading(true)
-      const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, {
-        filters: filters,
-      });
+      setIsLoading(true);
+      let param = {};
+      param.filters = filters;
+
+      if (!isEmpty(data) && !isEmpty(data.schoolDetailsLatitude) && !isEmpty(data.schoolDetailsLongitude)) {
+        let location = {};
+        location.latitude = data.schoolDetailsLatitude;
+        location.longitude = data.schoolDetailsLongitude;
+        param.location = location;
+      }
+      const response = await RESTClient.post(RestEndPoint.FIND_SCHOOLS, param);
       setSchoolList(response.data);
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       hideLoader(dispatch);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
-  function prepareSchoolFilter(filterForm, geolocation) {
-    console.log(filterForm);
+  function prepareSchoolFilter(filterForm) {
     const selectedFacilities = filterForm.facilities?.map((v) => v.value);
     const selectedExtracurriculars = filterForm.extracurriculars?.map(
       (v) => v.value
@@ -135,14 +148,18 @@ const AllSchools = () => {
         operator: OPERATORS.LIKE,
         value: filterForm.status,
       });
-    if (geoLocation.longitude)
-      filterPayload["location"] = {
-        longitude: geoLocation.longitude,
-        latitude: geoLocation.latitude,
-      }
     if (filterForm.distance) {
       filterPayload["radius"] = filterForm.distance;
+      filterPayload["userId"] = getLocalData("userId");
+
+        if (!isEmpty(getLocalData("userLatitude")) && !isEmpty(getLocalData("userLatitude")) ) {
+        filterPayload["location"] = {
+          longitude: getLocalData("userLongitude"),
+          latitude: getLocalData("userLatitude"),
+        };
+      }
     }
+
     filterPayload["filters"] = filters;
     return filterPayload;
   }
@@ -161,7 +178,7 @@ const AllSchools = () => {
             <Row className="content-section">
               <Breadcrumbs />
               <Col className="page-container">
-                <SchoolCardGrid schools={schoolList} isLoading={isLoading} />
+                <SchoolCardGrid schools={schoolList} isLoading={isLoading} distanceFilter={filterFormData.distance ? filterFormData.distance : ""} />
               </Col>
             </Row>
           </Col>

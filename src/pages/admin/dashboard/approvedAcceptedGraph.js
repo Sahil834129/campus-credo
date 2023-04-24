@@ -1,6 +1,7 @@
 import { Barchart } from "../../../common/Chart";
+import { ReactComponent as Expand } from "../../../assets/img/icons/expand.svg";
 
-export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOffer, labels }) {
+export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOffer, labels, hideLabel }) {
     const chartOptionsValue = {
         plugins: {
             legend: {
@@ -16,57 +17,86 @@ export default function ApprovedAcceptedGraph({ applicationApproved, acceptedOff
         scales: {
             x: {
                 grid: {
-                    display: false
+                    display: false,
+                    borderDash: [2, 2],
                 },
                 title: {
                     display: false,
                     text: "x axis",
                     color: "000000",
+                },
+                ticks: {
+                    autoSkip: false,
+                    display: hideLabel,
                 }
             },
             y: {
                 grid: {
-                    display: false
+                    display: hideLabel
                 },
                 title: {
                     display: false,
                     text: "y axis",
                     color: "000000",
                 },
+                suggestedMin: 10,
+                suggestedMax: 50,
+                min: 0,
                 ticks: {
-                    callback: function (value) { if (value % 1 === 0) { return value; } }
+                    callback: function (value) { if (value % 1 === 0) { return value; } },
+                    autoSkip: false,
+                    display: hideLabel,
                 }
             }
         }
     };
     return (
         <div className='metrics-block mb3'>
+            <div className="expand-kta-wrap"> {!hideLabel ? <Expand /> : ""}</div>
             <div className='title-area'>
-                <h2>Applications Approved Vs Offers Accepted</h2>
+                {!hideLabel ? <h2>Applications Approved Vs Offers Accepted </h2> : ""}
             </div>
             <div className='chart-area'>
-                <Barchart
-                    option={chartOptionsValue}
-                    labelsdata={{
-                        labels: 
-                        // labels,
-                        ["TDD", "PG", "Nur", "LKG", "UKG", "1st","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","11th","12th"],
-                        datasets: [
-                            {
-                                label: "Application Approved",
-                                data: applicationApproved,
-                                backgroundColor: "#F7C32E",
-                                boxWidth: 14,
+                {!hideLabel ?
+                    <Barchart
+                        option={chartOptionsValue}
+                        labelsdata={{
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Application Approved",
+                                    data: applicationApproved,
+                                    backgroundColor: "#F7C32E",
+                                    boxWidth: 14,
 
-                            },
-                            {
-                                label: "Offers Accepted",
-                                data: acceptedOffer,
-                                backgroundColor: "#4AB900",
-                                boxWidth: 14,
-                            }]
-                    }}
-                    styling={{ height: '120px', width: '100%' }} />
+                                },
+                                {
+                                    label: "Offers Accepted",
+                                    data: acceptedOffer,
+                                    backgroundColor: "#4AB900",
+                                    boxWidth: 14,
+                                }]
+                        }}
+                        styling={{ height: '120px', width: '100%' }} /> : <Barchart
+                        option={chartOptionsValue}
+                        labelsdata={{
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Application Approved",
+                                    data: applicationApproved,
+                                    backgroundColor: "#F7C32E",
+                                    boxWidth: 14,
+
+                                },
+                                {
+                                    label: "Offers Accepted",
+                                    data: acceptedOffer,
+                                    backgroundColor: "#4AB900",
+                                    boxWidth: 14,
+                                }]
+                        }}
+                        styling={{ height: '400px', width: '100%' }} />}
             </div>
         </div>
     );

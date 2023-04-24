@@ -33,7 +33,7 @@ const switchLabel = {
   float: 'left',
   width: '45px',
   lineHeight: '26px',
-  fontWeight:'400',
+  fontWeight: '400',
   fontSize: '11px',
   color: 'rgba(0, 0, 0, 0.6)',
   textAlign: 'center',
@@ -72,15 +72,10 @@ function ToggleSwitch({ selected, values, onChangeHandler, inputName, disabled }
           </span>
         );
       })}
-      <span style={{ ...switchSelection, background: disabled ? 'grey' : '#549B43', left: `${values.indexOf(selected) / 3 * 100}%` }} />
+      {values.indexOf(selected) !== -1 && <span style={{ ...switchSelection, background: disabled ? 'grey' : '#549B43', left: `${values.indexOf(selected) / 3 * 100}%` }} />}
     </div>
   );
 
 }
 
 export default ToggleSwitch;
-
-// render(
-//   <ToggleSwitch values={['Read', 'None', 'Write']} selected="days" />,
-//   document.getElementById('root'),
-// );

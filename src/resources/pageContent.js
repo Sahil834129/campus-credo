@@ -9,7 +9,7 @@ const PageContent = {
   HEADER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
-    // { ref: '/howItWorks', title: 'How It Works' },
+    { ref: "/blog", title: "Blog" },
     { ref: '/schools', title: 'All Schools' },
     { ref: '/faqs', title: "FAQ's" },
     { ref: '/contactUs', title: "Contact Us" }
@@ -33,9 +33,10 @@ const PageContent = {
   FOOTER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
+    { ref: '/blog', title: 'Blog' },
     { ref: '/schools', title: 'Schools' },
     // { ref: '/howItWorks', title: 'How It Works' },
-    { ref: '/FAQs', title: "FAQ's" }
+    { ref: '/faqs', title: "FAQ's" }
   ],
   CUSTOM_LINK_TITLES: {
     "faqs":"FAQ's",
@@ -79,30 +80,30 @@ const PageContent = {
   ],
   SCHOOL_FEATURE_CARDS: [
     {
-      image: 'feature-pic1.png',
+      image: 'streamline-process.png',
       title: 'Streamline Processes',
       description: 'Leverage our platform to streamline admission process and go paperless'
     },
     {
-      image: 'feature-pic2.png',
+      image: 'leads.png',
       title: 'Manage Listing',
       description:
         'Manage dedicated listing to increase engagement, nurture and convert leads'
     },
     {
-      image: 'feature-pic3.png',
+      image: 'manage-fee.png',
       title: 'Manage Fees',
       description:
         'Customize online fee collections as required to allow for secured payments'
     },
     {
-      image: 'feature-pic4.png',
+      image: 'data-security.png',
       title: 'Data Protection',
       description:
         'Advanced data protection and storage to ensure privacy and record keeping for auditing'
     },
     {
-      image: 'feature-pic5.png',
+      image: 'omnichannel-support.png',
       title: 'Multi-Channel Support',
       description:
         'Multi-channel support to assist you at every step of the way'
@@ -135,7 +136,7 @@ const PageContent = {
   },
   FACILITY_ICON_MAP: {
     'Bus': 'trasport-icon',
-    'GPS enabled tran': 'gpsenabled-icon',
+    'GPS Enabled Transport': 'gpsenabled-icon',
     'Computer Lab': 'computer-lab',
     'CCTV': 'security-icon',
     'Biometrics': 'biometrics-icon',
@@ -145,7 +146,7 @@ const PageContent = {
     'WiFi': 'wifi-icon',
     'Science Lab': 'sciencelab-icon',
     'Disabled Friendly': 'disabledfriendly-icon',
-    'MedicalCentre': 'medicalcenter-icon',
+    'Medical Centre': 'medicalcenter-icon',
     'Digital Learning': 'digitallearning-icon',
     'Daycare': 'daycare-icon',
     'Art & Craft': 'artandcraft-icon',

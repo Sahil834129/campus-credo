@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Accordion from 'react-bootstrap/Accordion';
 import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
@@ -10,10 +11,11 @@ import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
 import NoRecordsFound from "../common/NoRecordsFound";
 import AppliedSchools from "../components/userProfile/AppliedSchools";
+import UserLocationNotSavedDialog from "../dialogs/userLocationNotSavedDialog";
 import { getChildsList } from '../redux/actions/childAction';
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { isLoggedIn } from '../utils/helper';
+import { getLocalData, isEmpty, isLoggedIn } from '../utils/helper';
 import RESTClient from "../utils/RestClient";
 
 const UserProfile = () => {
@@ -42,6 +44,10 @@ const UserProfile = () => {
       setApplications([])
     }
   }
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
   
   return (
     <Layout>
@@ -53,9 +59,18 @@ const UserProfile = () => {
                 <Breadcrumbs />
               </Col>
             </Row>
-            <Row className='content-section profile-content-main'>
+            <div className='content-section profile-content-main'>
               <Col className='left profile-sidebar'>
-                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                
+                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Main Categories</Accordion.Header>
+                    <Accordion.Body>
+                      <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+                
               </Col>
               <Col className='profile-content right'>
                 <div className='row-items header'>
@@ -79,15 +94,16 @@ const UserProfile = () => {
                 </div>
                 {
                   applications.length > 0 ?
-				  	applications.map((application, index) => {
-                    	return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
-                  	})
-					: <NoRecordsFound message="No applications found for select child."/>
-                }
+                  applications.map((application, index) => {
+                            return <AppliedSchools key={"appliedSchools_" + index} application={application} setApplications={setApplications}/>
+                          })
+                : <NoRecordsFound message="No applications found for selected child."/>
+                      }
               </Col>
-            </Row>
+            </div>
           </Col>
         </Container>
+        {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
       </section>
     </Layout>
   )

@@ -28,7 +28,7 @@ const option = {
   }
 };
 
-export default function DoughnutChart({ data, midNumberText,midTextFirst, midTextSecond, totalRemainng ,totalRemainngData , projectedFee}) {
+export default function DoughnutChart({ data, midNumberText, midTextFirst, midTextSecond, totalRemainng, totalRemainngData, projectedFee }) {
   return (
     <Doughnut
       data={{ ...data }}
@@ -42,17 +42,18 @@ export default function DoughnutChart({ data, midNumberText,midTextFirst, midTex
           ctx.fillText(midNumberText, radius + 20, radius + 20);
           ctx.font = '400 14px Rubik';
           ctx.fillstyle = '#00000066';
-          ctx.fillText(midTextFirst, radius + 21, radius + 40);
-          ctx.fillText(midTextSecond, radius + 5, radius + 60);
-          ctx.fillText(totalRemainngData, radius +20, radius + 110);
-         { totalRemainng === "Remaining Seats" ?  ctx.fillText(totalRemainng, radius -18, radius + 125) : ctx.fillText(totalRemainng, radius +6, radius + 125) ;}
+          ctx.fillText(midTextFirst, radius, radius + 40);
+          ctx.fillText(midTextSecond, radius + 20, radius + 60);
+          { totalRemainngData.match("₹") ? ctx.fillText(totalRemainngData, radius + 6, radius + 110) : ctx.fillText(totalRemainngData, radius + 20, radius + 110); }
+
+          { totalRemainng === "Remaining Seats" ? ctx.fillText(totalRemainng, radius - 100, radius) : ctx.fillText(totalRemainng, radius - 50, radius + 125); }
           ctx.font = '500 18px Rubik';
           ctx.fillText('50', 100, 265);
           ctx.save();
           if (image.complete) {
-            ctx.drawImage(image, 103, 67);
+            ctx.drawImage(image, 105, 67);
           } else {
-            image.onload = () => chart.draw();
+            // image.onload = () => ctx.draw();
           }
         }
       }

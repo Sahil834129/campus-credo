@@ -1,17 +1,21 @@
+import * as moment from 'moment';
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { ReactComponent as DownloadIcon } from "../assets/img/icons/download.svg";
 import Breadcrumbs from "../common/Breadcrumbs";
 import Layout from "../common/layout";
 import LeftMenuBar from "../common/LeftMenuBar";
 import { hideLoader, showLoader } from "../common/Loader";
 import OrderLineItems from "../dialogs/OrderLineItems";
+import UserLocationNotSavedDialog from '../dialogs/userLocationNotSavedDialog';
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import { humanize } from "../utils/helper";
+import { getLocalData, humanize, isEmpty, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
-import { downloadInvoice } from "../utils/services";
+import { downloadInvoice, moneyReceiptInvoice } from "../utils/services";
 
 const PaymentHistory=() =>{
    const [orders, setOrders] = useState([{}])
@@ -55,70 +59,92 @@ const PaymentHistory=() =>{
                                 <Breadcrumbs />
                             </Col>
                         </Row>
-                        <Row className='content-section profile-content-main'>
+                        <div className='content-section profile-content-main'>
                             <Col className='left profile-sidebar'>
-                                <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                                <Accordion className="sidebar-collapsible" defaultActiveKey={['0']} alwaysOpen>
+                                    <Accordion.Item eventKey="0">
+                                        <Accordion.Header>Main Categories</Accordion.Header>
+                                        <Accordion.Body>
+                                            <LeftMenuBar menuItems={PageContent.USER_PROFILE_SIDEBAR_MENU_ITEMS} />
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
                             </Col>
                             <Col className='profile-content right'>
                                 <div className='top-btn-wrap managechild-title'>
                                 <h2>Complete Payment History</h2>
                                 </div>
-                                <div className='manage-child-tbl-outer'>
+                                <div className='payment-history-tbl'>
                                 <Table striped bordered hover >
                                 <thead>
                                               <tr>
                                                 <th>Order Id</th>
-                                                <th>Billing Name</th>
+                                                <th>Payee Name</th>
                                                  <th>Order Date</th>
                                                  <th>Order Status</th>
                                                 <th>Order Type</th>
-                                                <th>No of Orders</th>
-                                                <th>Order Amount</th>
-                                                <th>Fee</th>
-                                                <th>GST</th>
                                                 <th>Total Amount</th>
                                                 <th>Download Invoice</th>
+                                                <th>Money Receipt</th>
                                              </tr>
                         </thead>
-      
+                             {orders ? (
                                      <tbody>
-                                        {
-                                            orders?.map((order, index) => {
+                                        { 
+                                           ( orders?.map((order, index) => {
                                                 return <tr >
                                                     <td>{order.orderId}</td>
-                                                    <td>
-                                                        <Link className="text-primary" onClick={()=>{
+                                                    <td className='payeename'>
+                                                        <Link className="payee" onClick={()=>{
                                                         setOrderLineItems(order.orderLineItems);
                                                         handleShowLineItems();
                                                     }}>
                                                     {order.billingName}
                                                     </Link>
                                                     </td>
-                                                    <td>{order.orderDate}</td>
+                                                    <td>{moment(order.orderDate).format("DD/MM/YYYY")}</td>
                                                     <td>{order? humanize(order.orderStatus) : ""}</td>
                                                     <td>{order? humanize(order.orderType) : ""}</td>
-                                                    <td>{ CountOrderLineItems(order)}</td>
-                                                    <td>{order.orderAmount}</td>
-                                                    <td>{order.platformFee}</td>
-                                                    <td> {order.tax}</td>
-                                                    <td>{order.totalAmount}</td>
-                                                   
-                                                    <td>
-                                                        <div className="btn-wrapper">
-                                                            <Button className='edit' onClick={() => downloadInvoicePdf(order.orderId)}>Download Invoice</Button>
+                                                    <td>{order?.totalAmount?.toLocaleString('en-IN', 
+                                                        {   maximumFractionDigits: 2,
+                                                            style: 'currency',
+                                                            currency: 'INR'
+                                                        })
+                                                    }</td>
+                                                    <td className='download-invoice'>
+                                                        <div className="btn-wrap">
+                                                        <DownloadIcon className='' style={{marginLeft:"auto",marginRight:"auto",cursor:"pointer"}} onClick={() => downloadInvoicePdf(order.orderId)}/>
                                                         </div>
                                                     </td>
+                                                    <td className='download-invoice'>
+                                                                <div className="btn-wrap">
+                                                                    <DownloadIcon className='' style={{ marginLeft: "auto", marginRight: "auto", cursor: "pointer" }} onClick={() => moneyReceiptInvoice(order.orderId)} />
+                                                                </div>
+                                                    </td>
                                                 </tr>
-                                            })
+                                            })) 
                                         }
-                                    </tbody>
+                                    </tbody>) : <tbody className="" style={{ textAlign: "center" }}>
+                                        <tr>
+                                            <td colspan="7">
+                                                <div className='not-found-wrapper'>
+                                                    <div className='title-wrap'>
+                                                        <h4>No Record Found.</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                  
+                                  </tbody>}
                                     </Table>
                                 </div>
                             </Col>
-                        </Row>
+                        </div>
                     </Col>
                 </Container>
                 <OrderLineItems show={showLineItems} handleClose={handleCloseLineItems}  orderLineItems={orderLineItems}/>
+                {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
             </section>
         </Layout>
     

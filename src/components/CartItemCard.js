@@ -53,8 +53,11 @@ const CartItemCard = (props) => {
     return (
         <>
             <Card className='school-card cart-block cart-active'>
-                
-                <SchoolCardHeader school={schoolCardHeaderObject()}/>
+                <div className="scard-top">
+                    <div className="scardt-item"><label>Applied for :</label> <span className="value">{cartItem.className}</span></div>
+                    <div className="scardt-item"><label>In Session :</label> <span className="value">{cartItem.admissionSession}</span></div>
+                </div>
+                <SchoolCardHeader school={schoolCardHeaderObject()} cartItem={cartItem}/>
                 {/* <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Applying to Class</div>

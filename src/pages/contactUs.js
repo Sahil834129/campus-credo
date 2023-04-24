@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
@@ -46,6 +46,10 @@ const ContactUs = () => {
       });
   };
 
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
+
   return (
     <Layout>
       <section className="content-area about-page">
@@ -76,7 +80,7 @@ const ContactUs = () => {
                           fieldType="text"
                           value={values.firstName}
                           label='First Name'
-                          placeholder='First Name'
+                          placeholder='Enter First Name'
                           required
                           errors={errors}
                           touched={touched}
@@ -87,7 +91,7 @@ const ContactUs = () => {
                             fieldName="lastName"
                             label='Last Name'
                             value={values.lastName}
-                            placeholder='Last Name'
+                            placeholder='Enter Last Name'
                             fieldType="text"
                             required
                             errors={errors}
@@ -104,7 +108,7 @@ const ContactUs = () => {
                           label='Phone Number'
                           value={values.phone}
                           required
-                          placeholder="Phone Number"
+                          placeholder="Enter Phone Number"
                           errors={errors}
                           touched={touched}
                         />
@@ -115,7 +119,7 @@ const ContactUs = () => {
                             label='Email Address'
                             value={values.email}
                             fieldType="text"
-                            placeholder="Email Address"
+                            placeholder="Enter Email Address"
                             required
                             errors={errors}
                             touched={touched}
@@ -128,7 +132,7 @@ const ContactUs = () => {
                         <InputField
                           fieldName="category"
                           fieldType="select"
-                          label='Select Category'
+                          label='Category'
                           value={values.category}
                           placeholder=""
                           required

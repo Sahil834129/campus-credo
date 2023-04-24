@@ -16,6 +16,7 @@ const RestEndPoint = {
   REFRESH_TOKEN: "user/refreshToken",
   FORGOT_PASSWORD: "user/forgetPassword",
   FIND_SCHOOLS: "/v1/school/find",
+  FIND_NEARBY_SCHOOL:"/v1/nearbyschools",
   SCHOOL_BY_ID: "/v1/schooldetails",
   GET_CHILD_LIST: "/parent/childList",
   ADD_CHILD: "/parent/child/create",
@@ -39,7 +40,11 @@ const RestEndPoint = {
   GET_PARENT_OCCUPATION: "v1/school/parentOccupation",
   MARK_PROFILE_COMPLETE: "/student/markProfileComplete",
   GET_USER_DETAILS: "/parent/getProfile",
+  GET_USER_LOCATION: "/parent/userLocation",
   UPDATE_USER: "/parent/updateUser",
+  UPDATE_USER_LOCATION: "/parent/update/userLocation",
+  SAVE_USER_ADDRESS: "/parent/save/userLocation",
+  UPDATE_USER_ADDRESS: "/parent/update/userLocation",
   CHANGE_PASSWORD: "/parent/changePassword",
   UPDATE_PHONE: "/parent/updatePhone",
   CLASS_ADMISSION_DATA: "/admission/classAdmissionData",
@@ -52,6 +57,7 @@ const RestEndPoint = {
   DOWNLOAD_ADMIN_DOCUMENT: "/admissionApplications/download/document",
   DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD: "/admission/applicationform/download",
   DOWNLOAD_PAYMENT_INVOICE :"/admission/download/invoice",
+  DOWNLOAD_MONEY_RECEIPT_INVOICE :"/admission/download/moneyReceipt",
   CLASS_ADMISSION_SESSION_DATA: "admission/classAdmissionSessions",
   CLASS_ADMISSION_SUMMARY: "admissionApplications/classAdmissionSummary",
   CLASS_APPLICATION_CLASS: "admissionApplications/classApplicationsByClass",
@@ -75,11 +81,13 @@ const RestEndPoint = {
   CONTACT_US: "/user/contactUs",
   PLACE_CART_ORDER: "payment/placeOrder",
   PLACE_REGISTRATION_ORDER: "payment/payRegistrationFee",
+  POPULAR_SCHOOL:"v1/popularschools",
   REQUEST_CALLBACK: "v1/school/callBack",
   REGISTRATION_CHECKOUT: "payment/registrationCheckout",
   JOIN_US: "user/joinUs",
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
   GET_PAYMENT_HISTORY: "payment/paymentHistory",
+  ZIP_DOWNLOAD_APPLICATION:"/admissionApplications/zip/downloadApplications"
 };
 
 export default RestEndPoint;

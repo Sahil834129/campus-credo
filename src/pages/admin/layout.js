@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import { Form } from "react-bootstrap";
+import Navbar from 'react-bootstrap/Navbar';
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+
 import { ReactComponent as FooterCampusLogo } from '../../assets/admin/img/footer-logo-campuscredso.svg';
 import '../../assets/admin/scss/custom-styles.scss';
-
-import Nav from 'react-bootstrap/Nav';
-
-import Avatar from 'react-avatar';
-import Navbar from 'react-bootstrap/Navbar';
-import { ToastContainer } from "react-toastify";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION } from '../../constants/app';
-import { getLocalData, logout, getPresentableRoleName } from '../../utils/helper';
-import { useSelector } from "react-redux";
+import { getLocalData, getPresentableRoleName, logout, setLocalData } from '../../utils/helper';
 
-export const Layout = ({ admissionSummary, ...props }) => {
+
+export const Layout = ({ admissionSummary, sessionValue, setSessionValue, ...props }) => {
   const navigate = useNavigate();
   const adminHeaderLink = useSelector(state => state?.userData?.modulePermissions);
+  const sessionOption = ((getLocalData('admissionSession') || "").split(','));
   const [adminLink, setAdminLink] = useState([]);
   const location = useLocation();
   const breadcrumbTitle = ADMIN_DASHBOARD_LINK.find(
@@ -32,11 +32,19 @@ export const Layout = ({ admissionSummary, ...props }) => {
   useEffect(() => {
     setAdminLink(adminHeaderLink.filter(val => val?.isPermit !== MANAGE_USER_PERMISSION[1]));
     let pathname = window.location.pathname;
-    const data = adminHeaderLink.find(val => val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url == pathname);
+    const data = adminHeaderLink.find(val => val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url === pathname);
     if (!data && pathname !== "/termsAndConditions") {
-      navigate("/dashboard")
+      navigate("/dashboard");
     }
   }, [adminHeaderLink]);
+
+  useEffect(() => {
+    setLocalData("sessionValue", sessionValue);
+    if (sessionOption.length > 0 && sessionValue === "") {
+      setSessionValue(sessionOption[0]);
+    }
+  }, [sessionOption]);
+
   return (
     <Container className='main-container admin-contianer' fluid>
       <div className='top-navigation'>
@@ -80,7 +88,19 @@ export const Layout = ({ admissionSummary, ...props }) => {
               </Nav.Link>
             ))}
           </Nav>
-          {/* <Button className='guide-btn'>Guide</Button> */}
+          {setSessionValue && <div className="d-flex">
+            <label>Admission Year</label>
+            <Form.Select
+              value={sessionValue}
+              onChange={(e) => {
+                setSessionValue(e.target.value);
+              }}
+              size='sm'>
+              {sessionOption.map((val, index) => (
+                <option value={val} key={`select${index}`}>{val}</option>
+              ))}
+            </Form.Select>
+          </div>}
         </Navbar.Collapse>
       </Navbar>
       <div className='content-area'>
@@ -113,38 +133,58 @@ export const Layout = ({ admissionSummary, ...props }) => {
                   <label className='lbl'>Final Review</label>{' '}
                   <span className='value'>{admissionSummary?.underFinalReview || 0}</span>
                 </ListGroup.Item>
-                <ListGroup.Item className='application-status'>
+                {/* <ListGroup.Item className='application-status'>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Approved</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.approved || 0}</span>{' | '}
+                    <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
+                  
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Declined</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.declined || 0}</span>{' | '}
+                    <label className='lbl'>Declined <span className='value text-danger'>{admissionSummary?.declined || 0}</span></label>{' '}
+                    
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Accepted</label>{' '}
-                    <span className='value text-success'>{admissionSummary?.accepted || 0} </span>{' | '}
+                    <label className='lbl'>Accepted <span className='value text-success'>{admissionSummary?.accepted || 0} </span></label>{' '}
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Denied</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.denied || 0}</span>{' | '}
+                    <label className='lbl'>Denied <span className='value text-danger'>{admissionSummary?.denied || 0}</span></label>{' '}
+                    
                   </div>
                   <div className='app-status-cell'>
-                    <label className='lbl'>Revoked</label>{' '}
-                    <span className='value text-danger'>{admissionSummary?.revoked || 0}</span>
+                    <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
+                    
                   </div>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
               </ListGroup>
             </div>
           )}
         </div>
+        {breadcrumbTitle?.title==="Dashboard" || breadcrumbTitle?.title==="Manage Application" ?
+        <div className='application-status status-block'>
+            <div className='app-status-cell'>
+              <label className='lbl'>Approved  <span className='value text-success'>{admissionSummary?.approved || 0}</span></label>{' '}
+              {/* {' | '} */}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Declined <span className='value text-danger'>{admissionSummary?.declined || 0}</span></label>{' '}
+              {/* {' | '} */}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Accepted <span className='value text-success'>{admissionSummary?.accepted || 0} </span></label>{' '}
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Denied <span className='value text-danger'>{admissionSummary?.denied || 0}</span></label>{' '}
+              
+            </div>
+            <div className='app-status-cell'>
+              <label className='lbl'>Revoked <span className='value text-danger'>{admissionSummary?.revoked || 0}</span></label>{' '}
+            </div>
+        </div>:""}
         {props.children}
       </div>
       <div className='footer-panel'>
         <Link to='/dashboard'><FooterCampusLogo /></Link>
-        <Link to='/termsAndConditions'>Terms &amp; Conditions</Link>
-      </div>
+        {breadcrumbTitle ? <Link to='/termsAndConditions'>Terms &amp; Conditions</Link> : ""}
+        </div>
       <ToastContainer autoClose={2000} position="top-right" />
     </Container>
   );

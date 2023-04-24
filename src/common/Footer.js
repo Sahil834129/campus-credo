@@ -3,6 +3,13 @@ import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link, useNavigate } from "react-router-dom";
 import FooterGraphic from "../assets/img/footer-graphic.png";
+import { ReactComponent as Mail } from "../assets/img/icons/email.svg";
+import { ReactComponent as Facebook } from "../assets/img/icons/facebook.svg";
+import { ReactComponent as Instagram } from "../assets/img/icons/instagram.svg";
+import { ReactComponent as Linkedin } from "../assets/img/icons/linkedIn.svg";
+import { ReactComponent as Pinterest } from "../assets/img/icons/pinterest.svg";
+import { ReactComponent as Telephone } from "../assets/img/icons/telephone.svg";
+import { ReactComponent as Twitter } from "../assets/img/icons/twitter.svg";
 import PageContent from "../resources/pageContent";
 
 const Footer = () => {
@@ -21,47 +28,61 @@ const Footer = () => {
   return (
     <footer className="footer-main">
       <Container className="finner">
-        <div className="fcol">
+        <div className="fcol fbrandlogo">
           <img src={FooterGraphic} alt="" />
         </div>
-        <div className="fcol">
+        <div className="fcol contactus">
+          <h2>Follow Us</h2>
+          <ListGroup as="ul">
+          <ListGroup.Item as="li">
+              <a href="https://www.facebook.com/CampusCredo/"><Facebook /> <span className="nav-lbl">Facebook</span></a>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <a href="https://twitter.com/CampusCredo"><Twitter /> <span className="nav-lbl">Twitter</span></a>
+            </ListGroup.Item>
+            
+            <ListGroup.Item as="li">
+              <a href="https://www.instagram.com/campus_credo/"><Instagram />  <span className="nav-lbl">Instagram</span></a>
+            </ListGroup.Item>
+            
+            <ListGroup.Item as="li">
+              <a href="https://www.linkedin.com/company/campuscredo/"><Linkedin />  <span className="nav-lbl">Linkedin</span></a>
+            </ListGroup.Item>
+            
+            <ListGroup.Item as="li">
+              <a href="https://in.pinterest.com/campus_credo"><Pinterest />  <span className="nav-lbl">Pinterest</span></a>
+            </ListGroup.Item>
+          </ListGroup>
+        </div>
+        <div className="fcol contactus">
+          <h2>Contact Us @</h2>
+          <ListGroup as="ul">
+            <ListGroup.Item as="li"><Telephone /> <span className="nav-lbl">{PageContent.PHONE}</span></ListGroup.Item>
+            <ListGroup.Item as="li">
+              <Link
+                onClick={() =>
+                  (window.location = "mailto:support@campuscredo.com")
+                }
+              >
+                <Mail /> <span className="nav-lbl">{PageContent.ENQUIRY_EMAIL}</span>
+              </Link>
+            </ListGroup.Item>
+          </ListGroup>
+        </div>
+        <div className="fcol quicklinks">
           <h2>Quick Links</h2>
           <ListGroup as="ul">
             {PageContent.FOOTER_MENU_ITEMS.map((fMenuItem, index) => (
               <ListGroup.Item as="li" key={"footer_" + index}>
                 <Link
                   href="javascript:void(0);"
-		              to={fMenuItem.ref}
+                  to={fMenuItem.ref}
                   onClick={(e) => navigateToRef(fMenuItem.ref)}
                 >
                   {fMenuItem.title}
                 </Link>
               </ListGroup.Item>
             ))}
-          </ListGroup>
-        </div>
-        <div className="fcol">
-          <h2>Contact Us @</h2>
-          <ListGroup as="ul">
-            <ListGroup.Item as="li">T: {PageContent.PHONE}</ListGroup.Item>
-            <div>
-              <Link
-                onClick={() =>
-                  (window.location = "mailto:support@campuscredo.com")
-                }
-              >
-                E: {PageContent.ENQUIRY_EMAIL}
-              </Link>
-            </div>
-            <ListGroup.Item as="li">
-              <a href="https://www.facebook.com" style={{visibility:'hidden'}}>F: Follow us on Facebook</a>
-            </ListGroup.Item>
-            <ListGroup.Item as="li">
-              <a href="https://www.twitter.com" style={{visibility:'hidden'}}>T: Follow us on Twitter</a>
-            </ListGroup.Item>
-            {/* <ListGroup.Item as="li">
-              <a href="https://www.linkedin.com" >L: Follow us on Linkedin</a>
-            </ListGroup.Item> */}
           </ListGroup>
         </div>
         <div className="fcol btn-container">

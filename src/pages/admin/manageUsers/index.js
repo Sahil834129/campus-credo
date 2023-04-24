@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Spinner } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 
 import Button from 'react-bootstrap/Button';
 import TableComponent from '../../../common/TableComponent';
 import ToggleSwitch from "../../../common/TriStateToggle";
 import { MANAGE_USER_PERMISSION } from "../../../constants/app";
-import { getCurrentModulePermission, getLocalData, getPresentableRoleName } from '../../../utils/helper';
+import { getCurrentModulePermission, getLocalData, getPresentableRoleName ,isEmpty } from '../../../utils/helper';
 import { getManagePermissionModules, getManagePermissionRoles, getManagePermissions, updateUserModulePermissions } from '../../../utils/services';
 import Layout from '../layout';
 import { PasswordDialog } from './passwordChange';
@@ -72,9 +72,8 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Admission',
       Cell: ((e) => {
-
         return (
-          <div className='item-cell'>
+          <div className='item-cell' style={{ justifyContent: "center", display: "flex" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageAdmission');
@@ -92,17 +91,39 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Application',
       Cell: ((e) => {
+        console.log("manageeeeeappp", e)
+        const values = e?.row?.original?.manageApplication?.split(',');
+        console.log("values", values)
         return (
-          <div className='item-cell'>
+          <div className='item-cell' style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
-                handleManagePermisssion(tableRowsData, e.row.index, val, 'manageApplication');
+                const valJoin = [val, values[1]].join(',');
+                handleManagePermisssion(tableRowsData, e.row.index, valJoin, 'manageApplication');
               }}
               inputName={"manageApplication"}
               values={MANAGE_USER_PERMISSION}
-              selected={e.row.original.manageApplication}
+              selected={!isEmpty(values) ? values[0] : null}
               disabled={!isWritePermission || e.row.original?.roleName === currentRole}
             />
+            <div style={{ marginLeft: "10px" }}>
+              <Form.Check
+                inline
+                type="checkbox"
+                name="loginWithOTP"
+                checked={
+                  !isEmpty(values) && values.length >= 2
+                    ? values[1] === "APPROVE-Y"
+                    : null
+                }
+                onChange={(ev) => {
+                  console.log(ev.target.checked);
+                  const valJoin = [values[0], ev.target.checked ? "APPROVE-Y" : "APPROVE-N"].join(',');
+                  handleManagePermisssion(tableRowsData, e.row.index, valJoin, 'manageApplication');
+                }}
+              />
+              <label className="lbl">Approve</label>
+            </div>
           </div>
         );
       })
@@ -112,7 +133,7 @@ export const ManageUsers = () => {
       Header: 'Manage User',
       Cell: ((e) => {
         return (
-          <div className='item-cell'>
+          <div className='item-cell' style={{ justifyContent: "center", display: "flex" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageUser');
@@ -131,7 +152,7 @@ export const ManageUsers = () => {
       Header: 'Manage Fees',
       Cell: ((e) => {
         return (
-          <div className='item-cell' style={{ display: "flex", textAlign: "center", paddingLeft: "10px" }}>
+          <div className='item-cell' style={{ display: "flex", textAlign: "center", justifyContent: "center", paddingLeft: "10px" }}>
             <ToggleSwitch
               onChangeHandler={(val) => {
                 handleManagePermisssion(tableRowsData, e.row.index, val, 'manageFee');
@@ -150,11 +171,11 @@ export const ManageUsers = () => {
       Header: ' ',
       Cell: ((e) => {
         return (
-          <div className='btn-wrapper'>
+          <div className='btn-wrapper manageuser-btn'>
             <Button
               type='button'
               disabled={!isWritePermission || (e.row.original?.roleUsers?.length || 0) === 0}
-              style={{ backgroundColor: '#41285F' }}
+              style={{ backgroundColor: '#549b43' }}
               onClick={() => {
                 setPasswordWindowOpen(true);
                 setCurrentSelectedRole(e.row.original?.roleUsers || []);

@@ -10,24 +10,24 @@ export const saveClassAdmissionData = (data) => {
   return RESTClient.post(RestEndPoint.CLASS_ADMISSION_DATA, data);
 };
 
-export const removeClassAdmissionData = (session) => {
-  return RESTClient.delete(RestEndPoint.REMOVE_ADMISSION_DATA + `/${session}`);
+export const removeClassAdmissionData = (session, classId) => {
+  return RESTClient.delete(RestEndPoint.REMOVE_ADMISSION_DATA + `/${classId}/${session}`);
 };
 
 export const applicationfilterData = (data) => {
   return RESTClient.post(RestEndPoint.APPLICATION_FILTER_DATA, data);
 };
 
-export const getSchoolAdmissinSummary = () => {
-  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY);
+export const getSchoolAdmissinSummary = (currentSession) => {
+  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY + "/" + currentSession);
 };
 
-export const getSchoolAdmissinFeeSummary = () => {
-  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_FEE_SUMMARY);
+export const getSchoolAdmissinFeeSummary = (sessionValue) => {
+  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_FEE_SUMMARY + "/" + sessionValue);
 };
 
-export const getApplicationChartStatus = () => {
-  return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS);
+export const getApplicationChartStatus = (sessionValue) => {
+  return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS + "/" + sessionValue);
 };
 
 export const updateUserModulePermissions = (data) => {
@@ -54,20 +54,30 @@ export const getManagePermissions = () => {
 export const getManagePermissionModules = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
 };
-export const getClassAdmissionSummary = (classId) => {
-  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}`);
+export const getClassAdmissionSummary = (classId, sessionValue) => {
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}/${sessionValue}`);
 };
 
-export const getAtPiForClass = (classId) => {
-  return RESTClient.get(RestEndPoint.ATPI_FOR_CLASS + `${classId}`);
+export const getAtPiForClass = (classId, sessionValue) => {
+  return RESTClient.get(RestEndPoint.ATPI_FOR_CLASS + `${classId}/${sessionValue}`);
 };
 
 export const getSchoolClassesData = (schoolId) => {
   return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
 };
 
-export const getClassApplication = (classId) => {
-  return RESTClient.get(RestEndPoint.CLASS_APPLICATION_CLASS + `/${classId}`);
+export const zipDownloadApplications = async (applicationIds) => {
+  try {
+    const data = await RESTClient.postBlob(RestEndPoint.ZIP_DOWNLOAD_APPLICATION, applicationIds);
+    console.log(data);
+    downloadFile(data, 'applicatntFirstName_ApplicationId');
+  } catch (error) {
+    toast.error("Error while downloading document." + error);
+  }
+};
+
+export const getClassApplication = (classId, sessionValue) => {
+  return RESTClient.get(RestEndPoint.CLASS_APPLICATION_CLASS + `/${classId}/${sessionValue}`);
 };
 
 export const updateApplicationStatus = (payload) => {
@@ -79,7 +89,7 @@ export const updateBulkApplicationStatus = (payload) => {
 };
 
 export const downloadDocument = async (childId, documentName, applicationChildId) => {
-  const baseDownloadURL = applicationChildId ? RestEndPoint.DOWNLOAD_ADMIN_DOCUMENT : RestEndPoint.DOWNLOAD_DOCUMENT
+  const baseDownloadURL = applicationChildId ? RestEndPoint.DOWNLOAD_ADMIN_DOCUMENT : RestEndPoint.DOWNLOAD_DOCUMENT;
   try {
     const data = await RESTClient.getBlob(baseDownloadURL + '/' + (childId ?? applicationChildId) + '/' + documentName);
     downloadFile(data, documentName);
@@ -100,7 +110,16 @@ export const downloadInvoice = async (invoiceId) => {
   const baseDownloadURL = invoiceId ? RestEndPoint.DOWNLOAD_PAYMENT_INVOICE : toast.error("Error while downloading document");
   try {
     const data = await RESTClient.getBlob(baseDownloadURL + '/' + (invoiceId));
-    downloadFile(data, 'Payment Invoice' );
+    downloadFile(data, 'Payment Invoice');
+  } catch (error) {
+    toast.error("Error while downloading document." + error);
+  }
+};
+export const moneyReceiptInvoice = async (invoiceId) => {
+  const baseDownloadURL = invoiceId ? RestEndPoint.DOWNLOAD_MONEY_RECEIPT_INVOICE : toast.error("Error while downloading document");
+  try {
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (invoiceId));
+    downloadFile(data, 'Payment Receipt');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
@@ -151,6 +170,6 @@ export const getAgeClassMap = async () => {
 
 };
 
-export const getApplications = async(childId) => {
-  return RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`)
-}
+export const getApplications = async (childId) => {
+  return RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`);
+};

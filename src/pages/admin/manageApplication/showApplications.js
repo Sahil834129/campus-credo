@@ -7,11 +7,13 @@ import { toast } from "react-toastify";
 import Action from "../../../assets/img/actions.png";
 import TableComponent from "../../../common/TableComponent";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS, STATE_TRANSITION } from "../../../constants/app";
-import { getActionButtonLabel, getStatusLabelForSchool, userCanNotApprove } from "../../../utils/helper";
+import { getActionButtonLabel, getStatusLabelForSchool, userCanNotApprove, userApprovalTab } from "../../../utils/helper";
+import { zipDownloadApplications } from "../../../utils/services";
 
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
   const canNotApprove = userCanNotApprove();
+  const approvalTab = userCanNotApprove(true)
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
       src={Action}
@@ -30,7 +32,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
     setOpenModal(true);
     setIsbulkOperation(false);
   };
-  
+
   const getClassName = (status) => {
     switch (status) {
       case SCHOOL_APPLICATION_STATUS.AT_PI:
@@ -129,11 +131,11 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
                     title={note === 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' : ''}
                   >
                     {/* {note.substring(0, 1)} */}
-                    </span>;
+                  </span>;
                 })
                 : <span className="none-found">NA</span>
             }
-            
+
           </div>
         );
       })
@@ -155,7 +157,10 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         const applicationId = e.row.original?.applicationId;
         if (STATE_TRANSITION[applicationStatus.toUpperCase()]) {
           stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
-            return val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData;
+            if(val === "APPROVED") {
+              return approvalTab;
+            }
+            return (val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData);
           });
         }
         return (
@@ -196,6 +201,25 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
 
   return (
     <div className='inner-content-wrap'>
+      <div className="btn-wrapper" style={{ display: 'flex', justifyContent: 'flex-end', margin: 10 }}>
+        <Button
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          className='approval-btn'
+          disabled={((Object.keys(selectedRows)).length === 0)}
+          onClick={_ => {
+            const appIds = Object.keys(selectedRows).map(val => {
+              return rowsData[val]?.applicationId;
+            });
+            console.log(appIds);
+            zipDownloadApplications({ applicationIdList: appIds });
+          }}
+        >
+          Download Application
+        </Button>
+      </div>
       <div className='table-wrapper-outer'>
         <TableComponent
           data={rowsData}
@@ -217,15 +241,15 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
           </Button>
           <Button
             className='decline-btn'
-            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length !== rowsData.length)}
             onClick={() => {
               handleBulkStatusUpdate(PARENT_APPLICATION_STATUS.DECLINED, selectedRows, rowsData);
             }}>
             Decline Wtih Remarks
           </Button>
-          {canNotApprove && <Button
+          {approvalTab && canNotApprove && <Button
             className='accept-btn'
-            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length === 0)}
+            disabled={!isWritePermission || (selectedRows && Object.keys(selectedRows).length !== rowsData.length)}
             onClick={() => {
               handleBulkStatusUpdate(SCHOOL_APPLICATION_STATUS.APPROVED, selectedRows, rowsData);
             }}>

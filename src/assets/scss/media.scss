@@ -22,3 +22,13 @@
         }
     }
 }
+
+@media screen and (max-width: 375px){
+.content-area .school-list-container .school-card .info-list-group .list-group-item .session-wrap .session-info-outer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 3px;
+    align-items: center;
+    margin-bottom: 5px;
+}
+}

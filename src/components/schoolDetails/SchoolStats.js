@@ -8,76 +8,88 @@ const SchoolStats = (props) => {
       <div className="academic-stats-content">
         <div className="academic-stats-row">
           <div className="cell">
-            <div className="title">Board</div>
-            <div className="particular">{schoolDetails.board || "NA"}</div>
+            <div className="item-cell title">Board</div>
+            <div className="item-cell particular">{schoolDetails.board || "NA"}</div>
           </div>
           <div className="cell">
-            <div className="title">Ownership</div>
-            <div className="particular">{schoolDetails.ownership || "NA"}</div>
+            <div className="item-cell title">Parent Group</div>
+            <div className="item-cell particular">{schoolDetails.parentGroup || "NA"}</div>          
           </div>
+          
+        </div>
+        <div className="academic-stats-row">
           <div className="cell">
-            <div className="title">School Level</div>
-            <div className="particular">
+            <div className="item-cell title">School Level</div>
+            <div className="item-cell particular">
               {schoolDetails.schoolLevel || "NA"}
             </div>
           </div>
+          <div className="cell">
+            <div className="item-cell title">Gender</div>
+            <div className="item-cell particular">{schoolDetails.gender || "NA"}</div>
+          </div>
+          
         </div>
         <div className="academic-stats-row">
           <div className="cell">
-            <div className="title">Gender</div>
-            <div className="particular">{schoolDetails.gender || "NA"}</div>
-          </div>
-          <div className="cell">
-            <div className="title">Establishment Year</div>
-            <div className="particular">
-              {schoolDetails.yearEstablishedIn || "NA"}
+              <div className="item-cell title">Establishment Year</div>
+              <div className="item-cell particular">
+                {schoolDetails.yearEstablishedIn || "NA"}
+              </div>
             </div>
-          </div>
-          <div className="cell">
-            <div className="title">School Format</div>
-            <div className="particular">{schoolDetails.schoolType || "NA"}</div>
-          </div>
+            <div className="cell">
+              <div className="item-cell title">School Format</div>
+              <div className="item-cell particular">{schoolDetails.schoolType || "NA"}</div>
+            </div>
         </div>
         <div className="academic-stats-row">
           <div className="cell">
-            <div className="title"> Medium of Instruction</div>
-            <div className="particular">
+            <div className="item-cell title"> Medium of Instruction</div>
+            <div className="item-cell particular">
               {schoolDetails.mediumOfInstruction || "NA"}
             </div>
           </div>
           <div className="cell">
-            <div className="title">Academic Session</div>
-            <div className="particular">
-              {schoolDetails.admissionInfo?.admissionSession || "NA"}
+            <div className="item-cell title">Academic Session</div>
+            <div className="item-cell particular">
+              {schoolDetails?.admissionInfo?.map((val)=><div className="session_year">{val.admissionSession}</div>) || "NA"}
             </div>
           </div>
-          <div className="cell">
-            <div className="title">Student/Teacher Ratio</div>
-            <div className="particular">
-              {schoolDetails.studentTeacherRatio || "NA"}
-            </div>
-          </div>
+          
         </div>
         <div className="academic-stats-row">
           <div className="cell">
-            <div className="title">School Timings</div>
-            <div className="particular">
+            <div className="item-cell title">Student/Teacher Ratio</div>
+            <div className="item-cell particular">
+              {schoolDetails.studentTeacherRatio || "NA"}
+            </div>
+          </div>
+          <div className="cell">
+            <div className="item-cell title">School Timings</div>
+            <div className="item-cell particular">
               {schoolDetails.schoolTimings || "NA"}
             </div>
           </div>
-          <div className="cell">
-            <div className="title">Admission Status</div>
-            <div className="particular">
-              {schoolDetails.admissionInfo
-                ? schoolDetails.admissionInfo.admissionStatus +
-                  " For " +
-                  schoolDetails.admissionInfo.admissionSession
-                : "NA"}
+          
+        </div>
+        <div className="academic-stats-row">
+          <div className="single-row">
+              <div className="item-cell title">Admission open for</div>
+              <div className="item-cell particular adm-status">
+                {schoolDetails.admissionInfo ? schoolDetails.admissionInfo?.map((val)=> <div className="adm-sessions">{ 
+                // val.admissionStatus +
+                    // " For " +
+                    val.admissionSession
+                }</div>)  : "NA"
+                }
+              </div>
             </div>
-          </div>
-          <div className="cell">
-            <div className="title">Academic Performance</div>
-            <div className="particular">
+        </div>
+        <div className="academic-stats-row">
+          
+          <div className="single-row">
+            <div className="item-cell title">Academic Performance</div>
+            <div className="item-cell particular">
               {schoolDetails.academicPerformancePerc || "NA"}
             </div>
           </div>

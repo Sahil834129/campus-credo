@@ -36,7 +36,7 @@ const PaymentCard = ({ selectedChild }) => {
                         <div className='cell right'>{selectedChild.cartItems.length}</div>
                     </ListGroup.Item> */}
           <ListGroup.Item>
-            <div className="cell left">Admission Fee</div>
+            <div className="cell left">Application Fee</div>
             <div className="cell right">₹{totalFee}</div>
           </ListGroup.Item>
           <ListGroup.Item>

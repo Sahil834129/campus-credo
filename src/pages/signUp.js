@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ReactComponent as SignupLogo } from "../assets/img/singup-logo.svg";
 import "../assets/scss/custom-styles.scss";
 
@@ -17,6 +17,8 @@ import { populateCities } from "../utils/populateOptions";
 import RESTClient from "../utils/RestClient";
 
 const SignUp = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
@@ -35,7 +37,7 @@ const SignUp = () => {
     RESTClient.post(RestEndPoint.REGISTER, formData)
       .then((response) => {
         setSubmitting(false);
-        navigate("/verifyPhone/" + formData.phone);
+        navigate("/verifyPhone/" + formData.phone + "?redirectUrl=" +(queryParams.get("redirectUrl")));
       })
       .catch((error) => {
         setSubmitting(false);
@@ -44,19 +46,20 @@ const SignUp = () => {
   };
   const togglePassword = () => {
     if (passwordType === "password") {
-      setPasswordType("text")
+      setPasswordType("text");
       return;
     }
     setPasswordType("password");
-  }
+  };
   const toggleConfirmPassword = () => {
     if (confirmPasswordType === "password") {
-      setConfirmPasswordType("text")
+      setConfirmPasswordType("text");
       return;
     }
     setConfirmPasswordType("password");
 
-  }
+  };
+
   return (
     <Container className="main-container signup-main" fluid>
       <div className="signup-wrapper">
@@ -97,25 +100,25 @@ const SignUp = () => {
                         <label className="">
                           First Name <span className="text-danger">*</span>
                         </label>
-                          <InputField
-                            fieldName="firstName"
-                            fieldType="text"
-                            placeholder="Enter First Name"
-                            errors={errors}
-                            touched={touched}
-                          />
+                        <InputField
+                          fieldName="firstName"
+                          fieldType="text"
+                          placeholder="Enter First Name"
+                          errors={errors}
+                          touched={touched}
+                        />
                       </div>
                       <div className="frm-cell">
                         <label className="">
                           Last Name <span className="text-danger">*</span>
                         </label>
-                          <InputField
-                            fieldName="lastName"
-                            fieldType="text"
-                            placeholder="Enter Last Name"
-                            errors={errors}
-                            touched={touched}
-                          />
+                        <InputField
+                          fieldName="lastName"
+                          fieldType="text"
+                          placeholder="Enter Last Name"
+                          errors={errors}
+                          touched={touched}
+                        />
                       </div>
                     </div>
                     <div className="frm-row">
@@ -123,13 +126,13 @@ const SignUp = () => {
                         <label className="">
                           Email Address <span className="text-danger">*</span>
                         </label>
-                          <InputField
-                            fieldName="email"
-                            fieldType="text"
-                            placeholder="Enter Email Address"
-                            errors={errors}
-                            touched={touched}
-                          />
+                        <InputField
+                          fieldName="email"
+                          fieldType="text"
+                          placeholder="Enter Email Address"
+                          errors={errors}
+                          touched={touched}
+                        />
                       </div>
                       <div className="frm-cell">
                         <label className="">
@@ -138,7 +141,7 @@ const SignUp = () => {
                         <InputField
                           fieldName="phone"
                           fieldType="text"
-                            placeholder="Enter Phone Number"
+                          placeholder="Enter Phone Number"
                           errors={errors}
                           touched={touched}
                         />
@@ -158,7 +161,7 @@ const SignUp = () => {
                         />
                         <span className="view-pwd-icon" onClick={() => {
                           if (values.password !== "") {
-                            togglePassword()
+                            togglePassword();
                           }
                         }}>
                           {values.password !== "" ? passwordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
@@ -177,7 +180,7 @@ const SignUp = () => {
                         />
                         <span className="view-pwd-icon" onClick={() => {
                           if (values.confirmPassword !== "") {
-                            toggleConfirmPassword()
+                            toggleConfirmPassword();
                           }
                         }}>
                           {values.confirmPassword !== "" ? confirmPasswordType === "password" ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i> : <i className="bi bi-eye-slash"></i>}
@@ -187,7 +190,7 @@ const SignUp = () => {
                     <div className="frm-row">
                       <div className="frm-cell">
                         <label className="">
-                           State <span className="text-danger">*</span>
+                          State <span className="text-danger">*</span>
                         </label>
                         <InputField
                           fieldName="state"
@@ -196,18 +199,18 @@ const SignUp = () => {
                           selectOptions={stateOptions}
                           value={values.state}
                           onChange={(e) => {
-                              setFieldValue('state', e.target.value);
-                              setFieldValue("city" , "");
-                              populateCities(e.target.value, setCityOptions);
-                            }
+                            setFieldValue('state', e.target.value);
+                            setFieldValue("city", "");
+                            populateCities(e.target.value, setCityOptions);
+                          }
                           }
                           errors={errors}
                           touched={touched}
                         />
-                      </div>                      
+                      </div>
                       <div className="frm-cell">
                         <label className="">
-                           City <span className="text-danger">*</span>
+                          City <span className="text-danger">*</span>
                         </label>
                         <InputField
                           fieldName="city"
@@ -253,7 +256,7 @@ const SignUp = () => {
                     <div className="form-group mb-3 linkback-wrap">
                       {/* <div className='linkback-cell left'><Link to={"/disclaimerpolicy"}>* Policy Disclaimer</Link></div> */}
                       <div className="linkback-cell right">
-                        Have an account?<Link to="/?login=true">Sign In</Link>
+                        Have an account?<Link to={`${queryParams.get("redirectUrl") ? atob(queryParams.get("redirectUrl")) : "/?login=true"}`}>Sign In</Link>
                       </div>
                     </div>
                   </Form>

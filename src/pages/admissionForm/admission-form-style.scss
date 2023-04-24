@@ -188,6 +188,15 @@
         .supporting-document{
             margin-top: 0px;
             padding-bottom: 10px;
+            .tab-content{
+                .tab-pane{
+                    &.active{
+                        .tab-content{
+                            // overflow-x: scroll;
+                        }
+                    }
+                }
+            }
             table.document-tbl{
                 border-radius: 8px;
                 thead{
@@ -196,6 +205,7 @@
                             background: rgba(65, 40, 95, 0.08);
                             color: $primarycolor;
                             font-size: 15px;
+                            text-align: left;
                             &.doc-upload-btn{
                                 text-align: center;
                             }
@@ -206,18 +216,20 @@
                     tr{
                         td{
                             vertical-align: middle;
+                            text-align: left;
                             &.doc-upload-fld{
-                                display: flex;
-                                flex-direction: column;
+                                // display: flex;
+                                // flex-direction: column;
                                 position: relative;
                                 border-left: none;
+                                
                                 border-right: none;
                                 .error-msg{
                                     color: #FF5767;
                                     font-size: 14px;
                                     position: absolute;
-                                    bottom: 12px;
-                                    right: 18px;
+                                    bottom: 0px;
+                                    right: 8px;
                                 }
                                 span{
                                     background: transparent;
@@ -294,8 +306,10 @@
             margin-bottom: 212px;
         }
         .button-wrap{
-            text-align: end;
-            border-top: 1px  solid #e6e6e6;
+            display: flex;
+            justify-content: flex-end;
+            column-gap: 16px;
+            border-top: 1px solid #e6e6e6;
             padding-top: 24px;
             .comn{
                 text-transform: uppercase;
@@ -310,7 +324,7 @@
                 padding: 12px 40px;
                 background: #FFFFFF;
                 border: 1px solid #E22445;
-                margin-right: 10px;
+                margin: 0;
                 } 
                 &.save{
                     background: #549B43;

@@ -3,6 +3,7 @@ import React from "react";
 
 const FORM_FIELD_TYPE = {
   TEXT: "text",
+  NUMBER: "number",
   TEXTAREA:"textarea",
   PASSWORD: "password",
   SELECT: "select",
@@ -70,9 +71,41 @@ const getFieldTagElement = (props) => {
             {...(props.required ? { required: props.required } : {})}
             {...(props.readOnly ? { readOnly: props.readOnly } : {})}
             {...(props.disabled ? { disabled: props.disabled } : {})}
+            {...(props.maxLength ? { maxLength: props.maxLength } : {})}
+            {...(props.minLength ? { minLength: props.minLength } : {})}
           />
         </>
       );
+
+    
+    case FORM_FIELD_TYPE.NUMBER:
+        return (
+          <>
+            {props.label ? (
+              <label>
+                {props.label}{" "}
+                {props.required ? <span className="req">*</span> : ""}{" "}
+              </label>
+            ) : (
+              ""
+            )}
+            <Field
+              type="number"
+              className="form-control"
+              name={props.fieldName}
+              value={props.value}
+              placeholder={props.placeholder}
+              {...(props.required ? { required: props.required } : {})}
+              {...(props.readOnly ? { readOnly: props.readOnly } : {})}
+              {...(props.disabled ? { disabled: props.disabled } : {})}
+              {...(props.maxLength ? { maxLength: props.maxLength } : {})}
+              {...(props.minLength ? { minLength: props.minLength } : {})}
+              {...(props.max ? { max: props.max } : {})}
+              {...(props.min ? { min: props.min } : {})}
+            />
+          </>
+        );
+
     case FORM_FIELD_TYPE.PASSWORD:
       return (
         <>
@@ -87,6 +120,7 @@ const getFieldTagElement = (props) => {
           <Field
             type="password"
             className="form-control"
+            value={props.value}
             name={props.fieldName}
             placeholder={props.placeholder}
             {...(props.required ? { required: props.required } : {})}

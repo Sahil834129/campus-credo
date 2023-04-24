@@ -72,9 +72,12 @@ const SignIn = () => {
         reqPayload[(loginWithOTP ? "otp" : "password")] = loginWithOTP ? otp : password;
         const action = loginWithOTP ? RestEndPoint.LOGIN_WITH_OTP : RestEndPoint.LOGIN_WITH_PASSWORD
         setSubmitting(true);
+        const SchoolDetailsLatitude = localStorage.getItem('SchoolDetailsLatitude');
+        const SchoolDetailsLongitude = localStorage.getItem('SchoolDetailsLongitude');
+        const cities = localStorage.getItem('cities');
         resetUserLoginData();
         RESTClient.post(action, reqPayload).then((response) => {
-            setUserLoginData(response.data);
+            setUserLoginData(response.data, SchoolDetailsLatitude, SchoolDetailsLongitude, cities);
             setSubmitting(false);
             navigate("/");
         }).catch((error) => {

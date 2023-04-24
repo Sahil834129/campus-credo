@@ -11,8 +11,14 @@ import aboutpic2 from "../assets/img/about-elearning.svg";
 import aboutpic1 from "../assets/img/about-hero-pic.jpg";
 import aboutpic3 from "../assets/img/about-pic3.png";
 import aboutpic4 from "../assets/img/about-pic4.png";
+import { useEffect } from 'react';
 
 const AboutUs = () => {
+
+    useEffect(() => {
+      window.scrollTo(0,0)
+    }, [])
+    
     return(
         <Layout>
             <section className="content-area about-page">
@@ -32,13 +38,13 @@ const AboutUs = () => {
                         <section className="section-wrapper">
                             <div className="img-wrap"><img src={aboutpic2} alt="" /></div>
                             <div className="content-wrap">
-                                <h2>All your needs are in one place with one simple application form</h2>
+                                <h2>All Your Needs Are In One Place With One Simple Application Form</h2>
                                 <h4>We are a group of technocrats who, as parents to toddlers and schoolgoers, realized the need to bring educational institutions and parents on the same digital platform for realizing the mutual benefits.</h4>
                             </div>
                         </section>
                         <section className="section-wrapper full-width">
                             <div className="content-wrap">
-                                <h2>Minimizing Parents hardship</h2>
+                                <h2>Minimizing Parents Hardship</h2>
                                 <h4>As Parents in this age of digitalization, the convenience of virtualized experience of picking the right type and kind of educational institute for our kids, without having to spend hours physically searching, visiting, and analyzing, is ingrained in our ethos to find the ‘best’ from the plethora of available options that would best suit our own preferences and choices. </h4>
                                 <blockquote>CampusCredo therefore provides the much needed platform to find and connect to such educational institutes.</blockquote>
                             </div>

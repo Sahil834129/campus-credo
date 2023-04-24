@@ -92,6 +92,11 @@ export const UpdateProfileSchema = Yup.object().shape({
   city: Yup.string().required("Required *"),
 });
 
+export const UserLocationSchema = Yup.object().shape({
+  state: Yup.string().required("Required *"),
+  city: Yup.string().required("Required *"),
+});
+
 export const ChangePasswordSchema = Yup.object().shape({
   password: Yup.string()
     .password()
@@ -305,8 +310,16 @@ export const ContactInfoSchema = Yup.object().shape({
   message: Yup.string().required("Required *"),
 });
 export const JoinUsDialogForSchoolSchema = Yup.object().shape({
-  firstName: Yup.string().required("Required *"),
-  lastName: Yup.string().required("Required *"),
+  firstName: Yup.string()
+  .min(2, "Value is too short.")
+  .max(30, "Value is too long.")
+  .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
+  .required("Required *"),
+  lastName: Yup.string()
+  .min(2, "Value is too short.")
+  .max(30, "Value is too long.")
+  .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
+  .required("Required *"),
   email: Yup.string().email("Invalid email").required("Required *"),
   phone: Yup.string()
     .matches(/^[6-9]\d{9}$/gi, {

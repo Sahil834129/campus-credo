@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import MultiRangeSlider from "multi-range-slider-react";
 import React, { useEffect, useState } from "react";
+import Accordion from 'react-bootstrap/Accordion';
 import Row from "react-bootstrap/Row";
 import { MultiSelect } from "react-multi-select-component";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,11 +11,13 @@ import InputField from "../components/form/InputField";
 import { getSchoolClasses } from "../redux/actions/masterData";
 import { setSchoolFilter } from "../redux/actions/userAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
+import { checkIfCityExists, checkSelectedCityWithUserCity, getLocalData, isLoggedIn } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
 
 const SidebarFilter = ({ filterFormData, applyFilters }) => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
+  const cities = getLocalData("cities");
   const classOptions = useSelector(
     (state) => state?.masterData?.schoolClasses || []
   );
@@ -94,6 +97,9 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
 
   const applyFilter = (values) => {
     const filterValues = getFilterValues(values);
+    if(isNaN(filterValues.distance)) {
+      filterValues.distance="";
+    }
     dispatch(setSchoolFilter(filterValues));
     applyFilters(filterValues);
   };
@@ -194,142 +200,164 @@ const SidebarFilter = ({ filterFormData, applyFilters }) => {
 
   return (
     <Row className="filter-panel">
-
-      <Formik
-        initialValues={
-          Object.keys(filterFormData).length > 0
-            ? filterFormData
-            : initialFilterValues
-        }
-        enableReinitialize
-        onSubmit={(values) => {
-          applyFilter(values);
-        }}
-      >
-        {({ errors, resetForm, touched, values }) => (
-          <Form className="filter-components">
-            <div className="filter-head">
-              <h2>
-                <i className="icons filter-icon"></i> Filters
-              </h2>
-              <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
-            </div>
-            <div className="filter-row">
-              <div className="filter-item">
-                <InputField
-                  fieldName="status"
-                  fieldType="select"
-                  placeholder=""
-                  value={values.status}
-                  label="Admission Status"
-                  selectOptions={admissionStatusOptions}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
-              <div className="filter-item">
-                <InputField
-                  fieldName="distance"
-                  fieldType="select"
-                  placeholder=""
-                  value={values.distance}
-                  label="Distance from Home"
-                  selectOptions={distanceOptions}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
-              <div className="filter-item">
-                <InputField
-                  fieldName="class"
-                  fieldType="select"
-                  placeholder=""
-                  value={values.class}
-                  label="Class"
-                  selectOptions={classOptions}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
-              <div className="filter-item">
-                <label>Monthly Tuition Fees</label>
-                <div className="range-slider-wrapper">
-                  <MultiRangeSlider
-                    min={0}
-                    max={20000}
-                    step={500}
-                    minValue={minMonthlyTutionFee}
-                    maxValue={maxMonthlyTutionFee}
-                    ruler="false"
-                    label="false"
-                    onInput={(e) => {
-                      setMinMonthlyTutionFee(e.minValue);
-                      setMaxMonthlyTutionFee(e.maxValue);
-                    }}
-                  />
+      <Accordion className="filter-collapsible-panel" defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>
+            <i className="icons filter-icon"></i> <label className="txt-lbl">Filters</label>
+          </Accordion.Header>
+          <Accordion.Body className="filter-collapse-body">
+            <Formik
+            initialValues={
+              Object.keys(filterFormData).length > 0
+                ? filterFormData
+                : initialFilterValues
+            }
+            enableReinitialize
+            onSubmit={(values) => {
+              applyFilter(values);
+            }}
+          >
+            {({ errors, resetForm, touched, values }) => (
+              <Form className="filter-components">
+                <div className="filter-head">
+                  {/* <h2>
+                    <i className="icons filter-icon"></i> Filters
+                  </h2> */}
+                  <Link onClick={() => handleResetForm(resetForm)}>Reset</Link>
                 </div>
-              </div>
-              <div className="filter-item">
-                <InputField
-                  fieldName="board"
-                  fieldType="select"
-                  placeholder=""
-                  value={values.board}
-                  label="School Board"
-                  selectOptions={boardOptions}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
-              <div className="filter-item">
-                <InputField
-                  fieldName="gender"
-                  fieldType="select"
-                  value={values.gender}
-                  placeholder=""
-                  label="Gender"
-                  selectOptions={genderOptions}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
-              <div className="filter-item">
-                <InputField
-                  fieldName="medium"
-                  fieldType="select"
-                  value={values.medium}
-                  placeholder=""
-                  label="Medium of Instruction"
-                  selectOptions={mediumOfInstructionsOtions}
-                  errors={errors}
-                  touched={touched}
-                />
-              </div>
-              <div className="filter-item multiselect-fld">
-                <label>Facilities</label>
-                <MultiSelect
-                  options={facilitiesOptions}
-                  value={facilities}
-                  onChange={setFacilities}
-                  labelledBy="Facilities"
-                ></MultiSelect>
-              </div>
-              <div className="filter-item multiselect-fld">
-                <label>Extracurriculars</label>
-                <MultiSelect
-                  options={extracurricularOptions}
-                  value={extracurriculars}
-                  onChange={setExtracurriculars}
-                  labelledBy="Extracurriculars"
-                ></MultiSelect>
-              </div>
-            </div>
-            <div className="filter-item btn-wrap">
-              <Button buttonLabel="Apply" class="applyFilter" />
-            </div>
-          </Form>
-        )}
-      </Formik>
+                <div className="filter-row">
+                  <div className="filter-item">
+                    <InputField
+                      fieldName="status"
+                      fieldType="select"
+                      placeholder=""
+                      value={values.status}
+                      label="Admission Status"
+                      selectOptions={admissionStatusOptions}
+                      errors={errors}
+                      touched={touched}
+                    />
+                  </div>
+                  <div className="filter-item">
+                    { isLoggedIn()  && checkIfCityExists(cities) && checkSelectedCityWithUserCity() && <InputField
+                      fieldName="distance"
+                      fieldType="select"
+                      placeholder=""
+                      value={values.distance}
+                      label="Distance from Home"
+                      selectOptions={distanceOptions}
+                      errors={errors}
+                      touched={touched}
+                    />}
+                  </div>
+                  <div className="filter-item">
+                    <InputField
+                      fieldName="class"
+                      fieldType="select"
+                      placeholder=""
+                      value={values.class}
+                      label="Class"
+                      selectOptions={classOptions}
+                      errors={errors}
+                      touched={touched}
+                    />
+                  </div>
+                  <div className="filter-item">
+                    <label>Monthly Tuition Fees</label>
+                    <div className="range-slider-wrapper">
+                      <MultiRangeSlider
+                        min={0}
+                        max={20000}
+                        step={500}
+                        minValue={minMonthlyTutionFee}
+                        maxValue={maxMonthlyTutionFee}
+                        ruler="false"
+                        label="false"
+                        onInput={(e) => {
+                          setMinMonthlyTutionFee(e.minValue);
+                          setMaxMonthlyTutionFee(e.maxValue);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-item">
+                    <InputField
+                      fieldName="board"
+                      fieldType="select"
+                      placeholder=""
+                      value={values.board}
+                      label="School Board"
+                      selectOptions={boardOptions}
+                      errors={errors}
+                      touched={touched}
+                    />
+                  </div>
+                  <div className="filter-item">
+                    <InputField
+                      fieldName="gender"
+                      fieldType="select"
+                      value={values.gender}
+                      placeholder=""
+                      label="Gender"
+                      selectOptions={genderOptions}
+                      errors={errors}
+                      touched={touched}
+                    />
+                  </div>
+                  <div className="filter-item">
+                    <InputField
+                      fieldName="medium"
+                      fieldType="select"
+                      value={values.medium}
+                      placeholder=""
+                      label="Medium of Instruction"
+                      selectOptions={mediumOfInstructionsOtions}
+                      errors={errors}
+                      touched={touched}
+                    />
+                  </div>
+                  <div className="filter-item multiselect-fld">
+                    <label>Facilities</label>
+                    <MultiSelect
+                      options={facilitiesOptions}
+                      value={facilities}
+                      onChange={setFacilities}
+                      labelledBy="Facilities"
+                    ></MultiSelect>
+                  </div>
+                  <div className="filter-item multiselect-fld">
+                    <label>Extracurriculars</label>
+                    <MultiSelect
+                      options={extracurricularOptions}
+                      value={extracurriculars}
+                      onChange={setExtracurriculars}
+                      labelledBy="Extracurriculars"
+                    ></MultiSelect>
+                  </div>
+                </div>
+                <div className="filter-item btn-wrap">
+                  <Button buttonLabel="Apply" class="applyFilter" />
+                </div>
+              </Form>
+            )}
+          </Formik>
+          
+        </Accordion.Body>
+      </Accordion.Item>
+      
+    </Accordion>
+      {/* <div class="wrap-collabsible">
+        <input id="collapsible" class="toggle" type="checkbox" />
+        <label for="collapsible" class="lbl-toggle">
+          <i className="icons filter-icon"></i> Filters  
+        </label>
+        <div class="collapsible-content">
+          <div class="content-inner">
+          
+          </div>
+        </div>
+      </div> */}
+      
     </Row>
   );
 };

@@ -36,7 +36,7 @@ export const CATEGORY_OPTIONS = [
   { value: "ST", text: "ST" },
 ];
 export const CATEGORY_OPTIONS_CONTACT_FORM = [
-  { value: "", text: "Select Option" },
+  { value: "", text: "Select Category" },
   { value: "Admission Related", text: "Admission Related" },
   { value: "Application Related", text: "Application Related" },
   { value: "Fee Related", text: "Fee Related" },
@@ -59,10 +59,13 @@ export const BLOOD_OPTIONS = [
 ];
 
 export const APPLICATION_STATUS_MESSAGE = {
-  'SUBMITTED' : 'Application Submitted',
-  'UNDER_REVIEW': 'Application is Under Review',
+  'RECEIVED': 'Application Submitted',
+  'APPROVED': 'Application Approved',
+  'ACCEPTED': 'Application Accepted',
+  'DENIED': 'Application Denied',
+  'UNDER_REVIEW': 'Application Under Review',
   'AT_PI': 'Application shortlisted for screening process. Kindly report at school on <AT/PI timeslot>',
-  'UNDER_FINAL_REVIEW': 'Application is Under Final Review',
+  'UNDER_FINAL_REVIEW': 'Application Under Final Review',
   //'APPROVED': 'Congratulations your application is Approved. To confirm your seat please click on Accept',
   'DECLINED': "Unfortunately, you couldn't get through the final selection. Please feel free to apply again in future",
 }

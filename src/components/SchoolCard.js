@@ -8,9 +8,11 @@ import AlertDialog from "../common/AlertDialog";
 import ApplyToSchoolDialog from "../dialogs/applyToSchoolDialog";
 import LoginDialog from "../dialogs/loginDialog";
 import PageContent from "../resources/pageContent";
-import { isLoggedIn } from "../utils/helper";
+import { isEmpty, isLoggedIn } from "../utils/helper";
 import InfoDropDown from "./InfoDropDown";
 import SchoolCardHeader from "./SchoolCardHeader";
+import { ReactComponent as ApplicationPartner } from "../assets/admin/img/application-partner.svg";
+
 
 const SchoolCard = (props) => {
     const navigate = useNavigate()
@@ -41,11 +43,11 @@ const SchoolCard = (props) => {
     }
 
     const handleViewDetails = (schoolId, schoolName) => {
-        if (!isLoggedIn()){
-            setShowLoginDialog(true)
-            setEventLoginCBTarget("ViewDetails")
-            return
-        }
+        // if (!isLoggedIn()){
+        //     setShowLoginDialog(true)
+        //     setEventLoginCBTarget("ViewDetails")
+        //     return
+        // }
         viewSchoolDetails(schoolId, schoolName)
     }
 
@@ -63,8 +65,14 @@ const SchoolCard = (props) => {
 
     return (
         <>
-            <Card className='school-card' style={{ cursor: "pointer" }} onClick={(e)=>handleViewDetails(school.schoolId, school.schoolName)}>
-                <SchoolCardHeader school={school}/>
+      <Card
+        className={`school-card ${
+          school?.partner ? "admission-partner-tag" : ""
+        }`}
+        style={{ cursor: "pointer" }}
+        onClick={(e) => handleViewDetails(school.schoolId, school.schoolName)}
+      >
+                <SchoolCardHeader school={school} distanceFilter={props.distanceFilter}/>
                 <ListGroup className="info-list-group">
                     <ListGroup.Item>
                         <div className='left'>Avg. Monthly Tuition Fees</div>
@@ -79,21 +87,41 @@ const SchoolCard = (props) => {
                         <div className='right'>{school.classesFromUpto}</div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <div className='left'>Admission Status:</div>
+                        <div className='left'>Admission Status</div>
+                        <div className='right'> {!isEmpty(school.admissionInfo)?"Admission Open":"Admission Closed"} </div>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                        <div className='left'>Sessions</div>
                         <div className='right session-wrap'>
-                            {
-                                school.admissionInfo != null ?
-                                <>
-                                <span className='session-title'>{school.admissionInfo.admissionStatus} for {school.admissionInfo.admissionSession} </span>
-                                <InfoDropDown header={school.admissionInfo.admissionStatus + " for " + school.admissionInfo.admissionSession} options={school.admissionInfo.admissionOpenForClasses.split(",")}/>
-                                </>
-                                : 'Closed'
-                            }
+                        {
+                              !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
+                              { return (
+                                     <>
+                                     <div className="session-info-outer">
+                                        <span className='session-title'>{admissionRow.admissionSession}  </span>
+                                     </div>
+                                     </>
+                              )
+                              } ) )  : <span className="right seats">NA</span>
+                        }                           
                         </div>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <div className='left'>Seats Available:</div>
-                        <div className='right seats'>{school.admissionInfo ? school.admissionInfo.seatsAvailable :"NA"}</div>
+                        <div className='left'>Seats Available</div>
+                         <div className='right seats session-wrap'>
+                        {
+                              !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
+                              { return (
+                                     <>
+                                     <div className="session-info-outer">
+                                        <span className='session-title'>{admissionRow.admissionSession}: {admissionRow.seatsAvailable} Approx</span>
+                                        <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
+                                     </div>
+                                     </>
+                              )
+                              } ) )  : 'NA'
+                        }                           
+                        </div>
                     </ListGroup.Item>
                 </ListGroup>
                 <Card.Body className='button-wrap'>
@@ -103,10 +131,10 @@ const SchoolCard = (props) => {
                 }
                 </Card.Body>
                 <Col className='salient-features'>
-                    <Row className='partner-wrap'>
-                        { school?.partner && <div><div className='partner-item icon'><i className='icons partner-icon'></i></div>
-                        <div className='partner-item lbl'><label>Application Partner</label></div></div> }
-                    </Row>
+                  <Row className='partner-wrap'>
+                         {/* { school?.partner && <div className="partner-inner"><div className='partner-item icon'><ApplicationPartner/></div>
+                        <div className='partner-item lbl'><label>Application Partner</label></div></div> }*/}
+                    </Row> 
                     <ListGroup className="feature-list-group allfeatures-wrap">
                     {
                         school.facilities.map((item, index) => {
@@ -132,7 +160,6 @@ const SchoolCard = (props) => {
                                 
                             </ListGroup.Item>
                         </ListGroup>
-
                     </ListGroup>
                 </Col>
             </Card>

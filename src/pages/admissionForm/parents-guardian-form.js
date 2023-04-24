@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -110,6 +111,7 @@ export default function ParentsGuardianForm({
     } catch (error) {
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
+    window.scrollTo(0, 0);
   };
 
   const skipAndNext = () => {
@@ -648,31 +650,19 @@ export default function ParentsGuardianForm({
           </div>
         </div>
       </div>
-      <div className='fld-row button-wrap'>
-        <button
-          type='button'
-          className='cancel comn'
-          onClick={() => navigate('/userProfile')}
-        >
+      <div className="fld-row button-wrap">
+        <Button type='button' className='cancel comn' onClick={() => navigate('/userProfile')} >
           Cancel
-        </button>
-        <button
-          type='button'
-          className='save comn me-2'
-          onClick={() => { handleGuardianBackClick() }}
-        >
+        </Button>
+        <Button type='button' className='save comn' onClick={() => { handleGuardianBackClick() }}>
           Back
-        </button>
-        <button
-          type='button'
-          className='save comn me-2'
-          onClick={() => { skipAndNext(); window.scrollTo(0, 0); }}
-        >
+        </Button>
+        <Button type='button' className='save comn' onClick={() => { skipAndNext(); window.scrollTo(0, 0); }} >
           Skip
-        </button>
-        <button className='save comn' type='submit'>
+        </Button>
+        <Button className='save comn' type='submit'>
           {parentExist ? `Update & Next` : `Save & Next`}
-        </button>
+        </Button>
       </div>
     </Form>
   );

@@ -16,7 +16,8 @@ import PageContent from "../../resources/pageContent";
 
 import { useSelector } from "react-redux";
 import AddChildDialog from "../../dialogs/addChild";
-import { getChildAge } from "../../utils/helper";
+import UserLocationNotSavedDialog from "../../dialogs/userLocationNotSavedDialog";
+import { getChildAge, getLocalData, isEmpty, isLoggedIn } from "../../utils/helper";
 import BackgroundCheckForm from "./background-check";
 import ExtracurricularForm from "./extracurriculars";
 import MedicalForm from "./medicalForm";
@@ -131,6 +132,7 @@ export const AdmissionForms = () => {
   }, [childsList]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getCurrentComponent(step);
   }, [step]);
 
@@ -199,8 +201,8 @@ export const AdmissionForms = () => {
                             }}
                             value={selectedChild.childId}
                           >
-                            {childsList.length &&
-                              childsList.map((child, i) => {
+                            {!isEmpty(childsList) ?
+                              ( childsList.map((child, i) => {
                                 return (
                                   <option
                                     key={"child_" + i}
@@ -209,7 +211,7 @@ export const AdmissionForms = () => {
                                     {child.firstName + " " + child.lastName}
                                   </option>
                                 );
-                              })}
+                              })) : <option>--Select Child--</option>}
                           </BootStrapForm.Select>
                         </BootStrapForm.Group>
                       </div>
@@ -228,6 +230,7 @@ export const AdmissionForms = () => {
                 </div>
               )}
               <div className="content-area-inner internal-page-wrapper">
+                
                 <LeftMenuBar
                   menuItems={sidebarMenuItems}
                   parentPage="userProfile"
@@ -302,6 +305,8 @@ export const AdmissionForms = () => {
             handleClose={() => setShowAddChildDialog(false)}
           />
         </Container>
+        {isLoggedIn && isEmpty(getLocalData("userLocation"))  &&  <UserLocationNotSavedDialog />}
+
       </section>
     </Layout>
   );

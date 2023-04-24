@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
-import '../../assets/scss/custom-styles.scss'
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
-import Modal from 'react-bootstrap/Modal'
+import React, { useCallback, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import RESTClient from '../../utils/RestClient'
-import RestEndPoint from '../../redux/constants/RestEndpoints'
-import { useEffect } from 'react'
-import { DocumentTableFormat } from './documentTableForm'
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import '../../assets/scss/custom-styles.scss'
+import RestEndPoint from '../../redux/constants/RestEndpoints'
+import RESTClient from '../../utils/RestClient'
+import { DocumentTableFormat } from './documentTableForm'
+import ConfirmDialog from '../../common/ConfirmDialog'
 
 export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const navigate = useNavigate()
@@ -20,19 +18,26 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const [key, setKey] = useState('student')
   const [check1, setCheck1] = useState(false)
   const [check2, setCheck2] = useState(false)
+  const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
 
-  const [condition, setCondition] = useState(false)
-  const finalSubmit = async() => {
+  const [condition, setCondition] = useState(false);
+
+  const handleConfirmSuccessfulDialog = () => {
+    navigate("/schools");
+    setSubmittedSuccessfully(false);
+  };
+  const finalSubmit = async () => {
     if (check1 && check2) {
       try {
         await RESTClient.get(
           RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
-        )
-        setCondition(false)
-        toast.success('Student profile submitted successfully.')
-        setTimeout(() => {
-        navigate('/userProfile')
-     }, 1000);
+        );
+        setCondition(false);
+        setSubmittedSuccessfully(true);
+        // toast.success('Student profile submitted successfully.')
+        // setTimeout(() => {
+        //   navigate("/schools");
+        // }, 1000);
       } catch (error) {
         toast.error(RESTClient.getAPIErrorMessage(error))
       }
@@ -124,61 +129,84 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
                 onChange={(e) => {
                   setCheck1(e.target.checked)
                   setCondition(!e.target.checked)
-                }} 
+                }}
               />
               <Form.Check
                 type='checkbox'
-                label='I have read, understood and accept the Terms of Use, Privacy Policy and Refund Policy'
+                label={
+                  <div>
+                    <span>I have read, understood and accept the </span>
+                    <a href={`/termsOfService`} target="_blank">
+                      <u> Terms of Service </u>
+                    </a>
+                    <span> , </span>
+                    <a href={`/privacyPolicy`} target="_blank">
+                      <u>Privacy Policy</u>
+                    </a>
+                    <span> , </span>
+                    <span> and </span>
+                    <a href={`/refundPolicy`} target="_blank">
+                      <u> Refund Policy</u>
+                    </a>
+                    <span>.</span>
+                  </div>
+                }
                 required
                 onChange={(e) => {
                   setCheck2(e.target.checked)
                   setCondition(!e.target.checked)
-                }} 
+                }}
               />
               {condition && <label style={{ display: 'flex', color: 'Red' }}>Please accept all T&C  </label>}
             </div>
           </Tab>
         </Tabs>
       </div>
-      <div className='form-group mb-3 button-wrap'>
-        <button
+      <div className="fld-row button-wrap">
+        <Button
           type='button'
           className='cancel comn'
           onClick={() => navigate('/userProfile')}
         >
           Cancel
-        </button>
+        </Button>
         {key === 'student' ?
-          <button
+          <Button
             type='button'
-            className='save comn me-2'
+            className='save comn'
             onClick={() => {
               setStep(val => val - 1)
               window.scrollTo(0, 0)
             }}
           >
             Back
-          </button>
+          </Button>
           : ''}
-        <button
-          className='save comn me-2'
+        <Button
+          className='save comn'
           onClick={() =>
             setKey(val => (val === 'student' ? 'parent' : 'student'))
           }
         >
           {key === 'student' ? 'Next' : 'Back'}
-        </button>
+        </Button>
         {key === 'parent' && (
-          <button
+          <Button
             className='save comn'
             onClick={() =>
               validateAllDocumentFilled(studentDocuments, parentDocuments)}
           >
             Submit
-          </button>
+          </Button>
         )}
       
       </div>
+
+      <ConfirmDialog
+        show={submittedSuccessfully}
+        message="You are all set to apply in schools."
+        handleConfirm={handleConfirmSuccessfulDialog}
+      />
     </>
   )
 }
