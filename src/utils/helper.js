@@ -154,7 +154,8 @@ export function getPresentableRoleName(roleName) {
 export function convertCamelCaseToPresentableText(str) {
 
   if (str.includes('-')) {
-    let string = str.replace("-", " ");
+    let string = str.replaceAll("-", " ");
+    console.log(string)
     return string
       .toLowerCase()
       .split(' ')

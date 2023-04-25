@@ -9,9 +9,9 @@ const PageContent = {
   HEADER_MENU_ITEMS: [
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
-    { ref: "/blog", title: "Blog" },
     { ref: '/schools', title: 'All Schools' },
     { ref: '/faqs', title: "FAQ's" },
+    { ref: "/blog", title: "Blog" },
     { ref: '/contactUs', title: "Contact Us" }
   ],
   ADMISSION_FORM_SIDEBAR_MENU_ITEMS: [
