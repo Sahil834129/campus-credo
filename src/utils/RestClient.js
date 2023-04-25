@@ -69,6 +69,7 @@ axios.interceptors.request.use(async (config) => {
 
   config.baseURL = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com:8080/api";
   // config.baseURL = "http://59.144.164.132:8080/api/"; //process.env.BASE_URL;
+  //config.baseURL = "https://campuscredo.com:8443/api";
   const token = await getLocalData("token");
   config.headers.common["Authorization"] = token ? "Bearer " + token : "";
   return config;
