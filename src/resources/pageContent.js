@@ -10,8 +10,8 @@ const PageContent = {
     { ref: '/', title: 'Home' },
     { ref: '/aboutUs', title: 'About Us' },
     { ref: '/schools', title: 'All Schools' },
-    { ref: '/faqs', title: "FAQ's" },
     { ref: "/blog", title: "Blog" },
+    { ref: '/faqs', title: "FAQ's" },
     { ref: '/contactUs', title: "Contact Us" }
   ],
   ADMISSION_FORM_SIDEBAR_MENU_ITEMS: [
