@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import SevenTipsForChoosingTheBestSchoolForYourChildin2023 from "../common/Blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023";
 import Blog from "../common/Blog/blog";
 import BlogArticle from "../common/Blog/blog-article";
 import { DEFAULT_ROLES } from "../constants/app";
@@ -50,6 +52,7 @@ function AppRoutes() {
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blogArticle" element={<BlogArticle />} />
+        <Route path="/7-tips-for-choosing-the-best-school-for-your-child-in-2023" element={<SevenTipsForChoosingTheBestSchoolForYourChildin2023 />} />
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/termsOfService" element={<TermsOfUse />} />
         <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />
