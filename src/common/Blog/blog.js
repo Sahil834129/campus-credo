@@ -10,72 +10,41 @@ import Layout from "../../common/layout";
 
 const Blog = () => {
   return (
-  <>
-  
-    <Layout>
-            <section className="content-area blog-main-wrapper">
-                <Container className="content-area-inner inner-page-container">
-                    <Row className='content-section bc-section'>
-                        <Col className='bc-col'>
-                            <Breadcrumbs/>
-                        </Col>
-                    </Row>
-                    <Row className='content-section blog-content-wrap'>
-                        <h2>Recent Blog Posts</h2>
-                        <ListGroup as="ul" className="blog-list">
-                            <ListGroup.Item as="li">
-                                <Link className="" to='/blogArticle'>
-                                    <div className="blog-thumb"><img src={BlogThumbnail} alt="" className="card-article-image" /></div>
-                                    <div className="blog-content">
-                                        <div className="postedon">Apr 14, 2023,</div>
-                                        <div className="blog-title">
-                                            5 Tips for Choosing the Best School for Your Child in 2023!
-                                        </div>
-                                    </div>
-                                </Link>
-                            </ListGroup.Item>
-                            <ListGroup.Item as="li">
-                                <Link className="" to='/blogArticle'>
-                                    <div className="blog-thumb"><img src={BlogThumbnail} alt="" className="card-article-image" /></div>
-                                    <div className="blog-content">
-                                        <div className="postedon">Apr 14, 2023,</div>
-                                        <div className="blog-title">
-                                            5 Tips for Choosing the Best School for Your Child in 2023!
-                                        </div>
-                                    </div>
-                                </Link>
-                            </ListGroup.Item>
-                            <ListGroup.Item as="li">
-                                <Link className="" to='/blogArticle'>
-                                    <div className="blog-thumb"><img src={BlogThumbnail} alt="" className="card-article-image" /></div>
-                                    <div className="blog-content">
-                                        <div className="postedon">Apr 14, 2023,</div>
-                                        <div className="blog-title">
-                                            5 Tips for Choosing the Best School for Your Child in 2023!
-                                        </div>
-                                    </div>
-                                </Link>
-                                
-                            </ListGroup.Item>
-                            <ListGroup.Item as="li">
-                                <Link className="" to='/blogArticle'>
-                                    <div className="blog-thumb"><img src={BlogThumbnail} alt="" className="card-article-image" /></div>
-                                    <div className="blog-content">
-                                        <div className="postedon">Apr 14, 2023,</div>
-                                        <div className="blog-title">
-                                            5 Tips for Choosing the Best School for Your Child in 2023!
-                                        </div>
-                                    </div>
-                                </Link>
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Row>
-                    
-                </Container>
-            </section>
-    </Layout>
-  </>
-
+    <>
+      <Layout>
+        <section className="content-area blog-main-wrapper">
+          <Container className="content-area-inner inner-page-container">
+            <Row className="content-section bc-section">
+              <Col className="bc-col">
+                <Breadcrumbs />
+              </Col>
+            </Row>
+            <Row className="content-section blog-content-wrap">
+              <h2>Recent Blog Posts</h2>
+              <ListGroup as="ul" className="blog-list">
+                <ListGroup.Item as="li">
+                  <Link className="" to="/5-tips-for-choosing-the-best-school-for-your-child-in-2023">
+                    <div className="blog-thumb">
+                      <img
+                        src={BlogThumbnail}
+                        alt=""
+                        className="card-article-image"
+                      />
+                    </div>
+                    <div className="blog-content">
+                      <div className="postedon">Apr 14, 2023,</div>
+                      <div className="blog-title">
+                        5 Tips for Choosing the Best School for Your Child in 2023!
+                      </div>
+                    </div>
+                  </Link>
+                </ListGroup.Item>
+              </ListGroup>
+            </Row>
+          </Container>
+        </section>
+      </Layout>
+    </>
   );
 };
 

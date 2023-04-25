@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import RequestCallBackDialog from "../../dialogs/requestCallBackDialog";
-import { getUserLocation, isEmpty } from "../../utils/helper";
+import { getLocalData, getUserLocation, isEmpty } from "../../utils/helper";
 
 const SchoolDetailTitle = (props) => {
-    const [showRequestCallBackModel, setShowRequestCallBackModel] = useState(false);
+  const [showRequestCallBackModel, setShowRequestCallBackModel] =
+    useState(false);
+  const R = 6371; // Earth's radius in km
+  const handleShowRequestCallbackDialog = () => {
+    setShowRequestCallBackModel(true);
+  };
 
-    const handleShowRequestCallbackDialog = () => {
-        setShowRequestCallBackModel(true);
-    };
-
-    const handleCloseRequestCallbackDialog = () => {
-        setShowRequestCallBackModel(false);
-    };
-
+  const handleCloseRequestCallbackDialog = () => {
+    setShowRequestCallBackModel(false);
+  };
+  function toRad(degrees) {
+    return (degrees * Math.PI) / 180;
+  }
   const handleGoogleMap = async () => {
     let data = await getUserLocation();
     // let data;
@@ -25,43 +28,68 @@ const SchoolDetailTitle = (props) => {
       const zipCode = data.pincode;
       const lat = data.latitude;
       const lng = data.longitude;
-      const schoolName = props.schoolName;
-      const schoolAddress = `${schoolName}, ${props.schoolAddress}`;
-      const destAddress = encodeURIComponent(schoolAddress);
-      const url = `https://www.google.com/maps?ll=${lat},${lng}&z=7&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
+      const schoolLat = getLocalData("SchoolDetailsLatitude");
+      const schoolLong = getLocalData("SchoolDetailsLongitude");
+      const destAddress = props.schoolAddress;
+      console.log(destAddress, "destAddress");
+      const dLat = toRad(schoolLat - lat);
+      const dLon = toRad(schoolLong - lng);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat)) *
+          Math.cos(toRad(lng)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c * 1000; // in meters
+      let zoomLevel;
+      if (distance <= 1000) {
+        // If the distance is less than or equal to 1 km, set the zoom level to 15
+        zoomLevel = 16;
+      } else if (distance <= 5000) {
+        // If the distance is less than or equal to 5 km, set the zoom level to 13
+        zoomLevel = 11;
+      } else if (distance <= 10000) {
+        // If the distance is less than or equal to 10 km, set the zoom level to 11
+        zoomLevel = 10;
+      } else {
+        // If the distance is greater than 10 km, set the zoom level to 9
+        zoomLevel = 6.25;
+      }
+      const url = `https://www.google.com/maps?ll=${lat},${lng}&z=${zoomLevel}&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
+
+      //   const url = `https://www.google.com/maps?ll=${lat},${lng}&z=10&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
 
       window.open(url, "_blank");
     } else {
-      const schoolName = props.schoolName;
-      const schoolAddress = `${schoolName}, ${props.schoolAddress}`;
-      const destAddress = encodeURIComponent(schoolAddress);
+      const destAddress = props.schoolAddress;
       const url = `https://www.google.com/maps?daddr=${destAddress}`;
       window.open(url, "_blank");
     }
   };
 
-    return (
+  return (
         <div className='titlebar'>
             <div className='cell left'>
-                <h2>{props.schoolName}</h2>
+        <h2>{props.schoolName}</h2>
                 {
                     props.establishYear ? <h6>Since - {props.establishYear}</h6> : ''
                 }
-                <div>
-                    <Button onClick={() => handleGoogleMap()}>Locate on Map</Button>
-                </div>
-            </div>
+        <div>
+          <Button onClick={() => handleGoogleMap()}>Locate on Map</Button>
+        </div>
+      </div>
             <div className='cell right'>
                 {props.schoolEmail &&
-                    <>
-                        <h4>Got Questions?</h4>
+          <>
+            <h4>Got Questions?</h4>
                         <span role="button" onClick={handleShowRequestCallbackDialog}>Request Callback</span>
-                    </>
+          </>
                 }
                 <RequestCallBackDialog show={showRequestCallBackModel} handleClose={handleCloseRequestCallbackDialog} schoolEmail={props.schoolEmail} schoolId={props.schoolId} />
-            </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default SchoolDetailTitle;
