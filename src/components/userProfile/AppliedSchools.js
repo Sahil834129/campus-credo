@@ -145,7 +145,7 @@ const AppliedSchools = ({ application, setApplications }) => {
           <div className="col-item left">
             <div className="school-info-main">
 
-              <div className="info-item school-logo-wrap">
+            <div className="info-item school-logo-wrap" style={{ height: '132px', width: '132px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 <Card.Img
                   className="school-logo"
                   alt={application.schoolName}
