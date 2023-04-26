@@ -53,21 +53,23 @@ const MenuBar = () => {
             <i className="icons divide-dot"></i>
           </Navbar.Text> */}
           <Navbar.Text>
-            <Link href="#">
+            <a href="#!">
               <i className="icons phone-icon"></i> {PageContent.PHONE}
-            </Link>
+            </a>
           </Navbar.Text>
           <Navbar.Text className="dot-wrap">
             <i className="icons divide-dot"></i>
           </Navbar.Text>
           <Navbar.Text>
-            <Link
-              onClick={() =>
+            <a
+              style={{cursor: 'pointer'}}
+              onClick={(e) => {
                 (window.location = "mailto:support@campuscredo.com")
-              }
+                e.stopPropagation();
+              }}
             >
               <i className="icons email-icon"></i> {PageContent.ENQUIRY_EMAIL}
-            </Link>
+            </a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

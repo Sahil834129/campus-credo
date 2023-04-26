@@ -49,6 +49,7 @@ const RestEndPoint = {
   UPDATE_PHONE: "/parent/updatePhone",
   CLASS_ADMISSION_DATA: "/admission/classAdmissionData",
   REMOVE_ADMISSION_DATA: "/admission/removeClassAdmissionData",
+  UPDATE_SEAT_ADMISSION_DATA: "/admission/classAdmissionData",
   APPLICATION_FILTER_DATA: "/admissionApplications/find",
   SCHOOL_ADMISSION_SUMMARY: "admission/application/schoolAdmissionSummary",
   SCHOOL_ADMISSION_FEE_SUMMARY: "dashboard/schoolAdmissionFeeSummary",

@@ -14,6 +14,10 @@ export const removeClassAdmissionData = (session, classId) => {
   return RESTClient.delete(RestEndPoint.REMOVE_ADMISSION_DATA + `/${classId}/${session}`);
 };
 
+export const updateSeatClassAdmissionData = (payload) => {
+  return RESTClient.patch(RestEndPoint.UPDATE_SEAT_ADMISSION_DATA, payload);
+};
+
 export const applicationfilterData = (data) => {
   return RESTClient.post(RestEndPoint.APPLICATION_FILTER_DATA, data);
 };

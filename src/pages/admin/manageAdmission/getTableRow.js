@@ -7,7 +7,7 @@ import { ReactComponent as Save } from "../../../assets/admin/img/save.svg";
 import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg";
 import DateRangePicker from "../../../common/DateRangePicker";
 
-import { removeClassAdmissionData, saveClassAdmissionData } from "../../../utils/services";
+import { removeClassAdmissionData, saveClassAdmissionData, updateSeatClassAdmissionData } from "../../../utils/services";
 
 export default function GetTableRow({
   index,
@@ -219,6 +219,30 @@ export default function GetTableRow({
       });
   };
 
+  const saveAvailableSeats = (vacantSeats, payloadData, index) => {
+    updateSeatClassAdmissionData({vacantSeats, classAdmissionInfoId: admissionData?.classAdmissionInfoId})
+      .then(val => {
+        console.log(val)
+        const saveData = fieldData.map((val, i) => {
+          if (i === index) {
+            return { ...payloadData, vacantSeats: vacantSeats };
+          }
+          return val;
+        });
+        setFormData(formData.map((v, i) => {
+          if (i === index) {
+            return { ...payloadData, vacantSeats: vacantSeats };
+          }
+          return { ...v };
+        }));
+        setFieldData(saveData.map(v => { return { ...v }; }));
+      })
+      .catch(error => {
+        console.log(error);
+        toast.error("Error: Not Able to update the Seats");
+      })
+
+  };
   useEffect(() => {
     const sessionYears = sessionValue.split('-');
     const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
@@ -326,6 +350,11 @@ export default function GetTableRow({
               e.target.value,
               formData[index]?.vacantSeats || ''
             );
+          }}
+          onBlur={e => {
+            if(!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
+              saveAvailableSeats(e.target.value, admissionData, index)
+            }   
           }}
         />
         {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
@@ -508,7 +537,7 @@ export default function GetTableRow({
       <td className="action-cell">
         <Save 
           onClick={() => {
-            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen))
+            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
               saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); 
           }} 
           style={{ cursor: "pointer" }}

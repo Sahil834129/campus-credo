@@ -853,13 +853,37 @@ ul.list-group{
       
       .hero-item{
         flex-grow: 1;
-        h2{
+        h1{
           font-style: normal;
           font-weight: 700;
           font-size: 52px;
           line-height: 62px;
           text-transform: capitalize;
           color: #41285F;
+          margin-bottom: 16px;
+          span {
+            -webkit-animation: shine 4s linear infinite;
+                    animation: shine 4s linear infinite;
+            background: linear-gradient(135deg, #FF39A7 0, #E265AF 16%, #9F5DE6 33%, #655BE2 50%, #9F5DE6 67%, #E265AF 84%, #FF39A7 100%);
+            background-clip: text;
+            background-size: 200% auto;
+            color: #000;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-box-decoration-break: clone;
+            text-align: center;
+            transform: translateZ(0);
+          }
+        }
+        h2{
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0.02em;
+          text-transform: capitalize;
+          color: rgba(0, 0, 0, 0.8);
           margin-bottom: 24px;
           span {
             -webkit-animation: shine 4s linear infinite;
@@ -1447,6 +1471,26 @@ ul.list-group{
             .school-list-container{
               
               .school-card{
+                position: relative;
+                
+                &.admission-partner-tag{
+                  &:after {
+                    background-color: $primarycolor;
+                    color: $white;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 14px;
+                    letter-spacing: 0.018em;
+                    top: 0px;
+                    left: 0;
+                    padding: 6px 16px 6px 8px;
+                    content: 'Admission Partner';
+                    display: inline-block;
+                    position: absolute;
+                    transition: width .3s ease-out;
+                    border-radius: 0 0 24px 0px;
+                  }                
+                }
                 &.card{
                   
                   .school-info-main{
@@ -2242,7 +2286,7 @@ ul.list-group{
                 position: -webkit-sticky;
                 position: sticky;
                 bottom: 1%;
-                z-index: 0;
+                z-index: 1;
               }
             }
             .btn{
@@ -2707,8 +2751,8 @@ ul.list-group{
 
                             // display: flex;
                             img{
-                              width: 100%;
-                              height: 142px;
+                              max-width: 100%;
+                              max-height: 142px;
                               // display: flex;
                             }
                           }
@@ -3915,6 +3959,15 @@ ul.list-group{
           margin-top: 16px;
           margin-bottom: 0;
         }
+        h3{font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          text-align: center;
+          color: #41285F;
+          margin-top: 16px;
+          margin-bottom: 0;
+        }
         h4{
           font-style: normal;
           font-weight: 400;
@@ -4209,6 +4262,14 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           text-transform: capitalize;
           color: #333333;
           padding: 0;
+          span.nav-lbl{
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 34px;
+            color: #333333;
+            padding-left: 8px;
+          }
           &:hover{
             a{
               // margin-left: 8px;
@@ -6336,12 +6397,11 @@ align-items: center;
         background: none;
         padding: 0;
         margin: 0;
-        // flex-grow: 1;
-        flex-basis: 402px;
-        // width: 616px;
+        flex-grow: 1;
+        flex-basis: 0;
         .blog-thumb{
           display: flex;
-          // width: 364px;
+          width: 364px;
           height: auto;
           img{
             width: 100%;
@@ -6409,7 +6469,7 @@ align-items: center;
         margin-top: 24px;
         margin-bottom: 42px;
         .article-featured-img{
-          // width: 840px;
+          width: 840px;
           height: auto;
           display: flex;
           img{
@@ -6417,17 +6477,27 @@ align-items: center;
 
           }
         }
-        .article-item{
-          font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 18px;
-            color: #263238;
-          p{
-            
+        
+        
+      }
+      .article-item{
+        font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 24px;
+          color: #263238;
+        p{
+          line-height: 26px;
+        }
+        strong{
+          u{margin-bottom: 24px;}
+        }
+        ul{
+          li{
+            margin-bottom: 16px;
+            strong{margin-right: 8px;}
           }
         }
-        
       }
       .social-share-link{
         display: flex;

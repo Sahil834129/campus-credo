@@ -59,13 +59,15 @@ const Footer = () => {
           <ListGroup as="ul">
             <ListGroup.Item as="li"><Telephone /> <span className="nav-lbl">{PageContent.PHONE}</span></ListGroup.Item>
             <ListGroup.Item as="li">
-              <Link
-                onClick={() =>
+              <a
+                style={{cursor: 'pointer'}}
+                onClick={(e) => {
                   (window.location = "mailto:support@campuscredo.com")
-                }
+                  e.stopPropagation();
+                }}
               >
                 <Mail /> <span className="nav-lbl">{PageContent.ENQUIRY_EMAIL}</span>
-              </Link>
+              </a>
             </ListGroup.Item>
           </ListGroup>
         </div>
