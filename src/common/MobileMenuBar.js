@@ -180,6 +180,7 @@ function handleSelectCity(location) {
                     </li>
                     <li className="page-link"><Link to="/aboutUs">About Us</Link></li>
                     <li className="page-link"><Link to="/schools">All Schools</Link></li>
+                    <li className="page-link"><Link to="/blog">Blog</Link></li>
                     <li className="page-link"><Link to="/faqs">FAQ's</Link></li>
                     <li className="page-link"><Link to="/contactUs">Contact Us</Link></li>
                 </div>
