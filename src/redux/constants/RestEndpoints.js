@@ -16,7 +16,7 @@ const RestEndPoint = {
   REFRESH_TOKEN: "user/refreshToken",
   FORGOT_PASSWORD: "user/forgetPassword",
   FIND_SCHOOLS: "/v1/school/find",
-  FIND_NEARBY_SCHOOL:"/v1/nearbyschools",
+  FIND_NEARBY_SCHOOL: "/v1/nearbyschools",
   SCHOOL_BY_ID: "/v1/schooldetails",
   GET_CHILD_LIST: "/parent/childList",
   ADD_CHILD: "/parent/child/create",
@@ -56,9 +56,10 @@ const RestEndPoint = {
   RESET_PASSWORD: "user/resetPassword",
   DOWNLOAD_DOCUMENT: "/student/download/document",
   DOWNLOAD_ADMIN_DOCUMENT: "/admissionApplications/download/document",
-  DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD: "/admission/applicationform/download",
-  DOWNLOAD_PAYMENT_INVOICE :"/admission/download/invoice",
-  DOWNLOAD_MONEY_RECEIPT_INVOICE :"/admission/download/moneyReceipt",
+  DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD:
+    "/admission/applicationform/download",
+  DOWNLOAD_PAYMENT_INVOICE: "/admission/download/invoice",
+  DOWNLOAD_MONEY_RECEIPT_INVOICE: "/admission/download/moneyReceipt",
   CLASS_ADMISSION_SESSION_DATA: "admission/classAdmissionSessions",
   CLASS_ADMISSION_SUMMARY: "admissionApplications/classAdmissionSummary",
   CLASS_APPLICATION_CLASS: "admissionApplications/classApplicationsByClass",
@@ -79,16 +80,17 @@ const RestEndPoint = {
     "admission/application/school/classes/applicationReceivedAcceptedApprovedDeclined",
   UPDATE_APPLICATION_STATUS: "admission/application/updateApplicationStatus",
   CHANGE_USER_PASSWORD: "managePermissions/changeUserPassword",
+  RESET_ADMIN_PASSWORD: "school/admin/changePassword",
   CONTACT_US: "/user/contactUs",
   PLACE_CART_ORDER: "payment/placeOrder",
   PLACE_REGISTRATION_ORDER: "payment/payRegistrationFee",
-  POPULAR_SCHOOL:"v1/popularschools",
+  POPULAR_SCHOOL: "v1/popularschools",
   REQUEST_CALLBACK: "v1/school/callBack",
   REGISTRATION_CHECKOUT: "payment/registrationCheckout",
   JOIN_US: "user/joinUs",
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
   GET_PAYMENT_HISTORY: "payment/paymentHistory",
-  ZIP_DOWNLOAD_APPLICATION:"/admissionApplications/zip/downloadApplications"
+  ZIP_DOWNLOAD_APPLICATION: "/admissionApplications/zip/downloadApplications",
 };
 
 export default RestEndPoint;
