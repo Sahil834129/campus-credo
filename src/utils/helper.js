@@ -337,14 +337,14 @@ export const getActionButtonLabel = (applicationStatus) => {
       return humanize(applicationStatus, true);
   }
 };
-export const getUserlocation = (defaultLocation) => {
-  if (isLoggedIn() && !isEmpty(getLocalData("userLocation"))) {
-    let userLocation = getLocalData("userLocation");
-    return userLocation;
-  }
-  else
-    return defaultLocation;
-};
+// export const getUserlocation = (defaultLocation) => {
+//   if (isLoggedIn() && !isEmpty(getLocalData("userLocation"))) {
+//     let userLocation = getLocalData("userLocation");
+//     return userLocation;
+//   }
+//   else
+//     return defaultLocation;
+// };
 
 export const getUserLocation = async () => {
   try {

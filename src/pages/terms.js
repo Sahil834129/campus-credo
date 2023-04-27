@@ -296,7 +296,7 @@ const TermsOfUse = () => {
                                 <h4>4.	CANCELLATION</h4>
                                 <ListGroup.Item>The Company at its sole discretion may cancel any Service(s):</ListGroup.Item>
                                 <ListGroup.Item>a.	If it suspects a User has undertaken a fraudulent transaction, or</ListGroup.Item>
-                                <ListGroup.Item>b.	If it suspects a User has undertaken a transaction which is not following the Terms of Use, or</ListGroup.Item>
+                                <ListGroup.Item>b.	If it suspects a User has undertaken a transaction which is not following the Terms of Service, or</ListGroup.Item>
                                 <ListGroup.Item>c.	In case of unavailability of a service, or</ListGroup.Item>
                                 <ListGroup.Item>d.	For any reason outside the control of the Company including causes for delivery related logistical difficulties.</ListGroup.Item>
                                 <ListGroup.Item>e.	If the Company does not want to do business with the User</ListGroup.Item>
