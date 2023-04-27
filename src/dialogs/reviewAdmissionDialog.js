@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
@@ -669,7 +669,9 @@ const ReviewAdmissionDialog = ({
               label={
                 <div>
                   <span>I have read, understood and accept the </span>
-                  <a href={"/termsOfService"} target="_blank"><u> Terms of Use </u></a>
+                  <a href={"/termsOfService"} target="_blank">
+                    <u> Terms of Service </u>
+                  </a>
                   <span> , </span>
                   <a href={"/privacyPolicy"} target="_blank"><u>Privacy Policy</u></a>
                   <span> , </span>

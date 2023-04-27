@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import RequestCallBackDialog from "../../dialogs/requestCallBackDialog";
-import { getLocalData, getUserLocation, isEmpty } from "../../utils/helper";
+import { getLocalData, getUserLocation, isLoggedIn } from "../../utils/helper";
 
 const SchoolDetailTitle = (props) => {
   const [showRequestCallBackModel, setShowRequestCallBackModel] =
@@ -18,9 +18,8 @@ const SchoolDetailTitle = (props) => {
     return (degrees * Math.PI) / 180;
   }
   const handleGoogleMap = async () => {
-    let data = await getUserLocation();
-    // let data;
-    if (!isEmpty(data)) {
+    if (isLoggedIn() && getLocalData("userLocation")) {
+      let data = await getUserLocation();
       const address1 = data.addressLine1;
       const address2 = data.addressLine2;
       const city = data.cityName;

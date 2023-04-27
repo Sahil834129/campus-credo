@@ -43,19 +43,19 @@ const Breadcrumbs = () => {
             key={index}
             //onClick={() => navigate(getLinkRef(index))}
             active
-          >
+          ><span className="bc-lbl">
             {PageContent.CUSTOM_LINK_TITLES.hasOwnProperty(path)
               ? PageContent.CUSTOM_LINK_TITLES[path]
-              : convertCamelCaseToPresentableText(path)}
+              : convertCamelCaseToPresentableText(path)}</span>
           </Breadcrumb.Item>
         ) : (
           <Breadcrumb.Item
             key={index}
             onClick={() => navigate(getLinkRef(index))}
-          >
+          ><span className="bc-lbl">
             {PageContent.CUSTOM_LINK_TITLES.hasOwnProperty(path)
               ? PageContent.CUSTOM_LINK_TITLES[path]
-              : convertCamelCaseToPresentableText(path)}
+              : convertCamelCaseToPresentableText(path)}</span>
           </Breadcrumb.Item>
         );
       })}
