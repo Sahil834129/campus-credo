@@ -52,7 +52,7 @@ function AppRoutes() {
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blogArticle" element={<BlogArticle />} />
-        <Route path="/7-tips-for-choosing-the-best-school-for-your-child-in-2023" element={<SevenTipsForChoosingTheBestSchoolForYourChildin2023 />} />
+        <Route path="/blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023" element={<SevenTipsForChoosingTheBestSchoolForYourChildin2023 />} />
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/termsOfService" element={<TermsOfUse />} />
         <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />
