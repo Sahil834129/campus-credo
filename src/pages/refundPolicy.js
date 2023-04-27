@@ -75,7 +75,7 @@ const RefundPolicy = () => {
                 </p>
                 <p>
                   b. If it suspects a User has undertaken a transaction which is
-                  not following the Terms of Use, or
+                  not following the Terms of Service, or
                 </p>
                 <p>c. In case of unavailability of a service, or</p>
                 <p>
