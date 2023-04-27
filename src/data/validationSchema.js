@@ -119,6 +119,32 @@ export const ChangePasswordSchema = Yup.object().shape({
       ),
     }),
 });
+export const changeAdminPassword = Yup.object().shape({
+  currentPassword: Yup.string()
+    .password()
+    .required("Required *")
+    .min(8, "Password must contain 8 or more characters"),
+  password: Yup.string()
+    .password()
+    .required("Required *")
+    .min(
+      8,
+      "Password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special"
+    )
+    .minLowercase(1, "Password must contain at least 1 lower case letter")
+    .minUppercase(1, "Password must contain at least 1 upper case letter")
+    .minNumbers(1, "Password must contain at least 1 number")
+    .minSymbols(1, "Password must contain at least 1 special character"),
+  confirmPassword: Yup.string()
+    .required("Required *")
+    .when("password", {
+      is: (val) => (val && val.length ? true : false),
+      then: Yup.string().oneOf(
+        [Yup.ref("password")],
+        "New Password and Confirm New password must be the same."
+      ),
+    }),
+});
 
 export const UpdatePhoneSchema = Yup.object().shape({
   phone: Yup.string()

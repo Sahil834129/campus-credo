@@ -42,6 +42,9 @@ export const changeUserPassword = (data) => {
   return RESTClient.post(RestEndPoint.CHANGE_USER_PASSWORD, data);
 
 };
+export const resetSchoolAdminPassword = (data) => {
+  return RESTClient.post(RestEndPoint.RESET_ADMIN_PASSWORD, data);
+};
 
 export const getClassAdmissionSessionData = () => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SESSION_DATA);
