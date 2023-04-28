@@ -54,62 +54,71 @@ const ResetUserPassword = (props) => {
         >
           {({ errors, touched, resetForm }) => (
             <Form className="form-container forgot-pwd" noValidate>
-              <div className="frm-cell mt-3">
-                <InputField
-                  fieldName="currentPassword"
-                  fieldType={passwordType}
-                  placeholder="Enter Current Password"
-                  label="Current Password"
-                  errors={errors}
-                  touched={touched}
-                />
-                <span
-                  className="view-pwd-icon"
-                  onClick={() => {
-                    togglePassword();
-                  }}
-                >
-                  {passwordType === "password" ? (
-                    <i className="bi bi-eye-slash"></i>
-                  ) : (
-                    <i className="bi bi-eye"></i>
-                  )}
-                </span>
+              <div className="frm-cell cpwd-wrap">
+                <label className="lbl">Current Password</label>
+                <div className="pwd-fld-inner">
+                  <InputField
+                    fieldName="currentPassword"
+                    fieldType={passwordType}
+                    placeholder="Enter Current Password"
+                    label=""
+                    errors={errors}
+                    touched={touched}
+                  />
+                  <span
+                    className="view-pwd-icon"
+                    onClick={() => {
+                      togglePassword();
+                    }}
+                  >
+                    {passwordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </span>
+                </div>
               </div>
 
               <div className="frm-cell mt-3">
-                <InputField
-                  fieldName="password"
-                  fieldType={confirmPasswordType}
-                  placeholder="Enter New Password"
-                  label="New Password"
-                  errors={errors}
-                  touched={touched}
-                />
-                <span
-                  className="view-pwd-icon"
-                  onClick={() => {
-                    toggleConfirmPassword();
-                  }}
-                >
-                  {confirmPasswordType === "password" ? (
-                    <i className="bi bi-eye-slash"></i>
-                  ) : (
-                    <i className="bi bi-eye"></i>
-                  )}
-                </span>
+                <label className="lbl">New Password</label>
+                <div className="pwd-fld-inner">
+                  <InputField
+                    fieldName="password"
+                    fieldType={confirmPasswordType}
+                    placeholder="Enter New Password"
+                    label=""
+                    errors={errors}
+                    touched={touched}
+                  />
+                  <span
+                    className="view-pwd-icon"
+                    onClick={() => {
+                      toggleConfirmPassword();
+                    }}
+                  >
+                    {confirmPasswordType === "password" ? (
+                      <i className="bi bi-eye-slash"></i>
+                    ) : (
+                      <i className="bi bi-eye"></i>
+                    )}
+                  </span>
+                </div>
               </div>
               <div className="frm-cell mt-3">
-                <InputField
-                  fieldName="confirmPassword"
-                  fieldType="password"
-                  placeholder="Enter  New Password"
-                  label="Confirm New Password"
-                  errors={errors}
-                  touched={touched}
-                />
+                <label className="lbl">Confirm New Password</label>
+                <div className="pwd-fld-inner">
+                  <InputField
+                    fieldName="confirmPassword"
+                    fieldType="password"
+                    placeholder="Confirm New Password"
+                    label=""
+                    errors={errors}
+                    touched={touched}
+                  />
+                </div>
               </div>
-              <div className="btn-wrapper">
+              <div className="frm-cell btn-wrapper mt-3">
                 <Button type="submit" variant="primary" className="confirm-btn">
                   Confirm
                 </Button>
