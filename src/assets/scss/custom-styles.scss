@@ -2453,6 +2453,7 @@ ul.list-group{
                   li.nav-item{
                     button.nav-link{
                       color: rgba(0, 0, 0, 0.85);
+                      font-size: 14px;
                     }
                   }
                 }
@@ -2485,7 +2486,7 @@ ul.list-group{
                         padding: 12px 30px;
                         font-style: normal;
                         font-weight: 600;
-                        font-size: 16px;
+                        font-size: 14px;
                         line-height: 24px;
                         text-align: center;
                         display: flex;
@@ -2627,6 +2628,8 @@ ul.list-group{
                             &.left{}
                             &.right{
                               row-gap: 16px;
+                              display: flex;
+                              justify-content: space-between;
                             }
                             .info-item{
 
@@ -2681,7 +2684,13 @@ ul.list-group{
                             display: flex;
                             width: 100%;
                             justify-content: flex-end;
-                            
+                            a{
+                              display: inline-block;
+                              cursor: pointer;
+                              label{
+                                cursor: pointer;
+                              }
+                            }
                           }
                           .app-timeline-stack{
                             display: flex;
@@ -2721,9 +2730,9 @@ ul.list-group{
                           display: flex;
                           flex-direction: row;
                           align-items: flex-start;
-                          padding: 8px 12px;
+                          padding: 6px 16px;
                           gap: 10px;
-                          border-radius: 2px;
+                          border-radius: 20px;
                           &.accepted{
                             background-color: #549B43;
                           }
@@ -3423,6 +3432,7 @@ ul.list-group{
           display: flex;
           flex-direction: column;
           flex: 1 1;
+          
         }
       }
     }
@@ -3866,10 +3876,11 @@ ul.list-group{
   }
   label{
     font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
+    font-weight: 400;
+    font-size: 14px;
     line-height: 18px;
     color: rgba(0, 0, 0, 0.8);
+    text-transform: capitalize;
     // white-space: nowrap;
     // margin-bottom: 8px;
     .req{
@@ -5129,7 +5140,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
           .model-body-col{
             .model-frm{
               .frm-cell{
-                
+                label{font-size: 14px;}
                 &.date{
                   .field-group-wrap{
                     grid-template-columns: 1fr ;
@@ -5187,6 +5198,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                   display: grid;
                   grid-template-columns: 1fr 1fr 1fr;
                   column-gap: 24px;
+                  margin-bottom: 16px;
                   .fld-wrap{
                     .form-select{
                       background: #FFFFFF;

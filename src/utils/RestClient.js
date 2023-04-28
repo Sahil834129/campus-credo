@@ -65,9 +65,15 @@ export default class RESTClient {
 
 axios.interceptors.request.use(async (config) => {
   // Do something before request is sent
+<<<<<<< Updated upstream
   config.baseURL = "http://122.176.70.111:8095/api";
 
   // config.baseURL = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com:8080/api";
+=======
+   config.baseURL = "http://122.176.70.111:8095/api";
+
+  //config.baseURL = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com:8080/api";
+>>>>>>> Stashed changes
   // config.baseURL = "http://59.144.164.132:8080/api/"; //process.env.BASE_URL;
   //config.baseURL = "https://campuscredo.com:8443/api";
   const token = await getLocalData("token");

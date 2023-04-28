@@ -54,6 +54,11 @@
    .content-area .inner-page-container .content-section.bc-section .bc-col.blog-bc .bc-cell.right{
     margin-top: 5px; 
 }
+.content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item.right {
+    row-gap: 0px;
+    display: flex;
+    justify-content: space-between;
+}
 }
 
 //  blog page media
