@@ -172,15 +172,19 @@
   }  
   .cart-profile-wrap{
     justify-content: flex-end;
+    
     .cart-num-comp{
       position: relative;
+      border-right: 1px solid #c5c5c5;
+      margin-right: 16px;
+      padding-right: 16px;
       a{
         background: none;
         border: none;
         padding: 0;
         &.btn-success{
         }
-        .cart-img{padding: 0 24px 0 0;}
+        .cart-img{padding: 0 8px 0 0;}
         .num-badge{
           position: absolute;
           top: -10px;
@@ -198,6 +202,15 @@
         }
       }
       
+    }
+    .guide-link{
+      border-right: 1px solid #c5c5c5;
+      margin-right: 16px;
+      padding-right: 16px;
+      a{
+
+      }
+
     }
     .user-profile{
       .dropdown{
