@@ -59,7 +59,10 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
       setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
       setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);
     } else {
-      setLocalData("userLocation", 'Kolkata');
+      setLocalData(
+        "userLocation",
+        loginData?.userLocationDtos[0].cityName.toLowerCase() || ""
+      );
       setLocalData("selectedLocation", 'Kolkata');
     }
     setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);

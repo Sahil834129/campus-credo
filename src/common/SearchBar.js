@@ -13,6 +13,7 @@ import { checkIfCityExists, getLocalData, gotoHome, isEmpty, isLoggedIn, setLoca
 import RESTClient from "../utils/RestClient";
 import ConfirmDialog from "./ConfirmDialog";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
+import LoginDialog from "../dialogs/loginDialog";
 
 
 const SearchBar = () => {
@@ -20,6 +21,7 @@ const SearchBar = () => {
     const dispatch = useDispatch();
     const [searchItems, setSearchItems] = useState([]);
     const [cities, setCities] = useState([]);
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
     const [showCityNotFoundDialog, setShowCityNotFoundDialog] = useState(false);
     const CityNotFoundMessage =
         "Sorry ! We are not present in your City at the moment";
@@ -29,7 +31,9 @@ const SearchBar = () => {
     const handleCityNotFoundDialogClose = () => {
         setShowCityNotFoundDialog(false);
     };
-
+  const handleCloseLoginDialog = () => {
+    setShowLoginDialog(false);
+  };
     useEffect(() => { getSchoolData(); }, []);
     useEffect(() => { getSchoolData(); }, [selectedLocation]);
 
@@ -138,10 +142,13 @@ const SearchBar = () => {
         navigate("/schools");
     }
 
-    async function handleGeoLocation() {
-        catchLocationerror();
+  async function handleGeoLocation() {
+    if (isLoggedIn()) {
+      catchLocationerror();
+    } else {
+      setShowLoginDialog(true);
     }
-
+  }
 
     return (
         <>
@@ -192,9 +199,11 @@ const SearchBar = () => {
                 message={CityNotFoundMessage}
                 handleConfirm={handleCityNotFoundDialogClose}
             />
-
-        </>
-
-    );
+      <LoginDialog
+        show={showLoginDialog}
+        handleClose={handleCloseLoginDialog}
+      />
+    </>
+  );
 };
 export default SearchBar;
