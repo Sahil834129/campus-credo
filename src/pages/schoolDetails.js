@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 import Container from "react-bootstrap/Container";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../common/Breadcrumbs";
-import NoRecordsFound from "../common/NoRecordsFound";
 import Layout from "../common/layout";
+import NoRecordsFound from "../common/NoRecordsFound";
 import Desclaimer from "../components/Desclaimer";
 import Description from "../components/Description";
 import NearBySchools from "../components/NearBySchools";
@@ -18,14 +17,15 @@ import SchoolFacilities from "../components/schoolDetails/SchoolFacilities";
 import SchoolStats from "../components/schoolDetails/SchoolStats";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
-import RESTClient from "../utils/RestClient";
 import { isLoggedIn, setLocalData } from "../utils/helper";
+import RESTClient from "../utils/RestClient";
+import { useSelector } from "react-redux";
 
 const SchoolDetails = () => {
   const location = useLocation();
   const [schoolDetails, setSchoolDetails] = useState({});
   const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser);
-  const [
+    const [
     schoolCategoryExtracurricularMap,
     setSchoolCategoryExtracurricularMap,
   ] = useState({});
@@ -54,7 +54,7 @@ const SchoolDetails = () => {
       let categoryFaciltiesMap = {};
       let categoryExtracurricularMap = {};
       setSchoolDetails(schoolDetails);
-      setLocalData("SchoolDetailsLatitude", schoolDetails.latitude);
+      setLocalData("SchoolDetailsLatitude",schoolDetails.latitude);
       setLocalData("SchoolDetailsLongitude", schoolDetails.longitude);
       schoolDetails.facilities.map((facility) => {
         if (!categoryFaciltiesMap.hasOwnProperty(facility.category))
@@ -98,8 +98,7 @@ const SchoolDetails = () => {
                     <div className="school-details-container">
                       <SchoolBasicInfo schoolDetails={schoolDetails} />
                       {(isLoggedIn() || isLoggedInUser) &&
-                      schoolDetails.hasOwnProperty("admissionInfo") &&
-                      schoolDetails.partner ? (
+                      schoolDetails.hasOwnProperty("admissionInfo")  && schoolDetails.partner? (
                         <ApplyToSchool
                           schoolId={schoolId}
                           schoolDetails={schoolDetails}
@@ -176,11 +175,7 @@ const SchoolDetails = () => {
             </Row>
           </Col>
           <Col className="inner-page-content right">
-            <Accordion
-              className="school-nearby-collapsible"
-              defaultActiveKey={["0"]}
-              alwaysOpen
-            >
+            <Accordion className="school-nearby-collapsible" defaultActiveKey={['0']} alwaysOpen>
               <Accordion.Item eventKey="0">
                 <Accordion.Header>Explore these also</Accordion.Header>
                 <Accordion.Body>
