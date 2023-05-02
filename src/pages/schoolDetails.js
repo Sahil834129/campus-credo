@@ -115,6 +115,14 @@ const SchoolDetails = () => {
                             />
                           )}
                         </Col>
+                        <Col className="about-school-wrap">
+                          {schoolDetails.awardsRecognition && (
+                            <Description
+                              heading="Awards & Recognition"
+                              description={schoolDetails.awardsRecognition}
+                            />
+                          )}
+                        </Col>
                         <SchoolStats schoolDetails={schoolDetails} />
                         <Col className="facilities-list">
                           <SchoolFacilities

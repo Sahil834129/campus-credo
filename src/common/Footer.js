@@ -104,10 +104,11 @@ const Footer = () => {
         <div className="copyright-col">
           &copy; 2023 CampusCredo. | All Rights Reserved.
         </div>
-        <div className="copyright-col">
-          <Link to={"/termsOfService"}>Terms of Service</Link>{" "}
-          <Link to={"/privacyPolicy"}>Privacy Policy</Link>
-          <Link to={"/disclaimerPolicy"}>Disclaimer Policy</Link>
+        <div className="copyright-col fcol3">
+          
+            <Link to={"/termsOfService"}>Terms of Service</Link>{" "}
+            <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+            <Link to={"/disclaimerPolicy"}>Disclaimer Policy</Link>
         </div>
       </Container>
     </footer>

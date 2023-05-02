@@ -1618,7 +1618,7 @@ table {
     justify-content: space-between;
     flex-wrap: nowrap;
     height: 52px;
-    padding: 0 24px;
+    padding: 0;
     .copyright-col {
       font-style: normal;
       font-weight: 400;
@@ -1629,6 +1629,35 @@ table {
       row-gap: 8px;
       flex-wrap: wrap;
       color: #595d69;
+      &.fcol3{
+        column-gap:24px;
+        a{
+          position: relative;
+          &:last-child{
+            &:after{
+              display: none;
+            }
+          }
+          &:after {
+            
+            bottom: 5px;
+            right: -16px;
+            border: 1px solid #41285F;
+            border-radius: 20px;
+            content: '';
+            display: inline-block;
+            height: 8px;
+            width: 8px;
+            position: absolute;
+            transition: width .3s ease-out;
+            
+          }
+          &:hover{
+            text-decoration: underline !important;
+          
+          }
+        }
+      }
       a {
         color: #595d69;
       }

@@ -208,7 +208,14 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
           </Form>
         )}
       </Formik>
-      <p> <Exclamation title="" />  Drag and drop items to easily select your location. Simply click and hold on to the pointer, and move it to the desired location.</p>
+      {!isEmpty(getLocalData("userLocation")) && (
+        <p>
+          {" "}
+          <Exclamation title="" /> Drag and drop items to easily select your
+          location. Simply click and hold on to the pointer, and move it to the
+          desired location.
+        </p>
+      )}
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (<>
       <div className="map-wrapper">
         <MapAddress
