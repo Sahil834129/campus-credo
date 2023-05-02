@@ -36,26 +36,14 @@ const SchoolDetailTitle = (props) => {
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(toRad(lat)) *
-          Math.cos(toRad(lng)) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
+        Math.cos(toRad(lng)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c * 1000; // in meters
       let zoomLevel;
-      if (distance <= 1000) {
-        // If the distance is less than or equal to 1 km, set the zoom level to 15
-        zoomLevel = 16;
-      } else if (distance <= 5000) {
-        // If the distance is less than or equal to 5 km, set the zoom level to 13
-        zoomLevel = 11;
-      } else if (distance <= 10000) {
-        // If the distance is less than or equal to 10 km, set the zoom level to 11
-        zoomLevel = 10;
-      } else {
-        // If the distance is greater than 10 km, set the zoom level to 9
-        zoomLevel = 6.25;
-      }
-      const url = `https://www.google.com/maps?ll=${lat},${lng}&z=${zoomLevel}&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
+      
+      const url = `https://www.google.com/maps?t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d&travelmode=driving`;
 
       //   const url = `https://www.google.com/maps?ll=${lat},${lng}&z=10&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
 
@@ -68,24 +56,24 @@ const SchoolDetailTitle = (props) => {
   };
 
   return (
-        <div className='titlebar'>
-            <div className='cell left'>
+    <div className='titlebar'>
+      <div className='cell left'>
         <h2>{props.schoolName}</h2>
-                {
-                    props.establishYear ? <h6>Since - {props.establishYear}</h6> : ''
-                }
+        {
+          props.establishYear ? <h6>Since - {props.establishYear}</h6> : ''
+        }
         <div>
           <Button onClick={() => handleGoogleMap()}>Locate on Map</Button>
         </div>
       </div>
-            <div className='cell right'>
-                {props.schoolEmail &&
+      <div className='cell right'>
+        {props.schoolEmail &&
           <>
             <h4>Got Questions?</h4>
-                        <span role="button" onClick={handleShowRequestCallbackDialog}>Request Callback</span>
+            <span role="button" onClick={handleShowRequestCallbackDialog}>Request Callback</span>
           </>
-                }
-                <RequestCallBackDialog show={showRequestCallBackModel} handleClose={handleCloseRequestCallbackDialog} schoolEmail={props.schoolEmail} schoolId={props.schoolId} />
+        }
+        <RequestCallBackDialog show={showRequestCallBackModel} handleClose={handleCloseRequestCallbackDialog} schoolEmail={props.schoolEmail} schoolId={props.schoolId} />
       </div>
     </div>
   );

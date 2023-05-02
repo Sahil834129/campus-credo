@@ -22,6 +22,7 @@ const initialRowsState = [
 const ApplyToSchool = (props) => {
   const dispatch = useDispatch();
   const childsList = useSelector((state) => state.childsData.childs);
+  const [enabledAddApply, setEnabledAddApply] = useState(false)
   const itemsInCart = useSelector((state) => state.cartData.itemsInCart);
   const [showAddChildDialog, setShowAddChildDialog] = useState(false);
   const [classOptions, setClassOptions] = useState([]);
@@ -278,6 +279,7 @@ const ApplyToSchool = (props) => {
   };
   const addToCart = async () => {
     if (!isValidApplications()) return;
+    setEnabledAddApply(true);
     let applications = [];
     const childObjList = JSON.parse(JSON.stringify(childsList));
     rows.forEach((row) => {
@@ -297,10 +299,12 @@ const ApplyToSchool = (props) => {
     try {
       await RESTClient.post(RestEndPoint.ADD_TO_CART, applications);
       dispatch(getItemsInCart());
+      setEnabledAddApply(false);
       toast.success("School added to apply list.");
       if (props.handleClose) props.handleClose();
       setRows(JSON.parse(JSON.stringify(initialRowsState)));
     } catch (e) {
+      setEnabledAddApply(false);
       toast.error(RESTClient.getAPIErrorMessage(e));
     }
   };
@@ -515,7 +519,7 @@ const ApplyToSchool = (props) => {
               <Button className="add-child-btn" onClick={openAddChildDialog}>
                 Add Child
               </Button>
-              <Button className="addtoapply-btn" onClick={addToCart}>
+              <Button disabled={enabledAddApply} className="addtoapply-btn" onClick={addToCart}>
                 Add To Apply
               </Button>
             </div>
