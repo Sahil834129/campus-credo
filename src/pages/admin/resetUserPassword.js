@@ -11,6 +11,7 @@ const ResetUserPassword = (props) => {
   const [submitting, setSubmitting] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
   const [confirmPasswordType, setConfirmPasswordType] = useState("password");
+  const [passwordError, setPasswordError] = useState(false);
   const togglePassword = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
@@ -29,7 +30,9 @@ const ResetUserPassword = (props) => {
       })
       .catch((e) => {
         setSubmitting(false);
-        toast.error(e);
+        // toast.error(e);
+        let error = e.response.data.apierror.message;
+        setPasswordError(error);
       });
   };
 
@@ -37,7 +40,10 @@ const ResetUserPassword = (props) => {
     <GenericDialog
       className="change-pwd-model"
       show={props.show}
-      handleClose={props.handleClose}
+      handleClose={() => {
+        setPasswordError("");
+        props.handleClose();
+      }}
       modalHeader="Change Password"
     >
       {!submitting && (
@@ -79,7 +85,9 @@ const ResetUserPassword = (props) => {
                   </span>
                 </div>
               </div>
-
+              {passwordError && (
+                <span className="text-danger">{passwordError}</span>
+              )}
               <div className="frm-cell mt-3">
                 <label className="lbl">New Password</label>
                 <div className="pwd-fld-inner">
@@ -105,6 +113,7 @@ const ResetUserPassword = (props) => {
                   </span>
                 </div>
               </div>
+
               <div className="frm-cell mt-3">
                 <label className="lbl">Confirm New Password</label>
                 <div className="pwd-fld-inner">
