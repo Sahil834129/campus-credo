@@ -222,7 +222,6 @@ export default function GetTableRow({
   const saveAvailableSeats = (vacantSeats, payloadData, index) => {
     updateSeatClassAdmissionData({vacantSeats, classAdmissionInfoId: admissionData?.classAdmissionInfoId})
       .then(val => {
-        console.log(val)
         const saveData = fieldData.map((val, i) => {
           if (i === index) {
             return { ...payloadData, vacantSeats: vacantSeats };
@@ -244,27 +243,28 @@ export default function GetTableRow({
 
   };
   useEffect(() => {
-    const sessionYears = sessionValue.split('-');
-    const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
-    let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
-    const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
-    setMinApplicationDate(getMinDate);
-    setMaxApplicationDate(getFixedMaxDate);
-    let rollingMinDate = (new Date(getMinDate));
-    rollingMinDate.setDate(rollingMinDate.getDate() + 1);
-    handleData(
-      setFieldData,
-      `${index}.formSubmissionStartDate`,
-      admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionStartDate : rollingMinDate,
-      formData[index].admissionType
-    );
-    handleData(
-      setFieldData,
-      `${index}.formSubmissionEndDate`,
-      admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionEndDate : getFixedMaxDate,
-      formData[index].admissionType
-    );
+    // const sessionYears = sessionValue.split('-');
+    // const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
+    // let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
+    // const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
+    // setMinApplicationDate(getMinDate);
+    // setMaxApplicationDate(getFixedMaxDate);
+    // let rollingMinDate = (new Date(getMinDate));
+    // rollingMinDate.setDate(rollingMinDate.getDate() + 1);
+    // handleData(
+    //   setFieldData,
+    //   `${index}.formSubmissionStartDate`,
+    //   admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionStartDate : rollingMinDate,
+    //   formData[index].admissionType
+    // );
+    // handleData(
+    //   setFieldData,
+    //   `${index}.formSubmissionEndDate`,
+    //   admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionEndDate : getFixedMaxDate,
+    //   formData[index].admissionType
+    // );
   }, [admissionData, admissionData.admissionType, sessionValue]);
+
 
   return (
     <tr key={index}>
@@ -301,6 +301,26 @@ export default function GetTableRow({
               formData[index].admissionType
             );
             
+            const sessionYears = sessionValue.split('-');
+            const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
+            const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
+            let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
+            setMinApplicationDate(getMinDate);
+            setMaxApplicationDate(getFixedMaxDate);
+            let rollingMinDate = (new Date(getMinDate));
+            rollingMinDate.setDate(rollingMinDate.getDate() + 1); 
+            handleData(
+              setFieldData,
+              `${index}.formSubmissionEndDate`,
+              e.target.value === "Fixed" ? null : getFixedMaxDate,
+              formData[index].formSubmissionEndDate
+            );
+            handleData(
+              setFieldData,
+              `${index}.formSubmissionStartDate`,
+              e.target.value === "Fixed" ? null : rollingMinDate,
+              formData[index].formSubmissionStartDate
+            );
           }}
           size='sm'>
           {admissionTypeOptions.map((val, index) => (
