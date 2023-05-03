@@ -42,8 +42,20 @@ const SchoolDetailTitle = (props) => {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c * 1000; // in meters
       let zoomLevel;
-      
-      const url = `https://www.google.com/maps?t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d&travelmode=driving`;
+      if (distance <= 1000) {
+        // If the distance is less than or equal to 1 km, set the zoom level to 15
+        zoomLevel = 16;
+      } else if (distance <= 5000) {
+        // If the distance is less than or equal to 5 km, set the zoom level to 13
+        zoomLevel = 11;
+      } else if (distance <= 10000) {
+        // If the distance is less than or equal to 10 km, set the zoom level to 11
+        zoomLevel = 10;
+      } else {
+        // If the distance is greater than 10 km, set the zoom level to 9
+        zoomLevel = 7;
+      }
+      const url = `https://www.google.com/maps?ll=${lat},${lng}&z=${zoomLevel}&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
 
       //   const url = `https://www.google.com/maps?ll=${lat},${lng}&z=10&t=m&hl=en-US&gl=US&mapclient=embed&saddr=${address1}+${address2},+${city},+${state}+${zipCode}&daddr=${destAddress}&dirflg=d`;
 
