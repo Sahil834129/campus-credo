@@ -13,7 +13,6 @@ import {
   ContactUs,
   FAQ,
   HomePage,
-  HowItWorks,
   ManageAdmission,
   ManageApplication,
   ManageChild,
@@ -37,6 +36,7 @@ import {
 import PrintSchedule from "../pages/admin/manageAdmission/printSchedule";
 import TermsAndConditions from "../pages/admin/termsAndConditions";
 import DisclaimerPolicy from "../pages/disclaimer_Policy";
+import HowItWorks from "../pages/guide/howItWorks";
 import RefundPolicy from "../pages/refundPolicy";
 import ResetPassword from "../pages/resetPassword";
 import ProtectedRoute from "./ProtectedRoute";
