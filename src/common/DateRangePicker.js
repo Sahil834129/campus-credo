@@ -30,7 +30,7 @@ function DateRangePicker({
       clearDependentValue();
     }
   };
-  console.log(maxDate, minDate);
+
   return (
     <>
       <div
