@@ -11,6 +11,7 @@ import { getDisabilites } from '../../redux/actions/masterData'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import { getStudentAge } from '../../utils/helper'
 import RESTClient from '../../utils/RestClient'
+import { Button } from 'react-bootstrap'
 
 export const MedicalForm = ({ selectedChild, setStep }) => {
   const navigate = useNavigate()
@@ -18,6 +19,7 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
   const disabilitiesOption = useSelector(
     state => state?.masterData?.disabilities || []
   )
+  const [enable, setEnable] = useState(false)
   const [medicalProfile, setMedicalProfile] = useState({
     childId: selectedChild.childId,
     bloodGroup: '',
@@ -90,11 +92,13 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
         updateMedicalProfileData(response)
       }
       // If age is less than 11 skip extracurricular and background check
+      setEnable(false);
       if (getStudentAge(selectedChild.dateOfBirth) < 11)
         setStep(val => val + 3)
       else
         setStep(val => val + 1)
     } catch (error) {
+      setEnable(false);
       toast.error(RESTClient.getAPIErrorMessage(error))
     }
   }
@@ -133,7 +137,8 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
       initialValues={medicalProfile}
       validationSchema={StudentMedicalDetailsSchema}
       enableReinitialize={true}
-      onSubmit={values => {
+      onSubmit={(values) => {
+        setEnable(true);
         saveData(values)
       }}
     >
@@ -389,9 +394,9 @@ export const MedicalForm = ({ selectedChild, setStep }) => {
               >
                 Back
             </button>
-            <button className='save comn' type='submit'>
+            <Button className='save comn' type='submit' disabled={enable}>
               Save & Next
-            </button>
+            </Button>
           </div>
         </Form>
       )}

@@ -13,6 +13,7 @@ import ConfirmDialog from '../../common/ConfirmDialog'
 
 export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const navigate = useNavigate()
+  const [enable, setEnable] = useState(false);
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
   const [key, setKey] = useState('student')
@@ -28,18 +29,17 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   };
   const finalSubmit = async () => {
     if (check1 && check2) {
+      setEnable(true);
       try {
         await RESTClient.get(
           RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
         );
         setCondition(false);
         setSubmittedSuccessfully(true);
-        // toast.success('Student profile submitted successfully.')
-        // setTimeout(() => {
-        //   navigate("/schools");
-        // }, 1000);
+        setEnable(false);
       } catch (error) {
         toast.error(RESTClient.getAPIErrorMessage(error))
+        setEnable(false);
       }
     }
     else {
@@ -193,8 +193,9 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         {key === 'parent' && (
           <Button
             className='save comn'
-            onClick={() =>
-              validateAllDocumentFilled(studentDocuments, parentDocuments)}
+            disabled={enable}
+            onClick={() =>{ 
+              validateAllDocumentFilled(studentDocuments, parentDocuments)}}
           >
             Submit
           </Button>

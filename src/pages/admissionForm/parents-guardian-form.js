@@ -37,6 +37,7 @@ export default function ParentsGuardianForm({
   const [validationErrors, setValidationErrors] = useState({});
   const states = useSelector(state => state.masterData.states)
   const [city, setCity] = useState([{ value: '', text: 'Select City' }])
+  const [enable, setEnable] = useState(false)
 
   const Options = [
     { value: "Master's", text: "Master's" },
@@ -62,8 +63,7 @@ export default function ParentsGuardianForm({
       console.log("validatio error guardian -- " + validationErrors)
       return;
     }
-      
-
+    setEnable(true)
     postData.nationality =
       postData.otherNationality !== ''
         ? postData.otherNationality
@@ -101,14 +101,16 @@ export default function ParentsGuardianForm({
           ]
         })
       }
-      
+
       //toast.success('Student details saved successfully.')
+      setEnable(false);
       if (nextParent === '') {
         setStep(val => val + 1);
       } else {
         setKey(nextParent);
       }
     } catch (error) {
+      setEnable(false);
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
     window.scrollTo(0, 0);
@@ -166,7 +168,7 @@ export default function ParentsGuardianForm({
      {
       setValidationErrors({...validationErrors, dateOfBirth: 'Date of birth does not meet the minimum age requirement. Please review and update.'})
       return false
-     }
+    }
     return true
   }
 
@@ -204,95 +206,95 @@ export default function ParentsGuardianForm({
             <div className='fld-row'>
               <div className="fld-cell">
                 <TextField
-                    fieldName='firstName'
-                    label='First Name'
-                    value={values.firstName}
-                    required
-                    fieldType='text'
-                    placeholder='Enter First Name'
-                    errors={validationErrors}
-                    onChange={e => {
-                      setFieldValue('firstName', e.target.value);
-                    }}
-                  />
+                  fieldName='firstName'
+                  label='First Name'
+                  value={values.firstName}
+                  required
+                  fieldType='text'
+                  placeholder='Enter First Name'
+                  errors={validationErrors}
+                  onChange={e => {
+                    setFieldValue('firstName', e.target.value);
+                  }}
+                />
               </div>
               <div className="fld-cell">
                 <TextField
-                    fieldName='lastName'
-                    label='Last Name'
-                    value={values.lastName}
-                    required
-                    fieldType='text'
-                    placeholder='Enter Last Name'
-                    errors={validationErrors}
-                    onChange={e => {
-                      setFieldValue('lastName', e.target.value);
-                    }}
-                  />
+                  fieldName='lastName'
+                  label='Last Name'
+                  value={values.lastName}
+                  required
+                  fieldType='text'
+                  placeholder='Enter Last Name'
+                  errors={validationErrors}
+                  onChange={e => {
+                    setFieldValue('lastName', e.target.value);
+                  }}
+                />
               </div>
             </div>
-          
+
             <div className='row'>
-            
+
               {currentParent === 'other' && (
                 <><div className='fld-row'>
-                    <div className='fld-cell'>
-                      <TextField
-                        fieldName='otherRelation'
-                        label='Relationship with Student'
-                        value={
-                          values.relation !== 'Father' && values.relation !== 'Mother'
-                            ? values.otherRelation
-                            : ''
-                        }
-                        required={
-                          values.relation !== 'Father' && values.relation !== 'Mother'
-                        }
-                        fieldType='text'
-                        errors={validationErrors}
-                        placeholder='Enter Relationship with Student'
-                        disabled={
-                          !(
-                            values.relation !== 'Father' &&
-                            values.relation !== 'Mother'
-                          )
-                        }
-                        onChange={e => {
-                          setFieldValue('otherRelation', e.target.value);
-                        }}
-                      />
-                    </div>
-                  
-                </div></>)}
-                    
-                <div className='fld-row check-option'>
                   <div className='fld-cell'>
-                    <label>Date of Birth<span className='req'>*</span></label>
-                    
-                      <DatePicker
-                        selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : ""}
-                        dateFormat='dd/MM/yyyy'
-                        className='form-control'
-                        name='dateOfBirth'
-                        placeholderText='DD/MM/YYYY'
-                        onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
-                        //maxDate={getGuadianMaxDateOfBirth()}
-                        dropdownMode="select"
-                        showMonthDropdown
-                        showYearDropdown
-                      />
-                      {
-                        validationErrors && validationErrors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mt-2'>{validationErrors['dateOfBirth']}</div> : ''
+                    <TextField
+                      fieldName='otherRelation'
+                      label='Relationship with Student'
+                      value={
+                        values.relation !== 'Father' && values.relation !== 'Mother'
+                          ? values.otherRelation
+                          : ''
                       }
-                    
+                      required={
+                        values.relation !== 'Father' && values.relation !== 'Mother'
+                      }
+                      fieldType='text'
+                      errors={validationErrors}
+                      placeholder='Enter Relationship with Student'
+                      disabled={
+                        !(
+                          values.relation !== 'Father' &&
+                          values.relation !== 'Mother'
+                        )
+                      }
+                      onChange={e => {
+                        setFieldValue('otherRelation', e.target.value);
+                      }}
+                    />
                   </div>
-                  <div className='fld-cell'>
-                    <div className='title'>
+
+                </div></>)}
+
+              <div className='fld-row check-option'>
+                <div className='fld-cell'>
+                  <label>Date of Birth<span className='req'>*</span></label>
+
+                  <DatePicker
+                    selected={values.dateOfBirth ? parseDateWithDefaultFormat(values.dateOfBirth) : ""}
+                    dateFormat='dd/MM/yyyy'
+                    className='form-control'
+                    name='dateOfBirth'
+                    placeholderText='DD/MM/YYYY'
+                        onChange={date => {return (date ? setFieldValue('dateOfBirth', formatDateToDDMMYYYY(date)) : '')}}
+                    //maxDate={getGuadianMaxDateOfBirth()}
+                    dropdownMode="select"
+                    showMonthDropdown
+                    showYearDropdown
+                  />
+                  {
+                    validationErrors && validationErrors.hasOwnProperty('dateOfBirth') ? <div className='error-exception mt-2'>{validationErrors['dateOfBirth']}</div> : ''
+                  }
+
+                </div>
+                <div className='fld-cell'>
+                  <div className='title'>
                     <label htmlFor='validationServer02' className='lbl'>Select Gender <span className='req'>*</span></label>
-                    </div>
-                    <div className='option-fld-cell'>
+                  </div>
+                  <div className='option-fld-cell'>
                       {GENDER_OPTOPNS.filter(v=> v.value !== '').map(val => (
-                      
+
                       <div
                         className='input-fld'
                         key={`gender-parent-${val.value}`}
@@ -309,71 +311,71 @@ export default function ParentsGuardianForm({
                           }}
                         />
                       </div>
-                      ))}
-                    </div>
+                    ))}
                   </div>
                 </div>
-                <div className='contined-block'>
+              </div>
+              <div className='contined-block'>
 
-                  <div className='fld-row check-option'>
-                    <div className='fld-cell'>
-                      <div className='title'>
-                        <label htmlFor='validationServer02' className='form-label'>Nationality <span className='req'>*</span></label>
-                      </div>
-                      <div className='option-fld-cell'>
-                        <div className='input-fld'>
-                          <RadioButton
-                            className='form-check-input'
-                            label='Indian'
-                            value='Indian'
-                            fieldName='nationality'
-                            currentValue={values.nationality}
-                            onChange={e => {
-                              setFieldValue('nationality', 'Indian');
-                            }}
-                            //required
-                          />
-                        </div>
-                        <div className='input-fld'>
-                          <RadioButton
-                            className='form-check-input'
-                            label='Other'
-                            value='Other'
-                            currentValue={values.nationality}
-                            onChange={e => {
-                              setFieldValue('nationality', 'Other');
-                            }}
-                            //required
-                            fieldName='nationality'
-                          />
-                        </div>
-                      </div>
+                <div className='fld-row check-option'>
+                  <div className='fld-cell'>
+                    <div className='title'>
+                      <label htmlFor='validationServer02' className='form-label'>Nationality <span className='req'>*</span></label>
                     </div>
-                    <div className='fld-cell'>
-                      
-                      <label htmlFor='Other' className='form-label'>
-                        If Other, Please Specify
-                      </label>
-                      <TextField
-                        fieldName='otherNationality'
-                        className='frm-cell'
-                        fieldType='text'
-                        errors={validationErrors}
-                        value={
-                          values.nationality !== 'Indian'
-                            ? values.otherNationality
-                            : ''
-                        }
-                        onChange={e => {
-                          setFieldValue('otherNationality', e.target.value);
-                        }}
-                        required={values.nationality !== 'Indian'}
-                        placeholder='Enter Other Nationality'
-                        disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
-                      />
+                    <div className='option-fld-cell'>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Indian'
+                          value='Indian'
+                          fieldName='nationality'
+                          currentValue={values.nationality}
+                          onChange={e => {
+                            setFieldValue('nationality', 'Indian');
+                          }}
+                        //required
+                        />
+                      </div>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Other'
+                          value='Other'
+                          currentValue={values.nationality}
+                          onChange={e => {
+                            setFieldValue('nationality', 'Other');
+                          }}
+                          //required
+                          fieldName='nationality'
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className='fld-row'>
+                  <div className='fld-cell'>
+
+                    <label htmlFor='Other' className='form-label'>
+                      If Other, Please Specify
+                    </label>
+                    <TextField
+                      fieldName='otherNationality'
+                      className='frm-cell'
+                      fieldType='text'
+                      errors={validationErrors}
+                      value={
+                        values.nationality !== 'Indian'
+                          ? values.otherNationality
+                          : ''
+                      }
+                      onChange={e => {
+                        setFieldValue('otherNationality', e.target.value);
+                      }}
+                      required={values.nationality !== 'Indian'}
+                      placeholder='Enter Other Nationality'
+                      disabled={!(values.nationality !== 'Indian' && values.nationality !== '')}
+                    />
+                  </div>
+                </div>
+                <div className='fld-row'>
                   <div className='fld-cell'>
                     <SelectField
                       fieldName='qualification'
@@ -399,142 +401,100 @@ export default function ParentsGuardianForm({
                     />
                   </div>
                 </div>
-                </div>
-                <div className=''>
-                  <div className='fld-row check-option'>
-                    <div className='fld-cell'>
-                      <div className='title'>
-                        <label htmlFor='validationServer02' className='form-label'>Marital Status<span className='req'>*</span></label>
-                      </div>
-                      <div className='option-fld-cell'>
-                        <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='Married'
-                              value='Married'
-                              fieldName='maritalStatus'
-                              currentValue={values.maritalStatus}
-                              onChange={e => {
-                                setFieldValue('maritalStatus', 'Married');
-                              }}
-                            />
-                          </div>
-                          <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='Widowed'
-                              value='Widowed'
-                              fieldName='maritalStatus'
-                              currentValue={values.maritalStatus}
-                              onChange={e => {
-                                setFieldValue('maritalStatus', 'Widowed');
-                              }}
-                            />
-                          </div>
-                          <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='Divorced'
-                              value='Divorced'
-                              fieldName='maritalStatus'
-                              currentValue={values.maritalStatus}
-                              onChange={e => {
-                                setFieldValue('maritalStatus', 'Divorced');
-                              }}
-                            />
-                          </div>
-                          <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='Separated'
-                              value='Separated'
-                              fieldName='maritalStatus'
-                              currentValue={values.maritalStatus}
-                              onChange={e => {
-                                setFieldValue('maritalStatus', 'Separated');
-                              }}
-                            />
-                          </div>
-                          <div className='input-fld'>
-                            <RadioButton
-                              className='form-check-input'
-                              label='Never Married'
-                              value='Never Married'
-                              fieldName='maritalStatus'
-                              currentValue={values.maritalStatus}
-                              onChange={e => {
-                                setFieldValue('maritalStatus', 'Never Married');
-                              }}
-                            />
-                          </div>
-                      </div>
-                        
-                    
-                    </div>
-                    </div>
-                    <div className='fld-row check-option'>
-                      
-                        <div className='fld-cell'>
-                          <TextField
-                            fieldName='annualFamilyIncome'
-                            label='Annual Income'
-                            className='frm-cell'
-                            fieldType='number'
-                            value={values.annualFamilyIncome}
-                            errors={validationErrors}
-                            min='0'
-                            onChange={e => {
-                              setFieldValue('annualFamilyIncome', e.target.value);
-                            }}
-                            required
-                            placeholder='Enter Annual Income'
-                          />
-                        </div>
-                        <div className='fld-cell'>
-                          <div className='title'>
-                            <label htmlFor='validationServer02' className='form-label'>Deceased?{' '} <span className='req'>*</span> </label>
-                          </div>
-                          <div className='option-fld-cell'>
-                            <div className='input-fld'>
-                              <RadioButton
-                                className='form-check-input'
-                                label='Yes'
-                                value='Yes'
-                                fieldName='guardianDeceased'
-                                currentValue={values.guardianDeceased}
-                                onChange={e => {
-                                  setFieldValue('guardianDeceased', 'Yes');
-                                }}
-                              />
-                            </div>
-                            <div className='input-fld'>
-                              <RadioButton
-                                className='form-check-input'
-                                label='No'
-                                value='No'
-                                fieldName='guardianDeceased'
-                                currentValue={values.guardianDeceased}
-                                onChange={e => {
-                                  setFieldValue('guardianDeceased', 'No');
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                     
-                  </div>
-                </div>
-
-                
-               
+              </div>
+              <div className=''>
                 <div className='fld-row check-option'>
-                  
                   <div className='fld-cell'>
                     <div className='title'>
-                      <label htmlFor='validationServer02' className='form-label'>
-                        Residential Address - Same as student? {values.isAddressSameAsStudent}{' '}
-                        <span className='req'>*</span>
-                      </label>
+                      <label htmlFor='validationServer02' className='form-label'>Marital Status<span className='req'>*</span></label>
+                    </div>
+                    <div className='option-fld-cell'>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Married'
+                          value='Married'
+                          fieldName='maritalStatus'
+                          currentValue={values.maritalStatus}
+                          onChange={e => {
+                            setFieldValue('maritalStatus', 'Married');
+                          }}
+                        />
+                      </div>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Widowed'
+                          value='Widowed'
+                          fieldName='maritalStatus'
+                          currentValue={values.maritalStatus}
+                          onChange={e => {
+                            setFieldValue('maritalStatus', 'Widowed');
+                          }}
+                        />
+                      </div>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Divorced'
+                          value='Divorced'
+                          fieldName='maritalStatus'
+                          currentValue={values.maritalStatus}
+                          onChange={e => {
+                            setFieldValue('maritalStatus', 'Divorced');
+                          }}
+                        />
+                      </div>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Separated'
+                          value='Separated'
+                          fieldName='maritalStatus'
+                          currentValue={values.maritalStatus}
+                          onChange={e => {
+                            setFieldValue('maritalStatus', 'Separated');
+                          }}
+                        />
+                      </div>
+                      <div className='input-fld'>
+                        <RadioButton
+                          className='form-check-input'
+                          label='Never Married'
+                          value='Never Married'
+                          fieldName='maritalStatus'
+                          currentValue={values.maritalStatus}
+                          onChange={e => {
+                            setFieldValue('maritalStatus', 'Never Married');
+                          }}
+                        />
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div className='fld-row check-option'>
+
+                  <div className='fld-cell'>
+                    <TextField
+                      fieldName='annualFamilyIncome'
+                      label='Annual Income'
+                      className='frm-cell'
+                      fieldType='number'
+                      value={values.annualFamilyIncome}
+                      errors={validationErrors}
+                      min='0'
+                      onChange={e => {
+                        setFieldValue('annualFamilyIncome', e.target.value);
+                      }}
+                      required
+                      placeholder='Enter Annual Income'
+                    />
+                  </div>
+                  <div className='fld-cell'>
+                    <div className='title'>
+                      <label htmlFor='validationServer02' className='form-label'>Deceased?{' '} <span className='req'>*</span> </label>
                     </div>
                     <div className='option-fld-cell'>
                       <div className='input-fld'>
@@ -542,11 +502,10 @@ export default function ParentsGuardianForm({
                           className='form-check-input'
                           label='Yes'
                           value='Yes'
-                          fieldName='isAddressSameAsStudent'
-                          currentValue={values.isAddressSameAsStudent}
-                          onChange={(e) => {
-                            setFieldValue("isAddressSameAsStudent", "Yes");
-                            handleAddressSameAsStudent();
+                          fieldName='guardianDeceased'
+                          currentValue={values.guardianDeceased}
+                          onChange={e => {
+                            setFieldValue('guardianDeceased', 'Yes');
                           }}
                         />
                       </div>
@@ -555,16 +514,59 @@ export default function ParentsGuardianForm({
                           className='form-check-input'
                           label='No'
                           value='No'
-                          fieldName='isAddressSameAsStudent'
-                          currentValue={values.isAddressSameAsStudent}
+                          fieldName='guardianDeceased'
+                          currentValue={values.guardianDeceased}
                           onChange={e => {
-                            setFieldValue('isAddressSameAsStudent', 'No');
+                            setFieldValue('guardianDeceased', 'No');
                           }}
                         />
                       </div>
                     </div>
-                    
                   </div>
+
+                </div>
+              </div>
+
+
+
+              <div className='fld-row check-option'>
+
+                <div className='fld-cell'>
+                  <div className='title'>
+                    <label htmlFor='validationServer02' className='form-label'>
+                      Residential Address - Same as student? {values.isAddressSameAsStudent}{' '}
+                      <span className='req'>*</span>
+                    </label>
+                  </div>
+                  <div className='option-fld-cell'>
+                    <div className='input-fld'>
+                      <RadioButton
+                        className='form-check-input'
+                        label='Yes'
+                        value='Yes'
+                        fieldName='isAddressSameAsStudent'
+                        currentValue={values.isAddressSameAsStudent}
+                        onChange={(e) => {
+                          setFieldValue("isAddressSameAsStudent", "Yes");
+                          handleAddressSameAsStudent();
+                        }}
+                      />
+                    </div>
+                    <div className='input-fld'>
+                      <RadioButton
+                        className='form-check-input'
+                        label='No'
+                        value='No'
+                        fieldName='isAddressSameAsStudent'
+                        currentValue={values.isAddressSameAsStudent}
+                        onChange={e => {
+                          setFieldValue('isAddressSameAsStudent', 'No');
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                </div>
               </div>
               {
                 values.isAddressSameAsStudent === 'No' ?
@@ -644,7 +646,7 @@ export default function ParentsGuardianForm({
                     </div>
 
                   </div>
-                : ''
+                  : ''
               }
             </div>
           </div>
@@ -660,7 +662,7 @@ export default function ParentsGuardianForm({
         <Button type='button' className='save comn' onClick={() => { skipAndNext(); window.scrollTo(0, 0); }} >
           Skip
         </Button>
-        <Button className='save comn' type='submit'>
+        <Button className='save comn' type='submit' disabled={enable}>
           {parentExist ? `Update & Next` : `Save & Next`}
         </Button>
       </div>
