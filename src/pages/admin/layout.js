@@ -100,7 +100,7 @@ export const Layout = ({
               onClick={changePassword}
             >
               {/* <i className="icons union-icon"></i> */}
-              <img src={ChangePasswordIcon} alt="" />
+              <img src={ChangePasswordIcon} alt="Change Password" title="Change Password" />
             </div>
             <div
               className="inner-cell"
@@ -108,7 +108,7 @@ export const Layout = ({
               onClick={handleLogout}
             >
               {/* <i className="icons union-icon"></i> */}
-              <img src={LogoutIcon} alt="" />{" "}
+              <img src={LogoutIcon} alt="Logout" title="Logout"/>{" "}
             </div>
           </div>
         </div>
