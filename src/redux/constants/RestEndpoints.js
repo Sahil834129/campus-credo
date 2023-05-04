@@ -91,6 +91,8 @@ const RestEndPoint = {
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
   GET_PAYMENT_HISTORY: "payment/paymentHistory",
   ZIP_DOWNLOAD_APPLICATION: "/admissionApplications/zip/downloadApplications",
+  PLACE_ORDER: "payment/placeOrder",
+  PROCESS_AFTER_PAYMENT: "payment/processOrderAfterPayment"
 };
 
 export default RestEndPoint;
