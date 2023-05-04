@@ -242,15 +242,16 @@ export default function GetTableRow({
       })
 
   };
+
   useEffect(() => {
-    // const sessionYears = sessionValue.split('-');
-    // const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
-    // let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
-    // const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
-    // setMinApplicationDate(getMinDate);
-    // setMaxApplicationDate(getFixedMaxDate);
-    // let rollingMinDate = (new Date(getMinDate));
-    // rollingMinDate.setDate(rollingMinDate.getDate() + 1);
+    const sessionYears = sessionValue.split('-');
+    const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
+    let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
+    const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
+    setMinApplicationDate(getMinDate);
+    setMaxApplicationDate(getFixedMaxDate);
+    let rollingMinDate = (new Date(getMinDate));
+    rollingMinDate.setDate(rollingMinDate.getDate() + 1);
     // handleData(
     //   setFieldData,
     //   `${index}.formSubmissionStartDate`,
@@ -263,7 +264,7 @@ export default function GetTableRow({
     //   admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionEndDate : getFixedMaxDate,
     //   formData[index].admissionType
     // );
-  }, [admissionData, admissionData.admissionType, sessionValue]);
+  }, []);
 
 
   return (
@@ -429,7 +430,9 @@ export default function GetTableRow({
         />
         {errors?.applicationDate && <span className="error-exception">{errors.applicationDate}</span>}
       </td>
-      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
+      <td></td>
+      <td></td>
+      {/* <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
         {admissionData.admissionType === 'Fixed' ?
           <>
             <DateRangePicker
@@ -509,7 +512,7 @@ export default function GetTableRow({
                 );
               }} />
           </>}
-      </td>
+      </td> */}
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
