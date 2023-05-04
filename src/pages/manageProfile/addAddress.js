@@ -4,16 +4,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ReactComponent as Exclamation } from "../../assets/img/icons/info.svg";
 import InputField from "../../components/form/InputField";
 import { UserLocationSchema } from "../../data/validationSchema";
-import { ReactComponent as Exclamation } from "../../assets/img/icons/info.svg";
 
+import { useDispatch } from "react-redux";
+import { setSelectedLocation } from "../../redux/actions/locationAction";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 import RESTClient from "../../utils/RestClient";
 import { getLocalData, isEmpty, setLocalData } from "../../utils/helper";
 import MapAddress from "./mapAddress";
-import { useDispatch } from "react-redux";
-import { setSelectedLocation } from "../../redux/actions/locationAction";
 
 export default function AddAddress({ setKey, cityOptions, cities, userDetails, setUserDetails, populateCities }) {
   const queryParams = new URLSearchParams(window.location.search);
@@ -211,9 +211,8 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
       {!isEmpty(getLocalData("userLocation")) && (
         <p>
           {" "}
-          <Exclamation title="" /> Drag and drop items to easily select your
-          location. Simply click and hold on to the pointer, and move it to the
-          desired location.
+          <Exclamation title="" /> 
+          Drag and drop red marker to select your location.
         </p>
       )}
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (<>

@@ -60,10 +60,10 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
     <GenericDialog className='change-pwd-model' show={show} handleClose={handleClose} modalHeader='Change Password'>
       
           {!isLoading && (
-            <Form onSubmit={handlePasswordSubmit}>
-              <div className="">
+            <Form className="form-container forgot-pwd" onSubmit={handlePasswordSubmit}>
+              <div className="frm-cell cpwd-wrap">
                 <Form.Group style={{ marginBottom: '5px' }}>
-                  <label className="form-label"> Select User</label>
+                  <label className="lbl"> Select User</label>
                   <Form.Select value={selectedUserId} onChange={(e) => { handle(e.target.value); setEmptySelectedUserId(false); }}>
                     <option value='0'>Select User</option>
                     {usersData.map((val) => {
@@ -71,47 +71,47 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
                     })}
                   </Form.Select>
                 </Form.Group >
-                {emptySelectedUserId && <label style={{ color: 'red', fontSize: '13px' }}> Select User</label>}
+                {emptySelectedUserId && <label className="error-exception"> Select User</label>}
               </div>
-              <div className="">
+              <div className="frm-cell mt-3">
                 <Form.Group style={{ marginBottom: '5px' }}>
-                  <label className="form-label"> New Password</label>
-              <div className="pwd-fld-inner">
-                <Form.Control
-                  type={passwordType}
-                  minLength="8"
-                  placeholder="Enter Password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    setEmptyPassword(false);
-                    setIsPasswordMatch(false);
-                  }}
-                />
-                <span
-                  className="view-pwd-icon"
-                  onClick={() => {
-                    togglePassword();
-                  }}
-                >
-                  {passwordType === "password" ? (
-                    <i className="bi bi-eye-slash"></i>
-                  ) : (
-                    <i className="bi bi-eye"></i>
+                  <label className="lbl"> New Password</label>
+                  <div className="pwd-fld-inner">
+                    <Form.Control
+                      type={passwordType}
+                      minLength="8"
+                      placeholder="Enter Password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        setEmptyPassword(false);
+                        setIsPasswordMatch(false);
+                      }}
+                    />
+                    <span
+                      className="view-pwd-icon"
+                      onClick={() => {
+                        togglePassword();
+                      }}
+                    >
+                      {passwordType === "password" ? (
+                        <i className="bi bi-eye-slash"></i>
+                      ) : (
+                        <i className="bi bi-eye"></i>
+                      )}
+                    </span>
+                  </div>
+                  {emptyPassword && (
+                    <label style={{ color: "red", fontSize: "13px" }}>
+                      {" "}
+                      Enter Password
+                    </label>
                   )}
-                </span>
-              </div>
-              {emptyPassword && (
-                <label style={{ color: "red", fontSize: "13px" }}>
-                  {" "}
-                  Enter Password
-                </label>
-              )}
-              {isPasswordMatch && (
-                <label style={{ fontSize: "12px", color: "red" }}>
-                  Password is not Matched
-                </label>
-              )}
+                  {isPasswordMatch && (
+                    <label style={{ fontSize: "12px", color: "red" }}>
+                      Password is not Matched
+                    </label>
+                  )}
             </Form.Group>
           </div>
           <div className="frm-cell mt-3">
@@ -156,10 +156,8 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
             </Form.Group>
           </div>
               <div className='btn-wrapper'>
-              
-                  <Button variant="primary" className='cancel-btn' onClick={handleClose} >Cancel</Button>
                   <Button type="submit" variant="primary" className='confirm-btn' >Confirm</Button>
-             
+                  <Button variant="primary" className='cancel-btn' onClick={handleClose} >Cancel</Button>
               </div>
             </Form>
           )}
