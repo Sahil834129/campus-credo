@@ -71,7 +71,7 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
                     })}
                   </Form.Select>
                 </Form.Group >
-                {emptySelectedUserId && <label style={{ color: 'red', fontSize: '13px' }}> Select User</label>}
+                {emptySelectedUserId && <label className="error-exception"> Select User</label>}
               </div>
               <div className="frm-cell mt-3">
                 <Form.Group style={{ marginBottom: '5px' }}>
@@ -156,10 +156,8 @@ export const PasswordDialog = ({ show, handleClose, usersData }) => {
             </Form.Group>
           </div>
               <div className='btn-wrapper'>
-              
-                  <Button variant="primary" className='cancel-btn' onClick={handleClose} >Cancel</Button>
                   <Button type="submit" variant="primary" className='confirm-btn' >Confirm</Button>
-             
+                  <Button variant="primary" className='cancel-btn' onClick={handleClose} >Cancel</Button>
               </div>
             </Form>
           )}
