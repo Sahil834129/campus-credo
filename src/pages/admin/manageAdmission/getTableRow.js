@@ -264,7 +264,7 @@ export default function GetTableRow({
     //   admissionData.admissionType === "Fixed" || admissionData.vacantSeats !== '' ? formData[index].formSubmissionEndDate : getFixedMaxDate,
     //   formData[index].admissionType
     // );
-  }, []);
+  }, [admissionData, admissionData.admissionType, sessionValue]);
 
 
   return (
