@@ -322,6 +322,30 @@ export default function GetTableRow({
               e.target.value === "Fixed" ? null : rollingMinDate,
               formData[index].formSubmissionStartDate
             );
+            handleData(
+              setFieldData,
+              `${index}.admissionTestEndDate`,
+              '',
+              formData[index]?.admissionTestEndDate || ''
+            );
+            handleData(
+              setFieldData,
+              `${index}.admissionTestStartDate`,
+              '',
+              formData[index]?.admissionTestStartDate || ''
+            );
+            handleData(
+              setFieldData,
+              `${index}.personalInterviewStartDate`,
+              '',
+              formData[index]?.personalInterviewStartDate || ''
+            );
+            handleData(
+              setFieldData,
+              `${index}.personalInterviewEndDate`,
+              '',
+              formData[index]?.personalInterviewEndDate || ''
+            );
           }}
           size='sm'>
           {admissionTypeOptions.map((val, index) => (
