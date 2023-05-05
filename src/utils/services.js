@@ -180,11 +180,4 @@ export const getAgeClassMap = async () => {
 export const getApplications = async (childId) => {
   return RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`);
 };
-
-export const getPlaceOrder = (payload) => {
-  return RESTClient.post(RestEndPoint.PLACE_ORDER, payload)
-}  
-
-export const processOrderAfterPayment = (payload) => {
-  return RESTClient.post(RestEndPoint.PROCESS_AFTER_PAYMENT, payload)
-}  
+ 
