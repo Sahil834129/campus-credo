@@ -84,10 +84,11 @@ const ResetUserPassword = (props) => {
                     )}
                   </span>
                 </div>
+                {passwordError && (
+                  <span className="error-exception">{passwordError}</span>
+                )}
               </div>
-              {passwordError && (
-                <span className="text-danger">{passwordError}</span>
-              )}
+              
               <div className="frm-cell mt-3">
                 <label className="lbl">New Password</label>
                 <div className="pwd-fld-inner">
