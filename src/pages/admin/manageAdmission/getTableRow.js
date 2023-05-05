@@ -430,9 +430,7 @@ export default function GetTableRow({
         />
         {errors?.applicationDate && <span className="error-exception">{errors.applicationDate}</span>}
       </td>
-      <td></td>
-      <td></td>
-      {/* <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
+      <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.personalInterview ? 'column' : 'row') }}>
         {admissionData.admissionType === 'Fixed' ?
           <>
             <DateRangePicker
@@ -512,7 +510,7 @@ export default function GetTableRow({
                 );
               }} />
           </>}
-      </td> */}
+      </td> 
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
