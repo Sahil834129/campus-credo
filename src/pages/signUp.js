@@ -37,7 +37,7 @@ const SignUp = () => {
     RESTClient.post(RestEndPoint.REGISTER, formData)
       .then((response) => {
         setSubmitting(false);
-        navigate("/verifyPhone/" + formData.phone + "?redirectUrl=" +(queryParams.get("redirectUrl")));
+        navigate("/verifyPhone/" + formData.phone + (queryParams.get("redirectUrl") ? `?redirectUrl=${(queryParams.get("redirectUrl"))}` : '' ));
       })
       .catch((error) => {
         setSubmitting(false);
