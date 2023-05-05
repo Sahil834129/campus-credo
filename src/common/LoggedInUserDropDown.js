@@ -103,8 +103,8 @@ const LoggedInUserDropDown = () => {
                     {isLoggedInUser && !isAdmin ?
                         <>
                             
-                            <div className="cart-num-comp"><Link to="/selectedSchools"><span className="cart-img"><img src={CartIcon} alt="Selected Schools" /></span><span className="num-badge">{totalItemsInCart}</span> </Link></div>
-                            <div className="guide-link"><Link to="/howItWorks"><i className="icons guide-icon"></i></Link></div>
+                            <div className="cart-num-comp"><Link to="/selectedSchools"><span className="cart-img"><img src={CartIcon} alt="Selected Schools"   title="Go To Cart" /></span><span className="num-badge">{totalItemsInCart}</span> </Link></div>
+                            <div className="guide-link"><Link to="/howItWorks"><i className="icons guide-icon" title="Guide"></i></Link></div>
                             {/* <div className="cart-num-comp">
                                 
                 <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
