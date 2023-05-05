@@ -3,7 +3,7 @@ import { Accordion, Form, Tab, Tabs } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 import PdfIcon from "../assets/img/pdf-icon.png";
 import AlertDialog from "../common/AlertDialog";
 import { hideLoader, showLoader } from "../common/Loader";
@@ -675,7 +675,7 @@ const ReviewAdmissionDialog = ({
             <Form.Check
               type="checkbox"
               label={
-                <div>
+                <div className="declaration-msg">
                   <span>I have read, understood and accept the </span>
                   <a href={"/termsOfService"} target="_blank">
                     <u> Terms of Service </u>
