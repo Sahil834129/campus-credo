@@ -11,7 +11,7 @@ import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 import StringUtils from "../utils/StringUtils";
-import { getChildAge, humanize, isEmpty } from "../utils/helper";
+import { getChildAge, humanize } from "../utils/helper";
 import {
   downloadApplicationDocument,
   downloadDocument,
@@ -675,7 +675,7 @@ const ReviewAdmissionDialog = ({
             <Form.Check
               type="checkbox"
               label={
-                <div>
+                <div className="declaration-msg">
                   <span>I have read, understood and accept the </span>
                   <a href={"/termsOfService"} target="_blank">
                     <u> Terms of Service </u>
