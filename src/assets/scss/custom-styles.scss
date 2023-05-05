@@ -1882,11 +1882,11 @@ ul.list-group{
               }
                .school-basic-info{
                 display: grid;
-                grid-template-columns: 1fr 2fr;
+                grid-template-columns: .5fr 2fr;
                 .cell{
                   .image-wrapper{
-                    width: 294px;
-                    height: 294px;
+                    width: 204px;
+                    height: 204px;
                     background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
                     box-shadow: 0px 0px 4px rgb(0 0 0 / 4%);
                     border-radius: 6px;
