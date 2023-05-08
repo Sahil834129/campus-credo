@@ -303,7 +303,7 @@ export default function GetTableRow({
             );
             
             const sessionYears = sessionValue.split('-');
-            const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
+            const getFixedMaxDate = getSessionDate(31, 2, sessionYears[e.target.value === 'Fixed' ? 0 : 1]);
             const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
             let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
             setMinApplicationDate(getMinDate);
