@@ -121,7 +121,7 @@ const ResetUserPassword = (props) => {
                   <InputField
                     fieldName="confirmPassword"
                     fieldType="password"
-                    placeholder="Confirm New Password"
+                    placeholder="Enter Confirm New Password"
                     label=""
                     errors={errors}
                     touched={touched}

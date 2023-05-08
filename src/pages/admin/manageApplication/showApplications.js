@@ -13,9 +13,10 @@ import { zipDownloadApplications } from "../../../utils/services";
 
 export default function ShowApplications({ setApplicationStatus, isAtPiData, setApplicationId, setOpenModal, rowsData, handleBulkStatusUpdate, selectedRows, setSelectedRows, setIsbulkOperation, setShowApplication, setSelectedApplicationId, isWritePermission }) {
   const canNotApprove = userCanNotApprove();
-  const approvalTab = userCanNotApprove(true)
+  const approvalTab = userCanNotApprove(true);
   const CustomToggle = forwardRef(({ children, onClick }, ref) => (
     <img
+      alt=""
       src={Action}
       ref={ref}
       onClick={(e) => {
@@ -157,10 +158,13 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
         const applicationId = e.row.original?.applicationId;
         if (STATE_TRANSITION[applicationStatus.toUpperCase()]) {
           stateTransiton = STATE_TRANSITION[applicationStatus.toUpperCase()].filter(val => {
-            if(val === "APPROVED") {
+            if (val === "APPROVED") {
               return approvalTab;
             }
-            return (val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData);
+            if (isAtPiData) {
+              return val !== SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW;
+            } else 
+              return (val !== SCHOOL_APPLICATION_STATUS.AT_PI);
           });
         }
         return (
