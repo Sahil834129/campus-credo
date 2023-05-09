@@ -1596,6 +1596,13 @@ ul.list-group{
                   line-height: 18px;
                   color: #41285F;
                 }
+                .btn-wrapper{
+                  justify-content: flex-start;
+                  .locateonmap-btn{
+                    background: $darkgreen;
+                    border: 1px solid $darkgreen;
+                  }
+                }
                 h4{
                   font-style: normal;
                   font-weight: 500;
@@ -1896,10 +1903,11 @@ ul.list-group{
                     justify-content: center;
                     border: 1px solid #efefef;
                     overflow: hidden;
+                    padding: 8px;
                     img{
                       // width: 224px;
                       height: auto;
-                      width: 194px;
+                      width: 92%;
                     }
                   }
                   ul.list-group{
@@ -2501,7 +2509,7 @@ ul.list-group{
                         display: flex;
                         align-items: center;
                         align-content: center;
-                        height: 48px;
+                        height: 44px;
                         &.cancel{
                           background: $white;
                           border: 1px solid #E22445;
@@ -6508,6 +6516,22 @@ align-items: center;
   align-items: flex-end;
 }
 .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper .tab-content .tab-pane .location-frm .button-wrap button.save.comn{}
+.map-inst-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  background: rgba(84, 155, 67, 0.04);
+  border: 1px dashed #549B43;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: $darkgreen;
+  svg {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  }
+}
 .map-wrapper{position: relative;
   .map-search-txtfld{
     position: absolute;
