@@ -20,7 +20,6 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
   const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false);
   const [showMap, setShowMap] = useState(false);
-  const [flagDrag, setFlagDrag] = useState(false);
   const [defaultLatLng, setDefaultLatLng] = useState({ lat: "", lng: "" });
   const navigate = useNavigate();
 
@@ -205,26 +204,20 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
             </div>
 
             <div className="form-group col-md-2 button-wrap">
-              <button
-                className="save comn"
-                type="submit"
-                disabled={submitting}
-                onClick={() => setFlagDrag(true)}
-              >
+              <button className="save comn" type="submit" disabled={submitting}>
                 Go
               </button>
             </div>
           </Form>
         )}
       </Formik>
-      {!isEmpty(getLocalData("userLocation")) ||
-        (flagDrag && (
-          <p>
-            {" "}
-            <Exclamation title="" />
-            Drag and drop red marker to select your location.
-          </p>
-        ))}
+      {showMap && defaultLatLng.lat && defaultLatLng.lng && (
+        <div className="map-inst-wrapper">
+          {" "}
+          <Exclamation title="" />
+          Drag and drop red marker to select your location.
+        </div>
+      )}
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (
         <>
           <div className="map-wrapper">

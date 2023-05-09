@@ -41,8 +41,8 @@ const SchoolDetailTitle = (props) => {
         {
           props.establishYear ? <h6>Since - {props.establishYear}</h6> : ''
         }
-        <div>
-          <Button onClick={() => handleGoogleMap()}>Locate on Map</Button>
+        <div className="btn-wrapper">
+          <Button className="locateonmap-btn" onClick={() => handleGoogleMap()}>Locate on Map</Button>
         </div>
       </div>
       <div className='cell right'>
