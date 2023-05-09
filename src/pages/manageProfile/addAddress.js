@@ -212,11 +212,11 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
         )}
       </Formik>
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (
-        <p>
+        <div className="map-inst-wrapper">
           {" "}
           <Exclamation title="" />
           Drag and drop red marker to select your location.
-        </p>
+        </div>
       )}
       {showMap && defaultLatLng.lat && defaultLatLng.lng && (
         <>
