@@ -161,11 +161,16 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
             if (val === "APPROVED") {
               return approvalTab;
             }
-            if (isAtPiData) {
-              return val !== SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW;
-            } else 
-              return (val !== SCHOOL_APPLICATION_STATUS.AT_PI);
+            if (applicationStatus.toUpperCase() === SCHOOL_APPLICATION_STATUS.UNDER_REVIEW) {
+              if (isAtPiData) {
+                return val !== SCHOOL_APPLICATION_STATUS.UNDER_FINAL_REVIEW;
+              } else
+                return (val !== SCHOOL_APPLICATION_STATUS.AT_PI);
+            } else {
+              return (val !== SCHOOL_APPLICATION_STATUS.AT_PI || isAtPiData);
+            }
           });
+          
         }
         return (
           <>

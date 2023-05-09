@@ -156,7 +156,7 @@ export default function GetTableRow({
       if (postData?.admissionTestStartDate || postData?.personalInterviewStartDate) {
         postData.aTPI = true;
       }
-    } else if(postData?.at || postData?.pi) {
+    } else if (postData?.at || postData?.pi) {
       postData.aTPI = true;
     }
     delete postData?.isOpen;
@@ -220,7 +220,7 @@ export default function GetTableRow({
   };
 
   const saveAvailableSeats = (vacantSeats, payloadData, index) => {
-    updateSeatClassAdmissionData({vacantSeats, classAdmissionInfoId: admissionData?.classAdmissionInfoId})
+    updateSeatClassAdmissionData({ vacantSeats, classAdmissionInfoId: admissionData?.classAdmissionInfoId })
       .then(val => {
         const saveData = fieldData.map((val, i) => {
           if (i === index) {
@@ -239,7 +239,7 @@ export default function GetTableRow({
       .catch(error => {
         console.log(error);
         toast.error("Error: Not Able to update the Seats");
-      })
+      });
 
   };
 
@@ -266,7 +266,9 @@ export default function GetTableRow({
     // );
   }, [admissionData, admissionData.admissionType, sessionValue]);
 
-
+  useEffect(() => {
+    setErros([]);
+  }, [sessionValue]);
   return (
     <tr key={index}>
       <td>{admissionData.className}</td>
@@ -301,7 +303,7 @@ export default function GetTableRow({
               e.target.value,
               formData[index].admissionType
             );
-            
+
             const sessionYears = sessionValue.split('-');
             const getFixedMaxDate = getSessionDate(31, 2, sessionYears[e.target.value === 'Fixed' ? 0 : 1]);
             const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
@@ -309,7 +311,7 @@ export default function GetTableRow({
             setMinApplicationDate(getMinDate);
             setMaxApplicationDate(getFixedMaxDate);
             let rollingMinDate = (new Date(getMinDate));
-            rollingMinDate.setDate(rollingMinDate.getDate() + 1); 
+            rollingMinDate.setDate(rollingMinDate.getDate() + 1);
             handleData(
               setFieldData,
               `${index}.formSubmissionEndDate`,
@@ -383,7 +385,7 @@ export default function GetTableRow({
           name={`${index}.vacantSeats`}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
           value={admissionData?.vacantSeats || ''}
-          disabled={!isWritePermission || !admissionData?.isOpen }
+          disabled={!isWritePermission || !admissionData?.isOpen}
           required
           min="1"
           max={admissionData.capacity}
@@ -397,9 +399,9 @@ export default function GetTableRow({
             );
           }}
           onBlur={e => {
-            if(!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
-              saveAvailableSeats(e.target.value, admissionData, index)
-            }   
+            if (!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
+              saveAvailableSeats(e.target.value, admissionData, index);
+            }
           }}
         />
         {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
@@ -534,7 +536,7 @@ export default function GetTableRow({
                 );
               }} />
           </>}
-      </td> 
+      </td>
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
@@ -580,20 +582,20 @@ export default function GetTableRow({
         {errors?.registrationFee && <span className="error-exception">{errors.registrationFee}</span>}
       </td>
       <td className="action-cell">
-        <Save 
+        <Save
           onClick={() => {
-            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
-              saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); 
-          }} 
+            if (!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
+              saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate);
+          }}
           style={{ cursor: "pointer" }}
         />
-        <Delete 
-          onClick={() => { 
-            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))){
-              deleteRowData(admissionData, fieldData, sessionValue); 
-            } 
+        <Delete
+          onClick={() => {
+            if (!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
+              deleteRowData(admissionData, fieldData, sessionValue);
+            }
           }}
-          style={{ cursor: "pointer" }} 
+          style={{ cursor: "pointer" }}
         />
       </td>
     </tr>
