@@ -29,7 +29,6 @@ const AllSchools = () => {
   const filterFormData = useSelector((state) => state.userData.schoolFilter);
   useEffect(() => {
     getSchoolList();
-    applyFilters();
     window.scrollTo(0, 0);
   }, [selectedLocation]);
 

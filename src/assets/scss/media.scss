@@ -34,10 +34,22 @@
             }
         }
     }
-
+    .map-wrapper .map-search-txtfld {
+        position: absolute;
+        top: 60px;
+        left: 10px;
+    }
+    .content-area .bc-main-wrap ol.breadcrumb {
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+    }
+    .content-area .bc-main-wrap ol.breadcrumb li.active::before {
+        margin-left: 5px;
+        top: 3px;
+    }
 }
 
-@media screen and (max-width: 375px){
+@media (max-width: 375px){
 .content-area .school-list-container .school-card .info-list-group .list-group-item .session-wrap .session-info-outer {
     display: flex;
     flex-direction: row;
@@ -45,7 +57,12 @@
     align-items: center;
     margin-bottom: 5px;
 }
+.header .loc-cartinfo-nav-wrapper {
+    align-items: inherit;
+    flex-direction: column;
 }
+}
+
 
 @media (max-width: 991px){
     .content-area .inner-page-container .content-section.bc-section .bc-col.blog-bc {
@@ -81,6 +98,21 @@
              flex-basis: 360px;
             }
           }
+        }
+    }
+
+    .footer-main .finner .fcol {
+        padding: 16px 1px;
+    }
+    .footer-main .finner .fcol.btn-container {
+        display: flex;
+        flex-direction: row;
+        align-content: flex-end;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        .btn {
+            width: 43%;
         }
     }
 }

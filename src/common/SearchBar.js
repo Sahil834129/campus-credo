@@ -34,7 +34,6 @@ const SearchBar = () => {
   const handleCloseLoginDialog = () => {
     setShowLoginDialog(false);
   };
-    useEffect(() => { getSchoolData(); }, []);
     useEffect(() => { getSchoolData(); }, [selectedLocation]);
 
     useEffect(() => { getCities(); }, []);
