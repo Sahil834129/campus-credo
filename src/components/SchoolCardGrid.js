@@ -10,10 +10,6 @@ const SchoolCardGrid = (props) => {
         state => state.locationData.selectedLocation
     )
     const selectedLocation = isLoggedIn() && !isEmpty(getLocalData("selectedLocation")) ? getLocalData("selectedLocation") : defaultLocation;
-
-    useEffect(() => {
-    }, [selectedLocation])
-    
     return (
         <>
             {/* <div className='title-area'><h2>Schools in {getLocalData("selectedLocation")}</h2></div> */}
@@ -23,7 +19,7 @@ const SchoolCardGrid = (props) => {
                 {
                     props.schools.length ?
                         props.schools.map((school, index) => (
-                            <SchoolCard school={school} key={"school_" + index}  distanceFilter={props.distanceFilter}/>
+                            <SchoolCard key={`schoolCard${index}`} school={school}  distanceFilter={props.distanceFilter}/>
                         ))
                         : <NoRecordsFound message={ props.isLoading ? "Loading please wait..." : "No schools found on selected criteria."} />
                 }

@@ -129,7 +129,7 @@ const ResetUserPassword = (props) => {
                 </div>
               </div>
               <div className="frm-cell btn-wrapper mt-3">
-                <Button type="submit" variant="primary" className="confirm-btn">
+                <Button type="submit" variant="primary" className="confirm-btn" onClick={() => setPasswordError('')}>
                   Confirm
                 </Button>
                 <Button

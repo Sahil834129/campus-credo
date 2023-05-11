@@ -101,7 +101,6 @@ function handleSelectCity(location) {
     catchLocationerror();
   }
 
-    useEffect(()=>{getSchoolData()},[]);
     useEffect(()=>{getCities()},[]);
     useEffect(()=>{dispatch(getSelectedLocation())}, [dispatch]);
 

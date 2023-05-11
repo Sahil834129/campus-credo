@@ -96,11 +96,9 @@ const SchoolCard = (props) => {
                         {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
-                                     <>
-                                     <div className="session-info-outer">
+                                     <div className="session-info-outer" key={`adminssionInfo${index}`}>
                                         <span className='session-title'>{admissionRow.admissionSession}  </span>
                                      </div>
-                                     </>
                               )
                               } ) )  : <span className="right seats">NA</span>
                         }                           
@@ -112,12 +110,10 @@ const SchoolCard = (props) => {
                         {
                               !isEmpty(school.admissionInfo)  ? (school.admissionInfo.map( ( admissionRow ,index)=>
                               { return (
-                                     <>
-                                     <div className="session-info-outer">
+                                  <div className="session-info-outer" key={`schoolAdmissionInfo${index}`}>
                                         <span className='session-title'>{admissionRow.admissionSession}: {admissionRow.seatsAvailable} Approx</span>
                                         <InfoDropDown header={admissionRow.admissionStatus + " for " +admissionRow.admissionSession} options={admissionRow.admissionOpenForClasses.split(",")}/>
                                      </div>
-                                     </>
                               )
                               } ) )  : 'NA'
                         }                           
