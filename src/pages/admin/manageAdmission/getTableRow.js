@@ -60,14 +60,15 @@ export default function GetTableRow({
 
   const validateField = (data, minApplicationDate, maxApplicationDate) => {
     let isValid = true;
+    console.log(data);
     const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "", seatsOpen: "" };
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
       if (data.vacantSeats === "") {
         errorsVal.vacantSeats = "Required";
         isValid = false;
-      } else if (data.vacantSeats === 0) {
-        errorsVal.vacantSeats = "Total seats must be > 0";
+      } else if (vacantSeats === 0) {
+        errorsVal.vacantSeats = "value must be > 0";
         isValid = false;
       } else if (vacantSeats > data.capacity) {
         isValid = false;
@@ -78,7 +79,7 @@ export default function GetTableRow({
         errorsVal.seatsOpen = "Required";
         isValid = false;
       } else if (seatsOpen === 0) {
-        errorsVal.seatsOpen = "Total seats must be > 0";
+        errorsVal.seatsOpen = "value must be > 0";
         isValid = false;
       } else if (seatsOpen > data.capacity) {
         isValid = false;
@@ -87,9 +88,9 @@ export default function GetTableRow({
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Required";
-      } else if (parseInt(data.formFee) <= 0) {
+      } else if (parseInt(data.formFee) === 0) {
         isValid = false;
-        errorsVal.formFee = "Application Fees must be > 0";
+        errorsVal.formFee = "value must be > 0";
       }
       if (data.admissionType === "Fixed" && (!data.formSubmissionStartDate || !data.formSubmissionEndDate)) {
         isValid = false;
@@ -117,7 +118,7 @@ export default function GetTableRow({
         errorsVal.registrationFee = "Required";
       } else if (parseInt(data.registrationFee) <= 0) {
         isValid = false;
-        errorsVal.registrationFee = "Registration Fees must be > 0";
+        errorsVal.registrationFee = "value must be > 0";
       }
       setErros(errorsVal);
       return isValid;
@@ -192,6 +193,8 @@ export default function GetTableRow({
   const saveRowData = (rowData, index, selectedSession, minApplicationDate, maxApplicationDate) => {
     if (validateField(rowData, minApplicationDate, maxApplicationDate)) {
       handleSubmitData(rowData, index, selectedSession);
+    } else {
+      console.log(errors);
     }
   };
 
@@ -235,6 +238,7 @@ export default function GetTableRow({
           return { ...v };
         }));
         setFieldData(saveData.map(v => { return { ...v }; }));
+        toast.success("Seats are updated successfully");
       })
       .catch(error => {
         console.log(error);
@@ -399,8 +403,10 @@ export default function GetTableRow({
             );
           }}
           onBlur={e => {
-            if (!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
-              saveAvailableSeats(e.target.value, admissionData, index);
+            if (e.target.value > 0 ) {
+              if (!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
+                saveAvailableSeats(e.target.value, admissionData, index);
+              }
             }
           }}
         />
