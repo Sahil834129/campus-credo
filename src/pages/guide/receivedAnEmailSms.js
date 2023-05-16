@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen16 from "../../assets/img/guide/screen-16.jpg";
+import GuideScreen16 from "../../assets/img/guide/H.PNG";
 
 const ReceivedAnEmailSms = () => {
   useEffect(() => {
@@ -23,7 +23,7 @@ const ReceivedAnEmailSms = () => {
             click on “Accept” button and finalize payment to accept the offer.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen16} alt="" />
+            <img width={700} src={GuideScreen16} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

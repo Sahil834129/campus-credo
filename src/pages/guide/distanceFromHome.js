@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen13 from "../../assets/img/guide/screen-13.jpg";
-import GuideScreen14 from "../../assets/img/guide/screen-14.jpg";
+import GuideScreen13 from "../../assets/img/guide/F1.PNG";
+import GuideScreen14 from "../../assets/img/guide/F2.PNG";
 
 const DistanceFromHome = () => {
   useEffect(() => {
@@ -18,7 +18,7 @@ const DistanceFromHome = () => {
             address under “Location” tab.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen13} alt="" />
+            <img width={700} src={GuideScreen13} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -27,7 +27,7 @@ const DistanceFromHome = () => {
             page.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen14} alt="" />
+            <img width={700} src={GuideScreen14} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>
