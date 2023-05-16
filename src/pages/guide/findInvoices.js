@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen18 from "../../assets/img/guide/screen-18.jpg";
+import GuideScreen18 from "../../assets/img/guide/J.PNG";
 
 const FindInvoices = () => {
   useEffect(() => {
@@ -18,7 +18,7 @@ const FindInvoices = () => {
             download invoices.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen18} alt="" />
+            <img width={700} src={GuideScreen18} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

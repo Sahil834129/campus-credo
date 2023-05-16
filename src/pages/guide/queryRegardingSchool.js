@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen17 from "../../assets/img/guide/screen-17.jpg";
+import GuideScreen17 from "../../assets/img/guide/I.PNG";
 
 const QueryRegardingSchool = () => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const QueryRegardingSchool = () => {
             enter your query. The school would get back to you.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen17} alt="" />
+            <img width={700} src={GuideScreen17} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen11 from "../../assets/img/guide/screen-11.jpg";
-import GuideScreen12 from "../../assets/img/guide/screen-12.jpg";
+import GuideScreen11 from "../../assets/img/guide/E1.PNG";
+import GuideScreen12 from "../../assets/img/guide/E2.PNG";
 
 const UpdateMyEmailMobile = () => {
   useEffect(() => {
@@ -18,7 +18,7 @@ const UpdateMyEmailMobile = () => {
             details.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen11} alt="" />
+            <img width={700} src={GuideScreen11} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -26,7 +26,7 @@ const UpdateMyEmailMobile = () => {
             Now you can update your personal details as required..
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen12} alt="" />
+            <img width={700} src={GuideScreen12} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>
