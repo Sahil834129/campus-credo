@@ -119,9 +119,24 @@ export default function OpenModal({
     handleClose();
   };
 
+  const getSessionDate = (currentDate, currentMonth, currentYears) => {
+    let datePreviousYear = new Date(currentYears, currentMonth, currentDate,);
+    return (datePreviousYear);
+  };
+
   useEffect(() => {
-    setMinDate(moment.min([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleStartDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleStartDate))]));
-    setMaxDate(moment.max([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleEndDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleEndDate))]));
+    console.log(atPiData);
+    if (atPiData?.ATScheduleStartDate) {
+      setMinDate(moment.min([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleStartDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleStartDate))]).toDate());
+      setMaxDate(moment.max([moment(parseDateWithDefaultFormat(atPiData?.ATScheduleEndDate)), moment(parseDateWithDefaultFormat(atPiData?.PIScheduleEndDate))]).toDate());
+    } else {
+      const sessionYears = sessionValue.split('-');
+      const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
+      let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
+      const getFixedMaxDate = getSessionDate(31, 2, sessionYears[1]);
+      setMinDate(getMinDate);
+      setMaxDate(getFixedMaxDate);
+    }
   }, [atPiData]);
 
   return (
@@ -140,8 +155,8 @@ export default function OpenModal({
                 <ReactDatePicker
                   selected={atPiDate}
                   onChange={(date) => setATPIDate(date)}
-                  minDate={minDate.toDate()}
-                  maxDate={maxDate.toDate()}
+                  minDate={minDate}
+                  maxDate={maxDate}
                   // timeInputLabel="Time:"
                   dateFormat="dd/MM/yyyy h:mm aa"
                   showTimeInput

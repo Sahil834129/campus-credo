@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen02 from "../../assets/img/guide/D1.PNG";
-import GuideScreen05 from "../../assets/img/guide/D2.PNG";
-import GuideScreen09 from "../../assets/img/guide/D3.PNG";
+import GuideScreen01 from "../../assets/img/guide/D1.PNG";
+import GuideScreen02 from "../../assets/img/guide/D2.PNG";
+import GuideScreen03 from "../../assets/img/guide/D3.PNG";
 
 const AddMultipleStudents = () => {
     useEffect(() => {
@@ -20,7 +20,7 @@ const AddMultipleStudents = () => {
             Child” to add student details.
           </span>
           <div className="guide-screen">
-            <img width={700} src={GuideScreen02} alt="" />
+            <img width={700} src={GuideScreen01} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -29,7 +29,7 @@ const AddMultipleStudents = () => {
             “Add” button to register student.
           </span>
           <div className="guide-screen">
-            <img width={700} src={GuideScreen09} alt="" />
+            <img width={700} src={GuideScreen02} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -39,7 +39,7 @@ const AddMultipleStudents = () => {
             form.
           </span>
           <div className="guide-screen">
-            <img width={700} src={GuideScreen05} alt="" />
+            <img width={700} src={GuideScreen03} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

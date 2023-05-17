@@ -50,7 +50,7 @@ const ApplyToSchool = () => {
             form.
           </span>
           <div className="guide-screen">
-            <img width={700} src={GuideScreen05} alt="" />
+            <img width={700} src={GuideScreen04} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -60,7 +60,7 @@ const ApplyToSchool = () => {
             multiple schools as you wish.
           </span>
           <div className="guide-screen">
-            <img width={700} src={GuideScreen04} alt="" />
+            <img width={700} src={GuideScreen05} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
