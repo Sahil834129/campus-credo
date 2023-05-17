@@ -51,7 +51,6 @@ export default function MultiRangeSliderView({
           min={minRange}
           max={maxRange}
           step={stepVal}
-          stepOnly
           minValue={actualMinValue}
           maxValue={actualMaxValue}
           ruler='false'
@@ -73,7 +72,6 @@ export default function MultiRangeSliderView({
               max={maxRange}
               step={stepVal}
               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-              steponly
               value={inputMinVal}
               onChange={(e) => setInputMinVal(e.target.value)}
               onBlur={e => handleMinIncome(inputMinVal)}
@@ -87,7 +85,6 @@ export default function MultiRangeSliderView({
               max={maxRange}
               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
               step={stepVal}
-              steponly
               value={inputMaxVal}
               onChange={(e) => setInputMaxVal(e.target.value)}
               onBlur={e => handleMaxIncome(inputMaxVal)}

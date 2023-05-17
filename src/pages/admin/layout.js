@@ -108,7 +108,7 @@ export const Layout = ({
               onClick={handleLogout}
             >
               {/* <i className="icons union-icon"></i> */}
-              <img src={LogoutIcon} alt="Logout" title="Logout"/>{" "}
+              <img src={LogoutIcon} alt="Logout" title="Logout" />{" "}
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ export const Layout = ({
           )}
         </div>
         {breadcrumbTitle?.title === "Dashboard" ||
-        breadcrumbTitle?.title === "Manage Application" ? (
+          breadcrumbTitle?.title === "Manage Application" ? (
           <div className="application-status status-block">
             <div className="app-status-cell">
               <label className="lbl">
@@ -243,9 +243,9 @@ export const Layout = ({
             </div>
             <div className="app-status-cell">
               <label className="lbl">
-                Denied{" "}
+                Declined{" "}
                 <span className="value text-danger">
-                  {admissionSummary?.denied || 0}
+                  {admissionSummary?.declined || 0}
                 </span>
               </label>{" "}
             </div>

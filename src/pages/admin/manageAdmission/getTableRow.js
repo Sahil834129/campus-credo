@@ -88,7 +88,7 @@ export default function GetTableRow({
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Required";
-      } else if (parseInt(data.formFee) === 0) {
+      } else if (parseInt(data.formFee) < 0) {
         isValid = false;
         errorsVal.formFee = "value must be > 0";
       }
@@ -116,7 +116,7 @@ export default function GetTableRow({
       if (!data.registrationFee) {
         isValid = false;
         errorsVal.registrationFee = "Required";
-      } else if (parseInt(data.registrationFee) <= 0) {
+      } else if (parseInt(data.registrationFee) < 0) {
         isValid = false;
         errorsVal.registrationFee = "value must be > 0";
       }
@@ -546,7 +546,7 @@ export default function GetTableRow({
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
-          min="1"
+          min="0"
           type='number'
           required
           onPaste={e => e.preventDefault()}
@@ -570,7 +570,7 @@ export default function GetTableRow({
           size='sm'
           type='number'
           required
-          min="1"
+          min="0"
           name={`${index}.registrationFee`}
           value={admissionData?.registrationFee || ''}
           disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
