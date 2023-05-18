@@ -59,7 +59,7 @@ const SchoolStats = (props) => {
         </div>
         <div className="academic-stats-row">
           <div className="cell">
-            <div className="item-cell title">Student/Teacher Ratio</div>
+            <div className="item-cell title">Teacher/Student Ratio</div>
             <div className="item-cell particular">
               {schoolDetails.studentTeacherRatio || "NA"}
             </div>

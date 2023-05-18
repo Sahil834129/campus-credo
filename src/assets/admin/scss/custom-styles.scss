@@ -84,6 +84,10 @@
           &.profile-info {
             display: flex;
             flex-direction: row;
+            .text-white{
+              font-size: 14px;
+              font-weight: 600;
+            }
             .sb-avatar {
               margin-right: 8px;
               &.sb-avatar--text {
@@ -1640,7 +1644,7 @@ table {
     justify-content: space-between;
     flex-wrap: nowrap;
     height: 52px;
-    padding: 0;
+    padding: 0 26px;
     .copyright-col {
       font-style: normal;
       font-weight: 400;
@@ -1661,15 +1665,14 @@ table {
             }
           }
           &:after {
-            
-            bottom: 5px;
-            right: -16px;
-            border: 1px solid #41285F;
+            bottom: 1px;
+            right: -13px;
+            border: 1px solid #ababab;
             border-radius: 20px;
             content: '';
             display: inline-block;
-            height: 8px;
-            width: 8px;
+            height: 16px;
+            width: 1px;
             position: absolute;
             transition: width .3s ease-out;
             

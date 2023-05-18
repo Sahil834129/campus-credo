@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen06 from "../../assets/img/guide/screen-06.jpg";
-import GuideScreen07 from "../../assets/img/guide/screen-07.jpg";
+import GuideScreen06 from "../../assets/img/guide/B1.PNG";
+import GuideScreen07 from "../../assets/img/guide/B2.PNG";
 
 const MultipleSchools = () => {
   useEffect(() => {
@@ -20,7 +20,7 @@ const MultipleSchools = () => {
             application.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen06} alt="" />
+            <img width={700} src={GuideScreen06} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -28,7 +28,7 @@ const MultipleSchools = () => {
             Click on Cart to review selected schools and finalize payment.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen07} alt="" />
+            <img width={700} src={GuideScreen07} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

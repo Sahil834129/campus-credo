@@ -84,10 +84,11 @@ const ResetUserPassword = (props) => {
                     )}
                   </span>
                 </div>
+                {passwordError && (
+                  <span className="error-exception">{passwordError}</span>
+                )}
               </div>
-              {passwordError && (
-                <span className="text-danger">{passwordError}</span>
-              )}
+              
               <div className="frm-cell mt-3">
                 <label className="lbl">New Password</label>
                 <div className="pwd-fld-inner">
@@ -120,7 +121,7 @@ const ResetUserPassword = (props) => {
                   <InputField
                     fieldName="confirmPassword"
                     fieldType="password"
-                    placeholder="Confirm New Password"
+                    placeholder="Enter Confirm New Password"
                     label=""
                     errors={errors}
                     touched={touched}
@@ -128,7 +129,7 @@ const ResetUserPassword = (props) => {
                 </div>
               </div>
               <div className="frm-cell btn-wrapper mt-3">
-                <Button type="submit" variant="primary" className="confirm-btn">
+                <Button type="submit" variant="primary" className="confirm-btn" onClick={() => setPasswordError('')}>
                   Confirm
                 </Button>
                 <Button

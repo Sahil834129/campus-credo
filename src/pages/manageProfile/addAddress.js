@@ -20,7 +20,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
   const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false);
   const [showMap, setShowMap] = useState(false);
-  const [defaultLatLng, setDefaultLatLng] = useState({ lat: '', lng: '' });
+  const [defaultLatLng, setDefaultLatLng] = useState({ lat: "", lng: "" });
   const navigate = useNavigate();
 
   const manageAddress = queryParams.get("manageAddress");
@@ -28,7 +28,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
   const [userLocation, setUserLocation] = useState({
     city: "",
     state: "",
-    userLocationId: ""
+    userLocationId: "",
   });
 
   const [stateOptions, setStateOptions] = useState([
@@ -36,15 +36,14 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
   ]);
 
   const checkHomeAddress = () => {
-    if (!isEmpty(manageAddress))
-      setKey("addAdress");
+    if (!isEmpty(manageAddress)) setKey("addAdress");
   };
 
   const saveUserAddress = async (formData, data) => {
     setSubmitting(true);
     let postData = {
       latitude: formData?.lat,
-      longitude: formData?.lng
+      longitude: formData?.lng,
     };
     if (isEmpty(getLocalData("userLocation"))) {
       RESTClient.post(RestEndPoint.SAVE_USER_ADDRESS, postData)
@@ -67,16 +66,18 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
     } else {
       postData = {
         ...postData,
-        userLocationId: data.userLocationId
-      }
+        userLocationId: data.userLocationId,
+      };
       RESTClient.put(RestEndPoint.UPDATE_USER_LOCATION, postData)
         .then((response) => {
-          const cities = getLocalData('cities').split(',');
-          const isCityExist = cities.find(val => val.toLowerCase() === response.data.cityName.toLowerCase())
-          if(isCityExist === undefined) {
-            setLocalData("selectedLocation", 'Kolkata');
-            setLocalData("userLocation", 'Kolkata');
-            dispatch(setSelectedLocation('Kolkata'));
+          const cities = getLocalData("cities").split(",");
+          const isCityExist = cities.find(
+            (val) => val.toLowerCase() === response.data.cityName.toLowerCase()
+          );
+          if (isCityExist === undefined) {
+            setLocalData("selectedLocation", "Kolkata");
+            setLocalData("userLocation", "Kolkata");
+            dispatch(setSelectedLocation("Kolkata"));
           } else {
             setLocalData("selectedLocation", response.data.cityName);
             setLocalData("userLocation", response.data.cityName);
@@ -85,7 +86,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
           setLocalData("userLocation", response.data.cityName);
           toast.success("Location Updated Successfully");
           setSubmitting(false);
-          
+
           setLocalData("userLatitude", response.data.latitude);
           setLocalData("userLongitude", response.data.longitude);
           navigate("/manageProfile");
@@ -126,16 +127,18 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
       setUserLocation({
         ...userLocation,
         city: parseInt(response.data[0].city),
-        state: (response.data[0].state),
+        state: response.data[0].state,
         userLocationId: response.data[0].userLocationId,
       });
-      setShowMap(true)
-      setDefaultLatLng({ lat: parseFloat(response.data[0].latitude), lng: parseFloat(response.data[0].longitude) });
-    }
-    catch (error) { }
+      setShowMap(true);
+      setDefaultLatLng({
+        lat: parseFloat(response.data[0].latitude),
+        lng: parseFloat(response.data[0].longitude),
+      });
+    } catch (error) {}
   }
 
-  const drag = e => {
+  const drag = (e) => {
     const { latLng } = e;
     const lat = latLng.lat();
     const lng = latLng.lng();
@@ -156,13 +159,18 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
         validateOnBlur
         enableReinitialize={true}
         onSubmit={(values) => {
-          const selectedCity = cities.find(val => val.id === parseInt(values.city));
-          setDefaultLatLng({ lat: parseFloat(selectedCity.latitude), lng: parseFloat(selectedCity.longitude) });
+          const selectedCity = cities.find(
+            (val) => val.id === parseInt(values.city)
+          );
+          setDefaultLatLng({
+            lat: parseFloat(selectedCity.latitude),
+            lng: parseFloat(selectedCity.longitude),
+          });
           setShowMap(true);
         }}
       >
         {({ values, resetForm, errors, touched, setFieldValue }) => (
-          < Form className="location-frm row g-4 mb-3">
+          <Form className="location-frm row g-4 mb-3">
             <div className="col-md-5">
               <InputField
                 fieldName="state"
@@ -172,7 +180,7 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
                 placeholder=""
                 selectOptions={stateOptions}
                 onChange={(e) => {
-                  setFieldValue('state', e.target.value);
+                  setFieldValue("state", e.target.value);
                   setFieldValue("city", "");
                   populateCities(e.target.value);
                 }}
@@ -196,47 +204,49 @@ export default function AddAddress({ setKey, cityOptions, cities, userDetails, s
             </div>
 
             <div className="form-group col-md-2 button-wrap">
-              <button
-                className="save comn"
-                type="submit"
-                disabled={submitting}
-              >
+              <button className="save comn" type="submit" disabled={submitting}>
                 Go
               </button>
             </div>
-
           </Form>
         )}
       </Formik>
-      {!isEmpty(getLocalData("userLocation")) && (
-        <p>
+      {showMap && defaultLatLng.lat && defaultLatLng.lng && (
+        <div className="map-inst-wrapper">
           {" "}
-          <Exclamation title="" /> 
+          <Exclamation title="" />
           Drag and drop red marker to select your location.
-        </p>
+        </div>
       )}
-      {showMap && defaultLatLng.lat && defaultLatLng.lng && (<>
-      <div className="map-wrapper">
-        <MapAddress
-          isMarkerShown
-          setDefaultLatLng={setDefaultLatLng}
-          lat={defaultLatLng.lat}
-          lng={defaultLatLng.lng}
-          drag={drag}
-        />
-        </div>
-        <div className="form-group mb-3 button-wrap" style={{ marginTop: 42 }}>
-          <button
-            className="save comn"
-            type="button"
-            disabled={submitting}
-            onClick={ _ => saveUserAddress(defaultLatLng, userLocation)}
+      {showMap && defaultLatLng.lat && defaultLatLng.lng && (
+        <>
+          <div className="map-wrapper">
+            <MapAddress
+              isMarkerShown
+              setDefaultLatLng={setDefaultLatLng}
+              lat={defaultLatLng.lat}
+              lng={defaultLatLng.lng}
+              drag={drag}
+            />
+          </div>
+          <div
+            className="form-group mb-3 button-wrap"
+            style={{ marginTop: 42 }}
           >
-            {(userLocation?.userLocationId && userLocation?.userLocationId !== "")  ? 'Update': 'Save'}
-          </button>
-        </div>
-      </>)
-      }
+            <button
+              className="save comn"
+              type="button"
+              disabled={submitting}
+              onClick={(_) => saveUserAddress(defaultLatLng, userLocation)}
+            >
+              {userLocation?.userLocationId &&
+              userLocation?.userLocationId !== ""
+                ? "Update"
+                : "Save"}
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 }

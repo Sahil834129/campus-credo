@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen15 from "../../assets/img/guide/screen-15.jpg";
+import GuideScreen15 from "../../assets/img/guide/G1.PNG";
 
 const StatusOfMyApplications = () => {
     useEffect(() => {
@@ -17,7 +17,7 @@ const StatusOfMyApplications = () => {
             status of submitted applications
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen15} alt="" />
+            <img width={700} src={GuideScreen15} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import GuideScreen02 from "../../assets/img/guide/screen-02.jpg";
-import GuideScreen09 from "../../assets/img/guide/screen-09.jpg";
-import GuideScreen10 from "../../assets/img/guide/screen-10.jpg";
+import GuideScreen02 from "../../assets/img/guide/C1.PNG";
+import GuideScreen09 from "../../assets/img/guide/C2.PNG";
+import GuideScreen10 from "../../assets/img/guide/C3.PNG";
 
 const AddStudentDetails = () => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const AddStudentDetails = () => {
             details.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen02} alt="" />
+            <img width={700} src={GuideScreen02} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -28,7 +28,7 @@ const AddStudentDetails = () => {
             “Add” button to register student.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen09} alt="" />
+            <img width={700} src={GuideScreen09} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -36,7 +36,7 @@ const AddStudentDetails = () => {
             Now you should be able to see registered student in the dropdown.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen10} alt="" />
+            <img width={700} src={GuideScreen10} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>

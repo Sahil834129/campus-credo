@@ -60,14 +60,15 @@ export default function GetTableRow({
 
   const validateField = (data, minApplicationDate, maxApplicationDate) => {
     let isValid = true;
+    console.log(data);
     const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "", seatsOpen: "" };
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
       if (data.vacantSeats === "") {
         errorsVal.vacantSeats = "Required";
         isValid = false;
-      } else if (data.vacantSeats === 0) {
-        errorsVal.vacantSeats = "Total seats must be > 0";
+      } else if (vacantSeats === 0) {
+        errorsVal.vacantSeats = "value must be > 0";
         isValid = false;
       } else if (vacantSeats > data.capacity) {
         isValid = false;
@@ -78,7 +79,7 @@ export default function GetTableRow({
         errorsVal.seatsOpen = "Required";
         isValid = false;
       } else if (seatsOpen === 0) {
-        errorsVal.seatsOpen = "Total seats must be > 0";
+        errorsVal.seatsOpen = "value must be > 0";
         isValid = false;
       } else if (seatsOpen > data.capacity) {
         isValid = false;
@@ -87,9 +88,9 @@ export default function GetTableRow({
       if (!data.formFee) {
         isValid = false;
         errorsVal.formFee = "Required";
-      } else if (parseInt(data.formFee) <= 0) {
+      } else if (parseInt(data.formFee) < 0) {
         isValid = false;
-        errorsVal.formFee = "Application Fees must be > 0";
+        errorsVal.formFee = "value must be > 0";
       }
       if (data.admissionType === "Fixed" && (!data.formSubmissionStartDate || !data.formSubmissionEndDate)) {
         isValid = false;
@@ -115,9 +116,9 @@ export default function GetTableRow({
       if (!data.registrationFee) {
         isValid = false;
         errorsVal.registrationFee = "Required";
-      } else if (parseInt(data.registrationFee) <= 0) {
+      } else if (parseInt(data.registrationFee) < 0) {
         isValid = false;
-        errorsVal.registrationFee = "Registration Fees must be > 0";
+        errorsVal.registrationFee = "value must be > 0";
       }
       setErros(errorsVal);
       return isValid;
@@ -156,7 +157,7 @@ export default function GetTableRow({
       if (postData?.admissionTestStartDate || postData?.personalInterviewStartDate) {
         postData.aTPI = true;
       }
-    } else if(postData?.at || postData?.pi) {
+    } else if (postData?.at || postData?.pi) {
       postData.aTPI = true;
     }
     delete postData?.isOpen;
@@ -192,6 +193,8 @@ export default function GetTableRow({
   const saveRowData = (rowData, index, selectedSession, minApplicationDate, maxApplicationDate) => {
     if (validateField(rowData, minApplicationDate, maxApplicationDate)) {
       handleSubmitData(rowData, index, selectedSession);
+    } else {
+      console.log(errors);
     }
   };
 
@@ -220,7 +223,7 @@ export default function GetTableRow({
   };
 
   const saveAvailableSeats = (vacantSeats, payloadData, index) => {
-    updateSeatClassAdmissionData({vacantSeats, classAdmissionInfoId: admissionData?.classAdmissionInfoId})
+    updateSeatClassAdmissionData({ vacantSeats, classAdmissionInfoId: admissionData?.classAdmissionInfoId })
       .then(val => {
         const saveData = fieldData.map((val, i) => {
           if (i === index) {
@@ -235,11 +238,12 @@ export default function GetTableRow({
           return { ...v };
         }));
         setFieldData(saveData.map(v => { return { ...v }; }));
+        toast.success("Seats are updated successfully");
       })
       .catch(error => {
         console.log(error);
         toast.error("Error: Not Able to update the Seats");
-      })
+      });
 
   };
 
@@ -266,7 +270,9 @@ export default function GetTableRow({
     // );
   }, [admissionData, admissionData.admissionType, sessionValue]);
 
-
+  useEffect(() => {
+    setErros([]);
+  }, [sessionValue]);
   return (
     <tr key={index}>
       <td>{admissionData.className}</td>
@@ -301,15 +307,15 @@ export default function GetTableRow({
               e.target.value,
               formData[index].admissionType
             );
-            
+
             const sessionYears = sessionValue.split('-');
-            const getFixedMaxDate = getSessionDate(31, 2, sessionYears[admissionData?.admissionType === 'Fixed' ? 0 : 1]);
+            const getFixedMaxDate = getSessionDate(31, 2, sessionYears[e.target.value === 'Fixed' ? 0 : 1]);
             const selectedDate = getSessionDate(31, 2, sessionYears[0] - 1);
             let getMinDate = selectedDate > new Date() ? selectedDate : new Date();
             setMinApplicationDate(getMinDate);
             setMaxApplicationDate(getFixedMaxDate);
             let rollingMinDate = (new Date(getMinDate));
-            rollingMinDate.setDate(rollingMinDate.getDate() + 1); 
+            rollingMinDate.setDate(rollingMinDate.getDate() + 1);
             handleData(
               setFieldData,
               `${index}.formSubmissionEndDate`,
@@ -321,6 +327,30 @@ export default function GetTableRow({
               `${index}.formSubmissionStartDate`,
               e.target.value === "Fixed" ? null : rollingMinDate,
               formData[index].formSubmissionStartDate
+            );
+            handleData(
+              setFieldData,
+              `${index}.admissionTestEndDate`,
+              '',
+              formData[index]?.admissionTestEndDate || ''
+            );
+            handleData(
+              setFieldData,
+              `${index}.admissionTestStartDate`,
+              '',
+              formData[index]?.admissionTestStartDate || ''
+            );
+            handleData(
+              setFieldData,
+              `${index}.personalInterviewStartDate`,
+              '',
+              formData[index]?.personalInterviewStartDate || ''
+            );
+            handleData(
+              setFieldData,
+              `${index}.personalInterviewEndDate`,
+              '',
+              formData[index]?.personalInterviewEndDate || ''
             );
           }}
           size='sm'>
@@ -359,7 +389,7 @@ export default function GetTableRow({
           name={`${index}.vacantSeats`}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
           value={admissionData?.vacantSeats || ''}
-          disabled={!isWritePermission || !admissionData?.isOpen }
+          disabled={!isWritePermission || !admissionData?.isOpen}
           required
           min="1"
           max={admissionData.capacity}
@@ -373,9 +403,11 @@ export default function GetTableRow({
             );
           }}
           onBlur={e => {
-            if(!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
-              saveAvailableSeats(e.target.value, admissionData, index)
-            }   
+            if (e.target.value > 0 ) {
+              if (!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
+                saveAvailableSeats(e.target.value, admissionData, index);
+              }
+            }
           }}
         />
         {errors?.vacantSeats && <span className="error-exception">{errors.vacantSeats}</span>}
@@ -510,11 +542,11 @@ export default function GetTableRow({
                 );
               }} />
           </>}
-      </td> 
+      </td>
       <td style={{ display: 'flex', justifyContent: 'center', flexDirection: (errors?.formFee ? 'column' : 'row') }}>
         <Form.Control
           size='sm'
-          min="1"
+          min="0"
           type='number'
           required
           onPaste={e => e.preventDefault()}
@@ -538,7 +570,7 @@ export default function GetTableRow({
           size='sm'
           type='number'
           required
-          min="1"
+          min="0"
           name={`${index}.registrationFee`}
           value={admissionData?.registrationFee || ''}
           disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
@@ -556,20 +588,20 @@ export default function GetTableRow({
         {errors?.registrationFee && <span className="error-exception">{errors.registrationFee}</span>}
       </td>
       <td className="action-cell">
-        <Save 
+        <Save
           onClick={() => {
-            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
-              saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate); 
-          }} 
+            if (!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)))
+              saveRowData(admissionData, index, sessionValue, minApplicationDate, maxApplicationDate);
+          }}
           style={{ cursor: "pointer" }}
         />
-        <Delete 
-          onClick={() => { 
-            if(!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))){
-              deleteRowData(admissionData, fieldData, sessionValue); 
-            } 
+        <Delete
+          onClick={() => {
+            if (!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
+              deleteRowData(admissionData, fieldData, sessionValue);
+            }
           }}
-          style={{ cursor: "pointer" }} 
+          style={{ cursor: "pointer" }}
         />
       </td>
     </tr>

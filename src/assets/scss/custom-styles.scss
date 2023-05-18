@@ -781,7 +781,8 @@ ul.list-group{
         align-items: center;
         color: rgba(0, 0, 0, 0.85);
         position: relative;
-        margin: 0 20px;
+        margin: 0 15px;
+        padding: 0px;
         &:first-child{
           padding-left: 0;
           margin-left: 0;
@@ -814,7 +815,7 @@ ul.list-group{
           background-size: contain;
           width: 12px;
           height: 12px;
-          left: -22px;
+          left: -20px;
           top: 4px;
         }
         &.active{
@@ -1596,6 +1597,13 @@ ul.list-group{
                   line-height: 18px;
                   color: #41285F;
                 }
+                .btn-wrapper{
+                  justify-content: flex-start;
+                  .locateonmap-btn{
+                    background: $darkgreen;
+                    border: 1px solid $darkgreen;
+                  }
+                }
                 h4{
                   font-style: normal;
                   font-weight: 500;
@@ -1882,11 +1890,11 @@ ul.list-group{
               }
                .school-basic-info{
                 display: grid;
-                grid-template-columns: 1fr 2fr;
+                grid-template-columns: .5fr 2fr;
                 .cell{
                   .image-wrapper{
-                    width: 294px;
-                    height: 294px;
+                    width: 204px;
+                    height: 204px;
                     background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
                     box-shadow: 0px 0px 4px rgb(0 0 0 / 4%);
                     border-radius: 6px;
@@ -1896,9 +1904,11 @@ ul.list-group{
                     justify-content: center;
                     border: 1px solid #efefef;
                     overflow: hidden;
+                    padding: 8px;
                     img{
-                      width: 224px;
+                      // width: 224px;
                       height: auto;
+                      width: 92%;
                     }
                   }
                   ul.list-group{
@@ -2500,7 +2510,7 @@ ul.list-group{
                         display: flex;
                         align-items: center;
                         align-content: center;
-                        height: 48px;
+                        height: 44px;
                         &.cancel{
                           background: $white;
                           border: 1px solid #E22445;
@@ -2513,6 +2523,7 @@ ul.list-group{
                         }
                       }
                     }
+                   
                   }
                 }
               }
@@ -4958,18 +4969,7 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
             margin: 0;
             padding: 0;
             flex-direction: column;
-            .declaration-wrapper{
-              display: flex;
-              flex-direction: column;
-              padding: 16px;
-              row-gap: 8px;
-              border-bottom: 1px solid rgba(65, 40, 95, 0.08);
-              label{
-                font-size: 15px;
-                color: #2d2d2d;
-                font-weight: 500;
-              }
-            }
+            
             .accordion{
               &.accordion-flush{
                 .accordion-item{
@@ -6357,6 +6357,23 @@ align-items: center;
     }
   }
 }
+.declaration-wrapper{
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  row-gap: 8px;
+  border-bottom: 1px solid rgba(65, 40, 95, 0.08);
+  label{
+    font-size: 14px;
+    color: #2d2d2d;
+    font-weight: 500;
+    .declaration-msg{
+      a{
+        color: $darkred;
+      }
+    }
+  }
+}
 .search-inner .wrapper .sc-gswNZR.iLjAXM{height: 280px; overflow-y: auto;}
 .not-found-wrapper{
   display: flex;
@@ -6500,6 +6517,22 @@ align-items: center;
   align-items: flex-end;
 }
 .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .profile-content .tab_btn_wrapper .tab-content .tab-pane .location-frm .button-wrap button.save.comn{}
+.map-inst-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  background: rgba(84, 155, 67, 0.04);
+  border: 1px dashed #549B43;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: $darkgreen;
+  svg {
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  }
+}
 .map-wrapper{position: relative;
   .map-search-txtfld{
     position: absolute;

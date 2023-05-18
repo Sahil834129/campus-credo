@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
-import GuideScreen01 from "../../assets/img/guide/screen-01.jpg";
-import GuideScreen02 from "../../assets/img/guide/screen-02.jpg";
-import GuideScreen03 from "../../assets/img/guide/screen-03.jpg";
-import GuideScreen04 from "../../assets/img/guide/screen-04.jpg";
-import GuideScreen05 from "../../assets/img/guide/screen-05.PNG";
-import GuideScreen06 from "../../assets/img/guide/screen-06.jpg";
-import GuideScreen07 from "../../assets/img/guide/screen-07.jpg";
-import GuideScreen08 from "../../assets/img/guide/screen-08.jpg";
+import GuideScreen01 from "../../assets/img/guide/A1.PNG";
+import GuideScreen02 from "../../assets/img/guide/A2.PNG";
+import GuideScreen03 from "../../assets/img/guide/A3.PNG";
+import GuideScreen04 from "../../assets/img/guide/A4.PNG";
+import GuideScreen05 from "../../assets/img/guide/A5.PNG";
+import GuideScreen06 from "../../assets/img/guide/A6.PNG";
+import GuideScreen07 from "../../assets/img/guide/A7.PNG";
+import GuideScreen08 from "../../assets/img/guide/A8.PNG";
 
 const ApplyToSchool = () => {
   useEffect(() => {
@@ -23,7 +23,7 @@ const ApplyToSchool = () => {
             Login to your CampusCredo Account
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen01} alt="" />
+            <img width={700} src={GuideScreen01} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -31,7 +31,7 @@ const ApplyToSchool = () => {
             Go to your dashboard. Click on “Manage Child” to add student details
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen02} alt="" />
+            <img width={700} src={GuideScreen02} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -40,7 +40,7 @@ const ApplyToSchool = () => {
             “Add” button to register student.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen03} alt="" />
+            <img width={700} src={GuideScreen03} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -50,7 +50,7 @@ const ApplyToSchool = () => {
             form.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen05} alt="" />
+            <img width={700} src={GuideScreen04} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -60,7 +60,7 @@ const ApplyToSchool = () => {
             multiple schools as you wish.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen04} alt="" />
+            <img width={700} src={GuideScreen05} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -72,7 +72,7 @@ const ApplyToSchool = () => {
             application.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen06} alt="" />
+            <img width={700} src={GuideScreen06} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -80,7 +80,7 @@ const ApplyToSchool = () => {
             Click on Cart to review selected schools and finalize payment.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen07} alt="" />
+            <img width={700} src={GuideScreen07} alt="" />
           </div>
         </ListGroup.Item>
         <ListGroup.Item as="li">
@@ -91,7 +91,7 @@ const ApplyToSchool = () => {
             applications from your dashboard.
           </span>
           <div className="guide-screen">
-            <img src={GuideScreen08} alt="" />
+            <img width={700} src={GuideScreen08} alt="" />
           </div>
         </ListGroup.Item>
       </ListGroup>
