@@ -156,7 +156,7 @@ const ReviewAdmissionDialog = ({
     downloadApplicationDocument(applicationId);
   }
 
-  const responseHandler =async (e) => {
+  const responseHandler = async (e) => {
     try {
       const response = await processOrderAfterPayment(e);
       console.log(response);
@@ -171,7 +171,7 @@ const ReviewAdmissionDialog = ({
       handleClose();
       toast.error("Payment is failed. Please try later");
     }
-  }
+  };
 
   async function placeOrder() {
     if (!(infoDeclarationAccepted && termsPolicyDeclarationAccepted)) {
@@ -195,6 +195,7 @@ const ReviewAdmissionDialog = ({
         'deviceUserAgent': window.navigator.userAgent
       };
       const response = await getPlaceOrder(payload);
+      handleClose();
       const paymentLinkDetails = JSON.parse(response.data.paymentLinkDetails);
       const flowConfig = {
         merchantId: paymentLinkDetails?.parameters?.mercid,
