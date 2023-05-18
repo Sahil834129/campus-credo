@@ -11,7 +11,7 @@ import NoRecordsFound from "../common/NoRecordsFound";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 import StringUtils from "../utils/StringUtils";
-import { getChildAge, humanize, isEmpty } from "../utils/helper";
+import { getChildAge, getIpAddress, humanize, isEmpty } from "../utils/helper";
 import {
   downloadApplicationDocument,
   downloadDocument,
@@ -173,11 +173,6 @@ const ReviewAdmissionDialog = ({
     }
   }
 
-  const getIpAddress = async () => {
-    const response = await fetch('https://ipapi.co/json/')
-    const data = await response.json()
-    return data.ip
-  };
 
   async function placeOrder() {
     if (!(infoDeclarationAccepted && termsPolicyDeclarationAccepted)) {
@@ -206,7 +201,7 @@ const ReviewAdmissionDialog = ({
         merchantId: paymentLinkDetails?.parameters?.mercid,
         bdOrderId: paymentLinkDetails?.parameters?.bdorderid  ,
         authToken: paymentLinkDetails?.headers?.authorization,
-        childWindow: true,
+        childWindow: false,
         retryCount: 3,
         prefs: {"payment_categories": ["nb", "upi"] }
 
