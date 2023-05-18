@@ -400,7 +400,8 @@ export const Pathnames =
     "/notFound",
     "/schools/:id",
     "/verifyPhone/:phone",
-    "/paymentFailed"
+    "/paymentFailed",
+    "/all-application"
   ];
 
 export const checkIfCityExists = (cities) => {
