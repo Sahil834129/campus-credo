@@ -215,6 +215,7 @@ const ReviewAdmissionDialog = ({
       console.log(config);
       window.loadBillDeskSdk(config);
     } catch (error) {
+      handleClose();
       console.log('Error', error);
       toast.error("Payment is failed. Please try later");
     }
