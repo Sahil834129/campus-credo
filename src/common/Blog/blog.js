@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Container from "react-bootstrap/esm/Container";
 import { Link } from "react-router-dom";
 import BlogThumbnail from "../../assets/img/blog-img/campuscredo-blog-pic.jpg";
+import cbsevsicse from "../../assets/img/blog-img/cbse-vs-icse.jpg";
 import Breadcrumbs from '../../common/Breadcrumbs';
 import Layout from "../../common/layout";
 
@@ -32,9 +33,26 @@ const Blog = () => {
                       />
                     </div>
                     <div className="blog-content">
-                      <div className="postedon">Apr 14, 2023,</div>
+                      <div className="postedon">April 14, 2023,</div>
                       <div className="blog-title">
                       7 Tips for Choosing the Best School for Your Child in 2023!
+                      </div>
+                    </div>
+                  </Link>
+                </ListGroup.Item>
+                <ListGroup.Item as="li">
+                  <Link className="" to="/blog/should-you-choose-cbse-or-icse-school-for-your-children">
+                    <div className="blog-thumb">
+                      <img
+                        src={cbsevsicse}
+                        alt=""
+                        className="card-article-image"
+                      />
+                    </div>
+                    <div className="blog-content">
+                      <div className="postedon">May 18, 2023,</div>
+                      <div className="blog-title">
+                      Should You Choose CBSE Or ICSE School For Your Children?
                       </div>
                     </div>
                   </Link>
