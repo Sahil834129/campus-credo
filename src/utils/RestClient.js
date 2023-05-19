@@ -13,6 +13,8 @@ export const injectStore = _store => {
 axios.defaults.baseURL = "https://api.escuelajs.co/api/"; //process.env.BASE_URL;
 //export const baseURL = "http://122.176.70.111:70";
 export const baseURL = "https://campus-credo-static-images.s3.ap-south-1.amazonaws.com/";
+export const campuscredoUrl = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com";
+
 export default class RESTClient {
   static async get(action, params) {
     return await axios.get(action, params);
@@ -67,7 +69,7 @@ axios.interceptors.request.use(async (config) => {
   // Do something before request is sent
   config.baseURL = "http://122.176.70.111:8095/api";
 
-  // config.baseURL = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com:8080/api";
+  //config.baseURL = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com:8080/api";
   // config.baseURL = "http://59.144.164.132:8080/api/"; //process.env.BASE_URL;
   //config.baseURL = "https://campuscredo.com:8443/api";
   const token = await getLocalData("token");
