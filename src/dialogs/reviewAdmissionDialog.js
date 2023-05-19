@@ -43,6 +43,7 @@ const ReviewAdmissionDialog = ({
   const [termsPolicyDeclarationAccepted, setTermsPolicyDeclarationAccepted] =
     useState(false);
   const [remarks, setRemarks] = useState([]);
+  const [checkoutButton, setCheckoutButton] = useState(false)
   const childAge = getChildAge(studentDetail.dateOfBirth);
 
   async function getChildProfile(childId) {
@@ -181,6 +182,7 @@ const ReviewAdmissionDialog = ({
     }
     const isProfileCompleted = studentDetail.profileCompleted ? true : false;
     if (!isProfileCompleted) {
+      setCheckoutButton(false)
       setAlertMessage(
         "Admission form is not complete, it must be complete to checkout."
       );
@@ -196,6 +198,7 @@ const ReviewAdmissionDialog = ({
       };
       const response = await getPlaceOrder(payload);
       handleClose();
+      setCheckoutButton(false)
       const paymentLinkDetails = JSON.parse(response.data.paymentLinkDetails);
       const flowConfig = {
         merchantId: paymentLinkDetails?.parameters?.mercid,
@@ -216,6 +219,7 @@ const ReviewAdmissionDialog = ({
       window.loadBillDeskSdk(config);
     } catch (error) {
       handleClose();
+      setCheckoutButton(false)
       console.log('Error', error);
       toast.error("Payment is failed. Please try later");
     }
@@ -701,9 +705,9 @@ const ReviewAdmissionDialog = ({
           <div className="btn-wrapper review-section-btn">
             <Button
               className="submit"
-              onClick={() => placeOrder()}
+              onClick={() => {setCheckoutButton(true); placeOrder()}}
               disabled={
-                !(infoDeclarationAccepted && termsPolicyDeclarationAccepted)
+                !(infoDeclarationAccepted && termsPolicyDeclarationAccepted && !checkoutButton)
               }
             >
               Checkout
