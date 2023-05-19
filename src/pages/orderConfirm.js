@@ -11,10 +11,11 @@ import { isEmpty } from "../utils/helper";
 
 const OrderConfirm = () => {
   const search = useLocation().search;
-  const orderType = new URLSearchParams(search).get("orderType");
-  const applications = JSON.parse(
-    new URLSearchParams(search).get("applications")
-  );
+  const param = new URLSearchParams(search).get("param");
+  const params = atob(param).split("&").map(val => {
+    const data = val.split("=");
+    return data[1];
+  });
   return (
     <Layout>
       <section className="content-area about-page">
@@ -29,19 +30,9 @@ const OrderConfirm = () => {
               <div className="boxed-content-area">
                 <i className="success-icon"></i>
                 <h2>Congratulations!</h2>
-                <h4>
-                  Your Applications :{" "}
-                  {applications.map((application, index) => (
-                    <span className="reg-num">
-                      {application +
-                        "" +
-                        (!isEmpty(applications[index + 1]) ? " " : "")}
-                    </span>
-                  ))}{" "} is Successfully Submitted</h4>
-                 
-                </div>
+                <h4>Your Applications :{params[1] || ""} is Successfully Submitted</h4>
+              </div>
             </section>
-           
           </Row>
         </Container>
       </section>
