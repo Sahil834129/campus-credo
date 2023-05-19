@@ -126,7 +126,7 @@ const PaymentHistory=() =>{
                                         }
                                     </tbody>) : <tbody className="" style={{ textAlign: "center" }}>
                                         <tr>
-                                            <td colspan="7">
+                                            <td colspan="8">
                                                 <div className='not-found-wrapper'>
                                                     <div className='title-wrap'>
                                                         <h4>No Record Found.</h4>

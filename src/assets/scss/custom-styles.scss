@@ -3191,6 +3191,11 @@ ul.list-group{
       &.bc-section{
         padding: 16px 0 0 0;
         .bc-col{
+          &.blog-bc{
+            .bc-main-wrap{
+              ol.breadcrumb{flex-wrap: nowrap;}
+            }
+          }
           .bc-main-wrap{
             border: none;
             .breadcrumb{border: none;}
