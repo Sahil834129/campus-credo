@@ -11,7 +11,6 @@ import { getIpAddress, getStatusLabel, humanize, isEmpty } from "../../utils/hel
 import RESTClient, { baseURL } from "../../utils/RestClient";
 import { downloadApplicationOnParentDashboard, registrationCheckout, processOrderAfterPayment } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
-// import AcceptRejectApplication from "./AcceptRejectApplication";
 import AcceptRejectApplication from "./AcceptRejectApplication";
 import RestEndPoint from "../../redux/constants/RestEndpoints";
 
@@ -19,6 +18,7 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 
 const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
+  const [acceptButton, setAcceptButton] = useState(false)
 
   async function downloadApplicationOnDashboard(applicationId) {
     downloadApplicationOnParentDashboard(applicationId);
@@ -61,6 +61,7 @@ const AppliedSchools = ({ application, setApplications }) => {
   };
 
   async function acceptApplication() {
+    setAcceptButton(true)
     try {
       const ip = await getIpAddress();
       const payload = {
@@ -87,9 +88,11 @@ const AppliedSchools = ({ application, setApplications }) => {
       };
       console.log(config);
       window.loadBillDeskSdk(config);
+      setAcceptButton(false)
     } catch (error) {
       console.log('Error', error);
       toast.error("Payment is failed. Please try later");
+      setAcceptButton(false)
     }
     // try {
     //   const response = await RESTClient.post(
