@@ -79,7 +79,7 @@ const BlogArticle1 = () => {
                     development. CBSE runs a bilingual curriculum in both Hindi
                     & English for learners' convenience. Students can also
                     access its learning materials via its official website
-                    <a href="https://www.cbse.gov.in/" target="_blank">https://www.cbse.gov.in/</a>   which is available in the same
+                    {" "} <a href="https://www.cbse.gov.in/" target="_blank">https://www.cbse.gov.in/</a>   which is available in the same
                     bilingual format. Furthermore, it conducts two arrays of
                     examinations, AISSE (All India Secondary School Examination)
                     for 10th standard boards and AISSCE (All India Senior School
