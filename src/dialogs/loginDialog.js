@@ -140,10 +140,13 @@ const LoginDialog = (props) => {
 
       const roles = response.data.roles;
       const isParent = roles.find((val) => val === DEFAULT_ROLES.PARENT);
-      dispatch(setIsAdmin(!isParent));
+      const isSuperAdmin = roles.find((val) => val === DEFAULT_ROLES.SUPER_ADMIN);
+      dispatch(setIsAdmin(isParent || isSuperAdmin ? false : true));
       if (isParent) {
         loadUserData();
         navigate("/userProfile");
+      } else if (isSuperAdmin) {
+        navigate("/all-application");
       } else {
         window.location.href = "/dashboard";
       }

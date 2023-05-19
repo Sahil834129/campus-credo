@@ -8,7 +8,8 @@ export const DEFAULT_ROLES = {
   SR_ADMISSION_MANAGER: "SR_ADMISSION_MANAGER",
   FEE_MANAGER: "FEE_MANAGER",
   SR_FEE_MANAGER: "SR_FEE_MANAGER",
-  PARENT: 'PARENT'
+  PARENT: "PARENT",
+  SUPER_ADMIN: "SUPER_ADMIN"
 };
 
 export const ADMIN_DASHBOARD_LINK = [
@@ -19,6 +20,9 @@ export const ADMIN_DASHBOARD_LINK = [
   { title: 'Manage User', url: '/manage-user', showsData: false }
 ];
 
+export const SUPER_ADMIN_LINK = [
+  {title: 'Supper Admin', url: '/all-application', showsData: true},
+]
 export const DATE_FORMAT = "DD/MM/yyyy";
 
 export const FILE_UPLOAD_ERROR = {

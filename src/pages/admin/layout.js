@@ -15,6 +15,7 @@ import Breadcrumbs from "../../common/Breadcrumbs";
 import {
   ADMIN_DASHBOARD_LINK,
   MANAGE_USER_PERMISSION,
+  SUPER_ADMIN_LINK,
 } from "../../constants/app";
 import {
   getLocalData,
@@ -47,6 +48,9 @@ export const Layout = ({
   };
 
   useEffect(() => {
+    if (getLocalData('roles') === 'SUPER_ADMIN'){
+      setAdminLink(SUPER_ADMIN_LINK)
+    } else
     setAdminLink(
       adminHeaderLink.filter(
         (val) => val?.isPermit !== MANAGE_USER_PERMISSION[1]
@@ -57,7 +61,7 @@ export const Layout = ({
       (val) =>
         val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url === pathname
     );
-    if (!data && pathname !== "/termsAndConditions") {
+    if (!data && pathname !== "/termsAndConditions" && pathname !== "/all-application") {
       navigate("/dashboard");
     }
   }, [adminHeaderLink]);
@@ -80,10 +84,10 @@ export const Layout = ({
         <div className="items-row">
           <div className="item-col brand-logo">
             <span className="subscriber-name subscriber-logo">
-              <Link to="/dashboard">
+              {getLocalData("schoolName") !== 'undefined' ? <Link to="/dashboard">
                 {getLocalData("schoolName")}
                 {/* <CampusLogo /> */}
-              </Link>
+              </Link>: ''}
             </span>
           </div>
           <div className="item-col">
