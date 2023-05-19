@@ -161,8 +161,9 @@ export function getPresentableRoleName(roleName) {
 }
 
 export function convertCamelCaseToPresentableText(str) {
-
-  if (str.includes('-')) {
+if(str.includes('should-you-choose-cbse-or-icse-school-for-your-children')) {
+  return 'Should You Choose CBSE Or ICSE School For Your Children'
+} else if (str.includes('-')) {
     let string = str.replaceAll("-", " ");
     return string
       .toLowerCase()
