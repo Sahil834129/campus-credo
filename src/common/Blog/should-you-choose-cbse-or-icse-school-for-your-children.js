@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import CbseVsIcsePic from "../../assets/img/blog-img/cbse-vs-icse.jpg";
 import Breadcrumbs from "../Breadcrumbs";
 import Layout from "../layout";
+import { campuscredoUrl } from "../../utils/RestClient";
 
 const BlogArticle1 = () => {
   return (
@@ -78,7 +79,7 @@ const BlogArticle1 = () => {
                     development. CBSE runs a bilingual curriculum in both Hindi
                     & English for learners' convenience. Students can also
                     access its learning materials via its official website
-                    https://www.cbse.gov.in/ which is available in the same
+                    {" "} <a href="https://www.cbse.gov.in/" target="_blank">https://www.cbse.gov.in/</a>   which is available in the same
                     bilingual format. Furthermore, it conducts two arrays of
                     examinations, AISSE (All India Secondary School Examination)
                     for 10th standard boards and AISSCE (All India Senior School
@@ -109,11 +110,11 @@ const BlogArticle1 = () => {
                     environment throughout. You can also check out its official
                     website for detailed knowledge via{" "}
                     <a
-                      href="https://www.cbse.gov.in/"
+                      href="https://cisce.org/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      https://www.cbse.gov.in/
+                      https://cisce.org/
                     </a>
                     . <br />
                     Furthermore, ICSE sets a strong base for learners to crack
@@ -205,7 +206,7 @@ const BlogArticle1 = () => {
                     daunting task for parents, CampusCredo has made it fully
                     effortless for everyone. You can easily find the right
                     institutes as per your requirements, apply to multiple
-                    schools at once and track statuses from www.campuscredo.com!{" "}
+                    schools at once and track statuses from <a href={campuscredoUrl}>www.campuscredo.com</a>!{" "}
                   </p>
                 </div>
 
