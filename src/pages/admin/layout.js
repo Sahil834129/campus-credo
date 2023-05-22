@@ -87,7 +87,7 @@ export const Layout = ({
               {getLocalData("schoolName") !== 'undefined' ? <Link to="/dashboard">
                 {getLocalData("schoolName")}
                 {/* <CampusLogo /> */}
-              </Link>: ''}
+              </Link> : <Link>Campus Credo Super Admin </Link>}
             </span>
           </div>
           <div className="item-col">

@@ -273,7 +273,11 @@ const AppliedSchools = ({ application, setApplications }) => {
 
 
             </div>
-
+            <div className="app-timeline-control">
+              <Link onClick={() => setShowTimeline((val) => !val)}>
+                <label>View Status timeline</label> <i className={'icons ' +  (showTimeline ? 'arrowdown-icon' : 'arrowright-icon')}></i>
+              </Link>
+            </div>
           </div>
           {showTimeline ? <ApplicationTimeline application={application} setApplications={setApplications} setShowTimeline={setShowTimeline} /> : ""}
         </div>

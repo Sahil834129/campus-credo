@@ -22,6 +22,10 @@ export const applicationfilterData = (data) => {
   return RESTClient.post(RestEndPoint.APPLICATION_FILTER_DATA, data);
 };
 
+export const superAdminApplicationfilterData = (data) => {
+  return RESTClient.post(RestEndPoint.SUPER_ADMIN_FILTER_DATA, data);
+};
+
 export const getSchoolAdmissinSummary = (currentSession) => {
   return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY + "/" + currentSession);
 };

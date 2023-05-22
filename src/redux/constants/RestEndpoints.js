@@ -51,6 +51,7 @@ const RestEndPoint = {
   REMOVE_ADMISSION_DATA: "/admission/removeClassAdmissionData",
   UPDATE_SEAT_ADMISSION_DATA: "/admission/classAdmissionData",
   APPLICATION_FILTER_DATA: "/admissionApplications/find",
+  SUPER_ADMIN_FILTER_DATA:"/superAdmin/find/allApplications",
   SCHOOL_ADMISSION_SUMMARY: "admission/application/schoolAdmissionSummary",
   SCHOOL_ADMISSION_FEE_SUMMARY: "dashboard/schoolAdmissionFeeSummary",
   RESET_PASSWORD: "user/resetPassword",
