@@ -17,6 +17,7 @@ const PaymentFailed = () => {
     return data[1];
   });
 
+  console.log(param, params);
   return (
     <Layout>
       <section className="content-area about-page">
@@ -32,7 +33,7 @@ const PaymentFailed = () => {
                 <i className="failed-icon"></i>
                 <h2>Error!</h2>
                 <h4>
-                  Payment Failed: {params[2] || ""} for applications :<span>{params[1] || ""}</span>
+                  Payment Failed: {params[2] || ""} for {params[0] === "APPLICATION_FORM" ? "order" : "application"} :<span>{params[1] || ""}</span>
                 </h4>
               </div>
             </section>
