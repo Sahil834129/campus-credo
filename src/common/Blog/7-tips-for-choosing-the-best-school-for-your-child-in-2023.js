@@ -209,18 +209,16 @@ const BlogArticle1 = () => {
 
                 <div className="social-share-link">
                   <a href="https://twitter.com/CampusCredo" target="_blank">
-                    Tweet Us
+                  <i class="icons twtUs-icon"></i> <span>Tweet Us</span>  
                   </a>
-                  --
                   <a
                     href="https://www.facebook.com/CampusCredo/"
                     target="_blank"
                   >
-                    Like Us
+                  <i class="icons fbLike-icon"></i> <span>Like Us</span> 
                   </a>
-                  --
                   <Link className="" to="/signUp">
-                    Join Us
+                  <i class="icons joinus-icon"></i> <span>Join Us</span>  
                   </Link>
                 </div>
                 <div className="blog-nav-wrapper">
