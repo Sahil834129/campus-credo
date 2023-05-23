@@ -241,8 +241,7 @@ export default function GetTableRow({
         toast.success("Seats are updated successfully");
       })
       .catch(error => {
-        console.log(error);
-        toast.error("Error: Not Able to update the Seats");
+        toast.error(error?.response?.data?.apierror?.message || "Error: Not Able to update the Seats");
       });
 
   };
