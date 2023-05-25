@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from "react-bootstrap";
+import { Pagination, Table } from "react-bootstrap";
 import { useMountedLayoutEffect, useRowSelect, useTable } from 'react-table';
 
 const CheckboxRender = React.forwardRef(
@@ -19,7 +19,18 @@ const CheckboxRender = React.forwardRef(
   }
 );
 
-function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelectedRowsChange }) {
+function TableComponent({ 
+  showSelectedAll,
+  data,
+  columns,
+  selectedRows,
+  onSelectedRowsChange,
+  isPagination=false,
+  setActivePage,
+  activePage,
+  totalRows,
+  filter
+}) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -57,14 +68,29 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
     }
   );
 
+  const getPaginationItems = () => {
+    const totalItems = Math.ceil(totalRows/10);
+    let items = [];
+    for (let number = 1; number <= totalItems; number++) {
+      items.push(
+        <Pagination.Item 
+          key={number} 
+          active={number === activePage}
+          onClick={() => setActivePage(number)}
+        >
+          {number}
+        </Pagination.Item>,
+      );
+    }
+    return items;
+  }
   useMountedLayoutEffect(() => {
     onSelectedRowsChange && onSelectedRowsChange(selectedRowIds);
   }, [onSelectedRowsChange, selectedRowIds]);
 
   return (
-    // <div className='inner-content-wrap'>
-      // <div className='table-wrapper'>
-        <Table striped {...getTableProps()}>
+    <>
+     <Table striped {...getTableProps()}>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr valign="middle" {...headerGroup.getHeaderGroupProps()} style={{ background: 'rgba(65, 40, 95, 0.06)', height: '60px' }}>
@@ -94,8 +120,14 @@ function TableComponent({ showSelectedAll, data, columns, selectedRows, onSelect
             )}
           </tbody>
         </Table>
-      // </div>
-    // </div>
+        {isPagination && (
+          <Pagination>
+            {
+              getPaginationItems()
+            }
+          </Pagination>
+        )}
+      </>
   );
 }
 export default TableComponent;

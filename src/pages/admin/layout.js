@@ -46,7 +46,6 @@ export const Layout = ({
   const handleLogout = () => {
     logout();
   };
-
   useEffect(() => {
     if (getLocalData('roles') === 'SUPER_ADMIN'){
       setAdminLink(SUPER_ADMIN_LINK)
@@ -57,7 +56,7 @@ export const Layout = ({
       )
     );
     let pathname = window.location.pathname;
-    const data = adminHeaderLink.find(
+    const data = (getLocalData('roles') === 'SUPER_ADMIN')? true :adminHeaderLink.find(
       (val) =>
         val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url === pathname
     );

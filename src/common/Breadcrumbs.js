@@ -30,11 +30,13 @@ const Breadcrumbs = () => {
           onClick={(e) => {
             if (currentRole === DEFAULT_ROLES.PARENT) {
               gotoHome(e, navigate);
+            }else if (currentRole === DEFAULT_ROLES.SUPER_ADMIN){
+              navigate("/all-application");
             }else{
               navigate("/dashboard");
             }
           }}>
-            {(currentRole && currentRole !== DEFAULT_ROLES.PARENT) ? "Admin" : "Home"}
+            {(currentRole && currentRole !== DEFAULT_ROLES.PARENT && currentRole !== DEFAULT_ROLES.SUPER_ADMIN) ? "Admin" : (currentRole === DEFAULT_ROLES.SUPER_ADMIN)? "Super Admin" : "Home"}
         </Breadcrumb.Item>
       )}
       {pathNestedRoutes.map((path, index) => {

@@ -3,7 +3,6 @@ import TableComponent from "../../../common/TableComponent"
 import moment from "moment";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../../constants/app"
 import { getStatusLabelForSchool } from "../../../utils/helper"
-import { resetSchoolAdminPassword, superAdminApplicationfilterData } from "../../../utils/services";
 import eyeFill from "../../../assets/img/eye-fill.svg"
 import ApplicationTimeline from "../../../components/userProfile/ApplicationTimeline";
 import Col from "react-bootstrap/Col";
@@ -11,7 +10,7 @@ import { Accordion } from "react-bootstrap";
 import GenericDialog from "../../../../src/dialogs/GenericDialog"
 
 
-const ShowSuperAdminApp = ({rowsData, setRowsData}) => {
+const ShowSuperAdminApp = ({rowsData, setActivePage, totalRows, activePage}) => {
   const [selectedRows, setSelectedRows] = useState({});
   const [showTimeLine, setShowTimeLIne] = useState(false)
   const [timeLineData, setTimeLineData] = useState({})
@@ -40,7 +39,7 @@ const ShowSuperAdminApp = ({rowsData, setRowsData}) => {
 
   const columns = [
     {
-      accessor: 'applicationId',
+      accessor: 'applicationNumber',
       Header: 'Application ID',
     },
     {
@@ -48,14 +47,9 @@ const ShowSuperAdminApp = ({rowsData, setRowsData}) => {
       Header: 'Applicant Name',
       Cell: ((e) => {
         return (
-          <a
-            href="#"
-            onClick={() => {
-              //   setShowApplication(true);
-              //   setSelectedApplicationId(e.row.original?.applicationId);
-            }}>
+          <div>
             <span style={{ color: '#41285F' }}>{`${e.row.original?.firstName} ${e.row.original?.lastName}`}</span>
-          </a>
+          </div>
         );
       })
     },
@@ -146,18 +140,7 @@ const ShowSuperAdminApp = ({rowsData, setRowsData}) => {
     setShowTimeLIne(!showTimeLine)
   }
 
-  const fetchRowData = () => {
-    const filterPayload = {};
-    const filter = []
-    filterPayload['filters'] = filter
-    superAdminApplicationfilterData(filterPayload)
-      .then(res => setRowsData(res.data))
-      .catch(err => console.log(err))
-  }
-
-  useEffect(() => {
-    fetchRowData();
-  },[])
+ 
 
   return (
     <>
@@ -169,6 +152,10 @@ const ShowSuperAdminApp = ({rowsData, setRowsData}) => {
             showSelectedAll={false}
             selectedRows={selectedRows}
             onSelectedRowsChange={setSelectedRows}
+            isPagination={true}
+            setActivePage={setActivePage} 
+            totalRows={totalRows} 
+            activePage={activePage}
           />
           <GenericDialog className="review-admission-modal add-child-model"
             show={showTimeLine}

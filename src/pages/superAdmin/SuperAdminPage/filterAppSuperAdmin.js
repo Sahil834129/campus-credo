@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 // import { superAdminValidation } from '../../../data/validationSchema';
 import { toast } from "react-toastify";
 import { OPERATORS } from "../../../constants/app"
-import { superAdminApplicationfilterData } from '../../../utils/services';
 import ReactDatePicker from 'react-datepicker';
 import { formatDateToDDMMYYYY } from '../../../utils/DateUtil';
 
-export const SuperAdminFilterApp = ({ rowsData, setRowsData }) => {
+const SuperAdminFilterApp = ({ fetchRowData }) => {
     const intialValue = {
         applicationDataId: '',
         firstName: '',
@@ -27,7 +26,7 @@ export const SuperAdminFilterApp = ({ rowsData, setRowsData }) => {
         setFirstName(intialValue.firstName)
         setLastName(intialValue.lastName)
         setDateRange(intialValue.dateRange)
-        handleApply(e)
+        fetchRowData()
     };
 
 
@@ -63,14 +62,7 @@ export const SuperAdminFilterApp = ({ rowsData, setRowsData }) => {
                 values: [formatDateToDDMMYYYY(startDate), formatDateToDDMMYYYY(endDate)]
             });
         }
-        filterPyaload['filters'] = filter;
-        superAdminApplicationfilterData(filterPyaload)
-            .then(response => {
-                setRowsData(response.data)
-                window.scrollTo(0, 0);
-
-            })
-            .catch(error => console.log(error))
+        fetchRowData(filter)
     }
 
     return (

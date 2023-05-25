@@ -40,6 +40,7 @@ const PageContent = {
   ],
   CUSTOM_LINK_TITLES: {
     "faqs":"FAQ's",
+    "all-application": "Application"
   },
   SOCIAL_MEDIA_LIST: [
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
