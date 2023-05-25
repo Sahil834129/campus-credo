@@ -44,7 +44,7 @@ function TableComponent({
       data,
       initialState: {
         selectedRowIds: selectedRows,
-        hiddenColumns: ['Manage Fees', 'Manage Application', 'Manage Admission', 'Manage User'].filter(val => manageModules.includes[val] === -1)
+        hiddenColumns: ['Manage Fees', 'Manage Application', 'Manage Admission', 'Manage User'].filter(val => !manageModules.includes(val))
       }
     },
     useRowSelect,
