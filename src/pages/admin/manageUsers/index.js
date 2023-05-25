@@ -279,6 +279,7 @@ export const ManageUsers = () => {
               </div>
               <div className='table-wrapper' >
                 <TableComponent
+                  manageModules={manageModules}
                   columns={column}
                   data={tableRowsData}
                   showSelectedAll={false}

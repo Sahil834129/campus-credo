@@ -29,7 +29,7 @@ function TableComponent({
   setActivePage,
   activePage,
   totalRows,
-  filter
+  manageModules = [],
 }) {
   const {
     getTableProps,
@@ -43,7 +43,8 @@ function TableComponent({
       columns,
       data,
       initialState: {
-        selectedRowIds: selectedRows
+        selectedRowIds: selectedRows,
+        hiddenColumns: ['Manage Fees', 'Manage Application', 'Manage Admission', 'Manage User'].filter(val => manageModules.includes[val] === -1)
       }
     },
     useRowSelect,

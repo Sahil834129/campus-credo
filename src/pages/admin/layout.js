@@ -229,15 +229,6 @@ export const Layout = ({
             </div>
             <div className="app-status-cell">
               <label className="lbl">
-                Declined{" "}
-                <span className="value text-danger">
-                  {admissionSummary?.declined || 0}
-                </span>
-              </label>{" "}
-              {/* {' | '} */}
-            </div>
-            <div className="app-status-cell">
-              <label className="lbl">
                 Accepted{" "}
                 <span className="value text-success">
                   {admissionSummary?.accepted || 0}{" "}

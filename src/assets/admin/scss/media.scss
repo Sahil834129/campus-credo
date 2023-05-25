@@ -403,7 +403,7 @@
 @media (max-width:1281px) { /* hi-res laptops and desktops */ 
     .tbl-grid-wrapper table {
        overflow-x: scroll;
-       grid-template-columns: minmax(100px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) minmax(90px, 1fr) minmax(100px, 1fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr);
+       grid-template-columns: minmax(100px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr);
     }
 }
 
