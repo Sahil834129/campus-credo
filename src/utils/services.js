@@ -95,6 +95,18 @@ export const updateApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_APPLICATION_STATUS, payload);
 };
 
+export const updateUserExcelData = (payload) => {
+  return RESTClient.post(RestEndPoint.UPDATE_USER_EXCEL_DATA, payload);
+};
+
+export const getSearchItems = () =>{
+  return RESTClient.get(RestEndPoint.GET_PARTNER_SCHOOL)
+}
+
+export const getUserData = (userSchoolId)=>{
+  return RESTClient.get(RestEndPoint.GET_SCHOOL_USERS+ `/${userSchoolId}`)
+}
+
 export const updateBulkApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_BULK_APPLICATION_STATUS, payload);
 };

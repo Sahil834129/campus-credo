@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from "react-bootstrap";
+import { Pagination, Table } from "react-bootstrap";
 import { useMountedLayoutEffect, useRowSelect, useTable } from 'react-table';
 
 const CheckboxRender = React.forwardRef(
@@ -19,7 +19,18 @@ const CheckboxRender = React.forwardRef(
   }
 );
 
-function TableComponent({ showSelectedAll, data, columns, manageModules = [], selectedRows, onSelectedRowsChange }) {
+function TableComponent({ 
+  showSelectedAll,
+  data,
+  columns,
+  selectedRows,
+  onSelectedRowsChange,
+  isPagination=false,
+  setActivePage,
+  activePage,
+  totalRows,
+  manageModules = [],
+}) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -58,45 +69,66 @@ function TableComponent({ showSelectedAll, data, columns, manageModules = [], se
     }
   );
 
+  const getPaginationItems = () => {
+    const totalItems = Math.ceil(totalRows/10);
+    let items = [];
+    for (let number = 1; number <= totalItems; number++) {
+      items.push(
+        <Pagination.Item 
+          key={number} 
+          active={number === activePage}
+          onClick={() => setActivePage(number)}
+        >
+          {number}
+        </Pagination.Item>,
+      );
+    }
+    return items;
+  }
   useMountedLayoutEffect(() => {
     onSelectedRowsChange && onSelectedRowsChange(selectedRowIds);
   }, [onSelectedRowsChange, selectedRowIds]);
 
   return (
-    // <div className='inner-content-wrap'>
-    // <div className='table-wrapper'>
-    <Table striped {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr valign="middle" {...headerGroup.getHeaderGroupProps()} style={{ background: 'rgba(65, 40, 95, 0.06)', height: '60px' }}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+    <>
+     <Table striped {...getTableProps()}>
+          <thead>
+            {headerGroups.map(headerGroup => (
+              <tr valign="middle" {...headerGroup.getHeaderGroupProps()} style={{ background: 'rgba(65, 40, 95, 0.06)', height: '60px' }}>
+                {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr valign="middle" {...row.getRowProps()} style={{ height: '60px' }}>
-              {row.cells.map(cell => {
-                return <td key={`column${i}`} {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-              })}
-            </tr>
-          );
-        })}
-        {rows.length === 0 && (
-          <tr valign="middle">
-            <td colSpan={columns.length + 1} style={{ textAlign: 'center' }}>
-              No Data found
-            </td>
-          </tr>
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr valign="middle" {...row.getRowProps()} style={{ height: '60px' }}>
+                  {row.cells.map(cell => {
+                    return <td key={`column${i}`} {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                  })}
+                </tr>
+              );
+            })}
+            {rows.length === 0 && (
+              <tr valign="middle">
+                <td colSpan={columns.length+1} style={{ textAlign: 'center' }}>
+                  No Data found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
+        {isPagination && (
+          <Pagination>
+            {
+              getPaginationItems()
+            }
+          </Pagination>
         )}
-      </tbody>
-    </Table>
-    // </div>
-    // </div>
+      </>
   );
 }
 export default TableComponent;

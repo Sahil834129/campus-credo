@@ -22,6 +22,7 @@ export const ADMIN_DASHBOARD_LINK = [
 
 export const SUPER_ADMIN_LINK = [
   {title: 'Application', url: '/all-application', showsData: true},
+  {title: 'Users', url: '/users', showsData: false},
 ]
 export const DATE_FORMAT = "DD/MM/yyyy";
 

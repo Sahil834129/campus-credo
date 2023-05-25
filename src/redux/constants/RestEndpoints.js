@@ -93,7 +93,10 @@ const RestEndPoint = {
   GET_PAYMENT_HISTORY: "payment/paymentHistory",
   ZIP_DOWNLOAD_APPLICATION: "/admissionApplications/zip/downloadApplications",
   PLACE_ORDER: "payment/placeOrder",
-  PROCESS_AFTER_PAYMENT: "payment/processOrderAfterPayment"
+  PROCESS_AFTER_PAYMENT: "payment/processOrderAfterPayment",
+  UPDATE_USER_EXCEL_DATA: "/superAdmin/uploadUserExcelData",
+  GET_PARTNER_SCHOOL: "/superAdmin/getAll/partnerSchools",
+  GET_SCHOOL_USERS:"/superAdmin/getSchoolUsers"
 };
 
 export default RestEndPoint;
