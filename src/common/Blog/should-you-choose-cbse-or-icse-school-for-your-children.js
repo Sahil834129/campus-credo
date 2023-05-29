@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import CbseVsIcsePic from "../../assets/img/blog-img/cbse-vs-icse.jpg";
 import Breadcrumbs from "../Breadcrumbs";
 import Layout from "../layout";
-import { campuscredoUrl } from "../../utils/RestClient";
 
 const BlogArticle1 = () => {
   return (
@@ -206,7 +205,7 @@ const BlogArticle1 = () => {
                     daunting task for parents, CampusCredo has made it fully
                     effortless for everyone. You can easily find the right
                     institutes as per your requirements, apply to multiple
-                    schools at once and track statuses from <a href={campuscredoUrl}>www.campuscredo.com</a>!{" "}
+                    schools at once and track statuses from <a href={"/"}>www.campuscredo.com</a>!{" "}
                   </p>
                 </div>
 
