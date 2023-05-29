@@ -157,7 +157,7 @@ export default function OpenModal({
                     size='sm'
                     type='text'
                     readOnly
-                    value={moment(atPiDate).format('DD/MM/yyyy h:mm a')}
+                    value={atPiDate ? moment(atPiDate).format('DD/MM/yyyy h:mm a'): ""}
                     placeholder='Select Date Range'
                   />
                   <ReactDatePicker

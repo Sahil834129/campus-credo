@@ -91,9 +91,7 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Application',
       Cell: ((e) => {
-        console.log("manageeeeeappp", e)
         const values = e?.row?.original?.manageApplication?.split(',');
-        console.log("values", values)
         return (
           <div className='item-cell' style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
             <ToggleSwitch
