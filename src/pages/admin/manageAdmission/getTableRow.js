@@ -67,8 +67,8 @@ export default function GetTableRow({
       if (data.vacantSeats === "") {
         errorsVal.vacantSeats = "Required";
         isValid = false;
-      } else if (vacantSeats === 0) {
-        errorsVal.vacantSeats = "value must be > 0";
+      } else if (vacantSeats < 0) {
+        errorsVal.vacantSeats = "value must be greater or equal to 0";
         isValid = false;
       } else if (vacantSeats > data.capacity) {
         isValid = false;

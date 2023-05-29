@@ -81,7 +81,7 @@ export const AddChildSchema = Yup.object().shape({
       "DOB",
       "Please select a valid date, age should be at least 2 years at 31st March current year and at most 20 years.",
       (value) => {
-        return value && value !== "" && getStudentAge(value) >= 2 &&  getStudentAge(value) <= 20 ;
+        return value && value !== "" && getStudentAge(value) >= 1 &&  getStudentAge(value) <= 20 ;
       }
     ),
 });

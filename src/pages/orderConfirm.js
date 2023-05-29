@@ -30,7 +30,7 @@ const OrderConfirm = () => {
               <div className="boxed-content-area">
                 <i className="success-icon"></i>
                 <h2>Congratulations!</h2>
-                <h4>Your Applications :{params[1] || ""} is Successfully Submitted</h4>
+                <h4>Your payment has been received for application no. {params[1] || ""}. You can view the details on the payment history page</h4>
               </div>
             </section>
           </Row>
