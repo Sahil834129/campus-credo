@@ -14,13 +14,14 @@ const SuperAdmin = () => {
   const [filter, setFilter] =useState([])
   const dispatch = useDispatch();
 
-  const fetchRowData = (filter =[], currentPage) => {
+  const fetchRowData = (filter = [], currentPage) => {
+    const pageNumber = currentPage - 1;
     console.log('filter', filter)
     showLoader(dispatch)
     const filterPayload = {};
     filterPayload['filters'] = filter;
     filterPayload['limit'] = 10;
-    filterPayload['offset'] = currentPage || 1;
+    filterPayload['offset'] = pageNumber || 0;
     superAdminApplicationfilterData(filterPayload)
       .then(res => {
         console.log(res.data)

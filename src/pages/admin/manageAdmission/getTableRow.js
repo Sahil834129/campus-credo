@@ -402,7 +402,7 @@ export default function GetTableRow({
             );
           }}
           onBlur={e => {
-            if (e.target.value > 0 ) {
+            if (e.target.value >= 0) {
               if (!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
                 saveAvailableSeats(e.target.value, admissionData, index);
               }

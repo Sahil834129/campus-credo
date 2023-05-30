@@ -93,7 +93,7 @@ const PageContent = {
     },
     {
       image: 'manage-fee.png',
-      title: 'Manage Fees',
+      title: 'Manage Fee',
       description:
         'Customize online fee collections as required to allow for secured payments'
     },
