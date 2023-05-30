@@ -147,7 +147,7 @@ export const ManageUsers = () => {
     },
     {
       accessor: '',
-      Header: 'Manage Fees',
+      Header: 'Manage Fee',
       Cell: ((e) => {
         return (
           <div className='item-cell' style={{ display: "flex", textAlign: "center", justifyContent: "center", paddingLeft: "10px" }}>
