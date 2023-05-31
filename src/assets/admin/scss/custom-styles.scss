@@ -814,6 +814,23 @@ ul.list-group {
       .filter-form-area {
         .form-element-group {
           margin-bottom: 16px;
+          .react-datepicker-wrapper{
+            .react-datepicker__input-container{input{padding: 8px; height: 42px;}}
+          }
+          .react-datepicker__tab-loop{
+            .react-datepicker-popper {
+              z-index: 2;
+              .react-datepicker{
+                .react-datepicker__month-container{
+                  .react-datepicker__month{
+                    .react-datepicker__week{
+                      .react-datepicker__day--keyboard-selected{background: #41285F;}
+                    }
+                  }
+                }
+              }
+            }
+          }
           label {
             font-style: normal;
             font-weight: 500;
