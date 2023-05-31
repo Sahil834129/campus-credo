@@ -40,7 +40,7 @@ const ShowSuperAdminApp = ({rowsData, setActivePage, totalRows, activePage}) => 
   const columns = [
     {
       accessor: 'applicationNumber',
-      Header: 'Application ID',
+      Header: 'Application Number',
     },
     {
       accessor: '',

@@ -201,8 +201,8 @@ export const getPlaceOrder = (payload) => {
   return RESTClient.post(RestEndPoint.PLACE_ORDER, payload);
 };
 
-export const processOrderAfterPayment = (payload) => {
-  return RESTClient.post(RestEndPoint.PROCESS_AFTER_PAYMENT, payload);
+export const processOrderAfterPayment = (payload, orderId) => {
+  return RESTClient.post(RestEndPoint.PROCESS_AFTER_PAYMENT + `?orderId=${orderId}`, payload);
 };  
 
 export const registrationCheckout = (payload) => {

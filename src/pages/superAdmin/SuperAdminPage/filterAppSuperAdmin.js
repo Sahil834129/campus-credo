@@ -36,9 +36,9 @@ const SuperAdminFilterApp = ({ fetchRowData }) => {
         const filter = []
         if (applicationDataId !== null && applicationDataId !== '') {
             filter.push({
-                field: 'applicationDataId',
-                operator: OPERATORS.IN,
-                values: [applicationDataId]
+                field: 'applicationNumber',
+                operator: OPERATORS.LIKE,
+                value: applicationDataId
             });
         }
         if (firstName !== null && firstName !== '') {
@@ -77,8 +77,8 @@ const SuperAdminFilterApp = ({ fetchRowData }) => {
             <div className='filter-form-area'>
                 <Form>
                     <Form.Group className='form-element-group' controlId=''>
-                        <Form.Label className='form-label'>application ID</Form.Label>
-                        <Form.Control type='number' className='inner-container' value={applicationDataId} onChange={(e) => setApplicationDataId(e.target.value)} />
+                        <Form.Label className='form-label'>Application Number</Form.Label>
+                        <Form.Control type='text' className='inner-container' value={applicationDataId} onChange={(e) => setApplicationDataId(e.target.value)} />
                     </Form.Group>
                     <Form.Group className='form-element-group' controlId=''>
                         <Form.Label className='form-label'>First Name</Form.Label>
@@ -89,7 +89,7 @@ const SuperAdminFilterApp = ({ fetchRowData }) => {
                         <input type='text' className='inner-container' value={lastName} onChange={(e) => setLastName(e.target.value)} />
                     </Form.Group>
                     <Form.Group className='form-element-group' controlId=''>
-                        <Form.Label className='form-label'>Submisiion Date</Form.Label>
+                        <Form.Label className='form-label'>Application Date</Form.Label>
                         <ReactDatePicker
                             selectsRange={true}
                             startDate={startDate}
