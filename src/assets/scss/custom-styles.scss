@@ -2723,10 +2723,11 @@ ul.list-group{
                           display: flex;
                           flex-direction: row;
                           .col-item{
-                            flex-grow: 1;
-                            flex-basis: 0;
-                            &.left{}
+                            // flex-grow: 1;
+                            // flex-basis: 0;
+                            &.left{width: 80%;}
                             &.right{
+                              width: 20%;
                               row-gap: 16px;
                               display: flex;
                               justify-content: space-between;

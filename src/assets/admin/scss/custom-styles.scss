@@ -23,6 +23,12 @@
   padding: 0;
   &.admin-contianer {
     .content-area {
+      &.user-supAdmin{
+        min-height: 74vh;
+        .navbar-header{
+          &.col{flex: 0 0;}
+        }
+      }
       padding: 0;
       .content-area-inner {
         &.dashboard-wrapper {
@@ -824,7 +830,7 @@ ul.list-group {
                 .react-datepicker__month-container{
                   .react-datepicker__month{
                     .react-datepicker__week{
-                      .react-datepicker__day--keyboard-selected{background: #41285F;}
+                      .react-datepicker__day--keyboard-selected{background: #41285F; color: #fff;}
                     }
                   }
                 }
