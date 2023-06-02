@@ -216,7 +216,7 @@ const AppliedSchools = ({ application, setApplications }) => {
 
                   <div className="moreinfo-block">
                     <div className="app-id">
-                      <label>Application Number : {application.applicationNumber}</label>
+                      <label>Application ID : {application.applicationNumber}</label>
                     </div>
                     <div className="row-item">
                       <span className="cell-item">Applied To Class:</span>
