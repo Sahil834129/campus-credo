@@ -52,6 +52,8 @@ const Users = () => {
             toast.error(error?.response?.data?.apierror?.message || "Something went wrong")
             setUploadStatus(false)
         }
+        fetchUserData(userSchoolId)
+        hideLoader(dispatch)
     }
 
     const fetchUserData = async (schoolId) => {

@@ -120,7 +120,7 @@ const PaymentHistory = () => {
                               <td>
                                 {order ? humanize(order.orderStatus) : ""}
                               </td>
-                              <td>{order ? humanize(order.orderType).replace('Admission git add .Form','Application Fee') : ""}</td>
+                              <td>{order ? humanize(order.orderType).replace('Admission Form','Application Fee') : ""}</td>
                               <td>
                                 {order?.totalAmount?.toLocaleString("en-IN", {
                                   maximumFractionDigits: 2,
