@@ -47,16 +47,16 @@ export const Layout = ({
     logout();
   };
   useEffect(() => {
-    if (getLocalData('roles') === 'SUPER_ADMIN'){
-      setAdminLink(SUPER_ADMIN_LINK)
+    if (getLocalData('roles') === 'SUPER_ADMIN') {
+      setAdminLink(SUPER_ADMIN_LINK);
     } else
-    setAdminLink(
-      adminHeaderLink.filter(
-        (val) => val?.isPermit !== MANAGE_USER_PERMISSION[1]
-      )
-    );
+      setAdminLink(
+        adminHeaderLink.filter(
+          (val) => val?.isPermit !== MANAGE_USER_PERMISSION[1]
+        )
+      );
     let pathname = window.location.pathname;
-    const data = (getLocalData('roles') === 'SUPER_ADMIN')? true :adminHeaderLink.find(
+    const data = (getLocalData('roles') === 'SUPER_ADMIN') ? true : adminHeaderLink.find(
       (val) =>
         val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url === pathname
     );
@@ -220,12 +220,20 @@ export const Layout = ({
           <div className="application-status status-block">
             <div className="app-status-cell">
               <label className="lbl">
+                Total Approved{" "}
+                <span className="value text-success">
+                  {admissionSummary?.totalApproved || 0}
+                </span>
+              </label>{" "}
+            </div>
+            <div className="app-status-cell">
+
+              <label className="lbl">
                 Approved{" "}
                 <span className="value text-success">
                   {admissionSummary?.approved || 0}
                 </span>
               </label>{" "}
-              {/* {' | '} */}
             </div>
             <div className="app-status-cell">
               <label className="lbl">
@@ -237,7 +245,7 @@ export const Layout = ({
             </div>
             <div className="app-status-cell">
               <label className="lbl">
-                Declined{" "}
+                Application Declined{" "}
                 <span className="value text-danger">
                   {admissionSummary?.declined || 0}
                 </span>

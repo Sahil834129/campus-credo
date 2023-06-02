@@ -81,7 +81,7 @@ const AppliedSchools = ({ application, setApplications }) => {
         authToken: paymentLinkDetails?.headers?.authorization,
         childWindow: false,
         retryCount: 3,
-        prefs: { "payment_categories": ["nb", "upi"] }
+        prefs: { "payment_categories": ["nb", "upi", "card", "wallets", "qr", "gpay"] }
 
       };
       const config = {
