@@ -4959,16 +4959,19 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
             padding: 24px;
             font-size: 16px;
             font-weight: 600;
+            padding-bottom: 0px;
+            position: relative;
             h2{
               font-size: 20px;
               margin: 0;
             }
             button.btn-close{
+              position: absolute;
               display: flex;
               padding: 0;
               margin: 0;
-              top: 0;
-              right: 0;
+              top: 17px;
+              right: 20px;
             }
           }
           .modal-body{
@@ -5175,6 +5178,111 @@ box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
                     }
                     &.show{
                       
+                    }
+                  }
+                }
+              }
+              .accordion-item{
+                border: none;
+                border-bottom: 1px solid #dadada;
+                .accordion-body{
+                  padding: 0px 1.25rem;
+                  .right{
+                    .application-block{
+                      .application-row{
+                        margin: 24px 0;
+                        padding: 0 0 16px;
+                        .timeline-wrapper{
+                          background: #fff;
+                          border: 1px solid rgba(0,0,0,.16);
+                          border-radius: 6px;
+                          box-shadow: 2px 11px 58px 0 rgba(0,0,0,.11);
+                          display: flex;
+                          flex-direction: column;
+                          margin-top: 16px;
+                          padding: 0;
+                          .title-wrap{
+                            border-bottom: 1px solid rgba(0,0,0,.08);
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            padding: 16px 24px;
+                            h2 {
+                              color: #000;
+                              font-size: 16px;
+                              font-style: normal;
+                              font-weight: 700;
+                              letter-spacing: .01em;
+                              line-height: 24px;
+                          }                            
+                          }    
+                          .timeline-list{
+                            display: flex;
+                            padding: 16px 24px;
+                            width: 100%;  
+                            .timeline-info-panel{
+                              display: grid;
+                              grid-template-columns: 1fr;
+                              margin: 0;
+                              padding: 0;
+                              width: 100%;     
+                              .timeline-row {
+                                grid-column-gap: 24px;
+                                align-items: center;
+                                -webkit-column-gap: 24px;
+                                column-gap: 24px;
+                                display: grid;
+                                font-size: 14px;
+                                grid-template-columns: 160px 16px 1fr;
+                                justify-content: start;
+                                margin-bottom: 8px;
+                                position: relative;
+                                &:last-child{
+                                  .indicator:before {
+                                    background: none;
+                                }
+                                }
+                                .date {
+                                  color: #41285f;
+                                  font-size: 14px;
+                                  font-style: normal;
+                                  font-weight: 600;
+                                  line-height: 24px;
+                                  text-align: right;
+                              }
+                              .indicator {
+                                align-items: center;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                position: relative;
+                                &::before{
+                                  background: rgba(0,0,0,.06);
+                                  content: " ";
+                                  display: block;
+                                  height: 40px;
+                                  left: 8px;
+                                  margin-top: 0;
+                                  position: absolute;
+                                  top: 4px;
+                                  width: 1px;
+                              }
+                              .indiShape.circle {
+                                display: flex;
+                                &.circle {
+                                  background: #fff;
+                                  border: 2px solid #1890ff;
+                                  border-radius: 100px;
+                                  height: 10px;
+                                  width: 10px;
+                              }
+                            }
+                            }
+                            }                         
+                            }                          
+                          }                      
+                        }                        
+                      }
                     }
                   }
                 }

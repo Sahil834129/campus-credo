@@ -160,7 +160,7 @@ const ShowSuperAdminApp = ({rowsData, setActivePage, totalRows, activePage}) => 
           <GenericDialog className="review-admission-modal add-child-model"
             show={showTimeLine}
             handleClose={() => setShowTimeLIne(false)}
-            modalHeader="."
+            modalHeader=""
           >
             <Accordion >
               <Accordion.Item>
