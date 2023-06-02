@@ -181,9 +181,9 @@ export function gotoHome(e, navigate) {
   navigate(isLoggedIn() ? "/userProfile" : "/");
 }
 
-export function getStudentAge(dateOfBirth) {
+export function getStudentAge(dateOfBirth, isMonth=false) {
   const baseDate = moment().set("date", 31).set("month", 2);
-  return baseDate.diff(moment(dateOfBirth, getDefaultDateFormat()), "years");
+  return baseDate.diff(moment(dateOfBirth, getDefaultDateFormat()), isMonth ? "months": "years");
 }
 
 export function getAge(dateOfBirth) {
