@@ -1,4 +1,13 @@
 @media screen and (max-width: 650px) { 
+    .application-form-wrap .currentschoolinfo-row .currentschoolinfo-cell label.lbl{
+        margin-right: 0px;
+    }
+    .application-form-wrap .currentschoolinfo-row .currentschoolinfo-cell {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 8px;
+        row-gap: 8px;
+    }
     .main-container .form-content-wrapper{}
     .main-container .content-area { 
         padding-top: 80px; 
@@ -115,7 +124,6 @@
     }
     .signin-model{
         &.modal{
-            padding: 0 !important;
             .modal-dialog{
                 width: 100%;
                 max-width: 100%;

@@ -77,7 +77,7 @@ const SuperAdminFilterApp = ({ fetchRowData }) => {
             <div className='filter-form-area'>
                 <Form>
                     <Form.Group className='form-element-group' controlId=''>
-                        <Form.Label className='form-label'>Application Number</Form.Label>
+                        <Form.Label className='form-label'>Application ID</Form.Label>
                         <Form.Control type='text' className='inner-container' value={applicationDataId} onChange={(e) => setApplicationDataId(e.target.value)} />
                     </Form.Group>
                     <Form.Group className='form-element-group' controlId=''>

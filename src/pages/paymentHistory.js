@@ -4,7 +4,7 @@ import { Col, Container, Row, Table } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { ReactComponent as DownloadIconRed } from "../assets/img/icons/download-red.svg";
+import { ReactComponent as DownloadIconRed } from "../assets/img/icons/download-grey.svg";
 import { ReactComponent as DownloadIcon } from "../assets/img/icons/download.svg";
 import Breadcrumbs from "../common/Breadcrumbs";
 import LeftMenuBar from "../common/LeftMenuBar";
@@ -120,7 +120,7 @@ const PaymentHistory = () => {
                               <td>
                                 {order ? humanize(order.orderStatus) : ""}
                               </td>
-                              <td>{order ? humanize(order.orderType) : ""}</td>
+                              <td>{order ? humanize(order.orderType).replace('Admission git add .Form','Application Fee') : ""}</td>
                               <td>
                                 {order?.totalAmount?.toLocaleString("en-IN", {
                                   maximumFractionDigits: 2,

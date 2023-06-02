@@ -59,7 +59,7 @@ export default function ShowApplications({ setApplicationStatus, isAtPiData, set
   const columns = [
     {
       accessor: 'applicationNumber',
-      Header: 'Application Number',
+      Header: 'Application ID',
     },
     {
       accessor: '',

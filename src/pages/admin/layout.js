@@ -152,7 +152,7 @@ export const Layout = ({
           )}
         </Navbar.Collapse>
       </Navbar>
-      <div className="content-area">
+      <div className="content-area user-supAdmin">
         <div className="title-kpi-wrapper">
           <Breadcrumbs />
           {/* <Breadcrumb className='bc-nav'>
