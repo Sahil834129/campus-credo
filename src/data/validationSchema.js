@@ -384,13 +384,13 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   dateOfBirth: Yup.string().required("Required *"),
   annualFamilyIncome: Yup.string()
     .required("Required *")
-    .matches(/^(?!0+(?:\.0+)?$)[0-9]+(?:\.[0-9]+)?$/gm, {
+    .matches(/[0-9]+(?:\.[0-9]+)?$/gm, {
       message: "Please enter valid income.",
       excludeEmptyString: true,
     })
     .test("maxGuardianFamilyIncomeCheck", 
-    "Please enter valid income between 0 to 5000000.",
-    val => (val === '' || (parseInt(val) > 0 && parseInt(val) <= 5000000))
+    "Please enter valid income.",
+    val => (val === '' || (parseInt(val) >= 0))
     ),
   addressLine1: Yup.string().when("isAddressSameAsStudent", {
     is: (val) => val && val === "No",
