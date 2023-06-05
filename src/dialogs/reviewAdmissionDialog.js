@@ -160,14 +160,14 @@ const ReviewAdmissionDialog = ({
   const responseHandler = async (e, orderId) => {
     try {
       const formData = new FormData();
-      formData.append('response', e);
+      formData.append('response', JSON.stringify(e));
       const response = await processOrderAfterPayment(formData, orderId);
       console.log(response);
       navigate(`/paymentFailed?${response.data}`)
     } catch (e) {
       console.log(e);
       handleClose();
-      toast.error("Payment is failed. Please try later");
+      toast.error("Payment Cancelled");
     }
   };
 
