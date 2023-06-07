@@ -47,6 +47,24 @@
         margin-left: 5px;
         top: 3px;
     }
+    .blog-main-wrapper .blog-content-wrap .blog-article-wrapper .social-share-link {
+        padding: 30px 0 30px 0;
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 8px;
+        a{
+            justify-content: center;
+        }
+    }
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item.left {
+        width: auto;
+    }
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item.right {
+        width: auto;
+    }
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .school-name {
+        text-align: center;
+    }
 }
 
 @media (max-width: 375px){
@@ -97,6 +115,15 @@
     }
 }
 @media (min-width: 768px) and (max-width: 991px){
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item.left {
+        width: 78%;
+    }
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .application-row .application-inner-wrap .col-item.right {
+        width: 22%;
+    }
+    .content-area .content-area-inner.profile-page-wrap .inner-page-content .content-section.profile-content-main .col.right.content .row-items.application-block .col-item .school-info-main .school-info-exerpts .school-name {
+        width: 413px;
+    }
     .blog-main-wrapper{
         .blog-content-wrap{
           ul.blog-list{

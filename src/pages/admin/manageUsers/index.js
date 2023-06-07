@@ -91,9 +91,7 @@ export const ManageUsers = () => {
       accessor: '',
       Header: 'Manage Application',
       Cell: ((e) => {
-        console.log("manageeeeeappp", e)
         const values = e?.row?.original?.manageApplication?.split(',');
-        console.log("values", values)
         return (
           <div className='item-cell' style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
             <ToggleSwitch
@@ -149,7 +147,7 @@ export const ManageUsers = () => {
     },
     {
       accessor: '',
-      Header: 'Manage Fees',
+      Header: 'Manage Fee',
       Cell: ((e) => {
         return (
           <div className='item-cell' style={{ display: "flex", textAlign: "center", justifyContent: "center", paddingLeft: "10px" }}>
@@ -279,6 +277,7 @@ export const ManageUsers = () => {
               </div>
               <div className='table-wrapper' >
                 <TableComponent
+                  manageModules={manageModules}
                   columns={column}
                   data={tableRowsData}
                   showSelectedAll={false}

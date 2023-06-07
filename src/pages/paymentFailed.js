@@ -11,44 +11,34 @@ import { isEmpty } from "../utils/helper";
 
 const PaymentFailed = () => {
   const search = useLocation().search;
-  const orderType = new URLSearchParams(search).get("orderType");
-  const applications = JSON.parse(
-    new URLSearchParams(search).get("applications")
-  );
+  const param = new URLSearchParams(search).get("param");
+  const params = atob(param).split("&").map(val => {
+    const data = val.split("=");
+    return data[1];
+  });
 
+  console.log(param, params);
   return (
     <Layout>
       <section className="content-area about-page">
-      <Container className="content-area-inner inner-page-container">
-        <Row className="content-section bc-section">
-          <Col className="bc-col">
-            <Breadcrumbs />
-          </Col>
-        </Row>
-        <Row className="content-section about-content-main">
+        <Container className="content-area-inner inner-page-container">
+          <Row className="content-section bc-section">
+            <Col className="bc-col">
+              <Breadcrumbs />
+            </Col>
+          </Row>
+          <Row className="content-section about-content-main">
             <section className="contact-section-wrapper">
               <div className="boxed-content-area payment-failed">
                 <i className="failed-icon"></i>
                 <h2>Error!</h2>
-                <h4>
-                  Opps, Something went wrong, Payment failed for applications :{" "}
-                  {/* {applications.map((application, index) => (
-                    <span className="reg-num">
-                      {application +
-                        "" +
-                        (!isEmpty(applications[index + 1]) ? " " : "")}
-                    </span>
-                  ))}{" "} */}
-                 <span className="reg-num">
-                      {applications }
-                      
-                    </span>
-
+                <h4> 
+                Your payment has failed for {params[0] === "ADMISSION_FORM" ? "order" : "application"} no. {params[1] || ""}. You can view the details on the payment history page.
                 </h4>
               </div>
             </section>
-        </Row>
-          
+          </Row>
+
         </Container>
       </section>
     </Layout>

@@ -79,9 +79,9 @@ export const AddChildSchema = Yup.object().shape({
     .required("Required *")
     .test(
       "DOB",
-      "Please select a valid date, age should be at least 2 years at 31st March current year and at most 20 years.",
+      "Please select a valid date, age should be at least 1 year and 6 months at 31st March current year and at most 20 years.",
       (value) => {
-        return value && value !== "" && getStudentAge(value) >= 2 &&  getStudentAge(value) <= 20 ;
+        return value && value !== "" && getStudentAge(value, true) >= 18 &&  getStudentAge(value) <= 20 ;
       }
     ),
 });
@@ -384,13 +384,13 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   dateOfBirth: Yup.string().required("Required *"),
   annualFamilyIncome: Yup.string()
     .required("Required *")
-    .matches(/^(?!0+(?:\.0+)?$)[0-9]+(?:\.[0-9]+)?$/gm, {
+    .matches(/[0-9]+(?:\.[0-9]+)?$/gm, {
       message: "Please enter valid income.",
       excludeEmptyString: true,
     })
     .test("maxGuardianFamilyIncomeCheck", 
-    "Please enter valid income between 0 to 5000000.",
-    val => (val === '' || (parseInt(val) > 0 && parseInt(val) <= 5000000))
+    "Please enter valid income.",
+    val => (val === '' || (parseInt(val) >= 0))
     ),
   addressLine1: Yup.string().when("isAddressSameAsStudent", {
     is: (val) => val && val === "No",

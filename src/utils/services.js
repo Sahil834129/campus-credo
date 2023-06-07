@@ -22,6 +22,10 @@ export const applicationfilterData = (data) => {
   return RESTClient.post(RestEndPoint.APPLICATION_FILTER_DATA, data);
 };
 
+export const superAdminApplicationfilterData = (data) => {
+  return RESTClient.post(RestEndPoint.SUPER_ADMIN_FILTER_DATA, data);
+};
+
 export const getSchoolAdmissinSummary = (currentSession) => {
   return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY + "/" + currentSession);
 };
@@ -90,6 +94,18 @@ export const getClassApplication = (classId, sessionValue) => {
 export const updateApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_APPLICATION_STATUS, payload);
 };
+
+export const updateUserExcelData = (payload) => {
+  return RESTClient.post(RestEndPoint.UPDATE_USER_EXCEL_DATA, payload);
+};
+
+export const getSearchItems = () =>{
+  return RESTClient.get(RestEndPoint.GET_PARTNER_SCHOOL)
+}
+
+export const getUserData = (userSchoolId)=>{
+  return RESTClient.get(RestEndPoint.GET_SCHOOL_USERS+ `/${userSchoolId}`)
+}
 
 export const updateBulkApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_BULK_APPLICATION_STATUS, payload);
@@ -181,3 +197,14 @@ export const getApplications = async (childId) => {
   return RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`);
 };
  
+export const getPlaceOrder = (payload) => {
+  return RESTClient.post(RestEndPoint.PLACE_ORDER, payload);
+};
+
+export const processOrderAfterPayment = (payload, orderId) => {
+  return RESTClient.post(RestEndPoint.PROCESS_AFTER_PAYMENT + `?orderId=${orderId}`, payload);
+};  
+
+export const registrationCheckout = (payload) => {
+  return RESTClient.post(RestEndPoint.REGISTRATION_CHECKOUT, payload);
+};

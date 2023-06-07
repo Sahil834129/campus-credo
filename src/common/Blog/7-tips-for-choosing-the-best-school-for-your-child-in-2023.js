@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import ArticleFeaturedImg from "../../assets/img/blog-img/campuscredo-blog-pic.jpg";
 import Breadcrumbs from "../Breadcrumbs";
 import Layout from "../layout";
-import  {campuscredoUrl}  from "../../utils/RestClient";
 
 const BlogArticle1 = () => {
   return (
@@ -181,7 +180,7 @@ const BlogArticle1 = () => {
                   </ul>
                   <hr></hr>
                   <strong>
-                    <u><a href={campuscredoUrl+"/schools"} style={{color: 'black'}}>CampusCredo: Going Paperless For School Admission</a>!</u>
+                    <u><a href={"/schools"} style={{color: 'black'}}>CampusCredo: Going Paperless For School Admission</a>!</u>
                   </strong>
                   <p>
                     We hope that the above-mentioned tips & tricks will help you
@@ -209,18 +208,16 @@ const BlogArticle1 = () => {
 
                 <div className="social-share-link">
                   <a href="https://twitter.com/CampusCredo" target="_blank">
-                    Tweet Us
+                  <i class="icons twtUs-icon"></i> <span>Tweet Us</span>  
                   </a>
-                  --
                   <a
                     href="https://www.facebook.com/CampusCredo/"
                     target="_blank"
                   >
-                    Like Us
+                  <i class="icons fbLike-icon"></i> <span>Like Us</span> 
                   </a>
-                  --
                   <Link className="" to="/signUp">
-                    Join Us
+                  <i class="icons joinus-icon"></i> <span>Join Us</span>  
                   </Link>
                 </div>
                 <div className="blog-nav-wrapper">

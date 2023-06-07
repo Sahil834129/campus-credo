@@ -78,7 +78,7 @@ export default function SeatsFeesGraph({ sessionValue }) {
                                 midNumberText={accepetedPercentsage + '%'}
                                 midTextFirst={'Application'}
                                 midTextSecond={'Fees'}
-                                totalRemainngData={`${feesSummary?.projectedApplicationFee || 0}`}
+                                totalRemainngData={`₹ ${(feesSummary?.projectedApplicationFee || 0).toLocaleString('en-IN')}`}
                                 totalRemainng="Projected Application Fees"
                             />
                         </td>

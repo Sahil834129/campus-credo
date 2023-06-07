@@ -15,6 +15,7 @@ import Breadcrumbs from "../../common/Breadcrumbs";
 import {
   ADMIN_DASHBOARD_LINK,
   MANAGE_USER_PERMISSION,
+  SUPER_ADMIN_LINK,
 } from "../../constants/app";
 import {
   getLocalData,
@@ -45,19 +46,21 @@ export const Layout = ({
   const handleLogout = () => {
     logout();
   };
-
   useEffect(() => {
-    setAdminLink(
-      adminHeaderLink.filter(
-        (val) => val?.isPermit !== MANAGE_USER_PERMISSION[1]
-      )
-    );
+    if (getLocalData('roles') === 'SUPER_ADMIN') {
+      setAdminLink(SUPER_ADMIN_LINK);
+    } else
+      setAdminLink(
+        adminHeaderLink.filter(
+          (val) => val?.isPermit !== MANAGE_USER_PERMISSION[1]
+        )
+      );
     let pathname = window.location.pathname;
-    const data = adminHeaderLink.find(
+    const data = (getLocalData('roles') === 'SUPER_ADMIN') ? true : adminHeaderLink.find(
       (val) =>
         val?.isPermit !== MANAGE_USER_PERMISSION[1] && val.url === pathname
     );
-    if (!data && pathname !== "/termsAndConditions") {
+    if (!data && pathname !== "/termsAndConditions" && pathname !== "/all-application") {
       navigate("/dashboard");
     }
   }, [adminHeaderLink]);
@@ -80,10 +83,10 @@ export const Layout = ({
         <div className="items-row">
           <div className="item-col brand-logo">
             <span className="subscriber-name subscriber-logo">
-              <Link to="/dashboard">
+              {getLocalData("schoolName") !== 'undefined' ? <Link to="/dashboard">
                 {getLocalData("schoolName")}
                 {/* <CampusLogo /> */}
-              </Link>
+              </Link> : <Link>Campus Credo Super Admin </Link>}
             </span>
           </div>
           <div className="item-col">
@@ -149,7 +152,7 @@ export const Layout = ({
           )}
         </Navbar.Collapse>
       </Navbar>
-      <div className="content-area">
+      <div className="content-area user-supAdmin">
         <div className="title-kpi-wrapper">
           <Breadcrumbs />
           {/* <Breadcrumb className='bc-nav'>
@@ -217,21 +220,20 @@ export const Layout = ({
           <div className="application-status status-block">
             <div className="app-status-cell">
               <label className="lbl">
+                Total Approved{" "}
+                <span className="value text-success">
+                  {admissionSummary?.totalApproved || 0}
+                </span>
+              </label>{" "}
+            </div>
+            <div className="app-status-cell">
+
+              <label className="lbl">
                 Approved{" "}
                 <span className="value text-success">
                   {admissionSummary?.approved || 0}
                 </span>
               </label>{" "}
-              {/* {' | '} */}
-            </div>
-            <div className="app-status-cell">
-              <label className="lbl">
-                Declined{" "}
-                <span className="value text-danger">
-                  {admissionSummary?.declined || 0}
-                </span>
-              </label>{" "}
-              {/* {' | '} */}
             </div>
             <div className="app-status-cell">
               <label className="lbl">
@@ -243,7 +245,7 @@ export const Layout = ({
             </div>
             <div className="app-status-cell">
               <label className="lbl">
-                Declined{" "}
+                Application Declined{" "}
                 <span className="value text-danger">
                   {admissionSummary?.declined || 0}
                 </span>

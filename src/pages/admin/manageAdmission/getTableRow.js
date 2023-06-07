@@ -67,7 +67,7 @@ export default function GetTableRow({
       if (data.vacantSeats === "") {
         errorsVal.vacantSeats = "Required";
         isValid = false;
-      } else if (vacantSeats === 0) {
+      } else if (vacantSeats < 0) {
         errorsVal.vacantSeats = "value must be > 0";
         isValid = false;
       } else if (vacantSeats > data.capacity) {
@@ -241,8 +241,7 @@ export default function GetTableRow({
         toast.success("Seats are updated successfully");
       })
       .catch(error => {
-        console.log(error);
-        toast.error("Error: Not Able to update the Seats");
+        toast.error(error?.response?.data?.apierror?.message || "Error: Not Able to update the Seats");
       });
 
   };
@@ -388,10 +387,10 @@ export default function GetTableRow({
           type='number'
           name={`${index}.vacantSeats`}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-          value={admissionData?.vacantSeats || ''}
+          value={admissionData?.vacantSeats}
           disabled={!isWritePermission || !admissionData?.isOpen}
           required
-          min="1"
+          min="0"
           max={admissionData.capacity}
           onPaste={e => e.preventDefault()}
           onChange={e => {
@@ -403,7 +402,7 @@ export default function GetTableRow({
             );
           }}
           onBlur={e => {
-            if (e.target.value > 0 ) {
+            if (e.target.value >= 0) {
               if (!!(!isWritePermission || sessionValue === pastSessionValue || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate))) {
                 saveAvailableSeats(e.target.value, admissionData, index);
               }
@@ -552,14 +551,14 @@ export default function GetTableRow({
           onPaste={e => e.preventDefault()}
           name={`${index}.formFee`}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-          value={admissionData?.formFee || ''}
+          value={admissionData?.formFee}
           disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onChange={e => {
             handleData(
               setFieldData,
               `${index}.formFee`,
               e.target.value,
-              formData[index]?.formFee || ''
+              formData[index]?.formFee
             );
           }}
         />
@@ -572,7 +571,7 @@ export default function GetTableRow({
           required
           min="0"
           name={`${index}.registrationFee`}
-          value={admissionData?.registrationFee || ''}
+          value={admissionData?.registrationFee}
           disabled={!isWritePermission || !admissionData?.isOpen || disabledRow(admissionData?.formSubmissionStartDate)}
           onPaste={e => e.preventDefault()}
           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -581,7 +580,7 @@ export default function GetTableRow({
               setFieldData,
               `${index}.registrationFee`,
               e.target.value,
-              formData[index]?.registrationFee || ''
+              formData[index]?.registrationFee
             );
           }}
         />

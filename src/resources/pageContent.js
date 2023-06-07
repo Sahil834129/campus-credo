@@ -40,6 +40,7 @@ const PageContent = {
   ],
   CUSTOM_LINK_TITLES: {
     "faqs":"FAQ's",
+    "all-application": "Application"
   },
   SOCIAL_MEDIA_LIST: [
     { ref: 'https://www.facebook.com', type: 'facebook', icon: 'fb-icon' },
@@ -92,7 +93,7 @@ const PageContent = {
     },
     {
       image: 'manage-fee.png',
-      title: 'Manage Fees',
+      title: 'Manage Fee',
       description:
         'Customize online fee collections as required to allow for secured payments'
     },

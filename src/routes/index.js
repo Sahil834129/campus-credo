@@ -41,6 +41,8 @@ import HowItWorks from "../pages/guide/howItWorks";
 import RefundPolicy from "../pages/refundPolicy";
 import ResetPassword from "../pages/resetPassword";
 import ProtectedRoute from "./ProtectedRoute";
+import SuperAdmin from "../pages/superAdmin/SuperAdminPage";
+import Users from "../pages/superAdmin/UserPage";
 
 function AppRoutes() {
   return (
@@ -76,6 +78,10 @@ function AppRoutes() {
           <Route path="/paymentCheckout" element={<PaymentCheckout />} />
           <Route path="/paymentHistory" element={<PaymentHistory />} />
           <Route path="/admissionForm" element={<SchoolAdmission />} />
+        </Route>
+        <Route element={<ProtectedRoute roles={[DEFAULT_ROLES.SUPER_ADMIN,]} />}>
+          <Route path='/all-application' element={<SuperAdmin/>}/>
+          <Route path='/users' element={<Users/>}/>
         </Route>
         <Route
           element={

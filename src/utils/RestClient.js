@@ -13,7 +13,7 @@ export const injectStore = _store => {
 axios.defaults.baseURL = "https://api.escuelajs.co/api/"; //process.env.BASE_URL;
 //export const baseURL = "http://122.176.70.111:70";
 export const baseURL = "https://campus-credo-static-images.s3.ap-south-1.amazonaws.com/";
-export const campuscredoUrl = "http://ec2-13-232-245-88.ap-south-1.compute.amazonaws.com";
+export const campuscredoUrl = "http://122.176.70.111:70";
 
 export default class RESTClient {
   static async get(action, params) {

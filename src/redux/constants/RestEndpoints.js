@@ -51,6 +51,7 @@ const RestEndPoint = {
   REMOVE_ADMISSION_DATA: "/admission/removeClassAdmissionData",
   UPDATE_SEAT_ADMISSION_DATA: "/admission/classAdmissionData",
   APPLICATION_FILTER_DATA: "/admissionApplications/find",
+  SUPER_ADMIN_FILTER_DATA:"/superAdmin/find/allApplications",
   SCHOOL_ADMISSION_SUMMARY: "admission/application/schoolAdmissionSummary",
   SCHOOL_ADMISSION_FEE_SUMMARY: "dashboard/schoolAdmissionFeeSummary",
   RESET_PASSWORD: "user/resetPassword",
@@ -91,6 +92,11 @@ const RestEndPoint = {
   GET_CITY_NAME: "v1/cityNameByLatitudeAndLongitude",
   GET_PAYMENT_HISTORY: "payment/paymentHistory",
   ZIP_DOWNLOAD_APPLICATION: "/admissionApplications/zip/downloadApplications",
+  PLACE_ORDER: "payment/placeOrder",
+  PROCESS_AFTER_PAYMENT: "payment/processOrderAfterPayment",
+  UPDATE_USER_EXCEL_DATA: "/superAdmin/uploadUserExcelData",
+  GET_PARTNER_SCHOOL: "/superAdmin/getAll/partnerSchools",
+  GET_SCHOOL_USERS:"/superAdmin/getSchoolUsers"
 };
 
 export default RestEndPoint;
