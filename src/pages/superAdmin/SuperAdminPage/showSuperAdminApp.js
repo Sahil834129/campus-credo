@@ -54,32 +54,8 @@ const ShowSuperAdminApp = ({rowsData, setActivePage, totalRows, activePage}) => 
       })
     },
     {
-      accessor: '',
-      Header: 'Age',
-      Cell: ((e) => {
-        var years = moment().diff(e.row.original.dateOfBirth, 'years');
-        return (
-          <span>{years}</span>
-        );
-      })
-    },
-    {
-      accessor: 'annualFamilyIncome',
-      Header: 'Family Income'
-    },
-    {
-      accessor: 'marksInPercentage',
-      Header: 'Marks In %'
-    },
-    {
-      accessor: '',
-      Header: 'Marks/Grade',
-      Cell: ((e) => {
-        let marksUnit = e.row.original.marksUnit?.toUpperCase();
-        return (
-          <span>{marksUnit === 'GRADES' ? e.row.original.grade : e.row.original.obtainMarks}</span>
-        );
-      })
+      accessor: 'mobileNumber',
+      Header: 'Mobile Number',
     },
     {
       accessor: '',
@@ -89,33 +65,16 @@ const ShowSuperAdminApp = ({rowsData, setActivePage, totalRows, activePage}) => 
       })
     },
     {
-      accessor: '',
-      Header: 'Notes',
-      Cell: ((e) => {
-        let notes = [];
-        if (e.row.original.anyBackgroundCheck)
-          notes.push('backgroundCheckNegative');
-        if (e.row.original.anyMedicalDetails)
-          notes.push('medicalConditions');
-        if (e.row.original.anyExtracurriculars)
-          notes.push('extracurricular');
-        return (
-          <div className="legend-block">
-            {
-              notes.length ?
-                notes.map((note, index) => {
-                  return <span className={note} key={'notes_' + index}
-                    title={note === 'backgroundCheckNegative' ? 'Has background history' : note === 'medicalConditions' ? 'Has medical condition/disability' : note === 'extracurricular' ? 'Participated state/national/international extracurricular' : ''}
-                  >
-                    {/* {note.substring(0, 1)} */}
-                  </span>;
-                })
-                : <span className="none-found">NA</span>
-            }
-
-          </div>
-        );
-      })
+      accessor: 'schoolName',
+      Header: 'School Name',
+    },
+    {
+      accessor: 'className',
+      Header: 'Class Name',
+    },
+    {
+      accessor: 'admissionSession',
+      Header: 'Admission Session',
     },
     {
       accessor: 'applicationStatus',
