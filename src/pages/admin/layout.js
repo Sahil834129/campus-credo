@@ -257,7 +257,7 @@ export const Layout = ({
         {props.children}
       </div>
       <div className="footer-panel">
-        <Link to="/dashboard">
+        <Link to="/">
           <FooterCampusLogo />
         </Link>
         {breadcrumbTitle ? (
