@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import TableComponent from '../../../common/TableComponent';
-import { getSchoolFeeType, deleteSchoolFeeType } from '../../../utils/services';
+import { getSchoolFeeType, deleteSchoolFeeType, addSchoolFeeType } from '../../../utils/services';
 import { ReactComponent as Save } from "../../../assets/admin/img/save.svg"
 import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg";
 import { Form } from 'react-bootstrap';
@@ -15,15 +15,29 @@ export const ManageFeesTypes = () => {
 
     const [selectedRows, setSelectedRows] = useState({});
     const rowsData = useSelector(state => state?.manageFees?.feesTypeRows || []);
+    const [rowData, setRowData] = useState(rowsData);
     const dispatch = useDispatch();
-    const [feeTypeId, setFeeTypeId] = useState('')
     const [feeTypeName, setFeeTypeName] = useState('')
-    const [feeTypeFrequency, setFeeTypeFrequency]= useState('')
+    const [feeTypeFrequency, setFeeTypeFrequency] = useState('')
     const [reFetch, setRefetch] = useState(false)
 
-    const handleNameChange =(e)=>{
-        setFeeTypeName(e.target.value)
+    const handleFeetypeName = (feeName, index, rowData) => {
+        const updatedRows = rowData.map((v,i) => {
+            console.log(i === index, i , index)
+            if(i == index) {
+                v.feeTypeName = feeName;
+                console.log(v, 'sss');
+                return v;
+            }
+            console.log(v, 'dddd');
+            return v;
+        });
+        setRowData(JSON.parse(JSON.stringify(updatedRows)));
     }
+
+    useEffect(() => {
+        console.log(rowData)
+    }, [rowData])
 
     const columns = [
         {
@@ -40,22 +54,32 @@ export const ManageFeesTypes = () => {
             })
         },
         {
-            accessor: '',
+            accessor: 'feeTypeName',
             Header: 'Fee Name',
             Cell: ((e) => {
+                console.log(e);
                 return (
                     <>
                         <div className='frm-cell'>
                             <div className='field-group-wrap'>
-                                {e.row.original.editable || e.row.original.add ? (<Form.Control
-                                    value={e.row.original.add ? feeTypeName : setFeeTypeName(e.row.original?.feeTypeName)}
-                                    size='sm'
-                                    type='text'
-                                    placeholder='Fee Name'
-                                    style={{ width: '200px', margin: 'auto' }}
-                                    onChange={handleNameChange}
-                                    disabled={e.row.original?.editable}
-                                />) : (e.row.original?.feeTypeName)}
+                                {e.row.original.editable || e.row.original.add ? (
+                                //     <Form.Control
+                                //     value={feeTypeName}
+                                //     size='sm'
+                                //     type='text'
+                                //     placeholder='Fee Name'
+                                //     style={{ width: '200px', margin: 'auto' }}
+                                //     onChange={val =>setFeeTypeName(val.target.value)}
+                                //     disabled={e.row.original?.editable}
+                                // />
+                                <input 
+                                type="text" 
+                                value={e.row.values?.feeTypeName} 
+                                onChange={val => {
+                                    console.log(val);
+                                   handleFeetypeName(val?.target?.value, e.row.id, rowData)
+                                }}/>
+                                ) : (e.row.original?.feeTypeName)}
 
                                 {/* <input type='text' /> */}
                             </div>
@@ -64,7 +88,6 @@ export const ManageFeesTypes = () => {
                 )
             })
         },
-
         {
             accessor: '',
             Header: 'Payment Frequency',
@@ -74,10 +97,10 @@ export const ManageFeesTypes = () => {
                         <div className='frm-cell'>
                             <div className='field-group-wrap'>
                                 {e.row.original.editable || e.row.original.add ? (<Form.Select
-                                    value={e.row.original.add ? feeTypeFrequency : setFeeTypeFrequency(e.row.original?.feeTypeFrequency)}
+                                    value={feeTypeFrequency}
                                     size='sm'
                                     style={{ width: '200px', margin: "auto" }}
-                                    onChange={(val) =>setFeeTypeFrequency(val.target.value)}
+                                    onChange={val => setFeeTypeFrequency(val.target.value)}
                                 >
                                     <option>SELECT</option>
                                     {FEE_TYPE_FREQUENCY.map((val) => (
@@ -99,13 +122,13 @@ export const ManageFeesTypes = () => {
 
                         {e.row.original.add && !e.row.original.editable ? <Save
                             style={{ cursor: "pointer" }}
-                            onClick={() => console.log(e)} /> : <>
+                            onClick={() => handleAdd(e)} /> : <>
                             <Button onClick={() => handleUpdate(e)}>
                                 Edit
                             </Button>
                             <Delete
                                 style={{ cursor: "pointer" }}
-                                onClick={handleDelete}
+                                onClick={() => handleDelete(e)}
                             />
                         </>}
                     </>
@@ -115,19 +138,37 @@ export const ManageFeesTypes = () => {
     ]
 
     const handleUpdate = (e) => {
-        console.log(e.row.original)
+        e.row.original.editable = true
+        console.log('e.row.original')
 
     }
+    console.log(reFetch)
 
-    const handleDelete = () => {
-        deleteSchoolFeeType(feeTypeId)
+    const handleAdd = (val, id) => {
+        const data = {}
+        data['feeTypeFrequency'] = feeTypeFrequency
+        data['feeTypeName'] = feeTypeName
+        addSchoolFeeType(data)
             .then(response => {
                 toast.success(response.data);
+                setRefetch(!reFetch)
             })
             .catch(error => {
                 toast.error(error.response.data.apierror.message);
+                setRefetch(!reFetch)
             });
-        setRefetch(!reFetch)
+    }
+
+    const handleDelete = (e) => {
+        deleteSchoolFeeType(e.row.original.feeTypeId)
+            .then(response => {
+                toast.success(response.data);
+                setRefetch(!reFetch)
+            })
+            .catch(error => {
+                toast.error(error.response.data.apierror.message);
+                setRefetch(!reFetch)
+            });
     }
 
     useEffect(() => {
@@ -155,7 +196,7 @@ export const ManageFeesTypes = () => {
                         </div>
                     </div>
                     <TableComponent
-                        data={rowsData}
+                        data={rowData}
                         showSelectedAll={false}
                         columns={columns}
                         selectedRows={selectedRows}
