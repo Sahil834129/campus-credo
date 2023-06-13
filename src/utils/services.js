@@ -62,6 +62,18 @@ export const getManagePermissions = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSIONS);
 };
 
+export const getSchoolFeeType = () => {
+  return RESTClient.get(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE);
+};
+
+export const addSchoolFeeType = (data) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, data);
+};
+
+export const deleteSchoolFeeType = (feeTypeId ) => {
+  return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId }`);
+};
+
 export const getManagePermissionModules = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
 };

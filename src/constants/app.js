@@ -56,6 +56,20 @@ export const SCHOOL_APPLICATION_STATUS = {
   VIEW_APPLICANT_DETAILS: "VIEW_APPLICANT_DETAILS"
 };
 
+export const MANAGE_FEE_OPTIONS = [
+  { value: 'manageFeeTypes', text: 'Manage Fee Types' },
+  { value: 'feeSettings', text: 'Fee Settings' },
+  { value: 'manageClassFees', text: 'Manage Class Fees' },
+  { value: 'manageStudentFee', text: 'Manage Student Fee' },
+  { value: 'reports', text: 'Reports' },
+]
+
+export const FEE_TYPE_FREQUENCY = [
+  { value: 'MONTHLY', text: 'MONTHLY' },
+  { value: 'QUARTERLY', text: 'QUARTERLY' },
+  { value: 'ANNUALLY', text: 'ANNUALLY' },
+]
+
 
 export const STATE_TRANSITION = {
   [SCHOOL_APPLICATION_STATUS.UNDER_REVIEW]: [
