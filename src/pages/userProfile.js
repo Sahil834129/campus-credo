@@ -77,7 +77,12 @@ const UserProfile = () => {
                   <div className='col-item select-option left'>
                     <label>Select Child<span className='req'>*</span></label>
                     <Form.Group className='frm-cell'>
-                      <Form.Select value={selectedChild} onChange={e=>handleChildSelection(e.target.value)}>
+                      <Form.Select
+                        value={selectedChild}
+                        onKeyDown={e => { e.stopPropagation(); e.preventDefault(); }}
+                        onKeyUp={e => { e.stopPropagation(); e.preventDefault(); }}
+                        onChange={e => handleChildSelection(e.target.value)}
+                      >
                         <option value=''>--Select Child--</option>
                         {
                           childs && childs.map((child, index) => {

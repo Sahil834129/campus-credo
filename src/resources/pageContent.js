@@ -78,6 +78,7 @@ const PageContent = {
       description:
         'Multi-channel support to guide you at every step of the admission'
     }
+  
   ],
   SCHOOL_FEATURE_CARDS: [
     {

@@ -220,18 +220,9 @@ export const Layout = ({
           <div className="application-status status-block">
             <div className="app-status-cell">
               <label className="lbl">
-                Total Approved{" "}
-                <span className="value text-success">
-                  {admissionSummary?.totalApproved || 0}
-                </span>
-              </label>{" "}
-            </div>
-            <div className="app-status-cell">
-
-              <label className="lbl">
                 Approved{" "}
                 <span className="value text-success">
-                  {admissionSummary?.approved || 0}
+                  {admissionSummary?.totalApproved || 0}
                 </span>
               </label>{" "}
             </div>
@@ -266,7 +257,7 @@ export const Layout = ({
         {props.children}
       </div>
       <div className="footer-panel">
-        <Link to="/dashboard">
+        <Link to="/">
           <FooterCampusLogo />
         </Link>
         {breadcrumbTitle ? (
