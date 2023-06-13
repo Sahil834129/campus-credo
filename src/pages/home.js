@@ -38,8 +38,10 @@ const HomePage = () => {
         console.log();
         if (role === DEFAULT_ROLES.PARENT) {
             navigate('/userProfile');
+        } else if (role === DEFAULT_ROLES.SUPER_ADMIN) {
+            navigate('/all-application');
         } else {
-            navigate('/dashboard');
+          navigate('/dashboard');
         }
 
     };

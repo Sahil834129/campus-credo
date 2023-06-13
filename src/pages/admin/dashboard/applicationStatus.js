@@ -1,7 +1,7 @@
 import { ListGroup } from "react-bootstrap";
 import { Barchart } from "../../../common/Chart";
 
-export default function ApplicationStatus({labels,received, approved, declined, applicationStatus , totalApplication}) {
+export default function ApplicationStatus({totalApproved, labels,received, approved, declined, applicationStatus , totalApplication}) {
     return (
         <div className='chart-block ch1'>
             <div className='title-area'>
@@ -15,7 +15,7 @@ export default function ApplicationStatus({labels,received, approved, declined, 
                             <label>Received</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <span className='value'>{applicationStatus?.approved || 0}</span>
+                            <span className='value'>{totalApproved || 0}</span>
                             <label>Approved</label>
                         </ListGroup.Item>
                         <ListGroup.Item>
