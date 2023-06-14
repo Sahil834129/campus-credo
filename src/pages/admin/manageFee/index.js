@@ -25,12 +25,12 @@ export const ManageFees = () => {
           </div>
           {(() => {
             switch (visible) {
-              case 'feeSettings':
-                return <FeeSettings/>
               case 'manageFeeTypes':
-              case 'manageClassFees':        
-              default:
                 return <ManageFeesTypes />;
+              case 'manageClassFees':
+              case 'feeSettings':
+                return <FeeSettings isWritePermission={isWritePermission} />
+              default:
             }
           })()}
 

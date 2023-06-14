@@ -5,8 +5,7 @@ import { toast } from 'react-toastify';
 import { FEE_SUBMISSION_LAST_DATES, LATE_FEE_FREQUENCY } from "../../../constants/app";
 import { setLocalData } from "../../../utils/helper";
 
-export const FeeSettings = () => {
-
+export const FeeSettings = ({ isWritePermission }) => {
     let schoolParams = JSON.parse(localStorage.getItem('schoolParams'))
     const [feeSubmissionLastDate, SetFeeSubmissionLastDate] = useState(schoolParams.feePaymentLastDate);
     const [lateFeeAmount, setLateFeeAmount] = useState(schoolParams.lateFeeAmount);
@@ -70,6 +69,7 @@ export const FeeSettings = () => {
                                     placeholder='Fee Name'
                                     style={{ width: '200px', margin: 'auto' }}
                                     onChange={val => setLateFeeAmount(val.target.value)}
+                                    disabled={!isWritePermission}
                                 />
                             </div>
                             <div style={{ margin: 10 }}>
@@ -79,6 +79,7 @@ export const FeeSettings = () => {
                                     size='sm'
                                     style={{ width: '200px', margin: "auto" }}
                                     onChange={val => setLateFeeFrequency(val.target.value)}
+                                    disabled={!isWritePermission}
                                 >
                                     <option>SELECT</option>
                                     {LATE_FEE_FREQUENCY.map((val) => (
@@ -101,31 +102,34 @@ export const FeeSettings = () => {
                         </div>
                         <div className='title-area' style={{ display: 'block', paddingLeft: 45 }} >
                             <h2>Select a date to define final due date for fee submission </h2>
-                            {FEE_SUBMISSION_LAST_DATES.map((val, i) =>
-                                <>
-                                    <div
-                                        style={
-                                            {
-                                                display: 'inline-flex',
-                                                margin: 5,
-                                                padding: 5,
-                                                borderStyle: "dashed",
-                                                borderColor: 'darkGrey',
-                                                borderWidth: 1,
-                                                borderRadius: 5,
-                                                width: 40,
-                                                justifyContent: 'center',
-                                                backgroundColor: state === i ? 'lightGreen' : 'white'
-
+                            <div style={
+                                {display:'grid', 
+                                gridTemplateColumns:'repeat(10, 1fr)', 
+                                width:'500px',
+                                }}>
+                                {FEE_SUBMISSION_LAST_DATES.map((val, i) =>
+                                   
+                                        <div
+                                            style={
+                                                {
+                                                    margin: 5,
+                                                    padding: 5,
+                                                    borderStyle: "dashed",
+                                                    borderColor: 'darkGrey',
+                                                    borderWidth: 1,
+                                                    borderRadius: 5,
+                                                    width: 40,
+                                                    textAlign:'center',
+                                                    backgroundColor: state === i ? 'lightGreen' : 'white',
+                                                }
                                             }
-                                        }
-                                        key={`Select_${val}`}
-                                        onClick={() => { console.log(i); setState(i); SetFeeSubmissionLastDate(val) }}>
-                                        {val}
-                                    </div>
-                                    {(i + 1 === 10 || i + 1 === 20) ? <br key={`${i + 1}`}></br> : ''}
-                                </>
-                            )}
+                                            key={`Select_${val}`}
+                                            onClick={() => { if (isWritePermission) { setState(i); SetFeeSubmissionLastDate(val) } }}>
+                                            {val}
+                                        </div>
+                                
+                                )}
+                            </div>
                         </div>
                         <div style={{
                             borderStyle: "dashed",
