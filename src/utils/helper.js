@@ -43,6 +43,7 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
   setLocalData("token", loginData.token);
   setLocalData("refreshToken", loginData.refreshToken);
   setLocalData("modulePermissions", JSON.stringify(loginData.modulePermissions || []));
+  setLocalData("schoolParams", JSON.stringify(loginData.schoolParams || {}));
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);

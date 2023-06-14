@@ -4,6 +4,7 @@ import Layout from '../layout'
 import { useState } from 'react'
 import { MANAGE_FEE_OPTIONS } from '../../../constants/app'
 import { ManageFeesTypes } from './manageFeeTypes'
+import { FeeSettings } from './feeSettings'
 
 export const ManageFees = () => {
   const [visible, setVisible] = useState('manageFeeTypes')
@@ -24,15 +25,14 @@ export const ManageFees = () => {
           </div>
           {(() => {
             switch (visible) {
-              case 'manageFeeTypes':
               case 'feeSettings':
-              case 'manageClassFees':
-                return <ManageFeesTypes />
+                return <FeeSettings/>
+              case 'manageFeeTypes':
+              case 'manageClassFees':        
               default:
                 return <ManageFeesTypes />;
             }
           })()}
-          {/* {(visible === "manageFeeTypes") && <ManageFeesTypes/>} */}
 
 
         </div>

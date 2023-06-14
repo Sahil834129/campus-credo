@@ -98,7 +98,7 @@ const RestEndPoint = {
   GET_PARTNER_SCHOOL: "/superAdmin/getAll/partnerSchools",
   GET_SCHOOL_USERS:"/superAdmin/getSchoolUsers",
   GET_ADD_DELET_SCHOOL_FEE_TYPE:"/fee/schoolFeeType",
-
+  UPDATE_FEE_SETTING:"/fee/feeSettings",
 };
 
 export default RestEndPoint;

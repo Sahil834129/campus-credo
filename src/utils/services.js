@@ -74,6 +74,10 @@ export const deleteSchoolFeeType = (feeTypeId ) => {
   return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId }`);
 };
 
+export const updateFeeSeetings = (payload) => {
+  return RESTClient.patch(RestEndPoint.UPDATE_FEE_SETTING, payload);
+};
+
 export const getManagePermissionModules = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
 };

@@ -35,9 +35,7 @@ export const ManageFeesTypes = () => {
         setRowData(JSON.parse(JSON.stringify(updatedRows)));
     }
 
-    useEffect(() => {
-        console.log(rowData)
-    }, [rowData])
+
 
     const columns = [
         {
