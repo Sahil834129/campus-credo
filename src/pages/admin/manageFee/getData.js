@@ -6,8 +6,9 @@ import { addSchoolFeeType, deleteSchoolFeeType, updateSchoolFeeType } from '../.
 import { FEE_TYPE_FREQUENCY } from '../../../constants/app';
 import { ReactComponent as Save } from "../../../assets/admin/img/save.svg"
 import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg"
+import { useEffect } from 'react';
 
-export const GetData = ({ rowData, index, setRefetch }) => {
+export const GetData = ({ rowData, index, setRefetch, resetButton }) => {
 
     const [feeTypeName, setFeeTypeName] = useState('')
     const [feeTypeFrequency, setFeeTypeFrequency] = useState('')
@@ -73,6 +74,10 @@ export const GetData = ({ rowData, index, setRefetch }) => {
                 handleApiResponse(error, true);
             });
     }
+
+    useEffect(()=>{
+        setIsEditable(false)
+    },[resetButton])
 
     return (
         <tr>

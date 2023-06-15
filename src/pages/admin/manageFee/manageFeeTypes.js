@@ -10,6 +10,7 @@ export const ManageFeesTypes = () => {
     const rowsData = useSelector(state => state?.manageFees?.feesTypeRows || []);
     const dispatch = useDispatch();
     const [reFetch, setRefetch] = useState(false)
+    const [resetButton,setResetButton] = useState(false)
 
     useEffect(() => {
         dispatch(getManageFeesType());
@@ -24,7 +25,10 @@ export const ManageFeesTypes = () => {
                             Manage Fee Types
                         </h2>
                         <div className='btn-wrapper'>
-                            <Button className='reset-btn'>
+                            <Button 
+                            className='reset-btn'
+                            onClick={()=>setResetButton(val=>!val)}
+                            >
                                 RESET
                             </Button>
                         </div>
@@ -47,6 +51,7 @@ export const ManageFeesTypes = () => {
                                         index={index}
                                         reFetch={reFetch}
                                         setRefetch={setRefetch}
+                                        resetButton={resetButton}
                                     />
                                 )}
                             </tbody>
