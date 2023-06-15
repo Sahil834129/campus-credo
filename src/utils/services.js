@@ -74,6 +74,10 @@ export const deleteSchoolFeeType = (feeTypeId ) => {
   return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId }`);
 };
 
+export const updateSchoolFeeType = (payload) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, payload);
+};
+
 export const updateFeeSeetings = (payload) => {
   return RESTClient.patch(RestEndPoint.UPDATE_FEE_SETTING, payload);
 };
