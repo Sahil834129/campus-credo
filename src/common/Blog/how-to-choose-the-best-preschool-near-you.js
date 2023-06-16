@@ -173,14 +173,14 @@ const BlogArticle1 = () => {
                   <p>
                     We hope you observe this blog useful and consider the
                     above-mentioned points to discover a decorous <b> Montessori
-                    school</b> for your toddlers. <b>CampusCredo</b> aims to make the
+                    school</b> for your toddlers. <a href={"/"}><b>CampusCredo</b></a>{" "} aims to make the
                     school admission process hassle-free and seamless for every
                     parent & child. That’s why it offers a digital platform with
                     access to all top-rated preschools, elementary as well as
                     secondary schools. It enables parents/guardians to identify,
                     explore and analyse the best academic institutes for their
                     children and register them in as many schools as they want
-                    via a single <b>online admission form</b>. <b>CampusCredo</b> gives you an
+                    via a single <b>online admission form</b>. <a href={"/"}><b>CampusCredo</b></a>{" "} gives you an
                     overall smooth online admission process in the desired
                     school without any manual or daunting work.
                   </p>
