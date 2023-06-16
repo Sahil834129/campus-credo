@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SevenTipsForChoosingTheBestSchoolForYourChildin2023 from "../common/Blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023";
 import Blog from "../common/Blog/blog";
 import BlogArticle from "../common/Blog/blog-article";
+import HowToChooseTheBestPreschoolNearYou from "../common/Blog/how-to-choose-the-best-preschool-near-you";
 import ShouldYouChooseCBSEOrICSESchoolForYourChildren from "../common/Blog/should-you-choose-cbse-or-icse-school-for-your-children";
 import { DEFAULT_ROLES } from "../constants/app";
 import {
@@ -40,9 +41,9 @@ import DisclaimerPolicy from "../pages/disclaimer_Policy";
 import HowItWorks from "../pages/guide/howItWorks";
 import RefundPolicy from "../pages/refundPolicy";
 import ResetPassword from "../pages/resetPassword";
-import ProtectedRoute from "./ProtectedRoute";
 import SuperAdmin from "../pages/superAdmin/SuperAdminPage";
 import Users from "../pages/superAdmin/UserPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
   return (
@@ -57,6 +58,7 @@ function AppRoutes() {
         <Route path="/blogArticle" element={<BlogArticle />} />
         <Route path="/blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023" element={<SevenTipsForChoosingTheBestSchoolForYourChildin2023 />} />
         <Route path="/blog/should-you-choose-cbse-or-icse-school-for-your-children" element={<ShouldYouChooseCBSEOrICSESchoolForYourChildren />} />
+        <Route path="/blog/how-to-choose-the-best-preschool-near-you" element={<HowToChooseTheBestPreschoolNearYou />} />
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/termsOfService" element={<TermsOfUse />} />
         <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />

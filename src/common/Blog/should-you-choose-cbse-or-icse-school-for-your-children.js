@@ -230,16 +230,16 @@ const BlogArticle1 = () => {
                       className=""
                       to="/blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023"
                       onClick={() => window.scrollTo(0, 0)}
-                    >
+                    > 
                       {" "}
                       &#x2329; Previous Post{" "}
-                    </Link>
+                    </Link> 
                   </span>
-                  {/* <span className="blog-nav right">
-                    {/* <Link className="" to='/blogArticle'> */}
+                  <span className="blog-nav right">
+                     <Link className="" to='/blog/how-to-choose-the-best-preschool-near-you'>
                   Next Post &#x3009;
-                  {/* </Link>  }
-                  </span> */}
+                   </Link>  
+                  </span> 
                 </div>
               </div>
             </Row>
