@@ -19,7 +19,7 @@ export const ManageFeesTypes = () => {
     return (
         <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
             <div className='internal-page-wrapper'>
-                <div className='inner-content-wrap padt8' style={{}}>
+                <div className='inner-content-wrap padt8'>
                     <div className='title-area' style={{ paddingBottom: 20 }}>
                         <h2>
                             Manage Fee Types

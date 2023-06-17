@@ -67,7 +67,7 @@ export const MANAGE_FEE_OPTIONS = [
 export const FEE_TYPE_FREQUENCY = [
   { value: 'MONTHLY', text: 'MONTHLY' },
   { value: 'QUARTERLY', text: 'QUARTERLY' },
-  { value: 'HALFY-EARLY', text: 'HALFY-EARLY' },
+  { value: 'HALF_YEARLY', text: 'HALFY-YEARLY' },
   { value: 'ANNUALLY', text: 'ANNUALLY' },
 ]
 

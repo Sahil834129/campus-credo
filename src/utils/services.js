@@ -70,8 +70,16 @@ export const addSchoolFeeType = (data) => {
   return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, data);
 };
 
+export const addClassFeeTypeDetails = (data) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, data);
+};
+
 export const deleteSchoolFeeType = (feeTypeId ) => {
   return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId }`);
+};
+
+export const deleteClassesFeeDetails = (classId, feeId ) => {
+  return RESTClient.delete(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId }` +`/${feeId }`);
 };
 
 export const updateSchoolFeeType = (payload) => {
@@ -95,6 +103,18 @@ export const getAtPiForClass = (classId, sessionValue) => {
 
 export const getSchoolClassesData = (schoolId) => {
   return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
+};
+
+export const getClassesFeeDetails = (classId) => {
+  return RESTClient.get(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}`);
+};
+
+export const addClassFeeTypeAmount = (data) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
+};
+
+export const updateClassFeeTypeAmount = (data) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
 };
 
 export const zipDownloadApplications = async (applicationIds) => {

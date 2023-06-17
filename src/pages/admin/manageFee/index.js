@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { MANAGE_FEE_OPTIONS } from '../../../constants/app'
 import { ManageFeesTypes } from './manageFeeTypes'
 import { FeeSettings } from './feeSettings'
+import { ManageClassFees } from './manageClassFees'
 
 export const ManageFees = () => {
   const [visible, setVisible] = useState('manageFeeTypes')
@@ -26,11 +27,12 @@ export const ManageFees = () => {
           {(() => {
             switch (visible) {
               case 'manageFeeTypes':
-                return <ManageFeesTypes />;
               case 'manageClassFees':
+                return <ManageClassFees />;
               case 'feeSettings':
                 return <FeeSettings isWritePermission={isWritePermission} />
               default:
+                return <ManageFeesTypes />;
             }
           })()}
 
