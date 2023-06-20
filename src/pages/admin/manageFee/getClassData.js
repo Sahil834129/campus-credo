@@ -9,7 +9,7 @@ import GenericDialog from "../../../dialogs/GenericDialog";
 
 
 
-export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch }) => {
+export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch, resetButton }) => {
 
     const [feeTypeId, setFeeTypeId] = useState('')
     const [feeAmount, setFeeAmount] = useState('')
@@ -112,6 +112,9 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch 
         setMandatory(tableData?.classFee?.mandatory)
     }
 
+    useEffect(() => {
+        setEditable(false)
+    }, [resetButton])
 
     return (
         <>

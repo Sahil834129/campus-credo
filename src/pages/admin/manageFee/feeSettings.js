@@ -21,6 +21,7 @@ export const FeeSettings = ({ isWritePermission }) => {
         SetFeeSubmissionLastDate(schoolParams.feeSubmissionLastDate);
         setLateFeeAmount(schoolParams.lateFeeAmount);
         setLateFeeFrequency(schoolParams.lateFeeFrequency);
+        setState(schoolParams.feeSubmissionLastDate-1)
     }
 
     const validationScheme = () => {

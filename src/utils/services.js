@@ -113,6 +113,10 @@ export const addClassFeeTypeAmount = (data) => {
   return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
 };
 
+export const findStudentsDetails = (data) => {
+  return RESTClient.post(RestEndPoint.FIND_STUDENT_DETAILS, data);
+};
+
 export const updateClassFeeTypeAmount = (data) => {
   return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
 };

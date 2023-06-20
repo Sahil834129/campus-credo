@@ -100,6 +100,7 @@ const RestEndPoint = {
   GET_ADD_DELET_SCHOOL_FEE_TYPE:"/fee/schoolFeeType",
   UPDATE_FEE_SETTING:"/fee/feeSettings",
   GET_ADD_UPDATE_CLASS_FEE_DETAILS:"/fee/classFee",
+  FIND_STUDENT_DETAILS:"/schoolStudent/fee/findStudents"
 
 };
 

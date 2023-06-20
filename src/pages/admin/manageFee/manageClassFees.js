@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { getClassesFeeDetails, getSchoolClassesData } from '../../../utils/services';
 import { useState } from 'react';
-import { Accordion } from "react-bootstrap";
+import { Accordion, Button } from "react-bootstrap";
 import { GetClassData } from './getClassData';
 import { getManageFeesType } from '../../../redux/actions/manageFeesAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ export const ManageClassFees = () => {
     const [classId, setClassId]= useState(0)
     const [classTable, setClassTable] = useState([])
     const [reFetch, setReFetch] = useState(false)
+    const [resetButton,setResetButton] = useState(false)
 
     const fetchSchoolClassesData = () => {
         getSchoolClassesData(schoolId)
@@ -63,39 +64,56 @@ export const ManageClassFees = () => {
     return (
         <>
             <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
-                <Accordion flush >
-                    {data.map((val, index) =>
-                        <Accordion.Item key={index} eventKey={index} onClick={()=>{setOpenAccord(true);setClassId(val?.classId)}}>
-                            <Accordion.Header>{val?.className}</Accordion.Header>
-                            <Accordion.Body >
-                                <div>
-                                    <table style={{ width: '100%' }}>
-                                        <thead>
-                                            <tr>
-                                                <th >#</th>
-                                                <th>Fee Type</th>
-                                                <th>Fee Amount</th> 
-                                                <th>Is Mandatory</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {classTable.map((val, i)=><GetClassData 
-                                            key={i} 
-                                            index={i} 
-                                            tableData={val} 
-                                            feeoption={feeTypeOption} 
-                                            classId={classId}
-                                            setReFetch={setReFetch}
-                                            />)}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    )}
-                </Accordion>
-
+                <div className='internal-page-wrapper'>
+                    <div className='inner-content-wrap padt8'>
+                        <div className='title-area' style={{ paddingBottom: 20 }}>
+                            <h2>
+                                Manage Fee Types
+                            </h2>
+                            <div className='btn-wrapper'>
+                                <Button
+                                    className='reset-btn'
+                                    onClick={() => setResetButton(val => !val)}
+                                >
+                                    RESET
+                                </Button>
+                            </div>
+                        </div>
+                        <Accordion flush >
+                            {data.map((val, index) =>
+                                <Accordion.Item key={index} eventKey={index} onClick={() => { setOpenAccord(true); setClassId(val?.classId) }}>
+                                    <Accordion.Header>{val?.className}</Accordion.Header>
+                                    <Accordion.Body >
+                                        <div>
+                                            <table style={{ width: '100%' }}>
+                                                <thead>
+                                                    <tr>
+                                                        <th >#</th>
+                                                        <th>Fee Type</th>
+                                                        <th>Fee Amount</th>
+                                                        <th>Is Mandatory</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {classTable.map((val, i) => <GetClassData
+                                                        key={i}
+                                                        index={i}
+                                                        tableData={val}
+                                                        feeoption={feeTypeOption}
+                                                        classId={classId}
+                                                        setReFetch={setReFetch}
+                                                        resetButton={resetButton}
+                                                    />)}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            )}
+                        </Accordion>
+                    </div>
+                </div>
             </div>
         </>
     )

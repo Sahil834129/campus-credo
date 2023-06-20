@@ -6,9 +6,10 @@ import { MANAGE_FEE_OPTIONS } from '../../../constants/app'
 import { ManageFeesTypes } from './manageFeeTypes'
 import { FeeSettings } from './feeSettings'
 import { ManageClassFees } from './manageClassFees'
+import { ManageStudentFee } from './manageStudenFee'
 
 export const ManageFees = () => {
-  const [visible, setVisible] = useState('manageFeeTypes')
+  const [visible, setVisible] = useState('manageStudentFee')
   const isWritePermission = getCurrentModulePermission("Manage Admission");
 
   return (
@@ -27,10 +28,13 @@ export const ManageFees = () => {
           {(() => {
             switch (visible) {
               case 'manageFeeTypes':
+                return <ManageFeesTypes />;
               case 'manageClassFees':
                 return <ManageClassFees />;
               case 'feeSettings':
                 return <FeeSettings isWritePermission={isWritePermission} />
+              case 'manageStudentFee':
+                return <ManageStudentFee />;                
               default:
                 return <ManageFeesTypes />;
             }

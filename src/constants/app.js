@@ -57,18 +57,24 @@ export const SCHOOL_APPLICATION_STATUS = {
 };
 
 export const MANAGE_FEE_OPTIONS = [
-  { value: 'manageFeeTypes', text: 'Manage Fee Types' },
-  { value: 'feeSettings', text: 'Fee Settings' },
-  { value: 'manageClassFees', text: 'Manage Class Fees' },
-  { value: 'manageStudentFee', text: 'Manage Student Fee' },
-  { value: 'reports', text: 'Reports' },
+  { value: 'manageFeeTypes', text: 'Create Fee Type' },
+  { value: 'feeSettings', text: 'Configure Late Fee' },
+  { value: 'manageClassFees', text: 'Configure Class Fees' },
+  { value: 'manageStudentFee', text: 'Configure Student Fee' },
 ]
 
 export const FEE_TYPE_FREQUENCY = [
   { value: 'MONTHLY', text: 'MONTHLY' },
   { value: 'QUARTERLY', text: 'QUARTERLY' },
   { value: 'HALF_YEARLY', text: 'HALFY-YEARLY' },
-  { value: 'ANNUALLY', text: 'ANNUALLY' },
+  { value: 'ANNUALY', text: 'ANNUALY' },
+]
+
+export const CLASS_SECTION =[
+  { value: 'A', text: ' SECTION-A' },
+  { value: 'B', text: 'SECTION-B' },
+  { value: 'C', text: 'SECTION-C' },
+
 ]
 
 export const LATE_FEE_FREQUENCY = [
