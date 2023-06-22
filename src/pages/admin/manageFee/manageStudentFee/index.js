@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { Button, Form } from "react-bootstrap"
-import { findStudentsDetails, getSchoolClassesData } from "../../../utils/services";
+import { findStudentsDetails, getSchoolClassesData } from "../../../../utils/services";
 import { useState } from "react";
-import { CLASS_SECTION, OPERATORS } from "../../../constants/app";
+import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
 import { GetStudent } from "./getStudent";
 
 
 
 export const ManageStudentFee = () => {
-    const [data, setData] = useState([])
+    const [classes, setClasses] = useState([])
     const [classId, setClassId] = useState('')
     const [classSection, setClassSection] = useState('')
     const [studentDetails, setStudentDetails] = useState([])
@@ -19,7 +19,7 @@ export const ManageStudentFee = () => {
         getSchoolClassesData(schoolId)
             .then(response => {
                 if (response.status === 200) {
-                    setData(response?.data)
+                    setClasses(response?.data)
                 }
             })
             .catch(error => {
@@ -57,8 +57,6 @@ export const ManageStudentFee = () => {
         fetchSchoolClassesData()
     }, [])
 
-    console.log('studentDetails', studentDetails)
-
     return (
         <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
             <div className='internal-page-wrapper'>
@@ -76,7 +74,7 @@ export const ManageStudentFee = () => {
                                     onChange={(e) => { setClassId(e.target.value); }}
                                 >
                                     <option value=''>SELECT</option>
-                                    {data.map((val, index) => <option key={index} value={val.classId}>{val.className}</option>)}
+                                    {classes.map((val, index) => <option key={index} value={val.classId}>{val.className}</option>)}
 
                                 </Form.Select>
                             </div>
@@ -112,7 +110,7 @@ export const ManageStudentFee = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentDetails.map((val, i)=><GetStudent student={val} key={i} index={i}/>)}
+                                {studentDetails.map((val, i) => <GetStudent student={val} key={i} index={i} classes={classes} />)}
                             </tbody>
                         </table>
                     </div>

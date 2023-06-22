@@ -6,7 +6,7 @@ import { MANAGE_FEE_OPTIONS } from '../../../constants/app'
 import { ManageFeesTypes } from './manageFeeTypes'
 import { FeeSettings } from './feeSettings'
 import { ManageClassFees } from './manageClassFees'
-import { ManageStudentFee } from './manageStudenFee'
+import { ManageStudentFee } from './manageStudentFee'
 
 export const ManageFees = () => {
   const [visible, setVisible] = useState('manageStudentFee')

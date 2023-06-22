@@ -252,3 +252,7 @@ export const processOrderAfterPayment = (payload, orderId) => {
 export const registrationCheckout = (payload) => {
   return RESTClient.post(RestEndPoint.REGISTRATION_CHECKOUT, payload);
 };
+
+export const getFeeForStudent = (classId,studentId) => {
+  return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${classId}/${studentId}`);
+};
