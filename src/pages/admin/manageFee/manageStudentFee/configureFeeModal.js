@@ -70,7 +70,7 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
       <div
         className='title-area'
       >
-        {`${humanize(student.firstName)} ${humanize(student.lastName)} (${student.className})`}
+        {`${humanize(student.firstName)} ${humanize(student.lastName)} (${student.schoolStudentId}) (${student.className})`}
       </div>
       <table style={{ width: '100%' }}>
         <thead style={{
