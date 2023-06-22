@@ -2,17 +2,39 @@ import { useState } from "react";
 import GenericDialog from "../../../../dialogs/GenericDialog";
 import { humanize } from "../../../../utils/helper";
 import { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { getClassesFeeDetails } from "../../../../utils/services";
 
 export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, setFeesDetail, feesDetail }) {
   const [calculatedFee, setCalculatedFees] = useState(0);
+  const [classFees, setClassFees] = useState([]);
+
+  const fetchStudentFeesData = () => {
+    getClassesFeeDetails(student.classId)
+      .then(response => {
+        if (response.status === 200) {
+          console.log(response.data);
+          const result = response?.data.map(val => {
+            const data = feesDetail.filter(fee => fee.studentFee.feeTypeId === val.classFee.feeTypeId);
+            return {
+              ...val,
+              disabled: val?.classFee?.mandatory,
+              isChecked: data.length > 0
+            };
+          });
+          setClassFees(result);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   const getCalulagedFee = (fees) => {
     let temp = 0;
     if (fees.length > 0) {
       fees.map(val => {
-        if (val?.studentFee && val?.studentFee?.mandatory) {
-          temp = temp + val?.studentFee?.feeAmount;
+        if (val?.classFee && val?.classFee?.mandatory) {
+          temp = temp + val?.classFee?.feeAmount;
         }
       });
     }
@@ -21,26 +43,29 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
   const handleInput = (isChecked, index, fees) => {
     const updatedFees = fees.map((val, i) => {
       if (i === index) {
-        val.studentFee.mandatory = isChecked;
+        val.classFee.mandatory = isChecked;
       }
       return val;
     });
-    setFeesDetail(updatedFees);
-  }
+    setClassFees(updatedFees);
+  };
 
   useEffect(() => {
-    if (feesDetail.length > 0) {
-      setCalculatedFees(getCalulagedFee(feesDetail));
+    if (classFees.length > 0) {
+      setCalculatedFees(getCalulagedFee(classFees));
     }
-    console.log(feesDetail);
-  }, [feesDetail]);
+    console.log(classFees);
+  }, [classFees]);
 
+  useEffect(() => {
+    fetchStudentFeesData();
+  }, []);
   return (
     <GenericDialog
       show={configureFeeModal}
       handleClose={handleClose}
       modalHeader='Configure fee'
-      style={{margin: 0}}
+      style={{ margin: 0 }}
     >
       <div
         className='title-area'
@@ -55,27 +80,25 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
             <th>Fee Type</th>
             <th>Frequency</th>
             <th>Fee Amount</th>
-            <th>Total Due</th>
             <th>Mandatory</th>
           </tr>
         </thead>
         <tbody>
-          {feesDetail && feesDetail.length > 0 &&
-            feesDetail.map((val, index) => (
+          {classFees && classFees.length > 0 &&
+            classFees.map((val, index) => (
               <tr key={`configureFee${index}`} style={{
                 border: '2px solid lightgrey'
               }}>
-                <td>{val?.studentFee?.feeTypeName}</td>
-                <td>{val?.studentFee?.feeTypeFrequency}</td>
-                <td>{val?.studentFee?.feeAmount}</td>
-                <td>{val?.studentFee?.feeAmount}</td>
+                <td>{val?.classFee?.feeTypeName}</td>
+                <td>{humanize(val?.classFee?.feeTypeFrequency)}</td>
+                <td>{val?.classFee?.feeAmount}</td>
                 <td>
                   <input
                     type="checkbox"
                     disabled={val?.disabled}
-                    checked={val?.studentFee?.mandatory}
+                    checked={val?.classFee?.mandatory}
                     onChange={e => {
-                      handleInput(e.target.checked, index, feesDetail);
+                      handleInput(e.target.checked, index, classFees);
                     }}
                   />
                 </td>
@@ -92,8 +115,8 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
           alignItems: 'center'
         }}
       >
-        <span style={{marginRight: '10px'}}>Total Amount: {calculatedFee}</span>
-        <button className="btn" style={{ background: '#41285F', color: 'white'}}>
+        <span style={{ marginRight: '10px' }}>Total Amount: {calculatedFee}</span>
+        <button className="btn" style={{ background: '#41285F', color: 'white' }}>
           Submit</button>
       </div>
     </GenericDialog>

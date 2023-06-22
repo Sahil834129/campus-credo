@@ -21,10 +21,6 @@ export const GetStudent = ({ student, index, classes }) => {
                         return {
                             ...val,
                             disabled: val?.studentFee?.mandatory,
-                            // studentFee: {
-                            //     ...val?.studentFee,
-                            //     mandatory: !val?.studentFee?.mandatory
-                            // }
                         };
                     });
                     setFeesDetail(result);
