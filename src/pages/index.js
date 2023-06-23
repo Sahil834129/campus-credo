@@ -2,7 +2,7 @@ import AboutUs from "./aboutUs";
 import AdminDashboard from "./admin/dashboard";
 import ManageAdmission from "./admin/manageAdmission";
 import ManageApplication from "./admin/manageApplication";
-import ManageFees from "./admin/manageFees";
+import ManageFees from "./admin/manageFee";
 import ManageUsers from "./admin/manageUsers";
 import TermsAndConditions from "./admin/termsAndConditions";
 import SchoolAdmission from "./admissionForm";

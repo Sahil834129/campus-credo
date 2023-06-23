@@ -62,6 +62,34 @@ export const getManagePermissions = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSIONS);
 };
 
+export const getSchoolFeeType = () => {
+  return RESTClient.get(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE);
+};
+
+export const addSchoolFeeType = (data) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, data);
+};
+
+export const addClassFeeTypeDetails = (data) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, data);
+};
+
+export const deleteSchoolFeeType = (feeTypeId ) => {
+  return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId }`);
+};
+
+export const deleteClassesFeeDetails = (classId, feeId ) => {
+  return RESTClient.delete(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId }` +`/${feeId }`);
+};
+
+export const updateSchoolFeeType = (payload) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, payload);
+};
+
+export const updateFeeSeetings = (payload) => {
+  return RESTClient.patch(RestEndPoint.UPDATE_FEE_SETTING, payload);
+};
+
 export const getManagePermissionModules = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
 };
@@ -75,6 +103,22 @@ export const getAtPiForClass = (classId, sessionValue) => {
 
 export const getSchoolClassesData = (schoolId) => {
   return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
+};
+
+export const getClassesFeeDetails = (classId) => {
+  return RESTClient.get(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}`);
+};
+
+export const addClassFeeTypeAmount = (data) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
+};
+
+export const findStudentsDetails = (data) => {
+  return RESTClient.post(RestEndPoint.FIND_STUDENT_DETAILS, data);
+};
+
+export const updateClassFeeTypeAmount = (data) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
 };
 
 export const zipDownloadApplications = async (applicationIds) => {
@@ -207,4 +251,8 @@ export const processOrderAfterPayment = (payload, orderId) => {
 
 export const registrationCheckout = (payload) => {
   return RESTClient.post(RestEndPoint.REGISTRATION_CHECKOUT, payload);
+};
+
+export const getFeeForStudent = (classId,studentId) => {
+  return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${classId}/${studentId}`);
 };

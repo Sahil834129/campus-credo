@@ -96,7 +96,12 @@ const RestEndPoint = {
   PROCESS_AFTER_PAYMENT: "payment/processOrderAfterPayment",
   UPDATE_USER_EXCEL_DATA: "/superAdmin/uploadUserExcelData",
   GET_PARTNER_SCHOOL: "/superAdmin/getAll/partnerSchools",
-  GET_SCHOOL_USERS:"/superAdmin/getSchoolUsers"
+  GET_SCHOOL_USERS:"/superAdmin/getSchoolUsers",
+  GET_ADD_DELET_SCHOOL_FEE_TYPE:"/fee/schoolFeeType",
+  UPDATE_FEE_SETTING:"/fee/feeSettings",
+  GET_ADD_UPDATE_CLASS_FEE_DETAILS:"/fee/classFee",
+  FIND_STUDENT_DETAILS:"/schoolStudent/fee/findStudents",
+  GET_FFE_FOR_STUDENT: "schoolStudent/fee/getFeeForStudent/",
 };
 
 export default RestEndPoint;
