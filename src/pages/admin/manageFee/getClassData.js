@@ -119,12 +119,12 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
     return (
         <>
             <tr>
-                <td>{index > 0 ? index : ''}</td>
-                <td>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <td valign="middle" style={{backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset", padding: "20px" }}>{index > 0 ? index : ''}</td>
+                <td valign="middle" style={{ width: '201px',  paddingLeft: "40px" }}>
+                    <div >
                         {!(editable || index === 0) ?
                             <Form.Control
-                                style={{ width: '250px', }}
+                                style={{ width: '250px', height:"40px"}}
                                 value={tableData?.classFee?.feeTypeName}
                                 disabled={true} />
                             : <Form.Select
@@ -141,18 +141,18 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                     </div>
                     {errorTypeField && <div style={{ color: 'red' }}>{errorTypeField}</div>}
                 </td>
-                <td>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <td valign="middle" style={{paddingLeft: "75px" }}>
+                    <div>
                         {!(editable || index === 0) ?
                             <Form.Control
-                                style={{ width: '250px', }}
+                                style={{ width: '185px', height:"40px"}}
                                 value={tableData?.classFee?.feeAmount}
                                 disabled={true} />
                             : <Form.Control
                                 size='sm'
                                 type='number'
                                 value={feeAmount}
-                                style={{ width: '250px', }}
+                                style={{ width: '185px', height:"40px"}}
                                 placeholder='Enter Fee Name'
                                 disabled={editable || index === 0 ? false : true}
                                 onChange={(e) => { setFeeAmount(e.target.value); setErrorAmount('') }}
@@ -161,7 +161,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                     {errorAmount && <div style={{ color: 'red' }}>{errorAmount}</div>}
 
                 </td>
-                <td>
+                <td valign="middle">
                     {!(editable || index === 0) ?
                         <Form.Check
                             checked={tableData?.classFee?.mandatory}
@@ -175,19 +175,21 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                         />}
                 </td>
                 <td>
+                    <div className="action-btn-wrapper">
                     {(index === 0)
-                        ? <Button onClick={handleAdd}>SAVE</Button>
+                        ? <Button className='save-btn' onClick={handleAdd}><i className='icons save-icon'></i></Button>
                         : <>{editable ?
                             <>
-                                <Button onClick={handleUpdate}> UPDATE</Button>
-                                <Button onClick={() => setEditable(false)}>CANCEL</Button>
+                                <Button className="update-btn " onClick={handleUpdate}> <i className='icons update-icon'></i></Button>
+                                <Button className='cancel-btn' onClick={() => setEditable(false)}><i className='icons cancel-icon'></i></Button>
                             </> :
                             <>
-                                <Button onClick={handleEdit}>EDIT</Button>
-                                <Button onClick={handleDelete}>DELETE</Button>
+                                <Button className='edit-btn' onClick={handleEdit}><i className='icons edit-icon'></i></Button>
+                                <Button className='dlt-btn' onClick={handleDelete}><i className='icons delete-icon'></i></Button>
                             </>}
                         </>
                     }
+                    </div>
                 </td >
             </tr >
             <GenericDialog className='confirmation-modal' modalHeader='Please Confirm' show={show} handleClose={handleClose}>

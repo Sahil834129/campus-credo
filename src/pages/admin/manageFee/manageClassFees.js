@@ -65,8 +65,8 @@ export const ManageClassFees = () => {
         <>
             <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
                 <div className='internal-page-wrapper'>
-                    <div className='inner-content-wrap padt8'>
-                        <div className='title-area' style={{ paddingBottom: 20 }}>
+                    <div className='inner-content-wrap padt8  fee-type-wrapp'>
+                        <div className='title-area'>
                             <h2>
                                 Manage Fee Types
                             </h2>
@@ -79,20 +79,20 @@ export const ManageClassFees = () => {
                                 </Button>
                             </div>
                         </div>
-                        <Accordion flush >
+                        <Accordion flush className='fee-accordian-wrapp'>
                             {data.map((val, index) =>
                                 <Accordion.Item key={index} eventKey={index} onClick={() => { setOpenAccord(true); setClassId(val?.classId) }}>
                                     <Accordion.Header>{val?.className}</Accordion.Header>
                                     <Accordion.Body >
-                                        <div>
-                                            <table style={{ width: '100%' }}>
+                                        <div className="table-wrapper manage-fee-wrapp classesFee">
+                                            <table className="table" style={{ width: '100%' }}>
                                                 <thead>
-                                                    <tr>
-                                                        <th >#</th>
-                                                        <th>Fee Type</th>
-                                                        <th>Fee Amount</th>
-                                                        <th>Is Mandatory</th>
-                                                        <th>Action</th>
+                                                    <tr valign="middle">
+                                                        <th style={{textAlign:"center", }}>#</th>
+                                                        <th style={{paddingLeft: "40px" }}>Fee Type</th>
+                                                        <th  style={{paddingLeft: "75px" }}>Fee Amount</th>
+                                                        <th style={{textAlign: "center" }}>Is Mandatory</th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

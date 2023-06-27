@@ -120,31 +120,31 @@ export const GetData = ({ rowData, index, setRefetch, resetButton }) => {
     return (
         <>
             <tr>
-                <td>{index > 0 ? index : ''}</td>
-                <td style={{ width: '300px', }}>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <td className='id-cell' >{index > 0 ? index : ''}</td>
+                <td style={{ width: '245px', verticalAlign:"middle", paddingLeft: "35px" }}>
+                    <div >
                         {isEditable || rowData.add ? <Form.Control
                             size='sm'
                             type='text'
                             value={feeTypeName}
-                            style={{ width: '250px', }}
+                            style={{ width: '245px', }}
                             placeholder='Enter Fee Name'
                             onChange={(e) => { setFeeTypeName(e.target.value); setErrorName('') }}
                         /> : <Form.Control
                             size='sm'
                             value={rowData.feeTypeName}
                             disabled={true}
-                            style={{ width: '250px', }}
+                            style={{ width: '245px', }}
                         />}
                     </div>
                     {errorName && <div style={{ color: 'red' }}>{errorName}</div>}
                 </td>
-                <td style={{ width: '300px', }}>
-                    <div style={{ display: 'flex', justifyContent: 'center' }} >
+                <td style={{ width: '225px', verticalAlign:"middle", paddingLeft: "30px" }}>
+                    <div >
                         {isEditable || rowData.add ? <Form.Select
                             size='sm'
                             value={feeTypeFrequency}
-                            style={{ width: '250px', }}
+                            style={{ width: '225px', }}
                             onChange={(e) => { setFeeTypeFrequency(e.target.value); setErrorFrequency('') }}
                         >
                             <option value=''>SELECT</option>
@@ -155,26 +155,26 @@ export const GetData = ({ rowData, index, setRefetch, resetButton }) => {
                             size='sm'
                             value={(rowData.feeTypeFrequency).replace('HALF_YEARLY','HALFY-YEARLY')}
                             disabled={true}
-                            style={{ width: '250px', }}
+                            style={{ width: '225px', }}
                         />}
                     </div>
                     {errorFrequency && <div style={{ color: 'red' }}>{errorFrequency}</div>}
 
                 </td>
                 <td>
-                    <div>
+                    <div className='action-btn-wrapper'>
                         {rowData.add ?
-                            <Save onClick={handleAdd}></Save> :
+                            <Button className='save-btn' onClick={handleAdd}><i className='icons save-icon'></i></Button>:
                             <>
                                 {isEditable ?
                                     <>
-                                        <Save onClick={hnadleUpdate}></Save>
-                                        <Button onClick={() => setIsEditable(false)}>CANCEL</Button>
+                                        <Button className='save-btn' onClick={hnadleUpdate}><i className='icons save-icon'></i></Button>
+                                        <Button className='cancel-btn' onClick={() => setIsEditable(false)}><i className='icons cancel-icon'></i></Button>
                                     </>
                                     :
                                     <>
-                                        <Button onClick={handleEdit}>EDIT</Button>
-                                        <Delete onClick={handleDelete}></Delete>
+                                        <Button className='edit-btn' onClick={handleEdit}><i className='icons edit-icon'></i></Button>
+                                        <Button className='dlt-btn' onClick={handleDelete}><i className='icons delete-icon'></i></Button>
 
                                     </>}
                             </>
