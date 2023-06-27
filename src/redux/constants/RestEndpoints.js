@@ -102,6 +102,7 @@ const RestEndPoint = {
   GET_ADD_UPDATE_CLASS_FEE_DETAILS:"/fee/classFee",
   FIND_STUDENT_DETAILS:"/schoolStudent/fee/findStudents",
   GET_FFE_FOR_STUDENT: "schoolStudent/fee/getFeeForStudent/",
+  GET_FEE_AND_PAYMENT:"/schoolStudent/fee/viewFeeAndPaymentHistoryForStudent/",
 };
 
 export default RestEndPoint;
