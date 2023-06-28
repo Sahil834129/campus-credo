@@ -1,10 +1,10 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { Button, Form } from "react-bootstrap"
 import { findStudentsDetails, getSchoolClassesData } from "../../../../utils/services";
 import { useState } from "react";
 import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
 import { GetStudent } from "./getStudent";
-import { hideLoader, showLoader } from "../../../../common/Loader"
+import Loader, { hideLoader, showLoader } from "../../../../common/Loader"
 import { useDispatch } from "react-redux";
 
 
@@ -14,7 +14,8 @@ export const ManageStudentFee = () => {
     const [classId, setClassId] = useState('')
     const [classSection, setClassSection] = useState('')
     const [studentDetails, setStudentDetails] = useState([])
-    const dispatch = useDispatch();
+    const classSelected = useRef('')
+    const dispatch = useDispatch()
 
     const fetchSchoolClassesData = () => {
         const schoolId = localStorage.getItem('schoolId');
@@ -30,32 +31,38 @@ export const ManageStudentFee = () => {
     }
 
     const findStudents = () => {
-        const payload = {}
-        const load = [
-            {
-                field: "classes",
-                operator: OPERATORS.EQUALS,
-                value: classId
-            },
-            {
-                field: "classSection",
-                operator: OPERATORS.EQUALS,
-                value: classSection
-            },
-        ]
-        payload['filters'] = load;
         showLoader(dispatch);
-        findStudentsDetails(payload)
-            .then(response => {
-                if (response.status === 200) {
-                    setStudentDetails(response.data);
+        if (classId === null || classId === '') {
+            classSelected.current.style.borderColor = 'red'
+        } else {
+            const payload = {}
+            const load = [
+                {
+                    field: "classes",
+                    operator: OPERATORS.EQUALS,
+                    value: classId
+                },
+            ]
+            if (!(classSection === '')) {
+                load.push({
+                    field: "classSection",
+                    operator: OPERATORS.EQUALS,
+                    value: classSection
+                })
+            }
+            payload['filters'] = load;
+            findStudentsDetails(payload)
+                .then(response => {
+                    if (response.status === 200) {
+                        setStudentDetails(response.data);
+                        hideLoader(dispatch);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
                     hideLoader(dispatch);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                hideLoader(dispatch);
-            });
+                });
+        }
     }
 
     useEffect(() => {
@@ -73,10 +80,14 @@ export const ManageStudentFee = () => {
                                     Select Class
                                 </h2>
                                 <Form.Select
+                                    ref={classSelected}
                                     size='sm'
                                     value={classId}
                                     style={{ width: '100px', }}
-                                    onChange={(e) => { setClassId(e.target.value); }}
+                                    onChange={(e) => {
+                                        setClassId(e.target.value);
+                                        classSelected.current.style.borderColor = ''
+                                    }}
                                 >
                                     <option value=''>SELECT</option>
                                     {classes.map((val, index) => <option key={index} value={val.classId}>{val.className}</option>)}
@@ -102,6 +113,7 @@ export const ManageStudentFee = () => {
                         <Button className="save-btn" onClick={findStudents}>GO</Button>
                         </div>
                     </div>
+                    <Loader/>
                     <div className="table-wrapper manage-fee-wrapp">
                         <table className="table" style={{ width: '100%' }}>
                             <thead>
@@ -117,7 +129,16 @@ export const ManageStudentFee = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentDetails.map((val, i) => <GetStudent student={val} key={i} index={i} classes={classes} />)}
+                                {studentDetails.length > 0
+                                    ? studentDetails.map(
+                                        (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} />
+                                    )
+                                    : <tr>
+                                        <td colSpan='8'>
+                                            NO DATA FOUND
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

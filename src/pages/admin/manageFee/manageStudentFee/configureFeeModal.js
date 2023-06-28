@@ -2,17 +2,16 @@ import { useState } from "react";
 import GenericDialog from "../../../../dialogs/GenericDialog";
 import { humanize } from "../../../../utils/helper";
 import { useEffect } from "react";
-import { getClassesFeeDetails } from "../../../../utils/services";
+import { addFeeInStudenFee, getClassesFeeDetails, removeFeeFromStudenFee } from "../../../../utils/services";
 
-export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, setFeesDetail, feesDetail }) {
+export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail }) {
   const [calculatedFee, setCalculatedFees] = useState(0);
   const [classFees, setClassFees] = useState([]);
 
-  const fetchStudentFeesData = () => {
+  const fetchStudentFeesData = (feesDetail) => {
     getClassesFeeDetails(student.classId)
       .then(response => {
         if (response.status === 200) {
-          console.log(response.data);
           const result = response?.data.map(val => {
             const data = feesDetail.filter(fee => fee.studentFee.feeTypeId === val.classFee.feeTypeId);
             return {
@@ -40,10 +39,25 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
     }
     return temp;
   };
-  const handleInput = (isChecked, index, fees) => {
+  const handleInput = (isChecked, index, fees, feesDetailIds) => {
     const updatedFees = fees.map((val, i) => {
       if (i === index) {
         val.classFee.mandatory = isChecked;
+        val.isChecked = isChecked
+        if (val.isChecked){
+        const payload = {
+          "studentId": student.studentId,
+          "classId": val.classId,
+          "classFeeId": val.classFeeId,
+        }
+        addFeeInStudenFee(payload)
+        .then(res => fetchStudentFees())
+        .catch(err=> console.log(err))
+      } else{
+        const studentId = feesDetailIds[i].studentId
+        const studentFeeId = feesDetailIds[i].studentFeeId
+        removeFeeFromStudenFee(studentId, studentFeeId)
+      }
       }
       return val;
     });
@@ -54,12 +68,12 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
     if (classFees.length > 0) {
       setCalculatedFees(getCalulagedFee(classFees));
     }
-    console.log(classFees);
   }, [classFees]);
 
   useEffect(() => {
-    fetchStudentFeesData();
-  }, []);
+    fetchStudentFeesData(feesDetail);
+  }, [feesDetail]);
+
   return (
     <GenericDialog
       show={configureFeeModal}
@@ -96,9 +110,9 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
                   <input
                     type="checkbox"
                     disabled={val?.disabled}
-                    checked={val?.classFee?.mandatory}
+                    checked={val?.isChecked || false}
                     onChange={e => {
-                      handleInput(e.target.checked, index, classFees);
+                      handleInput(e.target.checked, index, classFees, feesDetail);
                     }}
                   />
                 </td>

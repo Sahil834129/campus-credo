@@ -84,7 +84,7 @@ export const GetStudent = ({ student, index, classes }) => {
                 configureFeeModal={configureFeeModal}
                 handleClose={handleClose}
                 student={student}
-                setFeesDetail={setFeesDetail}
+                fetchStudentFees={fetchStudentFeesData}
                 feesDetail={feesDetail}
             />
         )}
