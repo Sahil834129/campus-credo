@@ -4,6 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/esm/Container";
 import { Link } from "react-router-dom";
+import bestpreschool from "../../assets/img/blog-img/best-preschool-nearyou.png";
 import BlogThumbnail from "../../assets/img/blog-img/campuscredo-blog-pic.jpg";
 import cbsevsicse from "../../assets/img/blog-img/cbse-vs-icse.jpg";
 import Breadcrumbs from "../../common/Breadcrumbs";
@@ -51,15 +52,35 @@ const Blog = () => {
                   >
                     <div className="blog-thumb">
                       <img
-                        src={cbsevsicse}
+                       src={cbsevsicse}
                         alt=""
                         className="card-article-image"
                       />
                     </div>
                     <div className="blog-content">
-                      <div className="postedon">May 18, 2023</div>
+                    <div className="postedon">May 18, 2023</div>
                       <div className="blog-title">
-                        Should You Choose CBSE Or ICSE School For Your Children?
+                      Should You Choose CBSE Or ICSE School For Your Children?
+                      </div>
+                    </div>
+                  </Link>
+                </ListGroup.Item>
+                <ListGroup.Item as="li">
+                  <Link
+                    className=""
+                    to="/blog/how-to-choose-the-best-preschool-near-you"
+                  >
+                    <div className="blog-thumb">
+                      <img
+                        src={bestpreschool}
+                        alt=""
+                        className="card-article-image"
+                      />
+                    </div>
+                    <div className="blog-content">
+                    <div className="postedon">June 16, 2023</div>
+                      <div className="blog-title">
+                      How To Choose the Best Preschool Near You?
                       </div>
                     </div>
                   </Link>

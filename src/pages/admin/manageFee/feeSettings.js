@@ -62,8 +62,8 @@ export const FeeSettings = ({ isWritePermission }) => {
     return (
         <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
             <div className='internal-page-wrapper'>
-                <div className='inner-content-wrap padt8' >
-                    <div className='title-area' style={{ padding: 10 }}>
+                <div className='inner-content-wrap padt8 lateFee-wrapp' >
+                    <div className='title-area'>
                         <h2>
                             Manage Fee Settings
                         </h2>
@@ -73,33 +73,31 @@ export const FeeSettings = ({ isWritePermission }) => {
                         borderTopWidth: '1px',
                         borderColor: "lightGray",
                     }} />
-                    <div>
-                        <div className="frm-cell" style={{ padding: 10, paddingBottom: 0 }} >
+                    <div className="amount-main-wrapp">
+                        <div className="frm-cell">
                             <label>Late Fee Settings</label>
                         </div>
-                        <div style={{
-                            display: 'flex', margin: 5, paddingLeft: 45
-                        }} >
-                            <div style={{ margin: 10 }}>
-                                <label style={{ color: 'black' }}>Late Fee Amount(₹)</label>
+                        <div className="amount-inner-wrapp" >
+                            <div >
+                                <label>Late Fee Amount(₹)</label>
                                 <Form.Control
                                     value={lateFeeAmount}
                                     size='sm'
                                     type='text'
                                     placeholder='Fee Name'
-                                    style={{ width: '200px', margin: 'auto' }}
+                                    style={{ width: '249px', margin: 'auto' }}
                                     onChange={val => {setLateFeeAmount(val.target.value);setErrorAmount('')}}
                                     disabled={!isWritePermission}
                                 />
                                 {errorAmount && <div style={{color:'red'}}>{errorAmount}</div>}
 
                             </div>
-                            <div style={{ margin: 10 }}>
-                                <label style={{ color: 'black' }}>Late Fee Frequency</label>
+                            <div >
+                                <label>Late Fee Frequency</label>
                                 <Form.Select
                                     value={lateFeeFrequency}
                                     size='sm'
-                                    style={{ width: '200px', margin: "auto" }}
+                                    style={{ width: '290px', margin: "auto" }}
                                     onChange={val => {setLateFeeFrequency(val.target.value); setErrorFrequency('')}}
                                     disabled={!isWritePermission}
                                 >
@@ -111,40 +109,29 @@ export const FeeSettings = ({ isWritePermission }) => {
                                 {errorFrequency && <div style={{color:'red'}}>{errorFrequency}</div>}
                             </div>
                         </div>
-                        <div style={{
+                        <div className="border-wrapp" style={{
                             borderStyle: 'solid',
                             paddingTop: '5px',
                             borderTopWidth: '1px',
                             borderColor: "lightGray",
-                            width: '550px'
+                            width: '595px'
                         }} />
                     </div>
-                    <div >
-                        <div className='frm-cell' style={{ display: "flex", padding: 10 }} >
+                    <div className="amount-main-wrapp">
+                        <div className='frm-cell'>
                             <label>Fee Submission Last Date</label>
                         </div>
-                        <div className='title-area' style={{ display: 'block', paddingLeft: 45 }} >
-                            <h2>Select a date to define final due date for fee submission </h2>
-                            <div style={
-                                {
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(10, 1fr)',
-                                    width: '500px',
-                                }}>
+                        <div className="amount-inner-wrapp  submission-date-wrapp" >
+                            <h2 className="submission-title">Select a date to define final due date for fee submission </h2>
+                            <div className="date-main-container">
                                 {FEE_SUBMISSION_LAST_DATES.map((val, i) =>
                                    
-                                        <div
+                                        <div className="date-inner-container"
                                             style={
                                                 {
-                                                    margin: 5,
-                                                    padding: 5,
-                                                    borderStyle: "dashed",
-                                                    borderColor: 'darkGrey',
-                                                    borderWidth: 1,
-                                                    borderRadius: 5,
-                                                    width: 40,
-                                                    textAlign:'center',
-                                                    backgroundColor: state === i ? 'lightGreen' : 'white',
+                                                    backgroundColor: state === i ? '#4AB900' : '#F8F8F8',
+                                                    color: state === i ? '#fff' : '#5D5D5D',
+                                                    border: state === i ? '1px solid #4AB900' : '1px dashed #D9D9D9',
                                                 }
                                             }
                                             key={`Select_${val}`}
@@ -155,30 +142,19 @@ export const FeeSettings = ({ isWritePermission }) => {
                                 )}
                             </div>
                         </div>
-                        <div style={{
-                            borderStyle: "dashed",
-                            borderColor: 'lightGreen',
-                            borderWidth: 1,
-                            borderRadius: 5,
-                            backgroundColor: 'lightGrey',
-                            margin: 10,
-                            marginLeft: 45,
-                            padding: 5,
-                            width: '400px',
-
-                        }}>
-                            {feeSubmissionLastDate ? <div><span style={{ color: 'Green', paddingLeft: 5 }}>{feeSubmissionLastDate}<sup>th</sup></span> of every month is selected to clear the due</div> : <div></div>}
+                        <div className="date-selection-wrapp">
+                            {feeSubmissionLastDate ? <label><span style={{ color: 'Green', paddingLeft: 5 }}>{feeSubmissionLastDate}<sup>th</sup></span> of every month is selected to clear the due</label> : <div></div>}
                         </div>
                     </div>
-                    <div style={{
+                    <div className="border-wrapp" style={{
                         borderStyle: 'solid',
                         padding: '10px',
                         borderTopWidth: '1px',
                         borderColor: "lightGray",
-                        width: '550px'
+                        width: '595px'
 
                     }} />
-                    <div className='btn-wrapper' style={{ position: 'absolute' }}>
+                    <div className='btn-wrapper'>
                         <Button className='reset-btn' onClick={handleReset}>RESET</Button>
                         <Button className='save-btn' onClick={handleSave}>Save</Button>
                     </div>

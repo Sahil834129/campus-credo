@@ -25,6 +25,7 @@
     .content-area {
       &.user-supAdmin{
         min-height: 74vh;
+        background: #F8F8F8;
         .navbar-header{
           &.col{flex: 0 0;}
         }
@@ -41,6 +42,7 @@
           border-bottom: none;
           ol.breadcrumb {
             margin-bottom: 0;
+            padding: 20px 0;
           }
         }
       }
@@ -218,7 +220,7 @@
 
   .title-kpi-wrapper {
     // background: rgba(65, 40, 95, 0.12);
-    height: 42px;
+    // height: 57px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -975,7 +977,9 @@ ul.list-group {
         padding: 0;
         min-height: 76vh;
         flex: 0 0 224px;
+        padding-left: 22px;
         .nav {
+          &.flex-column{gap: 10px;}
           a.nav-link {
             font-style: normal;
             font-weight: 500;
@@ -1003,7 +1007,236 @@ ul.list-group {
       // overflow-x: auto;
       &.padt8 {
       }
+      &.lateFee-wrapp{
+        .title-area{padding: 7px 0px 15px;}
+        .amount-main-wrapp{
+          .frm-cell{
+            padding-top: 10px;
+            label{
+              color: #5D5D5D;
+              font-weight: 500;          
+            }
+          }
+          .amount-inner-wrapp{
+            display: flex;
+            column-gap: 23px;
+            padding-left: 32px;
+            margin: 20px 0 25px;
+            input{ padding: 8px 12px; height: 42px; font-size: 14px; border-radius: 6px;}
+            .form-select-sm{
+              height: 42px;
+              font-size: 14px;
+              border-radius: 2px;
+            }
+            label{color: #000;  margin-bottom: 5px;}
+            &.submission-date-wrapp{
+            flex-direction: column;
+            row-gap: 10px;
+            .submission-title{
+              font-style: normal;
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 18px;
+              color: #000;            
+            }
+            .date-main-container{
+              display: grid;
+              grid-template-columns: repeat(10, 1fr);
+              row-gap: 10px;
+              column-gap: 14px;
+              width: 515px;   
+              .date-inner-container{
+                border-radius: 6px;
+                padding: 10px 12px;
+                text-align: center;
+                font-size: 14px;
+                font-family: Rubik;
+                line-height: 20px;
+                letter-spacing: 0.25px;            
+              }           
+            }
+            }
+          }
+          .date-selection-wrapp{
+            border-radius: 6px;
+            border: 1px dashed #4AB900;
+            background: rgba(74, 185, 0, 0.04);
+            margin: 10px 10px 28px 31px;
+            padding: 5px;
+            width: 400px;  
+            label{text-transform: lowercase; font-weight: 600;}          
+          }
+
+        }
+        .btn-wrapper{
+          justify-content: flex-start;
+         .reset-btn:hover{
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(0, 0, 0, 0.4);
+         }
+         .save-btn:hover{
+           background: #549b43;
+           border: 1px solid #549b43;          
+         }
+        }
+      }
+      &.fee-type-wrapp{
+        .title-area{padding-bottom: 20px;}
+        .fee-accordian-wrapp{
+          .accordion-item{
+            margin-bottom: 8px;
+            border-radius: 6px;
+            .accordion-header{
+              .accordion-button{
+                font-size: 14px;
+                font-weight: 500;
+                line-height: 22px;                
+                border-radius: 6px;
+                color: rgba(0, 0, 0, 0.85);
+                &::after{
+                  transform: rotate(270deg);
+                  position: absolute;
+                  left: 16px;
+                  width: 14px;
+                  top: 20px;
+                  height: 14px;
+                  background-position: center;
+                }
+                padding: 1rem 3rem;
+                &:not(.collapsed){background-color: #41285F; color: #fff; border-radius: 6px 6px 0px 0px;}
+                &:not(.collapsed)::after{
+                  transform: rotate(360deg); 
+                  background-image: url("../img/icons/downArrow-icon.svg");
+                  width: 14px;
+                  height: 14px;
+                  background-position: bottom;
+                }
+              }
+            }
+            .accordion-collapse{
+              .accordion-body{
+                padding: 0px;
+                .manage-fee-wrapp{
+                  padding-top: 0px;
+                  .table{
+                    thead th:last-child{text-align: right;}
+                    tbody{
+                      td{
+                        &:last-child{text-align: right;}
+                        .form-select-sm, .form-control-sm{font-size: 14px; height: 40px;}
+                        .btn-wrapper{
+                          .save-btn:hover{
+                            background: #549b43;
+                            border: 1px solid #549b43;                            
+                          }
+                          .reset-btn:hover{
+                            background: rgba(0, 0, 0, 0.4);
+                            border: 1px solid rgba(0, 0, 0, 0.4);
+                          }
+                          .decline-btn:hover{
+                            background: #e22445;
+                            border: 1px solid #e22445;                            
+                          }
+                          .approval-btn:hover{
+                            background: #005db1;
+                            border: 1px solid #005db1;                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       .table-wrapper {
+        &.manage-fee-wrapp{
+          &.classesFee{
+            table{
+              tbody{
+                tr td{background-color: #fff;}
+              }
+            }
+          }
+          table {
+            thead {
+              tr{
+                background: rgba(65, 40, 95, 0.06); 
+                height: 48px;
+                th{text-align: left;}
+              }
+
+            }
+            tbody{
+              tr td{
+                &.id-cell{
+                  width: 60px;
+                  vertical-align: middle;
+                  background-color: rgba(65, 40, 95, 0.02);
+                  box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 0px 0px inset;                  
+                }
+                background: #F8F8F8;
+                padding: 16px 0px;
+                text-align: center;
+                .form-control-sm, .form-select-sm{
+                  color: rgba(0, 0, 0, 0.84);
+                  font-size: 14px;
+                  font-family: Rubik;
+                  line-height: 20px;
+                  letter-spacing: 0.25px;
+                  height: 40px; 
+                  padding: 8px 12px;
+                  border-radius: 6px; 
+                  &:disabled{background-color: #fff;}
+                }
+              }
+            }
+            .action-btn-wrapper{
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              padding-right: 8px;
+              column-gap: 8px;
+              .btn{
+                padding: 11px;     
+                width: 36px;   
+                height: 36px; 
+                display: flex;
+                align-items: center;
+                text-align: center;
+                color: #ffffff;  
+                border-radius: 100px; 
+                transition: all 0.15s ease-in-out; 
+                &:hover{opacity: 0.8;}
+                &.edit-btn{
+                  border: 1px solid #DADADA;
+                  background: #4AB900;      
+                }  
+                &.cancel-btn{
+                  background: #E22445;
+                  border: 1px solid #E22445;
+                }  
+                &.dlt-btn{
+                  border-radius: 100px;
+                  border: 1px solid #E53535;
+                  background: #E53535;
+                  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);                  
+                }
+                &.save-btn{
+                  background: rgba(0, 0, 0, 0.3);
+                  border: 1px solid #DADADA;
+                  // background: #DADADA;
+                }   
+                &.update-btn{
+                  background: #EF9F2C;   
+                  border: 1px solid #EF9F2C;               
+                }    
+              }
+            }
+          }
+        }
         padding-top: 8px;
         table {
           thead {
