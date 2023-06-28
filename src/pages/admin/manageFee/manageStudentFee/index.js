@@ -63,13 +63,13 @@ export const ManageStudentFee = () => {
     }, [])
 
     return (
-        <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
+        <div className='inner-content-wrap' style={{ width: '100%' }}>
             <div className='internal-page-wrapper'>
                 <div className='inner-content-wrap padt8'>
-                    <div className='title-area' style={{ paddingTop: 10, display: 'flex' }}>
-                        <div style={{ display: 'flex' }}>
-                            <div style={{ display: 'flex', marginRight: '10px' }}>
-                                <h2 style={{ width: 'auto', marginRight: '10px', paddingTop: '10px' }}>
+                    <div className='title-area'>
+                        <div className="admission-fld-wrap">
+                            <div className="admission-fld-wrap">
+                                <h2>
                                     Select Class
                                 </h2>
                                 <Form.Select
@@ -83,8 +83,8 @@ export const ManageStudentFee = () => {
 
                                 </Form.Select>
                             </div>
-                            <div style={{ display: 'flex' }}>
-                                <h2 style={{ width: 'auto', marginRight: '10px', paddingTop: '10px' }}>
+                            <div className="admission-fld-wrap">
+                                <h2>
                                     Select Section
                                 </h2>
                                 <Form.Select
@@ -98,20 +98,22 @@ export const ManageStudentFee = () => {
                                 </Form.Select>
                             </div>
                         </div>
-                        <Button onClick={findStudents}>GO</Button>
+                        <div className="btn-wrapper">
+                        <Button className="save-btn" onClick={findStudents}>GO</Button>
+                        </div>
                     </div>
-                    <div>
-                        <table style={{ width: '100%' }}>
+                    <div className="table-wrapper manage-fee-wrapp">
+                        <table className="table" style={{ width: '100%' }}>
                             <thead>
-                                <tr>
-                                    <th >#</th>
+                                <tr valign="middle">
+                                    <th style={{textAlign:"center", backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>#</th>
                                     <th>Student Name</th>
                                     <th>Student ID</th>
                                     <th>Roll No.</th>
                                     <th>DOB</th>
                                     <th>Section</th>
                                     <th>Stream</th>
-                                    <th>Action</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
