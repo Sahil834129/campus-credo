@@ -1,7 +1,6 @@
 import { Button } from "react-bootstrap";
 import { humanize } from "../../../../utils/helper";
 import { useEffect, useState } from "react";
-import GenericDialog from "../../../../dialogs/GenericDialog";
 import { getFeeForStudent } from "../../../../utils/services";
 import ConfigureFeeModal from "./configureFeeModal";
 import StudentFeeDetails from "./studentFeeDetail";
@@ -77,7 +76,6 @@ export const GetStudent = ({ student, index, classes }) => {
             <StudentFeeDetails
                 show={viewFeeModal}
                 handleClose={handleClose}
-                modalHeader='Student fee Details'
                 student={student}
             />
         )}

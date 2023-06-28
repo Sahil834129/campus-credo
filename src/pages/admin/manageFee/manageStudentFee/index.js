@@ -4,6 +4,8 @@ import { findStudentsDetails, getSchoolClassesData } from "../../../../utils/ser
 import { useState } from "react";
 import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
 import { GetStudent } from "./getStudent";
+import { hideLoader, showLoader } from "../../../../common/Loader"
+import { useDispatch } from "react-redux";
 
 
 
@@ -12,7 +14,7 @@ export const ManageStudentFee = () => {
     const [classId, setClassId] = useState('')
     const [classSection, setClassSection] = useState('')
     const [studentDetails, setStudentDetails] = useState([])
-
+    const dispatch = useDispatch();
 
     const fetchSchoolClassesData = () => {
         const schoolId = localStorage.getItem('schoolId');
@@ -41,15 +43,18 @@ export const ManageStudentFee = () => {
                 value: classSection
             },
         ]
-        payload['filters'] = load
+        payload['filters'] = load;
+        showLoader(dispatch);
         findStudentsDetails(payload)
             .then(response => {
                 if (response.status === 200) {
-                    setStudentDetails(response.data)
+                    setStudentDetails(response.data);
+                    hideLoader(dispatch);
                 }
             })
             .catch(error => {
                 console.log(error);
+                hideLoader(dispatch);
             });
     }
 

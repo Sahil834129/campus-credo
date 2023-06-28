@@ -257,6 +257,6 @@ export const getFeeForStudent = (classId,studentId) => {
   return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${classId}/${studentId}`);
 };
 
-export const getFeeAndPaymentHistoryForStudent = (classId,studentId) => {
-  return RESTClient.get(RestEndPoint.GET_FEE_AND_PAYMENT + `${classId}/${studentId}`);
+export const getFeeAndPaymentHistoryForStudent = (session, classId, studentId) => {
+  return RESTClient.get(RestEndPoint.GET_FEE_AND_PAYMENT + `${session}/${classId}/${studentId}`);
 };
