@@ -9,7 +9,7 @@ import GenericDialog from "../../../dialogs/GenericDialog";
 
 
 
-export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch, resetButton }) => {
+export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch, resetButton, isWritePermission }) => {
 
     const [feeTypeId, setFeeTypeId] = useState('')
     const [feeAmount, setFeeAmount] = useState('')
@@ -45,6 +45,9 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                 .then(response => {
                     toast.success(response.data);
                     setReFetch(val => !val)
+                    setFeeTypeId('')
+                    setFeeAmount('')
+                    setMandatory(false)
                 })
                 .catch(error => {
                     toast.error(error.response.data.apierror.message);
@@ -132,7 +135,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                                 value={feeTypeId}
                                 style={{ width: '250px', }}
                                 onChange={(e) => { setFeeTypeId(e.target.value); setErrorTypeField('') }}
-                                disabled={editable || index === 0 ? false : true}
+                                disabled={editable || isWritePermission ? false : true}
                             >
                                 <option value=''>Select Fee type</option>
                                 {feeoption.map((val) => <option key={val?.feeTypeName} value={val?.feeTypeId}>{val?.feeTypeName}</option>)}
@@ -154,7 +157,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                                 value={feeAmount}
                                 style={{ width: '185px', height:"40px"}}
                                 placeholder='Enter Fee Name'
-                                disabled={editable || index === 0 ? false : true}
+                                disabled={(editable || isWritePermission ) ? false : true}
                                 onChange={(e) => { setFeeAmount(e.target.value); setErrorAmount('') }}
                             />}
                     </div>
@@ -170,7 +173,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                         : <Form.Check
                             value={mandatory}
                             checked={mandatory}
-                            disabled={editable || index === 0 ? false : true}
+                            disabled={editable || isWritePermission ? false : true}
                             onChange={(e) => setMandatory(val => !val)}
                         />}
                 </td>

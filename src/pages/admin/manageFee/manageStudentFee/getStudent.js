@@ -7,7 +7,7 @@ import StudentFeeDetails from "./studentFeeDetail";
 
 
 
-export const GetStudent = ({ student, index, classes }) => {
+export const GetStudent = ({ student, index, module }) => {
 
     const [viewFeeModal, setViewFeeModal] = useState(false);
     const [configureFeeModal, setConfigureFeeModal] = useState(false);
@@ -51,25 +51,35 @@ export const GetStudent = ({ student, index, classes }) => {
             <td>{student.classSection}</td>
             <td>{student.stream}</td>
             <td>
-                <div className="frm-cell btn-wrapper mt-3" style={{ width: 'auto' }}>
+                {(module === 'configureStudentFee')
+                    ? <div className="frm-cell btn-wrapper mt-3" style={{ width: 'auto' }}>
+                        <Button
+                            variant="primary"
+                            className="confirm-btn"
+                            style={{ backgroundColor: 'orange' }}
+                            onClick={() => setViewFeeModal(true)}
+                        >
+                            View fee
+                        </Button>
+                        <Button
+                            variant="primary"
+                            className="confirm-btn"
+                            style={{ backgroundColor: 'green' }}
+                            onClick={() => setConfigureFeeModal(true)}
+                        >
+                            Configure Fee
+                        </Button>
+                    </div>
+                    : <div className="frm-cell btn-wrapper mt-3" style={{ width: 'auto' }}>
+                        <Button
+                            variant="primary"
+                            className="confirm-btn"
+                            style={{ backgroundColor: 'green' }}
+                        >
+                            Offline Payment
+                        </Button>
 
-                    <Button
-                        variant="primary"
-                        className="confirm-btn"
-                        style={{ backgroundColor: 'orange' }}
-                        onClick={() => setViewFeeModal(true)}
-                    >
-                        View fee
-                    </Button>
-                    <Button
-                        variant="primary"
-                        className="confirm-btn"
-                        style={{ backgroundColor: 'green' }}
-                        onClick={() => setConfigureFeeModal(true)}
-                    >
-                        Configure Fee
-                    </Button>
-                </div>
+                    </div>}
             </td>
         </tr>
         {viewFeeModal && (

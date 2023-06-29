@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 
 
-export const ManageStudentFee = () => {
+export const ManageStudentFee = ({isWritePermission, module}) => {
     const [classes, setClasses] = useState([])
     const [classId, setClassId] = useState('')
     const [classSection, setClassSection] = useState('')
@@ -31,10 +31,10 @@ export const ManageStudentFee = () => {
     }
 
     const findStudents = () => {
-        showLoader(dispatch);
         if (classId === null || classId === '') {
             classSelected.current.style.borderColor = 'red'
         } else {
+            showLoader(dispatch);
             const payload = {}
             const load = [
                 {
@@ -66,8 +66,11 @@ export const ManageStudentFee = () => {
     }
 
     useEffect(() => {
+        setClassId('')
+        setClassSection('')
+        setStudentDetails([])
         fetchSchoolClassesData()
-    }, [])
+    }, [module])
 
     return (
         <div className='inner-content-wrap' style={{ width: '100%' }}>
@@ -84,6 +87,7 @@ export const ManageStudentFee = () => {
                                     size='sm'
                                     value={classId}
                                     style={{ width: '100px', }}
+                                    disabled={!isWritePermission}
                                     onChange={(e) => {
                                         setClassId(e.target.value);
                                         classSelected.current.style.borderColor = ''
@@ -102,6 +106,7 @@ export const ManageStudentFee = () => {
                                     size='sm'
                                     value={classSection}
                                     style={{ width: 'auto' }}
+                                    disabled={!isWritePermission}
                                     onChange={(e) => { setClassSection(e.target.value); }}
                                 >
                                     <option value=''>SELECT</option>
@@ -131,7 +136,7 @@ export const ManageStudentFee = () => {
                             <tbody>
                                 {studentDetails.length > 0
                                     ? studentDetails.map(
-                                        (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} />
+                                        (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} module={module}/>
                                     )
                                     : <tr>
                                         <td colSpan='8'>

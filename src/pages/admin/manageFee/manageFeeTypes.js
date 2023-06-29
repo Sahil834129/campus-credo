@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetData } from './getData';
 
 
-export const ManageFeesTypes = () => {
+export const ManageFeesTypes = ({isWritePermission}) => {
 
     const rowsData = useSelector(state => state?.manageFees?.feesTypeRows || []);
     const dispatch = useDispatch();
@@ -22,12 +22,13 @@ export const ManageFeesTypes = () => {
                 <div className='inner-content-wrap padt8'>
                     <div className='title-area'>
                         <h2>
-                            Manage Fee Types
+                            Create Fee Type
                         </h2>
                         <div className='btn-wrapper'>
                             <Button 
                             className='reset-btn'
                             onClick={()=>setResetButton(val=>!val)}
+                            disabled={isWritePermission}    
                             >
                                 RESET
                             </Button>
@@ -52,6 +53,7 @@ export const ManageFeesTypes = () => {
                                         reFetch={reFetch}
                                         setRefetch={setRefetch}
                                         resetButton={resetButton}
+                                        isWritePermission={isWritePermission}
                                     />
                                 )}
                             </tbody>

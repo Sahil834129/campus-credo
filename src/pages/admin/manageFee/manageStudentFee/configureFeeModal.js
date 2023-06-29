@@ -130,8 +130,6 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
         }}
       >
         <span style={{ marginRight: '10px' }}>Total Amount: {calculatedFee}</span>
-        <button className="btn" style={{ background: '#41285F', color: 'white' }}>
-          Submit</button>
       </div>
     </GenericDialog>
   );

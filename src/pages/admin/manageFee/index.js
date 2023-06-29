@@ -9,11 +9,11 @@ import { ManageClassFees } from './manageClassFees'
 import { ManageStudentFee } from './manageStudentFee'
 
 export const ManageFees = () => {
-  const [visible, setVisible] = useState('manageStudentFee')
+  const [visible, setVisible] = useState('manageFeeTypes')
   const isWritePermission = getCurrentModulePermission("Manage Admission");
 
   return (
-    <Layout>
+    <Layout selectedSection={visible}>
       <div className='content-area-inner inner-page-outer'>
         <div className='internal-page-wrapper two-columns'>
           <div className='filterpanel sidenav'>
@@ -27,14 +27,16 @@ export const ManageFees = () => {
           </div>
           {(() => {
             switch (visible) {
-              case 'manageFeeTypes':
-                return <ManageFeesTypes />;
-              case 'manageClassFees':
-                return <ManageClassFees />;
-              case 'feeSettings':
+              case 'createFeeType':
+                return <ManageFeesTypes isWritePermission={isWritePermission} />;
+              case 'configureLateFee':
                 return <FeeSettings isWritePermission={isWritePermission} />
-              case 'manageStudentFee':
-                return <ManageStudentFee />;                
+              case 'configureClassFees':
+                return <ManageClassFees isWritePermission={isWritePermission} />;
+              case 'configureStudentFee':
+                return <ManageStudentFee isWritePermission={isWritePermission} module={visible}/>;
+              case 'offlineFee':
+                return <ManageStudentFee isWritePermission={isWritePermission} />;
               default:
                 return <ManageFeesTypes />;
             }
