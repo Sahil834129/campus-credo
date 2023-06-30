@@ -75,38 +75,47 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
   }, [feesDetail]);
 
   return (
-    <GenericDialog
+<GenericDialog
       show={configureFeeModal}
       handleClose={handleClose}
       modalHeader='Configure fee'
-      style={{ margin: 0 }}
+      className="Student-fee-model "
     >
-      <div
-        className='title-area'
-      >
-        {`${humanize(student.firstName)} ${humanize(student.lastName)} (${student.schoolStudentId}) (${student.className})`}
-      </div>
-      <table style={{ width: '100%' }}>
-        <thead style={{
-          border: '2px solid lightgrey'
-        }}>
-          <tr>
+            <div className='title-area border-config'>
+                <span className='student-name'>
+                {`${humanize(student.firstName)} ${humanize(student.lastName)} `}
+                </span>
+                <span className='student-info'>
+                <label >ID - </label>{student.schoolStudentId}
+                </span>
+                <span className='student-info'>
+                <label>Roll No. - </label>{student.rollNo}
+                </span>
+                <span className='student-info'>
+                <label >Class - </label>{student.className}                   
+                 </span>
+                <span className='student-info'>
+                <label >Section - </label>{student.classSection}
+                </span>
+            </div>
+            <div className="table-wrapper">
+      <table className="table" style={{ width: '100%' }}>
+        <thead>
+          <tr valign="middle">
             <th>Fee Type</th>
             <th>Frequency</th>
             <th>Fee Amount</th>
-            <th>Mandatory</th>
+            <th style={{textAlign:"center"}}>Mandatory</th>
           </tr>
         </thead>
         <tbody>
           {classFees && classFees.length > 0 &&
             classFees.map((val, index) => (
-              <tr key={`configureFee${index}`} style={{
-                border: '2px solid lightgrey'
-              }}>
+              <tr valign="middle" key={`configureFee${index}`} >
                 <td>{val?.classFee?.feeTypeName}</td>
                 <td>{humanize(val?.classFee?.feeTypeFrequency)}</td>
                 <td>{val?.classFee?.feeAmount}</td>
-                <td>
+                <td style={{textAlign:"center"}}>
                   <input
                     type="checkbox"
                     disabled={val?.disabled}
@@ -121,15 +130,9 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
           }
         </tbody>
       </table>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          width: '100%',
-          alignItems: 'center'
-        }}
-      >
-        <span style={{ marginRight: '10px' }}>Total Amount: {calculatedFee}</span>
+      </div>
+      <div  className="total-amount-wrapp">
+        <span className="amount-lbl">Total Amount Due <span> ₹{calculatedFee}/-</span></span>
       </div>
     </GenericDialog>
   );

@@ -119,7 +119,7 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
                         </div>
                     </div>
                     <Loader/>
-                    <div className="table-wrapper manage-fee-wrapp">
+                    <div className="table-wrapper manage-fee-wrapp student-fee-wrapp">
                         <table className="table" style={{ width: '100%' }}>
                             <thead>
                                 <tr valign="middle">
@@ -139,7 +139,7 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
                                         (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} module={module}/>
                                     )
                                     : <tr>
-                                        <td colSpan='8'>
+                                        <td colSpan='8' style={{textAlign:"center"}}>
                                             NO DATA FOUND
                                         </td>
                                     </tr>
