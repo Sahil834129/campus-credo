@@ -260,3 +260,11 @@ export const getFeeForStudent = (classId,studentId) => {
 export const getFeeAndPaymentHistoryForStudent = (session, classId, studentId) => {
   return RESTClient.get(RestEndPoint.GET_FEE_AND_PAYMENT + `${session}/${classId}/${studentId}`);
 };
+
+export const addFeeInStudenFee = (payload) => {
+  return RESTClient.post(RestEndPoint.ADD_FEE_IN_STUDENT_FEES, payload);
+};
+
+export const removeFeeFromStudenFee = (studentId , studentFeeId) => {
+  return RESTClient.delete(RestEndPoint.REMOVE_FEE_FROM_STUDENT_FEES + `/${studentId }`+`/${studentFeeId }`);
+};

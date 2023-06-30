@@ -5,7 +5,7 @@ import { DEFAULT_ROLES } from "../constants/app";
 import PageContent from "../resources/pageContent";
 import { convertCamelCaseToPresentableText, getLocalData, gotoHome } from "../utils/helper";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ selectedSection }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const currentRole = getLocalData('roles');
@@ -16,6 +16,10 @@ const Breadcrumbs = () => {
   const getLinkRef = (index) => {
     return "/" + pathNestedRoutes.slice(0, index + 1).join("/");
   };
+  
+  if (selectedSection){
+    pathNestedRoutes.push(selectedSection)
+  }
 
   const isHomePage =
     pathWithoutQuery === "/" || pathWithoutQuery === "/userProfile" || pathWithoutQuery === "/dashboard";

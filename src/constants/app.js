@@ -57,10 +57,12 @@ export const SCHOOL_APPLICATION_STATUS = {
 };
 
 export const MANAGE_FEE_OPTIONS = [
-  { value: 'manageFeeTypes', text: 'Create Fee Type' },
-  { value: 'feeSettings', text: 'Configure Late Fee' },
-  { value: 'manageClassFees', text: 'Configure Class Fees' },
-  { value: 'manageStudentFee', text: 'Configure Student Fee' },
+  { value: 'createFeeType', text: 'Create Fee Type' },
+  { value: 'configureLateFee', text: 'Configure Late Fee' },
+  { value: 'configureClassFees', text: 'Configure Class Fees' },
+  { value: 'configureStudentFee', text: 'Configure Student Fee' },
+  { value: 'offlineFee', text: 'Offline Fee' },
+
 ]
 
 export const FEE_TYPE_FREQUENCY = [

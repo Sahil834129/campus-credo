@@ -9,7 +9,7 @@ import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg"
 import { useEffect } from 'react';
 import GenericDialog from '../../../dialogs/GenericDialog';
 
-export const GetData = ({ rowData, index, setRefetch, resetButton }) => {
+export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermission }) => {
 
     const [feeTypeName, setFeeTypeName] = useState('')
     const [feeTypeFrequency, setFeeTypeFrequency] = useState('')
@@ -129,6 +129,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton }) => {
                             value={feeTypeName}
                             style={{ width: '245px', }}
                             placeholder='Enter Fee Name'
+                            disabled={isWritePermission}
                             onChange={(e) => { setFeeTypeName(e.target.value); setErrorName('') }}
                         /> : <Form.Control
                             size='sm'
@@ -145,6 +146,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton }) => {
                             size='sm'
                             value={feeTypeFrequency}
                             style={{ width: '225px', }}
+                            disabled={isWritePermission}
                             onChange={(e) => { setFeeTypeFrequency(e.target.value); setErrorFrequency('') }}
                         >
                             <option value=''>SELECT</option>

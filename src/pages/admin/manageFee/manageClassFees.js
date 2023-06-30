@@ -7,7 +7,7 @@ import { getManageFeesType } from '../../../redux/actions/manageFeesAction';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-export const ManageClassFees = () => {
+export const ManageClassFees = ({isWritePermission}) => {
     const schoolId = localStorage.getItem('schoolId');
     const feeoption = useSelector(state => state?.manageFees?.feesTypeRows || []);
     const feeTypeOption = feeoption.slice(1)
@@ -68,12 +68,13 @@ export const ManageClassFees = () => {
                     <div className='inner-content-wrap padt8  fee-type-wrapp'>
                         <div className='title-area'>
                             <h2>
-                                Manage Fee Types
+                                Configure Class Fee
                             </h2>
                             <div className='btn-wrapper'>
                                 <Button
                                     className='reset-btn'
                                     onClick={() => setResetButton(val => !val)}
+                                    disabled={!isWritePermission}
                                 >
                                     RESET
                                 </Button>
@@ -104,6 +105,7 @@ export const ManageClassFees = () => {
                                                         classId={classId}
                                                         setReFetch={setReFetch}
                                                         resetButton={resetButton}
+                                                        isWritePermission={isWritePermission}
                                                     />)}
                                                 </tbody>
                                             </table>

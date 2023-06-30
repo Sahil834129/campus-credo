@@ -65,7 +65,7 @@ export const FeeSettings = ({ isWritePermission }) => {
                 <div className='inner-content-wrap padt8 lateFee-wrapp' >
                     <div className='title-area'>
                         <h2>
-                            Manage Fee Settings
+                            Configure Late Fee
                         </h2>
                     </div>
                     <div style={{

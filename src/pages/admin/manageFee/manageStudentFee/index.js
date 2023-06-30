@@ -1,20 +1,21 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { Button, Form } from "react-bootstrap"
 import { findStudentsDetails, getSchoolClassesData } from "../../../../utils/services";
 import { useState } from "react";
 import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
 import { GetStudent } from "./getStudent";
-import { hideLoader, showLoader } from "../../../../common/Loader"
+import Loader, { hideLoader, showLoader } from "../../../../common/Loader"
 import { useDispatch } from "react-redux";
 
 
 
-export const ManageStudentFee = () => {
+export const ManageStudentFee = ({isWritePermission, module}) => {
     const [classes, setClasses] = useState([])
     const [classId, setClassId] = useState('')
     const [classSection, setClassSection] = useState('')
     const [studentDetails, setStudentDetails] = useState([])
-    const dispatch = useDispatch();
+    const classSelected = useRef('')
+    const dispatch = useDispatch()
 
     const fetchSchoolClassesData = () => {
         const schoolId = localStorage.getItem('schoolId');
@@ -30,37 +31,46 @@ export const ManageStudentFee = () => {
     }
 
     const findStudents = () => {
-        const payload = {}
-        const load = [
-            {
-                field: "classes",
-                operator: OPERATORS.EQUALS,
-                value: classId
-            },
-            {
-                field: "classSection",
-                operator: OPERATORS.EQUALS,
-                value: classSection
-            },
-        ]
-        payload['filters'] = load;
-        showLoader(dispatch);
-        findStudentsDetails(payload)
-            .then(response => {
-                if (response.status === 200) {
-                    setStudentDetails(response.data);
+        if (classId === null || classId === '') {
+            classSelected.current.style.borderColor = 'red'
+        } else {
+            showLoader(dispatch);
+            const payload = {}
+            const load = [
+                {
+                    field: "classes",
+                    operator: OPERATORS.EQUALS,
+                    value: classId
+                },
+            ]
+            if (!(classSection === '')) {
+                load.push({
+                    field: "classSection",
+                    operator: OPERATORS.EQUALS,
+                    value: classSection
+                })
+            }
+            payload['filters'] = load;
+            findStudentsDetails(payload)
+                .then(response => {
+                    if (response.status === 200) {
+                        setStudentDetails(response.data);
+                        hideLoader(dispatch);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
                     hideLoader(dispatch);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                hideLoader(dispatch);
-            });
+                });
+        }
     }
 
     useEffect(() => {
+        setClassId('')
+        setClassSection('')
+        setStudentDetails([])
         fetchSchoolClassesData()
-    }, [])
+    }, [module])
 
     return (
         <div className='inner-content-wrap' style={{ width: '100%' }}>
@@ -73,10 +83,15 @@ export const ManageStudentFee = () => {
                                     Select Class
                                 </h2>
                                 <Form.Select
+                                    ref={classSelected}
                                     size='sm'
                                     value={classId}
                                     style={{ width: '100px', }}
-                                    onChange={(e) => { setClassId(e.target.value); }}
+                                    disabled={!isWritePermission}
+                                    onChange={(e) => {
+                                        setClassId(e.target.value);
+                                        classSelected.current.style.borderColor = ''
+                                    }}
                                 >
                                     <option value=''>SELECT</option>
                                     {classes.map((val, index) => <option key={index} value={val.classId}>{val.className}</option>)}
@@ -91,6 +106,7 @@ export const ManageStudentFee = () => {
                                     size='sm'
                                     value={classSection}
                                     style={{ width: 'auto' }}
+                                    disabled={!isWritePermission}
                                     onChange={(e) => { setClassSection(e.target.value); }}
                                 >
                                     <option value=''>SELECT</option>
@@ -102,6 +118,7 @@ export const ManageStudentFee = () => {
                         <Button className="save-btn" onClick={findStudents}>GO</Button>
                         </div>
                     </div>
+                    <Loader/>
                     <div className="table-wrapper manage-fee-wrapp">
                         <table className="table" style={{ width: '100%' }}>
                             <thead>
@@ -117,7 +134,16 @@ export const ManageStudentFee = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentDetails.map((val, i) => <GetStudent student={val} key={i} index={i} classes={classes} />)}
+                                {studentDetails.length > 0
+                                    ? studentDetails.map(
+                                        (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} module={module}/>
+                                    )
+                                    : <tr>
+                                        <td colSpan='8'>
+                                            NO DATA FOUND
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
