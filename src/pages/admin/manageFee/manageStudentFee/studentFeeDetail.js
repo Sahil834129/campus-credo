@@ -1,9 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
 import GenericDialog from "../../../../dialogs/GenericDialog";
 import { getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
-import { useState } from "react";
-import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
-import { useDispatch } from "react-redux";
 import FeeModalHeader from "./feeModalHeader";
 
 
@@ -43,11 +42,28 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
             show={show}
             handleClose={handleClose}
             modalHeader="Student fee Details"
-            className="review-admission-modal add-child-model"
+            className="Student-fee-model "
         >
+            <div className='title-area'>
+                <span className='student-name'>
+                {`${humanize(student.firstName)} ${humanize(student.lastName)} `}
+                </span>
+                <span className='student-info'>
+                <label >ID - </label>{student.schoolStudentId}
+                </span>
+                <span className='student-info'>
+                <label>Roll No. - </label>{student.rollNo}
+                </span>
+                <span className='student-info'>
+                <label >Class - </label>{student.className}                   
+                 </span>
+                <span className='student-info'>
+                <label >Section - </label>{student.classSection}
+                </span>
+            </div>
             <FeeModalHeader student={student}/>
             <Loader/>
-            <div>
+            <div className="table-wrapper">
                 <table className="table" style={{ width: '100%' }}>
                     <thead>
                         <tr valign="middle">
@@ -67,7 +83,7 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
                                     <td>{val}</td>
                                     <td>{data[`${val}`].paymentDate}</td>
                                     <td>{data[`${val}`].paymentDate}</td>
-                                    <td>{data[`${val}`].feeStatus}</td>
+                                    <td><div className="status paid"> {data[`${val}`].feeStatus}</div></td>
                                     <td>{data[`${val}`].lateFee}</td>
                                     <td>{data[`${val}`].totalFeeDue}</td>
                                     <td>{data[`${val}`].paymentMode}</td>
