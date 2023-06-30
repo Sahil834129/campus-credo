@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getFeeForStudent } from "../../../../utils/services";
 import ConfigureFeeModal from "./configureFeeModal";
 import StudentFeeDetails from "./studentFeeDetail";
+import OfflineFeeModal from "./OfflineFeeModal";
 
 
 
@@ -11,6 +12,7 @@ export const GetStudent = ({ student, index, module }) => {
 
     const [viewFeeModal, setViewFeeModal] = useState(false);
     const [configureFeeModal, setConfigureFeeModal] = useState(false);
+    const [offlinePaymentModal, setOfflinePaymentModal] = useState(false)
     const [feesDetail, setFeesDetail] = useState([]);
 
     const fetchStudentFeesData = () => {
@@ -34,6 +36,7 @@ export const GetStudent = ({ student, index, module }) => {
     const handleClose = () => {
         setViewFeeModal(false);
         setConfigureFeeModal(false);
+        setOfflinePaymentModal(false);
     };
 
     useEffect(() => {
@@ -75,6 +78,7 @@ export const GetStudent = ({ student, index, module }) => {
                             variant="primary"
                             className="confirm-btn"
                             style={{ backgroundColor: 'green' }}
+                            onClick={() => setOfflinePaymentModal(true)}
                         >
                             Offline Payment
                         </Button>
@@ -96,6 +100,13 @@ export const GetStudent = ({ student, index, module }) => {
                 student={student}
                 fetchStudentFees={fetchStudentFeesData}
                 feesDetail={feesDetail}
+            />
+        )}
+        {offlinePaymentModal && (
+            <OfflineFeeModal
+                show={offlinePaymentModal}
+                handleClose={handleClose}
+                student={student}
             />
         )}
     </>
