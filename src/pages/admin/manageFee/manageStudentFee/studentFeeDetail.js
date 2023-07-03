@@ -4,6 +4,7 @@ import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
 import GenericDialog from "../../../../dialogs/GenericDialog";
 import { getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
 import FeeModalHeader from "./feeModalHeader";
+import { humanize } from "../../../../utils/helper";
 
 
 export default function StudentFeeDetails({ show, handleClose, student }) {
