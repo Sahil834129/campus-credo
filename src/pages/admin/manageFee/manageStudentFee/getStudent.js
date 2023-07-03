@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { humanize } from "../../../../utils/helper";
-import { useEffect, useState } from "react";
 import { getFeeForStudent } from "../../../../utils/services";
+import OfflineFeeModal from "./OfflineFeeModal";
 import ConfigureFeeModal from "./configureFeeModal";
 import StudentFeeDetails from "./studentFeeDetail";
-import OfflineFeeModal from "./OfflineFeeModal";
 
 
 
@@ -46,7 +46,7 @@ export const GetStudent = ({ student, index, module }) => {
     }, [configureFeeModal]);
     return (<>
         <tr>
-            <td>{index + 1}</td>
+            <td style={{width:"86px", textAlign:"center", backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>{index + 1}</td>
             <td>{`${humanize(student.firstName)} ${humanize(student.lastName)}`}</td>
             <td>{student.schoolStudentId}</td>
             <td>{student.studentId}</td>
@@ -55,29 +55,29 @@ export const GetStudent = ({ student, index, module }) => {
             <td>{student.stream}</td>
             <td>
                 {(module === 'configureStudentFee')
-                    ? <div className="frm-cell btn-wrapper mt-3" style={{ width: 'auto' }}>
+                    ? <div className="frm-cell btn-wrapper" style={{ width: 'auto' }}>
                         <Button
                             variant="primary"
                             className="confirm-btn"
-                            style={{ backgroundColor: 'orange' }}
+                            style={{ backgroundColor: '#41285F' }}
                             onClick={() => setViewFeeModal(true)}
                         >
-                            View fee
+                            Payment History
                         </Button>
                         <Button
                             variant="primary"
                             className="confirm-btn"
-                            style={{ backgroundColor: 'green' }}
+                            style={{ backgroundColor: '#4AB900' }}
                             onClick={() => setConfigureFeeModal(true)}
                         >
                             Configure Fee
                         </Button>
                     </div>
-                    : <div className="frm-cell btn-wrapper mt-3" style={{ width: 'auto' }}>
+                    : <div className="frm-cell btn-wrapper" style={{ width: 'auto' }}>
                         <Button
                             variant="primary"
                             className="confirm-btn"
-                            style={{ backgroundColor: 'green' }}
+                            style={{ backgroundColor: '#4AB900' }}
                             onClick={() => setOfflinePaymentModal(true)}
                         >
                             Offline Payment

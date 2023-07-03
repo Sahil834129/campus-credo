@@ -61,8 +61,8 @@ export const BLOOD_OPTIONS = [
 export const APPLICATION_STATUS_MESSAGE = {
   'RECEIVED': 'Application Submitted',
   'APPROVED': 'Application Approved',
-  'ACCEPTED': 'Application Accepted',
-  'DENIED': 'Application Denied',
+  'ACCEPTED': 'Offer Accepted',
+  'DENIED': 'Offer Declined',
   'UNDER_REVIEW': 'Application Under Review',
   'AT_PI': 'Application shortlisted for screening process. Kindly report at school on <AT/PI timeslot>',
   'UNDER_FINAL_REVIEW': 'Application Under Final Review',

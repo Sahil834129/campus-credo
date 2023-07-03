@@ -20,7 +20,9 @@ export const ManageFees = () => {
             <Nav defaultActiveKey='default' className='flex-column'>
               {MANAGE_FEE_OPTIONS.map((val) => {
                 return (
-                  <Nav.Link key={val.value} style={{backgroundColor: val.value === visible?'rgba(65, 40, 95, 0.06)':''}} onClick={() => setVisible(`${val.value}` )}>{val.text}</Nav.Link>
+                  <Nav.Link key={val.value} 
+                  className={val.value === visible?'active':''} 
+                  onClick={() => setVisible(`${val.value}` )}>{val.text}</Nav.Link>
                 )
               })}
             </Nav>
