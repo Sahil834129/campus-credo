@@ -268,3 +268,15 @@ export const addFeeInStudenFee = (payload) => {
 export const removeFeeFromStudenFee = (studentId , studentFeeId) => {
   return RESTClient.delete(RestEndPoint.REMOVE_FEE_FROM_STUDENT_FEES + `/${studentId }`+`/${studentFeeId }`);
 };
+
+export const addOfflineFeeForStudent = (payload) => {
+  return RESTClient.post(RestEndPoint.ADD_OFFLINE_FEE_FOR_STUDENT, payload);
+};
+
+export const getStudentList =()=>{
+  return RESTClient.get(RestEndPoint.GET_PARENTS_STUDENTS)
+}
+
+export const linkParentStudent =(payload)=>{
+  return RESTClient.post(RestEndPoint.POST_PARENT_LINK_STUDENT, payload)
+}

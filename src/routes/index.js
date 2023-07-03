@@ -31,6 +31,7 @@ import {
   SchoolDetails,
   SignIn,
   SignUp,
+  StudentLink,
   TermsOfUse,
   UserProfile,
   VerifyPhone,
@@ -78,6 +79,7 @@ function AppRoutes() {
           <Route path="/manageChild" element={<ManageChild />} />
           <Route path="/selectedSchools" element={<ApplicationCart />} />
           <Route path="/paymentCheckout" element={<PaymentCheckout />} />
+          <Route path="/myStudent" element={<StudentLink/>} />
           <Route path="/paymentHistory" element={<PaymentHistory />} />
           <Route path="/admissionForm" element={<SchoolAdmission />} />
         </Route>

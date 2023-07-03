@@ -3,11 +3,10 @@ import GenericDialog from "../../../../dialogs/GenericDialog";
 import FeeModalHeader from "./feeModalHeader";
 import { useDispatch } from "react-redux";
 import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
-import { getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
+import { addOfflineFeeForStudent, getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
 import { Button, Form } from "react-bootstrap";
 import { MODE_OF_PAYMENT } from "../../../../constants/app";
 import ReactDatePicker from "react-datepicker";
-import { formatDateToDDMMYYYY } from "../../../../utils/DateUtil";
 
 
 export default function OfflineFeeModal({ show, handleClose, student }) {
@@ -20,9 +19,11 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
     const [errors, setErrors] = useState([]);
 
     const [data, setData] = useState({})
+    const [refresh, setRefresh]= useState(false)
     const dispatch = useDispatch()
     const maxDate = new Date()
     const minDate = new Date(maxDate.getFullYear(), 2, 1)
+    const session = "2023-2024"
 
     const validateData = () => {
         const errorVal = { monthQtr: "", lateFeeAmount: "", paymentDate: "", modeOfPayment: "" }
@@ -49,10 +50,20 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                 "studentId": student.studentId,
                 "classId": student.classId,
                 "monthQtr": monthQtr,
+                "session":session,
                 "lateFeeAmount": parseInt(lateFeeAmount),
-                "feePaymentDatetime": formatDateToDDMMYYYY(paymentDate),
+                "feeAmount":data[`${monthQtr}`].totalFeeDue,
+                "feePaymentDatetime": paymentDate,
                 "modeOfPayment": modeOfPayment,
             }
+            addOfflineFeeForStudent(payload)
+            .then(res=>{
+                console.log(res);
+                setRefresh(val=>!val)
+                handleClose()
+                
+            })
+            .catch(err=>console.log(err))
             
         }
 
@@ -60,7 +71,6 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
 
     const fetchFeeAndPaymentHistoryForStudent = () => {
         showLoader(dispatch)
-        const session = "2023-2024"
         getFeeAndPaymentHistoryForStudent(session, student.classId, student.studentId)
             .then(response => {
                 if (response.status === 200) {
@@ -80,7 +90,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
 
     useEffect(() => {
         fetchFeeAndPaymentHistoryForStudent()
-    }, [])
+    }, [refresh])
 
     return (
         <GenericDialog

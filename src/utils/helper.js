@@ -380,6 +380,7 @@ export const getPastSession = () => {
 export const Pathnames =
   [
     "/",
+    "/myStudent",
     "/paymentHistory",
     "/paymentCheckout",
     "/selectedSchools",

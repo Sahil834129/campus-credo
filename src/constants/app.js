@@ -67,7 +67,7 @@ export const MANAGE_FEE_OPTIONS = [
 
 export const MODE_OF_PAYMENT =[
   { value: 'CASH', text: 'Cash' },
-  { value: 'DEMANDD_RAFT', text: 'Demand Draft' },
+  { value: 'DEMAND_DRAFT', text: 'Demand Draft' },
   { value: 'CHEQUE', text: 'Cheque' },
   { value: 'OTHERS', text: 'Others' },
 
@@ -81,7 +81,7 @@ export const FEE_TYPE_FREQUENCY = [
 ]
 
 export const CLASS_SECTION =[
-  { value: 'A', text: ' SECTION-A' },
+  { value: 'A', text: 'SECTION-A' },
   { value: 'B', text: 'SECTION-B' },
   { value: 'C', text: 'SECTION-C' },
 
