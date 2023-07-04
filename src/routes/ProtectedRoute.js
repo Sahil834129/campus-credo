@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { Navigate, Outlet } from 'react-router-dom';
 import PermissionLogout from "../components/PermissionLogout";
 import { getLocalData } from '../utils/helper';
