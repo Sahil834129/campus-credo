@@ -3,11 +3,13 @@ import GenericDialog from "../../../../dialogs/GenericDialog";
 import { humanize } from "../../../../utils/helper";
 import { useEffect } from "react";
 import { addFeeInStudenFee, getClassesFeeDetails, removeFeeFromStudenFee } from "../../../../utils/services";
+import { SESSION } from "../../../../constants/app";
+import FeeModalHeader from "./feeModalHeader";
 
 export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail }) {
   const [calculatedFee, setCalculatedFees] = useState(0);
   const [classFees, setClassFees] = useState([]);
-
+  const session = SESSION
   const fetchStudentFeesData = (feesDetail) => {
     getClassesFeeDetails(student.classId)
       .then(response => {
@@ -81,55 +83,39 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
       modalHeader='Configure fee'
       className="Student-fee-model "
     >
-            <div className='title-area border-config'>
-                <span className='student-name'>
-                {`${humanize(student.firstName)} ${humanize(student.lastName)} `}
-                </span>
-                <span className='student-info'>
-                <label >ID - </label>{student.schoolStudentId}
-                </span>
-                <span className='student-info'>
-                <label>Roll No. - </label>{student.rollNo}
-                </span>
-                <span className='student-info'>
-                <label >Class - </label>{student.className}                   
-                 </span>
-                <span className='student-info'>
-                <label >Section - </label>{student.classSection}
-                </span>
-            </div>
-            <div className="table-wrapper">
-      <table className="table" style={{ width: '100%' }}>
-        <thead>
-          <tr valign="middle">
-            <th>Fee Type</th>
-            <th>Frequency</th>
-            <th>Fee Amount</th>
-            <th style={{textAlign:"center"}}>Mandatory</th>
-          </tr>
-        </thead>
-        <tbody>
-          {classFees && classFees.length > 0 &&
-            classFees.map((val, index) => (
-              <tr valign="middle" key={`configureFee${index}`} >
-                <td>{val?.classFee?.feeTypeName}</td>
-                <td>{humanize(val?.classFee?.feeTypeFrequency)}</td>
-                <td>{val?.classFee?.feeAmount}</td>
-                <td style={{textAlign:"center"}}>
-                  <input
-                    type="checkbox"
-                    disabled={val?.disabled}
-                    checked={val?.isChecked || false}
-                    onChange={e => {
-                      handleInput(e.target.checked, index, classFees, feesDetail);
-                    }}
-                  />
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+      <FeeModalHeader student={student} session={session}/>
+      <div className="table-wrapper">
+        <table className="table" style={{ width: '100%' }}>
+          <thead>
+            <tr valign="middle">
+              <th>Fee Type</th>
+              <th>Frequency</th>
+              <th>Fee Amount</th>
+              <th style={{ textAlign: "center" }}>Mandatory</th>
+            </tr>
+          </thead>
+          <tbody>
+            {classFees && classFees.length > 0 &&
+              classFees.map((val, index) => (
+                <tr valign="middle" key={`configureFee${index}`} >
+                  <td>{val?.classFee?.feeTypeName}</td>
+                  <td>{humanize(val?.classFee?.feeTypeFrequency)}</td>
+                  <td>{val?.classFee?.feeAmount}</td>
+                  <td style={{ textAlign: "center" }}>
+                    <input
+                      type="checkbox"
+                      disabled={val?.disabled}
+                      checked={val?.isChecked || false}
+                      onChange={e => {
+                        handleInput(e.target.checked, index, classFees, feesDetail);
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
       </div>
       <div  className="total-amount-wrapp">
         <span className="amount-lbl">Total Amount Due <span> ₹{calculatedFee}/-</span></span>

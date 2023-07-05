@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
 import { addOfflineFeeForStudent, getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
 import { Button, Form } from "react-bootstrap";
-import { MODE_OF_PAYMENT } from "../../../../constants/app";
+import { MODE_OF_PAYMENT, SESSION } from "../../../../constants/app";
 import ReactDatePicker from "react-datepicker";
 
 
@@ -23,7 +23,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
     const dispatch = useDispatch()
     const maxDate = new Date()
     const minDate = new Date(maxDate.getFullYear(), 2, 1)
-    const session = "2023-2024"
+    const session = SESSION
 
     const validateData = () => {
         const errorVal = { monthQtr: "", lateFeeAmount: "", paymentDate: "", modeOfPayment: "" }
@@ -58,7 +58,6 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
             }
             addOfflineFeeForStudent(payload)
             .then(res=>{
-                console.log(res);
                 setRefresh(val=>!val)
                 handleClose()
                 
@@ -99,7 +98,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
             modalHeader="Offline Payment"
             className="review-admission-modal add-child-model"
         >
-            <FeeModalHeader student={student} />
+            <FeeModalHeader student={student} session={session}/>
             <Loader />
             <div>
                 <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>

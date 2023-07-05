@@ -5,6 +5,8 @@ import GenericDialog from "../../../../dialogs/GenericDialog";
 import { getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
 import FeeModalHeader from "./feeModalHeader";
 import { humanize } from "../../../../utils/helper";
+import { SESSION } from "../../../../constants/app";
+import { formatDateToDDMMYYYY } from "../../../../utils/DateUtil";
 
 
 export default function StudentFeeDetails({ show, handleClose, student }) {
@@ -13,11 +15,11 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
     const [openAccord, setOpenAccord] = useState(false)
     const [data, setData] = useState({})
     const dispatch = useDispatch()
+    const session = SESSION
 
 
     const fetchFeeAndPaymentHistoryForStudent = () => {
         showLoader(dispatch)
-        const session = "2023-2024"
         getFeeAndPaymentHistoryForStudent(session, student.classId, student.studentId)
             .then(response => {
                 if (response.status === 200) {
@@ -33,6 +35,21 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
             });
     }
 
+    // "status paid"
+
+    const getCssClassName = (curVal) => {
+        switch (data[`${curVal}`].feeStatus) {
+            case "Paid":
+                return "status paid";
+            case "Due":
+                return "status due";
+            case "Overdue":
+                return "status not-paid";
+            default:
+                return "status late-paid";
+                ;
+        }
+    }
 
     useEffect(() => {
         fetchFeeAndPaymentHistoryForStudent()
@@ -45,36 +62,18 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
             modalHeader="Student fee Details"
             className="Student-fee-model "
         >
-            <div className='title-area'>
-                <span className='student-name'>
-                {`${humanize(student.firstName)} ${humanize(student.lastName)} `}
-                </span>
-                <span className='student-info'>
-                <label >ID - </label>{student.schoolStudentId}
-                </span>
-                <span className='student-info'>
-                <label>Roll No. - </label>{student.rollNo}
-                </span>
-                <span className='student-info'>
-                <label >Class - </label>{student.className}                   
-                 </span>
-                <span className='student-info'>
-                <label >Section - </label>{student.classSection}
-                </span>
-            </div>
-            <FeeModalHeader student={student}/>
-            <Loader/>
+            <FeeModalHeader student={student} session={session} />
+            <Loader />
             <div className="table-wrapper">
                 <table className="table" style={{ width: '100%' }}>
                     <thead>
                         <tr valign="middle">
                             <th>Frequency</th>
-                            <th>Academic Year</th>
-                            <th>Payment Date</th>
                             <th>Status</th>
                             <th>Late Fee</th>
                             <th>Total Fee</th>
                             <th>Payment Mode</th>
+                            <th>Payment Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,12 +81,11 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
                             ? submissionFrequency.map((val) => {
                                 return (<tr valign="middle">
                                     <td>{val}</td>
-                                    <td>{data[`${val}`].paymentDate}</td>
-                                    <td>{data[`${val}`].paymentDate}</td>
-                                    <td><div className="status paid"> {data[`${val}`].feeStatus}</div></td>
+                                    <td><div className={getCssClassName(val)}> {data[`${val}`].feeStatus}</div></td>
                                     <td>{data[`${val}`].lateFee}</td>
                                     <td>{data[`${val}`].totalFeeDue}</td>
                                     <td>{data[`${val}`].paymentMode}</td>
+                                    <td>{formatDateToDDMMYYYY(data[`${val}`].paymentDate)}</td>
                                 </tr>)
                             })
                             : <tr>

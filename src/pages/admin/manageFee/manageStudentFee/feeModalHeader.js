@@ -1,6 +1,6 @@
 import { humanize } from "../../../../utils/helper";
 
-export default function FeeModalHeader({student }) {
+export default function FeeModalHeader({student, session }) {
   return(
     <div
       className='title-area'
@@ -17,6 +17,11 @@ export default function FeeModalHeader({student }) {
       <span style={{ border: '1px solid black', padding: '0px 8px 0px 8px', borderRadius: '4px', marginLeft: '5px' }}>
         <b>
           <label style={{ color: 'grey' }}>Roll No. - </label>{student.rollNo}
+        </b>
+      </span>
+      <span style={{ border: '1px solid black', padding: '0px 8px 0px 8px', borderRadius: '4px', marginLeft: '5px' }}>
+        <b>
+          <label style={{ color: 'grey' }}>Academic Year - </label>{`(${session})`}
         </b>
       </span>
       <span style={{ border: '1px solid black', padding: '0px 8px 0px 8px', borderRadius: '4px', marginLeft: '5px' }}>
