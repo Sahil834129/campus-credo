@@ -1,35 +1,107 @@
-import Layout from '../../common/layout';
-import Accordion from 'react-bootstrap/Accordion';
+import { useState, useEffect } from 'react';
+
+import LinkFormDialog from './linkFormDialog';
 import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/Container";
 import Row from 'react-bootstrap/Row';
+import Accordion from 'react-bootstrap/Accordion';
+import { Button } from 'react-bootstrap';
+
+import Layout from '../../common/layout';
+import TableComponent from '../../common/TableComponent';
 import Breadcrumbs from "../../common/Breadcrumbs";
 import LeftMenuBar from "../../common/LeftMenuBar";
 import PageContent from '../../resources/pageContent';
-import { useEffect } from 'react';
 import { getStudentList } from '../../utils/services';
-import { Button } from 'react-bootstrap';
-import { useState } from 'react';
-import LinkFormDialog from './linkFormDialog';
-
-
 
 const StudentLink = () => {
     const [showForm, setShowForm] = useState(false)
+    const [updateTable, setUpdateTable] = useState(false)
+    const [StudenkLinkData, setStudentLinkData] = useState([])
+    const [selectedRows, setSelectedRows] = useState({});
+    const [pageStep, setPageStep] = useState(1)
 
     const handleClose = () => {
         setShowForm(false)
+        setPageStep(1)
     }
 
     const fetchStudentTableList = () => {
         getStudentList()
-            .then(res => console.log(res))
+            .then(res => setStudentLinkData(res?.data))
             .catch(err => console.log(err))
     }
 
+    const columns = [
+        {
+            accessor: '',
+            Header: 'S.No',
+            Cell: ((e) => {
+                const temp =parseInt(e.row?.id)+1
+                return (
+                    <span>{temp}</span>
+                )
+            })
+        },
+        {
+            accessor: '',
+            Header: 'School Student ID',
+            Cell: ((e) => {
+                return (
+                    <span>{`${e.row.original?.schoolStudentId}`}</span>
+                )
+            })
+        },
+        {
+            accessor: '',
+            Header: 'Full Name',
+            Cell: ((e) => {
+                return (
+                    <span>{`${e.row.original?.firstName} ${e.row.original?.lastName}`}</span>
+                )
+            })
+        },
+        {
+            accessor: '',
+            Header: 'Date of Birth',
+            Cell: ((e) => {
+                return (
+                    <span>{`${e.row.original?.dateOfBirth}`}</span>
+                )
+            })
+        },
+        {
+            accessor: '',
+            Header: 'Class',
+            Cell: ((e) => {
+                return (
+                    <span>{`${e.row.original?.className}`}</span>
+                )
+            })
+        },
+        {
+            accessor: '',
+            Header: 'Class Section',
+            Cell: ((e) => {
+                return (
+                    <span>{`Section ${e.row.original?.classSection}`}</span>
+                )
+            })
+        },
+        {
+            accessor: '',
+            Header: 'Stream',
+            Cell: ((e) => {
+                return (
+                    <span>{`${e.row.original?.stream}`}</span>
+                )
+            })
+        },
+    ]
+
     useEffect(() => {
-        // fetchStudentTableList()
-    }, [])
+        fetchStudentTableList()
+    }, [updateTable])
 
     return (
         <Layout>
@@ -55,11 +127,19 @@ const StudentLink = () => {
                             <Col className='profile-content right'>
                                 <div className='row-items header' style={{ display: 'flex', justifyContent: 'end' }}>
                                     <div className='col-item select-option left'>
-                                        <Button onClick={() => setShowForm(true)}>Add Child</Button>
+                                        <Button onClick={() => setShowForm(true)}>Link Student</Button>
                                     </div>
                                 </div>
-                                <LinkFormDialog showForm={showForm} handleClose={handleClose}/>
-                                <div>TABLE Content</div>
+                                <LinkFormDialog setUpdateTable={setUpdateTable} setShowForm={setShowForm} showForm={showForm} handleClose={handleClose} pageStep={pageStep} setPageStep={setPageStep}/>
+                                <div className='table-wrapper-outer'>
+                                    <TableComponent
+                                        data={StudenkLinkData || []}
+                                        columns={columns}
+                                        showSelectedAll={false}
+                                        selectedRows={selectedRows}
+                                        onSelectedRowsChange={setSelectedRows}
+                                    />
+                                </div>
                             </Col>
                         </div>
                     </Col>

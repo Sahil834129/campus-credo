@@ -1,168 +1,115 @@
 import { Form, Formik } from 'formik';
 import InputField from '../../components/form/InputField';
-import DatePickerField from '../../components/form/DatePickerField';
 import GenericDialog from '../../dialogs/GenericDialog';
 import { Button } from 'react-bootstrap';
-import { linkParentStudent } from '../../utils/services';
+import { confirmLinkParentStudent, verifyParentStudent } from '../../utils/services';
 import { useState } from 'react';
+import { getLocalData } from '../../utils/helper';
+import { toast } from 'react-toastify';
+import StudentForm from './studentForm';
+import { validateStudentLinkOTP } from '../../data/validationSchema';
 
-const LinkFormDialog = ({ showForm, handleClose }) => {
+const LinkFormDialog = ({ setShowForm, showForm, handleClose, setUpdateTable, pageStep, setPageStep }) => {
 
-    const [showOtpDialog, setShowOtpDialog] = useState(false)
+    const [data, setData] = useState([])
+    const userId = getLocalData('userId')
 
-    const handleOtpSubmit=(OtpData)=>{
-        console.log(OtpData)
-    }
-
-    const handleSubmit = (formDataValue) => {
+    const confirmLink = () => {
         const payload = {
-            "schoolStudentId": formDataValue.schoolStudentId,
-            "dateOfBirth": formDataValue.dateOfBirth,
-            "classId": parseInt(formDataValue.classId),
-            "schoolId": parseInt(formDataValue.schoolId)
+            "studentId": data.studentId,
+            "parentId": userId
         }
-        // setShowOtpDialog(true)
-        linkParentStudent(payload)
-            .then(res => {console.log(res); setShowOtpDialog(true)})
-            .catch(err => console.log(err))
+        confirmLinkParentStudent(payload)
+            .then(res => {
+                const temp = res.status
+                if (temp === 200) {
+                    setShowForm(false)
+                    setUpdateTable(val => !val)
+                }
+            })
+            .catch(err =>
+                toast.error(err?.response?.data?.apierror?.message || "Please Check Details"))
     }
 
+    const handleOtpSubmit = (OtpData) => {
+        const result = OtpData.otp
+        const payload = {
+            "userId": userId,
+            "otp": result
+        }
+        verifyParentStudent(payload)
+            .then(res => setPageStep(3))
+            .catch(err => {
+                // setPageStep(3)
+                toast.error(err?.response?.data?.apierror?.message || "Please Check Details")
+            })
+    }
 
     return (
-        <>
-            <GenericDialog
-                show={showForm}
-                handleClose={handleClose}
-                modalHeader="Enter Student Details"
-                className="className='signin-model add-child-model"
-            >
-                <div className='model-body-col'>
-                    <Formik
-                        initialValues={{
-                            schoolStudentId: '',
-                            dateOfBirth: '',
-                            classId: '',
-                            schoolId: ''
-                        }}
-                        onSubmit={(values) => handleSubmit(values)}
-                    >
-                        {({ values, errors, touched, setFieldValue }) => (
-                            <Form className='model-frm' >
-                                <div className='frm-cell'>
-                                    <label>School Student Id</label>
-                                    <div className='field-group-wrap'>
-                                        <InputField
-                                            fieldName="schoolStudentId"
-                                            className='frm-cell'
-                                            value={values.schoolStudentId}
-                                            fieldType="text"
-                                            placeholder="School Student Id"
-                                            errors={errors}
-                                            touched={touched}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="frm-cell">
-                                    <label>Date Of Birth</label>
-                                    <DatePickerField
-                                        name='dateOfBirth'
-                                        value={values.dateOfBirth}
-                                        setFieldValue={setFieldValue}
+        <GenericDialog
+            show={showForm}
+            handleClose={handleClose}
+            modalHeader="Link Student"
+            className="className='signin-model add-child-model"
+        >
+            <div className='model-body-col'>
+                {(pageStep === 1) && <StudentForm setData={setData} setPageStep={setPageStep} />}
+                {(pageStep === 2) && <Formik
+                    initialValues={{
+                        otp: '',
+                    }}
+                    validationSchema={validateStudentLinkOTP}
+                    validateOnBlur
+                    onSubmit={(values) => handleOtpSubmit(values)}
+                >
+                    {({ values, errors, touched, setFieldValue }) => (
+                        <Form>
+                            <div>
+                                <div style={{ textAlign: 'center' }}>Verify your OTP</div>
+                                <div style={{ display: 'flex', justifyContent: 'center', margin: '10px' }}>
+                                    <InputField
+                                        fieldName="otp"
+                                        className='frm-cell'
+                                        value={values.otp}
+                                        fieldType="text"
                                         errors={errors}
                                         touched={touched}
-                                        dateFormat='yyyy-MM-dd'
+                                        required
                                     />
                                 </div>
-                                <div className='frm-cell'>
-                                    <label>class Id</label>
-                                    <div className='field-group-wrap'>
-                                        <InputField
-                                            fieldName="classId"
-                                            value={values.classId}
-                                            className='frm-cell'
-                                            fieldType="text"
-                                            placeholder="class Id"
-                                            errors={errors}
-                                            touched={touched}
-                                        />
-                                    </div>
+                                <div>
+                                    <Button type="submit" >Submit OTP</Button>
                                 </div>
-                                <div className='frm-cell'>
-                                    <label>School Id</label>
-                                    <div className='field-group-wrap'>
-                                        <InputField
-                                            fieldName="schoolId"
-                                            value={values.schoolId}
-                                            fieldType="text"
-                                            className='frm-cell'
-                                            placeholder="School Id"
-                                            errors={errors}
-                                            touched={touched}
-                                        />
-                                    </div>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'end' }}>
-                                    <Button type='submit'>SUBMIT</Button>
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-                </div>
-            </GenericDialog>
-            {showOtpDialog && <Formik
-                initialValues={{
-                    one: '',
-                    two: '',
-                    three: '',
-                    four: ''
-                }}
-                onSubmit={(values)=>handleOtpSubmit(values)}
-            >
-                {({ values, errors, touched, setFieldValue }) => (
+                            </div>
+                        </Form>
+                    )}
+
+                </Formik>}
+                {(pageStep === 3) && <div>
                     <div>
-                        <div>Enter Your One Time Password (OTP)</div>
-                        <div style={{display:'flex', justifyContent:'center', margin:'10px'}}>
-                            <InputField
-                                fieldName="one"
-                                className='frm-cell'
-                                value={values.one}
-                                fieldType="text"
-                                errors={errors}
-                                touched={touched}
-                            />
-                            <InputField
-                                fieldName="two"
-                                className='frm-cell'
-                                value={values.two}
-                                fieldType="text"
-                                errors={errors}
-                                touched={touched}
-                            />
-                            <InputField
-                                fieldName="three"
-                                className='frm-cell'
-                                value={values.three}
-                                fieldType="text"
-                                errors={errors}
-                                touched={touched}
-                            />
-                            <InputField
-                                fieldName="four"
-                                className='frm-cell'
-                                value={values.four}
-                                fieldType="text"
-                                errors={errors}
-                                touched={touched}
-                            />
+                        <div>
+                            <label>Student Name : </label>
+                            <label style={{ color: 'blue' }}>{`${data.firstName} ${data.lastName}`}</label>
                         </div>
                         <div>
-                            <Button type="submit">Submit</Button>
+                            <label>Class Name :</label>
+                            <label style={{ color: 'blue' }}>{`${data.className}`}</label>
+                        </div>
+                        <div>
+                            <label>Section :</label>
+                            <label style={{ color: 'blue' }}>{`Section ${data.classSection}`}</label>
+                        </div>
+                        <div>
+                            <label>Stream :</label>
+                            <label style={{ color: 'blue' }}>{`${data.stream}`}</label>
+                        </div>
+                        <div className='frm-cell button-wrap' style={{ margin: '5px' }}>
+                            <button class='save-btn btn btn-primary' onClick={confirmLink}>CONFIRM</button>
                         </div>
                     </div>
-                )}
-
-            </Formik>}
-        </>
+                </div>}
+            </div>
+        </GenericDialog>
     )
 }
 

@@ -280,3 +280,11 @@ export const getStudentList =()=>{
 export const linkParentStudent =(payload)=>{
   return RESTClient.post(RestEndPoint.POST_PARENT_LINK_STUDENT, payload)
 }
+
+export const verifyParentStudent =(payload)=>{
+  return RESTClient.post(RestEndPoint.VERIFY_STUDENT_PARENT, payload)
+}
+
+export const confirmLinkParentStudent = (payload)=>{
+  return RESTClient.post(RestEndPoint.CONFIRM_LINK_PARENT_STUDENT, payload)
+}

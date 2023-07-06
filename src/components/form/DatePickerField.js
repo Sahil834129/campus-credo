@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import { formatDateToDDMMYYYY, parseDateWithDefaultFormat } from "../../utils/DateUtil";
 
-const DatePickerField = ({ name, value, setFieldValue, errors, touched, dateFormat }) => {
+const DatePickerField = ({ name, value, setFieldValue, errors, touched, dateFormat, maxDate }) => {
     return (
       <>
         <div className="field-group-wrap">
@@ -17,6 +17,7 @@ const DatePickerField = ({ name, value, setFieldValue, errors, touched, dateForm
                 : "";
             }}
             //maxDate={getStudentMaxDateOfBirth()}
+            maxDate={maxDate || false}
             dropdownMode="select"
             showMonthDropdown
             showYearDropdown

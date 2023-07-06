@@ -1,6 +1,7 @@
 const RestEndPoint = {
   GET_STATE: "v1/state",
   GET_STATE_CITIES: "v1/city",
+  GET_CITIES_SCHOOL:"v1/allSchool",
   GET_MEDIUM_OF_INSTRUCTIONS: "v1/school/schoolMedium",
   GET_SCHOOL_BOARDS: "v1/school/schoolBoard",
   GET_SCHOOL_GENDER: "v1/school/schoolGender",
@@ -108,6 +109,8 @@ const RestEndPoint = {
   ADD_OFFLINE_FEE_FOR_STUDENT:"/schoolStudent/fee/addOfflineFeeForStudent",
   GET_PARENTS_STUDENTS:"/parent/students",
   POST_PARENT_LINK_STUDENT:"/parent/link/student",
+  VERIFY_STUDENT_PARENT:"/parent/verifyStudentLink",
+  CONFIRM_LINK_PARENT_STUDENT:"/parent/confirmStudentLink",
 };
 
 export default RestEndPoint;
