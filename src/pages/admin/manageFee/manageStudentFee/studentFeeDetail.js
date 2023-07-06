@@ -40,7 +40,12 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
     const getCssClassName = (curVal) => {
         switch (data[`${curVal}`].feeStatus) {
             case "Paid":
-                return "status paid";
+                if (data[`${curVal}`].lateFee > 0){
+                    return "status late-paid"
+                }else{
+                    return "status paid"
+                }
+                ;
             case "Due":
                 return "status due";
             case "Overdue":

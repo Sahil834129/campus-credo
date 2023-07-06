@@ -6464,6 +6464,11 @@ ul.list-group {
                         background: rgba(239, 159, 44, 0.04) ;
                         color: #EF9F2C;                      
                       }
+                      &.late-paid{
+                        border: 1px solid Blue;
+                        // background: rgba(239, 159, 44, 0.04) ;
+                        color: Blue;                      
+                      }
                     }
                   }
                 }
