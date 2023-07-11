@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Button, Form } from 'react-bootstrap';
-import { ReactComponent as Save } from "../../../assets/admin/img/save.svg"
 import { addClassFeeTypeAmount, deleteClassesFeeDetails, updateClassFeeTypeAmount } from "../../../utils/services";
 import { toast } from "react-toastify";
 import GenericDialog from "../../../dialogs/GenericDialog";
@@ -9,7 +8,7 @@ import GenericDialog from "../../../dialogs/GenericDialog";
 
 
 
-export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch, resetButton, isWritePermission }) => {
+export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch, resetButton, isWritePermission, session }) => {
 
     const [feeTypeId, setFeeTypeId] = useState('')
     const [feeAmount, setFeeAmount] = useState('')
@@ -41,7 +40,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
             temp['mandatory'] = mandatory
             payload['classId'] = classId
             payload['classFee'] = temp
-            addClassFeeTypeAmount(payload)
+            addClassFeeTypeAmount(payload, session)
                 .then(response => {
                     toast.success(response.data);
                     setReFetch(val => !val)
@@ -70,7 +69,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
             payload['classId'] = classId
             payload['classFeeId'] = tableData?.classFeeId
             payload['classFee'] = temp
-            updateClassFeeTypeAmount(payload)
+            updateClassFeeTypeAmount(payload, session)
                 .then(response => {
                     toast.success(response.data);
                     setEditable(val => !val)

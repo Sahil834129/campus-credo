@@ -14,7 +14,7 @@ export const ManageFeesTypes = ({ isWritePermission }) => {
     const dispatch = useDispatch();
     const [reFetch, setRefetch] = useState(false);
     const [resetButton, setResetButton] = useState(false);
-    const [session, setSession] = useState(SESSION);
+    const [session, setSession] = useState("");
     const [sessionOption, setSessionOption] = useState([]);
 
     const fetchAdmissionSession = () => {
@@ -33,8 +33,9 @@ export const ManageFeesTypes = ({ isWritePermission }) => {
     };
 
     useEffect(() => {
-        dispatch(getManageFeesType(session));
-    }, [reFetch]);
+        if (session)
+            dispatch(getManageFeesType(session));
+    }, [reFetch, session]);
 
     useEffect(() => {
         fetchAdmissionSession();

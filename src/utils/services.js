@@ -70,10 +70,6 @@ export const addSchoolFeeType = (data, session) => {
   return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`, data);
 };
 
-export const addClassFeeTypeDetails = (data) => {
-  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE, data);
-};
-
 export const deleteSchoolFeeType = (feeTypeId) => {
   return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId}`);
 };
@@ -105,20 +101,20 @@ export const getSchoolClassesData = (schoolId) => {
   return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
 };
 
-export const getClassesFeeDetails = (classId) => {
-  return RESTClient.get(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}`);
+export const getClassesFeeDetails = (classId, session) => {
+  return RESTClient.get(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${session}`);
 };
 
-export const addClassFeeTypeAmount = (data) => {
-  return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
+export const addClassFeeTypeAmount = (data, session) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
 };
 
 export const findStudentsDetails = (data) => {
   return RESTClient.post(RestEndPoint.FIND_STUDENT_DETAILS, data);
 };
 
-export const updateClassFeeTypeAmount = (data) => {
-  return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS, data);
+export const updateClassFeeTypeAmount = (data, session) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
 };
 
 export const zipDownloadApplications = async (applicationIds) => {
