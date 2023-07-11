@@ -1,10 +1,10 @@
 import { getSchoolFeeType } from "../../utils/services";
 import { ActionTypes } from "../constants/action-types";
 
-export const getManageFeesType = () => {
+export const getManageFeesType = (payload) => {
     return (dispatch) => {
         dispatch({ type: ActionTypes.GET_FEES_TYPE });
-        getSchoolFeeType()
+        getSchoolFeeType(payload)
             .then(response => {
                 let temp = []
                 temp = response.data

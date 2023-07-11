@@ -54,10 +54,7 @@ export const ManageClassFees = ({isWritePermission}) => {
     },[openAccord, classId, reFetch])
 
     useEffect(() => {
-        fetchSchoolClassesData()
-    }, [])
-
-    useEffect(() => {
+        fetchSchoolClassesData();
         dispatch(getManageFeesType());
     }, [])
  

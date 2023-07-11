@@ -4,12 +4,10 @@ import { toast } from 'react-toastify';
 
 import { addSchoolFeeType, deleteSchoolFeeType, updateSchoolFeeType } from '../../../utils/services';
 import { FEE_TYPE_FREQUENCY } from '../../../constants/app';
-import { ReactComponent as Save } from "../../../assets/admin/img/save.svg"
-import { ReactComponent as Delete } from "../../../assets/admin/img/delete.svg"
 import { useEffect } from 'react';
 import GenericDialog from '../../../dialogs/GenericDialog';
 
-export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermission }) => {
+export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermission, session }) => {
 
     const [feeTypeName, setFeeTypeName] = useState('')
     const [feeTypeFrequency, setFeeTypeFrequency] = useState('')
@@ -54,7 +52,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
             const payload = {}
             payload['feeTypeName'] = feeTypeName
             payload['feeTypeFrequency'] = feeTypeFrequency
-            addSchoolFeeType(payload)
+            addSchoolFeeType(payload, session)
                 .then(response => {
                     handleApiResponse(response, false);
                 })
@@ -103,7 +101,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
             payload['feeTypeName'] = feeTypeName
             payload['feeTypeId'] = feeTypeId
             payload['feeTypeFrequency'] = feeTypeFrequency
-            updateSchoolFeeType(payload)
+            updateSchoolFeeType(payload, session)
                 .then(response => {
                     handleApiResponse(response, false);
                 })
