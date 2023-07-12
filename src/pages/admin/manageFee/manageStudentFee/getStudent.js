@@ -8,7 +8,7 @@ import StudentFeeDetails from "./studentFeeDetail";
 
 
 
-export const GetStudent = ({ student, index, module }) => {
+export const GetStudent = ({ student, index, module, session }) => {
 
     const [viewFeeModal, setViewFeeModal] = useState(false);
     const [configureFeeModal, setConfigureFeeModal] = useState(false);
@@ -16,7 +16,7 @@ export const GetStudent = ({ student, index, module }) => {
     const [feesDetail, setFeesDetail] = useState([]);
 
     const fetchStudentFeesData = () => {
-        getFeeForStudent(student.classId, student.studentId)
+        getFeeForStudent(student.classId, student.studentId, session)
             .then(response => {
                 if (response.status === 200) {
                     const result = response?.data.map(val => {
@@ -100,6 +100,7 @@ export const GetStudent = ({ student, index, module }) => {
                 student={student}
                 fetchStudentFees={fetchStudentFeesData}
                 feesDetail={feesDetail}
+                session={session}
             />
         )}
         {offlinePaymentModal && (

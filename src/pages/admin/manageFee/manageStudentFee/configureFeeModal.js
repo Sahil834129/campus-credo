@@ -6,12 +6,11 @@ import { addFeeInStudenFee, getClassesFeeDetails, removeFeeFromStudenFee } from 
 import { SESSION } from "../../../../constants/app";
 import FeeModalHeader from "./feeModalHeader";
 
-export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail }) {
+export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail, session }) {
   const [calculatedFee, setCalculatedFees] = useState(0);
   const [classFees, setClassFees] = useState([]);
-  const session = SESSION
   const fetchStudentFeesData = (feesDetail) => {
-    getClassesFeeDetails(student.classId)
+    getClassesFeeDetails(student.classId, session)
       .then(response => {
         if (response.status === 200) {
           const result = response?.data.map(val => {
@@ -34,13 +33,14 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
     let temp = 0;
     if (fees.length > 0) {
       fees.map(val => {
-        if (val?.classFee && val?.classFee?.mandatory) {
+        if (val?.classFee && val?.isChecked) {
           temp = temp + val?.classFee?.feeAmount;
         }
       });
     }
     return temp;
-  };
+  }
+
   const handleInput = (isChecked, index, fees, feesDetailIds) => {
     const updatedFees = fees.map((val, i) => {
       if (i === index) {

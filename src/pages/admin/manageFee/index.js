@@ -9,7 +9,7 @@ import { ManageClassFees } from './manageClassFees'
 import { ManageStudentFee } from './manageStudentFee'
 
 export const ManageFees = () => {
-  const [visible, setVisible] = useState('manageFeeTypes')
+  const [visible, setVisible] = useState('createFeeType')
   const isWritePermission = getCurrentModulePermission("Manage Admission");
 
   return (
@@ -40,7 +40,7 @@ export const ManageFees = () => {
               case 'offlineFee':
                 return <ManageStudentFee isWritePermission={isWritePermission} />;
               default:
-                return <ManageFeesTypes />;
+                return <ManageFeesTypes isWritePermission={isWritePermission} />;
             }
           })()}
 

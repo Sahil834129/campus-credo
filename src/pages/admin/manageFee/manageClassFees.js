@@ -51,7 +51,6 @@ export const ManageClassFees = ({ isWritePermission }) => {
     const fetchAdmissionSession = () => {
         getClassAdmissionSessionData()
             .then(response => {
-                console.log(response.data);
                 if (response.data?.length > 2) {
                     response.data.pop();
                     setSessionOption(response.data);
@@ -67,7 +66,7 @@ export const ManageClassFees = ({ isWritePermission }) => {
         if (openAccord) {
             fetchClassesFeeDetails(session);
         }
-    }, [openAccord, classId, reFetch]);
+    }, [openAccord, classId, reFetch, session]);
 
     useEffect(() => {
         fetchAdmissionSession();
@@ -75,9 +74,10 @@ export const ManageClassFees = ({ isWritePermission }) => {
     }, []);
 
     useEffect(() => {
-        console.log(session);
-        if (session)
-            dispatch(getManageFeesType(session));
+        if (session){
+            dispatch(getManageFeesType(session))
+
+        }
     }, [session]);
 
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { Button, Form } from "react-bootstrap"
-import { findStudentsDetails, getSchoolClassesData } from "../../../../utils/services";
+import { findStudentsDetails, getClassAdmissionSessionData, getSchoolClassesData } from "../../../../utils/services";
 import { useState } from "react";
 import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
 import { GetStudent } from "./getStudent";
@@ -9,11 +9,13 @@ import { useDispatch } from "react-redux";
 
 
 
-export const ManageStudentFee = ({isWritePermission, module}) => {
+export const ManageStudentFee = ({ isWritePermission, module }) => {
     const [classes, setClasses] = useState([])
     const [classId, setClassId] = useState('')
     const [classSection, setClassSection] = useState('')
     const [studentDetails, setStudentDetails] = useState([])
+    const [session, setSession] = useState("");
+    const [sessionOption, setSessionOption] = useState([]);
     const classSelected = useRef('')
     const dispatch = useDispatch()
 
@@ -30,6 +32,21 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
             });
     }
 
+    const fetchAdmissionSession = () => {
+        getClassAdmissionSessionData()
+            .then(response => {
+                if (response.data?.length > 2) {
+                    response.data.pop();
+                    setSessionOption(response.data);
+                    setSession(response.data[1]);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+
     const findStudents = () => {
         if (classId === null || classId === '') {
             classSelected.current.style.borderColor = 'red'
@@ -37,6 +54,11 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
             showLoader(dispatch);
             const payload = {}
             const load = [
+                {
+                    field: "academicSession",
+                    operator: OPERATORS.EQUALS,
+                    value: session
+                },
                 {
                     field: "classes",
                     operator: OPERATORS.EQUALS,
@@ -65,6 +87,10 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
         }
     }
 
+    useEffect(()=>{
+        fetchAdmissionSession()
+    }, [])
+
     useEffect(() => {
         setClassId('')
         setClassSection('')
@@ -79,6 +105,22 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
                     <div className='title-area'>
                         <div className="admission-fld-wrap">
                             <div className="admission-fld-wrap">
+                                <h2>
+                                    Select Session
+                                </h2>
+                                <Form.Select
+                                    size='sm'
+                                    value={session}
+                                    style={{ width: '150px', }}
+                                    // disabled={!isWritePermission}
+                                    onChange={(e) => {
+                                        setSession(e.target.value);
+                                    }}
+                                >
+                                    {sessionOption.map((val, index) => (
+                                        <option value={val} key={`select${index}`}>{val}</option>
+                                    ))}
+                                </Form.Select>
                                 <h2>
                                     Select Class
                                 </h2>
@@ -115,15 +157,15 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
                             </div>
                         </div>
                         <div className="btn-wrapper">
-                        <Button className="save-btn" onClick={findStudents}>GO</Button>
+                            <Button className="save-btn" onClick={findStudents}>GO</Button>
                         </div>
                     </div>
-                    <Loader/>
+                    <Loader />
                     <div className="table-wrapper manage-fee-wrapp student-fee-wrapp">
                         <table className="table" style={{ width: '100%' }}>
                             <thead>
                                 <tr valign="middle">
-                                    <th style={{textAlign:"center", backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>#</th>
+                                    <th style={{ textAlign: "center", backgroundColor: "rgba(65, 40, 95, 0.02)", boxShadow: "0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>#</th>
                                     <th>Student Name</th>
                                     <th>Student ID</th>
                                     <th>Roll No.</th>
@@ -136,10 +178,10 @@ export const ManageStudentFee = ({isWritePermission, module}) => {
                             <tbody>
                                 {studentDetails.length > 0
                                     ? studentDetails.map(
-                                        (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} module={module}/>
+                                        (val, i) => <GetStudent student={val} key={i} index={i} classes={classes} module={module} session={session} />
                                     )
                                     : <tr>
-                                        <td colSpan='8' style={{textAlign:"center"}}>
+                                        <td colSpan='8' style={{ textAlign: "center" }}>
                                             NO DATA FOUND
                                         </td>
                                     </tr>

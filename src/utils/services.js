@@ -249,8 +249,8 @@ export const registrationCheckout = (payload) => {
   return RESTClient.post(RestEndPoint.REGISTRATION_CHECKOUT, payload);
 };
 
-export const getFeeForStudent = (classId, studentId) => {
-  return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${classId}/${studentId}`);
+export const getFeeForStudent = (classId, studentId, session) => {
+  return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${session}/${classId}/${studentId}`);
 };
 
 export const getFeeAndPaymentHistoryForStudent = (session, classId, studentId) => {
