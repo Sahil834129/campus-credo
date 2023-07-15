@@ -9,33 +9,7 @@ import { SESSION } from "../../../../constants/app";
 import { formatDateToDDMMYYYY } from "../../../../utils/DateUtil";
 
 
-export default function StudentFeeDetails({ show, handleClose, student }) {
-
-    const [submissionFrequency, setSubmissionFrequency] = useState([])
-    const [openAccord, setOpenAccord] = useState(false)
-    const [data, setData] = useState({})
-    const dispatch = useDispatch()
-    const session = SESSION
-
-
-    const fetchFeeAndPaymentHistoryForStudent = () => {
-        showLoader(dispatch)
-        getFeeAndPaymentHistoryForStudent(session, student.classId, student.studentId)
-            .then(response => {
-                if (response.status === 200) {
-                    const temp = response?.data
-                    setSubmissionFrequency(Object.keys(temp))
-                    setData(temp)
-                    hideLoader(dispatch)
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                hideLoader(dispatch)
-            });
-    }
-
-    // "status paid"
+export default function StudentFeeDetails({ show, handleClose, student, session, data, submissionFrequency }) {
 
     const getCssClassName = (curVal) => {
         switch (data[`${curVal}`].feeStatus) {
@@ -55,10 +29,6 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
                 ;
         }
     }
-
-    useEffect(() => {
-        fetchFeeAndPaymentHistoryForStudent()
-    }, [])
 
     return (
         <GenericDialog
@@ -83,8 +53,8 @@ export default function StudentFeeDetails({ show, handleClose, student }) {
                     </thead>
                     <tbody>
                         {submissionFrequency.length > 0
-                            ? submissionFrequency.map((val) => {
-                                return (<tr valign="middle">
+                            ? submissionFrequency.map((val,key ) => {
+                                return (<tr valign="middle" key={key}>
                                     <td>{val}</td>
                                     <td><div className={getCssClassName(val)}> {data[`${val}`].feeStatus}</div></td>
                                     <td>{data[`${val}`].lateFee}</td>

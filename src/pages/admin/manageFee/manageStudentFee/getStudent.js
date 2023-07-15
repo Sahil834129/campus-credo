@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { humanize } from "../../../../utils/helper";
-import { getFeeForStudent } from "../../../../utils/services";
+import { getFeeAndPaymentHistoryForStudent, getFeeForStudent } from "../../../../utils/services";
 import OfflineFeeModal from "./OfflineFeeModal";
 import ConfigureFeeModal from "./configureFeeModal";
 import StudentFeeDetails from "./studentFeeDetail";
+import { hideLoader, showLoader } from "../../../../common/Loader";
+import { useDispatch } from "react-redux";
 
 
 
@@ -14,6 +16,28 @@ export const GetStudent = ({ student, index, module, session }) => {
     const [configureFeeModal, setConfigureFeeModal] = useState(false);
     const [offlinePaymentModal, setOfflinePaymentModal] = useState(false)
     const [feesDetail, setFeesDetail] = useState([]);
+    const [submissionFrequency, setSubmissionFrequency] = useState([])
+    const [data, setData] = useState({})
+    const dispatch = useDispatch()
+    const role = localStorage.getItem('roles')
+
+
+    const fetchFeeAndPaymentHistoryForStudent = () => {
+        showLoader(dispatch)
+        getFeeAndPaymentHistoryForStudent(session, student.classId, student.studentId)
+            .then(response => {
+                if (response.status === 200) {
+                    const temp = response?.data
+                    setSubmissionFrequency(Object.keys(temp))
+                    setData(temp)
+                    hideLoader(dispatch)
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                hideLoader(dispatch)
+            });
+    }
 
     const fetchStudentFeesData = () => {
         getFeeForStudent(student.classId, student.studentId, session)
@@ -44,6 +68,8 @@ export const GetStudent = ({ student, index, module, session }) => {
             fetchStudentFeesData();
         }
     }, [configureFeeModal]);
+
+    
     return (<>
         <tr>
             <td style={{width:"86px", textAlign:"center", backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>{index + 1}</td>
@@ -60,7 +86,10 @@ export const GetStudent = ({ student, index, module, session }) => {
                             variant="primary"
                             className="confirm-btn"
                             style={{ backgroundColor: '#41285F' }}
-                            onClick={() => setViewFeeModal(true)}
+                            onClick={() => {
+                                setViewFeeModal(true)
+                                fetchFeeAndPaymentHistoryForStudent()
+                            }}
                         >
                             Payment History
                         </Button>
@@ -91,6 +120,10 @@ export const GetStudent = ({ student, index, module, session }) => {
                 show={viewFeeModal}
                 handleClose={handleClose}
                 student={student}
+                session={session}
+                role={role}
+                data={data}
+                submissionFrequency={submissionFrequency}
             />
         )}
         {configureFeeModal && (

@@ -21,7 +21,7 @@ export default function FeeModalHeader({student, session }) {
       </span>
       <span style={{ border: '1px solid black', padding: '0px 8px 0px 8px', borderRadius: '4px', marginLeft: '5px' }}>
         <b>
-          <label style={{ color: 'grey' }}>Academic Year - </label>{`(${session})`}
+          <label style={{ color: 'grey' }}>Academic Year - </label>{session ? `(${session})` : ''}
         </b>
       </span>
       <span style={{ border: '1px solid black', padding: '0px 8px 0px 8px', borderRadius: '4px', marginLeft: '5px' }}>
