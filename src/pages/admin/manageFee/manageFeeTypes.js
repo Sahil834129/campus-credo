@@ -70,7 +70,7 @@ export const ManageFeesTypes = ({ isWritePermission }) => {
                             <Button
                                 className='reset-btn'
                                 onClick={() => setResetButton(val => !val)}
-                                disabled={isWritePermission}
+                                disabled={!isWritePermission}
                             >
                                 RESET
                             </Button>
@@ -95,7 +95,7 @@ export const ManageFeesTypes = ({ isWritePermission }) => {
                                         reFetch={reFetch}
                                         setRefetch={setRefetch}
                                         resetButton={resetButton}
-                                        isWritePermission={isWritePermission}
+                                        isWritePermission={!isWritePermission}
                                         session={session}
                                     />
                                 )}

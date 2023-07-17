@@ -14,13 +14,11 @@ import { useNavigate } from "react-router";
 
 
 
-const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentData }) => {
+const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
 
-    const [monthQtr, setMonthQtr] = useState('')
     const [totalPay, setTotalPay] = useState(0)
     const navigate = useNavigate();
     const [acceptButton, setAcceptButton] = useState(false)
-    const session = SESSION
     const GST = 18
     const platformFee = 100
 

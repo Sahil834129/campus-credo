@@ -22,12 +22,13 @@ const StudentLink = () => {
     const [updateTable, setUpdateTable] = useState(false)
     const [StudenkLinkData, setStudentLinkData] = useState([])
     const [selectedRows, setSelectedRows] = useState({});
-    const [pageStep, setPageStep] = useState(1)
     const [showPaymentHistory, setShowPaymentHistory] = useState(false)
     const [showPayFee, setShowPayFee] = useState(false)
     const [submissionFrequency, setSubmissionFrequency] = useState([])
     const [modalData, setModalData] = useState({})
     const [data, setData] = useState({})
+    const [monthQtr, setMonthQtr] = useState('')
+
     const role = localStorage.getItem('roles')
     const session = SESSION
 
@@ -35,7 +36,7 @@ const StudentLink = () => {
         setShowForm(false)
         setShowPaymentHistory(false)
         setShowPayFee(false)
-        setPageStep(1)
+        setMonthQtr(submissionFrequency[0])
     }
 
     const fetchStudentTableList = () => {
@@ -124,7 +125,7 @@ const StudentLink = () => {
             accessor: '',
             Header: 'Action',
             Cell: ((e) => {
-                const temp = e.row.original?.feeDetails
+                const temp = e.row.original?.feeDetails || {}
                 const allKeys = Object.keys(temp)
                 const period = allKeys.filter((val) => (temp[`${val}`].feeStatus) !== 'Paid')
 
@@ -188,7 +189,7 @@ const StudentLink = () => {
                                         <Button onClick={() => setShowForm(true)}>Link Student</Button>
                                     </div>
                                 </div>
-                                <LinkFormDialog setUpdateTable={setUpdateTable} setShowForm={setShowForm} showForm={showForm} handleClose={handleClose} pageStep={pageStep} setPageStep={setPageStep} />
+                                <LinkFormDialog setUpdateTable={setUpdateTable} setShowForm={setShowForm} showForm={showForm}/>
                                 <div className='table-wrapper-outer'>
                                     <TableComponent
                                         data={StudenkLinkData || []}
@@ -210,11 +211,14 @@ const StudentLink = () => {
                                 />
                                 <PayFee
                                     show={showPayFee}
-                                    handleClose={handleClose}
                                     studentData={modalData}
                                     data={data}
                                     submissionFrequency={submissionFrequency}
                                     first={submissionFrequency[0]}
+                                    monthQtr ={monthQtr} 
+                                    setMonthQtr={setMonthQtr}
+                                    session={session}
+                                    handleClose={handleClose}
                                 />
                             </Col>
                         </div>

@@ -53,7 +53,7 @@ export const populateClass = (val, setClassOptions) => {
   getSchoolClassesData(checkSchool)
     .then((response) => {
       console.log('response', response.data)
-      let classes = [{ text: "Select School", value: "" }];
+      let classes = [{ text: "Select Class", value: "" }];
       if (response.data)
         setClassOptions(
           classes.concat(
