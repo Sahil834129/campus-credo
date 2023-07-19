@@ -7,6 +7,7 @@ import { addOfflineFeeForStudent, getFeeAndPaymentHistoryForStudent } from "../.
 import { Button, Form } from "react-bootstrap";
 import { MODE_OF_PAYMENT, SESSION } from "../../../../constants/app";
 import ReactDatePicker from "react-datepicker";
+import { convertDate, formatDateToDDMMYYYY, parseDateWithDefaultFormat } from "../../../../utils/DateUtil";
 
 
 export default function OfflineFeeModal({ show, handleClose, student }) {
@@ -53,7 +54,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                 "session":session,
                 "lateFeeAmount": parseInt(lateFeeAmount),
                 "feeAmount":data[`${monthQtr}`].totalFeeDue,
-                "feePaymentDatetime": paymentDate,
+                "feePaymentDatetime": formatDateToDDMMYYYY(paymentDate),
                 "modeOfPayment": modeOfPayment,
             }
             addOfflineFeeForStudent(payload)
@@ -160,7 +161,10 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                     >
                         <ReactDatePicker
                             selected={paymentDate}
-                            onChange={(date) => {setPaymentDate(date); errors.paymentDate=''}}
+                            onChange={(date) => {
+                                console.log(date);
+                                setPaymentDate(date); errors.paymentDate = '';
+                            }}
                             minDate={minDate}
                             maxDate={maxDate}
                             placeholderText="Select Date"

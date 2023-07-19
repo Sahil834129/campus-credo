@@ -34,23 +34,23 @@ const Footer = () => {
         <div className="fcol contactus">
           <h2>Follow Us</h2>
           <ListGroup as="ul">
-          <ListGroup.Item as="li">
-              <a href="https://www.facebook.com/CampusCredo/"><Facebook /> <span className="nav-lbl">Facebook</span></a>
+            <ListGroup.Item as="li">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/CampusCredo/"><Facebook /> <span className="nav-lbl">Facebook</span></a>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              <a href="https://twitter.com/CampusCredo"><Twitter /> <span className="nav-lbl">Twitter</span></a>
+              <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/CampusCredo"><Twitter /> <span className="nav-lbl">Twitter</span></a>
             </ListGroup.Item>
-            
+
             <ListGroup.Item as="li">
-              <a href="https://www.instagram.com/campus_credo/"><Instagram />  <span className="nav-lbl">Instagram</span></a>
+              <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/campus_credo/"><Instagram />  <span className="nav-lbl">Instagram</span></a>
             </ListGroup.Item>
-            
+
             <ListGroup.Item as="li">
-              <a href="https://www.linkedin.com/company/campuscredo/"><Linkedin />  <span className="nav-lbl">Linkedin</span></a>
+              <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/campuscredo/"><Linkedin />  <span className="nav-lbl">Linkedin</span></a>
             </ListGroup.Item>
-            
+
             <ListGroup.Item as="li">
-              <a href="https://in.pinterest.com/campus_credo"><Pinterest />  <span className="nav-lbl">Pinterest</span></a>
+              <a target="_blank" rel="noopener noreferrer" href="https://in.pinterest.com/campus_credo"><Pinterest />  <span className="nav-lbl">Pinterest</span></a>
             </ListGroup.Item>
           </ListGroup>
         </div>
@@ -60,9 +60,9 @@ const Footer = () => {
             <ListGroup.Item as="li"><Telephone /> <span className="nav-lbl">{PageContent.PHONE}</span></ListGroup.Item>
             <ListGroup.Item as="li">
               <a
-                style={{cursor: 'pointer'}}
+                style={{ cursor: 'pointer' }}
                 onClick={(e) => {
-                  (window.location = "mailto:support@campuscredo.com")
+                  (window.location = "mailto:support@campuscredo.com");
                   e.stopPropagation();
                 }}
               >
@@ -105,10 +105,10 @@ const Footer = () => {
           &copy; 2023 CampusCredo. | All Rights Reserved.
         </div>
         <div className="copyright-col fcol3">
-          
-            <Link to={"/termsOfService"}>Terms of Service</Link>{" "}
-            <Link to={"/privacyPolicy"}>Privacy Policy</Link>
-            <Link to={"/disclaimerPolicy"}>Disclaimer Policy</Link>
+
+          <Link to={"/termsOfService"}>Terms of Service</Link>{" "}
+          <Link to={"/privacyPolicy"}>Privacy Policy</Link>
+          <Link to={"/disclaimerPolicy"}>Disclaimer Policy</Link>
         </div>
       </Container>
     </footer>

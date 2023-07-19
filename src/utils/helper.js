@@ -297,9 +297,9 @@ export const getStatusLabel = (status) => {
     case PARENT_APPLICATION_STATUS.APPROVED:
       return "Application Approved";
     case PARENT_APPLICATION_STATUS.DECLINED:
-      return "Application Declined";
-    case PARENT_APPLICATION_STATUS.DENIED:
       return "Offer Declined";
+    case PARENT_APPLICATION_STATUS.DENIED:
+      return "Offer Denied";
     default:
       return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status));
   }
@@ -321,9 +321,9 @@ export const getStatusLabelForSchool = (applicationStatus) => {
     case SCHOOL_APPLICATION_STATUS.REVOKED:
       return "Application Revoked";
     case SCHOOL_APPLICATION_STATUS.DECLINED:
-      return "Application Declined";
-    case SCHOOL_APPLICATION_STATUS.DENIED:
       return "Offer Declined";
+    case SCHOOL_APPLICATION_STATUS.DENIED:
+      return "Offer Denied";
 
     default:
       return humanize(applicationStatus, true);
