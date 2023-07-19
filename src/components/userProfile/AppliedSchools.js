@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { ReactComponent as DownloadIcon } from "../../assets/img/icons/download.svg";
 import schoolpic01 from "../../assets/img/school-picture/boarding-icon.jpg";
 import { PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../../constants/app";
-import { getIpAddress, getStatusLabel, humanize, isEmpty } from "../../utils/helper";
+import { getIpAddress, getStatusLabel } from "../../utils/helper";
 import RESTClient, { baseURL } from "../../utils/RestClient";
 import { downloadApplicationOnParentDashboard, registrationCheckout, processOrderAfterPayment } from "../../utils/services";
 import ApplicationTimeline from "./ApplicationTimeline";
@@ -18,7 +18,7 @@ import RestEndPoint from "../../redux/constants/RestEndpoints";
 
 const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
-  const [acceptButton, setAcceptButton] = useState(false)
+  const [acceptButton, setAcceptButton] = useState(false);
   const navigate = useNavigate();
   async function downloadApplicationOnDashboard(applicationId) {
     downloadApplicationOnParentDashboard(applicationId);
@@ -47,10 +47,6 @@ const AppliedSchools = ({ application, setApplications }) => {
     }
   };
 
-  const [applicationStatus, setApplicationStatus] = useState(
-    application.applicationStatus
-  );
-
   const responseHandler = async (e, orderId) => {
     try {
       const formData = new FormData();
@@ -65,7 +61,7 @@ const AppliedSchools = ({ application, setApplications }) => {
   };
 
   async function acceptApplication() {
-    setAcceptButton(true)
+    setAcceptButton(true);
     try {
       const ip = await getIpAddress();
       const payload = {
@@ -92,51 +88,12 @@ const AppliedSchools = ({ application, setApplications }) => {
       };
       console.log(config);
       window.loadBillDeskSdk(config);
-      setAcceptButton(false)
+      setAcceptButton(false);
     } catch (error) {
       console.log('Error', error);
       toast.error("Payment is failed. Please try later");
-      setAcceptButton(false)
+      setAcceptButton(false);
     }
-    // try {
-    //   const response = await RESTClient.post(
-    //     RestEndPoint.REGISTRATION_CHECKOUT +
-    //       "?applicationDataId=" +
-    //       `${application.applicationId}`
-    //   );
-    //   toast.success("Your Application has been Accepted");
-    //   window.location.reload(false);
-    //   // navigate("/paymentCheckout", { state: { data: response.data } });
-    // } catch (error) {
-    //   if (
-    //     !isEmpty(error) &&
-    //     !isEmpty(error.response) &&
-    //     error.response.status == 400
-    //   ) {
-    //     if (
-    //       !isEmpty(error.response.data) &&
-    //       !isEmpty(error.response.data.apierror) &&
-    //       !isEmpty(error.response.data.apierror.errorObject) &&
-    //       !isEmpty(error.response.data.apierror.errorObject.Child)
-    //     ) {
-    //       error.response.data.apierror.errorObject.Child.map((val, index) => {
-    //         toast.error(val);
-    //       });
-    //     }
-    //     if (
-    //       !isEmpty(error.response.data) &&
-    //       !isEmpty(error.response.data.apierror) &&
-    //       !isEmpty(error.response.data.apierror.errorObject) &&
-    //       !isEmpty(error.response.data.apierror.errorObject.Cart)
-    //     ) {
-    //       error.response.data.apierror.errorObject.Cart.map((val, index) => {
-    //         toast.error(val);
-    //       });
-    //     }
-    //   } else {
-    //     toast.error(RESTClient.getAPIErrorMessage(error));
-    //   }
-    // }
   }
 
   async function rejectApplication() {
@@ -149,7 +106,6 @@ const AppliedSchools = ({ application, setApplications }) => {
           applicationStatus: "DENIED",
         }
       );
-      setApplicationStatus(rejectAppRes.applicationStatus);
       setShowTimeline(false);
       const response = await RESTClient.get(
         RestEndPoint.GET_APPLICATION_LIST + `/${application.childId}`
@@ -163,22 +119,11 @@ const AppliedSchools = ({ application, setApplications }) => {
   }
 
   function getApplicationStatusMessage(history, index) {
-    // const status = history.applicationStatus;
-    // let message = APPLICATION_STATUS_MESSAGE[status]
-    //   ? APPLICATION_STATUS_MESSAGE[status]
-    //   : humanize(status);
-    // if (status.toUpperCase() === SCHOOL_APPLICATION_STATUS.AT_PI) {
-    //   message = message.replace(
-    //     "<AT/PI timeslot>",
-    //     history.applicantATPITimeSlot
-    //   );
-    // }
     if (application.applicationStatus === SCHOOL_APPLICATION_STATUS.APPROVED
       && history?.applicationStatus?.toUpperCase() === SCHOOL_APPLICATION_STATUS.APPROVED
       && index === application.applicationDataHistory.length - 1) {
       return <AcceptRejectApplication rejectApplication={rejectApplication} acceptApplication={acceptApplication} />;
     }
-    // return ;
   }
 
   return (
