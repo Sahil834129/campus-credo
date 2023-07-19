@@ -58,13 +58,13 @@ export default function StudentFeeDetails({ show, handleClose, student, session,
                                     <td>{val}</td>
                                     <td><div className={getCssClassName(val)}> {data[`${val}`].feeStatus}</div></td>
                                     <td>{data[`${val}`].lateFee}</td>
-                                    <td>{data[`${val}`].totalFeeDue}</td>
+                                    <td>{data[`${val}`].feeStatus === 'Paid'? data[`${val}`].paymentAmount :data[`${val}`].totalFeeDue}</td>
                                     <td>{data[`${val}`].paymentMode}</td>
                                     <td>{formatDateToDDMMYYYY(data[`${val}`].paymentDate)}</td>
                                 </tr>)
                             })
-                            : <tr>
-                                <td colSpan='7'>NO DATA FOUND</td>
+                            : <tr >
+                                <td colSpan='7' style={{ textAlign: "center" }}>NO DATA FOUND</td>
                             </tr>
                         }
                     </tbody>

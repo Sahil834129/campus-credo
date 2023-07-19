@@ -116,7 +116,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                         </Form.Select>
                         <span className="error-exception" style={{width:'50px'}}>{errors.monthQtr}</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'flex-start', marginLeft: '50px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start'}}>
                         <label style={{ width: '100px' }}>Amount</label> &nbsp;
                         <Form.Control
                             size='sm'

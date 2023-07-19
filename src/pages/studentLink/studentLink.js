@@ -36,7 +36,7 @@ const StudentLink = () => {
         setShowForm(false)
         setShowPaymentHistory(false)
         setShowPayFee(false)
-        setMonthQtr(submissionFrequency[0])
+        setMonthQtr('')
     }
 
     const fetchStudentTableList = () => {
@@ -49,7 +49,7 @@ const StudentLink = () => {
 
     const paymentHistory = (val) => {
         setData(val?.feeDetails)
-        setSubmissionFrequency(Object.keys(val?.feeDetails))
+        setSubmissionFrequency(Object.keys(val?.feeDetails || {}))
         setShowPaymentHistory(true)
         setModalData(val)
     }
@@ -141,16 +141,18 @@ const StudentLink = () => {
                         >
                             Payment History
                         </Button>
-                        {period.length>0 && <Button
+                        <Button
                             variant="primary"
                             className="confirm-btn"
+                            disabled={!(period.length>0)}
                             style={{ backgroundColor: '#4AB900' }}
                             onClick={() => {
                                 PayFeeDialog(e.row.original)
+                                setMonthQtr(submissionFrequency[0])
                             }}
                         >
                             Pay Fee
-                        </Button>}
+                        </Button>
                     </div>
                 )
             })
