@@ -28,11 +28,11 @@ const StudentLink = () => {
     const [modalData, setModalData] = useState({})
     const [data, setData] = useState({})
     const [monthQtr, setMonthQtr] = useState('')
-
+    const [totalPay, setTotalPay] = useState(0)
     const role = localStorage.getItem('roles')
     const session = SESSION
 
-    const handleClose = () => {
+    const handleClose = ()  => {
         setShowForm(false)
         setShowPaymentHistory(false)
         setShowPayFee(false)
@@ -221,6 +221,8 @@ const StudentLink = () => {
                                     setMonthQtr={setMonthQtr}
                                     session={session}
                                     handleClose={handleClose}
+                                    totalPay={totalPay}
+                                    setTotalPay={setTotalPay}
                                 />
                             </Col>
                         </div>

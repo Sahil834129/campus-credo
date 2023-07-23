@@ -26,13 +26,13 @@ export const FeeSettings = ({ isWritePermission }) => {
 
     const validationScheme = () => {
         if (lateFeeAmount ===''){
-            setErrorAmount('Mandatory')
+            setErrorAmount('Required')
         }
         if (feeSubmissionLastDate ===''){
-            setErrorDate('Mandatory')
+            setErrorDate('Required')
         }
         if (lateFeeFrequency ===''){
-            setErrorFrequency('Mandatory')
+            setErrorFrequency('Required')
         }
     }
 

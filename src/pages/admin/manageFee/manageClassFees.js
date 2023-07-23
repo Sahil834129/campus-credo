@@ -126,9 +126,9 @@ export const ManageClassFees = ({ isWritePermission }) => {
                                             <table className="table" style={{ width: '100%' }}>
                                                 <thead>
                                                     <tr valign="middle">
-                                                        <th style={{ textAlign: "center", }}>#</th>
-                                                        <th style={{ paddingLeft: "40px" }}>Fee Type</th>
-                                                        <th style={{ paddingLeft: "75px" }}>Fee Amount</th>
+                                                        <th style={{ textAlign: "center" }}>#</th>
+                                                        <th style={{ textAlign: "center" }}>Fee Type</th>
+                                                        <th style={{ textAlign: "center" }}>Fee Amount</th>
                                                         <th style={{ textAlign: "center" }}>Is Mandatory</th>
                                                         <th></th>
                                                     </tr>
