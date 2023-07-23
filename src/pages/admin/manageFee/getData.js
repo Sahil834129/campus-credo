@@ -33,13 +33,13 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
 
     const validationScheme = () => {
         if (feeTypeName === '' && feeTypeFrequency === '') {
-            setErrorName('Mandatory')
-            setErrorFrequency('Mandatory')
+            setErrorName('Required')
+            setErrorFrequency('Required')
         } else {
             if (feeTypeName === '') {
-                setErrorName('Mandatory')
+                setErrorName('Required')
             } else {
-                setErrorFrequency('Mandatory')
+                setErrorFrequency('Required')
             }
         }
     }

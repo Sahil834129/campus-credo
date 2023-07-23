@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { addFeeInStudenFee, getClassesFeeDetails, removeFeeFromStudenFee } from "../../../../utils/services";
 import { SESSION } from "../../../../constants/app";
 import FeeModalHeader from "./feeModalHeader";
+import { toast } from "react-toastify";
 
 export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail, session }) {
   const [calculatedFee, setCalculatedFees] = useState(0);
@@ -56,9 +57,17 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
         .then(res => fetchStudentFees())
         .catch(err=> console.log(err))
       } else{
-        const studentId = feesDetailIds[i].studentId
-        const studentFeeId = feesDetailIds[i].studentFeeId
-        removeFeeFromStudenFee(studentId, studentFeeId)
+        if (feesDetailIds[i].studentId && feesDetailIds[i].studentFeeId){
+          const studentId = feesDetailIds[i].studentId
+          const studentFeeId = feesDetailIds[i].studentFeeId
+          removeFeeFromStudenFee(studentId, studentFeeId)
+        } else {
+          if (feesDetailIds[i].studentId ) {
+            toast.error("Student Fee Id is missing")
+          } else {
+            toast.error("Student Id is missing")
+          }
+        }
       }
       }
       return val;

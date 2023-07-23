@@ -14,9 +14,8 @@ import { useNavigate } from "react-router";
 
 
 
-const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
+const PayFee = ({ show, handleClose, totalPay, setTotalPay, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
 
-    const [totalPay, setTotalPay] = useState(0)
     const navigate = useNavigate();
     const [acceptButton, setAcceptButton] = useState(false)
     const GST = 18
@@ -122,27 +121,27 @@ const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentDa
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Fee Amount</div>
-                            <div style={{ color: 'Green' }}>₹{monthQtr ? parseFloat(data[`${monthQtr}`].totalFeeDue).toFixed(2) : parseFloat(0).toFixed(2)}</div>
+                            <div style={{ color: 'Green' }}>₹ {monthQtr ? parseFloat(data[`${monthQtr}`].totalFeeDue).toFixed(2) : parseFloat(0).toFixed(2)}</div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Late Fee</div>
-                            <div style={{ color: 'green' }}>₹{monthQtr ? parseFloat(data[`${monthQtr}`].lateFee).toFixed(2) : parseFloat(0).toFixed(2)}</div>
+                            <div style={{ color: 'green' }}>₹ {monthQtr ? parseFloat(data[`${monthQtr}`].lateFee).toFixed(2) : parseFloat(0).toFixed(2)}</div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Platform Fee</div>
                             <div style={{ color: 'green' }}>
                                 {" "}
-                                ₹{monthQtr ? parseFloat(platformFee).toFixed(2) : parseFloat(0).toFixed(2)}
+                                ₹ {monthQtr ? parseFloat(platformFee).toFixed(2) : parseFloat(0).toFixed(2)}
                             </div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>GST 18%</div>
-                            <div style={{ color: 'green' }}> ₹{monthQtr ? parseFloat(GST).toFixed(2) : parseFloat(0).toFixed(2)}</div>
+                            <div style={{ color: 'green' }}> ₹ {monthQtr ? parseFloat(GST).toFixed(2) : parseFloat(0).toFixed(2)}</div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Total Payment</div>
                             <div style={{ color: 'green' }}>
-                                ₹{parseFloat(totalPay).toFixed(2)}
+                                ₹ {monthQtr ? parseFloat(totalPay).toFixed(2): parseFloat(0).toFixed(2)}
                             </div>
                         </ListGroup.Item>
                     </ListGroup>

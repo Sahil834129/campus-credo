@@ -8,6 +8,7 @@ import { Button, Form } from "react-bootstrap";
 import { MODE_OF_PAYMENT, SESSION } from "../../../../constants/app";
 import ReactDatePicker from "react-datepicker";
 import { convertDate, formatDateToDDMMYYYY, parseDateWithDefaultFormat } from "../../../../utils/DateUtil";
+import { toast } from "react-toastify";
 
 
 export default function OfflineFeeModal({ show, handleClose, student }) {
@@ -61,6 +62,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
             .then(res=>{
                 setRefresh(val=>!val)
                 handleClose()
+                toast.success("Payment is Successfully Done")
                 
             })
             .catch(err=>console.log(err))
@@ -102,20 +104,30 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
             <FeeModalHeader student={student} session={session}/>
             <Loader />
             <div>
-                <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>
+                <div style={{ display: 'flex', margin: '10px 30px', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', justifyContent: 'flex-start' }} >
                         <label style={{ width: '150px' }}>Fee Period</label> &nbsp;
                         <Form.Select
                             size='sm'
                             value={monthQtr}
-                            style={{ width: '250px', }}
-                            onChange={(e) => {setMonthQtr(e.target.value); errors.monthQtr = ''}}
+                            style={{ 
+                                width: '250px', 
+                                borderColor :`${errors.monthQtr ? 'red' : ''}`
+                            }}
+                            onChange={(e) => {
+                                setMonthQtr(e.target.value); 
+                                setErrors(val => {
+                                    return {
+                                        ...val,
+                                        monthQtr:undefined,
+                                    }
+                                })    
+                            }}
                         >
                             <option value=''>Select Fee Period</option>
                             {submissionFrequency.map((val, index) => <option key={index} value={val}>{val}</option>)
                             }
                         </Form.Select>
-                        <span className="error-exception" style={{width:'50px'}}>{errors.monthQtr}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-start'}}>
                         <label style={{ width: '100px' }}>Amount</label> &nbsp;
@@ -123,7 +135,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             size='sm'
                             value={monthQtr ? data[`${monthQtr}`].totalFeeDue : ''}
                             disabled={true}
-                            style={{ color: 'blue', backgroundColor: 'white', width: "250px" }}
+                            style={{ color: 'blue', backgroundColor: 'white', width: "250px", borderColor :`${errors.monthQtr ? 'red' : ''}` }}
                         />
                     </div>
                 </div>
@@ -134,36 +146,58 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                         type="number"
                         value={lateFeeAmount}
                         placeholder="Enter Late Fee"
-                        style={{ backgroundColor: 'white', width: "250px" }}
-                        onChange={(e) => {setLateFeeAmount(e.target.value); errors.lateFeeAmount =''}}
+                        style={{ 
+                            backgroundColor: 'white', 
+                            width: "250px", 
+                            borderColor :`${errors.lateFeeAmount ? 'red' : ''}`
+                        }}
+                        onChange={(e) => {
+                            setLateFeeAmount(e.target.value); 
+                            setErrors(val => {
+                                return {
+                                    ...val,
+                                    lateFeeAmount: undefined,
+                                }
+                            })    
+                        }}
                     />
-                    {errors?.lateFeeAmount && <span className="error-exception">{errors.lateFeeAmount}</span>}
                 </div>
                 <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>
                     <label style={{ width: '150px' }}>Payment Mode</label> &nbsp;
                     <Form.Select
                         size='sm'
                         value={modeOfPayment}
-                        style={{ width: '250px', }}
-                        onChange={(e) => {setModeOfPayment(e.target.value); errors.modeOfPayment =''}}
+                        style={{ width: '250px',  borderColor :`${errors.modeOfPayment ? 'red' : ''}` }}
+                        onChange={(e) => {
+                            setModeOfPayment(e.target.value); 
+                            setErrors(val => {
+                                return {
+                                    ...val,
+                                    modeOfPayment: undefined,
+                                }
+                            })      
+                        }}
                     >
                         <option value=''>Select Payment Mode</option>
                         {MODE_OF_PAYMENT.map((val, index) => <option key={index} value={val.value}>{val.text}</option>)
                         }
                     </Form.Select>
-                    {errors?.modeOfPayment && <span className="error-exception">{errors.modeOfPayment}</span>}
-
                 </div>
                 <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>
                     <label style={{ width: '150px' }}>Payment Date</label> &nbsp;
                     <div
-                        style={{ border: '1px solid lightGrey', width: '250px', borderRadius: '5px' }}
+                        style={{ border: '1px solid #ced4da', fontSize: '14px', width: '250px', borderRadius: '5px', padding:'2px 0px 2px 10px', borderColor :`${errors.paymentDate ? 'red' : '#ced4da'}` }}
                     >
                         <ReactDatePicker
                             selected={paymentDate}
                             onChange={(date) => {
-                                console.log(date);
-                                setPaymentDate(date); errors.paymentDate = '';
+                                setPaymentDate(date);
+                                setErrors(val => {
+                                    return {
+                                        ...val,
+                                        paymentDate: undefined,
+                                    }
+                                })     
                             }}
                             minDate={minDate}
                             maxDate={maxDate}
@@ -173,7 +207,6 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             showIcon
                         />
                     </div>
-                    {errors?.paymentDate && <span className="error-exception">{errors.paymentDate}</span>}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'end', margin: '30px' }}>
                     <Button onClick={handleSubmit}>SUBMIT</Button>
