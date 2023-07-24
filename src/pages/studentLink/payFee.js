@@ -14,16 +14,15 @@ import { useNavigate } from "react-router";
 
 
 
-const PayFee = ({ show, handleClose, totalPay, setTotalPay, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
+const PayFee = ({ show, handleClose, totalPay, setTotalPay, setPayFeeButton, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
 
     const navigate = useNavigate();
-    const [acceptButton, setAcceptButton] = useState(false)
     const GST = 18
     const platformFee = 100
 
     const handlePayment = async () => {
         handleClose()
-        setAcceptButton(true)
+        setPayFeeButton(true)
         try {
             const ip = await getIpAddress();
             const payload = {
@@ -56,12 +55,13 @@ const PayFee = ({ show, handleClose, totalPay, setTotalPay, data, submissionFreq
               };
               console.log(config);
               window.loadBillDeskSdk(config);
-              setAcceptButton(false)
+              setPayFeeButton(false)
           
 
         }
         catch (error) {
             console.log('Error', error);
+            setPayFeeButton(false)
         }
     }
 

@@ -29,6 +29,8 @@ const StudentLink = () => {
     const [data, setData] = useState({})
     const [monthQtr, setMonthQtr] = useState('')
     const [totalPay, setTotalPay] = useState(0)
+    const [payFeeButton, setPayFeeButton] = useState(false)
+
     const role = localStorage.getItem('roles')
     const session = SESSION
 
@@ -144,7 +146,7 @@ const StudentLink = () => {
                         <Button
                             variant="primary"
                             className="confirm-btn"
-                            disabled={!(period.length>0)}
+                            disabled={!(period.length>0) || payFeeButton}
                             style={{ backgroundColor: '#4AB900' }}
                             onClick={() => {
                                 PayFeeDialog(e.row.original)
@@ -223,6 +225,7 @@ const StudentLink = () => {
                                     handleClose={handleClose}
                                     totalPay={totalPay}
                                     setTotalPay={setTotalPay}
+                                    setPayFeeButton={setPayFeeButton}
                                 />
                             </Col>
                         </div>
