@@ -139,7 +139,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                                 <option value=''>Select Fee type</option>
                                 {feeoption.map((val) => <option key={val?.feeTypeName} value={val?.feeTypeId}>{val?.feeTypeName}</option>)}
                             </Form.Select>}
-                            {errorTypeField && <div style={{ color: 'red', textAlign: 'left' }}>{errorTypeField}</div>}
+                            {errorTypeField && <div style={{ color: 'red', textAlign: 'center' }}>{errorTypeField}</div>}
                     </div>
                     
                 </td>
@@ -159,7 +159,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                                 disabled={(editable || isWritePermission ) ? false : true}
                                 onChange={(e) => { setFeeAmount(e.target.value); setErrorAmount('') }}
                             />}
-                            {errorAmount && <div style={{ color: 'red', textAlign: 'left' }}>{errorAmount}</div>}
+                            {errorAmount && <div style={{ color: 'red', textAlign: 'center' }}>{errorAmount}</div>}
                     </div>
                 </td>
                 <td valign="middle">

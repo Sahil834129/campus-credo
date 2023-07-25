@@ -62,7 +62,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
             .then(res=>{
                 setRefresh(val=>!val)
                 handleClose()
-                toast.success("Payment is Successfully Done")
+                toast.success("Payment is Successfully Updated  ")
                 
             })
             .catch(err=>console.log(err))
