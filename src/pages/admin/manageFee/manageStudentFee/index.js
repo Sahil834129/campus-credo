@@ -1,11 +1,10 @@
-import { useEffect, useRef } from "react"
-import { Button, Form } from "react-bootstrap"
-import { findStudentsDetails, getClassAdmissionSessionData, getSchoolClassesData } from "../../../../utils/services";
-import { useState } from "react";
-import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
-import { GetStudent } from "./getStudent";
-import Loader, { hideLoader, showLoader } from "../../../../common/Loader"
+import { useEffect, useRef, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
+import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
+import { findStudentsDetails, getClassAdmissionSessionData, getSchoolClassesData } from "../../../../utils/services";
+import { GetStudent } from "./getStudent";
 
 
 
@@ -102,59 +101,60 @@ export const ManageStudentFee = ({ isWritePermission, module }) => {
         <div className='inner-content-wrap' style={{ width: '100%' }}>
             <div className='internal-page-wrapper'>
                 <div className='inner-content-wrap padt8'>
-                    <div className='title-area'>
+                    <div className='title-area mngfee-title'>
                         <div className="admission-fld-wrap">
-                            <div className="admission-fld-wrap">
-                                <h2>
-                                    Select Session
-                                </h2>
-                                <Form.Select
-                                    size='sm'
-                                    value={session}
-                                    style={{ width: '150px', }}
-                                    // disabled={!isWritePermission}
-                                    onChange={(e) => {
-                                        setSession(e.target.value);
-                                    }}
-                                >
-                                    {sessionOption.map((val, index) => (
-                                        <option value={val} key={`select${index}`}>{val}</option>
-                                    ))}
-                                </Form.Select>
-                                <h2>
-                                    Select Class
-                                </h2>
-                                <Form.Select
-                                    ref={classSelected}
-                                    size='sm'
-                                    value={classId}
-                                    style={{ width: '100px', }}
-                                    disabled={!isWritePermission}
-                                    onChange={(e) => {
-                                        setClassId(e.target.value);
-                                        classSelected.current.style.borderColor = ''
-                                    }}
-                                >
-                                    <option value=''>SELECT</option>
-                                    {classes.map((val, index) => <option key={index} value={val.classId}>{val.className}</option>)}
+                            
+                                <div className="fld-item">
+                                    <h2>Select Session</h2>
+                                    <Form.Select
+                                        size='sm'
+                                        value={session}
+                                        style={{ width: '150px', }}
+                                        // disabled={!isWritePermission}
+                                        onChange={(e) => {
+                                            setSession(e.target.value);
+                                        }}
+                                    >
+                                        {sessionOption.map((val, index) => (
+                                            <option value={val} key={`select${index}`}>{val}</option>
+                                        ))}
+                                    </Form.Select>
+                                </div>
+                                <div className="fld-item">
+                                    <h2>Select Class</h2>
+                                    <Form.Select
+                                        ref={classSelected}
+                                        size='sm'
+                                        value={classId}
+                                        style={{ width: '100px', }}
+                                        disabled={!isWritePermission}
+                                        onChange={(e) => {
+                                            setClassId(e.target.value);
+                                            classSelected.current.style.borderColor = ''
+                                        }}
+                                    >
+                                        <option value=''>SELECT</option>
+                                        {classes.map((val, index) => <option key={index} value={val.classId}>{val.className}</option>)}
 
-                                </Form.Select>
-                            </div>
-                            <div className="admission-fld-wrap">
-                                <h2>
-                                    Select Section
-                                </h2>
-                                <Form.Select
-                                    size='sm'
-                                    value={classSection}
-                                    style={{ width: 'auto' }}
-                                    disabled={!isWritePermission}
-                                    onChange={(e) => { setClassSection(e.target.value); }}
-                                >
-                                    <option value=''>SELECT</option>
-                                    {CLASS_SECTION.map((val, i) => <option key={i} value={val.value}>{val.text}</option>)}
-                                </Form.Select>
-                            </div>
+                                    </Form.Select>
+                                </div>
+                                <div className="fld-item">
+                                    <h2>
+                                        Select Section
+                                    </h2>
+                                    <Form.Select
+                                        size='sm'
+                                        value={classSection}
+                                        style={{ width: 'auto' }}
+                                        disabled={!isWritePermission}
+                                        onChange={(e) => { setClassSection(e.target.value); }}
+                                    >
+                                        <option value=''>SELECT</option>
+                                        {CLASS_SECTION.map((val, i) => <option key={i} value={val.value}>{val.text}</option>)}
+                                    </Form.Select>
+                                </div>
+                            
+                            
                         </div>
                         <div className="btn-wrapper">
                             <Button className="save-btn" onClick={findStudents}>GO</Button>
