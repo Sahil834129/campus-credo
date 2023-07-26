@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
+import Loader from "../../../../common/Loader";
 import GenericDialog from "../../../../dialogs/GenericDialog";
-import { getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
-import FeeModalHeader from "./feeModalHeader";
-import { humanize } from "../../../../utils/helper";
-import { SESSION } from "../../../../constants/app";
 import { formatDateToDDMMYYYY } from "../../../../utils/DateUtil";
+import FeeModalHeader from "./feeModalHeader";
 
 
 export default function StudentFeeDetails({ show, handleClose, student, session, data, submissionFrequency }) {
@@ -35,7 +30,7 @@ export default function StudentFeeDetails({ show, handleClose, student, session,
             show={show}
             handleClose={handleClose}
             modalHeader="Student fee Details"
-            className="Student-fee-model "
+            className="Student-fee-model"
         >
             <FeeModalHeader student={student} session={session} />
             <Loader />

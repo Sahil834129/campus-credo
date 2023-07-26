@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from 'react-bootstrap';
-import { addClassFeeTypeAmount, deleteClassesFeeDetails, updateClassFeeTypeAmount } from "../../../utils/services";
 import { toast } from "react-toastify";
 import GenericDialog from "../../../dialogs/GenericDialog";
+import { addClassFeeTypeAmount, deleteClassesFeeDetails, updateClassFeeTypeAmount } from "../../../utils/services";
 
 
 
@@ -121,9 +120,13 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
     return (
         <>
             <tr>
-                <td valign="middle" style={{backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset", padding: "20px" }}>{index > 0 ? index : ''}</td>
+                <td valign="middle" 
+                // style={{backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset", padding: "20px" }}
+                >
+                    {index > 0 ? index : ''}
+                </td>
                 <td valign="middle" style={{ }}>
-                    <div style={{ padding: '0 50px' }}>
+                    <div style={{ padding: '0' }}>
                         {!(editable || index === 0) ?
                             <Form.Control
                                 style={{ height:"40px"}}
@@ -139,12 +142,16 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                                 <option value=''>Select Fee type</option>
                                 {feeoption.map((val) => <option key={val?.feeTypeName} value={val?.feeTypeId}>{val?.feeTypeName}</option>)}
                             </Form.Select>}
-                            {errorTypeField && <div style={{ color: 'red', textAlign: 'center' }}>{errorTypeField}</div>}
+                            {errorTypeField && <div className="error-exception" 
+                            // style={{ color: 'red', textAlign: 'center' }}
+                            >{errorTypeField}</div>}
                     </div>
                     
                 </td>
                 <td valign="middle" style={{ }}>
-                    <div style={{ padding: '0 50px' }}>
+                    <div 
+                    // style={{ padding: '0 50px' }}
+                    >
                         {!(editable || index === 0) ?
                             <Form.Control
                                 style={{ height:"40px"}}
@@ -159,7 +166,7 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
                                 disabled={(editable || isWritePermission ) ? false : true}
                                 onChange={(e) => { setFeeAmount(e.target.value); setErrorAmount('') }}
                             />}
-                            {errorAmount && <div style={{ color: 'red', textAlign: 'center' }}>{errorAmount}</div>}
+                            {errorAmount && <div className="error-exception" >{errorAmount}</div>}
                     </div>
                 </td>
                 <td valign="middle">
