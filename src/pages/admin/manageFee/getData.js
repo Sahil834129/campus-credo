@@ -153,7 +153,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             )}
                         </Form.Select> : <Form.Control
                             size='sm'
-                            value={(rowData.feeTypeFrequency).replace('HALF_YEARLY','HALFY-YEARLY')}
+                            value={(rowData.feeTypeFrequency).replace('HALF_YEARLY','HALF-YEARLY')}
                             disabled={true}
                             style={{ width: '225px', }}
                         />}

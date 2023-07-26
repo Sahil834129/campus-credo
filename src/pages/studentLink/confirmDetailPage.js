@@ -35,6 +35,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={`${data.firstName} ${data.lastName}` || ''}
                                 />
                             </div>
@@ -45,6 +46,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                                 <Form.Control
                                     size='sm'
                                     defaultValue={data.stream || 'NA'}
+                                    disabled
                                 />
                             </div>
                         </div>
@@ -55,6 +57,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={data.className}
                                 />
                             </div>
@@ -64,6 +67,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={data.classSection}
                                 />
                             </div>
@@ -75,6 +79,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={data.academicSession}
                                 />
                             </div>
@@ -84,6 +89,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={data.dateOfBirth}
                                 />
                             </div>
@@ -95,6 +101,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={data.emergencyContactName}
                                 />
                             </div>
@@ -104,6 +111,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
+                                    disabled
                                     defaultValue={data.emergencyContactNumber}
                                 />
                             </div>

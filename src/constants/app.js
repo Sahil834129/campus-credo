@@ -76,7 +76,7 @@ export const MODE_OF_PAYMENT =[
 export const FEE_TYPE_FREQUENCY = [
   { value: 'MONTHLY', text: 'MONTHLY' },
   { value: 'QUARTERLY', text: 'QUARTERLY' },
-  { value: 'HALF_YEARLY', text: 'HALFY-YEARLY' },
+  { value: 'HALF_YEARLY', text: 'HALF-YEARLY' },
   { value: 'ANNUALY', text: 'ANNUALY' },
 ]
 

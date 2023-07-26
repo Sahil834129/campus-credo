@@ -89,7 +89,7 @@ export const FeeSettings = ({ isWritePermission }) => {
                                     onChange={val => {setLateFeeAmount(val.target.value);setErrorAmount('')}}
                                     disabled={!isWritePermission}
                                 />
-                                {errorAmount && <div style={{color:'red'}}>{errorAmount}</div>}
+                                {errorAmount && <div style={{color:'red', textAlign:'center'}}>{errorAmount}</div>}
 
                             </div>
                             <div >
@@ -106,7 +106,7 @@ export const FeeSettings = ({ isWritePermission }) => {
                                         <option value={val.value} key={`Select_${val.value}`}>{val.text}</option>
                                     ))}
                                 </Form.Select>
-                                {errorFrequency && <div style={{color:'red'}}>{errorFrequency}</div>}
+                                {errorFrequency && <div style={{color:'red', textAlign:'center'}}>{errorFrequency}</div>}
                             </div>
                         </div>
                         <div className="border-wrapp" style={{
