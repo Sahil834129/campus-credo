@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -26,6 +26,7 @@ const AppliedSchools = ({ application, setApplications }) => {
   const [showTimeline, setShowTimeline] = useState(false);
   const [acceptButton, setAcceptButton] = useState(false);
   const [showRequestedDocDialog, setShowRequestedDocDialog] = useState(false);
+  const [componentKey, setComponentKey] = useState(0);
 
   const navigate = useNavigate();
   async function downloadApplicationOnDashboard(applicationId) {
@@ -151,9 +152,11 @@ const AppliedSchools = ({ application, setApplications }) => {
       setShowRequestedDocDialog(true);
     }
   }
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <Col className="right content">
+    <Col className="right content" key={componentKey}>
       <div className="row-items application-block">
         <div className="application-row">
           <div className="application-inner-wrap">
@@ -309,8 +312,11 @@ const AppliedSchools = ({ application, setApplications }) => {
         show={showRequestedDocDialog}
         handleClose={() => {
           setShowRequestedDocDialog(false);
+          setComponentKey((prevKey) => prevKey + 1);
         }}
         applicationId={application.applicationId}
+        childId={application.childId}
+        setApplications={setApplications}
       />
     </Col>
   );

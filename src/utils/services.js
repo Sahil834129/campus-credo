@@ -194,6 +194,7 @@ export const downloadDocument = async (
   documentName,
   applicationChildId
 ) => {
+  documentName = documentName.trim();
   const baseDownloadURL = applicationChildId
     ? RestEndPoint.DOWNLOAD_ADMIN_DOCUMENT
     : RestEndPoint.DOWNLOAD_DOCUMENT;

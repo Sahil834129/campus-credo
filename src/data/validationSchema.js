@@ -434,7 +434,6 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   }),
 });
 export const requestDocument = (otherCheckbox) => {
-  console.log(otherCheckbox, "other check");
   let schema = Yup.object().shape({
     groups: Yup.array(),
     comment: Yup.string().required("required"),
@@ -443,6 +442,7 @@ export const requestDocument = (otherCheckbox) => {
   if (otherCheckbox) {
     schema = schema.shape({
       other: Yup.string().required("required"),
+      comment: Yup.string().required("required"),
     });
   }
   return schema;

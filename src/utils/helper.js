@@ -331,7 +331,7 @@ export const getStatusLabel = (status) => {
     case PARENT_APPLICATION_STATUS.DENIED:
       return "Offer Denied";
     case PARENT_APPLICATION_STATUS.DOCUMENT_REQUESTED:
-      return "Document Requested";
+      return "Documents Requested";
     default:
       return StringUtils.capitalizeFirstLetter(
         StringUtils.replaceUnderScoreWithSpace(status)
@@ -358,6 +358,8 @@ export const getStatusLabelForSchool = (applicationStatus) => {
       return "Offer Declined";
     case SCHOOL_APPLICATION_STATUS.DENIED:
       return "Offer Denied";
+    case SCHOOL_APPLICATION_STATUS.DOCUMENT_SUBMITTED:
+      return "Documents Received";
 
     default:
       return humanize(applicationStatus, true);
@@ -379,6 +381,9 @@ export const getActionButtonLabel = (applicationStatus) => {
       return "Shortlist for AT/PI";
     case SCHOOL_APPLICATION_STATUS.DOCUMENT_REQUESTED:
       return "Request Documents";
+    case SCHOOL_APPLICATION_STATUS.DOCUMENT_SUBMITTED:
+      return "Documents Received";
+
     default:
       return humanize(applicationStatus, true);
   }
@@ -467,4 +472,14 @@ export const checkSelectedCityWithUserCity = () => {
   let userCity = getLocalData("userLocation");
   if (selectedCity === userCity) return true;
   else return false;
+};
+export const commaSeparatedStringToObject = (commaSeparatedString) => {
+  const requestedDocumentArray = !isEmpty(commaSeparatedString)
+    ? commaSeparatedString.split(",")
+    : [];
+
+  return requestedDocumentArray.map((stringValue) => ({
+    documentName: stringValue,
+    uploaded: false,
+  }));
 };

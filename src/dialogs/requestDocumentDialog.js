@@ -45,7 +45,6 @@ const RequestDocumentDialog = ({
       documentsRequested: documentString,
       documentsRequestedComment: comment,
     };
-
     updateApplicationStatus(payload)
       .then((response) => {
         setSubmitting(false);
@@ -68,7 +67,7 @@ const RequestDocumentDialog = ({
     if (values.other && !values.groups.length) {
       setEmptyListError("");
       selectedValuesString = values.other;
-      requestDocumentApiCall(selectedValuesString);
+      requestDocumentApiCall(selectedValuesString, values.comment);
       resetForm();
     } else if (values.groups.length > 0) {
       setEmptyListError("");
@@ -165,6 +164,7 @@ const RequestDocumentDialog = ({
                       {errors.other && touched.other && (
                         <span className="text-danger">{errors.other}</span>
                       )}
+                      <br />
                       <label className="form-label">Please add comment</label>
                       <input
                         name="comment"

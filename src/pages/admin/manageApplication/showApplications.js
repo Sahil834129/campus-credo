@@ -74,6 +74,8 @@ export default function ShowApplications({
         return "orange-label";
       case SCHOOL_APPLICATION_STATUS.DOCUMENT_REQUESTED:
         return "orange-label";
+      case SCHOOL_APPLICATION_STATUS.DOCUMENT_SUBMITTED:
+        return "blue-label";
       default:
         return "black-label";
     }

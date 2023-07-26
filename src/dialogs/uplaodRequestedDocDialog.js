@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Spinner, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { hideLoader, showLoader } from "../common/Loader";
@@ -10,24 +10,29 @@ import {
 } from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
-import { humanize, isEmpty } from "../utils/helper";
-import { downloadDocument } from "../utils/services";
+import {
+  commaSeparatedStringToObject,
+  humanize,
+  isEmpty,
+} from "../utils/helper";
 import GenericDialog from "./GenericDialog";
 
 const UploadRequestedDocDialog = ({
   requestedDocument,
+  setApplications,
   show,
   handleClose,
   applicationId,
+  childId,
 }) => {
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [document, setDocument] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [showSubmit, setShowSubmit] = useState(false);
   const [fileUploadErrors, setFileUploadErrrors] = useState({});
   const [files, setFiles] = useState({});
+  const [requestedDocumentObject, setRequestedDocumentObject] = useState([]);
+
   const dispatch = useDispatch();
-  const requestedDocumentArray = !isEmpty(requestedDocument)
-    ? requestedDocument.split(",")
-    : [];
+
   const handleFileChangeInput = (e) => {
     if (e.target.files[0]) {
       setFileUploadErrrors({});
@@ -44,48 +49,36 @@ const UploadRequestedDocDialog = ({
     formData.append("file", fileData[documentName]);
     formData.append("applicationId", applicationId);
     formData.append("documentName", documentName);
-    console.log(formData, "files");
     try {
       showLoader(dispatch);
+      setIsUploading(true);
       const response = await RESTClient.post(
         RestEndPoint.STUDENT_EXTRA_DOCUMENT_UPLOAD,
         formData
       );
       if (response.data) {
-        const data = requestedDocumentArray.map((val) => {
-          if (val === response.data.documentName) {
-            return response.data;
+        const updatedRequestedDocuments = requestedDocumentObject.map((val) => {
+          if (val.documentName === response.data.documentName) {
+            return {
+              ...val,
+              ...response.data,
+            };
           } else {
             return val;
           }
         });
-        setDocument(data);
+        setRequestedDocumentObject(updatedRequestedDocuments);
         delete fileData[documentName];
         setFiles(fileData);
         hideLoader(dispatch);
+        setIsUploading(false);
       }
     } catch (error) {
       hideLoader(dispatch);
-      console.log(formData, "formData");
+      setIsUploading(false);
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
   };
-
-  // const validateFile = (uploadFile) => {
-  //   if (uploadFile.size > FILE_SIZE) {
-  //     toast.error(FILE_UPLOAD_ERROR.FILE_SIZE_ERROR_MSG);
-  //     return false;
-  //   }
-
-  //   if (
-  //     ACCEPT_MIME_TYPE.find((element) => element === uploadFile.type) ===
-  //     undefined
-  //   ) {
-  //     toast.error(FILE_UPLOAD_ERROR.FILE_TYPE_ERROR_MSG);
-  //     return false;
-  //   }
-  //   return true;
-  // };
 
   const fileUplaod = (fileType, fileData) => {
     const error = {};
@@ -121,14 +114,50 @@ const UploadRequestedDocDialog = ({
   };
 
   const areAllDocumentsUploaded = () => {
-    return document.every((doc) => {
-      if (typeof doc === "object" && doc.hasOwnProperty("status")) {
-        return doc.status === "uploaded";
-      } else {
-        return true;
-      }
-    });
+    console.log(
+      requestedDocumentObject.every((doc) => {
+        return doc.hasOwnProperty("status") && doc.status === "uploaded";
+      })
+    );
+    setShowSubmit(
+      requestedDocumentObject.every((doc) => {
+        return doc.hasOwnProperty("status") && doc.status === "uploaded";
+      })
+    );
   };
+  const submitExtraDocument = () => {
+    let payload = {
+      applicationId: applicationId,
+      childId: childId,
+      applicationStatus: "DOCUMENT_SUBMITTED",
+    };
+    let responseData = RESTClient.post(
+      RestEndPoint.UPDATE_APPLICATION_STATUS,
+      payload
+    )
+      .then(async (val) => {
+        handleClose();
+        setFiles();
+        const response = await RESTClient.get(
+          RestEndPoint.GET_APPLICATION_LIST + `/${childId}`
+        );
+        setApplications(response.data);
+      })
+      .catch((res) => {
+        handleClose();
+        const messageData =
+          res?.response?.requestedDocumentObject?.apierror?.message;
+        console.log(messageData);
+      });
+  };
+  useEffect(() => {
+    const initialRequestedDocuments =
+      commaSeparatedStringToObject(requestedDocument);
+    setRequestedDocumentObject(initialRequestedDocuments);
+  }, [requestedDocument]);
+  useEffect(() => {
+    areAllDocumentsUploaded();
+  }, [requestedDocumentObject]);
   return (
     <GenericDialog
       show={show}
@@ -136,79 +165,79 @@ const UploadRequestedDocDialog = ({
       handleClose={handleClose}
       modalHeader="Request Documents"
     >
-      <Table bordered hover className="document-tbl">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Document Name</th>
-            <th>Select</th>
-            <th className="doc-upload-btn">Action</th>
-            <th>Download (If Exist)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {!isEmpty(requestedDocumentArray) &&
-            requestedDocumentArray.map((val, index) => (
-              <tr key={`${index}`}>
-                <td>{index + 1}</td>
-                <td className="doc-name">
-                  <span>{humanize(val)}</span>
-                  <span className="text-danger">*</span>
-                </td>
-                <td className="doc-upload-fld">
-                  <input
-                    type={"file"}
-                    accept=".jpg,.jpeg,.png,.pdf"
-                    style={{ cursor: "pointer" }}
-                    name={val}
-                    onChange={handleFileChangeInput}
-                  />
-                  <span className="error-msg">
-                    {fileUploadErrors[val] !== undefined
-                      ? fileUploadErrors[val]
-                      : ""}
-                  </span>
-                </td>
-                <td className="doc-upload-btn">
-                  <Button
-                    className="upload-btn"
-                    onClick={(e) => {
-                      console.log(files, "files");
-                      fileUplaod(val, files);
-                    }}
-                  >
-                    Upload
-                  </Button>
-                </td>
-                <td className="doc-filename">
-                  {document.map((doc) => {
-                    if (doc.documentName === val) {
-                      return (
-                        <a
-                          href="javascript:void(0)"
-                          key={index}
-                          onClick={() => {
-                            console.log(doc);
-                            downloadDocument(doc.applicationId, val);
-                          }}
-                        >
-                          Download <i className="icons link-icon"></i>
-                        </a>
-                      );
-                    }
-                  })}
-                </td>
-              </tr>
-            ))}
-          <Button
-            className="save comn"
-            disabled={!areAllDocumentsUploaded()} // Disable the button if not all documents are uploaded
-            onClick={() => console.log(document)}
-          >
-            Submit
-          </Button>
-        </tbody>
-      </Table>
+      {" "}
+      {isUploading ? (
+        <div className="spinner-container">
+          <Spinner
+            animation="border"
+            variant="primary"
+            style={{ margin: "auto" }}
+          />
+        </div>
+      ) : (
+        <Table bordered hover className="document-tbl">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Document Name</th>
+              <th>Select</th>
+              <th className="doc-upload-btn">Action</th>
+              <th>If exists</th>
+            </tr>
+          </thead>
+          <tbody>
+            {!isEmpty(requestedDocumentObject) &&
+              requestedDocumentObject.map((val, index) => (
+                <tr key={`${index}`}>
+                  <td>{index + 1}</td>
+                  <td className="doc-name">
+                    <span>{humanize(val.documentName)}</span>
+                    <span className="text-danger">*</span>
+                  </td>
+                  <td className="doc-upload-fld">
+                    <input
+                      type={"file"}
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      style={{ cursor: "pointer" }}
+                      name={val.documentName}
+                      onChange={handleFileChangeInput}
+                    />
+                    <span className="error-msg">
+                      {fileUploadErrors[val.documentName] !== undefined
+                        ? fileUploadErrors[val.documentName]
+                        : ""}
+                    </span>
+                  </td>
+                  <td className="doc-upload-btn">
+                    <Button
+                      className="upload-btn"
+                      onClick={(e) => {
+                        fileUplaod(val.documentName, files);
+                      }}
+                    >
+                      Upload
+                    </Button>
+                  </td>
+                  <td className="doc-filename">
+                    {val.status === "uploaded" && (
+                      <span>
+                        {" "}
+                        Uploaded <i className="icons link-icon"></i>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      )}
+      {showSubmit ? (
+        <Button className="save comn" onClick={() => submitExtraDocument()}>
+          Submit
+        </Button>
+      ) : (
+        ""
+      )}
     </GenericDialog>
   );
 };
