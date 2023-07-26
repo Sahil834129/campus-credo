@@ -138,8 +138,7 @@
 .error-exception {
   font-size: 12px;
   color: $darkred;
-  //position: absolute;
-  // bottom: -15px;
+  text-align: left;
   margin-top: 0;
   margin-bottom: 2px;
 }
@@ -6377,9 +6376,9 @@ ul.list-group {
       .modal-content {
         .modal-header {
           color: #000;
-          font-size: 14px;
+          font-size: 16px;
           font-style: normal;
-          font-weight: 400;
+          font-weight: 600;
           line-height: 22px;
           padding: 20px 29px;
         }
@@ -6399,6 +6398,37 @@ ul.list-group {
             display: flex;
             justify-content: flex-start;
             column-gap: 8px;
+            &.stufeedetal{
+              
+                padding: 8px 26px;
+                border: 1px solid lightgrey;
+                display: flex;
+                justify-content: flex-start;
+                height: 48px;
+                background: #fbf7ff;
+                .title{
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #000000;
+                }
+                .tag-wrapper{
+                  display: flex;
+                  column-gap: 8px;
+                  flex-wrap: wrap;
+                  
+                  .tag-item{
+                    border: 1px solid #41285f;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    background: #7a5ba1;
+                    color: #fff;
+                    label{color: #ededed;}
+                    strong{}
+                  }
+                }
+                
+            }
             .student-name{
               color: #000;
               font-size: 14px;
@@ -6459,18 +6489,25 @@ ul.list-group {
                         color: #E22445;  
                       }
                       &.paid{
+                        // color: #549B43;
+                        // border: 1px solid #549B43;
+                        // background: rgba(84, 155, 67, 0.04);                        
                         color: #549B43;
                         border: 1px solid #549B43;
-                        background: rgba(84, 155, 67, 0.04);                        
+                        background: #549B43;
+                        color: #ffffff;
                       }
                       &.due{
-                        border: 1px solid #EF9F2C;
-                        background: rgba(239, 159, 44, 0.04) ;
-                        color: #EF9F2C;                      
+                        // border: 1px solid #EF9F2C;
+                        // background: rgba(239, 159, 44, 0.04) ;
+                        // color: #EF9F2C;   
+                        border: 1px solid #d9922c;
+                        background: #db9531;
+                        padding: 4px 12px;
+                        color: #fff;                   
                       }
                       &.late-paid{
                         border: 1px solid Blue;
-                        // background: rgba(239, 159, 44, 0.04) ;
                         color: Blue;                      
                       }
                     }

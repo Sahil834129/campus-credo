@@ -1,11 +1,10 @@
-import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
-import { getManageFeesType } from '../../../redux/actions/manageFeesAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetData } from './getData';
-import { SESSION } from "../../../constants/app";
-import { getClassAdmissionSessionData } from "../../../utils/services";
 import { Form } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { getManageFeesType } from '../../../redux/actions/manageFeesAction';
+import { getClassAdmissionSessionData } from "../../../utils/services";
+import { GetData } from './getData';
 
 
 export const ManageFeesTypes = ({ isWritePermission }) => {
@@ -44,14 +43,12 @@ export const ManageFeesTypes = ({ isWritePermission }) => {
         <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
             <div className='internal-page-wrapper'>
                 <div className='inner-content-wrap padt8'>
-                    <div className='title-area'>
+                    <div className='title-area mngfee-title'>
                         <h2>
                             Create Fee Type
                         </h2>
                         <div className="admission-fld-wrap">
-                            <h2>
-                                Select Session
-                            </h2>
+                            <h2>Select Session</h2>
                             <Form.Select
                                 size='sm'
                                 value={session}

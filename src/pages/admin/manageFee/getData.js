@@ -1,11 +1,11 @@
-import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-import { addSchoolFeeType, deleteSchoolFeeType, updateSchoolFeeType } from '../../../utils/services';
-import { FEE_TYPE_FREQUENCY } from '../../../constants/app';
 import { useEffect } from 'react';
+import { FEE_TYPE_FREQUENCY } from '../../../constants/app';
 import GenericDialog from '../../../dialogs/GenericDialog';
+import { addSchoolFeeType, deleteSchoolFeeType, updateSchoolFeeType } from '../../../utils/services';
 
 export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermission, session }) => {
 
@@ -120,7 +120,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
             <tr>
                 <td className='id-cell' >{index > 0 ? index : ''}</td>
                 <td style={{ width: '245px', verticalAlign:"middle", paddingLeft: "35px" }}>
-                    <div >
+                    <div className='tbl-cell'>
                         {isEditable || rowData.add ? <Form.Control
                             size='sm'
                             type='text'
@@ -136,7 +136,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             style={{ width: '245px', }}
                         />}
                     </div>
-                    {errorName && <div style={{ color: 'red' }}>{errorName}</div>}
+                    {errorName && <div className='error-exception'>{errorName}</div>}
                 </td>
                 <td style={{ width: '225px', verticalAlign:"middle", paddingLeft: "30px" }}>
                     <div >
@@ -158,7 +158,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             style={{ width: '225px', }}
                         />}
                     </div>
-                    {errorFrequency && <div style={{ color: 'red' }}>{errorFrequency}</div>}
+                    {errorFrequency && <div className='error-exception'>{errorFrequency}</div>}
 
                 </td>
                 <td>
