@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button, Spinner, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { hideLoader, showLoader } from "../common/Loader";
 import {
   ACCEPT_MIME_TYPE,
   FILE_SIZE,
@@ -50,7 +49,6 @@ const UploadRequestedDocDialog = ({
     formData.append("applicationId", applicationId);
     formData.append("documentName", documentName);
     try {
-      showLoader(dispatch);
       setIsUploading(true);
       const response = await RESTClient.post(
         RestEndPoint.STUDENT_EXTRA_DOCUMENT_UPLOAD,
@@ -70,11 +68,9 @@ const UploadRequestedDocDialog = ({
         setRequestedDocumentObject(updatedRequestedDocuments);
         delete fileData[documentName];
         setFiles(fileData);
-        hideLoader(dispatch);
         setIsUploading(false);
       }
     } catch (error) {
-      hideLoader(dispatch);
       setIsUploading(false);
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
@@ -114,11 +110,6 @@ const UploadRequestedDocDialog = ({
   };
 
   const areAllDocumentsUploaded = () => {
-    console.log(
-      requestedDocumentObject.every((doc) => {
-        return doc.hasOwnProperty("status") && doc.status === "uploaded";
-      })
-    );
     setShowSubmit(
       requestedDocumentObject.every((doc) => {
         return doc.hasOwnProperty("status") && doc.status === "uploaded";
