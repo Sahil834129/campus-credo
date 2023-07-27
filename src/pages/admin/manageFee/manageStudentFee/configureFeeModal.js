@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import GenericDialog from "../../../../dialogs/GenericDialog";
 import { humanize } from "../../../../utils/helper";
-import { useEffect } from "react";
 import { addFeeInStudenFee, getClassesFeeDetails, removeFeeFromStudenFee } from "../../../../utils/services";
-import { SESSION } from "../../../../constants/app";
 import FeeModalHeader from "./feeModalHeader";
-import { toast } from "react-toastify";
 
 export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail, session }) {
   const [calculatedFee, setCalculatedFees] = useState(0);
@@ -99,7 +97,7 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
             <tr valign="middle">
               <th>Fee Type</th>
               <th>Frequency</th>
-              <th>Fee Amount</th>
+              <th style={{ textAlign: "center" }}>Fee Amount</th>
               <th style={{ textAlign: "center" }}>Mandatory</th>
             </tr>
           </thead>
@@ -109,7 +107,7 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
                 <tr valign="middle" key={`configureFee${index}`} >
                   <td>{val?.classFee?.feeTypeName}</td>
                   <td>{humanize(val?.classFee?.feeTypeFrequency)}</td>
-                  <td>{val?.classFee?.feeAmount}</td>
+                  <td style={{ textAlign: "center" }}>{val?.classFee?.feeAmount}</td>
                   <td style={{ textAlign: "center" }}>
                     <input
                       type="checkbox"

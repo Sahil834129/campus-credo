@@ -1,10 +1,10 @@
-import GenericDialog from '../../dialogs/GenericDialog';
 import { useState } from 'react';
+import GenericDialog from '../../dialogs/GenericDialog';
 import { getLocalData } from '../../utils/helper';
 import StudentForm from './studentForm';
 
-import OtpPage from './otpPage';
 import ConfirmDetailPage from './confirmDetailPage';
+import OtpPage from './otpPage';
 
 
 const LinkFormDialog = ({ setShowForm, showForm, setUpdateTable, }) => {
@@ -28,14 +28,17 @@ const LinkFormDialog = ({ setShowForm, showForm, setUpdateTable, }) => {
             show={showForm}
             handleClose={handleClose}
             modalHeader="Enroll Student For Fee Payment"
-            className="review-admission-modal add-child-model"
+            className="enroll-student-model"
         >
-            {page === 1 && <div style={{
-                display: 'flex',
-                width: '100%',
-                justifyContent: 'flex-start',
-                height: '100%',
-            }}>
+            {page === 1 && <div className='esf-content-outer' 
+            
+            // style={{
+            //     display: 'flex',
+            //     width: '100%',
+            //     justifyContent: 'flex-start',
+            //     height: '100%',
+            // }}
+            >
                 <StudentForm setData={setData} setSearchResponse={setSearchResponse} setDisplayCss={setDisplayCss} />
                 <OtpPage searchResponse={searchResponse} displayCss={displayCss} setPage={setPage} userId={userId}/>
             </div>}

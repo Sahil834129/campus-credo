@@ -168,9 +168,9 @@ export const ManageStudentFee = ({ isWritePermission, module }) => {
                                     <th style={{ textAlign: "center", backgroundColor: "rgba(65, 40, 95, 0.02)", boxShadow: "0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>#</th>
                                     <th>Student Name</th>
                                     <th>Student ID</th>
-                                    <th>Roll No.</th>
-                                    <th>DOB</th>
-                                    <th>Section</th>
+                                    <th style={{ textAlign: "center" }}>Roll No.</th>
+                                    <th style={{ textAlign: "center" }}>DOB</th>
+                                    <th style={{ textAlign: "center" }}>Section</th>
                                     <th>Stream</th>
                                     <th></th>
                                 </tr>

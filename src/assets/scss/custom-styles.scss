@@ -138,7 +138,7 @@
 .error-exception {
   font-size: 12px;
   color: $darkred;
-  text-align: center;
+  text-align: left;
   margin-top: 0;
   margin-bottom: 2px;
 }
@@ -2982,7 +2982,15 @@ ul.list-group {
                   flex-direction: row;
                   align-items: center;
                   align-content: center;
-
+                  .btn{
+                    font-size: 14px;
+                    &.link-student{
+                      border-radius: 4px;
+                      background: #41285F;
+                      border:1px solid #41285F;
+                      box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.16);
+                    }
+                  }
                   label {
                     margin: 0 8px 0 0;
                     white-space: nowrap;
@@ -6442,7 +6450,7 @@ ul.list-group {
                 tr{
                   td{
                     text-align: left;
-                    padding: 16px 8px;
+                    padding: 8px 8px;
                     color: #000;
                     font-size: 14px;
                     font-weight: 400;
@@ -6714,6 +6722,98 @@ ul.list-group {
 }
 
 /*Model Window*/
+.modal{
+  &.enroll-student-model{
+    padding: 0;
+    .modal-dialog{
+      max-width:74%;
+      .modal-content{
+        .modal-header{
+          font-weight: 600;
+          padding: 16px 24px;
+        }
+        .model-body{
+          margin: 0 24px 24px 24px;
+          .esf-content-outer{
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            height: 100%;
+            column-gap: 24px;
+            align-items: stretch;
+            .esf-content-inner{
+              width: 100%;
+              margin: 0;
+              .no-record-panel{
+
+              }
+              .success-block{
+
+              }
+              .cell-block{
+                border: 1px solid lightgrey;
+                border-radius: 5px;
+                padding: 16px;
+                height: 100%;
+                h2{
+                  color: $black;
+                  font-size: 14px;
+                  font-weight: 600;
+                  margin: 8px 0 16px 0;
+                  span.red-star{
+                    color: $darkred;
+                  }
+                }
+                .enroll-student-frm{
+                  .frm-fld{
+                    label{
+                      font-size: 13px;
+                    }
+                    .fld-wrap{
+                      margin-bottom: 8px;
+                      .form-select{
+                        border-radius: 4px;
+                        font-size: 13px;
+                        border: 1px solid #D9D9D9;
+                        height: 40px;
+                      }
+                      input{
+                        border-radius: 4px;
+                        font-size: 13px;
+                        border: 1px solid #D9D9D9;
+                        height: 40px;
+                      }
+                    }
+                    .field-group-wrap{
+                      margin-bottom: 8px; 
+                      input{
+                        border-radius: 4px;
+                        font-size: 13px;
+                        border: 1px solid #D9D9D9;
+                        height: 40px;
+                      }
+                    }
+                  }
+                  .btn-wrapper{
+                    display: flex;
+                    justify-content: start;
+                    margin-top: 16px;
+                    margin-bottom: 8px;
+                    .btn{
+                      border-radius: 4px;
+                    }
+                  }
+                }
+                &.left{}
+                &.right{}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .payeedetails-model {
 
   .modal-dialog {
@@ -7078,6 +7178,7 @@ ul.list-group {
       }
     }
   }
+ 
 
   .modal-content {
     .modal-header {

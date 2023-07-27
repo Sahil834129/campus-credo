@@ -1,13 +1,12 @@
 import { Form, Formik } from 'formik';
-import { linkParentStudent } from '../../utils/services';
-import InputField from '../../components/form/InputField';
-import DatePickerField from '../../components/form/DatePickerField';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import DatePickerField from '../../components/form/DatePickerField';
+import InputField from '../../components/form/InputField';
 import { getStates } from '../../redux/actions/masterData';
-import { useEffect } from 'react';
 import { populateCities, populateClass, populateSchool } from '../../utils/populateOptions';
-import { useState } from 'react';
+import { linkParentStudent } from '../../utils/services';
 
 const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
 
@@ -42,15 +41,21 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
     }, []);
 
     return (
-        <div style={{
-            width: '100%',
-            margin: '10px 10px 20px 20px'
-        }}>
-            <div style={{
-                border: '1px solid lightGrey',
-                borderRadius: '5px',
-                padding: '10px'
-            }}>
+        <div className='esf-content-inner' 
+        // style={{
+        //     width: '100%',
+        //     margin: '10px 10px 20px 20px'
+        // }}
+        
+        >
+            <div className='cell-block left' 
+                // style={{
+                //     border: '1px solid lightGrey',
+                //     borderRadius: '5px',
+                //     padding: '10px'
+                // }}
+            >
+                <h2>Search Registered student by following <span className='red-star'>*</span></h2>
                 <Formik
                     initialValues={{
                         schoolStudentId: '',
@@ -63,8 +68,11 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                     onSubmit={(values) => handleSubmit(values)}
                 >
                     {({ values, errors, touched, setFieldValue }) => (
-                        <Form >
-                            <div style={{ marginBottom: '10px' }}>
+                        <Form className='enroll-student-frm'>
+                            <div className='frm-fld' 
+                            // style={{ marginBottom: '10px' }}
+                            
+                            >
                                 <label>State :</label>
                                 <InputField
                                     fieldName="state"
@@ -83,7 +91,7 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     required
                                 />
                             </div>
-                            <div style={{ marginBottom: '10px' }} >
+                            <div className='frm-fld'>
                                 <label>City :</label>
                                 <InputField
                                     fieldName="city"
@@ -102,7 +110,7 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     required
                                 />
                             </div>
-                            <div style={{ marginBottom: '10px' }}>
+                            <div className='frm-fld'>
                                 <label>School Name</label>
                                 <div className='field-group-wrap'>
                                     <InputField
@@ -123,7 +131,7 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     />
                                 </div>
                             </div>
-                            <div style={{ marginBottom: '10px' }}>
+                            <div className='frm-fld'>
                                 <label>class Name</label>
                                 <div className='field-group-wrap'>
                                     <InputField
@@ -142,7 +150,7 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     />
                                 </div>
                             </div>
-                            <div style={{ marginBottom: '10px' }}>
+                            <div className='frm-fld'>
                                 <label>School Student Id</label>
                                 <div className='field-group-wrap'>
                                     <InputField
@@ -157,7 +165,7 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     />
                                 </div>
                             </div>
-                            <div style={{ marginBottom: '10px' }}>
+                            <div className='frm-fld'>
                                 <label>Date Of Birth</label>
                                 <DatePickerField
                                     name='dateOfBirth'
@@ -165,12 +173,16 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     setFieldValue={setFieldValue}
                                     errors={errors}
                                     touched={touched}
-                                    dateFormat='yyyy-MM-dd'
+                                    dateFormat='yyyy-mm-dd'
                                     required
                                     maxDate={new Date()}
                                 />
                             </div>
-                            <div style={{ display: 'flex', justifyContent: 'start', marginTop: '10px' }}>
+                            <div className='btn-wrapper' 
+                            
+                            // style={{ display: 'flex', justifyContent: 'start', marginTop: '10px' }}
+                            
+                            >
                                 <Button
                                     type='submit'
                                     disabled={values.dateOfBirth === '' || values.schoolStudentId === '' || values.classId === ''}

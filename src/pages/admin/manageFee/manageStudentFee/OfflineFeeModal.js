@@ -135,6 +135,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                         <Form.Control
                             size='sm'
                             value={monthQtr ? data[`${monthQtr}`].totalFeeDue : ''}
+                            placeholder='Fee Amount'
                             disabled={true}
                             style={{ color: 'blue', backgroundColor: 'white', borderColor :`${errors.monthQtr ? 'red' : ''}` }}
                         />
