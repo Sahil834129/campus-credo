@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import GenericDialog from "../../../../dialogs/GenericDialog";
-import FeeModalHeader from "./feeModalHeader";
-import { useDispatch } from "react-redux";
-import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
-import { addOfflineFeeForStudent, getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
 import { Button, Form } from "react-bootstrap";
-import { MODE_OF_PAYMENT, SESSION } from "../../../../constants/app";
 import ReactDatePicker from "react-datepicker";
-import { convertDate, formatDateToDDMMYYYY, parseDateWithDefaultFormat } from "../../../../utils/DateUtil";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
+import { MODE_OF_PAYMENT, SESSION } from "../../../../constants/app";
+import GenericDialog from "../../../../dialogs/GenericDialog";
+import { formatDateToDDMMYYYY } from "../../../../utils/DateUtil";
+import { addOfflineFeeForStudent, getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
+import FeeModalHeader from "./feeModalHeader";
 
 
 export default function OfflineFeeModal({ show, handleClose, student }) {
@@ -99,19 +99,19 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
             show={show}
             handleClose={handleClose}
             modalHeader="Offline Payment"
-            className="review-admission-modal add-child-model"
+            className="offline-payment-model"
         >
             <FeeModalHeader student={student} session={session}/>
             <Loader />
-            <div>
-                <div style={{ display: 'flex', margin: '10px 30px', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', justifyContent: 'flex-start' }} >
-                        <label style={{ width: '150px' }}>Fee Period</label> &nbsp;
+            <div className="offline-paymt-frm-wrapper">
+                <div className="frm-row" >
+                    <div className="cell-item">
+                        <label>Fee Period</label>
                         <Form.Select
                             size='sm'
                             value={monthQtr}
                             style={{ 
-                                width: '250px', 
+                                
                                 borderColor :`${errors.monthQtr ? 'red' : ''}`
                             }}
                             onChange={(e) => {
@@ -129,87 +129,97 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             }
                         </Form.Select>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'flex-start'}}>
-                        <label style={{ width: '100px' }}>Amount</label> &nbsp;
+                    <div className="cell-item">
+                        
+                        <label>Amount</label>
                         <Form.Control
                             size='sm'
                             value={monthQtr ? data[`${monthQtr}`].totalFeeDue : ''}
                             disabled={true}
-                            style={{ color: 'blue', backgroundColor: 'white', width: "250px", borderColor :`${errors.monthQtr ? 'red' : ''}` }}
+                            style={{ color: 'blue', backgroundColor: 'white', borderColor :`${errors.monthQtr ? 'red' : ''}` }}
                         />
                     </div>
                 </div>
-                <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>
-                    <label style={{ width: '150px' }}>Late Fees</label> &nbsp;
-                    <Form.Control
-                        size='sm'
-                        type="number"
-                        value={lateFeeAmount}
-                        placeholder="Enter Late Fee"
-                        style={{ 
-                            backgroundColor: 'white', 
-                            width: "250px", 
-                            borderColor :`${errors.lateFeeAmount ? 'red' : ''}`
-                        }}
-                        onChange={(e) => {
-                            setLateFeeAmount(e.target.value); 
-                            setErrors(val => {
-                                return {
-                                    ...val,
-                                    lateFeeAmount: undefined,
-                                }
-                            })    
-                        }}
-                    />
-                </div>
-                <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>
-                    <label style={{ width: '150px' }}>Payment Mode</label> &nbsp;
-                    <Form.Select
-                        size='sm'
-                        value={modeOfPayment}
-                        style={{ width: '250px',  borderColor :`${errors.modeOfPayment ? 'red' : ''}` }}
-                        onChange={(e) => {
-                            setModeOfPayment(e.target.value); 
-                            setErrors(val => {
-                                return {
-                                    ...val,
-                                    modeOfPayment: undefined,
-                                }
-                            })      
-                        }}
-                    >
-                        <option value=''>Select Payment Mode</option>
-                        {MODE_OF_PAYMENT.map((val, index) => <option key={index} value={val.value}>{val.text}</option>)
-                        }
-                    </Form.Select>
-                </div>
-                <div style={{ display: 'flex', margin: '10px', marginLeft: '30px' }}>
-                    <label style={{ width: '150px' }}>Payment Date</label> &nbsp;
-                    <div
-                        style={{ border: '1px solid #ced4da', fontSize: '14px', width: '250px', borderRadius: '5px', padding:'2px 0px 2px 10px', borderColor :`${errors.paymentDate ? 'red' : '#ced4da'}` }}
-                    >
-                        <ReactDatePicker
-                            selected={paymentDate}
-                            onChange={(date) => {
-                                setPaymentDate(date);
+                <div className="frm-row" >
+                    <div className="cell-item">
+                        <label>Late Fees</label>
+                        <Form.Control
+                            size='sm'
+                            type="number"
+                            value={lateFeeAmount}
+                            placeholder="Enter Late Fee"
+                            style={{ 
+                                backgroundColor: 'white', 
+                                // width: "250px", 
+                                borderColor :`${errors.lateFeeAmount ? 'red' : ''}`
+                            }}
+                            onChange={(e) => {
+                                setLateFeeAmount(e.target.value); 
                                 setErrors(val => {
                                     return {
                                         ...val,
-                                        paymentDate: undefined,
+                                        lateFeeAmount: undefined,
                                     }
-                                })     
+                                })    
                             }}
-                            minDate={minDate}
-                            maxDate={maxDate}
-                            placeholderText="Select Date"
-                            dateFormat='yyyy/MM/dd'
-                            isClearable
-                            showIcon
                         />
                     </div>
+                    <div className="cell-item"></div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'end', margin: '30px' }}>
-                    <Button onClick={handleSubmit}>SUBMIT</Button>
+                <div className="frm-row" >
+                    <div className="cell-item">
+                        <label>Payment Mode</label>
+                        <Form.Select
+                            size='sm'
+                            value={modeOfPayment}
+                            style={{  borderColor :`${errors.modeOfPayment ? 'red' : ''}` }}
+                            onChange={(e) => {
+                                setModeOfPayment(e.target.value); 
+                                setErrors(val => {
+                                    return {
+                                        ...val,
+                                        modeOfPayment: undefined,
+                                    }
+                                })      
+                            }}
+                        >
+                            <option value=''>Select Payment Mode</option>
+                            {MODE_OF_PAYMENT.map((val, index) => <option key={index} value={val.value}>{val.text}</option>)
+                            }
+                        </Form.Select>
+                    </div>
+                    <div className="cell-item"></div>
+                </div>
+                <div className="frm-row" >
+                    <div className="cell-item">
+                        <label>Payment Date</label>
+                        <div className="datepicker-fld"
+                            style={{ border: '1px solid #ced4da', fontSize: '14px', borderRadius: '5px', padding:'2px 0px 2px 10px', borderColor :`${errors.paymentDate ? 'red' : '#ced4da'}` }}
+                        >
+                            <ReactDatePicker
+                                selected={paymentDate}
+                                onChange={(date) => {
+                                    setPaymentDate(date);
+                                    setErrors(val => {
+                                        return {
+                                            ...val,
+                                            paymentDate: undefined,
+                                        }
+                                    })     
+                                }}
+                                minDate={minDate}
+                                maxDate={maxDate}
+                                placeholderText="Select Date"
+                                dateFormat='yyyy/MM/dd'
+                                isClearable
+                                showIcon
+                            />
+                        </div>
+                    </div>
+                    <div className="cell-item"></div>
+                </div>
+                <div className="btn-wrapper">
+                    <Button className="submit-btn" onClick={handleSubmit}>SUBMIT</Button>
                 </div>
             </div>
         </GenericDialog>
