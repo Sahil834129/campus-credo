@@ -288,3 +288,7 @@ export const verifyParentStudent = (payload) => {
 export const confirmLinkParentStudent = (payload) => {
   return RESTClient.post(RestEndPoint.CONFIRM_LINK_PARENT_STUDENT, payload);
 };
+
+export const closeClassAdmissionData = (classId, session) =>{
+  return RESTClient.get(RestEndPoint.CLOSE_CLASS_ADMISSION_DATA +`/${classId}/${session}`)
+}

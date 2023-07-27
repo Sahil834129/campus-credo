@@ -111,7 +111,8 @@ const RestEndPoint = {
   POST_PARENT_LINK_STUDENT:"/parent/link/student",
   VERIFY_STUDENT_PARENT:"/parent/verifyStudentLink",
   CONFIRM_LINK_PARENT_STUDENT:"/parent/confirmStudentLink",
-  REGISTER_PAYMENT:"/payment/schoolFeePayment"
+  REGISTER_PAYMENT:"/payment/schoolFeePayment",
+  CLOSE_CLASS_ADMISSION_DATA:"/admission/closeClassAdmissionData"
 };
 
 export default RestEndPoint;
