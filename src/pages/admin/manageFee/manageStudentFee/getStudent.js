@@ -82,9 +82,9 @@ export const GetStudent = ({ student, index, module, session }) => {
             >{index + 1}</td>
             <td>{`${humanize(student.firstName)} ${humanize(student.lastName)}`}</td>
             <td>{student.schoolStudentId}</td>
-            <td>{student.studentId}</td>
-            <td>{student.dateOfBirth}</td>
-            <td>{student.classSection}</td>
+            <td style={{ textAlign: "center" }}>{student.studentId}</td>
+            <td style={{ textAlign: "center" }}>{student.dateOfBirth}</td>
+            <td style={{ textAlign: "center" }}>{student.classSection}</td>
             <td>{student.stream}</td>
             <td>
                 {(module === 'configureStudentFee')

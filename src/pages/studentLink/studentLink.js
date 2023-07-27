@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import LinkFormDialog from './linkFormDialog';
+import { Button } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 import Col from 'react-bootstrap/Col';
 import Container from "react-bootstrap/Container";
 import Row from 'react-bootstrap/Row';
-import Accordion from 'react-bootstrap/Accordion';
-import { Button } from 'react-bootstrap';
+import LinkFormDialog from './linkFormDialog';
 
-import Layout from '../../common/layout';
-import TableComponent from '../../common/TableComponent';
 import Breadcrumbs from "../../common/Breadcrumbs";
 import LeftMenuBar from "../../common/LeftMenuBar";
+import TableComponent from '../../common/TableComponent';
+import Layout from '../../common/layout';
+import { SESSION } from '../../constants/app';
 import PageContent from '../../resources/pageContent';
 import { getStudentList } from '../../utils/services';
-import PayFee from './payFee';
 import StudentFeeDetails from '../admin/manageFee/manageStudentFee/studentFeeDetail';
-import { SESSION } from '../../constants/app';
+import PayFee from './payFee';
 
 const StudentLink = () => {
     const [showForm, setShowForm] = useState(false)
@@ -190,7 +190,7 @@ const StudentLink = () => {
                             <Col className='profile-content right'>
                                 <div className='row-items header' style={{ display: 'flex', justifyContent: 'end' }}>
                                     <div className='col-item select-option left'>
-                                        <Button onClick={() => setShowForm(true)}>Link Student</Button>
+                                        <Button className='link-student' onClick={() => setShowForm(true)}>Link Student</Button>
                                     </div>
                                 </div>
                                 <LinkFormDialog setUpdateTable={setUpdateTable} setShowForm={setShowForm} showForm={showForm}/>
