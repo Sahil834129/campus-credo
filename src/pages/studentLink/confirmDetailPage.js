@@ -80,7 +80,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                                 <Form.Control
                                     size='sm'
                                     disabled
-                                    defaultValue={data.academicSession || ''}
+                                    defaultValue={data.schoolStudentId || ''}
                                 />
                             </div>
                         </div>

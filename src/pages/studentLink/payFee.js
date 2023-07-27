@@ -35,7 +35,6 @@ const PayFee = ({ show, handleClose, totalPay, setTotalPay, setPayFeeButton, dat
                     "monthQtr": monthQtr
                   }
             };
-            console.log('payload', payload)
             const response =  await registerPayment(payload, session)
             const paymentLinkDetails = JSON.parse(response.data.paymentLinkDetails);
             const flowConfig = {
@@ -53,7 +52,6 @@ const PayFee = ({ show, handleClose, totalPay, setTotalPay, setPayFeeButton, dat
                 flowConfig: flowConfig,
                 flowType: "payments"
               };
-              console.log(config);
               window.loadBillDeskSdk(config);
               setPayFeeButton(false)
           
