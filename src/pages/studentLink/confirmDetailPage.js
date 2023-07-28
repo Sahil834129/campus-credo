@@ -35,7 +35,8 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={`${data.firstName} ${data.lastName}` || ''}
+                                    disabled
+                                    defaultValue={`${data.firstName || ''} ${data.lastName || ''}`}
                                 />
                             </div>
                         </div>
@@ -44,7 +45,8 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.stream || 'NA'}
+                                    defaultValue={data.stream || ''}
+                                    disabled
                                 />
                             </div>
                         </div>
@@ -55,7 +57,8 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.className}
+                                    disabled
+                                    defaultValue={data.className || ''}
                                 />
                             </div>
                         </div>
@@ -64,18 +67,20 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.classSection}
+                                    disabled
+                                    defaultValue={data.classSection || ''}
                                 />
                             </div>
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'start' }}>
                         <div style={{ width: '45%', margin: '10px' }}>
-                            <label>Rigistration # </label>
+                            <label>Registration # </label>
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.academicSession}
+                                    disabled
+                                    defaultValue={data.schoolStudentId || ''}
                                 />
                             </div>
                         </div>
@@ -84,7 +89,8 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.dateOfBirth}
+                                    disabled
+                                    defaultValue={data.dateOfBirth || ''}
                                 />
                             </div>
                         </div>
@@ -95,7 +101,8 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.emergencyContactName}
+                                    disabled
+                                    defaultValue={data.emergencyContactName || ''}
                                 />
                             </div>
                         </div>
@@ -104,7 +111,8 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             <div>
                                 <Form.Control
                                     size='sm'
-                                    defaultValue={data.emergencyContactNumber}
+                                    disabled
+                                    defaultValue={data.emergencyContactNumber || ''}
                                 />
                             </div>
                         </div>

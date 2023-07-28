@@ -42,7 +42,7 @@
           border-bottom: none;
           ol.breadcrumb {
             margin-bottom: 0;
-            padding: 20px 0;
+            padding: 12px 0;
           }
         }
       }
@@ -228,6 +228,7 @@
     padding: 0 0px 0 24px;
     justify-content: space-between;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    background: #f1f1f1;
     .bc-nav {
       ol.breadcrumb {
         margin: 0;
@@ -775,6 +776,7 @@ ul.list-group {
   }
   .internal-page-wrapper {
     // display: grid;
+    background: #ffffff;
 
     &.two-columns {
       display: flex;
@@ -977,7 +979,8 @@ ul.list-group {
         padding: 0;
         min-height: 76vh;
         flex: 0 0 224px;
-        padding-left: 22px;
+        padding-left: 0;
+        background: #F8F8F8;
         .nav {
           &.flex-column{gap: 10px;}
           a.nav-link {
@@ -1004,24 +1007,49 @@ ul.list-group {
     .inner-content-wrap {
       padding: 8px 16px 24px 16px;
       flex: 1;
+      background: #fff;
       // overflow-x: auto;
       &.padt8 {
       }
       &.lateFee-wrapp{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .title-area{padding: 7px 0px 15px;}
+        .fee-settings-block{
+          border-radius: 8px;
+          border: 1px solid #41285f;
+          padding: 42px;
+          box-shadow: 0 0 30px 0 rgba(202, 199, 226, 0.5);
+          margin-top: 24px;
+          .btn-wrapper{
+            .btn{
+              height: 38px;
+            }
+          }
+        }
         .amount-main-wrapp{
+          &.fee-settings-panel{
+
+          }
           .frm-cell{
             padding-top: 10px;
             label{
-              color: #5D5D5D;
-              font-weight: 500;          
+              color:#41285f;
+              font-weight: 600;
+              font-size: 16px;          
             }
           }
           .amount-inner-wrapp{
             display: flex;
             column-gap: 23px;
-            padding-left: 32px;
             margin: 20px 0 25px;
+            .item-cell{
+              display: flex;
+              flex-direction: column;
+              flex-basis: 0;
+              flex-grow: 1;
+            }
             input{ padding: 8px 12px; height: 42px; font-size: 14px; border-radius: 6px;}
             .form-select-sm{
               height: 42px;
@@ -1031,20 +1059,31 @@ ul.list-group {
             label{color: #000;  margin-bottom: 5px;}
             &.submission-date-wrapp{
             flex-direction: column;
-            row-gap: 10px;
+            
             .submission-title{
               font-style: normal;
               font-weight: 600;
               font-size: 14px;
               line-height: 18px;
-              color: #000;            
+              color: #000;    
+              margin: 0;
+              border: 1px solid #efefef;
+              padding: 8px 0;
+              text-align: center;
+              border-radius: 8px 8px 0 0;
+              border-bottom: none;
+              background: #efefef;
+              position: relative;
+              top: 0px;     
             }
             .date-main-container{
               display: grid;
               grid-template-columns: repeat(10, 1fr);
               row-gap: 10px;
               column-gap: 14px;
-              width: 515px;   
+              border: 1px solid #efefef;
+              padding: 16px;
+              border-radius: 0 0 8px 8px;  
               .date-inner-container{
                 border-radius: 6px;
                 padding: 10px 12px;
@@ -1061,9 +1100,12 @@ ul.list-group {
             border-radius: 6px;
             border: 1px dashed #4AB900;
             background: rgba(74, 185, 0, 0.04);
-            margin: 10px 10px 28px 31px;
+            margin: 10px 10px 28px 0;
             padding: 5px;
-            width: 400px;  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 38px;
             label{text-transform: lowercase; font-weight: 600;}          
           }
 
@@ -1081,8 +1123,13 @@ ul.list-group {
         }
       }
       &.fee-type-wrapp{
-        .title-area{padding-bottom: 20px;}
+        .title-area{}
         .fee-accordian-wrapp{
+          box-shadow: 0 0 30px 0 rgba(202, 199, 226, 0.5);
+          border: 1px solid #41285f;
+          border-radius: 8px;
+          margin: 16px 0;
+          overflow: hidden;
           .accordion-item{
             margin-bottom: 8px;
             border-radius: 6px;
@@ -1107,9 +1154,10 @@ ul.list-group {
                 &:not(.collapsed)::after{
                   transform: rotate(360deg); 
                   background-image: url("../img/icons/downArrow-icon.svg");
-                  width: 14px;
-                  height: 14px;
+                  width: 16px;
+                  height: 11px;
                   background-position: bottom;
+                  margin-top: 3px;
                 }
               }
             }
@@ -1118,7 +1166,15 @@ ul.list-group {
                 padding: 0px;
                 .manage-fee-wrapp{
                   padding-top: 0px;
+                  margin: 24px;
                   .table{
+                    margin-bottom: 0;
+                    thead{
+                      tr{
+                        background: #666666;
+                      }
+                      th{}
+                    }
                     thead th:last-child{text-align: right;}
                     tbody{
                       td{
@@ -1152,31 +1208,48 @@ ul.list-group {
         }
       }
       .table-wrapper {
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 16px 0;
+        -webkit-box-shadow: 0 0 30px 0 rgba(202,199,226,.5);
+        box-shadow: 0 0 30px 0 rgba(202,199,226,.5);
+        border: 1px solid #D9D9D9;
+        table{
+          margin-bottom: 0;
+        }
         &.manage-fee-wrapp{
           &.student-fee-wrapp{
             table{
               tbody{
+                tr:nth-child(even) {background-color: #f2f2f2;}
                 tr td{
                   text-align: left; 
-                  padding: 16px 8px;
+                  padding: 8px 8px;
                   text-transform: capitalize;
+                  
                 }
+                
               }
             }
           }
           &.classesFee{
             table{
               tbody{
-                tr td{background-color: #fff;}
+                tr td{}
               }
             }
           }
           table {
             thead {
               tr{
-                background: rgba(65, 40, 95, 0.06); 
+                // background: rgba(65, 40, 95, 0.06); 
+                background: #41285f;
+                color: #fff;
                 height: 48px;
-                th{text-align: left;}
+                th{
+                  text-align: left;
+                  padding: 8px;
+                }
               }
 
             }
@@ -1184,24 +1257,25 @@ ul.list-group {
               tr td{
                 color: #000;
                 font-size: 14px;
-                font-family: Rubik;
                 font-style: normal;
                 font-weight: 400;
                 line-height: 22px;  
-                vertical-align: middle;              
+                vertical-align: middle;   
+                // background: #F8F8F8;
+                border-bottom: none;
+                padding: 8px 16px;
+                text-align: center;           
                 &.id-cell{
                   width: 60px;
                   vertical-align: middle;
-                  background-color: rgba(65, 40, 95, 0.02);
-                  box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 0px 0px inset;                  
+                  // background-color: rgba(65, 40, 95, 0.02);
+                  // box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 0px 0px inset;                  
                 }
-                background: #F8F8F8;
-                padding: 16px 0px;
-                text-align: center;
+                
                 .form-control-sm, .form-select-sm{
                   color: rgba(0, 0, 0, 0.84);
                   font-size: 14px;
-                  font-family: Rubik;
+                  
                   line-height: 20px;
                   letter-spacing: 0.25px;
                   height: 40px; 
@@ -1210,6 +1284,13 @@ ul.list-group {
                   &:disabled{background-color: #fff;}
                 }
               }
+              tr:nth-child(even) {
+                background: #f0f0f0;
+              }
+              tr:nth-child(odd) {
+                background: #FFF;
+              }
+              
             }
             .action-btn-wrapper{
               display: flex;
@@ -1219,14 +1300,18 @@ ul.list-group {
               column-gap: 8px;
               .btn{
                 padding: 11px;     
-                width: 36px;   
-                height: 36px; 
+                width: 42px;   
+                height: 42px; 
                 display: flex;
                 align-items: center;
                 text-align: center;
                 color: #ffffff;  
                 border-radius: 100px; 
-                transition: all 0.15s ease-in-out; 
+                transition: all 0.15s ease-in-out;
+                i{
+                  width: 18px;
+                  height: 18px;
+                }
                 &:hover{opacity: 0.8;}
                 &.edit-btn{
                   border: 1px solid #DADADA;
@@ -1243,8 +1328,8 @@ ul.list-group {
                   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.04);                  
                 }
                 &.save-btn{
-                  background: rgba(0, 0, 0, 0.3);
-                  border: 1px solid #DADADA;
+                  background:#335eea;
+                  border: 1px solid #6c8aec;
                   // background: #DADADA;
                 }   
                 &.update-btn{
@@ -1255,7 +1340,7 @@ ul.list-group {
             }
           }
         }
-        padding-top: 8px;
+        
         table {
           thead {
           }
@@ -1725,8 +1810,11 @@ table {
       }
     }
     &.reset-btn {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(0, 0, 0, 0.4);
+      background: #222222;
+      border: 1px solid #222222;
+      height: 34px;
+      font-size: 12px;
+      padding: 4px 16px;
       &:hover {
         background: rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(0, 0, 0, 0.4);
@@ -1767,6 +1855,35 @@ table {
   align-items: center;
   justify-content: space-between;
 
+  &.mngfee-title{
+    padding: 4px 16px;
+    border-radius: 8px;
+    border: 1px solid #e6effc;
+    background: #f4f6f9;
+    margin-top: 8px;
+    height: 54px;
+    .admission-fld-wrap{
+      // border-left: 1px solid #efefef;
+      // border-right: 1px solid #efefef;
+      // height: 54px;
+      display: flex;
+      column-gap: 24px;
+      .fld-item{
+        display: flex;
+        align-items: center;
+        column-gap: 4px;
+      }
+    }
+    
+  }
+  .btn-wrapper{
+      
+      .btn{
+        height: 34px;
+        &.reset-btn{}
+        &.save-btn{}
+      }
+    }
   h2 {
     font-style: normal;
     font-weight: 500;
@@ -1780,6 +1897,7 @@ table {
     display: flex;
     align-items: center;
     column-gap: 8px;
+
     label {
       white-space: nowrap;
       margin: 0;
@@ -1869,8 +1987,9 @@ table {
       .error-exception {
         font-size: 12px;
         color: $darkred;
-
+        text-align: center;
         margin-top: 0;
+
         margin-bottom: -18px;
       }
       

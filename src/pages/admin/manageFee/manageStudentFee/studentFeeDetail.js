@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
+import Loader from "../../../../common/Loader";
 import GenericDialog from "../../../../dialogs/GenericDialog";
-import { getFeeAndPaymentHistoryForStudent } from "../../../../utils/services";
-import FeeModalHeader from "./feeModalHeader";
-import { humanize } from "../../../../utils/helper";
-import { SESSION } from "../../../../constants/app";
 import { formatDateToDDMMYYYY } from "../../../../utils/DateUtil";
+import FeeModalHeader from "./feeModalHeader";
 
 
 export default function StudentFeeDetails({ show, handleClose, student, session, data, submissionFrequency }) {
@@ -35,7 +30,7 @@ export default function StudentFeeDetails({ show, handleClose, student, session,
             show={show}
             handleClose={handleClose}
             modalHeader="Student fee Details"
-            className="Student-fee-model "
+            className="Student-fee-model"
         >
             <FeeModalHeader student={student} session={session} />
             <Loader />
@@ -45,8 +40,8 @@ export default function StudentFeeDetails({ show, handleClose, student, session,
                         <tr valign="middle">
                             <th>Frequency</th>
                             <th>Status</th>
-                            <th>Late Fee</th>
-                            <th>Total Fee</th>
+                            <th style={{ textAlign: "center" }}>Late Fee</th>
+                            <th style={{ textAlign: "center" }}>Total Fee</th>
                             <th>Payment Mode</th>
                             <th>Payment Date</th>
                         </tr>
@@ -57,8 +52,8 @@ export default function StudentFeeDetails({ show, handleClose, student, session,
                                 return (<tr valign="middle" key={key}>
                                     <td>{val}</td>
                                     <td><div className={getCssClassName(val)}> {data[`${val}`].feeStatus}</div></td>
-                                    <td>{data[`${val}`].lateFee}</td>
-                                    <td>{data[`${val}`].feeStatus === 'Paid'? data[`${val}`].paymentAmount :data[`${val}`].totalFeeDue}</td>
+                                    <td style={{ textAlign: "center" }}>{data[`${val}`].lateFee}</td>
+                                    <td style={{ textAlign: "center" }}>{data[`${val}`].feeStatus === 'Paid'? data[`${val}`].paymentAmount :data[`${val}`].totalFeeDue}</td>
                                     <td>{data[`${val}`].paymentMode}</td>
                                     <td>{formatDateToDDMMYYYY(data[`${val}`].paymentDate)}</td>
                                 </tr>)

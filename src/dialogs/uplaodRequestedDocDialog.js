@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Spinner, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import {
@@ -156,72 +156,62 @@ const UploadRequestedDocDialog = ({
       handleClose={handleClose}
       modalHeader="Request Documents"
     >
-      {" "}
-      {isUploading ? (
-        <div className="spinner-container">
-          <Spinner
-            animation="border"
-            variant="primary"
-            style={{ margin: "auto" }}
-          />
-        </div>
-      ) : (
-        <Table bordered hover className="document-tbl">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Document Name</th>
-              <th>Select</th>
-              <th className="doc-upload-btn">Action</th>
-              <th>If exists</th>
-            </tr>
-          </thead>
-          <tbody>
-            {!isEmpty(requestedDocumentObject) &&
-              requestedDocumentObject.map((val, index) => (
-                <tr key={`${index}`}>
-                  <td>{index + 1}</td>
-                  <td className="doc-name">
-                    <span>{humanize(val.documentName)}</span>
-                    <span className="text-danger">*</span>
-                  </td>
-                  <td className="doc-upload-fld">
-                    <input
-                      type={"file"}
-                      accept=".jpg,.jpeg,.png,.pdf"
-                      style={{ cursor: "pointer" }}
-                      name={val.documentName}
-                      onChange={handleFileChangeInput}
-                    />
-                    <span className="error-msg">
-                      {fileUploadErrors[val.documentName] !== undefined
-                        ? fileUploadErrors[val.documentName]
-                        : ""}
+      <Table bordered hover className="document-tbl">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Document Name</th>
+            <th>Select</th>
+            <th className="doc-upload-btn">Action</th>
+            <th>If exists</th>
+          </tr>
+        </thead>
+        <tbody>
+          {!isEmpty(requestedDocumentObject) &&
+            requestedDocumentObject.map((val, index) => (
+              <tr key={`${index}`}>
+                <td>{index + 1}</td>
+                <td className="doc-name">
+                  <span>{humanize(val.documentName)}</span>
+                  <span className="text-danger">*</span>
+                </td>
+                <td className="doc-upload-fld">
+                  <input
+                    type={"file"}
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    style={{ cursor: "pointer" }}
+                    name={val.documentName}
+                    onChange={handleFileChangeInput}
+                  />
+                  <span className="error-msg">
+                    {fileUploadErrors[val.documentName] !== undefined
+                      ? fileUploadErrors[val.documentName]
+                      : ""}
+                  </span>
+                </td>
+                <td className="doc-upload-btn">
+                  <Button
+                    className="upload-btn"
+                    disabled={isUploading}
+                    onClick={(e) => {
+                      fileUplaod(val.documentName, files);
+                    }}
+                  >
+                    Upload
+                  </Button>
+                </td>
+                <td className="doc-filename">
+                  {val.status === "uploaded" && (
+                    <span>
+                      {" "}
+                      Uploaded <i className="icons link-icon"></i>
                     </span>
-                  </td>
-                  <td className="doc-upload-btn">
-                    <Button
-                      className="upload-btn"
-                      onClick={(e) => {
-                        fileUplaod(val.documentName, files);
-                      }}
-                    >
-                      Upload
-                    </Button>
-                  </td>
-                  <td className="doc-filename">
-                    {val.status === "uploaded" && (
-                      <span>
-                        {" "}
-                        Uploaded <i className="icons link-icon"></i>
-                      </span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-      )}
+                  )}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
       {showSubmit ? (
         <Button className="save comn" onClick={() => submitExtraDocument()}>
           Submit

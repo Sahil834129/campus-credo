@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from 'react-bootstrap';
-import { addClassFeeTypeAmount, deleteClassesFeeDetails, updateClassFeeTypeAmount } from "../../../utils/services";
 import { toast } from "react-toastify";
 import GenericDialog from "../../../dialogs/GenericDialog";
+import { addClassFeeTypeAmount, deleteClassesFeeDetails, updateClassFeeTypeAmount } from "../../../utils/services";
 
 
 
@@ -21,10 +20,10 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
 
     const ValidationScheme = () => {
         if (feeAmount === '') {
-            setErrorAmount('Mandatory')
+            setErrorAmount('Required')
         }
         if (feeTypeId === '') {
-            setErrorTypeField('Mandatory')
+            setErrorTypeField('Required')
         }
 
     }
@@ -121,47 +120,54 @@ export const GetClassData = ({ tableData, index, feeoption, classId, setReFetch,
     return (
         <>
             <tr>
-                <td valign="middle" style={{backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset", padding: "20px" }}>{index > 0 ? index : ''}</td>
-                <td valign="middle" style={{ width: '201px',  paddingLeft: "40px" }}>
-                    <div >
+                <td valign="middle" 
+                // style={{backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset", padding: "20px" }}
+                >
+                    {index > 0 ? index : ''}
+                </td>
+                <td valign="middle" style={{ }}>
+                    <div style={{ padding: '0' }}>
                         {!(editable || index === 0) ?
                             <Form.Control
-                                style={{ width: '250px', height:"40px"}}
+                                style={{ height:"40px"}}
                                 value={tableData?.classFee?.feeTypeName}
                                 disabled={true} />
                             : <Form.Select
                                 size='sm'
                                 value={feeTypeId}
-                                style={{ width: '250px', }}
+                                style={{ }}
                                 onChange={(e) => { setFeeTypeId(e.target.value); setErrorTypeField('') }}
                                 disabled={editable || isWritePermission ? false : true}
                             >
                                 <option value=''>Select Fee type</option>
                                 {feeoption.map((val) => <option key={val?.feeTypeName} value={val?.feeTypeId}>{val?.feeTypeName}</option>)}
                             </Form.Select>}
-
+                            {errorTypeField && <div className="error-exception" 
+                            // style={{ color: 'red', textAlign: 'center' }}
+                            >{errorTypeField}</div>}
                     </div>
-                    {errorTypeField && <div style={{ color: 'red' }}>{errorTypeField}</div>}
+                    
                 </td>
-                <td valign="middle" style={{paddingLeft: "75px" }}>
-                    <div>
+                <td valign="middle" style={{ }}>
+                    <div 
+                    // style={{ padding: '0 50px' }}
+                    >
                         {!(editable || index === 0) ?
                             <Form.Control
-                                style={{ width: '185px', height:"40px"}}
+                                style={{ height:"40px"}}
                                 value={tableData?.classFee?.feeAmount}
                                 disabled={true} />
                             : <Form.Control
                                 size='sm'
                                 type='number'
                                 value={feeAmount}
-                                style={{ width: '185px', height:"40px"}}
+                                style={{ height:"40px"}}
                                 placeholder='Enter Fee Name'
                                 disabled={(editable || isWritePermission ) ? false : true}
                                 onChange={(e) => { setFeeAmount(e.target.value); setErrorAmount('') }}
                             />}
+                            {errorAmount && <div className="error-exception" >{errorAmount}</div>}
                     </div>
-                    {errorAmount && <div style={{ color: 'red' }}>{errorAmount}</div>}
-
                 </td>
                 <td valign="middle">
                     {!(editable || index === 0) ?

@@ -1,11 +1,11 @@
-import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-import { addSchoolFeeType, deleteSchoolFeeType, updateSchoolFeeType } from '../../../utils/services';
-import { FEE_TYPE_FREQUENCY } from '../../../constants/app';
 import { useEffect } from 'react';
+import { FEE_TYPE_FREQUENCY } from '../../../constants/app';
 import GenericDialog from '../../../dialogs/GenericDialog';
+import { addSchoolFeeType, deleteSchoolFeeType, updateSchoolFeeType } from '../../../utils/services';
 
 export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermission, session }) => {
 
@@ -33,13 +33,13 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
 
     const validationScheme = () => {
         if (feeTypeName === '' && feeTypeFrequency === '') {
-            setErrorName('Mandatory')
-            setErrorFrequency('Mandatory')
+            setErrorName('Required')
+            setErrorFrequency('Required')
         } else {
             if (feeTypeName === '') {
-                setErrorName('Mandatory')
+                setErrorName('Required')
             } else {
-                setErrorFrequency('Mandatory')
+                setErrorFrequency('Required')
             }
         }
     }
@@ -119,8 +119,8 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
         <>
             <tr>
                 <td className='id-cell' >{index > 0 ? index : ''}</td>
-                <td style={{ width: '245px', verticalAlign:"middle", paddingLeft: "35px" }}>
-                    <div >
+                <td style={{ width: '245px', verticalAlign: "middle", paddingLeft: "35px" }}>
+                    <div className='tbl-cell'>
                         {isEditable || rowData.add ? <Form.Control
                             size='sm'
                             type='text'
@@ -136,9 +136,9 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             style={{ width: '245px', }}
                         />}
                     </div>
-                    {errorName && <div style={{ color: 'red' }}>{errorName}</div>}
+                    {errorName && <div className='error-exception'>{errorName}</div>}
                 </td>
-                <td style={{ width: '225px', verticalAlign:"middle", paddingLeft: "30px" }}>
+                <td style={{ width: '225px', verticalAlign: "middle", paddingLeft: "30px" }}>
                     <div >
                         {isEditable || rowData.add ? <Form.Select
                             size='sm'
@@ -153,23 +153,29 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             )}
                         </Form.Select> : <Form.Control
                             size='sm'
-                            value={(rowData.feeTypeFrequency).replace('HALF_YEARLY','HALFY-YEARLY')}
+                            value={(rowData.feeTypeFrequency).replace('HALF_YEARLY', 'HALF-YEARLY')}
                             disabled={true}
                             style={{ width: '225px', }}
                         />}
                     </div>
-                    {errorFrequency && <div style={{ color: 'red' }}>{errorFrequency}</div>}
+                    {errorFrequency && <div className='error-exception'>{errorFrequency}</div>}
 
                 </td>
                 <td>
                     <div className='action-btn-wrapper'>
                         {rowData.add ?
-                            <Button className='save-btn' onClick={handleAdd}><i className='icons save-icon'></i></Button>:
+                            <Button className='save-btn' onClick={handleAdd}><i className='icons save-icon'></i></Button> :
                             <>
                                 {isEditable ?
                                     <>
                                         <Button className='save-btn' onClick={hnadleUpdate}><i className='icons save-icon'></i></Button>
-                                        <Button className='cancel-btn' onClick={() => setIsEditable(false)}><i className='icons cancel-icon'></i></Button>
+                                        <Button className='cancel-btn' onClick={() => {
+                                            setIsEditable(false);
+                                            setErrorFrequency('');
+                                            setErrorName('')
+                                        }}>
+                                            <i className='icons cancel-icon'></i>
+                                        </Button>
                                     </>
                                     :
                                     <>

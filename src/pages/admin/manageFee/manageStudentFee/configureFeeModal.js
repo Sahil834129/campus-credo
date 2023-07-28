@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import GenericDialog from "../../../../dialogs/GenericDialog";
 import { humanize } from "../../../../utils/helper";
-import { useEffect } from "react";
 import { addFeeInStudenFee, getClassesFeeDetails, removeFeeFromStudenFee } from "../../../../utils/services";
-import { SESSION } from "../../../../constants/app";
 import FeeModalHeader from "./feeModalHeader";
 
 export default function ConfigureFeeModal({ configureFeeModal, handleClose, student, fetchStudentFees, feesDetail, session }) {
@@ -56,9 +55,17 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
         .then(res => fetchStudentFees())
         .catch(err=> console.log(err))
       } else{
-        const studentId = feesDetailIds[i].studentId
-        const studentFeeId = feesDetailIds[i].studentFeeId
-        removeFeeFromStudenFee(studentId, studentFeeId)
+        if (feesDetailIds[i].studentId && feesDetailIds[i].studentFeeId){
+          const studentId = feesDetailIds[i].studentId
+          const studentFeeId = feesDetailIds[i].studentFeeId
+          removeFeeFromStudenFee(studentId, studentFeeId)
+        } else {
+          if (feesDetailIds[i].studentId ) {
+            toast.error("Student Fee Id is missing")
+          } else {
+            toast.error("Student Id is missing")
+          }
+        }
       }
       }
       return val;
@@ -90,7 +97,7 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
             <tr valign="middle">
               <th>Fee Type</th>
               <th>Frequency</th>
-              <th>Fee Amount</th>
+              <th style={{ textAlign: "center" }}>Fee Amount</th>
               <th style={{ textAlign: "center" }}>Mandatory</th>
             </tr>
           </thead>
@@ -100,7 +107,7 @@ export default function ConfigureFeeModal({ configureFeeModal, handleClose, stud
                 <tr valign="middle" key={`configureFee${index}`} >
                   <td>{val?.classFee?.feeTypeName}</td>
                   <td>{humanize(val?.classFee?.feeTypeFrequency)}</td>
-                  <td>{val?.classFee?.feeAmount}</td>
+                  <td style={{ textAlign: "center" }}>{val?.classFee?.feeAmount}</td>
                   <td style={{ textAlign: "center" }}>
                     <input
                       type="checkbox"

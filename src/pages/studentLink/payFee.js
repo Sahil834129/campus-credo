@@ -14,17 +14,15 @@ import { useNavigate } from "react-router";
 
 
 
-const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
+const PayFee = ({ show, handleClose, totalPay, setTotalPay, setPayFeeButton, data, submissionFrequency, first, studentData, monthQtr, setMonthQtr, session }) => {
 
-    const [totalPay, setTotalPay] = useState(0)
     const navigate = useNavigate();
-    const [acceptButton, setAcceptButton] = useState(false)
     const GST = 18
     const platformFee = 100
 
     const handlePayment = async () => {
         handleClose()
-        setAcceptButton(true)
+        setPayFeeButton(true)
         try {
             const ip = await getIpAddress();
             const payload = {
@@ -37,7 +35,6 @@ const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentDa
                     "monthQtr": monthQtr
                   }
             };
-            console.log('payload', payload)
             const response =  await registerPayment(payload, session)
             const paymentLinkDetails = JSON.parse(response.data.paymentLinkDetails);
             const flowConfig = {
@@ -55,14 +52,14 @@ const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentDa
                 flowConfig: flowConfig,
                 flowType: "payments"
               };
-              console.log(config);
               window.loadBillDeskSdk(config);
-              setAcceptButton(false)
+              setPayFeeButton(false)
           
 
         }
         catch (error) {
             console.log('Error', error);
+            setPayFeeButton(false)
         }
     }
 
@@ -122,27 +119,27 @@ const PayFee = ({ show, handleClose, data, submissionFrequency, first, studentDa
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Fee Amount</div>
-                            <div style={{ color: 'Green' }}>₹{monthQtr ? parseFloat(data[`${monthQtr}`].totalFeeDue).toFixed(2) : parseFloat(0).toFixed(2)}</div>
+                            <div style={{ color: 'Green' }}>₹ {monthQtr ? parseFloat(data[`${monthQtr}`].totalFeeDue).toFixed(2) : parseFloat(0).toFixed(2)}</div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Late Fee</div>
-                            <div style={{ color: 'green' }}>₹{monthQtr ? parseFloat(data[`${monthQtr}`].lateFee).toFixed(2) : parseFloat(0).toFixed(2)}</div>
+                            <div style={{ color: 'green' }}>₹ {monthQtr ? parseFloat(data[`${monthQtr}`].lateFee).toFixed(2) : parseFloat(0).toFixed(2)}</div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Platform Fee</div>
                             <div style={{ color: 'green' }}>
                                 {" "}
-                                ₹{monthQtr ? parseFloat(platformFee).toFixed(2) : parseFloat(0).toFixed(2)}
+                                ₹ {monthQtr ? parseFloat(platformFee).toFixed(2) : parseFloat(0).toFixed(2)}
                             </div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>GST 18%</div>
-                            <div style={{ color: 'green' }}> ₹{monthQtr ? parseFloat(GST).toFixed(2) : parseFloat(0).toFixed(2)}</div>
+                            <div style={{ color: 'green' }}> ₹ {monthQtr ? parseFloat(GST).toFixed(2) : parseFloat(0).toFixed(2)}</div>
                         </ListGroup.Item>
                         <ListGroup.Item style={{ display: 'flex', }}>
                             <div style={{ marginRight: '10px', width: '150px' }}>Total Payment</div>
                             <div style={{ color: 'green' }}>
-                                ₹{parseFloat(totalPay).toFixed(2)}
+                                ₹ {monthQtr ? parseFloat(totalPay).toFixed(2): parseFloat(0).toFixed(2)}
                             </div>
                         </ListGroup.Item>
                     </ListGroup>

@@ -138,8 +138,7 @@
 .error-exception {
   font-size: 12px;
   color: $darkred;
-  //position: absolute;
-  // bottom: -15px;
+  text-align: left;
   margin-top: 0;
   margin-bottom: 2px;
 }
@@ -2983,7 +2982,15 @@ ul.list-group {
                   flex-direction: row;
                   align-items: center;
                   align-content: center;
-
+                  .btn{
+                    font-size: 14px;
+                    &.link-student{
+                      border-radius: 4px;
+                      background: #41285F;
+                      border:1px solid #41285F;
+                      box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.16);
+                    }
+                  }
                   label {
                     margin: 0 8px 0 0;
                     white-space: nowrap;
@@ -6370,6 +6377,7 @@ ul.list-group {
       }
     }
   }
+  
   &.Student-fee-model{
     .modal-dialog {
       min-width: 70%;
@@ -6377,9 +6385,9 @@ ul.list-group {
       .modal-content {
         .modal-header {
           color: #000;
-          font-size: 14px;
+          font-size: 16px;
           font-style: normal;
-          font-weight: 400;
+          font-weight: 600;
           line-height: 22px;
           padding: 20px 29px;
         }
@@ -6399,6 +6407,7 @@ ul.list-group {
             display: flex;
             justify-content: flex-start;
             column-gap: 8px;
+            
             .student-name{
               color: #000;
               font-size: 14px;
@@ -6441,7 +6450,7 @@ ul.list-group {
                 tr{
                   td{
                     text-align: left;
-                    padding: 16px 8px;
+                    padding: 8px 8px;
                     color: #000;
                     font-size: 14px;
                     font-weight: 400;
@@ -6459,18 +6468,25 @@ ul.list-group {
                         color: #E22445;  
                       }
                       &.paid{
+                        // color: #549B43;
+                        // border: 1px solid #549B43;
+                        // background: rgba(84, 155, 67, 0.04);                        
                         color: #549B43;
                         border: 1px solid #549B43;
-                        background: rgba(84, 155, 67, 0.04);                        
+                        background: #549B43;
+                        color: #ffffff;
                       }
                       &.due{
-                        border: 1px solid #EF9F2C;
-                        background: rgba(239, 159, 44, 0.04) ;
-                        color: #EF9F2C;                      
+                        // border: 1px solid #EF9F2C;
+                        // background: rgba(239, 159, 44, 0.04) ;
+                        // color: #EF9F2C;   
+                        border: 1px solid #d9922c;
+                        background: #db9531;
+                        padding: 4px 12px;
+                        color: #fff;                   
                       }
                       &.late-paid{
                         border: 1px solid Blue;
-                        // background: rgba(239, 159, 44, 0.04) ;
                         color: Blue;                      
                       }
                     }
@@ -6574,6 +6590,102 @@ ul.list-group {
       }
     }
   }
+  .modal-body {
+    .title-area{
+      &.stufeedetal{
+        column-gap: 16px;
+        padding: 8px 26px;
+        border: 1px solid lightgrey;
+        display: flex;
+        justify-content: flex-start;
+        height: 48px;
+        background: #fbf7ff;
+        .title{
+          font-size: 14px;
+          font-weight: 600;
+          color: #000000;
+        }
+        .tag-wrapper{
+          display: flex;
+          column-gap: 8px;
+          flex-wrap: wrap;
+          
+          .tag-item{
+            border: 1px solid #41285f;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #7a5ba1;
+            color: #fff;
+            label{color: #ededed;}
+            strong{}
+          }
+        }  
+      }
+    }
+    .offline-paymt-frm-wrapper{
+      display: flex;
+      flex-direction: column;
+      padding: 0 24px 24px 24px;
+      width: 100%;
+      row-gap: 16px;
+      .frm-row{
+        display: flex;
+        column-gap: 24px;
+        .cell-item{
+          column-gap: 8px;
+          display: flex;
+          flex-basis: 0;
+          flex-grow: 1;
+          align-items: center;
+          label{
+            font-size: 14px;
+            width: 148px;
+          }
+          select.form-select{
+            height: 40px;
+            font-size: 14px;
+          }
+          input.form-control{
+            height: 40px;
+            font-size: 14px;
+          }
+          .datepicker-fld{
+            height: 40px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+          }
+
+        }
+      }
+    }
+  }
+}
+.offline-payment-model{
+  
+  .modal-dialog {
+    min-width: 74%;
+    
+    .modal-content{
+      .modal-header{
+        font-weight: 600;
+      }
+      .model-body{
+        padding: 0;
+        margin: 0;
+        .btn-wrapper{
+          border-top: 1px solid #f2f2f2;
+          padding-top: 16px;
+          .submit-btn{
+            background: #41285f;
+            border: 1px solid #41285f;
+          }
+        }
+      }
+    }
+    
+  }
 }
 
 .payment-history-tbl {
@@ -6610,6 +6722,98 @@ ul.list-group {
 }
 
 /*Model Window*/
+.modal{
+  &.enroll-student-model{
+    padding: 0;
+    .modal-dialog{
+      max-width:74%;
+      .modal-content{
+        .modal-header{
+          font-weight: 600;
+          padding: 16px 24px;
+        }
+        .model-body{
+          margin: 0 24px 24px 24px;
+          .esf-content-outer{
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            height: 100%;
+            column-gap: 24px;
+            align-items: stretch;
+            .esf-content-inner{
+              width: 100%;
+              margin: 0;
+              .no-record-panel{
+
+              }
+              .success-block{
+
+              }
+              .cell-block{
+                border: 1px solid lightgrey;
+                border-radius: 5px;
+                padding: 16px;
+                height: 100%;
+                h2{
+                  color: $black;
+                  font-size: 14px;
+                  font-weight: 600;
+                  margin: 8px 0 16px 0;
+                  span.red-star{
+                    color: $darkred;
+                  }
+                }
+                .enroll-student-frm{
+                  .frm-fld{
+                    label{
+                      font-size: 13px;
+                    }
+                    .fld-wrap{
+                      margin-bottom: 8px;
+                      .form-select{
+                        border-radius: 4px;
+                        font-size: 13px;
+                        border: 1px solid #D9D9D9;
+                        height: 40px;
+                      }
+                      input{
+                        border-radius: 4px;
+                        font-size: 13px;
+                        border: 1px solid #D9D9D9;
+                        height: 40px;
+                      }
+                    }
+                    .field-group-wrap{
+                      margin-bottom: 8px; 
+                      input{
+                        border-radius: 4px;
+                        font-size: 13px;
+                        border: 1px solid #D9D9D9;
+                        height: 40px;
+                      }
+                    }
+                  }
+                  .btn-wrapper{
+                    display: flex;
+                    justify-content: start;
+                    margin-top: 16px;
+                    margin-bottom: 8px;
+                    .btn{
+                      border-radius: 4px;
+                    }
+                  }
+                }
+                &.left{}
+                &.right{}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .payeedetails-model {
 
   .modal-dialog {
@@ -6974,6 +7178,7 @@ ul.list-group {
       }
     }
   }
+ 
 
   .modal-content {
     .modal-header {

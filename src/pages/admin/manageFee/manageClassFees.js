@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
-import { getClassAdmissionSessionData, getClassesFeeDetails, getSchoolClassesData } from '../../../utils/services';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Accordion, Button, Form } from "react-bootstrap";
-import { GetClassData } from './getClassData';
-import { getManageFeesType } from '../../../redux/actions/manageFeesAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { getManageFeesType } from '../../../redux/actions/manageFeesAction';
+import { getClassAdmissionSessionData, getClassesFeeDetails, getSchoolClassesData } from '../../../utils/services';
+import { GetClassData } from './getClassData';
 
 
 export const ManageClassFees = ({ isWritePermission }) => {
@@ -85,7 +84,7 @@ export const ManageClassFees = ({ isWritePermission }) => {
             <div className='content-area-inner inner-page-outer' style={{ width: '100%' }}>
                 <div className='internal-page-wrapper'>
                     <div className='inner-content-wrap padt8  fee-type-wrapp'>
-                        <div className='title-area'>
+                        <div className='title-area mngfee-title'>
                             <h2>
                                 Configure Class Fee
                             </h2>
@@ -126,9 +125,11 @@ export const ManageClassFees = ({ isWritePermission }) => {
                                             <table className="table" style={{ width: '100%' }}>
                                                 <thead>
                                                     <tr valign="middle">
-                                                        <th style={{ textAlign: "center", }}>#</th>
-                                                        <th style={{ paddingLeft: "40px" }}>Fee Type</th>
-                                                        <th style={{ paddingLeft: "75px" }}>Fee Amount</th>
+                                                        <th 
+                                                        style={{ textAlign: "center" }}
+                                                        >#</th>
+                                                        <th>Fee Type</th>
+                                                        <th >Fee Amount</th>
                                                         <th style={{ textAlign: "center" }}>Is Mandatory</th>
                                                         <th></th>
                                                     </tr>

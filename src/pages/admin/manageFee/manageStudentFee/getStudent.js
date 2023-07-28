@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { hideLoader, showLoader } from "../../../../common/Loader";
 import { humanize } from "../../../../utils/helper";
 import { getFeeAndPaymentHistoryForStudent, getFeeForStudent } from "../../../../utils/services";
 import OfflineFeeModal from "./OfflineFeeModal";
 import ConfigureFeeModal from "./configureFeeModal";
 import StudentFeeDetails from "./studentFeeDetail";
-import { hideLoader, showLoader } from "../../../../common/Loader";
-import { useDispatch } from "react-redux";
 
 
 
@@ -72,12 +72,19 @@ export const GetStudent = ({ student, index, module, session }) => {
     
     return (<>
         <tr>
-            <td style={{width:"86px", textAlign:"center", backgroundColor:"rgba(65, 40, 95, 0.02)", boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" }}>{index + 1}</td>
+            <td 
+            style={{
+                width:"86px", 
+                textAlign:"center", 
+                // backgroundColor:"rgba(65, 40, 95, 0.02)", 
+                // boxShadow:"0px -1px 0px 0px rgba(0, 0, 0, 0.12) inset" 
+            }}
+            >{index + 1}</td>
             <td>{`${humanize(student.firstName)} ${humanize(student.lastName)}`}</td>
             <td>{student.schoolStudentId}</td>
-            <td>{student.studentId}</td>
-            <td>{student.dateOfBirth}</td>
-            <td>{student.classSection}</td>
+            <td style={{ textAlign: "center" }}>{student.studentId}</td>
+            <td style={{ textAlign: "center" }}>{student.dateOfBirth}</td>
+            <td style={{ textAlign: "center" }}>{student.classSection}</td>
             <td>{student.stream}</td>
             <td>
                 {(module === 'configureStudentFee')

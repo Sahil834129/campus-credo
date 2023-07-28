@@ -47,6 +47,9 @@ export default function GetTableRow({
   };
 
   const handleData = (setFieldData, fieldName, value, initialValue) => {
+    // if (value){
+    //   closeClassAdmissionData(admissionData.classId, sessionValue)
+    // }
     const fields = fieldName.split('.');
     setFieldData(val => {
       return val.map((v, index) => {
@@ -60,7 +63,6 @@ export default function GetTableRow({
 
   const validateField = (data, minApplicationDate, maxApplicationDate) => {
     let isValid = true;
-    console.log(data);
     const errorsVal = { vacantSeats: "", formFee: "", registrationFee: "", seatsOpen: "" };
     if (data.isOpen) {
       const vacantSeats = parseInt(data.vacantSeats);
