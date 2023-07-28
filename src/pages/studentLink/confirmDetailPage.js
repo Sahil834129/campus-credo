@@ -1,7 +1,6 @@
-import { toast } from "react-toastify"
-import { confirmLinkParentStudent } from "../../utils/services"
-import { Form } from "react-bootstrap"
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { confirmLinkParentStudent } from "../../utils/services";
 
 
 const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleClose }) => {
@@ -25,24 +24,30 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
     }
 
     return (
-        <div style={{width: '100%'}}>
-            <div style={{ borderTop: '1px solid lightGrey', margin: "0px 20px 0px 20px", borderBottom: '1px solid lightGrey' }}>
-                <div style={{ margin: '20px 0px' }}>Provide following student information <span style={{ color: 'red' }}>*</span></div>
-                <div style={{ marginBottom: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ margin: '10px', width: '45%' }}>
-                            <label>Student Name <span style={{ color: 'red' }}>*</span> </label>
-                            <div>
+        <div className="student-detals-wrap">
+            <div className="item-block"
+            //  style={{ borderTop: '1px solid lightGrey', margin: "0px 20px 0px 20px", borderBottom: '1px solid lightGrey' }}
+             >
+                <div className="frm-title" 
+                    style={{ margin: '20px 0px' }}
+                >
+                    <h2>Search Registered student by following <span className='red-star'>*</span></h2>
+                </div>
+                <div className="frm-wrapper">
+                    <div className="frm-row">
+                        <div className="cell-item">
+                            <label>Student Name <span style={{ color: 'red' }}>*</span> </label>  
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
                                     defaultValue={`${data.firstName || ''} ${data.lastName || ''}`}
                                 />
-                            </div>
+                            </div>  
                         </div>
-                        <div style={{ margin: '10px', width: '45%' }}>
+                        <div className="cell-item">
                             <label>Stream</label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     defaultValue={data.stream || ''}
@@ -51,10 +56,10 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', margin: '10px' }}>
+                    <div className="frm-row">
+                        <div className="cell-item">
                             <label>Class </label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
@@ -62,9 +67,9 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                                 />
                             </div>
                         </div>
-                        <div style={{ width: '45%', margin: '10px' }}>
+                        <div className="cell-item">
                             <label>Section </label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
@@ -73,10 +78,10 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', margin: '10px' }}>
+                    <div className="frm-row">
+                        <div className="cell-item">
                             <label>Registration # </label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
@@ -84,9 +89,9 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                                 />
                             </div>
                         </div>
-                        <div style={{ width: '45%', margin: '10px' }}>
+                        <div className="cell-item">
                             <label>Date of Birth </label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
@@ -95,10 +100,10 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ width: '45%', margin: '10px' }}>
+                    <div className="frm-row">
+                        <div className="cell-item">
                             <label>Contact Name <span style={{ color: 'red' }}>*</span> </label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
@@ -106,9 +111,9 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                                 />
                             </div>
                         </div>
-                        <div style={{ width: '45%', margin: '10px' }}>
+                        <div className="cell-item">
                             <label>Contact No. <span style={{ color: 'red' }}>*</span> </label>
-                            <div>
+                            <div className="fld-wrap">
                                 <Form.Control
                                     size='sm'
                                     disabled
@@ -119,7 +124,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                     </div>
                 </div>
             </div>
-            <div style={{ margin: '10px', display: 'flex', justifyContent: 'end' }} >
+            <div className="btn-wrapper">
                 <Button
                     style={{ marginRight: '10px', border: '1px solid red', color: 'red', backgroundColor: 'white' }}
                     onClick={handleClose}
