@@ -173,7 +173,7 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                                     setFieldValue={setFieldValue}
                                     errors={errors}
                                     touched={touched}
-                                    dateFormat='yyyy-mm-dd'
+                                    dateFormat='yyyy-MM-dd'
                                     required
                                     maxDate={new Date()}
                                 />
