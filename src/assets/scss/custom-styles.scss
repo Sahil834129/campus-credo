@@ -6750,6 +6750,12 @@ ul.list-group {
               .success-block{
 
               }
+              .validate-otp-block {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+              }
               .cell-block{
                 border: 1px solid lightgrey;
                 border-radius: 5px;
@@ -6807,6 +6813,10 @@ ul.list-group {
                 &.left{}
                 &.right{}
               }
+            }
+            .succes-error-block {
+              display: flex;
+              flex-direction: column;
             }
           }
         }
