@@ -25,11 +25,11 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
     }
 
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <div style={{ borderTop: '1px solid lightGrey', margin: "0px 20px 0px 20px", borderBottom: '1px solid lightGrey' }}>
                 <div style={{ margin: '20px 0px' }}>Provide following student information <span style={{ color: 'red' }}>*</span></div>
                 <div style={{ marginBottom: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'start' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ margin: '10px', width: '45%' }}>
                             <label>Student Name <span style={{ color: 'red' }}>*</span> </label>
                             <div>
@@ -51,7 +51,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'start' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ width: '45%', margin: '10px' }}>
                             <label>Class </label>
                             <div>
@@ -73,7 +73,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'start' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ width: '45%', margin: '10px' }}>
                             <label>Registration # </label>
                             <div>
@@ -95,7 +95,7 @@ const ConfirmDetailPage = ({ data, userId, setShowForm, setUpdateTable, handleCl
                             </div>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'start' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div style={{ width: '45%', margin: '10px' }}>
                             <label>Contact Name <span style={{ color: 'red' }}>*</span> </label>
                             <div>
