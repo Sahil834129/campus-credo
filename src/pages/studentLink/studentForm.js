@@ -183,19 +183,19 @@ const StudentForm = ({ setData, setSearchResponse, setDisplayCss, }) => {
                             // style={{ display: 'flex', justifyContent: 'start', marginTop: '10px' }}
                             
                             >
-                                <Button
+                                <Button className='green-btn'
                                     type='submit'
                                     disabled={values.dateOfBirth === '' || values.schoolStudentId === '' || values.classId === ''}
                                     style={{
                                         backgroundColor:`${values.dateOfBirth === '' || values.schoolStudentId === '' || values.classId === '' ? 'grey' : ''}`,
                                         border:`${(values.dateOfBirth === '' || values.schoolStudentId === '' || values.classId === '') ? '1px solid grey' : ''}`
                                     }}
-                                >LOCATE STUDENT</Button>
-                                <Button
+                                >Locate Student</Button>
+                                <Button className='reset'
                                     style={{ backgroundColor: 'grey', border: '1px solid grey', marginLeft: '10px' }}
                                     type='reset'
                                     onClick={() => { setSearchResponse(0); setDisplayCss(true) }}
-                                >RESET</Button>
+                                >Reset</Button>
                             </div>
                         </Form>
                     )}
