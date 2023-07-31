@@ -31,13 +31,16 @@ const OtpPage = ({ searchResponse, displayCss, setPage, userId }) => {
     return (
         <div className='esf-content-inner succes-error-block'>
             {(searchResponse !== 2)
-                ? <div className='no-record-panel' style={{
-                    border: '1px solid red',
-                    backgroundColor: 'rgba(255,192,203, .4) ',
-                    borderRadius: '5px',
-                    width: '100%',
-                    padding: '30px',
-                    marginBottom: '10px',
+                ? <div className='no-record-panel' 
+                
+                style={{
+                    // border: '1px solid red',
+                    // backgroundColor: 'rgba(255,192,203, .4) ',
+                    // borderRadius: '5px',
+                    // width: '100%',
+                    // height: '100%',
+                    // padding: '30px',
+                    // marginBottom: '10px',
                     display: `${displayCss ? 'none' : ''}`
                 }}
 
@@ -46,17 +49,18 @@ const OtpPage = ({ searchResponse, displayCss, setPage, userId }) => {
                     <h6 style={{ color: 'grey' }}>Sorry we are unable to match provided information with our records, Please recheck and input your information or talk to admin for further assistance.</h6>
                 </div>
                 : <div className='success-block'
-
-                    style={{
-                        border: '1px solid lightGrey',
-                        backgroundColor: 'rgba(242,242,242, .4) ',
-                        borderRadius: '5px',
-                        width: '100%',
-                        padding: '30px',
-                        marginBottom: '10px',
-                        display: `${displayCss ? '' : 'none'}`
-                    }}
-
+                
+                style={{
+                    border: '1px solid lightGrey',
+                    backgroundColor: 'rgba(242,242,242, .4) ',
+                    borderRadius: '5px',
+                    width: '100%',
+                    // height: '100%',
+                    padding: '30px',
+                    marginBottom: '10px',
+                    display: `${displayCss ? '' : 'none'}`
+                }}
+                
                 >
                     <h6 style={{ color: 'green' }}>Student Verified Successfully </h6>
                     <h6 style={{ color: 'grey' }}>Student's information is successfully matched with our records. Now proceed further please enter OTP recieved in your registered mobile number. </h6>
