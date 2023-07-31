@@ -136,7 +136,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             style={{ width: '245px', }}
                         />}
                     </div>
-                    {errorName && <div className='error-exception'>{errorName}</div>}
+                    {errorName && <div className='error-exception-cft'>{errorName}</div>}
                 </td>
                 <td style={{ width: '225px', verticalAlign: "middle", paddingLeft: "30px" }}>
                     <div >
@@ -158,7 +158,7 @@ export const GetData = ({ rowData, index, setRefetch, resetButton, isWritePermis
                             style={{ width: '225px', }}
                         />}
                     </div>
-                    {errorFrequency && <div className='error-exception'>{errorFrequency}</div>}
+                    {errorFrequency && <div className='error-exception-cft'>{errorFrequency}</div>}
 
                 </td>
                 <td>
