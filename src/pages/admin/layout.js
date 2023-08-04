@@ -29,6 +29,7 @@ export const Layout = ({
   admissionSummary,
   sessionValue,
   setSessionValue,
+  selectedSection,
   ...props
 }) => {
   const navigate = useNavigate();
@@ -154,11 +155,7 @@ export const Layout = ({
       </Navbar>
       <div className="content-area user-supAdmin">
         <div className="title-kpi-wrapper">
-          <Breadcrumbs />
-          {/* <Breadcrumb className='bc-nav'>
-            <Breadcrumb.Item href='#'>Admin</Breadcrumb.Item>
-            <Breadcrumb.Item active>{breadcrumbTitle?.title}</Breadcrumb.Item>
-          </Breadcrumb> */}
+          <Breadcrumbs selectedSection={selectedSection}/>
           {breadcrumbTitle?.showsData && (
             <div className="kpi-wrapper">
               <ListGroup className="kpi-list-group">

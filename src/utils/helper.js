@@ -21,6 +21,37 @@ export const refreshAccessToken = async () => {
   }
 };
 
+export const convertDownloadCsvfile = (val, clasName, classSection, session) => {
+  const keys = Object.keys(val[0]);
+  const replacer = (_key, value) => value === null ? '' : value;
+  const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
+  const downloadData = [keys.join(','), ...val.map(processRow)].join('\r\n');
+  const blob = new Blob([downloadData], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.setAttribute("download", `${clasName}_${classSection}_${session}.csv`);
+  a.setAttribute('href', url)
+  a.click()
+}
+
+export const formJson = (val) => {
+  let data = val.map((value) => {
+    let jsonData = {};
+    jsonData['studentName'] = `${value.firstName} ${value.lastName}`;
+    jsonData['studentId'] = value.studentId;
+    jsonData['rollNo'] = value.rollNo;
+    jsonData['dob'] = value.dateOfBirth;
+    jsonData['class'] = value.className;
+    jsonData['section'] = value.classSection;
+    const additonalKeys = Object.keys(value.feeDetails)
+    additonalKeys.map((month) => {
+      jsonData[`${month}`] = (value.feeDetails[`${month}`].feeStatus === "Paid") ? (value.feeDetails[`${month}`].paymentAmount) : (value.feeDetails[`${month}`].totalFeeDue);
+    })
+    return jsonData
+  })
+  return data
+}
+
 export const setLocalData = (key, value) => {
   try {
     localStorage.setItem(key, value);
@@ -43,6 +74,7 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
   setLocalData("token", loginData.token);
   setLocalData("refreshToken", loginData.refreshToken);
   setLocalData("modulePermissions", JSON.stringify(loginData.modulePermissions || []));
+  setLocalData("schoolParams", JSON.stringify(loginData.schoolParams || {}));
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
   setLocalData("schoolId", loginData?.schoolId);
@@ -55,7 +87,7 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
   setLocalData("admissionSession", loginData?.admissionSession);
   if (!isEmpty(loginData?.userLocationDtos[0])) {
     const isCityExist = (cities || "").split(',').find(val => val.toLowerCase() === loginData?.userLocationDtos[0].cityName.toLowerCase())
-    if(isCityExist !== undefined) {
+    if (isCityExist !== undefined) {
       setLocalData("userLocation", loginData?.userLocationDtos[0].cityName);
       setLocalData("selectedLocation", loginData?.userLocationDtos[0].cityName);
     } else {
@@ -161,9 +193,9 @@ export function getPresentableRoleName(roleName) {
 }
 
 export function convertCamelCaseToPresentableText(str) {
-if(str.includes('should-you-choose-cbse-or-icse-school-for-your-children')) {
-  return 'Should You Choose CBSE Or ICSE School For Your Children'
-} else if (str.includes('-')) {
+  if (str.includes('should-you-choose-cbse-or-icse-school-for-your-children')) {
+    return 'Should You Choose CBSE Or ICSE School For Your Children'
+  } else if (str.includes('-')) {
     let string = str.replaceAll("-", " ");
     return string
       .toLowerCase()
@@ -181,9 +213,9 @@ export function gotoHome(e, navigate) {
   navigate(isLoggedIn() ? "/userProfile" : "/");
 }
 
-export function getStudentAge(dateOfBirth, isMonth=false) {
+export function getStudentAge(dateOfBirth, isMonth = false) {
   const baseDate = moment().set("date", 31).set("month", 2);
-  return baseDate.diff(moment(dateOfBirth, getDefaultDateFormat()), isMonth ? "months": "years");
+  return baseDate.diff(moment(dateOfBirth, getDefaultDateFormat()), isMonth ? "months" : "years");
 }
 
 export function getAge(dateOfBirth) {
@@ -274,7 +306,7 @@ export const userCanNotApprove = (isApproveY) => {
   let flag = false;
   if (modulePermissions !== null) {
     modulePermissions = JSON.parse(modulePermissions);
-    flag = modulePermissions.find(val => { 
+    flag = modulePermissions.find(val => {
       let isApproveYValid = isApproveY ? (val.permissionType.indexOf('APPROVE-Y') !== -1) : val.canApprove
       return val.moduleName === "Manage Application" && isApproveYValid;
     });
@@ -296,9 +328,9 @@ export const getStatusLabel = (status) => {
     case PARENT_APPLICATION_STATUS.APPROVED:
       return "Application Approved";
     case PARENT_APPLICATION_STATUS.DECLINED:
-      return "Application Declined";
-    case PARENT_APPLICATION_STATUS.DENIED:
       return "Offer Declined";
+    case PARENT_APPLICATION_STATUS.DENIED:
+      return "Offer Denied";
     default:
       return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status));
   }
@@ -320,9 +352,9 @@ export const getStatusLabelForSchool = (applicationStatus) => {
     case SCHOOL_APPLICATION_STATUS.REVOKED:
       return "Application Revoked";
     case SCHOOL_APPLICATION_STATUS.DECLINED:
-      return "Application Declined";
-    case SCHOOL_APPLICATION_STATUS.DENIED:
       return "Offer Declined";
+    case SCHOOL_APPLICATION_STATUS.DENIED:
+      return "Offer Denied";
 
     default:
       return humanize(applicationStatus, true);
@@ -379,6 +411,7 @@ export const getPastSession = () => {
 export const Pathnames =
   [
     "/",
+    "/manageFee",
     "/paymentHistory",
     "/paymentCheckout",
     "/selectedSchools",

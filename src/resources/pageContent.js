@@ -27,6 +27,7 @@ const PageContent = {
     { ref: '/manageProfile', icon:'manageprofile-icon', class:'manageprofile', title: 'Manage Profile' },
     { ref: '/manageChild', icon:'managechild-icon', class:'managechild', title: 'Manage Child' },
     { ref: '/admissionForm', icon:'oneapplicationform-icon', class:'admissionfrom', title: 'Admission Form' },
+    { ref: '/manageFee', icon:'managefee-icon', class:'manageFee', title: 'Manage Fee' },
     { ref: '/paymentHistory', icon: 'paymenthistory-icon', class: 'paymenthistory', title: 'Payment History ' },
     //{ ref: '/userProfile', title: 'Logout' }
   ],
