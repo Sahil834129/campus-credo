@@ -1,6 +1,6 @@
-import { toast } from "react-toastify";
-import RestEndPoint from "../redux/constants/RestEndpoints";
-import RESTClient from "./RestClient";
+import { toast } from 'react-toastify';
+import RestEndPoint from '../redux/constants/RestEndpoints';
+import RESTClient from './RestClient';
 
 export const getClassAdmissionData = (session) => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_DATA + `/${session}`);
@@ -11,9 +11,7 @@ export const saveClassAdmissionData = (data) => {
 };
 
 export const removeClassAdmissionData = (session, classId) => {
-  return RESTClient.delete(
-    RestEndPoint.REMOVE_ADMISSION_DATA + `/${classId}/${session}`
-  );
+  return RESTClient.delete(RestEndPoint.REMOVE_ADMISSION_DATA + `/${classId}/${session}`);
 };
 
 export const updateSeatClassAdmissionData = (payload) => {
@@ -29,21 +27,15 @@ export const superAdminApplicationfilterData = (data) => {
 };
 
 export const getSchoolAdmissinSummary = (currentSession) => {
-  return RESTClient.get(
-    RestEndPoint.SCHOOL_ADMISSION_SUMMARY + "/" + currentSession
-  );
+  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY + "/" + currentSession);
 };
 
 export const getSchoolAdmissinFeeSummary = (sessionValue) => {
-  return RESTClient.get(
-    RestEndPoint.SCHOOL_ADMISSION_FEE_SUMMARY + "/" + sessionValue
-  );
+  return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_FEE_SUMMARY + "/" + sessionValue);
 };
 
 export const getApplicationChartStatus = (sessionValue) => {
-  return RESTClient.get(
-    RestEndPoint.APPLICATION_CHART_STATUS + "/" + sessionValue
-  );
+  return RESTClient.get(RestEndPoint.APPLICATION_CHART_STATUS + "/" + sessionValue);
 };
 
 export const updateUserModulePermissions = (data) => {
@@ -52,6 +44,7 @@ export const updateUserModulePermissions = (data) => {
 
 export const changeUserPassword = (data) => {
   return RESTClient.post(RestEndPoint.CHANGE_USER_PASSWORD, data);
+
 };
 export const resetSchoolAdminPassword = (data) => {
   return RESTClient.post(RestEndPoint.RESET_ADMIN_PASSWORD, data);
@@ -70,35 +63,23 @@ export const getManagePermissions = () => {
 };
 
 export const getSchoolFeeType = (payload) => {
-  return RESTClient.get(
-    RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${payload}`
-  );
+  return RESTClient.get(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${payload}`);
 };
 
 export const addSchoolFeeType = (data, session) => {
-  return RESTClient.post(
-    RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`,
-    data
-  );
+  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`, data);
 };
 
 export const deleteSchoolFeeType = (feeTypeId) => {
-  return RESTClient.delete(
-    RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId}`
-  );
+  return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId}`);
 };
 
 export const deleteClassesFeeDetails = (classId, feeId) => {
-  return RESTClient.delete(
-    RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${feeId}`
-  );
+  return RESTClient.delete(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${feeId}`);
 };
 
 export const updateSchoolFeeType = (payload, session) => {
-  return RESTClient.put(
-    RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`,
-    payload
-  );
+  return RESTClient.put(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`, payload);
 };
 
 export const updateFeeSeetings = (payload) => {
@@ -109,64 +90,49 @@ export const getManagePermissionModules = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSION_MODULES);
 };
 export const getClassAdmissionSummary = (classId, sessionValue) => {
-  return RESTClient.get(
-    RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}/${sessionValue}`
-  );
+  return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SUMMARY + `/${classId}/${sessionValue}`);
 };
 
 export const getAtPiForClass = (classId, sessionValue) => {
-  return RESTClient.get(
-    RestEndPoint.ATPI_FOR_CLASS + `${classId}/${sessionValue}`
-  );
+  return RESTClient.get(RestEndPoint.ATPI_FOR_CLASS + `${classId}/${sessionValue}`);
 };
 
 export const getSchoolClassesData = (schoolId) => {
-  return RESTClient.get(
-    RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`
-  );
+  return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
 };
 
 export const getClassesFeeDetails = (classId, session) => {
-  return RESTClient.get(
-    RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${session}`
-  );
+  return RESTClient.get(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${session}`);
 };
 
 export const addClassFeeTypeAmount = (data, session) => {
-  return RESTClient.post(
-    RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`,
-    data
-  );
+  return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
 };
 
 export const findStudentsDetails = (data) => {
   return RESTClient.post(RestEndPoint.FIND_STUDENT_DETAILS, data);
 };
 
+export const getStudentsWithFeeData = (data) => {
+  return RESTClient.post(RestEndPoint.GET_STUDENTS_WITH_FEE_DATA, data)
+}
+
 export const updateClassFeeTypeAmount = (data, session) => {
-  return RESTClient.put(
-    RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`,
-    data
-  );
+  return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
 };
 
 export const zipDownloadApplications = async (applicationIds) => {
   try {
-    const data = await RESTClient.postBlob(
-      RestEndPoint.ZIP_DOWNLOAD_APPLICATION,
-      applicationIds
-    );
+    const data = await RESTClient.postBlob(RestEndPoint.ZIP_DOWNLOAD_APPLICATION, applicationIds);
     console.log(data);
-    downloadFile(data, "applicatntFirstName_ApplicationId");
+    downloadFile(data, 'applicatntFirstName_ApplicationId');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
 };
 
 export const getClassApplication = (classId, sessionValue) => {
-  return RESTClient.get(
-    RestEndPoint.CLASS_APPLICATION_CLASS + `/${classId}/${sessionValue}`
-  );
+  return RESTClient.get(RestEndPoint.CLASS_APPLICATION_CLASS + `/${classId}/${sessionValue}`);
 };
 
 export const updateApplicationStatus = (payload) => {
@@ -189,86 +155,64 @@ export const updateBulkApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_BULK_APPLICATION_STATUS, payload);
 };
 
-export const downloadDocument = async (
-  childId,
-  documentName,
-  applicationChildId
-) => {
-  documentName = documentName.trim();
-  const baseDownloadURL = applicationChildId
-    ? RestEndPoint.DOWNLOAD_ADMIN_DOCUMENT
-    : RestEndPoint.DOWNLOAD_DOCUMENT;
+export const downloadDocument = async (childId, documentName, applicationChildId) => {
+  const baseDownloadURL = applicationChildId ? RestEndPoint.DOWNLOAD_ADMIN_DOCUMENT : RestEndPoint.DOWNLOAD_DOCUMENT;
   try {
-    const data = await RESTClient.getBlob(
-      baseDownloadURL +
-        "/" +
-        (childId ?? applicationChildId) +
-        "/" +
-        documentName
-    );
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (childId ?? applicationChildId) + '/' + documentName);
     downloadFile(data, documentName);
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
 };
 export const downloadApplicationOnParentDashboard = async (applicationId) => {
-  const baseDownloadURL = applicationId
-    ? RestEndPoint.DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD
-    : toast.error("Error while downloading document");
+  const baseDownloadURL = applicationId ? RestEndPoint.DOWNLOAD_APPLICATION_ON_PARENT_DASHBOARD : toast.error("Error while downloading document");
   try {
-    const data = await RESTClient.getBlob(
-      baseDownloadURL + "/" + applicationId
-    );
-    downloadFile(data, "Application Document");
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (applicationId));
+    downloadFile(data, 'Application Document');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
 };
 export const downloadInvoice = async (invoiceId) => {
-  const baseDownloadURL = invoiceId
-    ? RestEndPoint.DOWNLOAD_PAYMENT_INVOICE
-    : toast.error("Error while downloading document");
+  const baseDownloadURL = invoiceId ? RestEndPoint.DOWNLOAD_PAYMENT_INVOICE : toast.error("Error while downloading document");
   try {
-    const data = await RESTClient.getBlob(baseDownloadURL + "/" + invoiceId);
-    downloadFile(data, "Payment Invoice");
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (invoiceId));
+    downloadFile(data, 'Payment Invoice');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
 };
 export const moneyReceiptInvoice = async (invoiceId) => {
-  const baseDownloadURL = invoiceId
-    ? RestEndPoint.DOWNLOAD_MONEY_RECEIPT_INVOICE
-    : toast.error("Error while downloading document");
+  const baseDownloadURL = invoiceId ? RestEndPoint.DOWNLOAD_MONEY_RECEIPT_INVOICE : toast.error("Error while downloading document");
   try {
-    const data = await RESTClient.getBlob(baseDownloadURL + "/" + invoiceId);
-    downloadFile(data, "Payment Receipt");
+    const data = await RESTClient.getBlob(baseDownloadURL + '/' + (invoiceId));
+    downloadFile(data, 'Payment Receipt');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
 };
 export const downloadApplicationDocument = async (applicationId) => {
   try {
-    const data = await RESTClient.getBlob(
-      RestEndPoint.DOWNLOAD_APPLICANT_DETAIL + "/" + applicationId
-    );
-    downloadFile(data, "applicationDocument");
+    const data = await RESTClient.getBlob(RestEndPoint.DOWNLOAD_APPLICANT_DETAIL + '/' + applicationId);
+    downloadFile(data, 'applicationDocument');
   } catch (error) {
     toast.error("Error while downloading document." + error);
   }
+
 };
 const downloadFile = (data, documentName) => {
-  const contentType = data.headers["content-type"];
+  const contentType = data.headers['content-type'];
   const blob = new Blob([data.data], { type: contentType });
   const blobURL = URL.createObjectURL(blob);
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = blobURL;
   link.download = documentName;
   document.body.appendChild(link);
   link.dispatchEvent(
-    new MouseEvent("click", {
+    new MouseEvent('click', {
       bubbles: true,
       cancelable: true,
-      view: window,
+      view: window
     })
   );
   document.body.removeChild(link);
@@ -281,17 +225,16 @@ const downloadFile = (data, documentName) => {
 export const getAgeClassMap = async () => {
   let classAgeMap = {};
   try {
-    const response = await RESTClient.get(
-      RestEndPoint.GET_SCHOOL_CLASSES_WITH_AGE
-    );
-    response.data.classesWithAgeLimit.length &&
-      response.data.classesWithAgeLimit.forEach((it) => {
+    const response = await RESTClient.get(RestEndPoint.GET_SCHOOL_CLASSES_WITH_AGE);
+    response.data.classesWithAgeLimit.length
+      && response.data.classesWithAgeLimit.forEach((it) => {
         classAgeMap[parseInt(it[1])] = it[0];
       });
     return classAgeMap;
   } catch (error) {
     return classAgeMap;
   }
+
 };
 
 export const getApplications = async (childId) => {
@@ -303,10 +246,7 @@ export const getPlaceOrder = (payload) => {
 };
 
 export const processOrderAfterPayment = (payload, orderId) => {
-  return RESTClient.post(
-    RestEndPoint.PROCESS_AFTER_PAYMENT + `?orderId=${orderId}`,
-    payload
-  );
+  return RESTClient.post(RestEndPoint.PROCESS_AFTER_PAYMENT + `?orderId=${orderId}`, payload);
 };
 
 export const registrationCheckout = (payload) => {
@@ -314,19 +254,11 @@ export const registrationCheckout = (payload) => {
 };
 
 export const getFeeForStudent = (classId, studentId, session) => {
-  return RESTClient.get(
-    RestEndPoint.GET_FFE_FOR_STUDENT + `${session}/${classId}/${studentId}`
-  );
+  return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${session}/${classId}/${studentId}`);
 };
 
-export const getFeeAndPaymentHistoryForStudent = (
-  session,
-  classId,
-  studentId
-) => {
-  return RESTClient.get(
-    RestEndPoint.GET_FEE_AND_PAYMENT + `${session}/${classId}/${studentId}`
-  );
+export const getFeeAndPaymentHistoryForStudent = (session, classId, studentId) => {
+  return RESTClient.get(RestEndPoint.GET_FEE_AND_PAYMENT + `${session}/${classId}/${studentId}`);
 };
 
 export const addFeeInStudenFee = (payload) => {
@@ -334,9 +266,7 @@ export const addFeeInStudenFee = (payload) => {
 };
 
 export const removeFeeFromStudenFee = (studentId, studentFeeId) => {
-  return RESTClient.delete(
-    RestEndPoint.REMOVE_FEE_FROM_STUDENT_FEES + `/${studentId}/${studentFeeId}`
-  );
+  return RESTClient.delete(RestEndPoint.REMOVE_FEE_FROM_STUDENT_FEES + `/${studentId}/${studentFeeId}`);
 };
 
 export const addOfflineFeeForStudent = (payload) => {
@@ -352,11 +282,8 @@ export const linkParentStudent = (payload) => {
 };
 
 export const registerPayment = (payload, session) => {
-  return RESTClient.post(
-    RestEndPoint.REGISTER_PAYMENT + `/${session}`,
-    payload
-  );
-};
+  return RESTClient.post(RestEndPoint.REGISTER_PAYMENT + `/${session}`, payload)
+}
 
 export const verifyParentStudent = (payload) => {
   return RESTClient.post(RestEndPoint.VERIFY_STUDENT_PARENT, payload);
@@ -366,8 +293,6 @@ export const confirmLinkParentStudent = (payload) => {
   return RESTClient.post(RestEndPoint.CONFIRM_LINK_PARENT_STUDENT, payload);
 };
 
-export const closeClassAdmissionData = (classId, session) => {
-  return RESTClient.get(
-    RestEndPoint.CLOSE_CLASS_ADMISSION_DATA + `/${classId}/${session}`
-  );
-};
+export const closeClassAdmissionData = (classId, session) =>{
+  return RESTClient.get(RestEndPoint.CLOSE_CLASS_ADMISSION_DATA +`/${classId}/${session}`)
+}

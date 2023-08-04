@@ -3,8 +3,9 @@ import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Loader, { hideLoader, showLoader } from "../../../../common/Loader";
 import { CLASS_SECTION, OPERATORS } from "../../../../constants/app";
-import { findStudentsDetails, getClassAdmissionSessionData, getSchoolClassesData } from "../../../../utils/services";
+import { findStudentsDetails, getClassAdmissionSessionData, getSchoolClassesData, getStudentsWithFeeData } from "../../../../utils/services";
 import { GetStudent } from "./getStudent";
+import { convertDownloadCsvfile, formJson } from "../../../../utils/helper";
 
 
 
@@ -45,6 +46,40 @@ export const ManageStudentFee = ({ isWritePermission, module }) => {
             });
     };
 
+    const fetchDataForCsvFile =(val)=>{
+        showLoader(dispatch);
+        const payload = {}
+        const load = [
+            {
+                field: "academicSession",
+                operator: OPERATORS.EQUALS,
+                value: session
+            },
+            {
+                field: "classes",
+                operator: OPERATORS.EQUALS,
+                value: classId
+            },
+        ]
+        if (!(classSection === '')) {
+            load.push({
+                field: "classSection",
+                operator: OPERATORS.EQUALS,
+                value: classSection
+            })
+        }
+        payload['filters'] = load;
+        getStudentsWithFeeData(payload)
+        .then((res)=>{
+            const csvData = formJson(res.data)
+            convertDownloadCsvfile(csvData, val[0].className, classSection, session )
+            hideLoader(dispatch);
+        })
+        .catch((err)=>{
+            console.error(err)
+            hideLoader(dispatch);
+        })
+    }
 
     const findStudents = () => {
         if (classId === null || classId === '') {
@@ -158,6 +193,13 @@ export const ManageStudentFee = ({ isWritePermission, module }) => {
                         </div>
                         <div className="btn-wrapper">
                             <Button className="save-btn" onClick={findStudents}>GO</Button>
+                            {(module === 'configureStudentFee') && <Button 
+                                className="save-btn" 
+                                disabled={!(studentDetails.length>0)}
+                                onClick={()=>fetchDataForCsvFile(studentDetails)}
+                                >
+                                    DOWNLOAD
+                            </Button>}
                         </div>
                     </div>
                     <Loader />
