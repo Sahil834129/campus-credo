@@ -16,6 +16,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
     const [submissionFrequency, setSubmissionFrequency] = useState([])
     const [monthQtr, setMonthQtr] = useState('')
     const [lateFeeAmount, setLateFeeAmount] = useState('')
+    const [totalFee, setTotalFee]= useState('')
     const [modeOfPayment, setModeOfPayment] = useState('')
     const [paymentDate, setPaymentDate] = useState('')
     const [errors, setErrors] = useState([]);
@@ -116,6 +117,8 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             }}
                             onChange={(e) => {
                                 setMonthQtr(e.target.value); 
+                                setLateFeeAmount(data[`${e.target.value}`].lateFee || 0)
+                                setTotalFee(data[`${e.target.value}`].totalFeeDue+data[`${e.target.value}`].lateFee)
                                 setErrors(val => {
                                     return {
                                         ...val,
@@ -129,19 +132,6 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             }
                         </Form.Select>
                     </div>
-                    <div className="cell-item">
-                        
-                        <label>Amount</label>
-                        <Form.Control
-                            size='sm'
-                            value={monthQtr ? data[`${monthQtr}`].totalFeeDue : ''}
-                            placeholder='Fee Amount'
-                            disabled={true}
-                            style={{ color: 'blue', backgroundColor: 'white', borderColor :`${errors.monthQtr ? 'red' : ''}` }}
-                        />
-                    </div>
-                </div>
-                <div className="frm-row" >
                     <div className="cell-item">
                         <label>Late Fees</label>
                         <Form.Control
@@ -157,6 +147,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             }}
                             onChange={(e) => {
                                 setLateFeeAmount(e.target.value); 
+                                setTotalFee(data[`${monthQtr}`].totalFeeDue+ (parseFloat(e.target.value) || 0))
                                 setErrors(val => {
                                     return {
                                         ...val,
@@ -166,7 +157,6 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             }}
                         />
                     </div>
-                    <div className="cell-item"></div>
                 </div>
                 <div className="frm-row" >
                     <div className="cell-item">
@@ -190,7 +180,16 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             }
                         </Form.Select>
                     </div>
-                    <div className="cell-item"></div>
+                    <div className="cell-item">
+                        <label>Amount</label>
+                        <Form.Control
+                            size='sm'
+                            value={monthQtr ? data[`${monthQtr}`].totalFeeDue : ''}
+                            placeholder='Fee Amount'
+                            disabled={true}
+                            style={{ color: 'blue', backgroundColor: 'white', borderColor :`${errors.monthQtr ? 'red' : ''}` }}
+                        />
+                    </div>
                 </div>
                 <div className="frm-row" >
                     <div className="cell-item">
@@ -218,7 +217,16 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             />
                         </div>
                     </div>
-                    <div className="cell-item"></div>
+                    <div className="cell-item">
+                        <label>Total Fee</label>
+                        <Form.Control
+                            size='sm'
+                            value={monthQtr? totalFee :''}
+                            placeholder='Fee Amount'
+                            disabled={true}
+                            style={{ color: 'blue', backgroundColor: 'white', borderColor :`${errors.monthQtr ? 'red' : ''}` }}
+                        />
+                    </div>
                 </div>
                 <div className="btn-wrapper">
                     <Button className="submit-btn" onClick={handleSubmit}>SUBMIT</Button>

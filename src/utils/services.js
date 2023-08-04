@@ -113,6 +113,10 @@ export const findStudentsDetails = (data) => {
   return RESTClient.post(RestEndPoint.FIND_STUDENT_DETAILS, data);
 };
 
+export const getStudentsWithFeeData = (data) => {
+  return RESTClient.post(RestEndPoint.GET_STUDENTS_WITH_FEE_DATA, data)
+}
+
 export const updateClassFeeTypeAmount = (data, session) => {
   return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
 };
