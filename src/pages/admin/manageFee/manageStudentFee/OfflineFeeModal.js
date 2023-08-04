@@ -148,6 +148,7 @@ export default function OfflineFeeModal({ show, handleClose, student }) {
                             size='sm'
                             type="number"
                             value={lateFeeAmount}
+                            min={0}
                             placeholder="Enter Late Fee"
                             style={{ 
                                 backgroundColor: 'white', 

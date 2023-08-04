@@ -32,7 +32,7 @@ const PaymentFailed = () => {
                 <i className="failed-icon"></i>
                 <h2>Error!</h2>
                 <h4>
-                  Your payment has failed for {params[0] === "ADMISSION_FORM" ? "order no." : (params[0] === "SCHOOL_FEE"  ?  "fee of": "application no.")} {params[1] || ""}. You can view the details on the payment history page.
+                  Your payment has failed for {params[0] === "ADMISSION_FORM" ? "order no." : (params[0] === "SCHOOL_FEE"  ?  "": "application no.")} {params[1] || ""}. You can view the details on the payment history page.
                 </h4>
               </div>
             </section>

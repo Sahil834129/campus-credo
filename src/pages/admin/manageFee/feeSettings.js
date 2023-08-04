@@ -79,7 +79,8 @@ export const FeeSettings = ({ isWritePermission }) => {
                                     <Form.Control
                                         value={lateFeeAmount}
                                         size='sm'
-                                        type='text'
+                                        type='number'
+                                        min={0}
                                         placeholder='Fee Name'
                                         // style={{ width: '249px', margin: 'auto' }}
                                         onChange={val => {setLateFeeAmount(val.target.value);setErrorAmount('')}}
