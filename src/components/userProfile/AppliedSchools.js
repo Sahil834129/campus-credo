@@ -244,7 +244,7 @@ const AppliedSchools = ({ application, setApplications }) => {
               <div className="application-status">
                 <span
                   className={
-                    "badge " + getBadgeClassName(application.applicationStatus)
+                    "badge grey-badge " + getBadgeClassName(application.applicationStatus)
                   }
                 >
                   {getStatusLabel(application.applicationStatus)}

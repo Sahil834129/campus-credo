@@ -158,7 +158,7 @@ const UploadRequestedDocDialog = ({
     >
       <Table bordered hover className="document-tbl">
         <thead>
-          <tr>
+          <tr valign="middle">
             <th>#</th>
             <th>Document Name</th>
             <th>Select</th>
@@ -169,7 +169,7 @@ const UploadRequestedDocDialog = ({
         <tbody>
           {!isEmpty(requestedDocumentObject) &&
             requestedDocumentObject.map((val, index) => (
-              <tr key={`${index}`}>
+              <tr key={`${index}`}  valign="middle">
                 <td>{index + 1}</td>
                 <td className="doc-name">
                   <span>{humanize(val.documentName)}</span>
