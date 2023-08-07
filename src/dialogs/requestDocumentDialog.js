@@ -127,6 +127,7 @@ const RequestDocumentDialog = ({
                 <div className="document-container">
                   {documents.length > 0 ? (
                     <div>
+                      <div  className="checkBox-wrapper">
                       {documents.map((document, index) => (
                         <div
                           key={"childDoc_" + index}
@@ -145,6 +146,8 @@ const RequestDocumentDialog = ({
                           {humanize(document.documentName)}
                         </div>
                       ))}
+                      </div>
+                      <div className="other-wrapp">
                       <input
                         type="checkbox"
                         name="otherCheckbox"
@@ -164,7 +167,8 @@ const RequestDocumentDialog = ({
                       {errors.other && touched.other && (
                         <span className="text-danger">{errors.other}</span>
                       )}
-                      <br />
+                      </div>
+                      <div className="cmnt-wrapper">
                       <label className="form-label">Please add comment</label>
                       <input
                         name="comment"
@@ -174,6 +178,7 @@ const RequestDocumentDialog = ({
                           setFieldValue("comment", e.target.value)
                         }
                       />
+                      </div>
                       {errors.comment && touched.comment && (
                         <span className="text-danger">{errors.comment}</span>
                       )}
