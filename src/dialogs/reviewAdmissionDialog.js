@@ -436,7 +436,7 @@ const ReviewAdmissionDialog = ({
                     </span>
                   </div>
                   <div className="admin-detail-cell">
-                    <label>Having any Other interests :</label>
+                    <label>Having any other interests :</label>
                     <span className="item-entry">
                       {studentDetail.otherInterest
                         ? humanize(studentDetail.otherInterest)
@@ -545,7 +545,6 @@ const ReviewAdmissionDialog = ({
                     <div className="document-container">
                       {studentDocuments.length > 0 ? (
                         studentDocuments.map((document, index) => {
-                          console.log(studentDocuments, "studentDocuments");
                           return (
                             <div
                               key={"childDoc_" + index}
