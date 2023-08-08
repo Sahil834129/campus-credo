@@ -436,7 +436,7 @@ const ReviewAdmissionDialog = ({
                     </span>
                   </div>
                   <div className="admin-detail-cell">
-                    <label>Having any Other category interests :</label>
+                    <label>Having any Other interests :</label>
                     <span className="item-entry">
                       {studentDetail.otherInterest
                         ? humanize(studentDetail.otherInterest)
