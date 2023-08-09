@@ -1,7 +1,12 @@
 import moment from "moment";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { ADMIN_DASHBOARD_LINK, MANAGE_USER_PERMISSION, PARENT_APPLICATION_STATUS, SCHOOL_APPLICATION_STATUS } from "../constants/app";
+import {
+  ADMIN_DASHBOARD_LINK,
+  MANAGE_USER_PERMISSION,
+  PARENT_APPLICATION_STATUS,
+  SCHOOL_APPLICATION_STATUS,
+} from "../constants/app";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import { getDefaultDateFormat } from "./DateUtil";
 import RESTClient from "./RestClient";
@@ -62,18 +67,26 @@ export const setLocalData = (key, value) => {
 
 export const logout = () => {
   resetUserLoginData();
-  // window.location.reload(); 
-  window.location.href = '/';
+  // window.location.reload();
+  window.location.href = "/";
 };
 
 export const resetUserLoginData = () => {
   localStorage.clear();
 };
 
-export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetailsLongitude, cities) => {
+export const setUserLoginData = (
+  loginData,
+  SchoolDetailsLatitude,
+  SchoolDetailsLongitude,
+  cities
+) => {
   setLocalData("token", loginData.token);
   setLocalData("refreshToken", loginData.refreshToken);
-  setLocalData("modulePermissions", JSON.stringify(loginData.modulePermissions || []));
+  setLocalData(
+    "modulePermissions",
+    JSON.stringify(loginData.modulePermissions || [])
+  );
   setLocalData("schoolParams", JSON.stringify(loginData.schoolParams || {}));
   setLocalData("name", loginData?.firstName);
   setLocalData("roles", loginData?.roles);
@@ -95,7 +108,7 @@ export const setUserLoginData = (loginData, SchoolDetailsLatitude, SchoolDetails
         "userLocation",
         loginData?.userLocationDtos[0].cityName.toLowerCase() || ""
       );
-      setLocalData("selectedLocation", 'Kolkata');
+      setLocalData("selectedLocation", "Kolkata");
     }
     setLocalData("userLatitude", loginData?.userLocationDtos[0].latitude);
     setLocalData("userLongitude", loginData?.userLocationDtos[0].longitude);
@@ -115,9 +128,9 @@ export const removeLocalDataItem = (key) => {
 };
 
 export const getIpAddress = async () => {
-  const response = await fetch('https://ipapi.co/json/')
-  const data = await response.json()
-  return data.ip
+  const response = await fetch("https://ipapi.co/json/");
+  const data = await response.json();
+  return data.ip;
 };
 
 export const isLoggedIn = () => {
@@ -181,12 +194,12 @@ export function humanize(str, changeStatusVal) {
 
 export function getPresentableRoleName(roleName) {
   switch (roleName) {
-    case 'SR_FEE_MANAGER':
-      return 'Sr. Fees Manager';
-    case 'SR_ADMISSION_MANAGER':
-      return 'Sr. Admission Manager';
-    case 'FEE_MANAGER':
-      return 'Fees Manager';
+    case "SR_FEE_MANAGER":
+      return "Sr. Fees Manager";
+    case "SR_ADMISSION_MANAGER":
+      return "Sr. Admission Manager";
+    case "FEE_MANAGER":
+      return "Fees Manager";
     default:
       return humanize(roleName);
   }
@@ -199,9 +212,9 @@ export function convertCamelCaseToPresentableText(str) {
     let string = str.replaceAll("-", " ");
     return string
       .toLowerCase()
-      .split(' ')
+      .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .join(" ");
   }
   return str.replace(/([A-Z])/g, " $1").replace(/^./, function (str) {
     return str.toUpperCase();
@@ -272,13 +285,16 @@ export function isEmpty(obj) {
 }
 
 export const getHeaderLink = () => {
-  let modulePermissions = getLocalData('modulePermissions');
+  let modulePermissions = getLocalData("modulePermissions");
   if (modulePermissions !== null) {
     modulePermissions = JSON.parse(modulePermissions);
-    return ADMIN_DASHBOARD_LINK.map(adminVal => {
-      const filterData = modulePermissions.find(val => val.moduleName === adminVal.title);
+    return ADMIN_DASHBOARD_LINK.map((adminVal) => {
+      const filterData = modulePermissions.find(
+        (val) => val.moduleName === adminVal.title
+      );
       if (adminVal.title !== "Dashboard") {
-        adminVal.isPermit = filterData?.permissionType || MANAGE_USER_PERMISSION[1];
+        adminVal.isPermit =
+          filterData?.permissionType || MANAGE_USER_PERMISSION[1];
         adminVal.canApprove = filterData?.canApprove || false;
       } else {
         adminVal.isPermit = MANAGE_USER_PERMISSION[0];
@@ -290,19 +306,22 @@ export const getHeaderLink = () => {
   return [];
 };
 
-
 export const getCurrentModulePermission = (moduleName) => {
-  let modulePermissions = getLocalData('modulePermissions');
+  let modulePermissions = getLocalData("modulePermissions");
   let flag = false;
   if (modulePermissions !== null) {
     modulePermissions = JSON.parse(modulePermissions);
-    flag = !!modulePermissions.find(val => val.moduleName === moduleName && val.permissionType.indexOf(MANAGE_USER_PERMISSION[2]) !== -1);
+    flag = !!modulePermissions.find(
+      (val) =>
+        val.moduleName === moduleName &&
+        val.permissionType.indexOf(MANAGE_USER_PERMISSION[2]) !== -1
+    );
   }
   return flag;
 };
 
 export const userCanNotApprove = (isApproveY) => {
-  let modulePermissions = getLocalData('modulePermissions');
+  let modulePermissions = getLocalData("modulePermissions");
   let flag = false;
   if (modulePermissions !== null) {
     modulePermissions = JSON.parse(modulePermissions);
@@ -331,8 +350,12 @@ export const getStatusLabel = (status) => {
       return "Offer Declined";
     case PARENT_APPLICATION_STATUS.DENIED:
       return "Offer Denied";
+    case PARENT_APPLICATION_STATUS.DOCUMENT_REQUESTED:
+      return "Documents Requested";
     default:
-      return StringUtils.capitalizeFirstLetter(StringUtils.replaceUnderScoreWithSpace(status));
+      return StringUtils.capitalizeFirstLetter(
+        StringUtils.replaceUnderScoreWithSpace(status)
+      );
   }
 };
 export const getStatusLabelForSchool = (applicationStatus) => {
@@ -355,6 +378,8 @@ export const getStatusLabelForSchool = (applicationStatus) => {
       return "Offer Declined";
     case SCHOOL_APPLICATION_STATUS.DENIED:
       return "Offer Denied";
+    case SCHOOL_APPLICATION_STATUS.DOCUMENT_SUBMITTED:
+      return "Documents Received";
 
     default:
       return humanize(applicationStatus, true);
@@ -374,6 +399,11 @@ export const getActionButtonLabel = (applicationStatus) => {
       return "Move to Final Review";
     case SCHOOL_APPLICATION_STATUS.AT_PI:
       return "Shortlist for AT/PI";
+    case SCHOOL_APPLICATION_STATUS.DOCUMENT_REQUESTED:
+      return "Request Documents";
+    case SCHOOL_APPLICATION_STATUS.DOCUMENT_SUBMITTED:
+      return "Documents Received";
+
     default:
       return humanize(applicationStatus, true);
   }
@@ -397,53 +427,54 @@ export const getUserLocation = async () => {
 };
 
 export const getGeoLocationState = async () => {
-  const permissions = await navigator.permissions.query({ name: 'geolocation' });
+  const permissions = await navigator.permissions.query({
+    name: "geolocation",
+  });
   return permissions;
 };
 
 export const getPastSession = () => {
-  let currentYear = (new Date()).getFullYear();
+  let currentYear = new Date().getFullYear();
   let startYear = currentYear - 1;
   let endYear = currentYear;
   return `${startYear}-${endYear}`;
 };
 
-export const Pathnames =
-  [
-    "/",
-    "/manageFee",
-    "/paymentHistory",
-    "/paymentCheckout",
-    "/selectedSchools",
-    "/manageChild",
-    "/userProfile",
-    "/manageProfile",
-    "/admissionForm",
-    "/manage-application",
-    "/manage-user",
-    "/manage-fees",
-    "/manage-admission",
-    "/termsAndConditions",
-    "/dashboard",
-    "/schools",
-    "/howItWorks",
-    "/aboutUs",
-    "/disclaimerPolicy",
-    "/termsOfService",
-    "/faqs",
-    "/contactUs",
-    "/user/reset/:token",
-    "/signIn",
-    "/signup",
-    "/privacyPolicy",
-    "/orderConfirm",
-    "/notFound",
-    "/schools/:id",
-    "/verifyPhone/:phone",
-    "/paymentFailed",
-    "/all-application",
-    "/users"
-  ];
+export const Pathnames = [
+  "/",
+  "/manageFee",
+  "/paymentHistory",
+  "/paymentCheckout",
+  "/selectedSchools",
+  "/manageChild",
+  "/userProfile",
+  "/manageProfile",
+  "/admissionForm",
+  "/manage-application",
+  "/manage-user",
+  "/manage-fees",
+  "/manage-admission",
+  "/termsAndConditions",
+  "/dashboard",
+  "/schools",
+  "/howItWorks",
+  "/aboutUs",
+  "/disclaimerPolicy",
+  "/termsOfService",
+  "/faqs",
+  "/contactUs",
+  "/user/reset/:token",
+  "/signIn",
+  "/signup",
+  "/privacyPolicy",
+  "/orderConfirm",
+  "/notFound",
+  "/schools/:id",
+  "/verifyPhone/:phone",
+  "/paymentFailed",
+  "/all-application",
+  "/users",
+];
 
 export const checkIfCityExists = (cities) => {
   if (!isEmpty(getLocalData("userLocation"))) {
@@ -451,8 +482,7 @@ export const checkIfCityExists = (cities) => {
     if (cities && cities.includes(userLocation)) {
       return userLocation;
     }
-  }
-  else {
+  } else {
     return false;
   }
 };
@@ -460,7 +490,16 @@ export const checkIfCityExists = (cities) => {
 export const checkSelectedCityWithUserCity = () => {
   let selectedCity = getLocalData("selectedLocation");
   let userCity = getLocalData("userLocation");
-  if (selectedCity === userCity)
-    return true;
+  if (selectedCity === userCity) return true;
   else return false;
+};
+export const commaSeparatedStringToObject = (commaSeparatedString) => {
+  const requestedDocumentArray = !isEmpty(commaSeparatedString)
+    ? commaSeparatedString.split(",")
+    : [];
+
+  return requestedDocumentArray.map((stringValue) => ({
+    documentName: stringValue,
+    uploaded: false,
+  }));
 };

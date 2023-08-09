@@ -11,7 +11,7 @@ const DatePickerField = ({ name, value, setFieldValue, errors, touched, dateForm
             className="form-control"
             name={name}
             autoComplete="off"
-            placeholderText={dateFormat.toLowerCase() || "DD/MM/YYYY"}
+            placeholderText={dateFormat ? dateFormat.toLowerCase() : "DD/MM/YYYY"}
             onChange={(date) => {
               return date
                 ? setFieldValue("dateOfBirth", formatDateToDDMMYYYY(date))
