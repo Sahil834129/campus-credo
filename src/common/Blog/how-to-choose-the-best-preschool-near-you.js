@@ -211,13 +211,13 @@ const BlogArticle1 = () => {
                     &#x2329; Previous Post </Link>
                   </span>
                   <span className="blog-nav right">
-                    {/* <Link
+                    <Link
                       className=""
-                      to="/blog/how-to-choose-the-best-preschool-near-you"
+                      to="/blog/choosing-the-best-schools-a-complete-school-admission-guide-2023-24"
                       onClick={() => window.scrollTo(0, 0)}
-                    > */}
+                    >
                       Next Post &#x3009;
-                    {/* </Link> */}
+                    </Link>
                   </span>
                 </div>
               </div>

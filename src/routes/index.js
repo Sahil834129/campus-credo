@@ -45,6 +45,8 @@ import ResetPassword from "../pages/resetPassword";
 import SuperAdmin from "../pages/superAdmin/SuperAdminPage";
 import Users from "../pages/superAdmin/UserPage";
 import ProtectedRoute from "./ProtectedRoute";
+import ChoosingTheBestSchoolsACompleteSchoolAdmissionGuide202324 from "../common/Blog/choosing-the-best-schools-a-complete-school-admission-guide-2023-24";
+
 
 function AppRoutes() {
   return (
@@ -60,6 +62,7 @@ function AppRoutes() {
         <Route path="/blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023" element={<SevenTipsForChoosingTheBestSchoolForYourChildin2023 />} />
         <Route path="/blog/should-you-choose-cbse-or-icse-school-for-your-children" element={<ShouldYouChooseCBSEOrICSESchoolForYourChildren />} />
         <Route path="/blog/how-to-choose-the-best-preschool-near-you" element={<HowToChooseTheBestPreschoolNearYou />} />
+	    <Route path="/blog/choosing-the-best-schools-a-complete-school-admission-guide-2023-24" element={<ChoosingTheBestSchoolsACompleteSchoolAdmissionGuide202324 />} />
         <Route path="/faqs" element={<FAQ />} />
         <Route path="/termsOfService" element={<TermsOfUse />} />
         <Route path="/disclaimerPolicy" element={<DisclaimerPolicy />} />

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import bestpreschool from "../../assets/img/blog-img/best-preschool-nearyou.png";
 import BlogThumbnail from "../../assets/img/blog-img/campuscredo-blog-pic.jpg";
 import cbsevsicse from "../../assets/img/blog-img/cbse-vs-icse.jpg";
+import choosingthebestschool from "../../assets/img/blog-img/choosing-the-best-schools.jpg";
 import Breadcrumbs from "../../common/Breadcrumbs";
 import Layout from "../../common/layout";
 
@@ -81,6 +82,26 @@ const Blog = () => {
                     <div className="postedon">June 16, 2023</div>
                       <div className="blog-title">
                       How To Choose the Best Preschool Near You?
+                      </div>
+                    </div>
+                  </Link>
+                </ListGroup.Item>
+                <ListGroup.Item as="li">
+                  <Link
+                    className=""
+                    to="/blog/choosing-the-best-schools-a-complete-school-admission-guide-2023-24"
+                  >
+                    <div className="blog-thumb">
+                      <img
+                        src={choosingthebestschool}
+                        alt=""
+                        className="card-article-image"
+                      />
+                    </div>
+                    <div className="blog-content">
+                    <div className="postedon">Aug 16, 2023</div>
+                      <div className="blog-title">
+                      Choosing The Best Schools – A Complete School Admission Guide 2023-24!
                       </div>
                     </div>
                   </Link>
