@@ -42,15 +42,15 @@ export const ManageAdmission = () => {
     val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
     val.formSubmissionStartDate = convertDate(val?.formSubmissionStartDate || null);
     val.admissionType = val?.admissionType || 'Fixed';
-    val.vacantSeats = val?.vacantSeats || '';
+    val.vacantSeats = val?.vacantSeats === undefined ? '' : val?.vacantSeats;
     val.formSubmissionEndDate = convertDate(val?.formSubmissionEndDate || null);
     val.admissionTestStartDate = convertDate(val?.admissionTestStartDate || null);
     val.admissionTestEndDate = convertDate(val?.admissionTestEndDate || null);
     val.personalInterviewStartDate =
       convertDate(val?.personalInterviewStartDate || null);
     val.personalInterviewEndDate = convertDate(val?.personalInterviewEndDate || null);
-    val.formFee = val?.formFee || null;
-    val.registrationFee = val?.registrationFee || null;
+    val.formFee = val?.formFee === undefined ? '' : val?.formFee;
+    val.registrationFee = val?.registrationFee === undefined ? '' : val?.registrationFee;
     return val;
   };
 
@@ -63,6 +63,7 @@ export const ManageAdmission = () => {
   const fetchClassAdmissionData = (session) => {
     getClassAdmissionData(session)
       .then(response => {
+        console.log('NNNNNN', response)
         if (response.status === 200) {
           const data = convertTableData(response.data);
           setFormData(data.map(v => {

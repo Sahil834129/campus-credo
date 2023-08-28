@@ -93,7 +93,7 @@ export const Dashboard = () => {
     <Layout admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} sessionValue={sessionValue} setSessionValue={setSessionValue}>
       <div className='content-area-inner dashboard-wrapper'>
         <div className='metrics-wrap'>
-          <ApplicationProcessing applicationProcessing={dashBoardData?.applicationProcessing} />
+          <ApplicationProcessing applicationProcessing={dashBoardData?.applicationProcessing} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary}/>
           <SeatsDetail schoolSeatsSummary={schoolSeatsSummary} />
           <div onClick={clickModal} style={{ cursor: "pointer" }} title="Click to Expand">
             <ApprovedAcceptedGraph acceptedOffer={acceptedOffer} applicationApproved={applicationApproved} labels={labels} hideLabel={false} />
@@ -107,6 +107,7 @@ export const Dashboard = () => {
             declined={declinedOffer}
             applicationStatus={dashBoardData?.applicationStatus}
             totalApplication={dashBoardData?.upperSchoolAdmissionSummary?.totalApplication}
+            totalApproved={dashBoardData?.upperSchoolAdmissionSummary?.totalApproved}
           />
           <SeatsFeesGraph sessionValue={sessionValue} schoolSeatsSummary={schoolSeatsSummary} admissionSummary={dashBoardData?.upperSchoolAdmissionSummary} />
         </div>

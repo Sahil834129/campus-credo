@@ -37,6 +37,7 @@ export default function StudentDetails({
   const dispatch = useDispatch();
   const classOptions = useSelector((state) => state.masterData.schoolClasses);
   const states = useSelector((state) => state.masterData.states);
+  const [enable, setEnable] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [schoolCity, setSchoolCity] = useState([
     { value: "", text: "Select City" },
@@ -61,7 +62,8 @@ export default function StudentDetails({
     e.preventDefault();
     let postData = { ...selectedChild };
     if (!isValidFormData(postData)) return;
-
+    setEnable(true);
+    
     if (postData.isProvidingCurrentSchoolInfo === "No") {
       delete postData.schoolName;
       delete postData.schoolBoard;
@@ -103,9 +105,11 @@ export default function StudentDetails({
         updateSelectedChild(response.data);
       }
       //toast.success('Student details saved successfully.')
+      setEnable(false);
       setStep((val) => val + 1);
       window.scrollTo(0, 0);
     } catch (error) {
+      setEnable(false);
       toast.error(RESTClient.getAPIErrorMessage(error));
     }
   };
@@ -830,7 +834,7 @@ export default function StudentDetails({
         >
           Cancel
         </Button>
-        <Button type="submit" className="save comn">
+        <Button type="submit" className="save comn" disabled={enable}>
           Save & Next
         </Button>
       </div>

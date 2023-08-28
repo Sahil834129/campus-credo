@@ -22,6 +22,10 @@ export const applicationfilterData = (data) => {
   return RESTClient.post(RestEndPoint.APPLICATION_FILTER_DATA, data);
 };
 
+export const superAdminApplicationfilterData = (data) => {
+  return RESTClient.post(RestEndPoint.SUPER_ADMIN_FILTER_DATA, data);
+};
+
 export const getSchoolAdmissinSummary = (currentSession) => {
   return RESTClient.get(RestEndPoint.SCHOOL_ADMISSION_SUMMARY + "/" + currentSession);
 };
@@ -42,6 +46,9 @@ export const changeUserPassword = (data) => {
   return RESTClient.post(RestEndPoint.CHANGE_USER_PASSWORD, data);
 
 };
+export const resetSchoolAdminPassword = (data) => {
+  return RESTClient.post(RestEndPoint.RESET_ADMIN_PASSWORD, data);
+};
 
 export const getClassAdmissionSessionData = () => {
   return RESTClient.get(RestEndPoint.CLASS_ADMISSION_SESSION_DATA);
@@ -53,6 +60,30 @@ export const getManagePermissionRoles = () => {
 
 export const getManagePermissions = () => {
   return RESTClient.get(RestEndPoint.MANAGE_PERMISSIONS);
+};
+
+export const getSchoolFeeType = (payload) => {
+  return RESTClient.get(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${payload}`);
+};
+
+export const addSchoolFeeType = (data, session) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`, data);
+};
+
+export const deleteSchoolFeeType = (feeTypeId) => {
+  return RESTClient.delete(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${feeTypeId}`);
+};
+
+export const deleteClassesFeeDetails = (classId, feeId) => {
+  return RESTClient.delete(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${feeId}`);
+};
+
+export const updateSchoolFeeType = (payload, session) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_DELET_SCHOOL_FEE_TYPE + `/${session}`, payload);
+};
+
+export const updateFeeSeetings = (payload) => {
+  return RESTClient.patch(RestEndPoint.UPDATE_FEE_SETTING, payload);
 };
 
 export const getManagePermissionModules = () => {
@@ -68,6 +99,26 @@ export const getAtPiForClass = (classId, sessionValue) => {
 
 export const getSchoolClassesData = (schoolId) => {
   return RESTClient.get(RestEndPoint.SCHOOL_CLASSES_DATA + `/${schoolId}/classes`);
+};
+
+export const getClassesFeeDetails = (classId, session) => {
+  return RESTClient.get(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${classId}/${session}`);
+};
+
+export const addClassFeeTypeAmount = (data, session) => {
+  return RESTClient.post(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
+};
+
+export const findStudentsDetails = (data) => {
+  return RESTClient.post(RestEndPoint.FIND_STUDENT_DETAILS, data);
+};
+
+export const getStudentsWithFeeData = (data) => {
+  return RESTClient.post(RestEndPoint.GET_STUDENTS_WITH_FEE_DATA, data)
+}
+
+export const updateClassFeeTypeAmount = (data, session) => {
+  return RESTClient.put(RestEndPoint.GET_ADD_UPDATE_CLASS_FEE_DETAILS + `/${session}`, data);
 };
 
 export const zipDownloadApplications = async (applicationIds) => {
@@ -86,6 +137,18 @@ export const getClassApplication = (classId, sessionValue) => {
 
 export const updateApplicationStatus = (payload) => {
   return RESTClient.post(RestEndPoint.CHANGE_APPLICATION_STATUS, payload);
+};
+
+export const updateUserExcelData = (payload) => {
+  return RESTClient.post(RestEndPoint.UPDATE_USER_EXCEL_DATA, payload);
+};
+
+export const getSearchItems = () => {
+  return RESTClient.get(RestEndPoint.GET_PARTNER_SCHOOL);
+};
+
+export const getUserData = (userSchoolId) => {
+  return RESTClient.get(RestEndPoint.GET_SCHOOL_USERS + `/${userSchoolId}`);
 };
 
 export const updateBulkApplicationStatus = (payload) => {
@@ -177,3 +240,59 @@ export const getAgeClassMap = async () => {
 export const getApplications = async (childId) => {
   return RESTClient.get(RestEndPoint.GET_APPLICATION_LIST + `/${childId}`);
 };
+
+export const getPlaceOrder = (payload) => {
+  return RESTClient.post(RestEndPoint.PLACE_ORDER, payload);
+};
+
+export const processOrderAfterPayment = (payload, orderId) => {
+  return RESTClient.post(RestEndPoint.PROCESS_AFTER_PAYMENT + `?orderId=${orderId}`, payload);
+};
+
+export const registrationCheckout = (payload) => {
+  return RESTClient.post(RestEndPoint.REGISTRATION_CHECKOUT, payload);
+};
+
+export const getFeeForStudent = (classId, studentId, session) => {
+  return RESTClient.get(RestEndPoint.GET_FFE_FOR_STUDENT + `${session}/${classId}/${studentId}`);
+};
+
+export const getFeeAndPaymentHistoryForStudent = (session, classId, studentId) => {
+  return RESTClient.get(RestEndPoint.GET_FEE_AND_PAYMENT + `${session}/${classId}/${studentId}`);
+};
+
+export const addFeeInStudenFee = (payload) => {
+  return RESTClient.post(RestEndPoint.ADD_FEE_IN_STUDENT_FEES, payload);
+};
+
+export const removeFeeFromStudenFee = (studentId, studentFeeId) => {
+  return RESTClient.delete(RestEndPoint.REMOVE_FEE_FROM_STUDENT_FEES + `/${studentId}/${studentFeeId}`);
+};
+
+export const addOfflineFeeForStudent = (payload) => {
+  return RESTClient.post(RestEndPoint.ADD_OFFLINE_FEE_FOR_STUDENT, payload);
+};
+
+export const getStudentList = () => {
+  return RESTClient.get(RestEndPoint.GET_PARENTS_STUDENTS);
+};
+
+export const linkParentStudent = (payload) => {
+  return RESTClient.post(RestEndPoint.POST_PARENT_LINK_STUDENT, payload);
+};
+
+export const registerPayment = (payload, session) => {
+  return RESTClient.post(RestEndPoint.REGISTER_PAYMENT + `/${session}`, payload)
+}
+
+export const verifyParentStudent = (payload) => {
+  return RESTClient.post(RestEndPoint.VERIFY_STUDENT_PARENT, payload);
+};
+
+export const confirmLinkParentStudent = (payload) => {
+  return RESTClient.post(RestEndPoint.CONFIRM_LINK_PARENT_STUDENT, payload);
+};
+
+export const closeClassAdmissionData = (classId, session) =>{
+  return RESTClient.get(RestEndPoint.CLOSE_CLASS_ADMISSION_DATA +`/${classId}/${session}`)
+}

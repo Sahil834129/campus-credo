@@ -2,20 +2,24 @@ import AboutUs from "./aboutUs";
 import AdminDashboard from "./admin/dashboard";
 import ManageAdmission from "./admin/manageAdmission";
 import ManageApplication from "./admin/manageApplication";
-import ManageFees from "./admin/manageFees";
+import ManageFees from "./admin/manageFee";
 import ManageUsers from "./admin/manageUsers";
+import TermsAndConditions from "./admin/termsAndConditions";
 import SchoolAdmission from "./admissionForm";
 import AllSchools from "./allSchools";
 import ApplicationCart from "./cartItems";
 import ContactUs from "./contactUs";
 import FAQ from "./faq";
+import HowItWorks from "./guide/howItWorks";
 import HomePage from "./home";
-import HowItWorks from "./howItWorks";
 import ManageChild from "./manageChild";
 import ManageProfile from "./manageProfile";
 import NotFound from "./notFound";
+import OrderConfirm from "./orderConfirm";
 import PaymentCheckout from "./paymentCheckout";
+import PaymentFailed from "./paymentFailed";
 import PaymentHistory from "./paymentHistory";
+import StudentLink from "./studentLink/studentLink";
 import PrivacyPolicy from "./privacyPolicy";
 import SchoolDetails from "./schoolDetails";
 import SignIn from "./signIn";
@@ -23,9 +27,6 @@ import SignUp from "./signUp";
 import TermsOfUse from "./terms";
 import UserProfile from "./userProfile";
 import VerifyPhone from "./verifyPhone";
-import OrderConfirm from "./orderConfirm";
-import PaymentFailed from "./paymentFailed";
-import TermsAndConditions from "./admin/termsAndConditions"
 
 export {
   HomePage,
@@ -54,6 +55,8 @@ export {
   PaymentCheckout,
   PaymentFailed,
   PaymentHistory,
+  StudentLink,
   OrderConfirm,
   TermsAndConditions,
 };
+

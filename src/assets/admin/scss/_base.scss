@@ -81,7 +81,7 @@ html, body, p, div, h1, h2, h3, h4, h5, h6, ul, li, ol, dl, img, pre, form, fiel
   }
 
 a, a:visited, a:active {
-    color: unset;
+    // color: unset;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
     -webkit-transition: all 300ms linear 0ms;
@@ -90,7 +90,7 @@ a, a:visited, a:active {
       -ms-transition: all 300ms linear 0ms;
       -o-transition: all 300ms linear 0ms;
       transition: all 300ms linear 0ms;
-      color: #c1282a;
+      // color: #c1282a;
 }
 
 input, textarea {

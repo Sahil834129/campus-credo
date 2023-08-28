@@ -17,14 +17,15 @@ export default function PrintSchedule() {
       val.isOpen = !!(val.formSubmissionStartDate && val.formSubmissionEndDate);
       val.formSubmissionStartDate = convertDate(val?.formSubmissionStartDate || null);
       val.admissionType = val?.admissionType || 'Fixed';
-      val.vacantSeats = val?.vacantSeats || '';
+      val.vacantSeats = val?.vacantSeats === undefined ? '' : val?.vacantSeats;
       val.formSubmissionEndDate = convertDate(val?.formSubmissionEndDate || null);
       val.admissionTestStartDate = convertDate(val?.admissionTestStartDate || null);
       val.admissionTestEndDate = convertDate(val?.admissionTestEndDate || null);
       val.personalInterviewStartDate =
         convertDate(val?.personalInterviewStartDate || null);
       val.personalInterviewEndDate = convertDate(val?.personalInterviewEndDate || null);
-      val.formFee = val?.formFee || null;
+      val.formFee = val?.formFee === undefined ? undefined : val?.formFee;
+      val.registrationFee = val?.registrationFee === undefined ? undefined : val?.registrationFee;
       return val;
     });
   };
@@ -81,10 +82,10 @@ export default function PrintSchedule() {
                 <td>{admissionData.isOpen ? 'Yes' : 'No'}</td>
                 <td>{admissionData.seatsOpen || '-'}</td>
                 <td>{formatDateToDDMMYYYY(admissionData.formSubmissionStartDate)} - {formatDateToDDMMYYYY(admissionData.formSubmissionEndDate)}</td>
-                <td>{formatDateToDDMMYYYY(admissionData.personalInterviewStartDate)} - {formatDateToDDMMYYYY(admissionData.personalInterviewEndDate)}</td>
-                <td>{formatDateToDDMMYYYY(admissionData.admissionTestStartDate)} - {formatDateToDDMMYYYY(admissionData.admissionTestEndDate)}</td>
-                <td>{admissionData.formFee ? '₹ ' + admissionData.formFee : "-"}</td>
-                <td>{admissionData.registrationFee ? '₹ ' + admissionData.registrationFee : "-"}</td>
+                <td>{admissionData.admissionType === 'Fixed' ? <>{formatDateToDDMMYYYY(admissionData?.personalInterviewStartDate)} - {formatDateToDDMMYYYY(admissionData.personalInterviewEndDate)}</> : admissionData.pi ? 'Yes' : '-'}</td>
+                <td>{admissionData.admissionType === 'Fixed' ? <>{formatDateToDDMMYYYY(admissionData?.admissionTestStartDate)} - {formatDateToDDMMYYYY(admissionData.admissionTestEndDate)}</> : admissionData.at ? 'Yes' : '-'}</td>
+                <td>{admissionData.formFee !== undefined ? ('₹ ' + admissionData.formFee) : "-"}</td>
+                <td>{admissionData.registrationFee !== undefined ? ('₹ ' + admissionData.registrationFee) : "-"}</td>
               </tr>
             )}
           </tbody>

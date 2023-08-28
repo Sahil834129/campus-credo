@@ -19,9 +19,11 @@ import RestEndPoint from "../redux/constants/RestEndpoints";
 import PageContent from "../resources/pageContent";
 import { isLoggedIn, setLocalData } from "../utils/helper";
 import RESTClient from "../utils/RestClient";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { hideLoader, showLoader } from "../common/Loader";
 
 const SchoolDetails = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const [schoolDetails, setSchoolDetails] = useState({});
   const isLoggedInUser = useSelector((state) => state.userData.isLoggedInUser);
@@ -46,10 +48,12 @@ const SchoolDetails = () => {
   }
 
   const fetchSchoolDetails = async (schoolId) => {
+    showLoader(dispatch)
     try {
       const response = await RESTClient.get(
         RestEndPoint.SCHOOL_BY_ID + "/" + schoolId
       );
+      hideLoader(dispatch);
       let schoolDetails = response.data;
       let categoryFaciltiesMap = {};
       let categoryExtracurricularMap = {};
@@ -72,6 +76,7 @@ const SchoolDetails = () => {
       });
       setSchoolCategoryExtracurricularMap(categoryExtracurricularMap);
     } catch (e) {
+      hideLoader(dispatch);
       setSchoolDetails({});
       console.log("error : " + e);
       //navigate("/notFound")
@@ -112,6 +117,14 @@ const SchoolDetails = () => {
                             <Description
                               heading="About School"
                               description={schoolDetails.aboutSchool}
+                            />
+                          )}
+                        </Col>
+                        <Col className="about-school-wrap">
+                          {schoolDetails.awardsRecognition && (
+                            <Description
+                              heading="Awards & Recognition"
+                              description={schoolDetails.awardsRecognition}
                             />
                           )}
                         </Col>

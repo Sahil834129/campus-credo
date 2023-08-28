@@ -3,16 +3,17 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Tab from 'react-bootstrap/Tab'
 import Tabs from 'react-bootstrap/Tabs'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import '../../assets/scss/custom-styles.scss'
+import ConfirmDialog from '../../common/ConfirmDialog'
 import RestEndPoint from '../../redux/constants/RestEndpoints'
 import RESTClient from '../../utils/RestClient'
 import { DocumentTableFormat } from './documentTableForm'
-import ConfirmDialog from '../../common/ConfirmDialog'
 
 export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   const navigate = useNavigate()
+  const [enable, setEnable] = useState(false);
   const [studentDocuments, setStudentDocuments] = useState([])
   const [parentDocuments, setParentDocuments] = useState([])
   const [key, setKey] = useState('student')
@@ -28,18 +29,17 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
   };
   const finalSubmit = async () => {
     if (check1 && check2) {
+      setEnable(true);
       try {
         await RESTClient.get(
           RestEndPoint.MARK_PROFILE_COMPLETE + `/${currentStudent.childId}`
         );
         setCondition(false);
         setSubmittedSuccessfully(true);
-        // toast.success('Student profile submitted successfully.')
-        // setTimeout(() => {
-        //   navigate("/schools");
-        // }, 1000);
+        setEnable(false);
       } catch (error) {
         toast.error(RESTClient.getAPIErrorMessage(error))
+        setEnable(false);
       }
     }
     else {
@@ -121,7 +121,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
                 />
               </div>
             </div>
-            <div>
+            <div className="declaration-wrapper">
               <Form.Check
                 type='checkbox'
                 label='I hereby declare that all the particulars and the documents I have provided in, or in connection with, this application are true, up-to-date and correct'
@@ -134,7 +134,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
               <Form.Check
                 type='checkbox'
                 label={
-                  <div>
+                  <div className="declaration-msg">
                     <span>I have read, understood and accept the </span>
                     <a href={`/termsOfService`} target="_blank">
                       <u> Terms of Service </u>
@@ -193,8 +193,9 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
         {key === 'parent' && (
           <Button
             className='save comn'
-            onClick={() =>
-              validateAllDocumentFilled(studentDocuments, parentDocuments)}
+            disabled={enable}
+            onClick={() =>{ 
+              validateAllDocumentFilled(studentDocuments, parentDocuments)}}
           >
             Submit
           </Button>
@@ -204,7 +205,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
 
       <ConfirmDialog
         show={submittedSuccessfully}
-        message="You are all set to apply in schools."
+        message="Your application form has now been saved. You are now set to apply to schools."
         handleConfirm={handleConfirmSuccessfulDialog}
       />
     </>

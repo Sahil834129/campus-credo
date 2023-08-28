@@ -4,19 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import logoHeader from "../assets/img/brand-logo-header.svg";
-import { getSelectedLocation, setGeoLocation, setSelectedLocation } from "../redux/actions/locationAction";
+import { getSelectedLocation, setSelectedLocation } from "../redux/actions/locationAction";
 import RestEndPoint from "../redux/constants/RestEndpoints";
 import RESTClient from "../utils/RestClient";
 import { checkIfCityExists, gotoHome, setLocalData } from "../utils/helper";
 import LoggedInUserDropDown from "./LoggedInUserDropDown";
 
 const MenuBar = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const selectedLocation = useSelector((state) => state.locationData.selectedLocation);
-
-  const pageRef = "/" + location.pathname.split("/")[1];
 
   const [searchItems, setSearchItems] = useState([]);
   const [cities, setCities] = useState([]);
@@ -101,10 +98,9 @@ function handleSelectCity(location) {
     catchLocationerror();
   }
 
-    useEffect(()=>{getSchoolData()},[]);
     useEffect(()=>{getCities()},[]);
     useEffect(()=>{dispatch(getSelectedLocation())}, [dispatch]);
-
+    useEffect(() => { getSchoolData()}, [selectedLocation])
     const getSchoolData = async() => {
         let filters = []
         filters.push({

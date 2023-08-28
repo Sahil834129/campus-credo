@@ -6,6 +6,7 @@ import { LoaderReducer } from "./LoaderReducer";
 import { LocationReducer } from "./locationReducer";
 import { MasterData } from "./MasterData";
 import { UserData } from "./UserData";
+import { ManageFeesTypes } from "./manageFeesTypeReducer";
 
 const reducers = combineReducers({
     childsData: ChildReducer,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
     loaderData: LoaderReducer,
     masterData: MasterData,
     userData: UserData,
+    manageFees: ManageFeesTypes,
 });
 
 const rootReducer = (state, action) => {
