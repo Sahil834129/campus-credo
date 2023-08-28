@@ -4,9 +4,7 @@
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
-  height: 24px;
   vertical-align: middle;
-  width: 24px;
 }
 
 
@@ -29,13 +27,17 @@
 }
 .fb-icon {background-image: url('../img/icons/facebook.png'); height: 24px; width: 24px;}
 .print-icon {background-image: url('../img/icons/printer.png'); height: 24px; width: 24px;}
-
+.joinus-icon {background-image: url('../img/icons/joinus-icon.svg'); height: 24px; width: 24px;}
 .twitter-icon {background-image: url('../img/icons/twitter.png'); height: 24px; width: 24px;}
 .insta-icon {background-image: url('../img/icons/instagram.png'); height: 24px; width: 24px;}
 .g-icon {background-image: url('../img/icons/g.png'); height: 24px; width: 24px;}
 .bullet-icon{background-image: url('../img/icons/bullet-icon.png'); height: 18px; width: 18px;}
 .filter-icon{background-image: url('../img/icons/filter-icon.png'); height: 18px; width: 18px;}
 .info-icon{background-image: url('../img/icons/info.png'); height: 18px; width: 18px;}
+
+.fbLike-icon {background-image: url('../img/icons/facebook.svg'); height: 20px !important; width: 20px !important;}
+.twtUs-icon {background-image: url('../img/icons/twitter.svg'); height: 24px ; width: 24px;}
+
 
 .student-icon{background-image: url('../img/icons/for-schools.png'); height: 64px; width: 64px;}
 .school-icon{background-image: url('../img/icons/student-icon.png'); height: 64px; width: 64px;}
@@ -97,7 +99,7 @@
 
 .dashboard-icon{background-image: url('../img/icons/dashboard.svg'); height: 18px; width: 18px;}
 .manageprofile-icon{background-image: url('../img/icons/manage-profile.svg'); height: 18px; width: 18px;}
-.oneapplicationform-icon{background-image: url('../img/icons/one-applicationform.svg'); height: 18px; width: 18px;}
-
-.managechild-icon{background-image: url('../img/icons/managechild-icon.svg'); height: 18px; width: 18px;}
-.paymenthistory-icon{background-image: url('../img/icons/paymenthistory-icon.svg'); height: 18px; width: 18px;}
+.oneapplicationform-icon{background-image: url('../img/icons/admission-form.svg'); height: 18px; width: 18px;}
+.managefee-icon{background-image: url('../img/icons/manage-fee.svg'); height: 18px; width: 18px;}
+.managechild-icon{background-image: url('../img/icons/manage-child.svg'); height: 18px; width: 18px;}
+.paymenthistory-icon{background-image: url('../img/icons/payment-history.svg'); height: 18px; width: 18px;}

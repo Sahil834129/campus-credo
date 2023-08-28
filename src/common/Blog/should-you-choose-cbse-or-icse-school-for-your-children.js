@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import CbseVsIcsePic from "../../assets/img/blog-img/cbse-vs-icse.jpg";
 import Breadcrumbs from "../Breadcrumbs";
 import Layout from "../layout";
-import { campuscredoUrl } from "../../utils/RestClient";
 
 const BlogArticle1 = () => {
   return (
@@ -206,24 +205,22 @@ const BlogArticle1 = () => {
                     daunting task for parents, CampusCredo has made it fully
                     effortless for everyone. You can easily find the right
                     institutes as per your requirements, apply to multiple
-                    schools at once and track statuses from <a href={campuscredoUrl}>www.campuscredo.com</a>!{" "}
+                    schools at once and track statuses from <a href={"/"}>www.campuscredo.com</a>!{" "}
                   </p>
                 </div>
 
                 <div className="social-share-link">
                   <a href="https://twitter.com/CampusCredo" target="_blank">
-                    Tweet Us
+                  <i class="icons twtUs-icon"></i> <span>Tweet Us</span>  
                   </a>
-                  --
                   <a
                     href="https://www.facebook.com/CampusCredo/"
                     target="_blank"
                   >
-                    Like Us
+                  <i class="icons fbLike-icon"></i> <span>Like Us</span> 
                   </a>
-                  --
                   <Link className="" to="/signUp">
-                    Join Us
+                  <i class="icons joinus-icon"></i> <span>Join Us</span> 
                   </Link>
                 </div>
                 <div className="blog-nav-wrapper">
@@ -233,16 +230,16 @@ const BlogArticle1 = () => {
                       className=""
                       to="/blog/7-tips-for-choosing-the-best-school-for-your-child-in-2023"
                       onClick={() => window.scrollTo(0, 0)}
-                    >
+                    > 
                       {" "}
                       &#x2329; Previous Post{" "}
-                    </Link>
+                    </Link> 
                   </span>
-                  {/* <span className="blog-nav right">
-                    {/* <Link className="" to='/blogArticle'> */}
+                  <span className="blog-nav right">
+                     <Link className="" to='/blog/how-to-choose-the-best-preschool-near-you'>
                   Next Post &#x3009;
-                  {/* </Link>  }
-                  </span> */}
+                   </Link>  
+                  </span> 
                 </div>
               </div>
             </Row>

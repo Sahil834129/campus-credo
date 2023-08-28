@@ -205,7 +205,7 @@ export const SupportingDocumentForm = ({ currentStudent, setStep }) => {
 
       <ConfirmDialog
         show={submittedSuccessfully}
-        message="You are all set to apply in schools."
+        message="Your application form has now been saved. You are now set to apply to schools."
         handleConfirm={handleConfirmSuccessfulDialog}
       />
     </>

@@ -114,7 +114,7 @@ export const FilterApp = ({ schoolClassesData, classId, setClassId, setRowsData,
     applicationfilterData(filterPyaload)
       .then(response => {
         window.scrollTo(0, 0);
-        setRowsData(response?.data);
+        setRowsData(response?.data?.applicationDataDtos);
       })
       .catch(error => console.log(error));
   };

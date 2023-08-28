@@ -47,10 +47,11 @@ export const SignUpSchema = Yup.object().shape({
 });
 
 export const VerifyPhoneSchema = Yup.object().shape({
-  otp: Yup.string().required("Required *")
+  otp: Yup.string()
+    .required("Required *")
     .matches(/^[0-9]+$/, { message: "Please Enter only numeric value." })
     .max(4, "OTP Must Be Of 4 Digits")
-    .test("len", " OTP Must Be Of 4 Digits", (val) => val && val.length === 4)
+    .test("len", " OTP Must Be Of 4 Digits", (val) => val && val.length === 4),
 });
 
 export const ForgotPasswordSchema = Yup.object().shape({
@@ -59,11 +60,11 @@ export const ForgotPasswordSchema = Yup.object().shape({
 export const RequestCallBackSchema = Yup.object().shape({
   userName: Yup.string().required("Required *"),
   phoneNumber: Yup.string()
-  .matches(/^[6-9]\d{9}$/gi, {
-    message: "Please enter valid number.",
-    excludeEmptyString: false,
-  })
-  .required("Required *"),
+    .matches(/^[6-9]\d{9}$/gi, {
+      message: "Please enter valid number.",
+      excludeEmptyString: false,
+    })
+    .required("Required *"),
 });
 export const AddChildSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -79,9 +80,14 @@ export const AddChildSchema = Yup.object().shape({
     .required("Required *")
     .test(
       "DOB",
-      "Please select a valid date, age should be at least 2 years at 31st March current year and at most 20 years.",
+      "Please select a valid date, age should be at least 1 year and 6 months at 31st March current year and at most 20 years.",
       (value) => {
-        return value && value !== "" && getStudentAge(value) >= 2 &&  getStudentAge(value) <= 20 ;
+        return (
+          value &&
+          value !== "" &&
+          getStudentAge(value, true) >= 18 &&
+          getStudentAge(value) <= 20
+        );
       }
     ),
 });
@@ -221,11 +227,13 @@ export const StudentDetailsSchema = Yup.object().shape({
     is: (val) => val && val === "Yes",
     then: Yup.string().when("unit", {
       is: (val) => val && val === "Grades",
-      then: Yup.string().required("Required *")
-      .matches(/[A-F][A-F]|[A-F][+,-]|^[A-F]$/, {
-        message: "Please enter valid grade. Grade can contain character [A-F] and +,- symbol.",
-        excludeEmptyString: false,
-      }),
+      then: Yup.string()
+        .required("Required *")
+        .matches(/[A-F][A-F]|[A-F][+,-]|^[A-F]$/, {
+          message:
+            "Please enter valid grade. Grade can contain character [A-F] and +,- symbol.",
+          excludeEmptyString: false,
+        }),
     }),
   }),
   maxMarks: Yup.string().when("isProvidingCurrentSchoolInfo", {
@@ -267,10 +275,11 @@ export const StudentDetailsSchema = Yup.object().shape({
       message: "Please enter valid income.",
       excludeEmptyString: true,
     })
-    .test("maxFamilyIncomeCheck", 
-    "Please enter valid income between 0 to 5000000.",
-    val => (val === '' || (parseInt(val) > 0 && parseInt(val) <= 5000000))
-  ),
+    .test(
+      "maxFamilyIncomeCheck",
+      "Please enter valid income between 0 to 5000000.",
+      (val) => val === "" || (parseInt(val) > 0 && parseInt(val) <= 5000000)
+    ),
   //addressLine2: Yup.string().required("Required *"),
   pincode: Yup.string()
     .required("Required *")
@@ -280,6 +289,14 @@ export const StudentDetailsSchema = Yup.object().shape({
     }),
   state: Yup.string().required("Required *"),
   city: Yup.string().required("Required *"),
+});
+
+export const validateStudentLinkOTP = Yup.object().shape({
+  otp: Yup.string()
+    .required("Required *")
+    .matches(/^[0-9]+$/, { message: "Please Enter only numeric value." })
+    .max(4, "OTP Must Be Of 4 Digits")
+    .test("len", " OTP Must Be Of 4 Digits", (val) => val && val.length === 4),
 });
 
 export const StudentMedicalDetailsSchema = Yup.object().shape({
@@ -337,15 +354,15 @@ export const ContactInfoSchema = Yup.object().shape({
 });
 export const JoinUsDialogForSchoolSchema = Yup.object().shape({
   firstName: Yup.string()
-  .min(2, "Value is too short.")
-  .max(30, "Value is too long.")
-  .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
-  .required("Required *"),
+    .min(2, "Value is too short.")
+    .max(30, "Value is too long.")
+    .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
+    .required("Required *"),
   lastName: Yup.string()
-  .min(2, "Value is too short.")
-  .max(30, "Value is too long.")
-  .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
-  .required("Required *"),
+    .min(2, "Value is too short.")
+    .max(30, "Value is too long.")
+    .matches(/^[a-zA-Z ]*$/, { message: "Please enter only alphabets" })
+    .required("Required *"),
   email: Yup.string().email("Invalid email").required("Required *"),
   phone: Yup.string()
     .matches(/^[6-9]\d{9}$/gi, {
@@ -354,7 +371,7 @@ export const JoinUsDialogForSchoolSchema = Yup.object().shape({
     })
     .max(10)
     .required("Required *"),
-    institutionName: Yup.string().required("Required *"),
+  institutionName: Yup.string().required("Required *"),
   message: Yup.string().required("Required *"),
 });
 export const StudentParentGuardianSchema = Yup.object().shape({
@@ -367,13 +384,15 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     .max(30, "Value is too long.")
     .required("Required *"),
   otherRelation: Yup.string().when("relation", {
-    is: (val) => val && val.toLowerCase() !== "father" && val.toLowerCase() !== "mother",
-    then:  Yup.string()
-      .required('Required *')
-      .test("relationCheck", 
+    is: (val) =>
+      val && val.toLowerCase() !== "father" && val.toLowerCase() !== "mother",
+    then: Yup.string()
+      .required("Required *")
+      .test(
+        "relationCheck",
         "Relationship cannot be 'Father' or 'Mother'. Please enter another relationship.",
-        val => !['father','mother'].includes(val.toLowerCase())
-      )
+        (val) => !["father", "mother"].includes(val.toLowerCase())
+      ),
   }),
   otherNationality: Yup.string().when("nationality", {
     is: (val) => val && val === "Other",
@@ -384,13 +403,14 @@ export const StudentParentGuardianSchema = Yup.object().shape({
   dateOfBirth: Yup.string().required("Required *"),
   annualFamilyIncome: Yup.string()
     .required("Required *")
-    .matches(/^(?!0+(?:\.0+)?$)[0-9]+(?:\.[0-9]+)?$/gm, {
+    .matches(/[0-9]+(?:\.[0-9]+)?$/gm, {
       message: "Please enter valid income.",
       excludeEmptyString: true,
     })
-    .test("maxGuardianFamilyIncomeCheck", 
-    "Please enter valid income between 0 to 5000000.",
-    val => (val === '' || (parseInt(val) > 0 && parseInt(val) <= 5000000))
+    .test(
+      "maxGuardianFamilyIncomeCheck",
+      "Please enter valid income.",
+      (val) => val === "" || parseInt(val) >= 0
     ),
   addressLine1: Yup.string().when("isAddressSameAsStudent", {
     is: (val) => val && val === "No",
@@ -413,3 +433,17 @@ export const StudentParentGuardianSchema = Yup.object().shape({
     then: Yup.string().required("Required *"),
   }),
 });
+export const requestDocument = (otherCheckbox) => {
+  let schema = Yup.object().shape({
+    groups: Yup.array(),
+    comment: Yup.string().required("required"),
+  });
+
+  if (otherCheckbox) {
+    schema = schema.shape({
+      other: Yup.string().required("required"),
+      comment: Yup.string().required("required"),
+    });
+  }
+  return schema;
+};

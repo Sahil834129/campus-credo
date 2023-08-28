@@ -151,28 +151,34 @@ export default function OpenModal({
             <div className='inner-container option-filter'>
               <Form.Label className='form-label'>AT/PI Time Slot <span className='required'>*</span></Form.Label>
               <div className='radio-choice'>
-                {/* {JSON.stringify(minDate)}-{JSON.stringify(maxDate)} */}
-                <ReactDatePicker
-                  selected={atPiDate}
-                  onChange={(date) => setATPIDate(date)}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                  // timeInputLabel="Time:"
-                  dateFormat="dd/MM/yyyy h:mm aa"
-                  showTimeInput
-                  customInput={
-                    <Form.Control
-                      size='sm'
-                      type='text'
-                      placeholder='Select Date Range'
-                    />
+                <div className="react-datepicker-withinput">
+                  {/* {JSON.stringify(minDate)}-{JSON.stringify(maxDate)} */}
+                  <Form.Control
+                    size='sm'
+                    type='text'
+                    readOnly
+                    value={atPiDate ? moment(atPiDate).format('DD/MM/yyyy h:mm a'): ""}
+                    placeholder='Select Date Range'
+                  />
+                  <ReactDatePicker
+                    selected={atPiDate}
+                    onChange={(date) => setATPIDate(date)}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    // timeInputLabel="Time:"
+                    // dateFormat="dd/MM/yyyy h:mm aa"
+                    showTimeSelect
+                    timeFormat="p"
+                    timeIntervals={15}
+                    dateFormat="Pp"
+                    inline
+                  />
+                  {
+                    validationErrors['atPiDate'] ? (
+                      <div className="error-exception">{validationErrors['atPiDate']}</div>
+                    ) : null
                   }
-                />
-                {
-                  validationErrors['atPiDate'] ? (
-                    <div className="error-exception">{validationErrors['atPiDate']}</div>
-                  ) : null
-                }
+                </div>
               </div>
             </div>
           )}

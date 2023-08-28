@@ -2,7 +2,7 @@ import AboutUs from "./aboutUs";
 import AdminDashboard from "./admin/dashboard";
 import ManageAdmission from "./admin/manageAdmission";
 import ManageApplication from "./admin/manageApplication";
-import ManageFees from "./admin/manageFees";
+import ManageFees from "./admin/manageFee";
 import ManageUsers from "./admin/manageUsers";
 import TermsAndConditions from "./admin/termsAndConditions";
 import SchoolAdmission from "./admissionForm";
@@ -19,6 +19,7 @@ import OrderConfirm from "./orderConfirm";
 import PaymentCheckout from "./paymentCheckout";
 import PaymentFailed from "./paymentFailed";
 import PaymentHistory from "./paymentHistory";
+import StudentLink from "./studentLink/studentLink";
 import PrivacyPolicy from "./privacyPolicy";
 import SchoolDetails from "./schoolDetails";
 import SignIn from "./signIn";
@@ -54,6 +55,7 @@ export {
   PaymentCheckout,
   PaymentFailed,
   PaymentHistory,
+  StudentLink,
   OrderConfirm,
   TermsAndConditions,
 };

@@ -1,4 +1,13 @@
 @media screen and (max-width: 650px) { 
+    .application-form-wrap .currentschoolinfo-row .currentschoolinfo-cell label.lbl{
+        margin-right: 0px;
+    }
+    .application-form-wrap .currentschoolinfo-row .currentschoolinfo-cell {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 8px;
+        row-gap: 8px;
+    }
     .main-container .form-content-wrapper{}
     .main-container .content-area { 
         padding-top: 80px; 
@@ -115,7 +124,6 @@
     }
     .signin-model{
         &.modal{
-            padding: 0 !important;
             .modal-dialog{
                 width: 100%;
                 max-width: 100%;
@@ -349,7 +357,41 @@
     .signup-wrapper.verify-phone-main .signup-col .form-wrapper.verify-phone{    width: auto; margin: 24px;}
     .signup-wrapper.verify-phone-main .signup-col .form-wrapper.verify-phone .form-title{padding: 16px;}
     .signup-wrapper .signup-col .form-wrapper.verify-phone .form-container{padding: 0 16px 16px 16px;}
+    .content-area .internal-page-wrapper .inner-content-wrap.lateFee-wrapp .amount-main-wrapp .amount-inner-wrapp {
+        flex-direction: column;
+        padding-left: 0px;
+        .form-select-sm, .form-control-sm{margin: 0px !important; width: 100% !important;}
+    }
+    .content-area .internal-page-wrapper .inner-content-wrap.lateFee-wrapp .amount-main-wrapp .amount-inner-wrapp.submission-date-wrapp .date-main-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        row-gap: 10px;
+        column-gap: 14px;
+        width: auto; 
+    }
+    .content-area .internal-page-wrapper .inner-content-wrap.lateFee-wrapp .amount-main-wrapp .date-selection-wrapp {
+        margin: 10px 10px 28px 0px;
+        width: auto; 
+    }
+    .content-area .internal-page-wrapper .inner-content-wrap.lateFee-wrapp .border-wrapp {
+        width: 100% !important;
+    }
 }
+@media (max-width:991px){
+.content-area .internal-page-wrapper .inner-content-wrap .table-wrapper {
+   overflow-x: scroll;
+}
+.content-area .internal-page-wrapper.two-columns {
+    flex-direction: column;
+}
+.content-area .internal-page-wrapper .inner-content-wrap .table-wrapper.manage-fee-wrapp table tbody tr td {
+    padding: 16px;
+}
+.content-area .internal-page-wrapper .filterpanel.sidenav {
+     min-height: auto; 
+}
+}
+
 @media (min-width:320px)  {
      /* smartphones, iPhone, portrait 480x320 phones */ 
 }
@@ -403,7 +445,7 @@
 @media (max-width:1281px) { /* hi-res laptops and desktops */ 
     .tbl-grid-wrapper table {
        overflow-x: scroll;
-       grid-template-columns: minmax(100px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) minmax(90px, 1fr) minmax(100px, 1fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr);
+       grid-template-columns: minmax(100px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(225px, 3.5fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1fr);
     }
 }
 

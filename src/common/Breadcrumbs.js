@@ -5,7 +5,7 @@ import { DEFAULT_ROLES } from "../constants/app";
 import PageContent from "../resources/pageContent";
 import { convertCamelCaseToPresentableText, getLocalData, gotoHome } from "../utils/helper";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ selectedSection }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const currentRole = getLocalData('roles');
@@ -16,6 +16,10 @@ const Breadcrumbs = () => {
   const getLinkRef = (index) => {
     return "/" + pathNestedRoutes.slice(0, index + 1).join("/");
   };
+  
+  if (selectedSection){
+    pathNestedRoutes.push(selectedSection)
+  }
 
   const isHomePage =
     pathWithoutQuery === "/" || pathWithoutQuery === "/userProfile" || pathWithoutQuery === "/dashboard";
@@ -30,11 +34,13 @@ const Breadcrumbs = () => {
           onClick={(e) => {
             if (currentRole === DEFAULT_ROLES.PARENT) {
               gotoHome(e, navigate);
+            }else if (currentRole === DEFAULT_ROLES.SUPER_ADMIN){
+              navigate("/all-application");
             }else{
               navigate("/dashboard");
             }
           }}>
-            {(currentRole && currentRole !== DEFAULT_ROLES.PARENT) ? "Admin" : "Home"}
+            {(currentRole && currentRole !== DEFAULT_ROLES.PARENT && currentRole !== DEFAULT_ROLES.SUPER_ADMIN) ? "Admin" : (currentRole === DEFAULT_ROLES.SUPER_ADMIN)? "Super Admin" : "Home"}
         </Breadcrumb.Item>
       )}
       {pathNestedRoutes.map((path, index) => {

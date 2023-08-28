@@ -11,10 +11,12 @@ import { isEmpty } from "../utils/helper";
 
 const OrderConfirm = () => {
   const search = useLocation().search;
-  const orderType = new URLSearchParams(search).get("orderType");
-  const applications = JSON.parse(
-    new URLSearchParams(search).get("applications")
-  );
+  const param = new URLSearchParams(search).get("param");
+  const params = atob(param).split("&").map(val => {
+    const data = val.split("=");
+    return data[1];
+  });
+
   return (
     <Layout>
       <section className="content-area about-page">
@@ -29,19 +31,12 @@ const OrderConfirm = () => {
               <div className="boxed-content-area">
                 <i className="success-icon"></i>
                 <h2>Congratulations!</h2>
-                <h4>
-                  Your Applications :{" "}
-                  {applications.map((application, index) => (
-                    <span className="reg-num">
-                      {application +
-                        "" +
-                        (!isEmpty(applications[index + 1]) ? " " : "")}
-                    </span>
-                  ))}{" "} is Successfully Submitted</h4>
-                 
-                </div>
+                {params[0]==='ADMISSION_FORM'
+                ? <h4>Your payment has been received for application no. {params[1] || ""}. You can go to your dashboard and select the student to track application status. You can also download invoice and money receipt from Payment History tab</h4>
+                : <h4>Your fee payment has been received for {params[1] || ""}. You may view and download invoice and money receipt from Dashboard > Manage Fee > Student> Payment History</h4>
+              }
+              </div>
             </section>
-           
           </Row>
         </Container>
       </section>

@@ -1,7 +1,7 @@
  
 import React from "react";
 import Button from "react-bootstrap/esm/Button";
- const AcceptRejectApplication = ({acceptApplication,rejectApplication,}) => { 
+ const AcceptRejectApplication = ({acceptApplication,rejectApplication,acceptButton}) => { 
   return (
     <div className="particulars-status">
       <div className="instruction">
@@ -12,6 +12,7 @@ import Button from "react-bootstrap/esm/Button";
             className="accept-btn btn btn-primary"
             onClick={acceptApplication}
             //onClick={() => navigate("/userProfile")}
+            disabled={acceptButton}
           >
             ACCEPT
           </Button>
