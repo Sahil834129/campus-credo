@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import reducers from "./reducers";
-import thunk from "redux-thunk";
+import { thunk } from "redux-thunk";
 import { injectStore } from "../utils/RestClient";
 
 //const middlewares = [thunk];
